@@ -1,2 +1,30 @@
-﻿  PaellasRodriguez.cpp
-  PaellasRodriguez.vcxproj -> C:\Users\Javier\Desktop\Paella\PaellasRodriguez\x64\Debug\PaellasRodriguez.exe
+﻿  Game.cpp
+C:\Users\Javier\Desktop\Paella\PaellasRodriguez\Game.h(11,12): error C3646: 'name': especificador de invalidación desconocido
+C:\Users\Javier\Desktop\Paella\PaellasRodriguez\Game.h(11,16): error C4430: falta el especificador de tipo; se presupone int. Nota: C++ no admite default-int
+C:\Users\Javier\Desktop\Paella\PaellasRodriguez\Game.h(25,12): error C3646: 'getGameName': especificador de invalidación desconocido
+C:\Users\Javier\Desktop\Paella\PaellasRodriguez\Game.h(25,23): error C2059: error de sintaxis: '('
+C:\Users\Javier\Desktop\Paella\PaellasRodriguez\Game.h(25,25): error C2238: símbolos (token) inesperados delante de ';'
+C:\Users\Javier\Desktop\Paella\PaellasRodriguez\Game.h(42,21): error C2061: error de sintaxis: identificador 'string'
+C:\Users\Javier\Desktop\Paella\PaellasRodriguez\Game.h(42,66): error C2143: error de sintaxis: falta ')' delante de '{'
+C:\Users\Javier\Desktop\Paella\PaellasRodriguez\Game.h(42,75): error C2059: error de sintaxis: ')'
+C:\Users\Javier\Desktop\Paella\PaellasRodriguez\Game.h(42,74): error C2143: error de sintaxis: falta ';' delante de '}'
+C:\Users\Javier\Desktop\Paella\PaellasRodriguez\Game.cpp(8,2): error C2065: 'name': identificador no declarado
+C:\Users\Javier\Desktop\Paella\PaellasRodriguez\Game.cpp(15,12): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+C:\Users\Javier\Desktop\Paella\PaellasRodriguez\Game.cpp(24,14): error C2039: "getGameName": no es un miembro de "Game"
+C:\Users\Javier\Desktop\Paella\PaellasRodriguez\Game.h(10): message : vea la declaración de 'Game'
+C:\Users\Javier\Desktop\Paella\PaellasRodriguez\Game.cpp(26,9): error C2065: 'name': identificador no declarado
+C:\Users\Javier\Desktop\Paella\PaellasRodriguez\Game.cpp(67,67): error C2511: 'void Game::renderText(std::string,int,int,SDL_Color)': la función miembro sobrecargada no se ha encontrado en 'Game'
+C:\Users\Javier\Desktop\Paella\PaellasRodriguez\Game.h(10): message : vea la declaración de 'Game'
+  ViewController.cpp
+C:\Users\Javier\Desktop\Paella\PaellasRodriguez\Game.h(11,12): error C3646: 'name': especificador de invalidación desconocido
+C:\Users\Javier\Desktop\Paella\PaellasRodriguez\Game.h(11,16): error C4430: falta el especificador de tipo; se presupone int. Nota: C++ no admite default-int
+C:\Users\Javier\Desktop\Paella\PaellasRodriguez\Game.h(25,12): error C3646: 'getGameName': especificador de invalidación desconocido
+C:\Users\Javier\Desktop\Paella\PaellasRodriguez\Game.h(25,23): error C2059: error de sintaxis: '('
+C:\Users\Javier\Desktop\Paella\PaellasRodriguez\Game.h(25,25): error C2238: símbolos (token) inesperados delante de ';'
+C:\Users\Javier\Desktop\Paella\PaellasRodriguez\Game.h(42,21): error C2061: error de sintaxis: identificador 'string'
+C:\Users\Javier\Desktop\Paella\PaellasRodriguez\Game.h(42,66): error C2143: error de sintaxis: falta ')' delante de '{'
+C:\Users\Javier\Desktop\Paella\PaellasRodriguez\Game.h(42,75): error C2059: error de sintaxis: ')'
+C:\Users\Javier\Desktop\Paella\PaellasRodriguez\Game.h(42,74): error C2143: error de sintaxis: falta ';' delante de '}'
+C:\Users\Javier\Desktop\Paella\PaellasRodriguez\ViewController.cpp(54,34): error C2039: "getGameName": no es un miembro de "Game"
+C:\Users\Javier\Desktop\Paella\PaellasRodriguez\Game.h(10): message : vea la declaración de 'Game'
+  Generando código...
