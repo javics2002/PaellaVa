@@ -7,6 +7,8 @@
 #include <vector>
 #include <cmath>
 
+using namespace std;
+
 class Game{
     string name;
     bool doExit;

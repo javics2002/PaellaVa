@@ -36,3 +36,4 @@ bin-int
 .vs/
 .vs/**
 [Dd]ebug/
+*.tlog
