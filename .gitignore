@@ -11,12 +11,12 @@
 *.userprefs
 
 # Build results
-PaellasRodriguez/[Dd]ebug/
+[Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
-PaellasRodriguez/x64/
-PaellasRodriguez/x86/
+x64/
+x86/
 bld/
 [Bb]in/
 [Oo]bj/
