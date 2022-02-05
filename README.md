@@ -2,13 +2,13 @@
 ### Documento de diseño de videojuego
 Autores:
 * Elena Robert Núñez, elenrobe@ucm.es
-* Javier Cano Salcedo jacano01@ucm.es
-* José Miguel Villacañas josemv03@ucm.es
+* Javier Cano Salcedo, jacano01@ucm.es
+* José Miguel Villacañas, josemv03@ucm.es
 * Marta Croche Trigo, mcroche@ucm.es
 * Pablo Arredondo Nowak, pablarre@ucm.es
 * Rocío Sanchez-Horcajuelo Lopez, rocisa08@ucm.es
 * Víctor Manuel Estremera Herranz, vestre01@ucm.es
-* Rodrigo Cabello Hernández , rodricab@ucm.es
+* Rodrigo Cabello Hernández, rodricab@ucm.es
 * Alfonso Rodulfo Guío, arodulfo@ucm.es
 * Diego Rol Sánchez, drol@ucm.es
 
