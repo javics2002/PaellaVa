@@ -107,7 +107,7 @@ La cámara será fija y ocupará toda la pantalla.
 ### **Cocina:**
 La cocina ocupará un total de 16 x 12 tiles.
 
-<img src="images_gdd/cocina.png">
+<img src="images_gdd/cocina.PNG">
 
 La cocina contará con:
 * **Cinta Transportadora:** 
@@ -202,7 +202,7 @@ La cocina contará con:
     * Los tiempos están en segundos.
     * Si la paella llega a incomestible la barra dejará de subir.
 
-<img src="images_gdd/coccionbar.png">
+<img src="images_gdd/coccionbar.PNG">
 
 
 | Tamaño Paella     | Cruda  | Bien    | Perfecto | Bien    | Quemada | Incomestible |
@@ -242,9 +242,9 @@ La cocina contará con:
 | Multiplicador |    1    |    2    |    3   |
 | Nº paellas    |    7    |    8    |    6   |
 
-    Tiempo Lavado = Tiempo Lavado Base * Tamaño Paella
+Tiempo Lavado = Tiempo Lavado Base * Tamaño Paella
 
-    Se entiende que un grupo de comensales no podrá pedir un encargo cuyo sumatorio de tamaños (multiplicador) sea mayor que el número de comensales en el grupo.
+Se entiende que un grupo de comensales no podrá pedir un encargo cuyo sumatorio de tamaños (multiplicador) sea mayor que el número de comensales en el grupo.
 
 * **Tiempo para Comer la Paella:**
     * El tiempo será siempre de 30 segundos.
@@ -258,7 +258,7 @@ La cocina contará con:
 ### **Comedor:**
 El comedor ocupará  16 x 12 tiles. Tanto el comedor como la cocina comparten la ventanilla (3), el lavavajillas (4) y la puerta que conecta , los cuales ya han sido explicados en la parte de Cocina.
 
-<img src="images_gdd/comedor.png">
+<img src="images_gdd/comedor.PNG">
 
 El comedor contará con (el boceto actual no representa al 100% lo descrito aquí):
 * **Puerta para Clientes:** se sitúa en la pared inferior izquierda de la sala. Por ella entrarán los nuevos comensales. Tiene el tamaño de 2 tiles.
@@ -355,7 +355,7 @@ Esta puntuación por servicio se sumará a la puntuación por la paella. Estas p
 * Si el jugador se equivoca al escribir la comanda y quiere corregirla, tendrá que descartarla y volver a escribir una nueva.
 * El jugador puede moverse mientras escribe una comanda.
 
-<img src="images_gdd/comanda.png">
+<img src="images_gdd/comanda.PNG">
 
 * Cuando el jugador le dé al botón de finalizar comanda, esta se moverá a la parte superior de la pantalla de ambos jugadores, pero tendrá otro formato.
 * Se podrán acumular un máximo de 6 comandas encima de la pantalla.
@@ -368,7 +368,7 @@ Esta puntuación por servicio se sumará a la puntuación por la paella. Estas p
 * En el caso de que en pantalla haya más comandas que el número máximo que se pueden acumular, aparecerá un número en la esquina superior derecha con las comandas extra que aún le quedan por atender los jugadores.
 * Cuando los jugadores eliminen una comanda, aparecerá en pantalla la siguiente acumulada.
 
-<img src="images_gdd/comandasacumuladas.png">
+<img src="images_gdd/comandasacumuladas.PNG">
 
 ## 3. Controles <a name="controles"></a>
 
