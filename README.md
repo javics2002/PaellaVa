@@ -10,6 +10,7 @@ Autores:
 * Víctor Manuel Estremera Herranz, vestre01@ucm.es
 * Rodrigo Cabello Hernández , rodricab@ucm.es
 * Alfonso Rodulfo Guío, arodulfo@ucm.es
+* Diego Rol Sánchez, drol@ucm.es
 
 <table>
 <tr>
