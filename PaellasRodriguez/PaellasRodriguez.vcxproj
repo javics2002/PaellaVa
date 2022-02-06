@@ -43,7 +43,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -145,17 +145,79 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GameObjects\Ingredientes\Calamar.h" />
+    <ClInclude Include="GameObjects\Ingredientes\Cangrejo.h" />
+    <ClInclude Include="Data\Comanda.h" />
+    <ClInclude Include="GameObjects\Ingredientes\Gamba.h" />
+    <ClInclude Include="GameObjects\Cliente.h" />
+    <ClInclude Include="GameObjects\Muebles\Cinta.h" />
+    <ClInclude Include="Data\Collider.h" />
+    <ClInclude Include="GameObjects\Muebles\Fogones.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="Game.h" />
+    <ClInclude Include="Control\Game.h" />
+    <ClInclude Include="GameObjects\GameObject.h" />
+    <ClInclude Include="GameObjects\Muebles\Mueble.h" />
+    <ClInclude Include="GameObjects\Muebles\Lavavajillas.h" />
+    <ClInclude Include="GameObjects\Muebles\Mesa.h" />
+    <ClInclude Include="GameObjects\ObjetoPortable.h" />
+    <ClInclude Include="GameObjects\Paella.h" />
+    <ClInclude Include="GameObjects\GrupoClientes.h" />
+    <ClInclude Include="GameObjects\Ingredientes\Ingrediente.h" />
+    <ClInclude Include="GameObjects\Ingredientes\Langosta.h" />
+    <ClInclude Include="GameObjects\Ingredientes\Mejillones.h" />
+    <ClInclude Include="Data\ListaComandas.h" />
+    <ClInclude Include="Control\NetworkManager.h" />
+    <ClInclude Include="Control\ObjectManager.h" />
     <ClInclude Include="PaellasRodriguez.h" />
+    <ClInclude Include="GameObjects\Player.h" />
+    <ClInclude Include="Data\Posicion.h" />
+    <ClInclude Include="Data\Pool.h" />
+    <ClInclude Include="GameObjects\Ingredientes\PimientoRojo.h" />
+    <ClInclude Include="GameObjects\Ingredientes\PimientoVerde.h" />
+    <ClInclude Include="GameObjects\Ingredientes\Pollo.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Scenes\Restaurante.h" />
+    <ClInclude Include="GameObjects\Muebles\Silla.h" />
+    <ClInclude Include="GameObjects\Muebles\TablaProcesado.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="ViewController.h" />
+    <ClInclude Include="Control\ViewController.h" />
+    <ClInclude Include="GameObjects\Muebles\Ventanilla.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="ViewController.cpp" />
+    <ClCompile Include="GameObjects\Ingredientes\Calamar.cpp" />
+    <ClCompile Include="GameObjects\Ingredientes\Cangrejo.cpp" />
+    <ClCompile Include="Data\Comanda.cpp" />
+    <ClCompile Include="GameObjects\Ingredientes\Gamba.cpp" />
+    <ClCompile Include="GameObjects\Cliente.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Cinta.cpp" />
+    <ClCompile Include="Data\Collider.cpp" />
+    <ClCompile Include="Control\Game.cpp" />
+    <ClCompile Include="Control\main.cpp" />
+    <ClCompile Include="Control\ViewController.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Fogones.cpp" />
+    <ClCompile Include="GameObjects\GameObject.cpp" />
+    <ClCompile Include="GameObjects\Player.cpp" />
+    <ClCompile Include="Data\Posicion.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Mueble.cpp" />
+    <ClCompile Include="Data\Pool.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Lavavajillas.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Mesa.cpp" />
+    <ClCompile Include="GameObjects\ObjetoPortable.cpp" />
+    <ClCompile Include="GameObjects\Paella.cpp" />
+    <ClCompile Include="GameObjects\GrupoClientes.cpp" />
+    <ClCompile Include="GameObjects\Ingredientes\Ingrediente.cpp" />
+    <ClCompile Include="GameObjects\Ingredientes\Langosta.cpp" />
+    <ClCompile Include="GameObjects\Ingredientes\Mejillones.cpp" />
+    <ClCompile Include="GameObjects\Ingredientes\PimientoRojo.cpp" />
+    <ClCompile Include="GameObjects\Ingredientes\PimientoVerde.cpp" />
+    <ClCompile Include="GameObjects\Ingredientes\Pollo.cpp" />
+    <ClCompile Include="Data\ListaComandas.cpp" />
+    <ClCompile Include="Control\NetworkManager.cpp" />
+    <ClCompile Include="Control\ObjectManager.cpp" />
+    <ClCompile Include="Scenes\Restaurante.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Silla.cpp" />
+    <ClCompile Include="GameObjects\Muebles\TablaProcesado.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Ventanilla.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />

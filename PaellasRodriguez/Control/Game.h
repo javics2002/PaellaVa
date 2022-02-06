@@ -11,8 +11,8 @@ using namespace std;
 
 class Game{
     string name;
-    bool doExit;
     int width, height;
+    bool doExit;
 
     //TextureContainer* textureContainer;
     SDL_Renderer* renderer = nullptr;

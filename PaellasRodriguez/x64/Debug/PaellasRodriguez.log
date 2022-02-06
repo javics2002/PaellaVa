@@ -1,1 +1,6 @@
-﻿  PaellasRodriguez.vcxproj -> C:\Users\Rodrigo\Desktop\Paella\PaellasRodriguez\x64\Debug\PaellasRodriguez.exe
+﻿  Game.cpp
+C:\Users\Javier\Desktop\Paella\PaellasRodriguez\Control\Game.cpp(14,12): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+  main.cpp
+  ViewController.cpp
+  Generando código...
+  PaellasRodriguez.vcxproj -> C:\Users\Javier\Desktop\Paella\PaellasRodriguez\x64\Debug\PaellasRodriguez.exe
