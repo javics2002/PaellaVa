@@ -17,7 +17,8 @@ void ViewController::run() {
 
 	while (!game->isUserExit()) {
 		frameTime = SDL_GetTicks() - startTime;
-		//handle events
+
+		//Handle Events Temporal:
 		SDL_Event event;
 		while (SDL_PollEvent(&event)) {
 			if (event.type == SDL_QUIT)

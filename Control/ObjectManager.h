@@ -3,24 +3,28 @@
 #include <queue>
 #include <vector>
 
+
 class Ingrediente;
-class GrupoClientes;
-class Paella;
+//class GrupoClientes;
+//class Paella;
 
 using namespace std;
 
 class ObjectManager
 {
 	//Vector de paelleras
-	vector<Paella*> paelleras;
+	// 
+	//vector<Paella*> paelleras;
 
 	//Pool de clientes
-	Pool<GrupoClientes*> clientes;
-	queue<GrupoClientes*> cola;
-	int capacidadCola;
+	// 
+	//Pool<GrupoClientes*> clientes;
+	//queue<GrupoClientes*> cola;
+	//int capacidadCola;
 
 	//Pool de ingredientes
-	Pool<Ingrediente*> ingredientes;
+
+	Pool<Ingrediente*> *ingredientes;
 
 public:
 	ObjectManager();

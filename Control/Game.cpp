@@ -25,11 +25,13 @@ string Game::getGameName()
 	return name;
 }
 
-void Game::update() {
+void Game::update() 
+{
 }
 
 void Game::draw()
 {
+
 }
 
 void Game::setUserExit() {

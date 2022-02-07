@@ -1,9 +1,10 @@
 #pragma once
+
 class Ingrediente
 {
 	bool procesado;
 public:
-	Ingrediente();
-	~Ingrediente();
+	Ingrediente() { procesado = false; };
+	~Ingrediente() {};
 };
 
