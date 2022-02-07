@@ -2,6 +2,8 @@
 
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
+#include "../Scenes/Restaurante.h"
+#include "SDL_image.h"
 
 Game::Game( int width, int height) {
 	name = "Paellas Rodriguez";
@@ -12,9 +14,13 @@ Game::Game( int width, int height) {
 	//font = new Font("../Images/Monospace.ttf", 12);
 
 	srand(time(NULL));
+
+	startGame();
 }
 
 void Game::startGame() {
+	SDL_Texture* spriteSheet = IMG_LoadTexture(renderer, "Assets/Tileset.png");
+	Restaurante().Render(renderer, spriteSheet, new TMXLoader()) ;
 }
 
 Game::~Game() {

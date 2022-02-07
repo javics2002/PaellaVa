@@ -6,9 +6,9 @@ ViewController::ViewController(Game* _game) {
 	game = _game;
 	cout << "[DEBUG] frame duration: " << frameDuration() << " ms" << endl;
 	initSDL();
-	/*
+	
 	game->setRenderer(renderer);
-	game->loadTextures();*/
+	//game->loadTextures();
 }
 
 void ViewController::run() {
