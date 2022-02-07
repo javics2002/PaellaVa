@@ -18,6 +18,18 @@ void ViewController::run() {
 	while (!game->isUserExit()) {
 		frameTime = SDL_GetTicks() - startTime;
 		//handle events
+		SDL_Event event;
+		while (SDL_PollEvent(&event)) {
+			if (event.type == SDL_QUIT)
+				game->setUserExit();
+			if (event.type == SDL_KEYDOWN) {
+				SDL_Keycode key = event.key.keysym.sym;
+				if (key == SDLK_ESCAPE)
+					game->setUserExit();
+			}
+		}
+		//--------------------------
+
 		if (frameTime >= frameDuration()) {
 			clearBackground();
 
