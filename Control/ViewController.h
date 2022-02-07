@@ -4,7 +4,7 @@
 
 using namespace std;
 
-const int FRAME_RATE = 30;
+const int FRAME_RATE = 60;
 
 class ViewController
 {
