@@ -20,7 +20,9 @@ void Jornada::update()
 	}
 	else
 	{
-		currentTime = (SDL_GetTicks() - tInit) / MIN_TICKS;
+		//1 minuto en Ticks = 1 hora en el juego
+		currentTime.hours = (SDL_GetTicks() - tInit) / MIN_TICKS;
+		currentTime.minutes = (SDL_GetTicks() - tInit) % MIN_TICKS;
 
 		//TODO: Representar cuantas horas han pasado
 	}
