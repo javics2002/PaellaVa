@@ -1,10 +1,27 @@
 #pragma once
 #include "GameObject.h"
+#include "../Data/Posicion.h"
+#include "../Control/Input.h"
 
 class Player : public GameObject
 {
-	string nombre;
-	GameObject* objetoCargado;
+private:
+
+	Posicion posicion_;
+	GameObject* objetoCargado_;
+	Input* input_;
+
+	float velocidad_;
 	//Configuración de skin
+
+public:
+	Player(Posicion posicion);
+	~Player();
+
+	void Update();
+
+	void SetVelocidad(float velocidad);
+	float GetVelocidad() { return velocidad_; }
+	
 };
 

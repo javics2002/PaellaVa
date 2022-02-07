@@ -129,6 +129,9 @@
     <ClInclude Include="Jornada.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="Control\Input.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Control\main.cpp">
@@ -234,6 +237,9 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="Jornada.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\Input.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

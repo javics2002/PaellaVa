@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Control\Input.h" />
     <ClInclude Include="GameObjects\Ingredientes\Calamar.h" />
     <ClInclude Include="GameObjects\Ingredientes\Cangrejo.h" />
     <ClInclude Include="Data\Comanda.h" />
@@ -185,6 +186,7 @@
     <ClInclude Include="GameObjects\Muebles\Ventanilla.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Control\Input.cpp" />
     <ClCompile Include="GameObjects\Ingredientes\Calamar.cpp" />
     <ClCompile Include="GameObjects\Ingredientes\Cangrejo.cpp" />
     <ClCompile Include="Data\Comanda.cpp" />

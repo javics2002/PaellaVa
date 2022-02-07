@@ -5,12 +5,12 @@ Posicion::Posicion()
 	x = y = 0;
 }
 
-Posicion::Posicion(int x)
+Posicion::Posicion(float x)
 {
 	this->x = y = x;
 }
 
-Posicion::Posicion(int x, int y)
+Posicion::Posicion(float x, float y)
 {
 	this->x = x;
 	this->y = y;
@@ -26,7 +26,7 @@ Posicion::~Posicion()
 {
 }
 
-void Posicion::Set(int x, int y)
+void Posicion::Set(float x, float y)
 {
 	this->x = x;
 	this->y = y;
@@ -43,12 +43,12 @@ Posicion& Posicion::Get()
 	return *this;
 }
 
-int Posicion::GetX() const
+float Posicion::GetX() const
 {
 	return x;
 }
 
-int Posicion::GetY() const
+float Posicion::GetY() const
 {
 	return y;
 }
