@@ -146,10 +146,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Control\Input.h" />
-    <ClInclude Include="GameObjects\Ingredientes\Calamar.h" />
-    <ClInclude Include="GameObjects\Ingredientes\Cangrejo.h" />
     <ClInclude Include="Data\Comanda.h" />
-    <ClInclude Include="GameObjects\Ingredientes\Gamba.h" />
     <ClInclude Include="GameObjects\Cliente.h" />
     <ClInclude Include="GameObjects\Muebles\Cinta.h" />
     <ClInclude Include="Data\Collider.h" />
@@ -163,20 +160,15 @@
     <ClInclude Include="GameObjects\ObjetoPortable.h" />
     <ClInclude Include="GameObjects\Paella.h" />
     <ClInclude Include="GameObjects\GrupoClientes.h" />
-    <ClInclude Include="GameObjects\Ingredientes\Ingrediente.h" />
-    <ClInclude Include="GameObjects\Ingredientes\Langosta.h" />
-    <ClInclude Include="GameObjects\Ingredientes\Mejillones.h" />
     <ClInclude Include="Data\ListaComandas.h" />
     <ClInclude Include="Control\NetworkManager.h" />
     <ClInclude Include="Control\ObjectManager.h" />
+    <ClInclude Include="GameObjects\Ingrediente.h" />
     <ClInclude Include="Jornada.h" />
     <ClInclude Include="PaellasRodriguez.h" />
     <ClInclude Include="GameObjects\Player.h" />
     <ClInclude Include="Data\Posicion.h" />
     <ClInclude Include="Data\Pool.h" />
-    <ClInclude Include="GameObjects\Ingredientes\PimientoRojo.h" />
-    <ClInclude Include="GameObjects\Ingredientes\PimientoVerde.h" />
-    <ClInclude Include="GameObjects\Ingredientes\Pollo.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scenes\Restaurante.h" />
     <ClInclude Include="GameObjects\Muebles\Silla.h" />
@@ -187,10 +179,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Control\Input.cpp" />
-    <ClCompile Include="GameObjects\Ingredientes\Calamar.cpp" />
-    <ClCompile Include="GameObjects\Ingredientes\Cangrejo.cpp" />
     <ClCompile Include="Data\Comanda.cpp" />
-    <ClCompile Include="GameObjects\Ingredientes\Gamba.cpp" />
     <ClCompile Include="GameObjects\Cliente.cpp" />
     <ClCompile Include="GameObjects\Muebles\Cinta.cpp" />
     <ClCompile Include="Data\Collider.cpp" />
@@ -202,21 +191,15 @@
     <ClCompile Include="GameObjects\Player.cpp" />
     <ClCompile Include="Data\Posicion.cpp" />
     <ClCompile Include="GameObjects\Muebles\Mueble.cpp" />
-    <ClCompile Include="Data\Pool.cpp" />
     <ClCompile Include="GameObjects\Muebles\Lavavajillas.cpp" />
     <ClCompile Include="GameObjects\Muebles\Mesa.cpp" />
     <ClCompile Include="GameObjects\ObjetoPortable.cpp" />
     <ClCompile Include="GameObjects\Paella.cpp" />
     <ClCompile Include="GameObjects\GrupoClientes.cpp" />
-    <ClCompile Include="GameObjects\Ingredientes\Ingrediente.cpp" />
-    <ClCompile Include="GameObjects\Ingredientes\Langosta.cpp" />
-    <ClCompile Include="GameObjects\Ingredientes\Mejillones.cpp" />
-    <ClCompile Include="GameObjects\Ingredientes\PimientoRojo.cpp" />
-    <ClCompile Include="GameObjects\Ingredientes\PimientoVerde.cpp" />
-    <ClCompile Include="GameObjects\Ingredientes\Pollo.cpp" />
     <ClCompile Include="Data\ListaComandas.cpp" />
     <ClCompile Include="Control\NetworkManager.cpp" />
     <ClCompile Include="Control\ObjectManager.cpp" />
+    <ClCompile Include="GameObjects\Ingrediente.cpp" />
     <ClCompile Include="Jornada.cpp" />
     <ClCompile Include="Scenes\Restaurante.cpp" />
     <ClCompile Include="GameObjects\Muebles\Silla.cpp" />

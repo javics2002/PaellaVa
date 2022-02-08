@@ -7,7 +7,7 @@
 #include <vector>
 #include <cmath>
 
-//#include "ObjectManager.h"
+#include "ObjectManager.h"
 
 using namespace std;
 
@@ -22,7 +22,7 @@ class Game{
 
     bool debug = false;
 
-    //ObjectManager* objectManager;
+    ObjectManager* objectManager;
 
 public:
     Game(int width, int height);
