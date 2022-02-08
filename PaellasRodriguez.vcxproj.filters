@@ -108,6 +108,15 @@
     <ClInclude Include="GameObjects\Ingrediente.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="View\Texture.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="View\TextureContainer.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Vector2D.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Control\main.cpp">
@@ -191,6 +200,9 @@
     <ClCompile Include="GameObjects\Ingrediente.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="View\Texture.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc">
@@ -202,6 +214,9 @@
       <Filter>Archivos de recursos</Filter>
     </Image>
     <Image Include="PaellasRodriguez.ico">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="Images\a.png">
       <Filter>Archivos de recursos</Filter>
     </Image>
   </ItemGroup>

@@ -8,6 +8,7 @@
 ///class Ingrediente;
 //class GrupoClientes;
 //class Paella;
+class Game;
 
 using namespace std;
 
@@ -28,7 +29,7 @@ class ObjectManager
 	Pool<Ingrediente> *ingredientes;
 
 public:
-	ObjectManager();
+	ObjectManager(Game* game);
 	~ObjectManager();
 };
 

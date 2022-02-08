@@ -4,11 +4,12 @@
 #include "Cliente.h"
 
 class Comanda;
+class Game;
 
 using namespace std;
 using uint = uint32_t;
 
-class GrupoClientes : public ObjetoPortable
+class GrupoClientes : public GameObject
 {
 	uint numeroClientes;
 	vector<Cliente*> clientes;
@@ -18,7 +19,7 @@ class GrupoClientes : public ObjetoPortable
 	int integrantes = 0;
 
 public:
-	GrupoClientes();
+	GrupoClientes(Game* game);
 	void ini(int numClientes);
 	void Pedir();
 	void Comer();

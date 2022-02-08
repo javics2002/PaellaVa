@@ -1,7 +1,7 @@
 #include "Player.h"
 #include "../Control/Input.h"
 
-Player::Player(Posicion posicion)
+Player::Player(Posicion posicion) : GameObject(game)
 {
 	posicion_ = posicion;
 	objetoCargado_ = nullptr;
@@ -16,8 +16,8 @@ Player::~Player()
 
 void Player::Update()
 {
-	float posX = posicion.GetX();
-	float posY = posicion.GetY();
+	float posX = posicion_.GetX();
+	float posY = posicion_.GetY();
 
 
 	if (input_->GetKey(SDL_SCANCODE_W)) {
@@ -36,7 +36,7 @@ void Player::Update()
 		posX += velocidad_;
 	}
 
-	posicion.Set(posX, posY);
+	posicion_.Set(posX, posY);
 }
 
 void Player::SetVelocidad(float velocidad)

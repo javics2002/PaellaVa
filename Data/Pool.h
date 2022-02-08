@@ -6,6 +6,8 @@
 
 using namespace std;
 
+class Game;
+
 template<typename T>
 class Pool
 {
@@ -16,10 +18,10 @@ class Pool
 	int nextElem;
 
 public:
-	Pool(int n) : numElems(n), nextElem(0) {
+	Pool(Game* game, int n) : numElems(n), nextElem(0) {
 		for (int i = 0; i < n; i++) {
 			cout << "Objeto creado" << endl;
-			v.push_back(new T());
+			v.push_back(new T(game));
 		}			
 	}
 

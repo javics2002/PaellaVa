@@ -176,6 +176,9 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Control\ViewController.h" />
     <ClInclude Include="GameObjects\Muebles\Ventanilla.h" />
+    <ClInclude Include="Utils\Vector2D.h" />
+    <ClInclude Include="View\Texture.h" />
+    <ClInclude Include="View\TextureContainer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Control\Input.cpp" />
@@ -205,11 +208,13 @@
     <ClCompile Include="GameObjects\Muebles\Silla.cpp" />
     <ClCompile Include="GameObjects\Muebles\TablaProcesado.cpp" />
     <ClCompile Include="GameObjects\Muebles\Ventanilla.cpp" />
+    <ClCompile Include="View\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Images\a.png" />
     <Image Include="PaellasRodriguez.ico" />
     <Image Include="small.ico" />
   </ItemGroup>

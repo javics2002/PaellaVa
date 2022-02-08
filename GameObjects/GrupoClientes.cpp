@@ -1,6 +1,6 @@
 #include "GrupoClientes.h"
 
-GrupoClientes::GrupoClientes() {
+GrupoClientes::GrupoClientes(Game* game) : GameObject(game) {
 	
 }
 

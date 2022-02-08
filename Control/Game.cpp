@@ -13,6 +13,9 @@ Game::Game( int width, int height) {
 	doExit = false;
 	//font = new Font("../Images/Monospace.ttf", 12);
 
+	
+
+
 	srand(time(NULL));
 
 	startGame();
@@ -22,7 +25,8 @@ void Game::startGame() {
 	SDL_Texture* spriteSheet = IMG_LoadTexture(renderer, "Assets/Tileset.png");
 	Restaurante().Render() ;
 
-	objectManager = new ObjectManager();
+
+	objectManager = new ObjectManager(this);
 }
 
 Game::~Game() {
@@ -84,3 +88,7 @@ Texture* Game::getTexture(TextureName name) {
 Point2D<int> Game::getOrigin() {
 	return { int(-(car->getX() - car->getWidth())), 0 };
 }*/
+
+Texture* Game::getTexture(TextureName name) {
+	return textureContainer->getTexture(name);
+}

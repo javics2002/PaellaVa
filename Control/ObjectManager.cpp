@@ -1,8 +1,8 @@
 #include "ObjectManager.h"
 
-ObjectManager::ObjectManager()
+ObjectManager::ObjectManager(Game* game)
 {
-	ingredientes = new Pool<Ingrediente>(6);
+	ingredientes = new Pool<Ingrediente>(game, 6);
 }
 
 ObjectManager::~ObjectManager()

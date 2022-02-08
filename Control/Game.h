@@ -9,6 +9,9 @@
 
 #include "ObjectManager.h"
 
+#include "../View/TextureContainer.h"
+#include "../View/Texture.h"
+
 using namespace std;
 
 class Game{
@@ -16,13 +19,13 @@ class Game{
     int width, height;
     bool doExit;
 
-    //TextureContainer* textureContainer;
     SDL_Renderer* renderer = nullptr;
     //Font* font;
 
     bool debug = false;
 
     ObjectManager* objectManager;
+    TextureContainer* textureContainer;
 
 public:
     Game(int width, int height);
@@ -43,8 +46,9 @@ public:
 
     void setRenderer(SDL_Renderer* renderer);
     void loadTextures();
-    //Texture* getTexture(TextureName name);
     SDL_Renderer* getRenderer();
     void renderText(string text, int x, int y, SDL_Color color = { 0,0,0 });
+
+    Texture* getTexture(TextureName name);
 };
 
