@@ -1,7 +1,8 @@
 #pragma once
 #include "ObjetoPortable.h"
 #include <vector>
-class Cliente;
+#include "Cliente.h"
+
 class Comanda;
 
 using namespace std;
@@ -12,9 +13,16 @@ class GrupoClientes : public ObjetoPortable
 	uint numeroClientes;
 	vector<Cliente*> clientes;
 	Comanda* comanda;
+	bool espera = false;
+	uint paciencia;
+	int integrantes = 0;
+
 public:
+	GrupoClientes();
+	void ini(int numClientes);
 	void Pedir();
 	void Comer();
 	float Puntuacion();
+	void NuevoGrupo();
 };
 
