@@ -20,7 +20,7 @@ Game::Game( int width, int height) {
 
 void Game::startGame() {
 	SDL_Texture* spriteSheet = IMG_LoadTexture(renderer, "Assets/Tileset.png");
-	Restaurante().Render(renderer, spriteSheet, new TMXLoader()) ;
+	Restaurante().Render() ;
 }
 
 Game::~Game() {
