@@ -39,6 +39,7 @@ public:
     virtual void update() = 0;
 
     void setPosition(double x, double y);
+    void setPosition(Vector2D<double> v);
     void setDimension(double width, double height);
 
     int getWidth() { return w; };
@@ -46,6 +47,8 @@ public:
 
     int getX() { return pos.getX(); };
     int getY() { return pos.getY(); };
+    Vector2D<double> getPosition() { return pos; }
+
     virtual SDL_Rect getCollider();
     virtual SDL_Rect getCenter();
 

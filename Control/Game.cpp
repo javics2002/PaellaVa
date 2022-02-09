@@ -37,11 +37,12 @@ string Game::getGameName()
 
 void Game::update() 
 {
+	objectManager->update();
 }
 
 void Game::draw()
 {
-
+	objectManager->render();
 }
 
 void Game::setUserExit() {

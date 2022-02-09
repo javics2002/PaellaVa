@@ -164,6 +164,7 @@
     <ClInclude Include="Control\NetworkManager.h" />
     <ClInclude Include="Control\ObjectManager.h" />
     <ClInclude Include="GameObjects\Ingrediente.h" />
+    <ClInclude Include="GameObjects\Muebles\InicioCinta.h" />
     <ClInclude Include="Jornada.h" />
     <ClInclude Include="PaellasRodriguez.h" />
     <ClInclude Include="GameObjects\Player.h" />
@@ -203,6 +204,7 @@
     <ClCompile Include="Control\NetworkManager.cpp" />
     <ClCompile Include="Control\ObjectManager.cpp" />
     <ClCompile Include="GameObjects\Ingrediente.cpp" />
+    <ClCompile Include="GameObjects\Muebles\InicioCinta.cpp" />
     <ClCompile Include="Jornada.cpp" />
     <ClCompile Include="Scenes\Restaurante.cpp" />
     <ClCompile Include="GameObjects\Muebles\Silla.cpp" />

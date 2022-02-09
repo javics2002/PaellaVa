@@ -6,14 +6,15 @@ class Game;
 class Ingrediente : public GameObject
 {
 	bool active;
+	const unsigned int DIMENSION = 40;
 public:
-	Ingrediente(Game* game) : active(false), GameObject(game) {};
-	~Ingrediente() {};
+	Ingrediente(Game* game);
+	~Ingrediente() = default;
 
 	void activate();
 	void descativate();
 	bool isActive();
 
-	void update() override {};
+	void update() override;
 };
 

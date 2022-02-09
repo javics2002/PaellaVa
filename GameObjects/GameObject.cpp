@@ -14,6 +14,10 @@ void GameObject::setPosition(double x, double y)
 	pos = Point2D<double>(x, y);
 }
 
+void GameObject::setPosition(Vector2D<double> v)
+{
+	pos = v;
+}
 
 void GameObject::setDimension(double width, double height)
 {

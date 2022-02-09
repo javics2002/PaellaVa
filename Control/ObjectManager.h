@@ -28,8 +28,13 @@ class ObjectManager
 
 	Pool<Ingrediente> *ingredientes;
 
+	vector<GameObject*> muebles;
+
 public:
 	ObjectManager(Game* game);
 	~ObjectManager();
+
+	void render();
+	void update();
 };
 

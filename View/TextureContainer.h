@@ -15,10 +15,12 @@ using namespace std;
 const string IMAGES_PATH = "../../../Images/";
 
 enum TextureName {
-    berenjenaTexture
+    berenjenaTexture,
+    inicioCintaTexture,
+    finalCintaTexture
 };
 
-const int NUM_TEXTURES = 1;
+const int NUM_TEXTURES = 3;
 
 typedef struct {
     string filename;
@@ -27,9 +29,9 @@ typedef struct {
 
 
 const TextureAttributes TEXTURE_ATTRIBUTES[NUM_TEXTURES] =
-        { {"berenjena.jpg",1,1} };
-
-
+        { {"berenjena.jpg",1,1},
+          {"inicioCinta.png",1,1},
+          {"finalCinta.png",1,1} };
 
 class TextureContainer {
 

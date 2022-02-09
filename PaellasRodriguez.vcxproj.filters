@@ -117,6 +117,9 @@
     <ClInclude Include="Utils\Vector2D.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="GameObjects\Muebles\InicioCinta.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Control\main.cpp">
@@ -201,6 +204,9 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="View\Texture.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Muebles\InicioCinta.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
