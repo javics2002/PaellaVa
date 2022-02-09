@@ -3,7 +3,7 @@
 #pragma once
 
 #include <string>
-#include <SDL_mixer.h>
+#include "../SDL2_mixer-2.0.2/include/SDL_mixer.h"
 
 class Music {
 public:

@@ -4,7 +4,7 @@
 
 #include <SDL.h>
 #include <string>
-#include "../utils/Vector2D.h"
+#include "../Utils/Vector2D.h"
 /*
  * This file includes some SDL related methods/macros, nothing sophisticated, just
  * shortcuts for lengthy instructions
@@ -19,7 +19,7 @@
  * position, velocity, etc.)
  */
 
-inline SDL_Rect build_sdlrect(Vector2D &pos, float w, float h) {
+inline SDL_Rect build_sdlrect(Vector2D<int> &pos, float w, float h) {
 	return
 	{
 		static_cast<int>(pos.getX()),
