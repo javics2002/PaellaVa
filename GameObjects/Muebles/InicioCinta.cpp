@@ -3,8 +3,8 @@
 
 InicioCinta::InicioCinta(Game* game, Pool<Ingrediente>* pool) : GameObject(game), poolIngredientes(pool)
 {
-	setPosition(game->getWindowWidth() / 2, game->getWindowHeight() - DIMENSION_W / 2);
-	setDimension(DIMENSION_W, DIMENSION_W);
+	setPosition(game->getWindowWidth() - DIMENSION_W / 2, game->getWindowHeight() - DIMENSION_H / 2);
+	setDimension(DIMENSION_W, DIMENSION_H);
 
 	time = SDL_GetTicks();
 

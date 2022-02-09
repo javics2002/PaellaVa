@@ -26,5 +26,12 @@ bool Ingrediente::isActive()
 
 void Ingrediente::update()
 {
-	setPosition(getX(), getY() - 1);
+	setPosition(getX(), getY() - 1.3f);
+}
+
+bool Ingrediente::ingredientsCollide()
+{
+	descativate();
+
+	return true;
 }

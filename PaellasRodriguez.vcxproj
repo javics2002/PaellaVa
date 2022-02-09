@@ -145,11 +145,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
+    <ClInclude Include="GameObjects\Collider.h" />
     <ClInclude Include="Control\Input.h" />
     <ClInclude Include="Data\Comanda.h" />
     <ClInclude Include="GameObjects\Cliente.h" />
     <ClInclude Include="GameObjects\Muebles\Cinta.h" />
-    <ClInclude Include="Data\Collider.h" />
     <ClInclude Include="GameObjects\Muebles\Fogones.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Control\Game.h" />
@@ -184,9 +185,9 @@
   <ItemGroup>
     <ClCompile Include="Control\Input.cpp" />
     <ClCompile Include="Data\Comanda.cpp" />
+    <ClCompile Include="GameObjects\Muebles\FinalCinta.cpp" />
     <ClCompile Include="GameObjects\Cliente.cpp" />
     <ClCompile Include="GameObjects\Muebles\Cinta.cpp" />
-    <ClCompile Include="Data\Collider.cpp" />
     <ClCompile Include="Control\Game.cpp" />
     <ClCompile Include="Control\main.cpp" />
     <ClCompile Include="Control\ViewController.cpp" />
@@ -210,6 +211,7 @@
     <ClCompile Include="GameObjects\Muebles\Silla.cpp" />
     <ClCompile Include="GameObjects\Muebles\TablaProcesado.cpp" />
     <ClCompile Include="GameObjects\Muebles\Ventanilla.cpp" />
+    <ClCompile Include="SDL2-2.0.20\include\SDL_rect.cpp" />
     <ClCompile Include="View\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>

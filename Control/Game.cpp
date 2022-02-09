@@ -43,6 +43,7 @@ void Game::update()
 void Game::draw()
 {
 	objectManager->render();
+	objectManager->debug();
 }
 
 void Game::setUserExit() {

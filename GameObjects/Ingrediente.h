@@ -15,6 +15,7 @@ public:
 	void descativate();
 	bool isActive();
 
-	void update() override;
+	void update() override;	
+	bool ingredientsCollide() override;
 };
 
