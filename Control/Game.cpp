@@ -4,6 +4,7 @@
 #include <time.h>       /* time */
 
 #include "../Scenes/Restaurante.h"
+#include "../sdlutils/SDLUtils.h"
 
 Game::Game( int width, int height) {
 	name = "Paellas Rodriguez";
@@ -12,7 +13,6 @@ Game::Game( int width, int height) {
 
 	doExit = false;
 	//font = new Font("../Images/Monospace.ttf", 12);
-
 
 	srand(time(NULL));
 
