@@ -6,14 +6,13 @@
 #define CARGAME_TEXTURECONTAINER_H
 
 #include <array>
-#include "Texture.h"
 #include <string>
 
-
+#include "Texture.h"
 
 using namespace std;
 
-const string IMAGES_PATH = "../Images/";
+const string IMAGES_PATH = "../../../Images/";
 
 enum TextureName {
     berenjenaTexture
@@ -28,7 +27,7 @@ typedef struct {
 
 
 const TextureAttributes TEXTURE_ATTRIBUTES[NUM_TEXTURES] =
-        { {"coin.png",1,1} };
+        { {"berenjena.jpg",1,1} };
 
 
 

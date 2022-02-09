@@ -47,7 +47,7 @@ public:
     void setRenderer(SDL_Renderer* renderer);
     void loadTextures();
     SDL_Renderer* getRenderer();
-    void renderText(string text, int x, int y, SDL_Color color = { 0,0,0 });
+    //void renderText(string text, int x, int y, SDL_Color color = { 0,0,0 });
 
     Texture* getTexture(TextureName name);
 };

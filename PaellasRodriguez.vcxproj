@@ -216,6 +216,7 @@
   <ItemGroup>
     <Image Include="Images\a.png" />
     <Image Include="PaellasRodriguez.ico" />
+    <Image Include="SDL2-2.0.20\Images\coin.png" />
     <Image Include="small.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

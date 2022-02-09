@@ -2,8 +2,8 @@
 
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
+
 #include "../Scenes/Restaurante.h"
-#include "SDL_image.h"
 
 Game::Game( int width, int height) {
 	name = "Paellas Rodriguez";
@@ -12,8 +12,6 @@ Game::Game( int width, int height) {
 
 	doExit = false;
 	//font = new Font("../Images/Monospace.ttf", 12);
-
-	
 
 
 	srand(time(NULL));
@@ -74,20 +72,12 @@ void Game::loadTextures() {
 	if (renderer == nullptr)
 		throw string("Renderer is null");
 
-	//textureContainer = new TextureContainer(renderer);
+	textureContainer = new TextureContainer(renderer);
 }
 
-void Game::renderText(string text, int x, int y, SDL_Color color) {
-	//font->render(renderer, text.c_str(), x, y, color);
-}
-/*
-Texture* Game::getTexture(TextureName name) {
-	return textureContainer->getTexture(name);
-}
-
-Point2D<int> Game::getOrigin() {
-	return { int(-(car->getX() - car->getWidth())), 0 };
-}*/
+//void Game::renderText(string text, int x, int y, SDL_Color color) {
+//	font->render(renderer, text.c_str(), x, y, color);
+//}
 
 Texture* Game::getTexture(TextureName name) {
 	return textureContainer->getTexture(name);
