@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include "../GameObjects/Ingrediente.h"
+#include "../GameObjects/Collider.h"
 
 
 using namespace std;
@@ -33,8 +34,6 @@ public:
 	};
 
 	//método que busca el siguiente objeto y lo activa
-	
-	
 	void add(Vector2D<double> pos) {
 		nextElem = (nextElem + 1) % numElems;
 		int cont = 0;
@@ -46,15 +45,36 @@ public:
 			cont++;
 			nextElem = (nextElem + 1) % numElems;
 		}
-		
-		
+				
 		if (cont < numElems) {
 			v[nextElem]->activate();
 			v[nextElem]->setPosition(pos);
-		}	
+		}
 		//si no encuentra ninguno, parará la ejecución, indicando que hay que aumentar de antemano los objetos de la pool
-		//else 
-		//	throw string("Pool demasiado pequeña");
+		else
+			throw string("ERROR: La pool no es lo suficientemente grande");
+	}
+
+	vector<Collider*> getColliders() {
+		vector<Collider*> c;
+
+		for (auto i : v) {
+			if (i->isActive())
+				c.push_back(i);
+		}
+
+		return c;
+	}
+
+	vector<Collider*> getCollisions(SDL_Rect GOcollider) {
+		vector<Collider*> c;
+
+		for (auto i : v) {
+			if (i->isActive() && i->collide(GOcollider))
+				c.push_back(i);
+		}
+
+		return c;
 	}
 
 	void render() {
@@ -62,6 +82,13 @@ public:
 			if (i->isActive())
 				i->draw();
 		}			
+	}
+
+	void debug() {
+		for (auto i : v) {
+			if (i->isActive())
+				i->drawDebug();
+		}
 	}
 
 	void update() {

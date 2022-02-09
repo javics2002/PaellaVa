@@ -45,9 +45,6 @@
     <ClInclude Include="Data\Posicion.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Data\Collider.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="GameObjects\Muebles\Mueble.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -120,6 +117,12 @@
     <ClInclude Include="GameObjects\Muebles\InicioCinta.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="GameObjects\Collider.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Muebles\FinalCinta.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Control\main.cpp">
@@ -141,9 +144,6 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="Data\Posicion.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Data\Collider.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="GameObjects\Muebles\Mueble.cpp">
@@ -207,6 +207,12 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="GameObjects\Muebles\InicioCinta.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Muebles\FinalCinta.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="SDL2-2.0.20\include\SDL_rect.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

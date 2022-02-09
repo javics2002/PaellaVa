@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../Data/Posicion.h"
-#include "../Data/Collider.h"
+#include "Collider.h"
 
 #include "../View/Texture.h"
 #include "../View/TextureContainer.h"
@@ -13,7 +13,7 @@ class Game;
 
 using namespace std;
 
-class GameObject
+class GameObject : public Collider
 {
     const int CENTER_TAM = 4;
 
@@ -52,6 +52,6 @@ public:
     virtual SDL_Rect getCollider();
     virtual SDL_Rect getCenter();
 
-    //bool collide(SDL_Rect other);
+    bool collide(SDL_Rect other);
 };
 

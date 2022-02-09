@@ -5,19 +5,18 @@
 
 class Game;
 
-class InicioCinta : public GameObject
+class FinalCinta : public GameObject
 {
 	const unsigned int DIMENSION_W = 70;
 	const unsigned int DIMENSION_H = 120;
 
-	const double SPAWN_DELAY = 2000;
-	double time;
-
 	Pool<Ingrediente>* poolIngredientes;
 public:
-	InicioCinta(Game* game, Pool<Ingrediente>* pool);
-	~InicioCinta() = default;
+	FinalCinta(Game* game, Pool<Ingrediente>* pool);
+	~FinalCinta() = default;
 
 	void update() override;
 };
+
+
 

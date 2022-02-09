@@ -42,10 +42,13 @@ SDL_Rect GameObject::getCenter()
 
 }
 
-//bool GameObject::collide(SDL_Rect other)
-//{
-//	return SDL_HasIntersection(&getCollider(), &other);
-//}
+bool GameObject::collide(SDL_Rect other)
+{
+	SDL_Rect rect1 = getCollider();
+	SDL_Rect rect2 = other;
+
+	return SDL_HasIntersection(&rect1, &rect2);
+}
 
 void GameObject::drawDebug()
 {
