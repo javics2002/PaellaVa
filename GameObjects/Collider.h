@@ -1,9 +1,13 @@
 #pragma once
 
+#include <list>
+
+class PoolObject;
+
 class Collider {
 
 public:
-    virtual bool ingredientsCollide() {
-        return false;
+    virtual std::list<PoolObject*>::const_iterator ingredientCollide() {
+        return std::list<PoolObject*>::const_iterator();
     };
 };

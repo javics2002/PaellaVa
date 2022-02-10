@@ -13,6 +13,11 @@ ObjectManager::ObjectManager(Game* game)
 
 ObjectManager::~ObjectManager()
 {
+	for (auto i : muebles) {
+		delete i;
+		i = nullptr;
+	}
+
 	delete ingredientes;
 }
 

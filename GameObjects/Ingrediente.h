@@ -1,21 +1,16 @@
 #pragma once
-#include "GameObject.h"
+#include "PoolObject.h"
 
 class Game;
 
-class Ingrediente : public GameObject
+class Ingrediente : public PoolObject
 {
-	bool active;
 	const unsigned int DIMENSION = 40;
 public:
 	Ingrediente(Game* game);
 	~Ingrediente() = default;
 
-	void activate();
-	void descativate();
-	bool isActive();
-
 	void update() override;	
-	bool ingredientsCollide() override;
+	std::list<PoolObject*>::const_iterator ingredientCollide() override;
 };
 

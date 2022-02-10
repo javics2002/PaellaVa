@@ -28,6 +28,8 @@ void Game::startGame() {
 }
 
 Game::~Game() {
+	delete objectManager;
+	delete textureContainer;
 }
 
 string Game::getGameName()
