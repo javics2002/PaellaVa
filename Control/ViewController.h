@@ -17,7 +17,8 @@ class ViewController
     SDL_Renderer* renderer = nullptr;
 
     void initSDL();
-
+    int mx;
+    int my;
 public:
     ViewController(Game* game);
     ~ViewController();

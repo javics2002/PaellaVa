@@ -32,7 +32,7 @@ class ObjectManager
 	};
 
 	vector<GameObject*> muebles;
-
+	vector<GameObject*> interfaz;
 public:
 	ObjectManager(Game* game);
 	~ObjectManager();
@@ -42,5 +42,6 @@ public:
 	void update();
 
 	pair<TextureName, int> getRandomIngridient();
+	void Uievent(int mx,int my);
 };
 

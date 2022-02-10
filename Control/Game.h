@@ -52,5 +52,7 @@ public:
     Texture* getTexture(TextureName name);
 
     pair<TextureName, int> getRandomIngridient();
+    ObjectManager* getObjectManager();
+
 };
 

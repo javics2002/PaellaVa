@@ -28,6 +28,14 @@ void ViewController::run() {
 				if (key == SDLK_ESCAPE)
 					game->setUserExit();
 			}
+			else   if (event.type == SDL_MOUSEBUTTONDOWN) {
+				SDL_GetMouseState(&mx, &my);
+				
+				game->getObjectManager()->Uievent(mx, my);
+
+
+				
+			}
 		}
 		//--------------------------
 

@@ -91,3 +91,7 @@ pair<TextureName, int> Game::getRandomIngridient()
 {
 	return objectManager->getRandomIngridient();
 }
+ObjectManager* Game::getObjectManager()
+{
+	return objectManager;
+}

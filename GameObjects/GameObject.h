@@ -37,6 +37,7 @@ public:
     virtual void draw();
     virtual void drawDebug();
     virtual void update() = 0;
+    virtual bool OnClick(int mx, int my) { return false; };
 
     void setPosition(double x, double y);
     void setPosition(Vector2D<double> v);
