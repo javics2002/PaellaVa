@@ -1,6 +1,7 @@
 #include "ObjectManager.h"
 #include "../../GameObjects/Muebles/InicioCinta.h"
 #include "../../GameObjects/Muebles/FinalCinta.h"
+#include  "../UiButton.h"
 #include "../../Utils/Vector2D.h"
 
 ObjectManager::ObjectManager(Game* game)

@@ -26,10 +26,12 @@ enum TextureName {
     ingrMejillon,
     ingrPimientoRojo,
     ingrPimientoVerde,
-    ingrPollo
+    ingrPollo,
+    cuadernillo,
+    botonredacta
 };
 
-const int NUM_TEXTURES = 12;
+const int NUM_TEXTURES = 14;
 
 typedef struct {
     string filename;
@@ -50,7 +52,7 @@ const TextureAttributes TEXTURE_ATTRIBUTES[NUM_TEXTURES] =
             {"/Ingredientes/mejillon.png",1,1},
             {"/Ingredientes/pimiento_rojo.png",1,1},
             {"/Ingredientes/pimiento_verde.png",1,1},
-            {"/Ingredientes/pollo.png",1,1} };
+            {"/Ingredientes/pollo.png",1,1},{"cuadernillo.png",1,1},{"redactaboton.png",1,1} };
 
 class TextureContainer {
 

@@ -179,6 +179,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Control\ViewController.h" />
     <ClInclude Include="GameObjects\Muebles\Ventanilla.h" />
+    <ClInclude Include="UiButton.h" />
     <ClInclude Include="Utils\Vector2D.h" />
     <ClInclude Include="View\Texture.h" />
     <ClInclude Include="View\TextureContainer.h" />
@@ -214,6 +215,7 @@
     <ClCompile Include="GameObjects\Muebles\TablaProcesado.cpp" />
     <ClCompile Include="GameObjects\Muebles\Ventanilla.cpp" />
     <ClCompile Include="SDL2-2.0.20\include\SDL_rect.cpp" />
+    <ClCompile Include="UiButton.cpp" />
     <ClCompile Include="View\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
