@@ -14,7 +14,9 @@ public:
 	void activate(list<PoolObject*>::const_iterator iterator);
 	void descativate();
 
-	void setActive(bool b);
+	virtual void onActivate() {}
+	virtual void onDesactivate() {}
+
 	bool isActive();
 
 	list<PoolObject*>::const_iterator getIterator();

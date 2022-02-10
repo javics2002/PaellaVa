@@ -13,5 +13,5 @@ void FinalCinta::update()
 {
 	vector<Collider*> ingredientes = poolIngredientes->getCollisions(getCollider());
 	for (auto i : ingredientes)
-		poolIngredientes->erase(i->ingredientCollide());
+		poolIngredientes->remove(i->ingredientCollide());
 }

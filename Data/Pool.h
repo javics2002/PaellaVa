@@ -15,6 +15,9 @@ class Game;
 template<typename T>
 class Pool
 {
+	//lista con solo los objetos de la pool que están activos
+	list<PoolObject*> activeObjects;
+
 	//vector con toda la pool
 	vector<T*> v;
 	//número de objetos en la Pool
@@ -22,8 +25,22 @@ class Pool
 	//siguiente objeto a añadir al juego (o último en haberse añadido)
 	int nextElem;
 
-	//lista con solo los objetos de la pool que están activos
-	list<PoolObject*> activeObjects;
+	void findNextElem() {
+		nextElem = (nextElem + 1) % numElems;
+		int cont = 0;
+
+		//el bucle no itera ninguna vez en la mayoría de casos, sobre todo en los ingredientes
+		//(es posible que en el caso de los clientes o paellas tarde más en encontrar al siguiente)
+		while (cont < numElems && v[nextElem]->isActive())
+		{
+			cont++;
+			nextElem = (nextElem + 1) % numElems;
+		}
+		//si no encuentra ninguno, parará la ejecución, indicando que hay que aumentar de antemano los objetos de la pool
+		if (cont == numElems) {
+			throw string("ERROR: La pool no es lo suficientemente grande");
+		}
+	}
 
 public:
 	Pool(Game* game, int n) : numElems(n), nextElem(-1) {
@@ -42,26 +59,17 @@ public:
 
 	//método que busca el siguiente objeto y lo activa
 	void add(Vector2D<double> pos) {
-		nextElem = (nextElem + 1) % numElems;
-		int cont = 0;
+		findNextElem();
 
-		//el bucle no itera ninguna vez en la mayoría de casos, sobre todo en los ingredientes
-		//(es posible que en el caso de los clientes o paellas tarde más en encontrar al siguiente)
-		while (cont < numElems && v[nextElem]->isActive())
-		{
-			cont++;
-			nextElem = (nextElem + 1) % numElems;
-		}
-				
-		if (cont < numElems) {
-			auto& elem = v[nextElem];
-			activeObjects.push_front(elem);
-			elem->activate(activeObjects.begin());
-			elem->setPosition(pos);
-		}
-		//si no encuentra ninguno, parará la ejecución, indicando que hay que aumentar de antemano los objetos de la pool
-		else
-			throw string("ERROR: La pool no es lo suficientemente grande");
+		auto& elem = v[nextElem];
+		activeObjects.push_front(elem);
+		elem->activate(activeObjects.begin());
+		elem->setPosition(pos);		
+	}
+
+	//borra el objeto de la lista de activos
+	void remove(list<PoolObject*>::const_iterator it) {
+		activeObjects.erase(it);
 	}
 
 	vector<Collider*> getColliders() {
@@ -101,11 +109,6 @@ public:
 			it->update();
 		}
 	}
-
-	//borra el objeto de la lista de activos
-	void erase(list<PoolObject*>::const_iterator it) {
-		activeObjects.erase(it);
-	}	
 };
 
 

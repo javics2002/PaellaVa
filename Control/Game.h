@@ -50,5 +50,7 @@ public:
     //void renderText(string text, int x, int y, SDL_Color color = { 0,0,0 });
 
     Texture* getTexture(TextureName name);
+
+    pair<TextureName, int> getRandomIngridient();
 };
 

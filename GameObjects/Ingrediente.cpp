@@ -1,11 +1,11 @@
 #include "Ingrediente.h"
 #include "../Control/Game.h"
 
-Ingrediente::Ingrediente(Game* game) :  PoolObject(game) {
+#include <iostream>
+
+Ingrediente::Ingrediente(Game* game) :  PoolObject(game), tipoIngrediente(-1) {
 	setDimension(DIMENSION, DIMENSION);
 	setPosition(game->getWindowWidth() / 2, game->getWindowHeight());
-
-	textureName = berenjenaTexture;
 }
 
 void Ingrediente::update()
@@ -18,4 +18,12 @@ std::list<PoolObject*>::const_iterator Ingrediente::ingredientCollide()
 	descativate();
 
 	return getIterator();
+}
+
+void Ingrediente::onActivate()
+{
+	auto pair = game->getRandomIngridient();
+
+	textureName = pair.first;
+	tipoIngrediente = pair.second;
 }

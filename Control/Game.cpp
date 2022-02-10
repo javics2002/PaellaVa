@@ -86,3 +86,8 @@ void Game::loadTextures() {
 Texture* Game::getTexture(TextureName name) {
 	return textureContainer->getTexture(name);
 }
+
+pair<TextureName, int> Game::getRandomIngridient()
+{
+	return objectManager->getRandomIngridient();
+}

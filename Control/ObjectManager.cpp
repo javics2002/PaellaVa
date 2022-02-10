@@ -45,5 +45,12 @@ void ObjectManager::update()
 	ingredientes->update();	
 }
 
+pair<TextureName, int> ObjectManager::getRandomIngridient()
+{
+	int n = rand() % (texturasIngredienes.size());
+
+	return { texturasIngredienes[n], n};
+}
+
 
 
