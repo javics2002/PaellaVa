@@ -16,7 +16,7 @@ public:
 	UiButton(Game* game,TextureName texturename,int x, int y , int w, int h);
 	~UiButton();
 	virtual bool  OnClick(int mx, int my) override;
-	
+	virtual void execute();
 	void update() override;
 };
 

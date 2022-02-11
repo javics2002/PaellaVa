@@ -11,12 +11,16 @@ UiButton::UiButton(Game* game,TextureName texturename, int x, int y, int w, int 
 UiButton::~UiButton()
 {
 }
+void UiButton::execute()
+{
+}
 bool UiButton::OnClick(int mx, int my)
 {
 	SDL_Rect z=getCollider();
 	SDL_Rect d = { mx,my,1,1 };
 	if (SDL_HasIntersection(&z, &d))
 	{
+		execute();
 		cout << "PULSADO";
 		return true;
 	}

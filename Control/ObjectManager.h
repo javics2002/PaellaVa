@@ -33,6 +33,8 @@ class ObjectManager
 
 	vector<GameObject*> muebles;
 	vector<GameObject*> interfaz;
+	vector<GameObject*> comandas;//esto va a ser nuestra version de capas 
+	//en el orden en elq ue lo renderizamos nos aseguramos que la ui esta por encima de todo
 public:
 	ObjectManager(Game* game);
 	~ObjectManager();
@@ -43,5 +45,6 @@ public:
 
 	pair<TextureName, int> getRandomIngridient();
 	void Uievent(int mx,int my);
+	void creaComanda(Game*game);
 };
 

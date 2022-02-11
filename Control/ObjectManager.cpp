@@ -1,7 +1,8 @@
 #include "ObjectManager.h"
 #include "../../GameObjects/Muebles/InicioCinta.h"
 #include "../../GameObjects/Muebles/FinalCinta.h"
-#include  "../UiButton.h"
+#include  "../RedactaComandabutton.h"
+#include "../Data/Comanda.h"
 #include "../../Utils/Vector2D.h"
 
 
@@ -11,7 +12,7 @@ ObjectManager::ObjectManager(Game* game)
 
 	muebles.push_back(new InicioCinta(game, ingredientes));
 	muebles.push_back(new FinalCinta(game, ingredientes));
-	interfaz.push_back(new UiButton(game, botonredacta,10,10,30,30));
+	interfaz.push_back(new RedactaComandabutton(game, botonredacta,10,10,30,30));
 }
 
 ObjectManager::~ObjectManager()
@@ -28,6 +29,10 @@ void ObjectManager::render()
 {
 	for (auto i : muebles)
 		i->draw();
+	for (auto z : comandas)
+	{
+		z->draw();
+	}
 	for (auto j : interfaz)
 	{ 
 		j->draw();
@@ -64,6 +69,10 @@ void ObjectManager::Uievent(int mx, int my)
 	{
 		i->OnClick(mx, my);
 	}
+}
+void ObjectManager::creaComanda(Game*game)
+{
+	comandas.push_back(new Comanda(game, 2));
 }
 
 
