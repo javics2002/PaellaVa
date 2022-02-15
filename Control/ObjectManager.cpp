@@ -1,6 +1,7 @@
 #include "ObjectManager.h"
 #include "../../GameObjects/Muebles/InicioCinta.h"
 #include "../../GameObjects/Muebles/FinalCinta.h"
+#include "../../GameObjects/Muebles/Puerta.h"
 #include  "../RedactaComandabutton.h"
 #include "../Data/Comanda.h"
 #include "../../Utils/Vector2D.h"
@@ -9,9 +10,11 @@
 ObjectManager::ObjectManager(Game* game)
 {
 	ingredientes = new Pool<Ingrediente>(game, 3);
+	clientes = new Pool<Cliente>(game, 30);
 
 	muebles.push_back(new InicioCinta(game, ingredientes));
 	muebles.push_back(new FinalCinta(game, ingredientes));
+	muebles.push_back(new Puerta(game, clientes));
 	interfaz.push_back(new RedactaComandabutton(game, botonredacta,10,10,30,30));
 }
 
@@ -39,6 +42,8 @@ void ObjectManager::render()
 	}
 
 	ingredientes->render();	
+
+	clientes->render();
 }
 
 void ObjectManager::debug()
@@ -47,6 +52,8 @@ void ObjectManager::debug()
 		i->drawDebug();
 
 	ingredientes->debug();
+
+	clientes->debug();
 }
 
 void ObjectManager::update()
@@ -55,6 +62,8 @@ void ObjectManager::update()
 		i->update();
 
 	ingredientes->update();	
+
+	clientes->update();
 }
 
 pair<TextureName, int> ObjectManager::getRandomIngridient()

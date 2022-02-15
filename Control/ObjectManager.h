@@ -1,6 +1,7 @@
 #pragma once
 #include "../Data/Pool.h"
 #include "../GameObjects/Ingrediente.h"
+#include "../GameObjects/Cliente.h"
 #include <queue>
 #include <vector>
 
@@ -20,9 +21,8 @@ class ObjectManager
 
 	//Pool de clientes
 	// 
-	//Pool<GrupoClientes*> clientes;
-	//queue<GrupoClientes*> cola;
-	//int capacidadCola;
+	Pool<Cliente> *clientes;
+
 
 	//Pool de ingredientes
 

@@ -1,17 +1,19 @@
 #pragma once
 
-#include "GameObject.h"
+#include "../GameObjects/PoolObject.h"
 
 class Game;
 
-class Cliente:public GameObject
+class Cliente : public PoolObject
 {
+	const unsigned int DIMENSION = 70;
+
 	enum { SENTADO, COMIENDO, DEPIE, COGIDO };
 
 public:
+	Cliente(Game* game);	
+	~Cliente() = default;
 
-	Cliente(Game* game) :GameObject(game) {};
-
-	void Render();
+	void update() override;
 };
 
