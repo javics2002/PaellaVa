@@ -132,6 +132,12 @@
     <ClInclude Include="RedactaComandabutton.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="Puerta.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Cola.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Control\main.cpp">
@@ -231,6 +237,12 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="RedactaComandabutton.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="Puerta.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Cola.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

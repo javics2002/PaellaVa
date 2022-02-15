@@ -58,13 +58,25 @@ public:
 	};
 
 	//método que busca el siguiente objeto y lo activa
-	void add(Vector2D<double> pos) {
+	T* add(Vector2D<double> pos) {
 		findNextElem();
 
 		auto& elem = v[nextElem];
 		activeObjects.push_front(elem);
 		elem->activate(activeObjects.begin());
 		elem->setPosition(pos);		
+
+		return elem;
+	}
+
+	T* add() {
+		findNextElem();
+
+		auto& elem = v[nextElem];
+		activeObjects.push_front(elem);
+		elem->activate(activeObjects.begin());
+
+		return elem;
 	}
 
 	//borra el objeto de la lista de activos

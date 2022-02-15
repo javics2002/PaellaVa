@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GameObjects\Cola.h" />
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
     <ClInclude Include="GameObjects\Collider.h" />
     <ClInclude Include="Control\Input.h" />
@@ -172,6 +173,7 @@
     <ClInclude Include="Data\Posicion.h" />
     <ClInclude Include="Data\Pool.h" />
     <ClInclude Include="GameObjects\PoolObject.h" />
+    <ClInclude Include="Puerta.h" />
     <ClInclude Include="RedactaComandabutton.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scenes\Restaurante.h" />
@@ -186,6 +188,7 @@
     <ClInclude Include="View\TextureContainer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameObjects\Cola.cpp" />
     <ClCompile Include="Control\Input.cpp" />
     <ClCompile Include="Data\Comanda.cpp" />
     <ClCompile Include="GameObjects\Muebles\FinalCinta.cpp" />
@@ -211,6 +214,7 @@
     <ClCompile Include="GameObjects\Muebles\InicioCinta.cpp" />
     <ClCompile Include="Jornada.cpp" />
     <ClCompile Include="GameObjects\PoolObject.cpp" />
+    <ClCompile Include="Puerta.cpp" />
     <ClCompile Include="RedactaComandabutton.cpp" />
     <ClCompile Include="Scenes\Restaurante.cpp" />
     <ClCompile Include="GameObjects\Muebles\Silla.cpp" />

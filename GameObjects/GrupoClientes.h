@@ -1,29 +1,24 @@
 #pragma once
-#include "ObjetoPortable.h"
+
 #include <vector>
 #include "Cliente.h"
+#include "GameObject.h"
 
-class Comanda;
 class Game;
 
-using namespace std;
-using uint = uint32_t;
+
 
 class GrupoClientes : public GameObject
 {
-	uint numeroClientes;
-	vector<Cliente*> clientes;
-	Comanda* comanda;
+	vector<Cliente*> *clientes;
+	//Comanda* comanda;
 	bool espera = false;
-	uint paciencia;
-	int integrantes = 0;
 
 public:
-	GrupoClientes(Game* game);
-	void ini(int numClientes);
+	GrupoClientes(Game* game, vector<Cliente*> * clientes_);
+	~GrupoClientes() {};
 	void Pedir();
 	void Comer();
 	float Puntuacion();
-	void NuevoGrupo();
 };
 
