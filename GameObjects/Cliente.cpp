@@ -1,4 +1,5 @@
 #include "Cliente.h"
+#include "../../Control/game.h"
 
 Cliente::Cliente(Game* game) : PoolObject(game)
 {
@@ -8,5 +9,25 @@ Cliente::Cliente(Game* game) : PoolObject(game)
 
 void Cliente::update()
 {
-	setPosition(getX() + 2.0f, getY());
+	for (auto i : game->getClientes(getCollider())) {
+		if (i != this)colisionClientes();
+	}
+
+	if (estado==CAMINANDO) {
+		setPosition(getX() + 2.0f, getY());
+	}
+	else if (estado == ENCOLA) {
+
+	}
+}
+
+void Cliente::onActivate()
+{
+	estado = CAMINANDO;
+}
+
+bool Cliente::colisionClientes()
+{
+	estado = ENCOLA;
+	return true;
 }

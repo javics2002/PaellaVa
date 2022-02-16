@@ -4,6 +4,7 @@
 #include "../../GameObjects/Muebles/Puerta.h"
 #include  "../RedactaComandabutton.h"
 #include "../Data/Comanda.h"
+#include "../GameObjects/Muebles/cartel.h"
 #include "../../Utils/Vector2D.h"
 
 
@@ -15,6 +16,7 @@ ObjectManager::ObjectManager(Game* game)
 	muebles.push_back(new InicioCinta(game, ingredientes));
 	muebles.push_back(new FinalCinta(game, ingredientes));
 	muebles.push_back(new Puerta(game, clientes));
+	muebles.push_back(new Cartel(game));
 	interfaz.push_back(new RedactaComandabutton(game, botonredacta,10,10,30,30));
 }
 
@@ -82,6 +84,12 @@ void ObjectManager::Uievent(int mx, int my)
 void ObjectManager::creaComanda(Game*game)
 {
 	comandas.push_back(new Comanda(game, 2));
+}
+
+vector<Collider*> ObjectManager::getClientes(SDL_Rect gOC)
+{
+
+	return clientes->getCollisions(gOC);
 }
 
 

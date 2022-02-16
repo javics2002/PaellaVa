@@ -13,7 +13,7 @@ void Puerta::update()
 {
 	if (SDL_GetTicks() - time >= SPAWN_DELAY) {
 		
-
+		
 		int integrantes = 1 + rand() % maxGrupo;
 
 		if (cola->esValido(integrantes)) {
@@ -22,7 +22,7 @@ void Puerta::update()
 			vector<Cliente*> v;
 			v.push_back(poolClientes->add());
 
-			int width = v[0]->getWidth();
+			int width = v[0]->getWidth()+SEPARACIONCLIENTE;
 			int w = -width/2;
 
 			v[0]->setPosition(Vector2D<double>(w, getY()));

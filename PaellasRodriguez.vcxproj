@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GameObjects\Muebles\cartel.h" />
     <ClInclude Include="GameObjects\Cola.h" />
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
     <ClInclude Include="GameObjects\Collider.h" />
@@ -188,6 +189,7 @@
     <ClInclude Include="View\TextureContainer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameObjects\Muebles\cartel.cpp" />
     <ClCompile Include="GameObjects\Cola.cpp" />
     <ClCompile Include="Control\Input.cpp" />
     <ClCompile Include="Data\Comanda.cpp" />

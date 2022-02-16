@@ -46,5 +46,7 @@ public:
 	pair<TextureName, int> getRandomIngridient();
 	void Uievent(int mx,int my);
 	void creaComanda(Game*game);
+
+	vector<Collider*> getClientes(SDL_Rect gOC);
 };
 

@@ -13,6 +13,8 @@ class Puerta : public GameObject
 	const unsigned int DIMENSION_W = 70;
 	const unsigned int DIMENSION_H = 120;
 
+	const unsigned int SEPARACIONCLIENTE = 2;
+
 	const unsigned int maxGrupo = 6;
 
 	const double SPAWN_DELAY = 4000;

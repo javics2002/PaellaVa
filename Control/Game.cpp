@@ -95,3 +95,8 @@ ObjectManager* Game::getObjectManager()
 {
 	return objectManager;
 }
+
+vector<Collider*> Game::getClientes(SDL_Rect gOC)
+{
+	return objectManager->getClientes(gOC);
+}
