@@ -3,6 +3,7 @@
 #include "../GameObject.h"
 #include "../../Data/Pool.h"
 #include "../Cliente.h"
+#include "../GrupoClientes.h"
 #include "../Cola.h"
 #include "../GrupoClientes.h"
 
@@ -21,6 +22,8 @@ class Puerta : public GameObject
 	double time;
 
 	Pool<Cliente>* poolClientes;
+	Pool<GrupoClientes>* poolGrupos;
+
 
 	Cola* cola;
 
@@ -29,7 +32,7 @@ class Puerta : public GameObject
 	};
 
 public:
-	Puerta(Game* game, Pool<Cliente>* pool);
+	Puerta(Game* game, Pool<Cliente>* pool, Pool<GrupoClientes>* pool2);
 	~Puerta() = default;
 
 	void update() override;

@@ -12,10 +12,11 @@ ObjectManager::ObjectManager(Game* game)
 {
 	ingredientes = new Pool<Ingrediente>(game, 3);
 	clientes = new Pool<Cliente>(game, 30);
+	grupoClientes = new Pool<GrupoClientes>(game, 20);
 
 	muebles.push_back(new InicioCinta(game, ingredientes));
 	muebles.push_back(new FinalCinta(game, ingredientes));
-	muebles.push_back(new Puerta(game, clientes));
+	muebles.push_back(new Puerta(game, clientes, grupoClientes));
 	muebles.push_back(new Cartel(game));
 	interfaz.push_back(new RedactaComandabutton(game, botonredacta,10,10,30,30));
 }

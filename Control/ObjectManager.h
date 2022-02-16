@@ -2,6 +2,7 @@
 #include "../Data/Pool.h"
 #include "../GameObjects/Ingrediente.h"
 #include "../GameObjects/Cliente.h"
+#include "../GameObjects/GrupoClientes.h"
 #include <queue>
 #include <vector>
 
@@ -22,6 +23,7 @@ class ObjectManager
 	//Pool de clientes
 	// 
 	Pool<Cliente> *clientes;
+	Pool<GrupoClientes> *grupoClientes;
 
 
 	//Pool de ingredientes

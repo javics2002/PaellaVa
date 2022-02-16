@@ -3,11 +3,11 @@
 #include <vector>
 #include <List>;
 #include "Cliente.h"
-#include "GameObject.h"
+#include "PoolObject.h"
 
 class Game;
 
-class GrupoClientes : public GameObject
+class GrupoClientes : public PoolObject
 {
 	vector<Cliente*> *clientes;
 	list<GrupoClientes*>::const_iterator posCola;
@@ -17,13 +17,14 @@ class GrupoClientes : public GameObject
 
 
 public:
-	GrupoClientes(Game* game, vector<Cliente*> * clientes_);
-	~GrupoClientes() {};
+	GrupoClientes(Game* game) : PoolObject(game) {};
+	~GrupoClientes() = default;
+
 	void Pedir();
 	void Comer();
 	float Puntuacion();
-
-	void setPosCola(list<GrupoClientes*>::const_iterator pos);
+	
+	void setGrupo(list<GrupoClientes*>::const_iterator pos, vector<Cliente*>* clientes_);
 
 	void update() {};
 };
