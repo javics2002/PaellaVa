@@ -26,8 +26,14 @@ void Cliente::onActivate()
 	estado = CAMINANDO;
 }
 
+
 bool Cliente::colisionClientes()
 {
 	estado = ENCOLA;
 	return true;
+}
+
+void Cliente::cambiaTextura(TextureName textureN)
+{
+	textureName = textureN;
 }

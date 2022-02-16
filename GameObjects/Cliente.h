@@ -10,6 +10,8 @@ class Cliente : public PoolObject
 
 	enum { SENTADO, COMIENDO, ENCOLA, COGIDO ,CAMINANDO} estado;
 
+
+
 public:
 	Cliente(Game* game);	
 	~Cliente() = default;
@@ -18,5 +20,7 @@ public:
 	void onActivate() override;
 
 	bool colisionClientes() override;
+
+	void cambiaTextura(TextureName textureN);
 };
 

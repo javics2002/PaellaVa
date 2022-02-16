@@ -20,17 +20,23 @@ void Puerta::update()
 			cout << integrantes << endl;
 
 			vector<Cliente*> v;
-			v.push_back(poolClientes->add());
+			Cliente* k= poolClientes->add();
+			k->cambiaTextura(texturasClientes[0 + rand() % texturasClientes.size()]);
+			v.push_back(k);
 
-			int width = v[0]->getWidth()+SEPARACIONCLIENTE;
+			int width = k->getWidth()+SEPARACIONCLIENTE;
 			int w = -width/2;
 
 			v[0]->setPosition(Vector2D<double>(w, getY()));
 
 			for (int i = 1; i < integrantes; i++) {
 				w -= width;
+				
+				k = poolClientes->add(Vector2D<double>(w, getY()));
+				k->cambiaTextura(texturasClientes[0 + rand() % texturasClientes.size()]);
+				v.push_back(k);
 
-				v.push_back(poolClientes->add(Vector2D<double>(w, getY())));
+
 			}
 
 			GrupoClientes* g = new GrupoClientes(game, &v);

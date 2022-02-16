@@ -24,6 +24,10 @@ class Puerta : public GameObject
 
 	Cola* cola;
 
+	vector<TextureName> texturasClientes = { ingrAlcachofa, ingrCalamar, ingrCangrejo,
+	ingrGamba, ingrLangosta, ingrMejillon, ingrPimientoRojo, ingrPimientoVerde, ingrPollo
+	};
+
 public:
 	Puerta(Game* game, Pool<Cliente>* pool);
 	~Puerta() = default;
