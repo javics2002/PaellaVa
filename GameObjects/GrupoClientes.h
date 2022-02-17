@@ -1,29 +1,31 @@
 #pragma once
-#include "ObjetoPortable.h"
-#include <vector>
-#include "Cliente.h"
 
-class Comanda;
+#include <vector>
+#include <List>;
+#include "Cliente.h"
+#include "PoolObject.h"
+
 class Game;
 
-using namespace std;
-using uint = uint32_t;
-
-class GrupoClientes : public GameObject
+class GrupoClientes : public PoolObject
 {
-	uint numeroClientes;
-	vector<Cliente*> clientes;
-	Comanda* comanda;
+	vector<Cliente*> *clientes;
+	list<GrupoClientes*>::const_iterator posCola;
+
+	//Comanda* comanda;
 	bool espera = false;
-	uint paciencia;
-	int integrantes = 0;
+
 
 public:
-	GrupoClientes(Game* game);
-	void ini(int numClientes);
+	GrupoClientes(Game* game) : PoolObject(game) {};
+	~GrupoClientes() = default;
+
 	void Pedir();
 	void Comer();
 	float Puntuacion();
-	void NuevoGrupo();
+	
+	void setGrupo(list<GrupoClientes*>::const_iterator pos, vector<Cliente*>* clientes_);
+
+	void update() {};
 };
 

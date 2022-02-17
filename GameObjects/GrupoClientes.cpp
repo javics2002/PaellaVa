@@ -1,25 +1,5 @@
 #include "GrupoClientes.h"
 
-GrupoClientes::GrupoClientes(Game* game) : GameObject(game) {
-	
-}
-
-void GrupoClientes::ini(int numClientes)
-{
-	//x = limite inferior, y = limite superior
-
-	//paciencia = x + rand() % (j+1 - x);
-
-	numeroClientes = numClientes;
-
-	Cliente* cliente = nullptr;
-
-	for (int i = 0; i < numeroClientes; i++) {
-		cliente = new Cliente();
-		clientes.push_back(cliente);
-	}
-}
-
 void GrupoClientes::Pedir()
 {
 
@@ -35,7 +15,9 @@ float GrupoClientes::Puntuacion()
 	return 0.0f;
 }
 
-void GrupoClientes::NuevoGrupo()
+
+void GrupoClientes::setGrupo(list<GrupoClientes*>::const_iterator pos, vector<Cliente*>* clientes_)
 {
-	integrantes = 1 + rand() % (8 + 1 - 1);
+	posCola = pos;
+	clientes = clientes_;
 }

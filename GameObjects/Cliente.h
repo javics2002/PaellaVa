@@ -1,14 +1,26 @@
 #pragma once
 
-class Cliente
-{
+#include "../GameObjects/PoolObject.h"
 
-	enum { SENTADO, COMIENDO, DEPIE, COGIDO };
+class Game;
+
+class Cliente : public PoolObject
+{
+	const unsigned int DIMENSION = 70;
+
+	enum { SENTADO, COMIENDO, ENCOLA, COGIDO ,CAMINANDO} estado;
+
+
 
 public:
+	Cliente(Game* game);	
+	~Cliente() = default;
 
-	Cliente();
+	void update() override;
+	void onActivate() override;
 
-	void Render();
+	bool colisionClientes() override;
+
+	void cambiaTextura(TextureName textureN);
 };
 

@@ -1,6 +1,8 @@
 #pragma once
 #include "../Data/Pool.h"
 #include "../GameObjects/Ingrediente.h"
+#include "../GameObjects/Cliente.h"
+#include "../GameObjects/GrupoClientes.h"
 #include <queue>
 #include <vector>
 
@@ -20,9 +22,9 @@ class ObjectManager
 
 	//Pool de clientes
 	// 
-	//Pool<GrupoClientes*> clientes;
-	//queue<GrupoClientes*> cola;
-	//int capacidadCola;
+	Pool<Cliente> *clientes;
+	Pool<GrupoClientes> *grupoClientes;
+
 
 	//Pool de ingredientes
 
@@ -46,5 +48,7 @@ public:
 	pair<TextureName, int> getRandomIngridient();
 	void Uievent(int mx,int my);
 	void creaComanda(Game*game);
+
+	vector<Collider*> getClientes(SDL_Rect gOC);
 };
 

@@ -54,5 +54,7 @@ public:
     pair<TextureName, int> getRandomIngridient();
     ObjectManager* getObjectManager();
 
+    vector<Collider*> getClientes(SDL_Rect gOC);
+
 };
 
