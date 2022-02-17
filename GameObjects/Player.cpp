@@ -8,31 +8,36 @@ Player::Player(Posicion posicion) : GameObject(game)
 
 	input_ = new Input();
 	velocidad_ = 2.0f;
+	textureName = ingrLangosta; //añadir imagen de jugador xD
 }
 
 Player::~Player()
 {
 }
 
-void Player::Update()
+void Player::update()
 {
 	float posX = posicion_.GetX();
 	float posY = posicion_.GetY();
 
 
-	if (input_->GetKey(SDL_SCANCODE_W)) {
+	if (input_->GetKey(SDL_SCANCODE_W)) 
+	{
 		posY -= velocidad_;
 	}
 
-	if (input_->GetKey(SDL_SCANCODE_S)) {
+	if (input_->GetKey(SDL_SCANCODE_S)) 
+	{
 		posY += velocidad_;
 	}
 
-	if (input_->GetKey(SDL_SCANCODE_A)) {
+	if (input_->GetKey(SDL_SCANCODE_A)) 
+	{
 		posX -= velocidad_;
 	}
 
-	if (input_->GetKey(SDL_SCANCODE_D)) {
+	if (input_->GetKey(SDL_SCANCODE_D)) 
+	{
 		posX += velocidad_;
 	}
 

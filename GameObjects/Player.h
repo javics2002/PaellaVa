@@ -18,7 +18,7 @@ public:
 	Player(Posicion posicion);
 	~Player();
 
-	void Update();
+	void update();
 
 	void SetVelocidad(float velocidad);
 	float GetVelocidad() { return velocidad_; }
