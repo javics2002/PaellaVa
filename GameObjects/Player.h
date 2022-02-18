@@ -7,15 +7,16 @@ class Player : public GameObject
 {
 private:
 
-	Posicion posicion_;
+	//Posicion* posicion_;
 	GameObject* objetoCargado_;
 	Input* input_;
+	Game* game_;
 
 	float velocidad_;
 	//Configuración de skin
 
 public:
-	Player(Posicion posicion);
+	Player(Game* game);
 	~Player();
 
 	void update();

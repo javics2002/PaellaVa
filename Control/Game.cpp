@@ -23,7 +23,7 @@ void Game::startGame() {
 	SDL_Texture* spriteSheet = IMG_LoadTexture(renderer, "Assets/Tileset.png");
 	/*Restaurante().Render() ;*/
 
-	player = new Player(Posicion{ 200,200 });
+	player = new Player(this);
 
 	objectManager = new ObjectManager(this);
 }
@@ -41,12 +41,14 @@ string Game::getGameName()
 void Game::update() 
 {
 	objectManager->update();
+	player->update();
 }
 
 void Game::draw()
 {
 	objectManager->render();
 	objectManager->debug();
+	player->draw();
 }
 
 void Game::setUserExit() {
