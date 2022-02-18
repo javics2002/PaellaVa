@@ -9,7 +9,7 @@ using namespace std;
 
 Restaurante::Restaurante()
 {
-	host = new Player(Posicion{ 200, 200 });
+
 }
 
 Restaurante::~Restaurante()
@@ -18,5 +18,5 @@ Restaurante::~Restaurante()
 
 void Restaurante::Render()
 {
-	host->draw();
+
 }

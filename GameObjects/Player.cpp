@@ -8,7 +8,7 @@ Player::Player(Posicion posicion) : GameObject(game)
 
 	input_ = new Input();
 	velocidad_ = 2.0f;
-	textureName = ingrLangosta; //añadir imagen de jugador xD
+	textureName = ingrAlcachofa; //añadir imagen de jugador xD
 }
 
 Player::~Player()

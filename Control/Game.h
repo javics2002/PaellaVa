@@ -8,6 +8,7 @@
 #include <cmath>
 
 #include "ObjectManager.h"
+#include "../GameObjects/Player.h"
 
 #include "../View/TextureContainer.h"
 #include "../View/Texture.h"
@@ -26,6 +27,7 @@ class Game{
 
     ObjectManager* objectManager;
     TextureContainer* textureContainer;
+    Player* player;
 
 public:
     Game(int width, int height);

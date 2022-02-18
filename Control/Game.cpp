@@ -21,8 +21,9 @@ Game::Game( int width, int height) {
 
 void Game::startGame() {
 	SDL_Texture* spriteSheet = IMG_LoadTexture(renderer, "Assets/Tileset.png");
-	Restaurante().Render() ;
+	/*Restaurante().Render() ;*/
 
+	player = new Player(Posicion{ 200,200 });
 
 	objectManager = new ObjectManager(this);
 }
