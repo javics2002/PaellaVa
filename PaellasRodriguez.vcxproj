@@ -116,13 +116,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>.\SDL2-2.0.20\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>SDL2-2.0.20/include;SDL2_image-2.0.1/include;SDL2_mixer-2.0.2/include;SDL2_ttf-2.0.14/include;tmxlite/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>.\SDL2-2.0.20\lib\x64</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;tmxlite-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>SDL2-2.0.20/lib/x64;SDL2_image-2.0.1/lib/x64;SDL2_mixer-2.0.2/lib/x64;SDL2_ttf-2.0.14/lib/x64;tmxlite/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;tmxlite.lib;tmxlite-d.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -133,20 +133,19 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>.\SDL2-2.0.20\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>SDL2-2.0.20/include;SDL2_image-2.0.1/include;SDL2_mixer-2.0.2/include;SDL2_ttf-2.0.14/include;tmxlite/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>.\SDL2-2.0.20\lib\x64</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>SDL2-2.0.20/lib/x64;SDL2_image-2.0.1/lib/x64;SDL2_mixer-2.0.2/lib/x64;SDL2_ttf-2.0.14/lib/x64;tmxlite/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;tmxlite.lib;tmxlite-d.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="GameObjects\Muebles\cartel.h" />
-    <ClInclude Include="GameObjects\Cola.h" />
+    <ClInclude Include="GameObjects\Fondo.h" />
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
     <ClInclude Include="GameObjects\Collider.h" />
     <ClInclude Include="Control\Input.h" />
@@ -169,30 +168,48 @@
     <ClInclude Include="GameObjects\Ingrediente.h" />
     <ClInclude Include="GameObjects\Muebles\InicioCinta.h" />
     <ClInclude Include="Jornada.h" />
+    <ClInclude Include="json\JSON.h" />
+    <ClInclude Include="json\JSONValue.h" />
     <ClInclude Include="PaellasRodriguez.h" />
     <ClInclude Include="GameObjects\Player.h" />
     <ClInclude Include="Data\Posicion.h" />
     <ClInclude Include="Data\Pool.h" />
     <ClInclude Include="GameObjects\PoolObject.h" />
-    <ClInclude Include="GameObjects\Muebles\Puerta.h" />
-    <ClInclude Include="RedactaComandabutton.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scenes\Restaurante.h" />
     <ClInclude Include="GameObjects\Muebles\Silla.h" />
     <ClInclude Include="GameObjects\Muebles\TablaProcesado.h" />
+    <ClInclude Include="sdlutils\Font.h" />
+    <ClInclude Include="sdlutils\InputHandler.h" />
+    <ClInclude Include="sdlutils\macros.h" />
+    <ClInclude Include="sdlutils\Music.h" />
+    <ClInclude Include="sdlutils\SDLUtils.h" />
+    <ClInclude Include="sdlutils\SoundEffect.h" />
+    <ClInclude Include="sdlutils\VirtualTimer.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Control\ViewController.h" />
     <ClInclude Include="GameObjects\Muebles\Ventanilla.h" />
+    <ClInclude Include="tmxlite\include\tmxlite\Config.hpp" />
+    <ClInclude Include="tmxlite\include\tmxlite\FreeFuncs.hpp" />
+    <ClInclude Include="tmxlite\include\tmxlite\ImageLayer.hpp" />
+    <ClInclude Include="tmxlite\include\tmxlite\Layer.hpp" />
+    <ClInclude Include="tmxlite\include\tmxlite\LayerGroup.hpp" />
+    <ClInclude Include="tmxlite\include\tmxlite\Map.hpp" />
+    <ClInclude Include="tmxlite\include\tmxlite\Object.hpp" />
+    <ClInclude Include="tmxlite\include\tmxlite\ObjectGroup.hpp" />
+    <ClInclude Include="tmxlite\include\tmxlite\Property.hpp" />
+    <ClInclude Include="tmxlite\include\tmxlite\TileLayer.hpp" />
+    <ClInclude Include="tmxlite\include\tmxlite\Tileset.hpp" />
+    <ClInclude Include="tmxlite\include\tmxlite\Types.hpp" />
     <ClInclude Include="UiButton.h" />
+    <ClInclude Include="Utils\Singleton.h" />
+    <ClInclude Include="Utils\Texture.h" />
     <ClInclude Include="Utils\Vector2D.h" />
-    <ClInclude Include="View\Texture.h" />
-    <ClInclude Include="View\TextureContainer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GameObjects\Muebles\cartel.cpp" />
-    <ClCompile Include="GameObjects\Cola.cpp" />
     <ClCompile Include="Control\Input.cpp" />
     <ClCompile Include="Data\Comanda.cpp" />
+    <ClCompile Include="GameObjects\Fondo.cpp" />
     <ClCompile Include="GameObjects\Muebles\FinalCinta.cpp" />
     <ClCompile Include="GameObjects\Cliente.cpp" />
     <ClCompile Include="GameObjects\Muebles\Cinta.cpp" />
@@ -216,15 +233,17 @@
     <ClCompile Include="GameObjects\Muebles\InicioCinta.cpp" />
     <ClCompile Include="Jornada.cpp" />
     <ClCompile Include="GameObjects\PoolObject.cpp" />
-    <ClCompile Include="GameObjects\Muebles\Puerta.cpp" />
-    <ClCompile Include="RedactaComandabutton.cpp" />
-    <ClCompile Include="Scenes\Restaurante.cpp" />
     <ClCompile Include="GameObjects\Muebles\Silla.cpp" />
     <ClCompile Include="GameObjects\Muebles\TablaProcesado.cpp" />
     <ClCompile Include="GameObjects\Muebles\Ventanilla.cpp" />
+    <ClCompile Include="json\JSON.cpp" />
+    <ClCompile Include="json\JSONValue.cpp" />
+    <ClCompile Include="Scenes\Restaurante.cpp" />
     <ClCompile Include="SDL2-2.0.20\include\SDL_rect.cpp" />
+    <ClCompile Include="sdlutils\SDLUtils.cpp" />
+    <ClCompile Include="sdlutils\SoundEffect.cpp" />
     <ClCompile Include="UiButton.cpp" />
-    <ClCompile Include="View\Texture.cpp" />
+    <ClCompile Include="Utils\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />
@@ -234,6 +253,12 @@
     <Image Include="PaellasRodriguez.ico" />
     <Image Include="SDL2-2.0.20\Images\coin.png" />
     <Image Include="small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Tilemap\Restaurante.json" />
+    <None Include="Assets\Tilemap\Restaurante.tmx" />
+    <None Include="json\RAEDME.md" />
+    <None Include="tmxlite\include\tmxlite\Types.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

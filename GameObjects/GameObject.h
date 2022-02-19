@@ -3,8 +3,8 @@
 #include "../Data/Posicion.h"
 #include "Collider.h"
 
-#include "../View/Texture.h"
-#include "../View/TextureContainer.h"
+#include "../Utils/Texture.h"
+#include "../Utils/TextureContainer.h"
 #include "../Utils/Vector2D.h"
 
 #include <string>
@@ -41,13 +41,13 @@ public:
 
     void setPosition(double x, double y);
     void setPosition(Vector2D<double> v);
-    void setDimension(double width, double height);
+    void setDimension(int width, int height);
 
     int getWidth() { return w; };
     int getHeight() { return h; };
 
-    int getX() { return pos.getX(); };
-    int getY() { return pos.getY(); };
+    double getX() { return pos.getX(); };
+    double getY() { return pos.getY(); };
     Vector2D<double> getPosition() { return pos; }
 
     virtual SDL_Rect getCollider();

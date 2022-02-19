@@ -27,7 +27,7 @@ class ObjectManager
 
 
 	//Pool de ingredientes
-
+	
 	Pool<Ingrediente> *ingredientes;
 	vector<TextureName> texturasIngredienes = { ingrAlcachofa, ingrCalamar, ingrCangrejo, 
 		ingrGamba, ingrLangosta, ingrMejillon, ingrPimientoRojo, ingrPimientoVerde, ingrPollo
@@ -41,11 +41,11 @@ public:
 	ObjectManager(Game* game);
 	~ObjectManager();
 
-	void render();
-	void debug();
-	void update();
+	void Render();
+	void Debug();
+	void Update();
 
-	pair<TextureName, int> getRandomIngridient();
+	pair<TextureName, int> GetRandomIngridient();
 	void Uievent(int mx,int my);
 	void creaComanda(Game*game);
 

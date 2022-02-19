@@ -19,7 +19,7 @@ void GameObject::setPosition(Vector2D<double> v)
 	pos = v;
 }
 
-void GameObject::setDimension(double width, double height)
+void GameObject::setDimension(int width, int height)
 {
 	w = width;
 	h = height;
