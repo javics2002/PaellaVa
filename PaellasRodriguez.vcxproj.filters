@@ -138,7 +138,11 @@
     <ClInclude Include="GameObjects\Cola.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+
     <ClInclude Include="GameObjects\Muebles\cartel.h">
+
+    <ClInclude Include="Ingredientebutton.h">
+
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
@@ -248,7 +252,12 @@
     <ClCompile Include="GameObjects\Cola.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="GameObjects\Muebles\cartel.cpp">
+
+   
+
+    <ClCompile Include="Ingredientebutton.cpp">
+     <ClCompile Include="GameObjects\Muebles\cartel.cpp">
+
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

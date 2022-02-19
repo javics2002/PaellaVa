@@ -168,6 +168,7 @@
     <ClInclude Include="Control\ObjectManager.h" />
     <ClInclude Include="GameObjects\Ingrediente.h" />
     <ClInclude Include="GameObjects\Muebles\InicioCinta.h" />
+    <ClInclude Include="Ingredientebutton.h" />
     <ClInclude Include="Jornada.h" />
     <ClInclude Include="PaellasRodriguez.h" />
     <ClInclude Include="GameObjects\Player.h" />
@@ -214,6 +215,7 @@
     <ClCompile Include="Control\ObjectManager.cpp" />
     <ClCompile Include="GameObjects\Ingrediente.cpp" />
     <ClCompile Include="GameObjects\Muebles\InicioCinta.cpp" />
+    <ClCompile Include="Ingredientebutton.cpp" />
     <ClCompile Include="Jornada.cpp" />
     <ClCompile Include="GameObjects\PoolObject.cpp" />
     <ClCompile Include="GameObjects\Muebles\Puerta.cpp" />

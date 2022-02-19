@@ -3,6 +3,7 @@
 #include "../GameObjects/Ingrediente.h"
 #include "../GameObjects/Cliente.h"
 #include "../GameObjects/GrupoClientes.h"
+#include "../UiButton.h"
 #include <queue>
 #include <vector>
 
@@ -48,7 +49,11 @@ public:
 	pair<TextureName, int> getRandomIngridient();
 	void Uievent(int mx,int my);
 	void creaComanda(Game*game);
+	void creaTeclado(UiButton* b);
+	void redactaIngrediente(Game* game, TextureName ingrediente,int px, int py, int longi);
+
 
 	vector<Collider*> getClientes(SDL_Rect gOC);
+	
 };
 

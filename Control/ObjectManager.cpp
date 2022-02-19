@@ -79,6 +79,7 @@ void ObjectManager::Uievent(int mx, int my)
 {
 	for (auto i : interfaz)
 	{
+		if(i!= nullptr)
 		i->OnClick(mx, my);
 	}
 }
@@ -86,7 +87,16 @@ void ObjectManager::creaComanda(Game*game)
 {
 	comandas.push_back(new Comanda(game, 2));
 }
+void ObjectManager::creaTeclado(UiButton* b)
+{
+	interfaz.push_back(b);
+}
+	
 
+void ObjectManager::redactaIngrediente(Game* game,TextureName ingrediente, int px, int py, int longi)
+{
+	interfaz.push_back(new UiButton(game, ingrediente, px, py, longi, longi));
+}
 vector<Collider*> ObjectManager::getClientes(SDL_Rect gOC)
 {
 
