@@ -10,8 +10,6 @@ class Cliente : public PoolObject
 
 	enum { SENTADO, COMIENDO, ENCOLA, COGIDO ,CAMINANDO} estado;
 
-
-
 public:
 	Cliente(Game* game);	
 	~Cliente() = default;

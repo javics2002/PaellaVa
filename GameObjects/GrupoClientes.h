@@ -9,12 +9,13 @@ class Game;
 
 class GrupoClientes : public PoolObject
 {
-	vector<Cliente*> *clientes;
+	vector<Cliente*> clientes;
 	list<GrupoClientes*>::const_iterator posCola;
 
 	//Comanda* comanda;
 	bool espera = false;
 
+	int x, y;
 
 public:
 	GrupoClientes(Game* game) : PoolObject(game) {};
@@ -24,8 +25,8 @@ public:
 	void Comer();
 	float Puntuacion();
 	
-	void setGrupo(list<GrupoClientes*>::const_iterator pos, vector<Cliente*>* clientes_);
+	void setGrupo(list<GrupoClientes*>::const_iterator pos, vector<Cliente*> clientes_);
 
-	void update() {};
+	void update();
 };
 

@@ -19,6 +19,7 @@ void Cliente::update()
 	else if (estado == ENCOLA) {
 
 	}
+
 }
 
 void Cliente::onActivate()

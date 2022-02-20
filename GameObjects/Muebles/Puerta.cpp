@@ -44,7 +44,7 @@ void Puerta::update()
 
 			GrupoClientes* g = poolGrupos->add();
 			cola->add(g, integrantes);
-			g->setGrupo(cola->getPos(), &v);			
+			g->setGrupo(cola->getPos(), v);			
 		}
 		
 		time = SDL_GetTicks();

@@ -67,6 +67,8 @@ void ObjectManager::update()
 	ingredientes->update();	
 
 	clientes->update();
+
+	grupoClientes->update();
 }
 
 pair<TextureName, int> ObjectManager::getRandomIngridient()
