@@ -66,9 +66,14 @@ void ObjectManager::update()
 
 	ingredientes->update();	
 
+	SDL_GetMouseState(&x, &y);
+
+	SDL_Rect rect = SDL_Rect{ x, y, range, range };
+
+	cliente->ratonRect(rect);
+
 	clientes->update();
 
-	grupoClientes->update();
 }
 
 pair<TextureName, int> ObjectManager::getRandomIngridient()

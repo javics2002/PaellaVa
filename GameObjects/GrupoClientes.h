@@ -15,8 +15,6 @@ class GrupoClientes : public PoolObject
 	//Comanda* comanda;
 	bool espera = false;
 
-	int x, y;
-
 public:
 	GrupoClientes(Game* game) : PoolObject(game) {};
 	~GrupoClientes() = default;
@@ -27,6 +25,6 @@ public:
 	
 	void setGrupo(list<GrupoClientes*>::const_iterator pos, vector<Cliente*> clientes_);
 
-	void update();
+	void update() {};
 };
 

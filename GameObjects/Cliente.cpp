@@ -9,8 +9,16 @@ Cliente::Cliente(Game* game) : PoolObject(game)
 
 void Cliente::update()
 {
-	for (auto i : game->getClientes(getCollider())) {
+
+	SDL_Rect rect1 = getCollider();
+
+	for (auto i : game->getClientes(rect1)) {
 		if (i != this)colisionClientes();
+	}
+
+
+	if (SDL_HasIntersection(&rect1, &rect2)) {
+		cout << "100%\n";
 	}
 
 	if (estado==CAMINANDO) {
@@ -37,4 +45,9 @@ bool Cliente::colisionClientes()
 void Cliente::cambiaTextura(TextureName textureN)
 {
 	textureName = textureN;
+}
+
+void Cliente::ratonRect(SDL_Rect rect)
+{
+	rect2 = rect;
 }

@@ -34,6 +34,11 @@ class ObjectManager
 		ingrGamba, ingrLangosta, ingrMejillon, ingrPimientoRojo, ingrPimientoVerde, ingrPollo
 	};
 
+	//Para formar el rect del raton
+	int x, y, range = 20;
+
+	Cliente* cliente;
+
 	vector<GameObject*> muebles;
 	vector<GameObject*> interfaz;
 	vector<GameObject*> comandas;//esto va a ser nuestra version de capas 
