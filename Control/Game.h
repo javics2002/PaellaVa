@@ -10,48 +10,26 @@
 #include "ObjectManager.h"
 #include "../GameObjects/Player.h"
 
-#include "../View/TextureContainer.h"
-#include "../View/Texture.h"
+#include "../Utils/Texture.h"
 
 using namespace std;
 
 class Game{
-    string name;
-    int width, height;
-    bool doExit;
-
-    SDL_Renderer* renderer = nullptr;
-    //Font* font;
-
     bool debug = false;
 
     ObjectManager* objectManager;
-    TextureContainer* textureContainer;
-    Player* player;
 
 public:
-    Game(int width, int height);
+    Game();
     ~Game();
 
-    string getGameName();
+    void init();
+    void start();
 
-    void startGame();
+    void handleInput(SDL_Event& event, bool &exit);
     void update();
-    void draw();
-
-    void setUserExit();
-    bool isUserExit();
-
-    int getWindowWidth();
-    int getWindowHeight();
-    //Font* getFont() { return font; };
-
-    void setRenderer(SDL_Renderer* renderer);
-    void loadTextures();
-    SDL_Renderer* getRenderer();
-    //void renderText(string text, int x, int y, SDL_Color color = { 0,0,0 });
-
-    Texture* getTexture(TextureName name);
+    void render();
+    void renderDebug();
 
     pair<TextureName, int> getRandomIngridient();
     ObjectManager* getObjectManager();

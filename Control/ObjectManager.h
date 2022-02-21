@@ -41,12 +41,13 @@ public:
 	ObjectManager(Game* game);
 	~ObjectManager();
 
-	void Render();
-	void Debug();
-	void Update();
+	void handleInput();
+	void update();
+	void render();
+	void renderDebug();
 
-	pair<TextureName, int> GetRandomIngridient();
-	void Uievent(int mx,int my);
+	pair<TextureName, int> getRandomIngridient();
+	void uiEvent(int mx,int my);
 	void creaComanda(Game*game);
 
 	vector<Collider*> getClientes(SDL_Rect gOC);

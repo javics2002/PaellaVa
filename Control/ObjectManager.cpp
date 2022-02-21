@@ -75,7 +75,7 @@ pair<TextureName, int> ObjectManager::getRandomIngridient()
 
 	return { texturasIngredienes[n], n};
 }
-void ObjectManager::Uievent(int mx, int my)
+void ObjectManager::uiEvent(int mx, int my)
 {
 	for (auto i : interfaz)
 	{
