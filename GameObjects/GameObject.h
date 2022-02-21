@@ -26,6 +26,7 @@ protected:
     TextureName textureName;
 
     void drawTexture(Texture* texture);
+    void drawTexture(Texture* texture, SDL_Rect rect);
 public:
 
     GameObject(Game* game) : game(game), texture(nullptr), w(0), h(0) {
@@ -53,6 +54,6 @@ public:
     virtual SDL_Rect getCollider();
     virtual SDL_Rect getCenter();
 
-    bool collide(SDL_Rect other);
+    virtual bool collide(SDL_Rect other);
 };
 

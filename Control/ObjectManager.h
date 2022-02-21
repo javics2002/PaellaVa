@@ -35,7 +35,7 @@ class ObjectManager
 	};
 
 	//Para formar el rect del raton
-	int x, y, range = 20;
+	int x, y, range = 2;
 
 	Cliente* cliente;
 

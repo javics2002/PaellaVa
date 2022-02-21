@@ -9,6 +9,11 @@ void GameObject::drawTexture(Texture* texture)
 	texture->render(textureBox);
 }
 
+void GameObject::drawTexture(Texture* texture, SDL_Rect rect)
+{
+	texture->render(rect);
+}
+
 void GameObject::setPosition(double x, double y)
 {
 	pos = Point2D<double>(x, y);

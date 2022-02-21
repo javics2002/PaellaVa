@@ -16,11 +16,6 @@ void Cliente::update()
 		if (i != this)colisionClientes();
 	}
 
-
-	if (SDL_HasIntersection(&rect1, &rect2)) {
-		cout << "100%\n";
-	}
-
 	if (estado==CAMINANDO) {
 		setPosition(getX() + 2.0f, getY());
 	}
@@ -45,9 +40,4 @@ bool Cliente::colisionClientes()
 void Cliente::cambiaTextura(TextureName textureN)
 {
 	textureName = textureN;
-}
-
-void Cliente::ratonRect(SDL_Rect rect)
-{
-	rect2 = rect;
 }

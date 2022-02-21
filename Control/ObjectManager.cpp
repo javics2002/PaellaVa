@@ -70,7 +70,11 @@ void ObjectManager::update()
 
 	SDL_Rect rect = SDL_Rect{ x, y, range, range };
 
-	cliente->ratonRect(rect);
+
+	for (auto i : grupoClientes->getCollisions(rect)) {
+		i->ratonEncima();
+		cout << "100%\n";
+	}
 
 	clientes->update();
 
