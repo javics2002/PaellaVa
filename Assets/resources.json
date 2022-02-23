@@ -1,31 +1,41 @@
-{
-
-  "fonts" : [
-    { "id" : "ARIAL16", "file" : "resources/fonts/ARIAL.ttf", "size": 16 },
-    { "id" : "ARIAL24", "file" : "resources/fonts/ARIAL.ttf", "size": 24 },
-    { "id" : "ARIAL48", "file" : "resources/fonts/ARIAL.ttf", "size": 48 }
-  ],
+{/*
+  "fonts": [
+    /*{ "id": "ARIAL16", "file": "resources/fonts/ARIAL.ttf", "size": 16 },
+    { "id": "ARIAL24", "file": "resources/fonts/ARIAL.ttf", "size": 24 },
+    { "id": "ARIAL48", "file": "resources/fonts/ARIAL.ttf", "size": 48 }
+  ],*/
   
-  "images" : [
-    { "id" : "sdl_logo", "file" : "resources/images/SDL_logo.png" },
-    { "id" : "tennis_ball", "file" : "resources/images/tennis_ball.png" },
-    { "id" : "star", "file" : "resources/images/star.png"},
-    { "id" : "pacman_sprites", "file" : "resources/images/pacman_sprites.png"}
-  ],
-  
-  "messages" : [
-    { "id" : "PressAnyKey", "text" : "Press Any Key", "font" : "ARIAL24", "color" : "0x112233ff", "bg" : "0xffffffff" },
-    { "id" : "HelloSDL", "text" : "Hello SDL!", "font" : "ARIAL48", "color" : "0x0000ffff" }
-  ],
-  
-  "sounds" : [
-    { "id" : "gunshot", "file" : "resources/sound/gunshot.wav" },
-    { "id" : "explosion", "file" : "resources/sound/explosion.wav" }
-  ],
-
-  "musics" : [
-    { "id" : "beat", "file" : "resources/sound/beat.wav" },
-    { "id" : "imperial_march", "file" : "resources/sound/imperial_march.wav" }
+  "images": [
+    { "id": "barraTolerancia", "file": "../../../Assets/Images/barraTolerancia.png" },
+    { "id": "cuadernillo", "file": "../../../Assets/Images/cuadernillo.png"},
+    { "id": "finalCinta", "file": "../../../Assets/Images/finalCinta.png" },
+    { "id": "inicioCinta", "file": "../../../Assets/Images/inicioCinta.png" },
+    { "id": "mesa", "file": "../../../Assets/Images/mesa.png" },
+    { "id": "redactaboton", "file": "../../../Assets/Images/redactaboton.png" },
+    { "id": "alcachofa", "file": "../../../Assets/Images/Ingredientes/alcachofa.png" },
+    { "id": "berenjena", "file": "../../../Assets/Images/Ingredientes/berenjena.png" },
+    { "id": "calamar", "file": "../../../Assets/Images/Ingredientes/calamar.png" },
+    { "id": "cangrejo", "file": "../../../Assets/Images/Ingredientes/cangrejo.png" },
+    { "id": "gamba", "file": "../../../Assets/Images/Ingredientes/gamba.png" },
+    { "id": "langosta", "file": "../../../Assets/Images/Ingredientes/langosta.png" },
+    { "id": "mejillon", "file": "../../../Assets/Images/Ingredientes/mejillon.png" },
+    { "id": "pimientoRojo", "file": "../../../Assets/Images/Ingredientes/pimientoRojo.png" },
+    { "id": "pimientoVerde", "file": "../../../Assets/Images/Ingredientes/pimientoVerde.png" },
+    { "id": "pollo", "file": "../../../Assets/Images/Ingredientes/pollo.png" }
   ]
+  /*
+  "messages": [
+    /*{ "id": "PressAnyKey", "text": "Press Any Key", "font" : "ARIAL24", "color" : "0x112233ff", "bg" : "0xffffffff" },
+    { "id": "HelloSDL", "text": "Hello SDL!", "font" : "ARIAL48", "color" : "0x0000ffff" }
+  ],
+  
+  "sounds": [
+    /*{ "id": "gunshot", "file": "resources/sound/gunshot.wav" },
+    { "id": "explosion", "file": "resources/sound/explosion.wav" }
+  ],
 
+  "musics": [
+    /*{ "id": "beat", "file": "resources/sound/beat.wav" },
+    { "id": "imperial_march", "file": "resources/sound/imperial_march.wav" }
+  ]*/
 }

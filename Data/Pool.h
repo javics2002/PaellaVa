@@ -107,13 +107,7 @@ public:
 
 	void render() {	
 		for (auto it : activeObjects)
-			it->draw();
-	}
-
-	void debug() {
-		for (auto it : activeObjects) {
-			it->drawDebug();
-		}
+			it->render();
 	}
 
 	void update() {

@@ -4,13 +4,13 @@
 Cliente::Cliente(Game* game) : PoolObject(game)
 {
 	setDimension(DIMENSION, DIMENSION);
-	textureName = berenjenaTexture;
+	setTexture("berenjena");
 }
 
 void Cliente::update()
 {
-	for (auto i : game->getClientes(getCollider())) {
-		if (i != this)colisionClientes();
+	for (auto i : game->getObjectManager()->getClientes(getCollider())) {
+		if (i != this) colisionClientes();
 	}
 
 	if (estado==CAMINANDO) {
@@ -33,7 +33,7 @@ bool Cliente::colisionClientes()
 	return true;
 }
 
-void Cliente::cambiaTextura(TextureName textureN)
+void Cliente::cambiaTextura(string nuevaClave)
 {
-	textureName = textureN;
+	setTexture(nuevaClave);
 }

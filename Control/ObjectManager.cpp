@@ -6,6 +6,7 @@
 #include "../Data/Comanda.h"
 #include "../GameObjects/Muebles/cartel.h"
 #include "../../Utils/Vector2D.h"
+#include "../GameObjects/Ingrediente.h"
 
 
 ObjectManager::ObjectManager(Game* game)
@@ -18,7 +19,7 @@ ObjectManager::ObjectManager(Game* game)
 	muebles.push_back(new FinalCinta(game, ingredientes));
 	muebles.push_back(new Puerta(game, clientes, grupoClientes));
 	muebles.push_back(new Cartel(game));
-	interfaz.push_back(new RedactaComandabutton(game, botonredacta,10,10,30,30));
+	//interfaz.push_back(new RedactaComandabutton(game, botonredacta,10,10,30,30));
 }
 
 ObjectManager::~ObjectManager()
@@ -34,14 +35,14 @@ ObjectManager::~ObjectManager()
 void ObjectManager::render()
 {
 	for (auto i : muebles)
-		i->draw();
+		i->render();
 	for (auto z : comandas)
 	{
-		z->draw();
+		z->render();
 	}
 	for (auto j : interfaz)
 	{ 
-		j->draw();
+		j->render();
 	}
 
 	ingredientes->render();	
@@ -49,14 +50,8 @@ void ObjectManager::render()
 	clientes->render();
 }
 
-void ObjectManager::debug()
+void ObjectManager::handleInput()
 {
-	for (auto i : muebles)
-		i->drawDebug();
-
-	ingredientes->debug();
-
-	clientes->debug();
 }
 
 void ObjectManager::update()
@@ -69,12 +64,6 @@ void ObjectManager::update()
 	clientes->update();
 }
 
-pair<TextureName, int> ObjectManager::getRandomIngridient()
-{
-	int n = rand() % (texturasIngredienes.size());
-
-	return { texturasIngredienes[n], n};
-}
 void ObjectManager::uiEvent(int mx, int my)
 {
 	for (auto i : interfaz)

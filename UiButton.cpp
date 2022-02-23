@@ -1,12 +1,12 @@
 #include "UiButton.h"
-UiButton::UiButton(Game* game,TextureName texturename, int x, int y, int w, int h):GameObject(game)
+UiButton::UiButton(Game* game, string claveTextura, int x, int y, int w, int h):GameObject(game)
 {
 	Vector2D<double> p;
 	p.setX(x);
 	p.setY(y);
 	setPosition(p);
 	setDimension(w, h);
-	textureName = texturename;
+	setTexture(claveTextura);
 }
 UiButton::~UiButton()
 {

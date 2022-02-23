@@ -21,6 +21,6 @@ public:
 
 	bool colisionClientes() override;
 
-	void cambiaTextura(TextureName textureN);
+	void cambiaTextura(string nuevaClave);
 };
 

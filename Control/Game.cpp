@@ -17,7 +17,7 @@ Game::~Game() {
 
 void Game::init() 
 {
-	SDLUtils::init("Paellas", 1080, 720, "../Assets/resources.json");
+	SDLUtils::init("Paellas", 1080, 720, "../../../Assets/resources.json");
 
 	objectManager = new ObjectManager(this);
 }
@@ -65,27 +65,10 @@ void Game::render()
 
 	objectManager->render();
 
-	if (debug)
-		renderDebug();
-
 	sdlutils().presentRenderer();
 }
 
-void Game::renderDebug()
-{
-	objectManager->renderDebug();
-}
-
-pair<TextureName, int> Game::getRandomIngridient()
-{
-	return objectManager->getRandomIngridient();
-}
 ObjectManager* Game::getObjectManager()
 {
 	return objectManager;
-}
-
-vector<Collider*> Game::getClientes(SDL_Rect gOC)
-{
-	return objectManager->getClientes(gOC);
 }

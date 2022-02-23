@@ -12,7 +12,7 @@ Player::Player(Game* game) : GameObject(game)
 
 	input_ = new Input();
 	velocidad_ = 2.0f;
-	textureName = ingrAlcachofa; //añadir imagen de jugador xD
+	setTexture("alcachofa"); //añadir imagen de jugador xD
 }
 
 Player::~Player()

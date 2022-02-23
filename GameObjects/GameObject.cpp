@@ -2,13 +2,6 @@
 
 #include "../Control/Game.h"
 
-void GameObject::drawTexture(Texture* texture)
-{
-	SDL_Rect c = getCollider();
-	SDL_Rect textureBox = { c.x, c.y, c.w, c.h };
-	texture->render(textureBox);
-}
-
 void GameObject::setPosition(double x, double y)
 {
 	pos = Point2D<double>(x, y);
@@ -23,6 +16,11 @@ void GameObject::setDimension(int width, int height)
 {
 	w = width;
 	h = height;
+}
+
+void GameObject::setTexture(string clave)
+{
+	texture = &sdlutils().images().at(clave);
 }
 
 SDL_Rect GameObject::getCollider()
@@ -50,22 +48,10 @@ bool GameObject::collide(SDL_Rect other)
 	return SDL_HasIntersection(&rect1, &rect2);
 }
 
-void GameObject::drawDebug()
+void GameObject::render()
 {
-	SDL_Rect collider = getCollider();
-	SDL_Rect center = getCenter();
-	collider = { collider.x, collider.y, collider.w, collider.h };
-	center = { center.x, center.y, center.w, center.h };
-
-	SDL_SetRenderDrawColor(game->getRenderer(), 255, 0, 0, 0);
-	SDL_RenderDrawRect(game->getRenderer(), &collider);
-	SDL_SetRenderDrawColor(game->getRenderer(), 0, 0, 255, 0);
-	SDL_RenderFillRect(game->getRenderer(), &center);
-	SDL_SetRenderDrawColor(game->getRenderer(), 255, 255, 255, 0);
-}
-
-void GameObject::draw()
-{
-	drawTexture(game->getTexture(textureName));
+	SDL_Rect c = getCollider();
+	SDL_Rect textureBox = { c.x, c.y, c.w, c.h };
+	texture->render(textureBox);
 }
 

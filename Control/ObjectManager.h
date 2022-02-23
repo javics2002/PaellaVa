@@ -29,14 +29,11 @@ class ObjectManager
 	//Pool de ingredientes
 	
 	Pool<Ingrediente> *ingredientes;
-	vector<TextureName> texturasIngredienes = { ingrAlcachofa, ingrCalamar, ingrCangrejo, 
-		ingrGamba, ingrLangosta, ingrMejillon, ingrPimientoRojo, ingrPimientoVerde, ingrPollo
-	};
 
 	vector<GameObject*> muebles;
 	vector<GameObject*> interfaz;
 	vector<GameObject*> comandas;//esto va a ser nuestra version de capas 
-	//en el orden en elq ue lo renderizamos nos aseguramos que la ui esta por encima de todo
+	//en el orden en el que lo renderizamos nos aseguramos que la UI esta por encima de todo
 public:
 	ObjectManager(Game* game);
 	~ObjectManager();
@@ -44,9 +41,7 @@ public:
 	void handleInput();
 	void update();
 	void render();
-	void renderDebug();
 
-	pair<TextureName, int> getRandomIngridient();
 	void uiEvent(int mx,int my);
 	void creaComanda(Game*game);
 

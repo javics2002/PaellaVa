@@ -15,8 +15,6 @@
 using namespace std;
 
 class Game{
-    bool debug = false;
-
     ObjectManager* objectManager;
 
 public:
@@ -29,12 +27,7 @@ public:
     void handleInput(SDL_Event& event, bool &exit);
     void update();
     void render();
-    void renderDebug();
 
-    pair<TextureName, int> getRandomIngridient();
     ObjectManager* getObjectManager();
-
-    vector<Collider*> getClientes(SDL_Rect gOC);
-
 };
 

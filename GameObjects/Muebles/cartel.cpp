@@ -3,14 +3,14 @@
 
 Cartel::Cartel(Game* game) : GameObject(game)
 {
-	textureName = cartel;
+	setTexture("cartel");
 	setDimension(DIMENSION_W, DIMENSION_H);
-	setPosition(1000, game->getWindowHeight() - DIMENSION_H / 2);
+	setPosition(1000, sdlutils().height() - DIMENSION_H / 2);
 }
 
 void Cartel::update()
 {
-	for (auto i : game->getClientes(getCollider())) {
+	for (auto i : game->getObjectManager()->getClientes(getCollider())) {
 		i->colisionClientes();
 	}
 }

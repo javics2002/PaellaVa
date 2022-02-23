@@ -3,9 +3,9 @@
 
 #include <iostream>
 
-Ingrediente::Ingrediente(Game* game) :  PoolObject(game), tipoIngrediente(-1) {
+Ingrediente::Ingrediente(Game* game) :  PoolObject(game) {
 	setDimension(DIMENSION, DIMENSION);
-	setPosition(game->getWindowWidth() / 2, game->getWindowHeight());
+	setPosition(sdlutils().width() / 2, sdlutils().height());
 }
 
 void Ingrediente::update()
@@ -22,8 +22,7 @@ std::list<PoolObject*>::const_iterator Ingrediente::ingredientCollide()
 
 void Ingrediente::onActivate()
 {
-	auto pair = game->getRandomIngridient();
+	int n = rand() % (texturaIngrediente.size());
 
-	textureName = pair.first;
-	tipoIngrediente = pair.second;
+	setTexture(texturaIngrediente[n]);
 }

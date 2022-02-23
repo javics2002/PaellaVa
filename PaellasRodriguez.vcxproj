@@ -145,7 +145,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GameObjects\Cola.h" />
     <ClInclude Include="GameObjects\Fondo.h" />
+    <ClInclude Include="GameObjects\Muebles\cartel.h" />
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
     <ClInclude Include="GameObjects\Collider.h" />
     <ClInclude Include="Control\Input.h" />
@@ -159,6 +161,7 @@
     <ClInclude Include="GameObjects\Muebles\Mueble.h" />
     <ClInclude Include="GameObjects\Muebles\Lavavajillas.h" />
     <ClInclude Include="GameObjects\Muebles\Mesa.h" />
+    <ClInclude Include="GameObjects\Muebles\Puerta.h" />
     <ClInclude Include="GameObjects\ObjetoPortable.h" />
     <ClInclude Include="GameObjects\Paella.h" />
     <ClInclude Include="GameObjects\GrupoClientes.h" />
@@ -187,7 +190,6 @@
     <ClInclude Include="sdlutils\SoundEffect.h" />
     <ClInclude Include="sdlutils\VirtualTimer.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="Control\ViewController.h" />
     <ClInclude Include="GameObjects\Muebles\Ventanilla.h" />
     <ClInclude Include="tmxlite\include\tmxlite\Config.hpp" />
     <ClInclude Include="tmxlite\include\tmxlite\FreeFuncs.hpp" />
@@ -209,15 +211,17 @@
   <ItemGroup>
     <ClCompile Include="Control\Input.cpp" />
     <ClCompile Include="Data\Comanda.cpp" />
+    <ClCompile Include="GameObjects\Cola.cpp" />
     <ClCompile Include="GameObjects\Fondo.cpp" />
+    <ClCompile Include="GameObjects\Muebles\cartel.cpp" />
     <ClCompile Include="GameObjects\Muebles\FinalCinta.cpp" />
     <ClCompile Include="GameObjects\Cliente.cpp" />
     <ClCompile Include="GameObjects\Muebles\Cinta.cpp" />
     <ClCompile Include="Control\Game.cpp" />
     <ClCompile Include="Control\main.cpp" />
-    <ClCompile Include="Control\ViewController.cpp" />
     <ClCompile Include="GameObjects\Muebles\Fogones.cpp" />
     <ClCompile Include="GameObjects\GameObject.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Puerta.cpp" />
     <ClCompile Include="GameObjects\Player.cpp" />
     <ClCompile Include="Data\Posicion.cpp" />
     <ClCompile Include="GameObjects\Muebles\Mueble.cpp" />
@@ -255,8 +259,6 @@
     <Image Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Tilemap\Restaurante.json" />
-    <None Include="Assets\Tilemap\Restaurante.tmx" />
     <None Include="json\RAEDME.md" />
     <None Include="tmxlite\include\tmxlite\Types.inl" />
   </ItemGroup>

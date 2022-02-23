@@ -13,7 +13,7 @@ private:
 	
 public:
 	//UiButton(int x, int y, Texture* texture,int w,int h) :x(x), y(y), textura(texture) ,w(w),h(h){};
-	UiButton(Game* game,TextureName texturename,int x, int y , int w, int h);
+	UiButton(Game* game, string claveTextura, int x, int y , int w, int h);
 	~UiButton();
 	virtual bool  OnClick(int mx, int my) override;
 	virtual void execute();

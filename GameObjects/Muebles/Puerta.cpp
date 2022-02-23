@@ -5,9 +5,9 @@ Puerta::Puerta(Game* game, Pool<Cliente>* pool, Pool<GrupoClientes>* pool2) :
 	GameObject(game), poolClientes(pool), poolGrupos(pool2), time(SDL_GetTicks())
 {
 	cola = new Cola();
-	textureName = inicioCintaTexture;
+	setTexture("inicioCinta");
 	setDimension(DIMENSION_W, DIMENSION_H);
-	setPosition(DIMENSION_W / 2, game->getWindowHeight() - DIMENSION_H / 2);
+	setPosition(DIMENSION_W / 2, sdlutils().height() - DIMENSION_H / 2);
 }
 
 void Puerta::update()
@@ -24,7 +24,7 @@ void Puerta::update()
 
 			vector<Cliente*> v;
 			Cliente* k= poolClientes->add();
-			k->cambiaTextura(texturasClientes[0 + rand() % texturasClientes.size()]);
+			//k->cambiaTextura(texturasClientes[0 + rand() % texturasClientes.size()]);
 			v.push_back(k);
 
 			int width = k->getWidth()+SEPARACIONCLIENTE;
@@ -36,7 +36,7 @@ void Puerta::update()
 				w -= width;
 				
 				k = poolClientes->add(Vector2D<double>(w, getY()));
-				k->cambiaTextura(texturasClientes[0 + rand() % texturasClientes.size()]);
+				//k->cambiaTextura(texturasClientes[0 + rand() % texturasClientes.size()]);
 				v.push_back(k);
 
 

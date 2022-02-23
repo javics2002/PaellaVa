@@ -8,7 +8,6 @@
     <ClCompile Include="GameObjects\Muebles\Cinta.cpp" />
     <ClCompile Include="Control\Game.cpp" />
     <ClCompile Include="Control\main.cpp" />
-    <ClCompile Include="Control\ViewController.cpp" />
     <ClCompile Include="GameObjects\Muebles\Fogones.cpp" />
     <ClCompile Include="GameObjects\GameObject.cpp" />
     <ClCompile Include="GameObjects\Player.cpp" />
@@ -38,6 +37,9 @@
     <ClCompile Include="json\JSON.cpp" />
     <ClCompile Include="json\JSONValue.cpp" />
     <ClCompile Include="sdlutils\SoundEffect.cpp" />
+    <ClCompile Include="GameObjects\Muebles\cartel.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Puerta.cpp" />
+    <ClCompile Include="GameObjects\Cola.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
@@ -73,7 +75,6 @@
     <ClInclude Include="GameObjects\Muebles\TablaProcesado.h" />
     <ClInclude Include="sdlutils\SDLUtils.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="Control\ViewController.h" />
     <ClInclude Include="GameObjects\Muebles\Ventanilla.h" />
     <ClInclude Include="UiButton.h" />
     <ClInclude Include="Utils\Vector2D.h" />
@@ -100,6 +101,9 @@
     <ClInclude Include="tmxlite\include\tmxlite\Map.hpp" />
     <ClInclude Include="tmxlite\include\tmxlite\Object.hpp" />
     <ClInclude Include="tmxlite\include\tmxlite\ObjectGroup.hpp" />
+    <ClInclude Include="GameObjects\Muebles\cartel.h" />
+    <ClInclude Include="GameObjects\Muebles\Puerta.h" />
+    <ClInclude Include="GameObjects\Cola.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />
@@ -112,8 +116,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="json\RAEDME.md" />
-    <None Include="Assets\Tilemap\Restaurante.json" />
-    <None Include="Assets\Tilemap\Restaurante.tmx" />
     <None Include="tmxlite\include\tmxlite\Types.inl" />
   </ItemGroup>
 </Project>

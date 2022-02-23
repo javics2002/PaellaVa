@@ -3,10 +3,10 @@
 
 FinalCinta::FinalCinta(Game* game, Pool<Ingrediente>* pool) : GameObject(game), poolIngredientes(pool)
 {
-	setPosition(game->getWindowWidth() - DIMENSION_W / 2, DIMENSION_H / 2);
+	setPosition(sdlutils().width() - DIMENSION_W / 2, DIMENSION_H / 2);
 	setDimension(DIMENSION_W, DIMENSION_H);
 
-	textureName = finalCintaTexture;
+	setTexture("finalCinta");
 }
 
 void FinalCinta::update()

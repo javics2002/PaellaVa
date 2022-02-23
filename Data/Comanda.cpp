@@ -1,7 +1,7 @@
 #include "Comanda.h"
 Comanda::Comanda(Game* game,uint nmesa):GameObject(game)
 {
-	textureName = cuadernillo;
+	setTexture("cuadernillo");
 	Vector2D<double> p;
 	p.setX(100);
 	p.setY(100);

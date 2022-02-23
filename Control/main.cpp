@@ -6,8 +6,8 @@ using namespace std;
 void Start() {
 	Game g;
 
-	g.Init();
-	g.Start();
+	g.init();
+	g.start();
 }
 
 int main(int, char**) {

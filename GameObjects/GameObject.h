@@ -4,8 +4,8 @@
 #include "Collider.h"
 
 #include "../Utils/Texture.h"
-#include "../Utils/TextureContainer.h"
 #include "../Utils/Vector2D.h"
+#include "../sdlutils/SDLUtils.h"
 
 #include <string>
 
@@ -17,31 +17,30 @@ class GameObject : public Collider
 {
     const int CENTER_TAM = 4;
 
-    Point2D<double> pos;
+protected:
+    Vector2D<double> pos, vel;
     int w, h;
 
-protected:
     Game* game;
     Texture* texture;
-    TextureName textureName;
 
-    void drawTexture(Texture* texture);
 public:
 
     GameObject(Game* game) : game(game), texture(nullptr), w(0), h(0) {
-        textureName = berenjenaTexture;
+    };
+    GameObject(Game* game, string claveTextura) : game(game), texture(&sdlutils().images().at(claveTextura)), w(0), h(0) {
     };
 
     virtual ~GameObject() {};
 
-    virtual void draw();
-    virtual void drawDebug();
     virtual void update() = 0;
+    virtual void render();
     virtual bool OnClick(int mx, int my) { return false; };
 
     void setPosition(double x, double y);
     void setPosition(Vector2D<double> v);
     void setDimension(int width, int height);
+    void setTexture(string clave);
 
     int getWidth() { return w; };
     int getHeight() { return h; };

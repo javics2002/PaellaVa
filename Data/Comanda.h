@@ -1,7 +1,6 @@
 #pragma once
 #include <vector>
-#include "../View/Texture.h"
-#include "../SDL2-2.0.20/Nuklear-master/nuklear.h"
+#include "../Utils/Texture.h"
 #include "../GameObjects/GameObject.h"
 #include "../UiButton.h"
 #define NK_IMPLEMENTATION
