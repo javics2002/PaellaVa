@@ -1,10 +1,4 @@
-{/*
-  "fonts": [
-    /*{ "id": "ARIAL16", "file": "resources/fonts/ARIAL.ttf", "size": 16 },
-    { "id": "ARIAL24", "file": "resources/fonts/ARIAL.ttf", "size": 24 },
-    { "id": "ARIAL48", "file": "resources/fonts/ARIAL.ttf", "size": 48 }
-  ],*/
-  
+{
   "images": [
     { "id": "barraTolerancia", "file": "../../../Assets/Images/barraTolerancia.png" },
     { "id": "cuadernillo", "file": "../../../Assets/Images/cuadernillo.png"},
@@ -23,19 +17,4 @@
     { "id": "pimientoVerde", "file": "../../../Assets/Images/Ingredientes/pimientoVerde.png" },
     { "id": "pollo", "file": "../../../Assets/Images/Ingredientes/pollo.png" }
   ]
-  /*
-  "messages": [
-    /*{ "id": "PressAnyKey", "text": "Press Any Key", "font" : "ARIAL24", "color" : "0x112233ff", "bg" : "0xffffffff" },
-    { "id": "HelloSDL", "text": "Hello SDL!", "font" : "ARIAL48", "color" : "0x0000ffff" }
-  ],
-  
-  "sounds": [
-    /*{ "id": "gunshot", "file": "resources/sound/gunshot.wav" },
-    { "id": "explosion", "file": "resources/sound/explosion.wav" }
-  ],
-
-  "musics": [
-    /*{ "id": "beat", "file": "resources/sound/beat.wav" },
-    { "id": "imperial_march", "file": "resources/sound/imperial_march.wav" }
-  ]*/
 }
