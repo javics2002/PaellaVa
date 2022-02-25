@@ -170,7 +170,8 @@
     <ClInclude Include="Control\ObjectManager.h" />
     <ClInclude Include="GameObjects\Ingrediente.h" />
     <ClInclude Include="GameObjects\Muebles\InicioCinta.h" />
-    <ClInclude Include="Jornada.h" />
+    <ClInclude Include="GameObjects\UI\RedactaComandabutton.h" />
+    <ClInclude Include="GameObjects\UI\UiButton.h" />
     <ClInclude Include="json\JSON.h" />
     <ClInclude Include="json\JSONValue.h" />
     <ClInclude Include="PaellasRodriguez.h" />
@@ -203,7 +204,6 @@
     <ClInclude Include="tmxlite\include\tmxlite\TileLayer.hpp" />
     <ClInclude Include="tmxlite\include\tmxlite\Tileset.hpp" />
     <ClInclude Include="tmxlite\include\tmxlite\Types.hpp" />
-    <ClInclude Include="UiButton.h" />
     <ClInclude Include="Utils\Singleton.h" />
     <ClInclude Include="Utils\Texture.h" />
     <ClInclude Include="Utils\Vector2D.h" />
@@ -235,18 +235,18 @@
     <ClCompile Include="Control\ObjectManager.cpp" />
     <ClCompile Include="GameObjects\Ingrediente.cpp" />
     <ClCompile Include="GameObjects\Muebles\InicioCinta.cpp" />
-    <ClCompile Include="Jornada.cpp" />
     <ClCompile Include="GameObjects\PoolObject.cpp" />
     <ClCompile Include="GameObjects\Muebles\Silla.cpp" />
     <ClCompile Include="GameObjects\Muebles\TablaProcesado.cpp" />
     <ClCompile Include="GameObjects\Muebles\Ventanilla.cpp" />
+    <ClCompile Include="GameObjects\UI\RedactaComandabutton.cpp" />
+    <ClCompile Include="GameObjects\UI\UiButton.cpp" />
     <ClCompile Include="json\JSON.cpp" />
     <ClCompile Include="json\JSONValue.cpp" />
     <ClCompile Include="Scenes\Restaurante.cpp" />
     <ClCompile Include="SDL2-2.0.20\include\SDL_rect.cpp" />
     <ClCompile Include="sdlutils\SDLUtils.cpp" />
     <ClCompile Include="sdlutils\SoundEffect.cpp" />
-    <ClCompile Include="UiButton.cpp" />
     <ClCompile Include="Utils\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>

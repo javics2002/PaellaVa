@@ -3,7 +3,7 @@
 
 Cartel::Cartel(Game* game) : GameObject(game)
 {
-	setTexture("cartel");
+	setTexture("mesa");
 	setDimension(DIMENSION_W, DIMENSION_H);
 	setPosition(1000, sdlutils().height() - DIMENSION_H / 2);
 }

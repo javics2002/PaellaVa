@@ -1,6 +1,6 @@
 #pragma once
 #include "../../Utils/Texture.h"
-#include "GameObjects/GameObject.h"
+#include "../GameObject.h"
 //#include "Utils/Vector2D.h"
 class UiButton: public GameObject
 {

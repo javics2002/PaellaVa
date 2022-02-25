@@ -2,7 +2,7 @@
 #include <vector>
 #include "../Utils/Texture.h"
 #include "../GameObjects/GameObject.h"
-#include "../UiButton.h"
+#include "../GameObjects/UI/UiButton.h"
 #define NK_IMPLEMENTATION
 class Paella;
 class Ingrediente;

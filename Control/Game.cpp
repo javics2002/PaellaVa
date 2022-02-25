@@ -19,7 +19,7 @@ void Game::init()
 {
 	SDLUtils::init("Paellas", 1080, 720, "../../../Assets/resources.json");
 
-	objectManager = new ObjectManager(this);
+    objectManager = new ObjectManager(this);
 }
 
 void Game::start()

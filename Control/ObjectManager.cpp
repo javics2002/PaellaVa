@@ -1,11 +1,11 @@
 #include "ObjectManager.h"
-#include "../../GameObjects/Muebles/InicioCinta.h"
-#include "../../GameObjects/Muebles/FinalCinta.h"
-#include "../../GameObjects/Muebles/Puerta.h"
-#include  "../RedactaComandabutton.h"
+#include "../GameObjects/Muebles/InicioCinta.h"
+#include "../GameObjects/Muebles/FinalCinta.h"
+#include "../GameObjects/Muebles/Puerta.h"
+#include  "../GameObjects/UI/RedactaComandabutton.h"
 #include "../Data/Comanda.h"
 #include "../GameObjects/Muebles/cartel.h"
-#include "../../Utils/Vector2D.h"
+#include "../Utils/Vector2D.h"
 #include "../GameObjects/Ingrediente.h"
 
 
@@ -19,7 +19,7 @@ ObjectManager::ObjectManager(Game* game)
 	muebles.push_back(new FinalCinta(game, ingredientes));
 	muebles.push_back(new Puerta(game, clientes, grupoClientes));
 	muebles.push_back(new Cartel(game));
-	//interfaz.push_back(new RedactaComandabutton(game, botonredacta,10,10,30,30));
+	interfaz.push_back(new RedactaComandabutton(game, "redactaboton", 10, 10, 30, 30));
 }
 
 ObjectManager::~ObjectManager()
