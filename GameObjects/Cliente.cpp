@@ -1,5 +1,6 @@
 #include "Cliente.h"
 #include "../../Control/game.h"
+#include "../../Control/ObjectManager.h";
 
 Cliente::Cliente(Game* game) : PoolObject(game)
 {

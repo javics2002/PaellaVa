@@ -1,5 +1,6 @@
 #include "cartel.h"
 #include "../../Control/game.h"
+#include "../../Control/ObjectManager.h";
 
 Cartel::Cartel(Game* game) : GameObject(game)
 {

@@ -8,6 +8,7 @@
 #include "./tmxlite/TileLayer.hpp"
 #include "./tmxlite/ObjectGroup.hpp"
 #include "./tmxlite/Tileset.hpp"
+#include "../GameObjects/Fondo.h"
 
 #include <unordered_map>
 
@@ -51,13 +52,15 @@ class Restaurante
 	ObjectManager* objectManager;
 
 	MapInfo mapInfo;
-	Texture* fondo;
+	Fondo* fondo;
 public:
 	Restaurante(Game* game);
 	~Restaurante();
 
-	void Update();
-	void Render();
+	void handleInput();
+	void update();
+	void render();
 
-	void loadMap(string const path);
+	ObjectManager* getObjectManager();
+	Texture* loadMap(string const path);
 };

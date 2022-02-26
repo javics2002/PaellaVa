@@ -5,9 +5,7 @@
 class Fondo : public GameObject
 {
 public:
-	Fondo(Game* game, Texture texture);
+	Fondo(Game* game, Texture* texture);
 	~Fondo() {};
-
-
 };
 

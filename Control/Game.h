@@ -7,15 +7,18 @@
 #include <vector>
 #include <cmath>
 
-#include "ObjectManager.h"
 #include "../GameObjects/Player.h"
 
 #include "../Utils/Texture.h"
 
+class Restaurante;
+class ObjectManager;
+
 using namespace std;
 
 class Game{
-    ObjectManager* objectManager;
+    //Cambiar a scene actual
+    Restaurante* restaurante;
 
 public:
     Game();
@@ -27,7 +30,7 @@ public:
     void handleInput(SDL_Event& event, bool &exit);
     void update();
     void render();
-
+    
     ObjectManager* getObjectManager();
 };
 

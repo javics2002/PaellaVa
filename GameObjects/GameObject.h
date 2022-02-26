@@ -33,7 +33,7 @@ public:
 
     virtual ~GameObject() {};
 
-    virtual void update() = 0;
+    virtual void update() {};
     virtual void render();
     virtual bool OnClick(int mx, int my) { return false; };
 
@@ -41,6 +41,7 @@ public:
     void setPosition(Vector2D<double> v);
     void setDimension(int width, int height);
     void setTexture(string clave);
+    void setTexture(Texture* texture);
 
     int getWidth() { return w; };
     int getHeight() { return h; };

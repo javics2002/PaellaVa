@@ -7,7 +7,7 @@
 #include "../GameObjects/Muebles/cartel.h"
 #include "../Utils/Vector2D.h"
 #include "../GameObjects/Ingrediente.h"
-
+#include "../Scenes/Restaurante.h"
 
 ObjectManager::ObjectManager(Game* game)
 {
@@ -34,16 +34,14 @@ ObjectManager::~ObjectManager()
 
 void ObjectManager::render()
 {
-	for (auto i : muebles)
+	for (auto m : muebles)
+		m->render();
+
+	for (auto c : comandas)
+		c->render();
+
+	for (auto i : interfaz)
 		i->render();
-	for (auto z : comandas)
-	{
-		z->render();
-	}
-	for (auto j : interfaz)
-	{ 
-		j->render();
-	}
 
 	ingredientes->render();	
 

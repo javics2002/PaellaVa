@@ -6,10 +6,6 @@
 #include <queue>
 #include <vector>
 
-
-///class Ingrediente;
-//class GrupoClientes;
-//class Paella;
 class Game;
 
 using namespace std;
@@ -17,23 +13,21 @@ using namespace std;
 class ObjectManager
 {
 	//Vector de paelleras
-	// 
 	//vector<Paella*> paelleras;
 
 	//Pool de clientes
-	// 
 	Pool<Cliente> *clientes;
 	Pool<GrupoClientes> *grupoClientes;
 
-
 	//Pool de ingredientes
-	
 	Pool<Ingrediente> *ingredientes;
 
+	//esto va a ser nuestra version de capas
+	//en el orden en el que lo renderizamos nos aseguramos que la UI esta por encima de todo
 	vector<GameObject*> muebles;
 	vector<GameObject*> interfaz;
-	vector<GameObject*> comandas;//esto va a ser nuestra version de capas 
-	//en el orden en el que lo renderizamos nos aseguramos que la UI esta por encima de todo
+	vector<GameObject*> comandas; 
+
 public:
 	ObjectManager(Game* game);
 	~ObjectManager();

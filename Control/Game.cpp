@@ -12,14 +12,14 @@ Game::Game() {
 }
 
 Game::~Game() {
-	delete objectManager;
+	
 }
 
 void Game::init() 
 {
 	SDLUtils::init("Paellas", 1080, 720, "../../../Assets/resources.json");
 
-    objectManager = new ObjectManager(this);
+	restaurante = new Restaurante(this);
 }
 
 void Game::start()
@@ -51,24 +51,24 @@ void Game::handleInput(SDL_Event &event, bool &exit) {
 	//Salimos del juego (PROVISIONAL)
 	exit = ih().isKeyDown(SDL_SCANCODE_ESCAPE);
 
-	objectManager->handleInput();
+	restaurante->handleInput();
 }
 
 void Game::update()
 {
-	objectManager->update();
+	restaurante->update();
 }
 
 void Game::render()
 {
 	sdlutils().clearRenderer();
 
-	objectManager->render();
+	restaurante->render();
 
 	sdlutils().presentRenderer();
 }
 
 ObjectManager* Game::getObjectManager()
 {
-	return objectManager;
+	return restaurante->getObjectManager();
 }

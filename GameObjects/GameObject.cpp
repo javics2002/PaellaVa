@@ -23,6 +23,11 @@ void GameObject::setTexture(string clave)
 	texture = &sdlutils().images().at(clave);
 }
 
+void GameObject::setTexture(Texture* texture)
+{
+	texture = texture;
+}
+
 SDL_Rect GameObject::getCollider()
 {
 	return { int(getX() - getWidth() / 2),
