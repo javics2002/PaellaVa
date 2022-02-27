@@ -19,6 +19,8 @@ void Game::init()
 {
 	SDLUtils::init("Paellas", 1080, 720, "../../../Assets/resources.json");
 
+	SDLUtils::instance()->showCursor();
+
 	restaurante = new Restaurante(this);
 }
 

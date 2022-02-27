@@ -6,6 +6,7 @@ Player::Player(Game* game) : GameObject(game)
 {
 	//posicion_ = posicion;
 	setPosition(100, 100);
+	setDimension(50, 50);
 
 	objetoCargado_ = nullptr;
 	game_ = game;

@@ -16,6 +16,8 @@ Restaurante::Restaurante(Game* game)
 
 	objectManager = new ObjectManager(game);
 
+	host = new Player(game);
+
 	//mapInfo.ruta = "../../../Assets/Tilemap/Restaurante.tmx";
 	//fondo = new Fondo(game, loadMap(mapInfo.ruta));
 }
@@ -33,12 +35,14 @@ void Restaurante::handleInput()
 void Restaurante::update()
 {
 	objectManager->update();
+	host->update();
 }
 
 void Restaurante::render()
 {
 	//fondo->render();
 	objectManager->render();
+	host->render();
 }
 
 ObjectManager* Restaurante::getObjectManager()
