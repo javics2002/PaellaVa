@@ -118,4 +118,10 @@
     <None Include="json\RAEDME.md" />
     <None Include="tmxlite\include\tmxlite\Types.inl" />
   </ItemGroup>
+  <ItemGroup>
+    <Filter Include=".cpp">
+      <UniqueIdentifier>{3d85bc96-12e5-4cc5-bc06-5d96a22d9ee1}</UniqueIdentifier>
+      <Extensions>.cpp</Extensions>
+    </Filter>
+  </ItemGroup>
 </Project>

@@ -11,7 +11,7 @@
 
 ObjectManager::ObjectManager(Game* game)
 {
-	ingredientes = new Pool<Ingrediente>(game, 3);
+	ingredientes = new Pool<Ingrediente>(game, 10);
 	clientes = new Pool<Cliente>(game, 30);
 	grupoClientes = new Pool<GrupoClientes>(game, 20);
 
