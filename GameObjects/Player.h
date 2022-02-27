@@ -19,6 +19,8 @@ public:
 	Player(Game* game);
 	~Player();
 
+	void handleInput();
+
 	void update();
 
 	void SetVelocidad(float velocidad);

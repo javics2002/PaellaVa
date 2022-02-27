@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "../Control/Input.h"
 #include "../Control/Game.h"
+#include "../sdlutils/InputHandler.h"
 
 Player::Player(Game* game) : GameObject(game)
 {
@@ -20,36 +21,96 @@ Player::~Player()
 {
 }
 
-void Player::update()
+void Player::handleInput()
 {
-	/*float posX = posicion_.GetX();
-	float posY = posicion_.GetY();*/
+	bool changed = false;
 
 	float posX = getX();
 	float posY = getY();
 
-
-	if (input_->GetKey(SDL_SCANCODE_W)) 
+	if (ih().isJoystickEvent())
 	{
-		posY -= velocidad_;
+		cout << "Eje X: " << ih().getAxisX() << " Eje Y: " << ih().getAxisY();
 	}
-
-	if (input_->GetKey(SDL_SCANCODE_S)) 
+	else if (ih().keyDownEvent())
 	{
-		posY += velocidad_;
-	}
+		if (ih().isKeyDown(SDL_SCANCODE_W))
+		{
+			posY -= velocidad_;
+			changed = true;
+		}
 
-	if (input_->GetKey(SDL_SCANCODE_A)) 
-	{
-		posX -= velocidad_;
-	}
+		if (ih().isKeyDown(SDL_SCANCODE_S))
+		{
+			posY += velocidad_;
+			changed = true;
+		}
 
-	if (input_->GetKey(SDL_SCANCODE_D)) 
-	{
-		posX += velocidad_;
+		if (ih().isKeyDown(SDL_SCANCODE_A))
+		{
+			posX -= velocidad_;
+			changed = true;
+		}
+
+		if (ih().isKeyDown(SDL_SCANCODE_D))
+		{
+			posX += velocidad_;
+			changed = true;
+		}
 	}
 
 	setPosition(posX, posY);
+}
+
+void Player::update()
+{
+	//bool changed = false;
+
+	//float posX = getX();
+	//float posY = getY();
+
+
+	//if (input_->GetKey(SDL_SCANCODE_W)) 
+	//{
+	//	posY -= velocidad_;
+	//	changed = true;
+	//}
+
+	//if (input_->GetKey(SDL_SCANCODE_S)) 
+	//{
+	//	posY += velocidad_;
+	//	changed = true;
+	//}
+
+	//if (input_->GetKey(SDL_SCANCODE_A)) 
+	//{
+	//	posX -= velocidad_;
+	//	changed = true;
+	//}
+
+	//if (input_->GetKey(SDL_SCANCODE_D)) 
+	//{
+	//	posX += velocidad_;
+	//	changed = true;
+	//}
+
+	//setPosition(posX, posY);
+
+	//if (!changed)
+	//{
+	//	input_->UpdateAxis();
+
+	//	Sint16 ejeX = input_->getAxisX();
+	//	Sint16 ejeY = input_->getAxisY();
+
+	//	if (ejeX != 0 || ejeY != 0)
+	//		cout << "ejeX: " << ejeX << " ejeY: " << ejeY << endl;
+
+
+	//}
+
+
+
 }
 
 void Player::SetVelocidad(float velocidad)

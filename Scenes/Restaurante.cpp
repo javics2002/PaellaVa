@@ -30,6 +30,7 @@ Restaurante::~Restaurante()
 void Restaurante::handleInput()
 {
 	objectManager->handleInput();
+	host->handleInput();
 }
 
 void Restaurante::update()

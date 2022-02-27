@@ -15,6 +15,8 @@ class InputHandler: public Singleton<InputHandler> {
 
 	friend Singleton<InputHandler> ;
 
+	SDL_Joystick* joystick_;
+
 public:
 	enum MOUSEBUTTON : uint8_t {
 		LEFT = 0, MIDDLE = 1, RIGHT = 2
@@ -29,6 +31,7 @@ public:
 		isKeyUpEvent_ = false;
 		isMouseButtonEvent_ = false;
 		isMouseMotionEvent_ = false;
+		isJoystickEvent_ = false;
 		for (auto i = 0u; i < 3; i++) {
 			mbState_[i] = false;
 		}
@@ -52,8 +55,29 @@ public:
 		case SDL_MOUSEBUTTONUP:
 			onMouseButtonChange(event, false);
 			break;
+		case SDL_JOYAXISMOTION:
+			onJoystickMotion(event);
+			break;
 		default:
 			break;
+		}
+	}
+
+	inline void initJoystick()
+	{
+		//Check for joysticks
+		if (SDL_NumJoysticks() < 1)
+		{
+			printf("Warning: No joysticks connected!\n");
+		}
+		else
+		{
+			//Load joystick
+			joystick_ = SDL_JoystickOpen(0);
+			if (joystick_ == NULL)
+			{
+				printf("Warning: Unable to open game controller! SDL Error: %s\n", SDL_GetError());
+			}
 		}
 	}
 
@@ -64,6 +88,48 @@ public:
 		clearState();
 		while (SDL_PollEvent(&event))
 			update(event);
+	}
+
+	// joystick
+	inline bool isJoystickEvent()
+	{
+		return isJoystickEvent_;
+	}
+
+	inline int getAxisX()
+	{
+		return ejeX;
+	}
+
+	inline int getAxisY()
+	{
+		return ejeY;
+	}
+
+	inline void onJoystickMotion(const SDL_Event& e) {
+		isJoystickEvent_ = true;
+		if (e.jaxis.which == 0)//controller 0
+		{
+			if (e.jaxis.axis == 0)// x axis
+			{
+				if (e.jaxis.value < -CONTROLLER_DEAD_ZONE)
+					ejeX = e.jaxis.value;
+				else if (e.jaxis.value > CONTROLLER_DEAD_ZONE)
+					ejeX = e.jaxis.value;
+				else
+					ejeX = 0;
+			}
+
+			else if (e.jaxis.axis == 1)//y axis
+			{
+				if (e.jaxis.value < -CONTROLLER_DEAD_ZONE)
+					ejeY = e.jaxis.value;
+				else if (e.jaxis.value > CONTROLLER_DEAD_ZONE)
+					ejeY = e.jaxis.value;
+				else
+					ejeY = 0;
+			}
+		}
 	}
 
 	// keyboard
@@ -115,6 +181,7 @@ private:
 	InputHandler() {
 		kbState_ = SDL_GetKeyboardState(0);
 		clearState();
+		initJoystick();
 	}
 
 	inline void onKeyDown(const SDL_Event&) {
@@ -153,9 +220,12 @@ private:
 	bool isKeyDownEvent_;
 	bool isMouseMotionEvent_;
 	bool isMouseButtonEvent_;
+	bool isJoystickEvent_;
 	std::pair<Sint32, Sint32> mousePos_;
 	std::array<bool, 3> mbState_;
 	const Uint8 *kbState_;
+	const int CONTROLLER_DEAD_ZONE = 5;
+	int ejeX, ejeY;
 };
 
 // This macro defines a compact way for using the singleton InputHandler, instead of
