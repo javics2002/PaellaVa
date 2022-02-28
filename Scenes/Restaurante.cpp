@@ -7,6 +7,7 @@
 #include "../sdlutils/SDLUtils.h"
 #include "../Control/Game.h"
 #include <iostream>
+#include <filesystem>
 
 using namespace std;
 
@@ -18,7 +19,7 @@ Restaurante::Restaurante(Game* game)
 
 	host = new Player(game);
 
-	//mapInfo.ruta = "../../../Assets/Tilemap/Restaurante.tmx";
+	mapInfo.ruta = "..\\..\\..\\Assets\\Tilemap\\Restaurante.tmx";
 	//fondo = new Fondo(game, loadMap(mapInfo.ruta));
 }
 
@@ -51,10 +52,11 @@ ObjectManager* Restaurante::getObjectManager()
 	return objectManager;
 }
 
-Texture* Restaurante::loadMap(string const path) {
+Texture* Restaurante::loadMap(string const &path) {
 	//Cargamos el mapa .tmx del archivo indicado
 	mapInfo.tilemap = new tmx::Map();
 	mapInfo.tilemap->load(path);
+
 
 	//Obtenemos las dimensiones del mapa en tiles
 	auto map_dimensions = mapInfo.tilemap->getTileCount();
@@ -286,7 +288,7 @@ Texture* Restaurante::loadMap(string const path) {
 		SDL_SetRenderTarget(renderer, nullptr);
 
 		//if (!sdlutils().images().count(path)) 
-			//sdlutils().images().emplace(path, Texture(renderer, fondo, anchoFondo, altoFondo));
+			//().images().emplace(path, Texture(renderer, fondo, anchoFondo, altoFondo));
 		/*auto backgroundEntity = mngr_->addEntity();
 		mngr_->addRenderLayer<Background>(backgroundEntity);
 		backgroundEntity->addComponent<Transform>(Vector2D(), anchoFondo, altoFondo);

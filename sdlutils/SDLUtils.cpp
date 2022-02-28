@@ -184,6 +184,7 @@ void SDLUtils::loadReasources(std::string filename) {
 					std::string key = vObj["id"]->AsString();
 					std::string file = vObj["file"]->AsString();
 					tilesets_.emplace(key, Texture(renderer(), file));
+					std::cout << "Loading tileset with id: " << key << std::endl;
 				}
 				else {
 					throw "'tilesets' array in '" + filename

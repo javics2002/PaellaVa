@@ -1,20 +1,75 @@
 {
   "images": [
-    { "id": "barraTolerancia", "file": "../../../Assets/Images/barraTolerancia.png" },
-    { "id": "cuadernillo", "file": "../../../Assets/Images/cuadernillo.png"},
-    { "id": "finalCinta", "file": "../../../Assets/Images/finalCinta.png" },
-    { "id": "inicioCinta", "file": "../../../Assets/Images/inicioCinta.png" },
-    { "id": "mesa", "file": "../../../Assets/Images/mesa.png" },
-    { "id": "redactaboton", "file": "../../../Assets/Images/redactaboton.png" },
-    { "id": "alcachofa", "file": "../../../Assets/Images/Ingredientes/alcachofa.png" },
-    { "id": "berenjena", "file": "../../../Assets/Images/Ingredientes/berenjena.png" },
-    { "id": "calamar", "file": "../../../Assets/Images/Ingredientes/calamar.png" },
-    { "id": "cangrejo", "file": "../../../Assets/Images/Ingredientes/cangrejo.png" },
-    { "id": "gamba", "file": "../../../Assets/Images/Ingredientes/gamba.png" },
-    { "id": "langosta", "file": "../../../Assets/Images/Ingredientes/langosta.png" },
-    { "id": "mejillon", "file": "../../../Assets/Images/Ingredientes/mejillon.png" },
-    { "id": "pimientoRojo", "file": "../../../Assets/Images/Ingredientes/pimientoRojo.png" },
-    { "id": "pimientoVerde", "file": "../../../Assets/Images/Ingredientes/pimientoVerde.png" },
-    { "id": "pollo", "file": "../../../Assets/Images/Ingredientes/pollo.png" }
+    {
+      "id": "barraTolerancia",
+      "file": "../../../Assets/Images/barraTolerancia.png"
+    },
+    {
+      "id": "cuadernillo",
+      "file": "../../../Assets/Images/cuadernillo.png"
+    },
+    {
+      "id": "finalCinta",
+      "file": "../../../Assets/Images/finalCinta.png"
+    },
+    {
+      "id": "inicioCinta",
+      "file": "../../../Assets/Images/inicioCinta.png"
+    },
+    {
+      "id": "mesa",
+      "file": "../../../Assets/Images/mesa.png"
+    },
+    {
+      "id": "redactaboton",
+      "file": "../../../Assets/Images/redactaboton.png"
+    },
+    {
+      "id": "alcachofa",
+      "file": "../../../Assets/Images/Ingredientes/alcachofa.png"
+    },
+    {
+      "id": "berenjena",
+      "file": "../../../Assets/Images/Ingredientes/berenjena.png"
+    },
+    {
+      "id": "calamar",
+      "file": "../../../Assets/Images/Ingredientes/calamar.png"
+    },
+    {
+      "id": "cangrejo",
+      "file": "../../../Assets/Images/Ingredientes/cangrejo.png"
+    },
+    {
+      "id": "gamba",
+      "file": "../../../Assets/Images/Ingredientes/gamba.png"
+    },
+    {
+      "id": "langosta",
+      "file": "../../../Assets/Images/Ingredientes/langosta.png"
+    },
+    {
+      "id": "mejillon",
+      "file": "../../../Assets/Images/Ingredientes/mejillon.png"
+    },
+    {
+      "id": "pimientoRojo",
+      "file": "../../../Assets/Images/Ingredientes/pimientoRojo.png"
+    },
+    {
+      "id": "pimientoVerde",
+      "file": "../../../Assets/Images/Ingredientes/pimientoVerde.png"
+    },
+    {
+      "id": "pollo",
+      "file": "../../../Assets/Images/Ingredientes/pollo.png"
+    }
+  ],
+
+  "tilesets": [
+    {
+      "id": "Tileset",
+      "file": "../../../Assets/Tilemap/Tileset.png"
+    }
   ]
 }

@@ -62,5 +62,5 @@ public:
 	void render();
 
 	ObjectManager* getObjectManager();
-	Texture* loadMap(string const path);
+	Texture* loadMap(string const & path);
 };
