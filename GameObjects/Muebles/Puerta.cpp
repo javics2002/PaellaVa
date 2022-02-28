@@ -17,8 +17,6 @@ void Puerta::update()
 		
 		int integrantes = 1 + rand() % maxGrupo;
 
-		cout << integrantes << endl;
-
 		if (cola->esValido(integrantes)) {
 			
 
@@ -27,7 +25,7 @@ void Puerta::update()
 			k->cambiaTextura(texturasClientes[0 + rand() % texturasClientes.size()]);
 			v.push_back(k);
 
-			int width = k->getWidth()+SEPARACIONCLIENTE;
+			int width = k->getWidth();
 			int w = -width/2;
 
 			v[0]->setPosition(Vector2D<double>(w, getY()));

@@ -66,6 +66,8 @@ void ObjectManager::update()
 
 	ingredientes->update();	
 
+	grupoClientes->update();
+
 	SDL_GetMouseState(&x, &y);
 
 	SDL_Rect rect = SDL_Rect{ x, y, range, range };
@@ -73,10 +75,7 @@ void ObjectManager::update()
 
 	for (auto i : grupoClientes->getCollisions(rect)) {
 		i->ratonEncima();
-		cout << "100%\n";
 	}
-
-	clientes->update();
 
 }
 
@@ -111,7 +110,7 @@ void ObjectManager::redactaIngrediente(Game* game,TextureName ingrediente, int p
 vector<Collider*> ObjectManager::getClientes(SDL_Rect gOC)
 {
 
-	return clientes->getCollisions(gOC);
+	return grupoClientes->getCollisions(gOC);
 }
 
 
