@@ -17,7 +17,7 @@ Game::~Game() {
 
 void Game::init() 
 {
-	SDLUtils::init("Paellas", 1080, 720, "../../../Assets/resources.json");
+	SDLUtils::init("Paellas", 1280, 720, "../../../Assets/resources.json");
 
 	SDLUtils::instance()->showCursor();
 

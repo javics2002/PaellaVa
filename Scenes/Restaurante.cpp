@@ -24,6 +24,9 @@ Restaurante::Restaurante(Game* game)
 
 	fondo = new Fondo(game);
 	fondo->setTexture(mapInfo.ruta);
+	int width = sdlutils().images().at(mapInfo.ruta).width();
+	int height = sdlutils().images().at(mapInfo.ruta).height();
+	fondo->setDimension(width, height);
 }
 
 Restaurante::~Restaurante()
@@ -48,8 +51,8 @@ void Restaurante::update()
 void Restaurante::render()
 {
 	fondo->render();
-	//objectManager->render();
-	//host->render();
+	objectManager->render();
+	host->render();
 }
 
 ObjectManager* Restaurante::getObjectManager()
@@ -75,8 +78,8 @@ void Restaurante::loadMap(string const &path) {
 
 	//Creamos la textura de fondo
 	auto renderer = sdlutils().renderer();
-	int anchoFondo = mapInfo.anchoTile * mapInfo.filas;
-	int altoFondo = mapInfo.altoTile * mapInfo.columnas;
+	int anchoFondo = mapInfo.anchoTile * mapInfo.columnas;
+	int altoFondo = mapInfo.altoTile * mapInfo.filas;
 	SDL_Texture* fondo = SDL_CreateTexture(renderer,
 		SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET,
 		anchoFondo,

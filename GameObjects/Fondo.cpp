@@ -2,6 +2,5 @@
 
 Fondo::Fondo(Game* game) : GameObject (game)
 {
-	setPosition(600, 500);
-	setDimension(1080, 720);
+	setPosition(sdlutils().width(), sdlutils().height() / 2);
 }
