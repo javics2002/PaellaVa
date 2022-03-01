@@ -1,6 +1,7 @@
 #include "Fondo.h"
 
-Fondo::Fondo(Game* game, Texture* texture) : GameObject (game)
+Fondo::Fondo(Game* game) : GameObject (game)
 {
-	setTexture(texture);
+	setPosition(600, 500);
+	setDimension(1080, 720);
 }

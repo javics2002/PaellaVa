@@ -10,7 +10,6 @@ private:
 	//Posicion* posicion_;
 	GameObject* objetoCargado_;
 	Input* input_;
-	Game* game_;
 
 	float velocidad_;
 	//Configuración de skin

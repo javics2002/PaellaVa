@@ -20,12 +20,17 @@ Restaurante::Restaurante(Game* game)
 	host = new Player(game);
 
 	mapInfo.ruta = "..\\..\\..\\Assets\\Tilemap\\Restaurante.tmx";
-	//fondo = new Fondo(game, loadMap(mapInfo.ruta));
+	loadMap(mapInfo.ruta);
+
+	fondo = new Fondo(game);
+	fondo->setTexture(mapInfo.ruta);
 }
 
 Restaurante::~Restaurante()
 {
+	delete host;
 	delete objectManager;
+	delete fondo;
 }
 
 void Restaurante::handleInput()
@@ -42,9 +47,9 @@ void Restaurante::update()
 
 void Restaurante::render()
 {
-	//fondo->render();
-	objectManager->render();
-	host->render();
+	fondo->render();
+	//objectManager->render();
+	//host->render();
 }
 
 ObjectManager* Restaurante::getObjectManager()
@@ -52,7 +57,7 @@ ObjectManager* Restaurante::getObjectManager()
 	return objectManager;
 }
 
-Texture* Restaurante::loadMap(string const &path) {
+void Restaurante::loadMap(string const &path) {
 	//Cargamos el mapa .tmx del archivo indicado
 	mapInfo.tilemap = new tmx::Map();
 	mapInfo.tilemap->load(path);
@@ -287,12 +292,7 @@ Texture* Restaurante::loadMap(string const &path) {
 
 		SDL_SetRenderTarget(renderer, nullptr);
 
-		//if (!sdlutils().images().count(path)) 
-			//().images().emplace(path, Texture(renderer, fondo, anchoFondo, altoFondo));
-		/*auto backgroundEntity = mngr_->addEntity();
-		mngr_->addRenderLayer<Background>(backgroundEntity);
-		backgroundEntity->addComponent<Transform>(Vector2D(), anchoFondo, altoFondo);
-		backgroundEntity->addComponent<Image>(&sdlutils().images().at(path));*/
-		return &sdlutils().images().at(path);
+		if (!sdlutils().images().count(path)) 
+			sdlutils().images().emplace(path, Texture(renderer, fondo, anchoFondo, altoFondo));
 	}
 }

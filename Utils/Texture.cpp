@@ -52,6 +52,14 @@ Texture::Texture(SDL_Renderer* renderer, const std::string& text,
 	constructFromText(renderer, text, font, &fgColor, &bgColor);
 }
 
+Texture::Texture(SDL_Renderer* rend, SDL_Texture* tex, int width, int height)
+{
+	renderer_ = rend;
+	texture_ = tex;
+	width_ = width;
+	height_ = height;
+}
+
 void Texture::constructFromText(SDL_Renderer* renderer, const std::string& text,
 	const Font& font, const SDL_Color* fgColor, const SDL_Color* bgColor) {
 	assert(renderer != nullptr);

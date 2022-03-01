@@ -10,7 +10,6 @@ Player::Player(Game* game) : GameObject(game)
 	setDimension(50, 50);
 
 	objetoCargado_ = nullptr;
-	game_ = game;
 
 	input_ = new Input();
 	velocidad_ = 2.0f;
