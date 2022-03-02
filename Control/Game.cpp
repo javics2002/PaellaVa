@@ -46,7 +46,7 @@ void Game::start()
 }
 
 void Game::handleInput(SDL_Event &event, bool &exit) {
-	ih().clearState();
+	// ih().clearState();
 	while (SDL_PollEvent(&event))
 		ih().update(event);
 

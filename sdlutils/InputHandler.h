@@ -32,6 +32,7 @@ public:
 		isMouseButtonEvent_ = false;
 		isMouseMotionEvent_ = false;
 		isJoystickEvent_ = false;
+
 		for (auto i = 0u; i < 3; i++) {
 			mbState_[i] = false;
 		}
@@ -39,13 +40,14 @@ public:
 
 	// update the state with a new event
 	inline void update(const SDL_Event &event) {
+		cout << isKeyDownEvent_;
 		switch (event.type) {
-		case SDL_KEYDOWN:
+		/*case SDL_KEYDOWN:
 			onKeyDown(event);
 			break;
 		case SDL_KEYUP:
 			onKeyUp(event);
-			break;
+			break;*/
 		case SDL_MOUSEMOTION:
 			onMouseMotion(event);
 			break;
@@ -174,6 +176,14 @@ public:
 		return mbState_[b];
 	}
 
+
+	/// prueba
+
+	bool GetKey(Uint8 key)
+	{
+		return SDL_GetKeyboardState(NULL)[key];
+	}
+
 	// TODO add support for Joystick, see Chapter 4 of
 	// the book 'SDL Game Development'
 
@@ -224,7 +234,7 @@ private:
 	std::pair<Sint32, Sint32> mousePos_;
 	std::array<bool, 3> mbState_;
 	const Uint8 *kbState_;
-	const int CONTROLLER_DEAD_ZONE = 5;
+	const int CONTROLLER_DEAD_ZONE = 10000;
 	int ejeX, ejeY;
 };
 

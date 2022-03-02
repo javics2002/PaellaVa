@@ -11,7 +11,7 @@ Player::Player(Game* game) : GameObject(game)
 
 	objetoCargado_ = nullptr;
 
-	input_ = new Input();
+	// input_ = new Input();
 	velocidad_ = 2.0f;
 	setTexture("alcachofa"); //añadir imagen de jugador xD
 }
@@ -22,40 +22,44 @@ Player::~Player()
 
 void Player::handleInput()
 {
-	bool changed = false;
-
 	float posX = getX();
 	float posY = getY();
 
 	if (ih().isJoystickEvent())
 	{
-		cout << "Eje X: " << ih().getAxisX() << " Eje Y: " << ih().getAxisY();
-	}
-	else if (ih().keyDownEvent())
-	{
-		if (ih().isKeyDown(SDL_SCANCODE_W))
-		{
-			posY -= velocidad_;
-			changed = true;
-		}
-
-		if (ih().isKeyDown(SDL_SCANCODE_S))
-		{
-			posY += velocidad_;
-			changed = true;
-		}
-
-		if (ih().isKeyDown(SDL_SCANCODE_A))
-		{
+		if (ih().getAxisX() < 0) {
 			posX -= velocidad_;
-			changed = true;
+		}
+		else if (ih().getAxisX() > 0) {
+			posX += velocidad_;
 		}
 
-		if (ih().isKeyDown(SDL_SCANCODE_D))
-		{
-			posX += velocidad_;
-			changed = true;
+		if (ih().getAxisY() < 0) {
+			posY -= velocidad_;
 		}
+		else if (ih().getAxisY() > 0) {
+			posY += velocidad_;
+		}
+	}
+
+	if (ih().GetKey(SDL_SCANCODE_W))
+	{
+		posY -= velocidad_;
+	}
+
+	if (ih().GetKey(SDL_SCANCODE_S))
+	{
+		posY += velocidad_;
+	}
+
+	if (ih().GetKey(SDL_SCANCODE_A))
+	{
+		posX -= velocidad_;
+	}
+
+	if (ih().GetKey(SDL_SCANCODE_D))
+	{
+		posX += velocidad_;
 	}
 
 	setPosition(posX, posY);
