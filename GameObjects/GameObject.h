@@ -33,7 +33,10 @@ public:
 
     virtual ~GameObject() {};
 
-    virtual void update() {};
+    virtual void update() {
+        pos = pos + vel;
+    };
+
     virtual void render();
     virtual bool OnClick(int mx, int my) { return false; };
 

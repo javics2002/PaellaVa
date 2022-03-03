@@ -25,6 +25,7 @@ public:
     void set(const Vector2D<T>& v);
     void set(T x, T y);
     double magnitude() const;
+    void clamp(T min_value, T max_value);
     //void rotate(double degrees);
     //double angle(const Vector2D& v) const;
     void normalize();
@@ -33,8 +34,10 @@ public:
     bool operator==(const Vector2D<T>& v) const;
     bool operator!=(const Vector2D<T>& v) const;
     Vector2D operator-(const Vector2D<T>& v) const;
+    Vector2D operator-(float d) const;
     Vector2D operator+(const Vector2D<T>& v) const;
     Vector2D operator*(double d) const;
+    Vector2D operator*(float d) const;
     double operator*(const Vector2D<T>& d) const;
     Vector2D operator/(double d) const;
 };
@@ -87,6 +90,28 @@ void Vector2D<T>::set(T x_, T y_) {
 template <typename T>
 double Vector2D<T>::magnitude() const {
     return sqrt(pow(x, 2) + pow(y, 2));
+}
+
+template <typename T>
+void Vector2D<T>::clamp(T min_value, T max_value)
+{
+    if (x > max_value) {
+        x = x / magnitude();
+        x = x * std::abs(max_value);
+    }
+    else if (x < min_value) {
+        x = x / magnitude();
+        x = x * std::abs(min_value);
+    }
+
+    if (y > max_value) {
+        y = y / magnitude();
+        y = y * std::abs(max_value);
+    }
+    else if (y < min_value) {
+        y = y / magnitude();
+        y = y * std::abs(min_value);
+    }
 }
 
 /*
@@ -161,6 +186,14 @@ Vector2D<T> Vector2D<T>::operator-(const Vector2D<T>& v) const {
 }
 
 template <typename T>
+Vector2D<T> Vector2D<T>::operator-(float d) const {
+    Vector2D<T> r;
+    r.x = x - d;
+    r.y = y - d;
+    return r;
+}
+
+template <typename T>
 Vector2D<T> Vector2D<T>::operator+(const Vector2D<T>& v) const {
     Vector2D<T> r;
     r.x = x + v.x;
@@ -170,6 +203,14 @@ Vector2D<T> Vector2D<T>::operator+(const Vector2D<T>& v) const {
 
 template <typename T>
 Vector2D<T> Vector2D<T>::operator*(double d) const {
+    Vector2D<T> r;
+    r.x = x * d;
+    r.y = y * d;
+    return r;
+}
+
+template <typename T>
+Vector2D<T> Vector2D<T>::operator*(float d) const {
     Vector2D<T> r;
     r.x = x * d;
     r.y = y * d;

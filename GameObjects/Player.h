@@ -12,6 +12,8 @@ private:
 	Input* input_;
 
 	float velocidad_;
+
+	float aceleracion, deceleracion, maxVel;
 	//Configuración de skin
 
 public:

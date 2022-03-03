@@ -39,14 +39,11 @@ public:
 	}
 
 	// update the state with a new event
-	inline void update(const SDL_Event &event) {
+	inline void update(const SDL_Event& event) {
 		switch (event.type) {
-		/*case SDL_KEYDOWN:
-			onKeyDown(event);
+		case SDL_KEYDOWN:
+			// onKeyboardPressed();
 			break;
-		case SDL_KEYUP:
-			onKeyUp(event);
-			break;*/
 		case SDL_MOUSEMOTION:
 			onMouseMotion(event);
 			break;
@@ -59,7 +56,9 @@ public:
 		case SDL_JOYAXISMOTION:
 			onJoystickMotion(event);
 			break;
-		default:
+		default: // si no pulsamos nada
+			onKeyboardPressed();
+			// onJoystickMotion(event);
 			break;
 		}
 	}
@@ -107,6 +106,22 @@ public:
 		return ejeY;
 	}
 
+	inline void onKeyboardPressed() {
+		if (GetKey(SDL_SCANCODE_A))
+			ejeX = -1; // valor entre -1 y 1
+		else if (GetKey(SDL_SCANCODE_D))
+			ejeX = 1;
+		else
+			ejeX = 0;
+
+		if (GetKey(SDL_SCANCODE_W))
+			ejeY = -1; // valor entre -1 y 1
+		else if (GetKey(SDL_SCANCODE_S))
+			ejeY = 1;
+		else
+			ejeY = 0;
+	}
+
 	inline void onJoystickMotion(const SDL_Event& e) {
 		isJoystickEvent_ = true;
 		if (e.jaxis.which == 0)//controller 0
@@ -114,9 +129,9 @@ public:
 			if (e.jaxis.axis == 0)// x axis
 			{
 				if (e.jaxis.value < -CONTROLLER_DEAD_ZONE)
-					ejeX = e.jaxis.value;
+					ejeX = e.jaxis.value / INT16_MAX; // valor entre -1 y 1
 				else if (e.jaxis.value > CONTROLLER_DEAD_ZONE)
-					ejeX = e.jaxis.value;
+					ejeX = e.jaxis.value / INT16_MAX;
 				else
 					ejeX = 0;
 			}
@@ -124,13 +139,19 @@ public:
 			else if (e.jaxis.axis == 1)//y axis
 			{
 				if (e.jaxis.value < -CONTROLLER_DEAD_ZONE)
-					ejeY = e.jaxis.value;
+					ejeY = e.jaxis.value / INT16_MAX;
 				else if (e.jaxis.value > CONTROLLER_DEAD_ZONE)
-					ejeY = e.jaxis.value;
+					ejeY = e.jaxis.value / INT16_MAX;
 				else
 					ejeY = 0;
 			}
 		}
+	}
+
+	inline Vector2D<double> getAxis() {
+		Vector2D<double> axis(ejeX, ejeY);
+		axis.normalize();
+		return axis;
 	}
 
 	// keyboard
@@ -233,7 +254,7 @@ private:
 	std::pair<Sint32, Sint32> mousePos_;
 	std::array<bool, 3> mbState_;
 	const Uint8 *kbState_;
-	const int CONTROLLER_DEAD_ZONE = 10000;
+	const int CONTROLLER_DEAD_ZONE = 5;
 	int ejeX, ejeY;
 };
 

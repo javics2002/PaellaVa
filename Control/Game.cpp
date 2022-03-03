@@ -51,7 +51,7 @@ void Game::handleInput(SDL_Event &event, bool &exit) {
 		ih().update(event);
 
 	//Salimos del juego (PROVISIONAL)
-	exit = ih().isKeyDown(SDL_SCANCODE_ESCAPE);
+	exit = ih().GetKey(SDL_SCANCODE_ESCAPE);
 
 	restaurante->handleInput();
 }

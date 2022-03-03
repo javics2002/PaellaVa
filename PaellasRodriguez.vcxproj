@@ -204,7 +204,6 @@
     <ClInclude Include="tmxlite\include\tmxlite\TileLayer.hpp" />
     <ClInclude Include="tmxlite\include\tmxlite\Tileset.hpp" />
     <ClInclude Include="tmxlite\include\tmxlite\Types.hpp" />
-    <ClInclude Include="UIManager.h" />
     <ClInclude Include="Utils\Singleton.h" />
     <ClInclude Include="Utils\Texture.h" />
     <ClInclude Include="Utils\Vector2D.h" />
@@ -248,7 +247,6 @@
     <ClCompile Include="SDL2-2.0.20\include\SDL_rect.cpp" />
     <ClCompile Include="sdlutils\SDLUtils.cpp" />
     <ClCompile Include="sdlutils\SoundEffect.cpp" />
-    <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="Utils\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
