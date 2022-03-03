@@ -254,7 +254,7 @@ private:
 	std::pair<Sint32, Sint32> mousePos_;
 	std::array<bool, 3> mbState_;
 	const Uint8 *kbState_;
-	const int CONTROLLER_DEAD_ZONE = 5;
+	const int CONTROLLER_DEAD_ZONE = 5000;
 	int ejeX, ejeY;
 };
 
