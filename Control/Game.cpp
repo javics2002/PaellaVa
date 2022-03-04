@@ -45,6 +45,11 @@ void Game::start()
 	}
 }
 
+void Game::changeScene(escenasJuego n) {
+	//Cambio de escena 
+	currentScene = n;
+}
+
 void Game::handleInput(SDL_Event &event, bool &exit) {
 	// ih().clearState();
 	while (SDL_PollEvent(&event))
@@ -53,19 +58,34 @@ void Game::handleInput(SDL_Event &event, bool &exit) {
 	//Salimos del juego (PROVISIONAL)
 	exit = ih().GetKey(SDL_SCANCODE_ESCAPE);
 
-	restaurante->handleInput();
+	if (currentScene == MENU) {
+		//menu->handleInput();
+	}
+	else if (currentScene == RESTAURANTE) {
+		restaurante->handleInput();
+	}
 }
 
 void Game::update()
 {
-	restaurante->update();
+	if (currentScene == MENU) {
+		//menu->update();
+	}
+	else if (currentScene == RESTAURANTE) {
+		restaurante->update();
+	}
 }
 
 void Game::render()
 {
 	sdlutils().clearRenderer();
 
-	restaurante->render();
+	if (currentScene == MENU) {
+		//menu->render();
+	}
+	else if (currentScene == RESTAURANTE) {
+		restaurante->render();
+	}
 
 	sdlutils().presentRenderer();
 }

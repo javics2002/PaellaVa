@@ -22,6 +22,7 @@ class ObjectManager
 	//Pool de ingredientes
 	Pool<Ingrediente> *ingredientes;
 
+
 	//esto va a ser nuestra version de capas
 	//en el orden en el que lo renderizamos nos aseguramos que la UI esta por encima de todo
 	vector<GameObject*> muebles;
