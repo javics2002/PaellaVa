@@ -29,6 +29,9 @@ class ObjectManager
 	vector<GameObject*> interfaz;
 	vector<GameObject*> comandas; 
 
+	//Para formar el rect del raton
+	int x, y, range = 2;
+
 public:
 	ObjectManager(Game* game);
 	~ObjectManager();
@@ -36,6 +39,7 @@ public:
 	void handleInput();
 	void update();
 	void render();
+	void debug();
 
 	void uiEvent(int mx,int my);
 	void creaComanda(Game*game);

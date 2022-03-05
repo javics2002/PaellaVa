@@ -55,6 +55,8 @@ public:
     virtual SDL_Rect getCollider();
     virtual SDL_Rect getCenter();
 
-    bool collide(SDL_Rect other);
+    virtual void drawDebug();
+
+    virtual bool collide(SDL_Rect other);
 };
 

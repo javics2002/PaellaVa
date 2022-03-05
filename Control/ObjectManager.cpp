@@ -48,6 +48,16 @@ void ObjectManager::render()
 	clientes->render();
 }
 
+void ObjectManager::debug()
+{
+	for (auto i : muebles)
+		i->drawDebug();
+
+	ingredientes->debug();
+
+	clientes->debug();
+}
+
 void ObjectManager::handleInput()
 {
 }
@@ -59,7 +69,16 @@ void ObjectManager::update()
 
 	ingredientes->update();	
 
-	clientes->update();
+	grupoClientes->update();
+
+	SDL_GetMouseState(&x, &y);
+
+	SDL_Rect rect = SDL_Rect{ x, y, range, range };
+
+
+	for (auto i : grupoClientes->getCollisions(rect)) {
+		i->ratonEncima();
+	}
 }
 
 void ObjectManager::uiEvent(int mx, int my)
@@ -77,7 +96,7 @@ void ObjectManager::creaComanda(Game*game)
 vector<Collider*> ObjectManager::getClientes(SDL_Rect gOC)
 {
 
-	return clientes->getCollisions(gOC);
+	return grupoClientes->getCollisions(gOC);
 }
 
 

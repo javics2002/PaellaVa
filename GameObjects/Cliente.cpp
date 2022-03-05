@@ -1,4 +1,4 @@
-#include "Cliente.h"
+#/*include "Cliente.h"
 #include "../../Control/game.h"
 #include "../../Control/ObjectManager.h";
 
@@ -37,4 +37,24 @@ bool Cliente::colisionClientes()
 void Cliente::cambiaTextura(string nuevaClave)
 {
 	setTexture(nuevaClave);
+}*/
+
+#include "Cliente.h"
+#include "../../Control/game.h"
+
+Cliente::Cliente(Game* game) : PoolObject(game)
+{
+	setDimension(DIMENSION, DIMENSION);
 }
+
+void Cliente::update()
+{
+	setPosition(getX() + 2.0f, getY());
+
+}
+
+void Cliente::cambiaTextura(string textureN)
+{
+	setTexture(textureN);
+}
+

@@ -85,6 +85,7 @@ void Game::render()
 	}
 	else if (currentScene == RESTAURANTE) {
 		restaurante->render();
+		restaurante->getObjectManager()->debug();
 	}
 
 	sdlutils().presentRenderer();
