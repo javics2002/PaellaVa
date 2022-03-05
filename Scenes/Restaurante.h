@@ -1,6 +1,7 @@
 #pragma once
 #include "../Data/Posicion.h"
 #include "../Control/ObjectManager.h"
+#include "../Scenes/Scene.h"
 #include "SDL.h"
 
 #include "./tmxlite/Map.hpp"
@@ -38,7 +39,7 @@ struct MapInfo {
 	}
 };
 
-class Restaurante
+class Restaurante: public Scene
 {
 	Game* game;
 

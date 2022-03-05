@@ -16,6 +16,8 @@ class ObjectManager;
 
 using namespace std;
 
+enum escenasJuego { MENU, RESTAURANTE };
+
 class Game{
     //Cambiar a scene actual
     Restaurante* restaurante;
@@ -26,11 +28,15 @@ public:
 
     void init();
     void start();
+    void changeScene(escenasJuego n);
 
     void handleInput(SDL_Event& event, bool &exit);
     void update();
     void render();
     
     ObjectManager* getObjectManager();
+
+private:
+    escenasJuego currentScene = RESTAURANTE;
 };
 
