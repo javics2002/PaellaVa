@@ -40,6 +40,21 @@ SDL_Rect GameObject::getCenter()
 
 }
 
+void GameObject::drawDebug()
+{
+
+	SDL_Rect collider = getCollider();
+	SDL_Rect center = getCenter();
+	collider = { collider.x, collider.y, collider.w, collider.h };
+	center = { center.x, center.y, center.w, center.h };
+
+	SDL_SetRenderDrawColor(sdlutils().renderer(), 255, 0, 0, 0);
+	SDL_RenderDrawRect(sdlutils().renderer(), &collider);
+	SDL_SetRenderDrawColor(sdlutils().renderer(), 0, 0, 255, 0);
+	SDL_RenderFillRect(sdlutils().renderer(), &center);
+	SDL_SetRenderDrawColor(sdlutils().renderer(), 255, 255, 255, 0);
+}
+
 bool GameObject::collide(SDL_Rect other)
 {
 	SDL_Rect rect1 = getCollider();

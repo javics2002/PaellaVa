@@ -110,6 +110,12 @@ public:
 			it->render();
 	}
 
+	void debug() {
+		for (auto it : activeObjects) {
+			it->drawDebug();
+		}
+	}
+
 	void update() {
 		for (auto it : activeObjects) {
 			it->update();

@@ -13,4 +13,7 @@ public:
     virtual bool colisionClientes() {
         return false;
     }
+    virtual bool ratonEncima() {
+        return false;
+    }
 };
