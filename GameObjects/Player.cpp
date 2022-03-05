@@ -11,9 +11,9 @@ Player::Player(Game* game) : GameObject(game)
 
 	objetoCargado_ = nullptr;
 
-	aceleracion = 0.8;
-	deceleracion = 0.4;
-	maxVel = 5;
+	aceleracion = 1.2;
+	deceleracion = 0.8;
+	maxVel = 7;
 
 	setTexture("alcachofa"); //añadir imagen de jugador xD
 }
@@ -26,6 +26,8 @@ void Player::handleInput()
 {
 	vel = (vel + ih().getAxis() * aceleracion);
 
+
+	// esto es un test
 	if (vel.getX() != 0 && ih().getAxis().getX() == 0) { // aplicar rozamiento
 		if (vel.getX() < 0) {
 			vel.setX(vel.getX() + deceleracion);

@@ -27,11 +27,8 @@ public:
 
 	// clear the state
 	inline void clearState() {
-		isKeyDownEvent_ = false;
-		isKeyUpEvent_ = false;
 		isMouseButtonEvent_ = false;
 		isMouseMotionEvent_ = false;
-		isJoystickEvent_ = false;
 
 		for (auto i = 0u; i < 3; i++) {
 			mbState_[i] = false;
@@ -40,9 +37,12 @@ public:
 
 	// update the state with a new event
 	inline void update(const SDL_Event& event) {
+		onKeyboardPressed();
+
 		switch (event.type) {
 		case SDL_KEYDOWN:
-			// onKeyboardPressed();
+			break;
+		case SDL_KEYUP:
 			break;
 		case SDL_MOUSEMOTION:
 			onMouseMotion(event);
@@ -56,9 +56,7 @@ public:
 		case SDL_JOYAXISMOTION:
 			onJoystickMotion(event);
 			break;
-		default: // si no pulsamos nada
-			onKeyboardPressed();
-			// onJoystickMotion(event);
+		default:
 			break;
 		}
 	}
@@ -90,12 +88,6 @@ public:
 			update(event);
 	}
 
-	// joystick
-	inline bool isJoystickEvent()
-	{
-		return isJoystickEvent_;
-	}
-
 	inline int getAxisX()
 	{
 		return ejeX;
@@ -123,15 +115,14 @@ public:
 	}
 
 	inline void onJoystickMotion(const SDL_Event& e) {
-		isJoystickEvent_ = true;
 		if (e.jaxis.which == 0)//controller 0
 		{
 			if (e.jaxis.axis == 0)// x axis
 			{
 				if (e.jaxis.value < -CONTROLLER_DEAD_ZONE)
-					ejeX = e.jaxis.value / INT16_MAX; // valor entre -1 y 1
+					ejeX = e.jaxis.value; // valor entre -1 y 1
 				else if (e.jaxis.value > CONTROLLER_DEAD_ZONE)
-					ejeX = e.jaxis.value / INT16_MAX;
+					ejeX = e.jaxis.value;
 				else
 					ejeX = 0;
 			}
@@ -139,9 +130,9 @@ public:
 			else if (e.jaxis.axis == 1)//y axis
 			{
 				if (e.jaxis.value < -CONTROLLER_DEAD_ZONE)
-					ejeY = e.jaxis.value / INT16_MAX;
+					ejeY = e.jaxis.value;
 				else if (e.jaxis.value > CONTROLLER_DEAD_ZONE)
-					ejeY = e.jaxis.value / INT16_MAX;
+					ejeY = e.jaxis.value;
 				else
 					ejeY = 0;
 			}
@@ -152,31 +143,6 @@ public:
 		Vector2D<double> axis(ejeX, ejeY);
 		axis.normalize();
 		return axis;
-	}
-
-	// keyboard
-	inline bool keyDownEvent() {
-		return isKeyDownEvent_;
-	}
-
-	inline bool keyUpEvent() {
-		return isKeyUpEvent_;
-	}
-
-	inline bool isKeyDown(SDL_Scancode key) {
-		return keyDownEvent() && kbState_[key] == 1;
-	}
-
-	inline bool isKeyDown(SDL_Keycode key) {
-		return isKeyDown(SDL_GetScancodeFromKey(key));
-	}
-
-	inline bool isKeyUp(SDL_Scancode key) {
-		return keyUpEvent() && kbState_[key] == 0;
-	}
-
-	inline bool isKeyUp(SDL_Keycode key) {
-		return isKeyUp(SDL_GetScancodeFromKey(key));
 	}
 
 	// mouse
@@ -214,14 +180,6 @@ private:
 		initJoystick();
 	}
 
-	inline void onKeyDown(const SDL_Event&) {
-		isKeyDownEvent_ = true;
-	}
-
-	inline void onKeyUp(const SDL_Event&) {
-		isKeyUpEvent_ = true;
-	}
-
 	inline void onMouseMotion(const SDL_Event &event) {
 		isMouseMotionEvent_ = true;
 		mousePos_.first = event.motion.x;
@@ -246,15 +204,13 @@ private:
 		}
 	}
 
-	bool isKeyUpEvent_;
-	bool isKeyDownEvent_;
 	bool isMouseMotionEvent_;
 	bool isMouseButtonEvent_;
-	bool isJoystickEvent_;
+
 	std::pair<Sint32, Sint32> mousePos_;
 	std::array<bool, 3> mbState_;
 	const Uint8 *kbState_;
-	const int CONTROLLER_DEAD_ZONE = 5000;
+	const int CONTROLLER_DEAD_ZONE = 8000;
 	int ejeX, ejeY;
 };
 
