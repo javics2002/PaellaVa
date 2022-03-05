@@ -37,13 +37,12 @@ public:
 
 	// update the state with a new event
 	inline void update(const SDL_Event& event) {
-		onKeyboardPressed();
-
+		
 		switch (event.type) {
-		case SDL_KEYDOWN:
-			break;
-		case SDL_KEYUP:
-			break;
+		//case SDL_KEYDOWN:
+		//	break;
+		//case SDL_KEYUP:
+		//	break;
 		case SDL_MOUSEMOTION:
 			onMouseMotion(event);
 			break;
@@ -57,6 +56,7 @@ public:
 			onJoystickMotion(event);
 			break;
 		default:
+			onKeyboardPressed();
 			break;
 		}
 	}
@@ -211,7 +211,7 @@ private:
 	std::array<bool, 3> mbState_;
 	const Uint8 *kbState_;
 	const int CONTROLLER_DEAD_ZONE = 8000;
-	int ejeX, ejeY;
+	float ejeX, ejeY;
 };
 
 // This macro defines a compact way for using the singleton InputHandler, instead of

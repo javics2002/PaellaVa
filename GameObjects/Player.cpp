@@ -56,7 +56,7 @@ void Player::handleInput()
 
 void Player::update()
 {
-	// cout << ih().getAxisX() << " " << ih().getAxisY() << endl;
+	cout << ih().getAxisX() << " " << ih().getAxisY() << endl;
 	pos = pos + vel;
 }
 
