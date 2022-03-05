@@ -1,9 +1,13 @@
 #pragma once
 #include "../GameObject.h"
 
-class Mueble
+class Game;
+
+class Mueble : public GameObject
 {
 public:
-	virtual bool Accion();
+	Mueble(Game* game, Vector2D<int> pos);
+	Mueble(Game* game, Vector2D<int> pos, int rot);
+	~Mueble() = default;
 };
 
