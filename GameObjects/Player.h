@@ -24,9 +24,7 @@ public:
 
 	void update();
 
-	void setVelocidad(float velocidad);
 	void moverObjeto(GameObject* objeto);
-	float GetVelocidad() { return velocidad_; }
 	
 };
 

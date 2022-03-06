@@ -125,11 +125,6 @@ void Player::update()
 	}
 }
 
-void Player::setVelocidad(float velocidad)
-{
-	velocidad_ = velocidad;
-}
-
 void Player::moverObjeto(GameObject* objeto)
 {
 	Vector2D<double> objPos = pos;
