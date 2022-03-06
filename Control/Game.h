@@ -13,6 +13,7 @@
 
 class Restaurante;
 class ObjectManager;
+class UIManager;
 
 using namespace std;
 
@@ -35,6 +36,7 @@ public:
     void render();
     
     ObjectManager* getObjectManager();
+    UIManager* getUIManager();
 
 private:
     escenasJuego currentScene = RESTAURANTE;

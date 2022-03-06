@@ -7,6 +7,7 @@
 #include "../sdlutils/SDLUtils.h"
 #include "../sdlutils/InputHandler.h"
 #include "../Control/ObjectManager.h"
+#include "../GameObjects/UI/UIManager.h"
 
 Game::Game() {
 	srand(time(NULL));
@@ -95,4 +96,8 @@ void Game::render()
 ObjectManager* Game::getObjectManager()
 {
 	return restaurante->getObjectManager();
+}
+UIManager* Game::getUIManager()
+{
+	return restaurante->getUIManager();
 }

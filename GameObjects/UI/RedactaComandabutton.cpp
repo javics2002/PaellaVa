@@ -14,4 +14,5 @@ RedactaComandabutton::~RedactaComandabutton()
 void RedactaComandabutton::execute()
 {
 	//game->getObjectManager()->creaComanda(game);
+	
 }
