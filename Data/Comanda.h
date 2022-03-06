@@ -8,6 +8,7 @@ class Paella;
 class Ingrediente;
 class Game;
 class Ingredientebutton;
+class UIManager;
 using namespace std;
 using uint = uint32_t;
 using Iconos = char;
@@ -17,7 +18,7 @@ class Comanda :public GameObject
     //hay 8 ingredientes distintos
 public:
     enum Tamaño { Pequeña, Mediana, Grande };
-    Comanda(Game* game, uint nmesa);//crear comanda
+    Comanda(Game* game, uint nmesa,UIManager* uim);//crear comanda
 
     ~Comanda();//No se puede definir todavia y no compila NO LO BORREIS/
     void añadiraPedido(string i);
@@ -30,8 +31,8 @@ public:
     //float Puntuacion(vector<Paella> paellas);
 private:
     vector<Point2D<double> >posicionesBotones;//vas seleccionando y vas borrando las ya usadas
-    vector<string> texturasIngredienes = { "alcachofa", "berenjena", "calamar", "cangrejo", "gamba",
-        "langosta", "mejillon", "pimientoRojo", "pimientoVerde", "pollo"};
+   /* vector<string> texturasIngredienes = { "alcachofa", "berenjena", "calamar", "cangrejo", "gamba",
+        "langosta", "mejillon", "pimientoRojo", "pimientoVerde", "pollo"};*/
     int x;
     int y;
     int escritoX;
@@ -46,6 +47,7 @@ private:
     uint numeroPaellas;
     float puntuacion;
     Game* gamet;
+    UIManager* uimt;
    // ObjectManager* objectmanager;
     //Texture textura;
     //Por cada paella, un tamaño y un vector de ingredientes

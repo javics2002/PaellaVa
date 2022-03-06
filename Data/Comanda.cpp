@@ -2,7 +2,8 @@
 #include "../GameObjects/UI/Ingredientebutton.h"
 #include "../Control/Game.h"
 #include "../Control/ObjectManager.h"
-Comanda::Comanda(Game* game, uint nmesa) :GameObject(game)
+#include "../GameObjects/UI/UIManager.h"
+Comanda::Comanda(Game* game, uint nmesa,UIManager* uim) :GameObject(game)
 {
 
     setTexture("cuadernillo");
@@ -12,13 +13,14 @@ Comanda::Comanda(Game* game, uint nmesa) :GameObject(game)
     setPosition(p);
     setDimension(ancho, alto);
     gamet = game;
+    uimt = uim;
  //   objectmanager = gamet->getObjectManager();
-   /* double ix = p.getX() / 2 + margenbotones + anchobotones / 2;
+    double ix = p.getX() / 2 + margenbotones + anchobotones / 2;
     double iy = p.getY() / 2 + 2*anchobotones;
     escritoX = ix;
     escritoY = iy - anchobotones - margenbotones;
     //creamos las psiciones de los botones del teclado
-    for (int i = 0; i < 9; i++)
+   /* for (int i = 0; i < 9; i++)
     {
         posicionesBotones.push_back(Point2D<double>(ix, iy));
         ix += anchobotones + margenbotones;
@@ -56,23 +58,26 @@ void Comanda::añadiraPedido(string i)
     {
         escritoY += anchobotones / 2 + margenbotones;
         escritoX = getPosition().getX() / 2 + margenbotones + anchobotones / 2;
-        alto = alto + anchobotones / 2 + margenbotones;
+        alto = alto + anchobotones / 2 + 2*margenbotones;
         setDimension(ancho, alto);
-        setPosition(getPosition().getX(), getPosition().getY() + margenbotones);
-        for (auto b : posicionesBotones)
+        setPosition(getPosition().getX(), getPosition().getY() + 2*margenbotones);
+        vector<Point2D<double>> sangria = uimt->getPosTeclado();
+        for (int i=  0; i<sangria.size();i++)
         {
-            b.setY(b.getY() + anchobotones);
-            b.getY();
+            int ny =sangria[i].getY() + anchobotones;
+            sangria[i].setY(ny);
             //en algun lugar vuelven a tener el valor default lo tengo que mirar
             //bajar teclado
+            //lo bajará en uim?
         }
+        uimt->setPosTeclado(sangria);
     }
     randomizaIconos();
 
 }
 void Comanda::randomizaIconos()
 {
-    vector<Point2D<double>> posdis = posicionesBotones;
+    vector<Point2D<double>> posdis = uimt->getPosTeclado();
     int j = rand() % posdis.size();
     for (auto i : teclado)
     {
@@ -85,4 +90,8 @@ void Comanda::randomizaIconos()
 }
 void Comanda::dibujaPedido()
 {
+    for (auto i : Pedido)
+    {
+        i->render();
+    }
 }
