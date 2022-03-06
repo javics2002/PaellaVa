@@ -45,5 +45,6 @@ public:
 	void creaComanda(Game*game);
 
 	vector<Collider*> getClientes(SDL_Rect gOC);
+	vector<Collider*> getIngredientes(SDL_Rect gOC);
 };
 
