@@ -19,7 +19,7 @@ private:
 	float aceleracion, deceleracion, maxVel;
 
 	Ingrediente* myIng = nullptr;
-	Cliente* myCl = nullptr;
+	Cliente* myClient = nullptr;
 	//Configuración de skin
 
 public:

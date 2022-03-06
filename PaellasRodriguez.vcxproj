@@ -206,6 +206,7 @@
     <ClInclude Include="tmxlite\include\tmxlite\TileLayer.hpp" />
     <ClInclude Include="tmxlite\include\tmxlite\Tileset.hpp" />
     <ClInclude Include="tmxlite\include\tmxlite\Types.hpp" />
+    <ClInclude Include="Utils\Traza.h" />
     <ClInclude Include="Utils\Singleton.h" />
     <ClInclude Include="Utils\Texture.h" />
     <ClInclude Include="Utils\Vector2D.h" />

@@ -4,9 +4,10 @@
 #include "../sdlutils/InputHandler.h"
 #include "../Control/ObjectManager.h"
 #include "Ingrediente.h"
+#include "Cliente.h"
+#include "../Utils/Traza.h"
 
-#define TRACE_F(F, L, T) (cout << F <<":" << L << " "<<#T << ": " << T << endl )
-#define TRACE( T) (cout << #T << ": " << T << endl )
+
 Player::Player(Game* game) : GameObject(game)
 {
 
@@ -63,19 +64,49 @@ void Player::handleInput()
 
 	if (ih().isKeyboardEvent() && ih().getKeyPressed() == SDL_SCANCODE_E)
 	{
-		if (myIng == nullptr)
+		if (myIng == nullptr && myClient == nullptr)
 		{
 			cout << "E pressed" << endl;
+
 			vector<Collider*> ingredientes = game->getObjectManager()->getIngredientes(this->getCollider());
 			cout << "Ingredientes colisionando " << ingredientes.size() << endl;
 			TRACE(ingredientes.size());
 			for (auto it : ingredientes)
 			{
-				myIng = dynamic_cast<Ingrediente*>(it);
-				myIng->ingredienteRecogido();
+				if (myIng == nullptr)
+				{
+					myIng = dynamic_cast<Ingrediente*>(it);
+					myIng->ingredienteRecogido();
+				}
 			}
+
+			if (!myIng)
+			{
+				vector<Collider*> clientes = game->getObjectManager()->getClientes(this->getCollider());
+				cout << "Clientes colisionando " << clientes.size() << endl;
+				TRACE(clientes.size());
+				for (auto it : clientes)
+				{
+					if (myClient == nullptr)
+					{
+						myClient = dynamic_cast<Cliente*>(it);
+						myClient->clienteRecogido();
+					}
+				}
+			}
+
+			
+		}
+		else if (myIng != nullptr)
+		{
+			myIng = nullptr;
+		}
+		else if (myClient != nullptr)
+		{
+			myClient = nullptr;
 		}
 	}
+
 }
 
 void Player::update()
@@ -86,6 +117,11 @@ void Player::update()
 	if (myIng != nullptr)
 	{
 		myIng->setPosition(pos);
+	}
+
+	if (myClient != nullptr)
+	{
+		myClient->setPosition(pos);
 	}
 }
 

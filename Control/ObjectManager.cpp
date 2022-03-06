@@ -40,9 +40,9 @@ void ObjectManager::render()
 		c->render();
 
 	for (auto i : interfaz)
-		i->render();
+		i->render();*/
 
-	ingredientes->render();	*/
+	ingredientes->render();
 
 	clientes->render();
 }

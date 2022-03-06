@@ -45,16 +45,22 @@ void Cliente::cambiaTextura(string nuevaClave)
 Cliente::Cliente(Game* game) : PoolObject(game)
 {
 	setDimension(DIMENSION, DIMENSION);
+	vel.setX(2.0f);
 }
 
 void Cliente::update()
 {
-	setPosition(getX() + 2.0f, getY());
+	setPosition(getX() + vel.getX(), getY());
 
 }
 
 void Cliente::cambiaTextura(string textureN)
 {
 	setTexture(textureN);
+}
+
+void Cliente::clienteRecogido()
+{
+	vel = { 0,0 };
 }
 
