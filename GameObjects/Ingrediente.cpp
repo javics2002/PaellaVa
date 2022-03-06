@@ -33,5 +33,5 @@ void Ingrediente::ingredienteRecogido()
 {
 	vel = { 0,0 };
 
-	cout << "vel " << vel.getX() << ", " << vel.getY() << endl;
+	//cout << "vel " << vel.getX() << ", " << vel.getY() << endl;
 }
