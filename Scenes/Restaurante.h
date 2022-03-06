@@ -65,5 +65,6 @@ public:
 	void render();
 
 	ObjectManager* getObjectManager();
+	UIManager* getUIManager();
 	void loadMap(string const & path);
 };

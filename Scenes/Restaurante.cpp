@@ -61,7 +61,10 @@ ObjectManager* Restaurante::getObjectManager()
 {
 	return objectManager;
 }
-
+UIManager* Restaurante::getUIManager()
+{
+	return uiManager;
+}
 //Check colisiones
 
 void Restaurante::loadMap(string const &path) {

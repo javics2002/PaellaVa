@@ -11,7 +11,13 @@ UIManager::UIManager(Game* game)
 }
 UIManager::~UIManager()
 {
+	for (auto i : interfaz)
+	{
 
+		delete i;
+		i = nullptr;
+	}
+	
 }
 void UIManager::uiEvent(int mx, int my)
 {
