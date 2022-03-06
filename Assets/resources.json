@@ -63,6 +63,10 @@
     {
       "id": "pollo",
       "file": "../../../Assets/Images/Ingredientes/pollo.png"
+    },
+    {
+      "id": "player",
+      "file": "../../../Assets/Images/player.png"
     }
   ],
 
