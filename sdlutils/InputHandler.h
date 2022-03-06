@@ -18,6 +18,64 @@ class InputHandler: public Singleton<InputHandler> {
 	
 	SDL_Joystick* joystick_;
 
+private:
+
+	bool isMouseMotionEvent_;
+	bool isMouseButtonEvent_;
+	bool isKeyboardEvent_;
+	SDL_Scancode keyPressed;
+	bool interactPressed;
+
+	std::pair<Sint32, Sint32> mousePos_;
+	std::array<bool, 3> mbState_;
+	const Uint8* kbState_;
+	const int CONTROLLER_DEAD_ZONE = 8000;
+	float ejeX, ejeY;
+	int mx = -1;
+	int my = -1;
+
+	InputHandler() {
+		kbState_ = SDL_GetKeyboardState(0);
+		clearState();
+		initJoystick();
+		interactPressed = false;
+	}
+
+	inline void onMouseMotion(const SDL_Event& event) {
+		isMouseMotionEvent_ = true;
+		mousePos_.first = event.motion.x;
+		mousePos_.second = event.motion.y;
+
+	}
+
+	inline void onMouseButtonChange(const SDL_Event& event, bool isDown) {
+		isMouseButtonEvent_ = true;
+		switch (event.button.button) {
+		case SDL_BUTTON_LEFT:
+			mbState_[LEFT] = isDown;
+			cout << "CLICK IH  ";
+			cout << isDown;
+			SDL_GetMouseState(&mx, &my);
+			/*if (uim != nullptr)
+			{
+				uim->uiEvent(mx, my);
+			}*/
+
+			/*	mx = -1;
+				my = -1;*/
+			break;
+		case SDL_BUTTON_MIDDLE:
+			mbState_[MIDDLE] = isDown;
+			break;
+		case SDL_BUTTON_RIGHT:
+			mbState_[RIGHT] = isDown;
+			break;
+		default:
+			break;
+		}
+		//clearState();
+	}
+
 public:
 	enum MOUSEBUTTON : uint8_t {
 		LEFT = 0, MIDDLE = 1, RIGHT = 2
@@ -42,10 +100,9 @@ public:
 	inline void update(const SDL_Event& event) {
 		
 		switch (event.type) {
-		//case SDL_KEYDOWN:
-		//	break;
-		//case SDL_KEYUP:
-		//	break;
+		case SDL_KEYDOWN:
+		 	onKeyboardPressed(event.key.keysym.scancode);
+			break;
 		case SDL_MOUSEMOTION:
 			onMouseMotion(event);
 			break;
@@ -58,8 +115,13 @@ public:
 		case SDL_JOYAXISMOTION:
 			onJoystickMotion(event);
 			break;
+		case SDL_KEYUP:
+			if (event.key.keysym.scancode == SDL_SCANCODE_E)
+				interactPressed = false;
+			onKeyboardPressed(event.key.keysym.scancode);
+			break;
 		default:
-			onKeyboardPressed();
+			onKeyboardPressed(SDL_SCANCODE_UNKNOWN);
 			break;
 		}
 	}
@@ -101,7 +163,9 @@ public:
 		return ejeY;
 	}
 
-	inline void onKeyboardPressed() {
+	//Refactorizar para que con el KeyUp cambie los valores en vez de con la ausencia de esos KeyDowns 
+	//para que no necesite GetKey() y cree un array cada vez
+	inline void onKeyboardPressed(SDL_Scancode key) {
 		if (GetKey(SDL_SCANCODE_A))
 			ejeX = -1; // valor entre -1 y 1
 		else if (GetKey(SDL_SCANCODE_D))
@@ -116,8 +180,10 @@ public:
 		else
 			ejeY = 0;
 
-		if (GetKey(SDL_SCANCODE_E))
+		if (GetKey(SDL_SCANCODE_E) && !interactPressed)
 		{
+			interactPressed = true;
+
 			keyPressed = SDL_SCANCODE_E;
 			isKeyboardEvent_ = true; // Intentar recoger objeto
 		}
@@ -195,60 +261,7 @@ public:
 	int Getmy() { return my; };
 
 
-private:
-	InputHandler() {
-		kbState_ = SDL_GetKeyboardState(0);
-		clearState();
-		initJoystick();
-	}
 
-	inline void onMouseMotion(const SDL_Event &event) {
-		isMouseMotionEvent_ = true;
-		mousePos_.first = event.motion.x;
-		mousePos_.second = event.motion.y;
-
-	}
-
-	inline void onMouseButtonChange(const SDL_Event &event, bool isDown) {
-		isMouseButtonEvent_ = true;
-		switch (event.button.button) {
-		case SDL_BUTTON_LEFT:
-			mbState_[LEFT] = isDown;
-			cout << "CLICK IH  ";
-			cout << isDown;
-			SDL_GetMouseState(&mx, &my);
-			/*if (uim != nullptr)
-			{
-				uim->uiEvent(mx, my);
-			}*/
-			
-		/*	mx = -1;
-			my = -1;*/
-			break;
-		case SDL_BUTTON_MIDDLE:
-			mbState_[MIDDLE] = isDown;
-			break;
-		case SDL_BUTTON_RIGHT:
-			mbState_[RIGHT] = isDown;
-			break;
-		default:
-			break;
-		}
-		//clearState();
-	}
-
-	bool isMouseMotionEvent_;
-	bool isMouseButtonEvent_;
-	bool isKeyboardEvent_;
-	SDL_Scancode keyPressed;
-
-	std::pair<Sint32, Sint32> mousePos_;
-	std::array<bool, 3> mbState_;
-	const Uint8 *kbState_;
-	const int CONTROLLER_DEAD_ZONE = 8000;
-	float ejeX, ejeY;
-	int mx = -1;
-	int my = -1;
 	
 };
 

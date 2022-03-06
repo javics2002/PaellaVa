@@ -13,7 +13,7 @@ Player::Player(Game* game) : GameObject(game)
 
 	//posicion_ = posicion;
 	setPosition(100, 100);
-	setDimension(50, 50);
+	setDimension(100, 100);
 
 	objetoCargado_ = nullptr;
 
@@ -25,7 +25,7 @@ Player::Player(Game* game) : GameObject(game)
 
 	//TRACE_F(__FILE__ , __LINE__,   maxVel);
 	
-	setTexture("alcachofa"); //añadir imagen de jugador xD
+	setTexture("player");
 }
 
 Player::~Player()
@@ -116,17 +116,21 @@ void Player::update()
 	
 	if (myIng != nullptr)
 	{
-		myIng->setPosition(pos);
+		moverObjeto(myIng);
 	}
 
 	if (myClient != nullptr)
 	{
-		myClient->setPosition(pos);
+		moverObjeto(myClient);
 	}
 }
 
-void Player::SetVelocidad(float velocidad)
+void Player::moverObjeto(GameObject* objeto)
 {
-	velocidad_ = velocidad;
+	Vector2D<double> objPos = pos;
+
+	objPos.setY(objPos.getY() - this->getHeight() / 2);
+
+	objeto->setPosition(objPos);
 }
 

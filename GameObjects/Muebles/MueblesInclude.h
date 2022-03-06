@@ -1,0 +1,12 @@
+#pragma once
+#include "Cinta.h"
+#include "Cartel.h"
+#include "FinalCinta.h"
+#include "Fogon.h"
+#include "InicioCinta.h"
+#include "Lavavajillas.h"
+#include "Mesa.h"
+#include "Puerta.h"
+#include "TablaProcesado.h"
+#include "Ventanilla.h"
+#include "Silla.h"

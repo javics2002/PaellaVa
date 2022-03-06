@@ -122,7 +122,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>SDL2-2.0.20/lib/x64;SDL2_image-2.0.1/lib/x64;SDL2_mixer-2.0.2/lib/x64;SDL2_ttf-2.0.14/lib/x64;tmxlite/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;tmxlite-d.lib</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;tmxlite-d.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -147,17 +147,18 @@
   <ItemGroup>
     <ClInclude Include="GameObjects\Cola.h" />
     <ClInclude Include="GameObjects\Fondo.h" />
-    <ClInclude Include="GameObjects\Muebles\cartel.h" />
+    <ClInclude Include="GameObjects\Muebles\Cartel.h" />
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
     <ClInclude Include="GameObjects\Collider.h" />
     <ClInclude Include="Control\Input.h" />
     <ClInclude Include="Data\Comanda.h" />
     <ClInclude Include="GameObjects\Cliente.h" />
     <ClInclude Include="GameObjects\Muebles\Cinta.h" />
-    <ClInclude Include="GameObjects\Muebles\Fogones.h" />
+    <ClInclude Include="GameObjects\Muebles\Fogon.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Control\Game.h" />
     <ClInclude Include="GameObjects\GameObject.h" />
+    <ClInclude Include="GameObjects\Muebles\MueblesInclude.h" />
     <ClInclude Include="GameObjects\Muebles\Mueble.h" />
     <ClInclude Include="GameObjects\Muebles\Lavavajillas.h" />
     <ClInclude Include="GameObjects\Muebles\Mesa.h" />
@@ -178,7 +179,6 @@
     <ClInclude Include="json\JSONValue.h" />
     <ClInclude Include="PaellasRodriguez.h" />
     <ClInclude Include="GameObjects\Player.h" />
-    <ClInclude Include="Data\Posicion.h" />
     <ClInclude Include="Data\Pool.h" />
     <ClInclude Include="GameObjects\PoolObject.h" />
     <ClInclude Include="Resource.h" />
@@ -216,17 +216,16 @@
     <ClCompile Include="Data\Comanda.cpp" />
     <ClCompile Include="GameObjects\Cola.cpp" />
     <ClCompile Include="GameObjects\Fondo.cpp" />
-    <ClCompile Include="GameObjects\Muebles\cartel.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Cartel.cpp" />
     <ClCompile Include="GameObjects\Muebles\FinalCinta.cpp" />
     <ClCompile Include="GameObjects\Cliente.cpp" />
     <ClCompile Include="GameObjects\Muebles\Cinta.cpp" />
     <ClCompile Include="Control\Game.cpp" />
     <ClCompile Include="Control\main.cpp" />
-    <ClCompile Include="GameObjects\Muebles\Fogones.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Fogon.cpp" />
     <ClCompile Include="GameObjects\GameObject.cpp" />
     <ClCompile Include="GameObjects\Muebles\Puerta.cpp" />
     <ClCompile Include="GameObjects\Player.cpp" />
-    <ClCompile Include="Data\Posicion.cpp" />
     <ClCompile Include="GameObjects\Muebles\Mueble.cpp" />
     <ClCompile Include="GameObjects\Muebles\Lavavajillas.cpp" />
     <ClCompile Include="GameObjects\Muebles\Mesa.cpp" />

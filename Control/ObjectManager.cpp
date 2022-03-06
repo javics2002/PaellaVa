@@ -11,14 +11,11 @@
 
 ObjectManager::ObjectManager(Game* game)
 {
-	ingredientes = new Pool<Ingrediente>(game, 10);
-	clientes = new Pool<Cliente>(game, 30);
+	ingredientes = new Pool<Ingrediente>(game, 50);
+	clientes = new Pool<Cliente>(game, 50);
 	grupoClientes = new Pool<GrupoClientes>(game, 20);
 
-	muebles.push_back(new InicioCinta(game, ingredientes));
-	muebles.push_back(new FinalCinta(game, ingredientes));
-	muebles.push_back(new Puerta(game, clientes, grupoClientes));
-	muebles.push_back(new Cartel(game));
+	interfaz.push_back(new RedactaComandabutton(game, "redactaboton", 10, 10, 30, 30));
 }
 
 ObjectManager::~ObjectManager()
@@ -91,3 +88,7 @@ vector<Collider*> ObjectManager::getIngredientes(SDL_Rect gOC)
 	return ingredientes->getCollisions(gOC);
 }
 
+void ObjectManager::addMueble(GameObject* mueble)
+{
+	muebles.push_back(mueble);
+}

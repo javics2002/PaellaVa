@@ -1,5 +1,4 @@
 #pragma once
-#include "../Data/Posicion.h"
 #include "../Control/ObjectManager.h"
 #include "../GameObjects/UI/UIManager.h"
 #include "../Scenes/Scene.h"
@@ -40,16 +39,13 @@ struct MapInfo {
 	}
 };
 
-class Restaurante: public Scene
+class Restaurante : public Scene
 {
 	Game* game;
 
 	//Punteros a los jugadores (Quizas deberian llamarse yo y amigo, en relativo)
 	Player* host;
 	Player* client;
-
-	//Mapa de muebles. Podemos preguntar qué mueble se encuentra en x posición de forma constante.
-	//unordered_map<Posicion, Mueble*> muebles;
 
 	ObjectManager* objectManager;
 	UIManager* uiManager;
@@ -63,6 +59,7 @@ public:
 	void handleInput();
 	void update();
 	void render();
+	void debug();
 
 	ObjectManager* getObjectManager();
 	UIManager* getUIManager();

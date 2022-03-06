@@ -11,9 +11,7 @@ class Ingrediente : public PoolObject
 {
 	const unsigned int DIMENSION = 70;
 
-	//enum tipoIngrediente { ALCACHOFA, BERENJENA, CALAMAR, CANGREJO, GAMBA, LANGOSTA, MEJILLON,
-		//PIMENTOROJO, PIMIENTOVERDE, POLLO };
-	vector<string> texturaIngrediente = { "alcachofa", "berenjena", "calamar", "cangrejo", "gamba",
+	vector<string> texturaIngrediente = { "alcachofa", "calamar", "cangrejo", "gamba",
 		"langosta", "mejillon", "pimientoRojo", "pimientoVerde", "pollo" };
 
 public:
