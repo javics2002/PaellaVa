@@ -8,13 +8,14 @@
 
 #include "../utils/Singleton.h"
 
+
 // Instead of a Singleton class, we could make it part of
 // SDLUtils as well.
 
 class InputHandler: public Singleton<InputHandler> {
 
 	friend Singleton<InputHandler> ;
-
+	
 	SDL_Joystick* joystick_;
 
 public:
@@ -148,10 +149,13 @@ public:
 	// mouse
 	inline bool mouseMotionEvent() {
 		return isMouseMotionEvent_;
+		
 	}
 
 	inline bool mouseButtonEvent() {
+		
 		return isMouseButtonEvent_;
+
 	}
 
 	inline const std::pair<Sint32, Sint32>& getMousePos() {
@@ -172,6 +176,9 @@ public:
 
 	// TODO add support for Joystick, see Chapter 4 of
 	// the book 'SDL Game Development'
+	int Getmx() { return mx; };
+	int Getmy() { return my; };
+
 
 private:
 	InputHandler() {
@@ -192,6 +199,16 @@ private:
 		switch (event.button.button) {
 		case SDL_BUTTON_LEFT:
 			mbState_[LEFT] = isDown;
+			cout << "CLICK IH  ";
+			cout << isDown;
+			SDL_GetMouseState(&mx, &my);
+			/*if (uim != nullptr)
+			{
+				uim->uiEvent(mx, my);
+			}*/
+			
+			mx = -1;
+			my = -1;
 			break;
 		case SDL_BUTTON_MIDDLE:
 			mbState_[MIDDLE] = isDown;
@@ -202,6 +219,7 @@ private:
 		default:
 			break;
 		}
+		//clearState();
 	}
 
 	bool isMouseMotionEvent_;
@@ -212,6 +230,9 @@ private:
 	const Uint8 *kbState_;
 	const int CONTROLLER_DEAD_ZONE = 8000;
 	float ejeX, ejeY;
+	int mx = -1;
+	int my = -1;
+	
 };
 
 // This macro defines a compact way for using the singleton InputHandler, instead of

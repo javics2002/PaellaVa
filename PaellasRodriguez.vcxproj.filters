@@ -40,6 +40,9 @@
     <ClCompile Include="GameObjects\Cola.cpp" />
     <ClCompile Include="GameObjects\UI\RedactaComandabutton.cpp" />
     <ClCompile Include="GameObjects\UI\UiButton.cpp" />
+     <ClCompile Include="GameObjects\UI\UIManager.cpp" />
+    <ClCompile Include="GameObjects\UI\Ingredientebutton.cpp" />
+
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
@@ -104,6 +107,9 @@
     <ClInclude Include="GameObjects\Cola.h" />
     <ClInclude Include="GameObjects\UI\RedactaComandabutton.h" />
     <ClInclude Include="GameObjects\UI\UiButton.h" />
+     <ClInclude Include="GameObjects\UI\UIManager.h" />
+    <ClInclude Include="GameObjects\UI\Ingredientebutton.h" />
+
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />

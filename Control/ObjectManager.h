@@ -26,8 +26,7 @@ class ObjectManager
 	//esto va a ser nuestra version de capas
 	//en el orden en el que lo renderizamos nos aseguramos que la UI esta por encima de todo
 	vector<GameObject*> muebles;
-	vector<GameObject*> interfaz;
-	vector<GameObject*> comandas; 
+
 
 	//Para formar el rect del raton
 	int x, y, range = 2;
@@ -41,9 +40,7 @@ public:
 	void render();
 	void debug();
 
-	void uiEvent(int mx,int my);
-	void creaComanda(Game*game);
-
+	
 	vector<Collider*> getClientes(SDL_Rect gOC);
 };
 
