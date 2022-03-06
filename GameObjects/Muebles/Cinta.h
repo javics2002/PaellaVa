@@ -5,7 +5,8 @@ class Game;
 
 class Cinta : public Mueble
 {
-	Cinta(Game* game, Vector2D<int> pos);
+public:
+	Cinta(Game* game, Vector2D<double> pos);
 	~Cinta() = default;
 };
 

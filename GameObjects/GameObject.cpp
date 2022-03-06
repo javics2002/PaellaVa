@@ -42,7 +42,6 @@ SDL_Rect GameObject::getCenter()
 
 void GameObject::drawDebug()
 {
-
 	SDL_Rect collider = getCollider();
 	SDL_Rect center = getCenter();
 	collider = { collider.x, collider.y, collider.w, collider.h };

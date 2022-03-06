@@ -1,21 +1,17 @@
 #pragma once
-#include "../GameObject.h"
+#include "Mueble.h"
 #include "../Ingrediente.h"
 #include "../../Data/Pool.h"
 
 class Game;
 
-class InicioCinta : public GameObject
+class InicioCinta : public Mueble
 {
-	const unsigned int DIMENSION_W = 70;
-	const unsigned int DIMENSION_H = 120;
-
 	const double SPAWN_DELAY = 2000;
-	double time;
 
-	Pool<Ingrediente>* poolIngredientes;
+	double time;
 public:
-	InicioCinta(Game* game, Pool<Ingrediente>* pool);
+	InicioCinta(Game* game, Vector2D<double> pos);
 	~InicioCinta() = default;
 
 	void update() override;

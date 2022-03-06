@@ -8,10 +8,9 @@
     <ClCompile Include="GameObjects\Muebles\Cinta.cpp" />
     <ClCompile Include="Control\Game.cpp" />
     <ClCompile Include="Control\main.cpp" />
-    <ClCompile Include="GameObjects\Muebles\Fogones.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Fogon.cpp" />
     <ClCompile Include="GameObjects\GameObject.cpp" />
     <ClCompile Include="GameObjects\Player.cpp" />
-    <ClCompile Include="Data\Posicion.cpp" />
     <ClCompile Include="GameObjects\Muebles\Mueble.cpp" />
     <ClCompile Include="GameObjects\Muebles\Lavavajillas.cpp" />
     <ClCompile Include="GameObjects\Muebles\Mesa.cpp" />
@@ -35,7 +34,7 @@
     <ClCompile Include="json\JSON.cpp" />
     <ClCompile Include="json\JSONValue.cpp" />
     <ClCompile Include="sdlutils\SoundEffect.cpp" />
-    <ClCompile Include="GameObjects\Muebles\cartel.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Cartel.cpp" />
     <ClCompile Include="GameObjects\Muebles\Puerta.cpp" />
     <ClCompile Include="GameObjects\Cola.cpp" />
     <ClCompile Include="GameObjects\UI\RedactaComandabutton.cpp" />
@@ -50,7 +49,7 @@
     <ClInclude Include="Data\Comanda.h" />
     <ClInclude Include="GameObjects\Cliente.h" />
     <ClInclude Include="GameObjects\Muebles\Cinta.h" />
-    <ClInclude Include="GameObjects\Muebles\Fogones.h" />
+    <ClInclude Include="GameObjects\Muebles\Fogon.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Control\Game.h" />
     <ClInclude Include="GameObjects\GameObject.h" />
@@ -67,7 +66,6 @@
     <ClInclude Include="GameObjects\Muebles\InicioCinta.h" />
     <ClInclude Include="PaellasRodriguez.h" />
     <ClInclude Include="GameObjects\Player.h" />
-    <ClInclude Include="Data\Posicion.h" />
     <ClInclude Include="Data\Pool.h" />
     <ClInclude Include="GameObjects\PoolObject.h" />
     <ClInclude Include="Resource.h" />
@@ -101,7 +99,7 @@
     <ClInclude Include="tmxlite\include\tmxlite\Map.hpp" />
     <ClInclude Include="tmxlite\include\tmxlite\Object.hpp" />
     <ClInclude Include="tmxlite\include\tmxlite\ObjectGroup.hpp" />
-    <ClInclude Include="GameObjects\Muebles\cartel.h" />
+    <ClInclude Include="GameObjects\Muebles\Cartel.h" />
     <ClInclude Include="GameObjects\Muebles\Puerta.h" />
     <ClInclude Include="GameObjects\Cola.h" />
     <ClInclude Include="GameObjects\UI\RedactaComandabutton.h" />
@@ -109,6 +107,7 @@
     <ClInclude Include="GameObjects\UI\UIManager.h" />
     <ClInclude Include="GameObjects\UI\Ingredientebutton.h" />
     <ClInclude Include="Utils\Traza.h" />
+    <ClInclude Include="GameObjects\Muebles\MueblesInclude.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />

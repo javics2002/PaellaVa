@@ -12,21 +12,15 @@ using namespace std;
 
 class ObjectManager
 {
-	//Vector de paelleras
-	//vector<Paella*> paelleras;
-
-	//Pool de clientes
-	Pool<Cliente> *clientes;
-	Pool<GrupoClientes> *grupoClientes;
-
-	//Pool de ingredientes
-	Pool<Ingrediente> *ingredientes;
-
-
 	//esto va a ser nuestra version de capas
 	//en el orden en el que lo renderizamos nos aseguramos que la UI esta por encima de todo
+	Pool<GrupoClientes> *grupoClientes;
+	Pool<Cliente> *clientes;
+	Pool<Ingrediente> *ingredientes;
 	vector<GameObject*> muebles;
-
+	vector<GameObject*> paellas;
+	vector<GameObject*> interfaz;
+	vector<GameObject*> comandas; 
 
 	//Para formar el rect del raton
 	int x, y, range = 2;
@@ -43,5 +37,14 @@ public:
 	
 	vector<Collider*> getClientes(SDL_Rect gOC);
 	vector<Collider*> getIngredientes(SDL_Rect gOC);
+
+	void addMueble(GameObject* mueble);
+	//void addPaella(GameObject* paella);
+	//void addComanda(GameObject* comanda);
+	//void addInterfaz(GameObject* interfaz);
+
+	Pool<Cliente>* getPoolClientes() { return clientes; };
+	Pool<GrupoClientes>* getPoolGrupoClientes() { return grupoClientes; };
+	Pool<Ingrediente>* getPoolIngredientes() { return ingredientes; };
 };
 

@@ -1,13 +1,9 @@
 #include "Mueble.h"
 #include "../../Control/Game.h"
 
-Mueble::Mueble(Game* game, Vector2D<int> pos) : GameObject(game)
+Mueble::Mueble(Game* game, Vector2D<double> position, int width, int height, string claveTextura) : GameObject(game)
 {
-	setPosition(pos.getX(), pos.getY());
-}
-
-Mueble::Mueble(Game* game, Vector2D<int> pos, int rot) : GameObject(game)
-{
-	setPosition(pos.getX(), pos.getY());
-
+	setDimension(width, height);
+	setPosition(position.getX() + getWidth() / 2, position.getY() + getHeight() / 2);
+	setTexture(claveTextura);
 }

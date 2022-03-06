@@ -3,11 +3,10 @@
 #include "../GameObjects/Player.h"
 #include "../GameObjects/Paella.h"
 #include "../GameObjects/Ingrediente.h"
-#include "../GameObjects/Muebles/Mueble.h"
+#include "../GameObjects/Muebles/MueblesInclude.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../Control/Game.h"
 #include <iostream>
-#include <filesystem>
 
 using namespace std;
 
@@ -56,6 +55,13 @@ void Restaurante::render()
 	
 	host->render();
 	uiManager->render();
+}
+
+void Restaurante::debug()
+{
+	fondo->drawDebug();
+	objectManager->debug();
+	host->drawDebug();
 }
 
 ObjectManager* Restaurante::getObjectManager()
@@ -169,17 +175,6 @@ void Restaurante::loadMap(string const &path) {
 					auto x_pos = x * mapInfo.anchoTile;
 					auto y_pos = y * mapInfo.altoTile;
 
-
-					//bool is_wall = false; // Booleano de control
-					//// Acceso a las propiedades de una tile dentro de un tileset (.tsx)
-					//vector<tmx::Property> tile_props = mapInfo.tile_map.getTilesets()[tsx_file - 1].getTiles()[cur_gid].properties;
-					//if (tile_props.size() > 0) {
-					//	// Lo separo aqui por si en algun futuro creamos m�s propiedades, realmente habria que hacer una busqueda
-					//	// de la propiedad y si esta en el vector usarla acorde
-					//	if (tile_props[0].getName() == "wall")
-					//		is_wall = tile_props[0].getBoolValue();
-					//}
-
 					// metemos el tile
 					auto tileTex = mapInfo.tilesets[tset_gid];
 
@@ -205,100 +200,53 @@ void Restaurante::loadMap(string const &path) {
 
 
 			for (auto obj : objs) {
-				auto aabb = obj.getAABB();
-				/*
-				if (obj.getName() == "collision") {
-					auto collider = mngr_->addEntity();
-					collider->setGroup<Wall_grp>(true);
-					collider->addComponent<Transform>(Point2D(aabb.left, aabb.top), aabb.width, aabb.height);
-					collider->addComponent<BoxCollider>(false, 0);
+				auto &aabb = obj.getAABB();
+				auto position = Vector2D<double>(aabb.left, aabb.top);
+				auto dimension = Vector2D<int>(mapInfo.anchoTile, mapInfo.altoTile);
+				string name = obj.getName();
+		
+				if (name == "mesaS") {
+					getObjectManager()->addMueble(new Mesa(game, position, { 1, 1 }, name));
 				}
-				else if (obj.getName() == "ladder") {
-					auto stair = mngr_->addEntity();
-					stair->setGroup<Ladders_grp>(true);
-					stair->addComponent<Transform>(Point2D(aabb.left, aabb.top), aabb.width, aabb.height);
-					stair->addComponent<BoxCollider>(true, 0);
+				else if (name == "mesaMH") {
+					getObjectManager()->addMueble(new Mesa(game, position, { 2, 1 }, name));
 				}
-				else if (obj.getName() == "playerSpawn") {
-					new Player(mngr_, Point2D(aabb.left, aabb.top));
-					auto camPos = Vector2D(aabb.left, aabb.top) + Vector2D(0, consts::CAMERA_MARGIN_FROM_PLAYER / Camera::mainCamera->getScale());
-					Camera::mainCamera->MoveToPoint(camPos);
+				else if (name == "mesaMV") {
+					getObjectManager()->addMueble(new Mesa(game, position, { 1, 2 }, name));
 				}
-				else if (obj.getName() == "loot") {
-					Entity* interactableElement = mngr_->addEntity();
-					interactableElement->addComponent<Transform>(Vector2D(aabb.left, aabb.top), aabb.width, aabb.height, 0);
-					interactableElement->addComponent<Image>(&sdlutils().images().at("wardrobe"), 7, 2, 5, 0);
-					mngr_->addRenderLayer<Loot>(interactableElement);
-					interactableElement->addComponent<Loot>("Press E to open the loot", 5, 5);
-					Loot* loot = interactableElement->getComponent<Loot>();
-
-					vector<pair<ItemInfo*, Vector2D>> chestLoot = getGame()->SCENES_LOOT.find(getGame()->currentScene)->second[sceneLoots];
-					for (int i = 0; i < chestLoot.size(); i++) {
-						int count = 0;
-						if (chestLoot[i].first->name() == CLASSIC_AMMO) count = 12;
-						if (chestLoot[i].first->name() == LASER_AMMO) count = 5;
-						if (chestLoot[i].first->name() == RICOCHET_AMMO) count = 6;
-						ItemInfo infoAux = chestLoot[i].first;
-						Vector2D pos = chestLoot[i].second;
-						//	ItemInfo(ITEMS name, string strName, string description, int width, int height, int row, int col, std::function<void(Entity*)> function, int craftAmount = 0);
-						loot->getInventory()->storeItem(
-							new Item{ new ItemInfo(infoAux),
-							mngr_,loot->getInventory() ,(int)pos.getX() ,(int)pos.getY() ,count });
-					}
-					sceneLoots++;
+				else if (name == "mesaL") {
+					getObjectManager()->addMueble(new Mesa(game, position, { 2, 2 }, name));
 				}
-				else if (obj.getName() == "enemy") {
-					// int en objeto para identificar el tipo de enemigo
-					int enemyType = obj.getProperties()[0].getIntValue();
-					if (enemyType == 0)  // basico
-						new DefaultEnemy(mngr_, Point2D(aabb.left, aabb.top));
-					else if (enemyType == 1) // volador
-						new FlyingEnemy(mngr_, Point2D(aabb.left, aabb.top));
+				else if (name == "sillaIz" || name == "sillaDer" || name == "sillaAr" || name == "sillaAb") {
+					getObjectManager()->addMueble(new Silla(game, position, name));
 				}
-				else if (obj.getName() == "returnShelter") {
-					Entity* returnToShelter = mngr_->addEntity();
-					returnToShelter->addComponent<Transform>(Vector2D(aabb.left, aabb.top), aabb.width, aabb.height, 0);
-					returnToShelter->addComponent<Image>(&sdlutils().images().at("back_to_shelter"), 1, 1, 0, 0);
-					returnToShelter->addComponent<BackToShelter>(this);
-					mngr_->addRenderLayer<Walls>(returnToShelter);
+				else if (name == "fogon") {
+					getObjectManager()->addMueble(new Fogon(game, position));
 				}
-				else if (obj.getName() == "returnShelterT") {
-					Entity* returnToShelter = mngr_->addEntity();
-					returnToShelter->addComponent<Transform>(Vector2D(aabb.left, aabb.top), aabb.width, aabb.height, 0);
-					returnToShelter->addComponent<Image>(&sdlutils().images().at("back_to_shelter"), 1, 1, 0, 0);
-					returnToShelter->addComponent<TutorialBackToShelter>(this);
-					mngr_->addRenderLayer<Walls>(returnToShelter);
+				else if (name == "lavavajillas") {
+					getObjectManager()->addMueble(new Lavavajillas(game, position));
 				}
-				else if (obj.getName() == "InitialScene") {
-					Entity* ini = mngr_->addEntity();
-					ini->addComponent<Transform>(Vector2D(aabb.left, aabb.top));
-					ini->setGroup<Initial_grp>(true);
+				else if (name == "cinta") {
+					getObjectManager()->addMueble(new Cinta(game, position));
 				}
-				else if (obj.getName() == "sleepStation") {
-					auto interactable = mngr_->addEntity();
-					static_cast<ShelterScene*>(this)->initSleepStation({ aabb.left, aabb.top }, { aabb.width, aabb.height }, interactable);
-					interactable->addComponent<Transform>(Vector2D(aabb.left, aabb.top), aabb.width, aabb.height, 0);
-					interactable->addComponent<InteractableElement>("Press E to SLEEP");
+				else if (name == "inicioCinta") {
+					getObjectManager()->addMueble(new InicioCinta(game, position));
 				}
-				else if (obj.getName() == "workStation") {
-					static_cast<ShelterScene*>(this)->initMechWs({ aabb.left, aabb.top }, { aabb.width, aabb.height });
-					auto interactable = mngr_->addEntity();
-					interactable->addComponent<Transform>(Vector2D(aabb.left, aabb.top), aabb.width, aabb.height, 0);
-					interactable->addComponent<InteractableElement>("Press E to craft WAR ITEMS");
+				else if (name == "finalCinta") {
+					getObjectManager()->addMueble(new FinalCinta(game, position));
 				}
-				else if (obj.getName() == "medicalStation") {
-					static_cast<ShelterScene*>(this)->initMedWs({ aabb.left, aabb.top }, { aabb.width, aabb.height });
-					auto interactable = mngr_->addEntity();
-					interactable->addComponent<Transform>(Vector2D(aabb.left, aabb.top), aabb.width, aabb.height, 0);
-					interactable->addComponent<InteractableElement>("Press E to craft MEDICAL ITEMS");
+				else if (name == "puerta") {
+					getObjectManager()->addMueble(new Puerta(game, position));
 				}
-				else if (obj.getName() == "spaceShip") {
-					static_cast<ShelterScene*>(this)->initSpaceshipStation({ aabb.left, aabb.top }, { aabb.width, aabb.height }, obj.getRotation());
-					auto interactable = mngr_->addEntity();
-					interactable->addComponent<Transform>(Vector2D(aabb.left, aabb.top), aabb.width, aabb.height);
-					interactable->addComponent<InteractableElement>("Press E to see the SHIP STATE");
+				else if (name == "ventanilla") {
+					getObjectManager()->addMueble(new Ventanilla(game, position));
 				}
-			}*/
+				else if (name == "cartel") {
+					getObjectManager()->addMueble(new Cartel(game, position));
+				}
+				else if (name == "tabla") {
+					getObjectManager()->addMueble(new TablaProcesado(game, position));
+				}
 			}
 		}
 

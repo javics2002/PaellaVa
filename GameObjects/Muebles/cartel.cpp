@@ -1,12 +1,9 @@
 #include "cartel.h"
 #include "../../Control/game.h"
-#include "../../Control/ObjectManager.h";
+#include "../../Control/ObjectManager.h"
 
-Cartel::Cartel(Game* game) : GameObject(game)
+Cartel::Cartel(Game* game, Vector2D<double> position) : Mueble(game, position, TILE_SIZE, TILE_SIZE, "cartel")
 {
-	setTexture("mesa");
-	setDimension(DIMENSION_W, DIMENSION_H);
-	setPosition(1000, sdlutils().height() - DIMENSION_H / 2);
 }
 
 void Cartel::update()

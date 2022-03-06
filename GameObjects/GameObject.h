@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../Data/Posicion.h"
 #include "Collider.h"
 
 #include "../Utils/Texture.h"

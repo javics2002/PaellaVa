@@ -9,18 +9,6 @@
       "file": "../../../Assets/Images/cuadernillo.png"
     },
     {
-      "id": "finalCinta",
-      "file": "../../../Assets/Images/finalCinta.png"
-    },
-    {
-      "id": "inicioCinta",
-      "file": "../../../Assets/Images/inicioCinta.png"
-    },
-    {
-      "id": "mesa",
-      "file": "../../../Assets/Images/mesa.png"
-    },
-    {
       "id": "redactaboton",
       "file": "../../../Assets/Images/redactaboton.png"
     },
@@ -30,7 +18,7 @@
     },
     {
       "id": "berenjena",
-      "file": "../../../Assets/Images/Ingredientes/berenjena.png"
+      "file": "../../../Assets/Images/berenjena.png"
     },
     {
       "id": "calamar",
@@ -79,6 +67,74 @@
     {
       "id": "borra",
       "file": "../../../Assets/Images/borraboton.png"
+    },
+    {
+      "id": "cartel",
+      "file": "../../../Assets/Images/mesa.png"
+    },
+    {
+      "id": "cinta",
+      "file": "../../../Assets/Images/berenjena.png"
+    },
+    {
+      "id": "finalCinta",
+      "file": "../../../Assets/Images/finalCinta.png"
+    },
+    {
+      "id": "fogon",
+      "file": "../../../Assets/Images/berenjena.png"
+    },
+    {
+      "id": "inicioCinta",
+      "file": "../../../Assets/Images/inicioCinta.png"
+    },
+    {
+      "id": "lavavajillas",
+      "file": "../../../Assets/Images/berenjena.png"
+    },
+    {
+      "id": "puerta",
+      "file": "../../../Assets/Images/inicioCinta.png"
+    },
+    {
+      "id": "tablaProcesado",
+      "file": "../../../Assets/Images/berenjena.png"
+    },
+    {
+      "id": "ventanilla",
+      "file": "../../../Assets/Images/berenjena.png"
+    },
+    {
+      "id": "mesaS",
+      "file": "../../../Assets/Images/berenjena.png"
+    },
+    {
+      "id": "mesaMH",
+      "file": "../../../Assets/Images/berenjena.png"
+    },
+    {
+      "id": "mesaMV",
+      "file": "../../../Assets/Images/berenjena.png"
+    },
+    {
+      "id": "mesaL",
+      "file": "../../../Assets/Images/berenjena.png"
+    },
+    {
+      "id": "sillaIz",
+      "file": "../../../Assets/Images/berenjena.png"
+    },
+    {
+      "id": "sillaDer",
+      "file": "../../../Assets/Images/berenjena.png"
+    },
+    {
+      "id": "sillaAr",
+      "file": "../../../Assets/Images/berenjena.png"
+    },
+    {
+      "id": "sillaAb",
+      "file": "../../../Assets/Images/berenjena.png"
     }
   ],
 

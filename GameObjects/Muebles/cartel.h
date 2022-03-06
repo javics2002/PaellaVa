@@ -1,17 +1,12 @@
 #pragma once
-
-#include "../GameObject.h"
+#include "Mueble.h"
 
 class Game;
 
-class Cartel : public GameObject
+class Cartel : public Mueble
 {
-	const unsigned int DIMENSION_W = 70;
-	const unsigned int DIMENSION_H = 120;
-
-
 public:
-	Cartel(Game* game);
+	Cartel(Game* game, Vector2D<double> position);
 	~Cartel() = default;
 
 	void update() override;
