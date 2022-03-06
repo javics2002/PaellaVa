@@ -222,8 +222,8 @@ private:
 				uim->uiEvent(mx, my);
 			}*/
 			
-			mx = -1;
-			my = -1;
+		/*	mx = -1;
+			my = -1;*/
 			break;
 		case SDL_BUTTON_MIDDLE:
 			mbState_[MIDDLE] = isDown;

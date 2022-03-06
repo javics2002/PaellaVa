@@ -13,7 +13,7 @@ Comanda::Comanda(Game* game, uint nmesa) :GameObject(game)
     setDimension(ancho, alto);
     gamet = game;
  //   objectmanager = gamet->getObjectManager();
-    double ix = p.getX() / 2 + margenbotones + anchobotones / 2;
+   /* double ix = p.getX() / 2 + margenbotones + anchobotones / 2;
     double iy = p.getY() / 2 + 2*anchobotones;
     escritoX = ix;
     escritoY = iy - anchobotones - margenbotones;
@@ -40,7 +40,7 @@ Comanda::Comanda(Game* game, uint nmesa) :GameObject(game)
      //  objectmanager->creaTeclado(a);
 
         j++;
-    }
+    }*/
 }
 Comanda::~Comanda()
 {
