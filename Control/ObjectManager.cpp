@@ -19,7 +19,6 @@ ObjectManager::ObjectManager(Game* game)
 	muebles.push_back(new FinalCinta(game, ingredientes));
 	muebles.push_back(new Puerta(game, clientes, grupoClientes));
 	muebles.push_back(new Cartel(game));
-	interfaz.push_back(new RedactaComandabutton(game, "redactaboton", 10, 10, 30, 30));
 }
 
 ObjectManager::~ObjectManager()
@@ -37,13 +36,13 @@ void ObjectManager::render()
 	for (auto m : muebles)
 		m->render();
 
-	for (auto c : comandas)
+	/*for (auto c : comandas)
 		c->render();
 
 	for (auto i : interfaz)
 		i->render();
 
-	ingredientes->render();	
+	ingredientes->render();	*/
 
 	clientes->render();
 }
@@ -81,17 +80,6 @@ void ObjectManager::update()
 	}
 }
 
-void ObjectManager::uiEvent(int mx, int my)
-{
-	for (auto i : interfaz)
-	{
-		i->OnClick(mx, my);
-	}
-}
-void ObjectManager::creaComanda(Game*game)
-{
-	comandas.push_back(new Comanda(game, 2));
-}
 
 vector<Collider*> ObjectManager::getClientes(SDL_Rect gOC)
 {

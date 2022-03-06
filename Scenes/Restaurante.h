@@ -1,6 +1,7 @@
 #pragma once
 #include "../Data/Posicion.h"
 #include "../Control/ObjectManager.h"
+#include "../GameObjects/UI/UIManager.h"
 #include "../Scenes/Scene.h"
 #include "SDL.h"
 
@@ -51,6 +52,7 @@ class Restaurante: public Scene
 	//unordered_map<Posicion, Mueble*> muebles;
 
 	ObjectManager* objectManager;
+	UIManager* uiManager;
 
 	MapInfo mapInfo;
 	Fondo* fondo;

@@ -16,7 +16,7 @@ Restaurante::Restaurante(Game* game)
 	this->game = game;
 
 	objectManager = new ObjectManager(game);
-
+	uiManager = new UIManager(game);
 	host = new Player(game);
 
 	mapInfo.ruta = "..\\..\\..\\Assets\\Tilemap\\Restaurante.tmx";
@@ -45,6 +45,7 @@ void Restaurante::handleInput()
 void Restaurante::update()
 {
 	objectManager->update();
+	uiManager->update();
 	host->update();
 }
 
@@ -52,6 +53,7 @@ void Restaurante::render()
 {
 	fondo->render();
 	objectManager->render();
+	uiManager->render();
 	host->render();
 }
 

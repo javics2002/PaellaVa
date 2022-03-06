@@ -4,7 +4,7 @@
 
 RedactaComandabutton::RedactaComandabutton(Game* game, string claveTextura, int x, int y, int w, int h) : UiButton(game, claveTextura, x, y, w, h)
 {
-	game = game;
+	gamet = game;
 }
 
 RedactaComandabutton::~RedactaComandabutton()
@@ -13,5 +13,5 @@ RedactaComandabutton::~RedactaComandabutton()
 
 void RedactaComandabutton::execute()
 {
-	game->getObjectManager()->creaComanda(game);
+	//game->getObjectManager()->creaComanda(game);
 }

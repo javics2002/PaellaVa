@@ -6,6 +6,7 @@
 #include "../Scenes/Restaurante.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../sdlutils/InputHandler.h"
+#include "../Control/ObjectManager.h"
 
 Game::Game() {
 	srand(time(NULL));
