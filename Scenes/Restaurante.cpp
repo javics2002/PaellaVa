@@ -53,8 +53,9 @@ void Restaurante::render()
 {
 	fondo->render();
 	objectManager->render();
-	uiManager->render();
+	
 	host->render();
+	uiManager->render();
 }
 
 ObjectManager* Restaurante::getObjectManager()
@@ -64,6 +65,7 @@ ObjectManager* Restaurante::getObjectManager()
 UIManager* Restaurante::getUIManager()
 {
 	return uiManager;
+	
 }
 //Check colisiones
 

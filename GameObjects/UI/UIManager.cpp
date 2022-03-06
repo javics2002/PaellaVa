@@ -7,7 +7,7 @@ using namespace std;
 UIManager::UIManager(Game* game)
 {
 	interfaz.push_back(new RedactaComandabutton(game, "redactaboton", 10, 10, 30, 30));
-	
+
 }
 UIManager::~UIManager()
 {
@@ -55,6 +55,10 @@ void UIManager::update()
 void UIManager::render()
 {
 	for (auto i : interfaz)
+	{
+		i->render();
+	}
+	for (auto i : comandas)
 	{
 		i->render();
 	}

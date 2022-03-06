@@ -67,6 +67,18 @@
     {
       "id": "player",
       "file": "../../../Assets/Images/player.png"
+    },
+    {
+      "id": "acepta",
+      "file": "../../../Assets/Images/cancelaboton.png"
+    },
+    {
+      "id": "cancela",
+      "file": "../../../Assets/Images/aceptaboton.png"
+    },
+    {
+      "id": "borra",
+      "file": "../../../Assets/Images/borraboton.png"
     }
   ],
 
