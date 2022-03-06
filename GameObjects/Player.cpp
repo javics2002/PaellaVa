@@ -71,11 +71,19 @@ void Player::handleInput()
 			TRACE(ingredientes.size());
 			for (auto it : ingredientes)
 			{
-				myIng = dynamic_cast<Ingrediente*>(it);
-				myIng->ingredienteRecogido();
+				if (myIng == nullptr)
+				{
+					myIng = dynamic_cast<Ingrediente*>(it);
+					myIng->ingredienteRecogido();
+				}
 			}
 		}
+		else
+		{
+			myIng = nullptr;
+		}
 	}
+
 }
 
 void Player::update()
