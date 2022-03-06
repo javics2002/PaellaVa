@@ -24,5 +24,7 @@ public:
 	std::list<PoolObject*>::const_iterator ingredientCollide() override;
 
 	void onActivate() override;
+
+	void ingredienteRecogido();
 };
 

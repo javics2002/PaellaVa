@@ -6,14 +6,15 @@
 Ingrediente::Ingrediente(Game* game) :  PoolObject(game) {
 	setDimension(DIMENSION, DIMENSION);
 	setPosition(sdlutils().width() / 2, sdlutils().height());
+
+	vel = { 0, 1.3 };
 }
 
 void Ingrediente::update()
 {
-	setPosition(getX(), getY() - 1.3f);
+	setPosition(getX(), getY() - vel.getY());
 }
 
-//Qué hace este método?
 std::list<PoolObject*>::const_iterator Ingrediente::ingredientCollide()
 {
 	deactivate();
@@ -26,4 +27,11 @@ void Ingrediente::onActivate()
 	int n = rand() % (texturaIngrediente.size());
 
 	setTexture(texturaIngrediente[n]);
+}
+
+void Ingrediente::ingredienteRecogido()
+{
+	vel = { 0,0 };
+
+	cout << "vel " << vel.getX() << ", " << vel.getY() << endl;
 }

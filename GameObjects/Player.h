@@ -3,6 +3,9 @@
 #include "../Data/Posicion.h"
 #include "../Control/Input.h"
 
+class Ingrediente;
+class Cliente;
+
 class Player : public GameObject
 {
 private:
@@ -14,6 +17,9 @@ private:
 	float velocidad_;
 
 	float aceleracion, deceleracion, maxVel;
+
+	Ingrediente* myIng = nullptr;
+	Cliente* myCl = nullptr;
 	//Configuración de skin
 
 public:
