@@ -64,7 +64,7 @@ void Comanda::añadiraPedido(string i)
         vector<Point2D<double>> sangria = uimt->getPosTeclado();
         for (int i=  0; i<sangria.size();i++)
         {
-            int ny =sangria[i].getY() + anchobotones;
+            int ny =sangria[i].getY() + anchobotones*0.7f;
             sangria[i].setY(ny);
             //en algun lugar vuelven a tener el valor default lo tengo que mirar
             //bajar teclado
