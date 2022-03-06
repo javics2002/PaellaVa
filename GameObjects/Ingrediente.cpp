@@ -13,6 +13,7 @@ void Ingrediente::update()
 	setPosition(getX(), getY() - 1.3f);
 }
 
+//Qué hace este método?
 std::list<PoolObject*>::const_iterator Ingrediente::ingredientCollide()
 {
 	deactivate();

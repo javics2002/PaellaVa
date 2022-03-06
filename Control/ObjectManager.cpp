@@ -83,8 +83,11 @@ void ObjectManager::update()
 
 vector<Collider*> ObjectManager::getClientes(SDL_Rect gOC)
 {
-
-	return grupoClientes->getCollisions(gOC);
+	return clientes->getCollisions(gOC);
 }
 
+vector<Collider*> ObjectManager::getIngredientes(SDL_Rect gOC)
+{
+	return ingredientes->getCollisions(gOC);
+}
 

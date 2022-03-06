@@ -50,13 +50,18 @@ void Player::handleInput()
 			if (std::round(vel.getY()) == 0) vel.setY(0);
 		}
 	}
-
 	vel.clamp(-maxVel, maxVel);
+
+	if (ih().isKeyboardEvent() && ih().getKeyPressed() == SDL_SCANCODE_E)
+	{
+		cout << "E pressed" << endl;
+		/*game->getObjectManager()->getIngredientes(this);*/
+	}
 }
 
 void Player::update()
 {
-	cout << ih().getAxisX() << " " << ih().getAxisY() << endl;
+	//cout << ih().getAxisX() << " " << ih().getAxisY() << endl;
 	pos = pos + vel;
 }
 

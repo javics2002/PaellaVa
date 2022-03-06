@@ -30,6 +30,8 @@ public:
 	inline void clearState() {
 		isMouseButtonEvent_ = false;
 		isMouseMotionEvent_ = false;
+		isKeyboardEvent_ = false;
+		keyPressed = SDL_SCANCODE_UNKNOWN;
 
 		for (auto i = 0u; i < 3; i++) {
 			mbState_[i] = false;
@@ -113,6 +115,12 @@ public:
 			ejeY = 1;
 		else
 			ejeY = 0;
+
+		if (GetKey(SDL_SCANCODE_E))
+		{
+			keyPressed = SDL_SCANCODE_E;
+			isKeyboardEvent_ = true; // Intentar recoger objeto
+		}
 	}
 
 	inline void onJoystickMotion(const SDL_Event& e) {
@@ -166,6 +174,13 @@ public:
 		return mbState_[b];
 	}
 
+	inline bool isKeyboardEvent() {
+		return isKeyboardEvent_;
+	}
+
+	inline SDL_Scancode getKeyPressed() {
+		return keyPressed;
+	}
 
 	/// prueba
 
@@ -224,6 +239,8 @@ private:
 
 	bool isMouseMotionEvent_;
 	bool isMouseButtonEvent_;
+	bool isKeyboardEvent_;
+	SDL_Scancode keyPressed;
 
 	std::pair<Sint32, Sint32> mousePos_;
 	std::array<bool, 3> mbState_;

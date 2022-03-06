@@ -62,6 +62,8 @@ ObjectManager* Restaurante::getObjectManager()
 	return objectManager;
 }
 
+//Check colisiones
+
 void Restaurante::loadMap(string const &path) {
 	//Cargamos el mapa .tmx del archivo indicado
 	mapInfo.tilemap = new tmx::Map();
