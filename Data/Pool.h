@@ -42,8 +42,14 @@ class Pool
 		if (cont == numElems) {
 			for (int i = 0; i < numElems; i++)
 				v.push_back(new T(game));
-
+		
 			numElems *= 2;
+
+			while (cont < numElems && v[nextElem]->isActive())
+			{
+				cont++;
+				nextElem = (nextElem + 1) % numElems;
+			}		
 		}
 	}
 

@@ -13,15 +13,16 @@
 
 class Restaurante;
 class ObjectManager;
+class Scene;
 class UIManager;
 
 using namespace std;
 
-enum escenasJuego { MENU, RESTAURANTE };
+//senum escenasJuego { MENU, RESTAURANTE };
 
-class Game{
+class Game {
     //Cambiar a scene actual
-    Restaurante* restaurante;
+    Scene* currentScene;
 
 public:
     Game();
@@ -29,16 +30,12 @@ public:
 
     void init();
     void start();
-    void changeScene(escenasJuego n);
+    void changeScene(Scene* scene);
 
-    void handleInput(SDL_Event& event, bool &exit);
+    void handleInput(SDL_Event& event, bool& exit);
     void update();
     void render();
-    
+
     ObjectManager* getObjectManager();
     UIManager* getUIManager();
-
-private:
-    escenasJuego currentScene = RESTAURANTE;
 };
-

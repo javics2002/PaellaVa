@@ -6,16 +6,14 @@
 
 using namespace std;
 
-Menu::Menu(Game* game)
+Menu::Menu(Game* game) : Scene(game)
 {
-	this->game = game;
 
-	objectManager = new ObjectManager(game);
 
 
 }
 
-Menu::~Menu() 
+Menu::~Menu()
 {
 	delete  objectManager;
 }

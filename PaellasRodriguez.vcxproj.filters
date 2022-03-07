@@ -41,6 +41,8 @@
     <ClCompile Include="GameObjects\UI\UiButton.cpp" />
     <ClCompile Include="GameObjects\UI\UIManager.cpp" />
     <ClCompile Include="GameObjects\UI\Ingredientebutton.cpp" />
+    <ClCompile Include="Scenes\Scene.cpp" />
+    <ClCompile Include="Scenes\Menu.cpp" />
     <ClCompile Include="Control\Camera.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -109,6 +111,8 @@
     <ClInclude Include="GameObjects\UI\Ingredientebutton.h" />
     <ClInclude Include="Utils\Traza.h" />
     <ClInclude Include="GameObjects\Muebles\MueblesInclude.h" />
+    <ClInclude Include="Scenes\Scene.h" />
+    <ClInclude Include="Scenes\Menu.h" />
     <ClInclude Include="Control\Camera.h" />
   </ItemGroup>
   <ItemGroup>

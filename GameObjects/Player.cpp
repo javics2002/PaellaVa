@@ -116,12 +116,18 @@ void Player::update()
 	
 	if (myIng != nullptr)
 	{
-		moverObjeto(myIng);
+		if (myIng->isActive())
+			moverObjeto(myIng);
+		else
+			myIng = nullptr;
 	}
 
 	if (myClient != nullptr)
 	{
-		moverObjeto(myClient);
+		if (myClient->isActive())
+			moverObjeto(myClient);
+		else
+			myClient = nullptr;
 	}
 }
 

@@ -4,13 +4,11 @@
 #include "../GameObjects/Paella.h"
 #include "../GameObjects/Ingrediente.h"
 #include "../GameObjects/Muebles/MueblesInclude.h"
-#include "../sdlutils/SDLUtils.h"
-#include "../Control/Game.h"
 #include <iostream>
 
 using namespace std;
 
-Restaurante::Restaurante(Game* game)
+Restaurante::Restaurante(Game* game) : Scene(game)
 {
 	this->game = game;
 	// camara init
@@ -18,12 +16,13 @@ Restaurante::Restaurante(Game* game)
 
 	objectManager = new ObjectManager(game);
 	uiManager = new UIManager(game);
+  
 	host = new Player(game);
 
 	mapInfo.ruta = "..\\..\\..\\Assets\\Tilemap\\Restaurante.tmx";
 	loadMap(mapInfo.ruta);
 
-	fondo = new Fondo(game);
+
 	fondo->setTexture(mapInfo.ruta);
 	int width = sdlutils().images().at(mapInfo.ruta).width();
 	int height = sdlutils().images().at(mapInfo.ruta).height();
@@ -73,18 +72,9 @@ void Restaurante::debug()
 	host->drawDebug();
 }
 
-ObjectManager* Restaurante::getObjectManager()
-{
-	return objectManager;
-}
-UIManager* Restaurante::getUIManager()
-{
-	return uiManager;
-	
-}
 //Check colisiones
 
-void Restaurante::loadMap(string const &path) {
+void Restaurante::loadMap(string const& path) {
 	//Cargamos el mapa .tmx del archivo indicado
 	mapInfo.tilemap = new tmx::Map();
 	mapInfo.tilemap->load(path);
@@ -209,11 +199,11 @@ void Restaurante::loadMap(string const &path) {
 
 
 			for (auto obj : objs) {
-				auto &aabb = obj.getAABB();
+				auto& aabb = obj.getAABB();
 				auto position = Vector2D<double>(aabb.left, aabb.top);
 				auto dimension = Vector2D<int>(mapInfo.anchoTile, mapInfo.altoTile);
 				string name = obj.getName();
-		
+
 				if (name == "mesaS") {
 					getObjectManager()->addMueble(new Mesa(game, position, { 1, 1 }, name));
 				}
@@ -261,7 +251,7 @@ void Restaurante::loadMap(string const &path) {
 
 		SDL_SetRenderTarget(renderer, nullptr);
 
-		if (!sdlutils().images().count(path)) 
+		if (!sdlutils().images().count(path))
 			sdlutils().images().emplace(path, Texture(renderer, fondo, anchoFondo, altoFondo));
 	}
 }

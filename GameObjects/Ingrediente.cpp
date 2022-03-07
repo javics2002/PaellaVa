@@ -5,9 +5,6 @@
 
 Ingrediente::Ingrediente(Game* game) :  PoolObject(game) {
 	setDimension(DIMENSION, DIMENSION);
-	setPosition(sdlutils().width() / 2, sdlutils().height());
-
-	vel = { 0, 1.3 };
 }
 
 void Ingrediente::update()
@@ -26,12 +23,12 @@ void Ingrediente::onActivate()
 {
 	int n = rand() % (texturaIngrediente.size());
 
+	vel = { 0, 1.3 };
+	
 	setTexture(texturaIngrediente[n]);
 }
 
 void Ingrediente::ingredienteRecogido()
 {
 	vel = { 0,0 };
-
-	//cout << "vel " << vel.getX() << ", " << vel.getY() << endl;
 }

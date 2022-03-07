@@ -11,6 +11,8 @@ class Ingrediente : public PoolObject
 {
 	const unsigned int DIMENSION = 70;
 
+	
+
 	vector<string> texturaIngrediente = { "alcachofa", "calamar", "cangrejo", "gamba",
 		"langosta", "mejillon", "pimientoRojo", "pimientoVerde", "pollo" };
 
