@@ -13,6 +13,8 @@ using namespace std;
 Restaurante::Restaurante(Game* game)
 {
 	this->game = game;
+	// camara init
+	camara = new Camera(*new Vector2D<int>(0, 0), sdlutils().width()*2, sdlutils().height()*2);
 
 	objectManager = new ObjectManager(game);
 	uiManager = new UIManager(game);
@@ -26,6 +28,8 @@ Restaurante::Restaurante(Game* game)
 	int width = sdlutils().images().at(mapInfo.ruta).width();
 	int height = sdlutils().images().at(mapInfo.ruta).height();
 	fondo->setDimension(width, height);
+
+	
 }
 
 Restaurante::~Restaurante()
@@ -50,11 +54,16 @@ void Restaurante::update()
 
 void Restaurante::render()
 {
-	fondo->render();
-	objectManager->render();
+	// camara->renderRect();
+	SDL_Rect* r = camara->renderRect();
+
+	fondo->render(*r);
+	objectManager->render(*r);
 	
-	host->render();
-	uiManager->render();
+	host->render(*r);
+	uiManager->render(*r);
+
+	delete r;
 }
 
 void Restaurante::debug()

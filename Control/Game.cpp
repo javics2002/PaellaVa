@@ -87,6 +87,8 @@ void Game::render()
 	}
 	else if (currentScene == RESTAURANTE) {
 		restaurante->render();
+
+
 #ifdef _DEBUG
 		restaurante->debug();
 #endif // _DEBUG

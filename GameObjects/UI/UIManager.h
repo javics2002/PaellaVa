@@ -24,11 +24,14 @@ public:
 	~UIManager();
 	void uiEvent(int mx, int my);
 	void update();
+
 	void render();
+	void render(SDL_Rect& rect);
+
 	void creaComanda(Game* game);
 	Comanda* getComanda();
-	 vector< Point2D<double>> getPosTeclado();
-	 void setPosTeclado(vector< Point2D<double>> t);
+	vector< Point2D<double>> getPosTeclado();
+	void setPosTeclado(vector< Point2D<double>> t);
 	void creaTeclado();
 	void randomizaTeclado();
 };

@@ -37,6 +37,8 @@ public:
     };
 
     virtual void render();
+    virtual void render(SDL_Rect& cameraRect);
+
     virtual bool OnClick(int mx, int my) { return false; };
 
     void setPosition(double x, double y);

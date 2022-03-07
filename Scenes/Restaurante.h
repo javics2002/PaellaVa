@@ -11,6 +11,8 @@
 #include "./tmxlite/Tileset.hpp"
 #include "../GameObjects/Fondo.h"
 
+#include "../Control/Camera.h"
+
 #include <unordered_map>
 
 using namespace std;
@@ -46,6 +48,8 @@ class Restaurante : public Scene
 	//Punteros a los jugadores (Quizas deberian llamarse yo y amigo, en relativo)
 	Player* host;
 	Player* client;
+
+	Camera* camara;
 
 	ObjectManager* objectManager;
 	UIManager* uiManager;

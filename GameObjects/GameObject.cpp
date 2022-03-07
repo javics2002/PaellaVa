@@ -69,3 +69,10 @@ void GameObject::render()
 	texture->render(textureBox);
 }
 
+void GameObject::render(SDL_Rect& cameraRect)
+{
+	SDL_Rect c = getCollider();
+	SDL_Rect textureBox = { c.x, c.y, c.w, c.h };
+	texture->render(cameraRect, textureBox);
+}
+
