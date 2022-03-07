@@ -5,7 +5,7 @@
 #include <cassert>
 #include <memory>
 
-#include "../json/JSON.h"
+#include "../../json/JSON.h"
 
 SDLUtils::SDLUtils() :
 		SDLUtils("SDL Demo", 600, 400) {
@@ -174,39 +174,26 @@ void SDLUtils::loadReasources(std::string filename) {
 		}
 	}
 
-	// load messages
-	jValue = root["messages"];
+	// load tilesets
+	jValue = root["tilesets"];
 	if (jValue != nullptr) {
 		if (jValue->IsArray()) {
-			for (auto &v : jValue->AsArray()) {
+			for (auto& v : jValue->AsArray()) {
 				if (v->IsObject()) {
 					JSONObject vObj = v->AsObject();
 					std::string key = vObj["id"]->AsString();
-					std::string txt = vObj["text"]->AsString();
-					auto &font = fonts_.at(vObj["font"]->AsString());
-#ifdef _DEBUG
-					std::cout << "Loading message with id: " << key
-							<< std::endl;
-#endif
-					if (vObj["bg"] == nullptr)
-						msgs_.emplace(key,
-								Texture(renderer(), txt, font,
-										build_sdlcolor(
-												vObj["color"]->AsString())));
-					else
-						msgs_.emplace(key,
-								Texture(renderer(), txt, font,
-										build_sdlcolor(
-												vObj["color"]->AsString()),
-										build_sdlcolor(
-												vObj["bg"]->AsString())));
-				} else {
-					throw "'messages' array in '" + filename
-							+ "' includes and invalid value";
+					std::string file = vObj["file"]->AsString();
+					tilesets_.emplace(key, Texture(renderer(), file));
+					std::cout << "Loading tileset with id: " << key << std::endl;
+				}
+				else {
+					throw "'tilesets' array in '" + filename
+						+ "' includes and invalid value";
 				}
 			}
-		} else {
-			throw "'messages' is not an array in '" + filename + "'";
+		}
+		else {
+			throw "'tilesets' is not an array";
 		}
 	}
 
@@ -263,7 +250,7 @@ void SDLUtils::closeSDLExtensions() {
 
 	musics_.clear();
 	sounds_.clear();
-	msgs_.clear();
+	tilesets_.clear();
 	images_.clear();
 	fonts_.clear();
 

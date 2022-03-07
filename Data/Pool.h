@@ -15,6 +15,8 @@ class Game;
 template<typename T>
 class Pool
 {
+	Game* game;
+
 	//lista con solo los objetos de la pool que están activos
 	list<PoolObject*> activeObjects;
 
@@ -36,18 +38,19 @@ class Pool
 			cont++;
 			nextElem = (nextElem + 1) % numElems;
 		}
-		//si no encuentra ninguno, parará la ejecución, indicando que hay que aumentar de antemano los objetos de la pool
+		//si no encuentra ninguno, se duplica el tamaño de la pool
 		if (cont == numElems) {
-			throw string("ERROR: La pool no es lo suficientemente grande");
+			for (int i = 0; i < numElems; i++)
+				v.push_back(new T(game));
+
+			numElems *= 2;
 		}
 	}
 
 public:
-	Pool(Game* game, int n) : numElems(n), nextElem(-1) {
-		for (int i = 0; i < n; i++) {
-			cout << "Objeto creado" << endl;
+	Pool(Game* game, int n) : game(game), numElems(n), nextElem(-1) {
+		for (int i = 0; i < n; i++)
 			v.push_back(new T(game));
-		}			
 	}
 
 	~Pool() {
@@ -107,7 +110,7 @@ public:
 
 	void render() {	
 		for (auto it : activeObjects)
-			it->draw();
+			it->render();
 	}
 
 	void debug() {

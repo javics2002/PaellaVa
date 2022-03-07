@@ -7,56 +7,38 @@
 #include <vector>
 #include <cmath>
 
-#include "ObjectManager.h"
 #include "../GameObjects/Player.h"
 
-#include "../View/TextureContainer.h"
-#include "../View/Texture.h"
+#include "../Utils/Texture.h"
+
+class Restaurante;
+class ObjectManager;
+class UIManager;
 
 using namespace std;
 
+enum escenasJuego { MENU, RESTAURANTE };
+
 class Game{
-    string name;
-    int width, height;
-    bool doExit;
-
-    SDL_Renderer* renderer = nullptr;
-    //Font* font;
-
-    bool debug = false;
-
-    ObjectManager* objectManager;
-    TextureContainer* textureContainer;
-    Player* player;
+    //Cambiar a scene actual
+    Restaurante* restaurante;
 
 public:
-    Game(int width, int height);
+    Game();
     ~Game();
 
-    string getGameName();
+    void init();
+    void start();
+    void changeScene(escenasJuego n);
 
-    void startGame();
+    void handleInput(SDL_Event& event, bool &exit);
     void update();
-    void draw();
-
-    void setUserExit();
-    bool isUserExit();
-
-    int getWindowWidth();
-    int getWindowHeight();
-    //Font* getFont() { return font; };
-
-    void setRenderer(SDL_Renderer* renderer);
-    void loadTextures();
-    SDL_Renderer* getRenderer();
-    //void renderText(string text, int x, int y, SDL_Color color = { 0,0,0 });
-
-    Texture* getTexture(TextureName name);
-
-    pair<TextureName, int> getRandomIngridient();
+    void render();
+    
     ObjectManager* getObjectManager();
+    UIManager* getUIManager();
 
-    vector<Collider*> getClientes(SDL_Rect gOC);
-
+private:
+    escenasJuego currentScene = RESTAURANTE;
 };
 

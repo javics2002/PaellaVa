@@ -1,5 +1,6 @@
 #include "GrupoClientes.h"
 #include "../Control/Game.h"
+#include "../Control/ObjectManager.h"
 
 void GrupoClientes::Pedir()
 {
@@ -34,14 +35,13 @@ void GrupoClientes::update()
 
 		for (auto i : clientes) {
 			i->update();
-
 		}
 
-		SDL_Rect rect = {clientes[0]->getX() + clientes[0]->getWidth() / 2, clientes[0]->getY() - clientes[0]->getHeight() / 2,
-			clientes[0]->getWidth()/2, clientes[0]->getWidth() };
+		SDL_Rect rect = { clientes[0]->getX() + clientes[0]->getWidth() / 2, clientes[0]->getY() - clientes[0]->getHeight() / 2,
+			clientes[0]->getWidth() / 2, clientes[0]->getWidth() };
 
-		for (auto i : game->getClientes(rect)) {
-			 setState(ENCOLA);
+		for (auto i : game->getObjectManager()->getGrupoClientes(rect)) {
+			setState(ENCOLA);
 		}
 	}
 
@@ -52,7 +52,7 @@ void GrupoClientes::update()
 
 bool GrupoClientes::collide(SDL_Rect rect)
 {
-	for (auto i:clientes) {
+	for (auto i : clientes) {
 		if (i->collide(rect)) {
 			return true;
 		}
@@ -65,18 +65,20 @@ float GrupoClientes::mitadGrupo()
 {
 	float mitad = 0.0f;
 
-	for (auto i:clientes) {
+	for (auto i : clientes) {
 		mitad += i->getX();
 	}
 
-	return mitad/clientes.size();
+	return mitad / clientes.size();
 }
 
 bool GrupoClientes::ratonEncima()
 {
-	SDL_Rect rect = { mitadGrupo()-dimension/2, clientes[0]->getY() - clientes[0]->getHeight()*1.25, dimension, dimension };
+	SDL_Rect rect = { mitadGrupo() - dimension / 2, clientes[0]->getY() - clientes[0]->getHeight() * 1.25, dimension, dimension };
 
-	drawTexture(game->getTexture(texturaTolerancia), rect);
+	Texture *t = &sdlutils().images().at(texturaTolerancia);
+
+	t->render(rect);
 
 	cout << tolerancia << endl;
 
@@ -85,7 +87,7 @@ bool GrupoClientes::ratonEncima()
 
 bool GrupoClientes::colisionClientes()
 {
-	if(estado_ == CAMINANDO)setState(ENCOLA);
+	if (estado_ == CAMINANDO) setState(ENCOLA);
 	return true;
 }
 
@@ -107,3 +109,4 @@ void GrupoClientes::setState(estado est)
 	estado_ = est;
 	mLastTime = SDL_GetTicks();
 }
+

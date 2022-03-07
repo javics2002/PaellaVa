@@ -1,15 +1,18 @@
-#pragma once
+ #pragma once
 #include "PoolObject.h"
 
 #include <vector>
 
 class Game;
 
+static const int numIngredientes = 10;
+
 class Ingrediente : public PoolObject
 {
 	const unsigned int DIMENSION = 70;
 
-	int tipoIngrediente;
+	vector<string> texturaIngrediente = { "alcachofa", "calamar", "cangrejo", "gamba",
+		"langosta", "mejillon", "pimientoRojo", "pimientoVerde", "pollo" };
 
 public:
 	Ingrediente(Game* game);
@@ -19,5 +22,7 @@ public:
 	std::list<PoolObject*>::const_iterator ingredientCollide() override;
 
 	void onActivate() override;
+
+	void ingredienteRecogido();
 };
 

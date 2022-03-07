@@ -1,16 +1,14 @@
 #include "cartel.h"
 #include "../../Control/game.h"
+#include "../../Control/ObjectManager.h"
 
-Cartel::Cartel(Game* game) : GameObject(game)
+Cartel::Cartel(Game* game, Vector2D<double> position) : Mueble(game, position, TILE_SIZE, TILE_SIZE, "cartel")
 {
-	textureName = cartel;
-	setDimension(DIMENSION_W, DIMENSION_H);
-	setPosition(1000, game->getWindowHeight() - DIMENSION_H / 2);
 }
 
 void Cartel::update()
 {
-	for (auto i : game->getClientes(getCollider())) {
+	for (auto i : game->getObjectManager()->getGrupoClientes(getCollider())) {
 		i->colisionClientes();
 	}
 }

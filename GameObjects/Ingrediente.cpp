@@ -3,27 +3,35 @@
 
 #include <iostream>
 
-Ingrediente::Ingrediente(Game* game) :  PoolObject(game), tipoIngrediente(-1) {
+Ingrediente::Ingrediente(Game* game) :  PoolObject(game) {
 	setDimension(DIMENSION, DIMENSION);
-	setPosition(game->getWindowWidth() / 2, game->getWindowHeight());
+	setPosition(sdlutils().width() / 2, sdlutils().height());
+
+	vel = { 0, 1.3 };
 }
 
 void Ingrediente::update()
 {
-	setPosition(getX(), getY() - 1.3f);
+	setPosition(getX(), getY() - vel.getY());
 }
 
 std::list<PoolObject*>::const_iterator Ingrediente::ingredientCollide()
 {
-	descativate();
+	deactivate();
 
 	return getIterator();
 }
 
 void Ingrediente::onActivate()
 {
-	auto pair = game->getRandomIngridient();
+	int n = rand() % (texturaIngrediente.size());
 
-	textureName = pair.first;
-	tipoIngrediente = pair.second;
+	setTexture(texturaIngrediente[n]);
+}
+
+void Ingrediente::ingredienteRecogido()
+{
+	vel = { 0,0 };
+
+	//cout << "vel " << vel.getX() << ", " << vel.getY() << endl;
 }

@@ -12,7 +12,7 @@ public:
 	~PoolObject() = default;
 
 	void activate(list<PoolObject*>::const_iterator iterator);
-	void descativate();
+	void deactivate();
 
 	virtual void onActivate() {}
 	virtual void onDesactivate() {}

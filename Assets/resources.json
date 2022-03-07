@@ -1,0 +1,147 @@
+{
+  "images": [
+    {
+      "id": "barraTolerancia",
+      "file": "../../../Assets/Images/barraTolerancia.png"
+    },
+    {
+      "id": "cuadernillo",
+      "file": "../../../Assets/Images/cuadernillo.png"
+    },
+    {
+      "id": "redactaboton",
+      "file": "../../../Assets/Images/redactaboton.png"
+    },
+    {
+      "id": "alcachofa",
+      "file": "../../../Assets/Images/Ingredientes/alcachofa.png"
+    },
+    {
+      "id": "berenjena",
+      "file": "../../../Assets/Images/berenjena.png"
+    },
+    {
+      "id": "calamar",
+      "file": "../../../Assets/Images/Ingredientes/calamar.png"
+    },
+    {
+      "id": "cangrejo",
+      "file": "../../../Assets/Images/Ingredientes/cangrejo.png"
+    },
+    {
+      "id": "gamba",
+      "file": "../../../Assets/Images/Ingredientes/gamba.png"
+    },
+    {
+      "id": "langosta",
+      "file": "../../../Assets/Images/Ingredientes/langosta.png"
+    },
+    {
+      "id": "mejillon",
+      "file": "../../../Assets/Images/Ingredientes/mejillon.png"
+    },
+    {
+      "id": "pimientoRojo",
+      "file": "../../../Assets/Images/Ingredientes/pimientoRojo.png"
+    },
+    {
+      "id": "pimientoVerde",
+      "file": "../../../Assets/Images/Ingredientes/pimientoVerde.png"
+    },
+    {
+      "id": "pollo",
+      "file": "../../../Assets/Images/Ingredientes/pollo.png"
+    },
+    {
+      "id": "player",
+      "file": "../../../Assets/Images/player.png"
+    },
+    {
+      "id": "acepta",
+      "file": "../../../Assets/Images/cancelaboton.png"
+    },
+    {
+      "id": "cancela",
+      "file": "../../../Assets/Images/aceptaboton.png"
+    },
+    {
+      "id": "borra",
+      "file": "../../../Assets/Images/borraboton.png"
+    },
+    {
+      "id": "cartel",
+      "file": "../../../Assets/Images/mesa.png"
+    },
+    {
+      "id": "cinta",
+      "file": "../../../Assets/Images/berenjena.png"
+    },
+    {
+      "id": "finalCinta",
+      "file": "../../../Assets/Images/finalCinta.png"
+    },
+    {
+      "id": "fogon",
+      "file": "../../../Assets/Images/berenjena.png"
+    },
+    {
+      "id": "inicioCinta",
+      "file": "../../../Assets/Images/inicioCinta.png"
+    },
+    {
+      "id": "lavavajillas",
+      "file": "../../../Assets/Images/berenjena.png"
+    },
+    {
+      "id": "puerta",
+      "file": "../../../Assets/Images/inicioCinta.png"
+    },
+    {
+      "id": "tablaProcesado",
+      "file": "../../../Assets/Images/berenjena.png"
+    },
+    {
+      "id": "ventanilla",
+      "file": "../../../Assets/Images/berenjena.png"
+    },
+    {
+      "id": "mesaS",
+      "file": "../../../Assets/Images/berenjena.png"
+    },
+    {
+      "id": "mesaMH",
+      "file": "../../../Assets/Images/berenjena.png"
+    },
+    {
+      "id": "mesaMV",
+      "file": "../../../Assets/Images/berenjena.png"
+    },
+    {
+      "id": "mesaL",
+      "file": "../../../Assets/Images/berenjena.png"
+    },
+    {
+      "id": "sillaIz",
+      "file": "../../../Assets/Images/berenjena.png"
+    },
+    {
+      "id": "sillaDer",
+      "file": "../../../Assets/Images/berenjena.png"
+    },
+    {
+      "id": "sillaAr",
+      "file": "../../../Assets/Images/berenjena.png"
+    },
+    {
+      "id": "sillaAb",
+      "file": "../../../Assets/Images/berenjena.png"
+    }
+  ],
+
+  "tilesets": [
+    {
+      "id": "Tileset",
+      "file": "../../../Assets/Tilemap/Tileset.png"
+    }
+  ]
+}

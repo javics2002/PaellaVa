@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="40" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="2" nextobjectid="1">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="40" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="3" nextobjectid="30">
  <tileset firstgid="1" source="Tileset.tsx"/>
  <layer id="1" name="Capa de patrones 1" width="40" height="12">
   <data encoding="csv">
@@ -12,9 +12,80 @@
 13,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,12,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,4,
 13,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,12,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,4,
 13,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,12,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,4,
+13,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,12,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,4,
 9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,1,9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,4,
-9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,1,9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,4,
-13,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,12,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,4
+9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,12,5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,4
 </data>
  </layer>
+ <objectgroup id="2" name="Capa de Objetos 1">
+  <object id="1" name="mesaS" x="578.522" y="163.055">
+   <point/>
+  </object>
+  <object id="5" name="cartel" x="862.667" y="626.667">
+   <point/>
+  </object>
+  <object id="6" name="inicioCinta" x="2400" y="62.6667">
+   <point/>
+  </object>
+  <object id="7" name="cinta" x="2398.67" y="125.333">
+   <point/>
+  </object>
+  <object id="8" name="finalCinta" x="2398.67" y="698.667">
+   <point/>
+  </object>
+  <object id="9" name="fogon" x="1730.67" y="128">
+   <point/>
+  </object>
+  <object id="10" name="ventanilla" x="1220" y="384">
+   <point/>
+  </object>
+  <object id="11" name="lavavajillas" x="1220" y="250.667">
+   <point/>
+  </object>
+  <object id="12" name="mesaMV" x="192" y="168">
+   <point/>
+  </object>
+  <object id="13" name="mesaL" x="321.333" y="321.333">
+   <point/>
+  </object>
+  <object id="14" name="mesaMH" x="577.333" y="386.667">
+   <point/>
+  </object>
+  <object id="15" name="fogon" x="1793.33" y="128">
+   <point/>
+  </object>
+  <object id="16" name="fogon" x="1856" y="126.667">
+   <point/>
+  </object>
+  <object id="17" name="fogon" x="1921.33" y="128">
+   <point/>
+  </object>
+  <object id="18" name="tabla" x="1661.33" y="438.667">
+   <point/>
+  </object>
+  <object id="19" name="sillaDer" x="510.667" y="161.333">
+   <point/>
+  </object>
+  <object id="21" name="sillaIz" x="644" y="160">
+   <point/>
+  </object>
+  <object id="22" name="sillaAb" x="321.333" y="252">
+   <point/>
+  </object>
+  <object id="23" name="sillaAr" x="577.333" y="452">
+   <point/>
+  </object>
+  <object id="24" name="inicioCinta" x="1056" y="608">
+   <point/>
+  </object>
+  <object id="25" name="cinta" x="1060" y="162.666">
+   <point/>
+  </object>
+  <object id="26" name="finalCinta" x="1057.33" y="105.333">
+   <point/>
+  </object>
+  <object id="27" name="puerta" x="53.3333" y="581.333">
+   <point/>
+  </object>
+ </objectgroup>
 </map>

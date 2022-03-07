@@ -1,22 +1,34 @@
 #include <iostream>
 #include "Game.h"
-#include "ViewController.h"
 
 using namespace std;
 
-int main(int argc, char* argv[]) {
-    try {
-        Game* game = new Game(1280, 720);
+void Start() {
+	Game g;
 
-        ViewController controller(game);
-        controller.run();
-        delete game;
-    }
-    catch (const string& e) {
-        cout << e;
-    }
+	g.init();
+	g.start();
+}
 
-    return 0;
+int main(int, char**) {
+
+	try {
+		Start();
+	}
+	catch (const std::string& e) { // catch exceptions thrown as strings
+		std::cerr << e << std::endl;
+	}
+	catch (const char* e) { // catch exceptions thrown as char*
+		std::cerr << e << std::endl;
+	}
+	catch (const std::exception& e) { // catch exceptions thrown as a sub-type of std::exception
+		std::cerr << e.what();
+	}
+	catch (...) {
+		std::cerr << "Caught and exception of unknown type ...";
+	}
+
+	return 0;
 }
 
 

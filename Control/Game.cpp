@@ -5,101 +5,101 @@
 
 #include "../Scenes/Restaurante.h"
 #include "../sdlutils/SDLUtils.h"
+#include "../sdlutils/InputHandler.h"
+#include "../Control/ObjectManager.h"
+#include "../GameObjects/UI/UIManager.h"
 
-Game::Game( int width, int height) {
-	name = "Paellas Rodriguez";
-	this->width = width;
-	this->height = height;
-
-	doExit = false;
-	//font = new Font("../Images/Monospace.ttf", 12);
-
+Game::Game() {
 	srand(time(NULL));
-
-	startGame();
-}
-
-void Game::startGame() {
-	SDL_Texture* spriteSheet = IMG_LoadTexture(renderer, "Assets/Tileset.png");
-	/*Restaurante().Render() ;*/
-
-	player = new Player(this);
-
-	objectManager = new ObjectManager(this);
 }
 
 Game::~Game() {
-	delete objectManager;
-	delete textureContainer;
+	
 }
 
-string Game::getGameName()
+void Game::init() 
 {
-	return name;
+	SDLUtils::init("Paellas", 1280, 720, "../../../Assets/resources.json");
+
+	SDLUtils::instance()->showCursor();
+
+	restaurante = new Restaurante(this);
 }
 
-void Game::update() 
+void Game::start()
 {
-	objectManager->update();
-	player->update();
+	bool exit = false;
+	SDL_Event event;
+
+	while (!exit) {
+		Uint32 startTime = sdlutils().currRealTime();
+
+		handleInput(event, exit);
+
+		update();
+
+		render();
+
+		Uint32 frameTime = sdlutils().currRealTime() - startTime;
+
+		if (frameTime < 20)
+			SDL_Delay(20 - frameTime);
+	}
 }
 
-void Game::draw()
+void Game::changeScene(escenasJuego n) {
+	//Cambio de escena 
+	currentScene = n;
+}
+
+void Game::handleInput(SDL_Event &event, bool &exit) {
+	ih().clearState();
+	while (SDL_PollEvent(&event))
+		ih().update(event);
+
+	//Salimos del juego (PROVISIONAL)
+	exit = ih().GetKey(SDL_SCANCODE_ESCAPE);
+
+	if (currentScene == MENU) {
+		//menu->handleInput();
+	}
+	else if (currentScene == RESTAURANTE) {
+		restaurante->handleInput();
+	}
+}
+
+void Game::update()
 {
-	objectManager->render();
-	objectManager->debug();
-	player->draw();
+	if (currentScene == MENU) {
+		//menu->update();
+	}
+	else if (currentScene == RESTAURANTE) {
+		restaurante->update();
+	}
 }
 
-void Game::setUserExit() {
-	doExit = true;
-}
-
-bool Game::isUserExit() {
-	return doExit;
-}
-
-int Game::getWindowWidth() {
-	return width;
-}
-
-int Game::getWindowHeight() {
-	return height;
-}
-
-SDL_Renderer* Game::getRenderer() {
-	return renderer;
-}
-
-void Game::setRenderer(SDL_Renderer* _renderer) {
-	renderer = _renderer;
-}
-
-void Game::loadTextures() {
-	if (renderer == nullptr)
-		throw string("Renderer is null");
-
-	textureContainer = new TextureContainer(renderer);
-}
-
-//void Game::renderText(string text, int x, int y, SDL_Color color) {
-//	font->render(renderer, text.c_str(), x, y, color);
-//}
-
-Texture* Game::getTexture(TextureName name) {
-	return textureContainer->getTexture(name);
-}
-
-pair<TextureName, int> Game::getRandomIngridient()
+void Game::render()
 {
-	return objectManager->getRandomIngridient();
+	sdlutils().clearRenderer();
+
+	if (currentScene == MENU) {
+		//menu->render();
+	}
+	else if (currentScene == RESTAURANTE) {
+		restaurante->render();
+#ifdef _DEBUG
+		restaurante->debug();
+#endif // _DEBUG
+	}
+
+	sdlutils().presentRenderer();
 }
+
 ObjectManager* Game::getObjectManager()
 {
-	return objectManager;
+	return restaurante->getObjectManager();
 }
-
-vector<Collider*> Game::getClientes(SDL_Rect gOC)
+UIManager* Game::getUIManager()
 {
-	return objectManager->getClientes(gOC);
+	return restaurante->getUIManager();
 }

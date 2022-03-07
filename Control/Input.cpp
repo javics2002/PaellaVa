@@ -1,4 +1,6 @@
 #include "Input.h"
+#include <cassert>
+#include <string>
 
 Input::Input()
 {
@@ -21,3 +23,4 @@ void Input::UpdateAxis()
 	x_move = SDL_JoystickGetAxis(joystick_, 0); // Eje horizontal
 	y_move = SDL_JoystickGetAxis(joystick_, 1); // Eje vertical
 }
+

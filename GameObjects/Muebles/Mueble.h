@@ -1,9 +1,14 @@
 #pragma once
 #include "../GameObject.h"
 
-class Mueble
+constexpr auto TILE_SIZE = 64;
+
+class Game;
+
+class Mueble : public GameObject
 {
 public:
-	virtual bool Accion();
+	Mueble(Game* game, Vector2D<double> position, int width, int height, string claveTextura);
+	~Mueble() = default;
 };
 
