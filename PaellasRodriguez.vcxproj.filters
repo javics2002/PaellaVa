@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Control\Input.cpp" />
@@ -43,6 +43,7 @@
     <ClCompile Include="GameObjects\UI\Ingredientebutton.cpp" />
     <ClCompile Include="Scenes\Scene.cpp" />
     <ClCompile Include="Scenes\Menu.cpp" />
+    <ClCompile Include="Control\Camera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
@@ -112,6 +113,7 @@
     <ClInclude Include="GameObjects\Muebles\MueblesInclude.h" />
     <ClInclude Include="Scenes\Scene.h" />
     <ClInclude Include="Scenes\Menu.h" />
+    <ClInclude Include="Control\Camera.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />

@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Control\Camera.h" />
     <ClInclude Include="GameObjects\Cola.h" />
     <ClInclude Include="GameObjects\Fondo.h" />
     <ClInclude Include="GameObjects\Muebles\Cartel.h" />
@@ -214,6 +215,7 @@
     <ClInclude Include="Utils\Vector2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Control\Camera.cpp" />
     <ClCompile Include="Control\Input.cpp" />
     <ClCompile Include="Data\Comanda.cpp" />
     <ClCompile Include="GameObjects\Cola.cpp" />

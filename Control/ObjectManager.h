@@ -31,7 +31,10 @@ public:
 
 	void handleInput();
 	void update();
+
 	void render();
+	void render(SDL_Rect& rect);
+
 	void debug();
 
 	vector<Collider*> getGrupoClientes(SDL_Rect gOC);
