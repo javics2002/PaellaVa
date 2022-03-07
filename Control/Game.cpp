@@ -1,4 +1,4 @@
-#include "Game.h"
+﻿#include "Game.h"
 
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
@@ -14,16 +14,17 @@ Game::Game() {
 }
 
 Game::~Game() {
-	
+
 }
 
 void Game::init() 
+void Game::init()
 {
 	SDLUtils::init("Paellas", 1280, 720, "../../../Assets/resources.json");
 
 	SDLUtils::instance()->showCursor();
 
-	restaurante = new Restaurante(this);
+	currentScene = new Restaurante(this);
 }
 
 void Game::start()
@@ -47,12 +48,12 @@ void Game::start()
 	}
 }
 
-void Game::changeScene(escenasJuego n) {
+void Game::changeScene(Scene* scene) {
 	//Cambio de escena 
-	currentScene = n;
+	//currentScene = n;
 }
 
-void Game::handleInput(SDL_Event &event, bool &exit) {
+void Game::handleInput(SDL_Event& event, bool& exit) {
 	ih().clearState();
 	while (SDL_PollEvent(&event))
 		ih().update(event);
@@ -60,46 +61,32 @@ void Game::handleInput(SDL_Event &event, bool &exit) {
 	//Salimos del juego (PROVISIONAL)
 	exit = ih().GetKey(SDL_SCANCODE_ESCAPE);
 
-	if (currentScene == MENU) {
-		//menu->handleInput();
-	}
-	else if (currentScene == RESTAURANTE) {
-		restaurante->handleInput();
-	}
+	currentScene->handleInput();
 }
 
 void Game::update()
 {
-	if (currentScene == MENU) {
-		//menu->update();
-	}
-	else if (currentScene == RESTAURANTE) {
-		restaurante->update();
-	}
+	currentScene->update();
 }
 
 void Game::render()
 {
 	sdlutils().clearRenderer();
 
-	if (currentScene == MENU) {
-		//menu->render();
-	}
-	else if (currentScene == RESTAURANTE) {
-		restaurante->render();
+	currentScene->render();
 #ifdef _DEBUG
-		restaurante->debug();
+	currentScene->debug();
 #endif // _DEBUG
-	}
+
 
 	sdlutils().presentRenderer();
 }
 
 ObjectManager* Game::getObjectManager()
 {
-	return restaurante->getObjectManager();
+	return currentScene->getObjectManager();
 }
 UIManager* Game::getUIManager()
 {
-	return restaurante->getUIManager();
+	return currentScene->getUIManager();
 }
