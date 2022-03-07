@@ -77,6 +77,12 @@ void ObjectManager::update()
 	}
 }
 
+void ObjectManager::addMueble(GameObject* mueble)
+{
+	muebles.push_back(mueble);
+}
+
+
 
 vector<Collider*> ObjectManager::getClientes(SDL_Rect gOC)
 {
@@ -88,7 +94,7 @@ vector<Collider*> ObjectManager::getIngredientes(SDL_Rect gOC)
 	return ingredientes->getCollisions(gOC);
 }
 
-void ObjectManager::addMueble(GameObject* mueble)
+vector<Collider*> ObjectManager::getGrupoClientes(SDL_Rect gOC)
 {
-	muebles.push_back(mueble);
+	return grupoClientes->getCollisions(gOC);
 }

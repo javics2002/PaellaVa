@@ -64,7 +64,7 @@ void GrupoClientes::update()
 		SDL_Rect rect = { clientes[0]->getX() + clientes[0]->getWidth() / 2, clientes[0]->getY() - clientes[0]->getHeight() / 2,
 			clientes[0]->getWidth() / 2, clientes[0]->getWidth() };
 
-		for (auto i : game->getObjectManager()->getClientes(rect)) {
+		for (auto i : game->getObjectManager()->getGrupoClientes(rect)) {
 			setState(ENCOLA);
 		}
 	}

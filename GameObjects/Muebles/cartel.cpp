@@ -8,7 +8,7 @@ Cartel::Cartel(Game* game, Vector2D<double> position) : Mueble(game, position, T
 
 void Cartel::update()
 {
-	for (auto i : game->getObjectManager()->getClientes(getCollider())) {
+	for (auto i : game->getObjectManager()->getGrupoClientes(getCollider())) {
 		i->colisionClientes();
 	}
 }

@@ -13,6 +13,8 @@ void Puerta::update()
 
 		int integrantes = 1 + rand() % maxGrupo;
 
+		cout << integrantes << endl;
+
 		if (cola->esValido(integrantes)) {
 			vector<Cliente*> v;
 
@@ -22,7 +24,8 @@ void Puerta::update()
 			v.push_back(c);
 
 			int width = c->getWidth();
-			int w = -width / 2;
+			
+			int w = c->getPosition().getX();
 		
 			for (int i = 1; i < integrantes; i++) {
 				w -= width;

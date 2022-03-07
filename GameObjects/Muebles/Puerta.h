@@ -11,7 +11,7 @@ class Puerta : public Mueble
 {
 	const unsigned int maxGrupo = 6;
 
-	const double SPAWN_DELAY = 4000;
+	const double SPAWN_DELAY = 8000;
 	double time;
 
 	Cola* cola;

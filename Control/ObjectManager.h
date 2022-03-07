@@ -34,7 +34,7 @@ public:
 	void render();
 	void debug();
 
-	
+	vector<Collider*> getGrupoClientes(SDL_Rect gOC);
 	vector<Collider*> getClientes(SDL_Rect gOC);
 	vector<Collider*> getIngredientes(SDL_Rect gOC);
 
