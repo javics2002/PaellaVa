@@ -1,6 +1,4 @@
 #pragma once
-#include "../Control/ObjectManager.h"
-#include "../GameObjects/UI/UIManager.h"
 #include "../Scenes/Scene.h"
 #include "SDL.h"
 
@@ -41,27 +39,21 @@ struct MapInfo {
 
 class Restaurante : public Scene
 {
-	Game* game;
 
 	//Punteros a los jugadores (Quizas deberian llamarse yo y amigo, en relativo)
 	Player* host;
 	Player* client;
 
-	ObjectManager* objectManager;
-	UIManager* uiManager;
-
 	MapInfo mapInfo;
-	Fondo* fondo;
 public:
 	Restaurante(Game* game);
 	~Restaurante();
 
-	void handleInput();
-	void update();
-	void render();
-	void debug();
+	void handleInput()  override;
+	void update() override;
+	void render() override;
+	void debug() override;
 
-	ObjectManager* getObjectManager();
-	UIManager* getUIManager();
+	
 	void loadMap(string const & path);
 };
