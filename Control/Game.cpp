@@ -17,7 +17,6 @@ Game::~Game() {
 
 }
 
-void Game::init() 
 void Game::init()
 {
 	SDLUtils::init("Paellas", 1280, 720, "../../../Assets/resources.json");
