@@ -4,6 +4,7 @@
 #include "../GameObjects/Paella.h"
 #include "../GameObjects/Ingrediente.h"
 #include "../GameObjects/Muebles/MueblesInclude.h"
+#include  "../GameObjects/UI/RedactaComandabutton.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../Control/Game.h"
 #include <iostream>
@@ -260,6 +261,9 @@ void Restaurante::loadMap(string const& path) {
 				}
 			}
 		}
+
+		getObjectManager()->addComanda(new RedactaComandabutton(game, "redactaboton", 10, 10, 30, 30));
+
 
 		SDL_SetRenderTarget(renderer, nullptr);
 

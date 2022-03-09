@@ -15,7 +15,7 @@ ObjectManager::ObjectManager(Game* game)
 	clientes = new Pool<Cliente>(game, 50);
 	grupoClientes = new Pool<GrupoClientes>(game, 20);
 
-	interfaz.push_back(new RedactaComandabutton(game, "redactaboton", 10, 10, 30, 30));
+	//interfaz.push_back(new RedactaComandabutton(game, "redactaboton", 10, 10, 30, 30));
 }
 
 ObjectManager::~ObjectManager()
@@ -108,6 +108,11 @@ void ObjectManager::addMueble(GameObject* mueble)
 	muebles.push_back(mueble);
 }
 
+void ObjectManager::addComanda(GameObject* comanda)
+{
+	interfaz.push_back(comanda);
+}
+
 
 
 vector<Collider*> ObjectManager::getClientes(SDL_Rect gOC)
@@ -124,3 +129,4 @@ vector<Collider*> ObjectManager::getGrupoClientes(SDL_Rect gOC)
 {
 	return grupoClientes->getCollisions(gOC);
 }
+
