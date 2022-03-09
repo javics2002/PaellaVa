@@ -249,14 +249,14 @@ void Restaurante::loadMap(string const& path) {
 				else if (name == "puerta") {
 					getObjectManager()->addMueble(new Puerta(game, position));
 				}
-				else if (name == "ventanilla") {
-					getObjectManager()->addMueble(new Ventanilla(game, position));
-				}
 				else if (name == "cartel") {
 					getObjectManager()->addMueble(new Cartel(game, position));
 				}
 				else if (name == "tabla") {
 					getObjectManager()->addMueble(new TablaProcesado(game, position));
+				}
+				else if (name == "encimera") {
+					getObjectManager()->addMueble(new Encimera(game, position));
 				}
 			}
 		}
