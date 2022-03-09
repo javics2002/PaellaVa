@@ -37,7 +37,6 @@ SDL_Rect GameObject::getCenter()
 			 int(getY() - CENTER_TAM / 2),
 			CENTER_TAM,
 			CENTER_TAM };
-
 }
 
 void GameObject::drawDebug()
