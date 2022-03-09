@@ -6,7 +6,7 @@
 class Camera
 {
 private:
-	Vector2D<int> pos;
+	Vector2D<float> pos;
 	int width, height;
 	int winWidth, winHeight;
 
@@ -14,28 +14,30 @@ private:
 	float xmin, ymin, xmax, ymax;
 	float ogxmin, ogymin, ogxmax, ogymax;
 
+	const float EPSILON = 0.01;
+
 public:
 	static Camera* mainCamera;
 
-	Camera(Vector2D<int> initialPos, int cam_w, int cam_h);
+	Camera(Vector2D<float> initialPos, int cam_w, int cam_h);
 	static void setMain(Camera* cam);
 
-	void Move(const Vector2D<int>& v);
-	void MoveToPoint(const Vector2D<int>& v);
+	void Move(const Vector2D<float>& v);
+	void MoveToPoint(const Vector2D<float>& v);
 
-	void Lerp(const Vector2D<int>& v, float i);
-	void LerpWithBounds(const Vector2D<int>& v, float i);
+	bool Lerp(const Vector2D<float>& v, float i);
+	void LerpWithBounds(const Vector2D<float>& v, float i);
 	void setBounds(float xmin, float ymin, float xmax, float ymax);
 
 	SDL_Rect* renderRect();
 
-	void MoveDir(Vector2D<int> dir);
+	void MoveDir(Vector2D<float> dir);
 
 	void setScale(float value);
 	float getScale();
 	void restoreScale();
 
-	Vector2D<int> getCameraPosition();
-	Vector2D<int> getCameraCenterPosition();
+	Vector2D<float> getCameraPosition();
+	Vector2D<float> getCameraCenterPosition();
 };
 

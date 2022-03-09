@@ -124,6 +124,12 @@ public:
 		}
 	}
 
+	void debug(SDL_Rect& rect) {
+		for (auto it : activeObjects) {
+			it->drawDebug(rect);
+		}
+	}
+
 	void update() {
 		for (auto it : activeObjects) {
 			it->update();

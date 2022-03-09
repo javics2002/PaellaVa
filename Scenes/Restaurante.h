@@ -56,6 +56,12 @@ class Restaurante : public Scene
 
 	MapInfo mapInfo;
 	Fondo* fondo;
+
+	Vector2D<int> tamRestaurante = Vector2D<int>(0, 1216);
+	bool playerInRestaurante = true;
+	bool lerpEmpezado = true;
+
+
 public:
 	Restaurante(Game* game);
 	~Restaurante();
