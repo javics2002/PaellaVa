@@ -54,6 +54,20 @@ void GameObject::drawDebug()
 	SDL_SetRenderDrawColor(sdlutils().renderer(), 255, 255, 255, 0);
 }
 
+void GameObject::drawDebug(SDL_Rect& rect)
+{
+	SDL_Rect collider = getCollider();
+	SDL_Rect center = getCenter();
+	collider = { collider.x - rect.x, collider.y - rect.y, collider.w, collider.h };
+	center = { center.x - rect.x, center.y - rect.y, center.w, center.h };
+
+	SDL_SetRenderDrawColor(sdlutils().renderer(), 255, 0, 0, 0);
+	SDL_RenderDrawRect(sdlutils().renderer(), &collider);
+	SDL_SetRenderDrawColor(sdlutils().renderer(), 0, 0, 255, 0);
+	SDL_RenderFillRect(sdlutils().renderer(), &center);
+	SDL_SetRenderDrawColor(sdlutils().renderer(), 255, 255, 255, 0);
+}
+
 bool GameObject::collide(SDL_Rect other)
 {
 	SDL_Rect rect1 = getCollider();
@@ -66,6 +80,13 @@ void GameObject::render()
 {
 	SDL_Rect c = getCollider();
 	SDL_Rect textureBox = { c.x, c.y, c.w, c.h };
+	texture->render(textureBox);
+}
+
+void GameObject::render(SDL_Rect& cameraRect)
+{
+	SDL_Rect c = getCollider();
+	SDL_Rect textureBox = { c.x - cameraRect.x, c.y - cameraRect.y, c.w, c.h};
 	texture->render(textureBox);
 }
 

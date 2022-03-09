@@ -44,6 +44,22 @@ void ObjectManager::render()
 	clientes->render();
 }
 
+void ObjectManager::render(SDL_Rect& rect)
+{
+	for (auto m : muebles)
+		m->render(rect);
+
+	/*for (auto c : comandas)
+		c->render(rect);
+
+	for (auto i : interfaz)
+		i->render(rect);*/
+
+	ingredientes->render(rect);
+
+	clientes->render(rect);
+}
+
 void ObjectManager::debug()
 {
 	for (auto i : muebles)
@@ -52,6 +68,16 @@ void ObjectManager::debug()
 	ingredientes->debug();
 
 	clientes->debug();
+}
+
+void ObjectManager::debug(SDL_Rect& rect)
+{
+	for (auto i : muebles)
+		i->drawDebug(rect);
+
+	ingredientes->debug(rect);
+
+	clientes->debug(rect);
 }
 
 void ObjectManager::handleInput()

@@ -37,6 +37,8 @@ public:
     };
 
     virtual void render();
+    virtual void render(SDL_Rect& cameraRect);
+
     virtual bool OnClick(int mx, int my) { return false; };
 
     void setPosition(double x, double y);
@@ -55,6 +57,7 @@ public:
     virtual SDL_Rect getCenter();
 
     virtual void drawDebug();
+    virtual void drawDebug(SDL_Rect& rect);
 
     virtual bool collide(SDL_Rect other);
 };

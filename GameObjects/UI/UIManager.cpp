@@ -77,6 +77,24 @@ void UIManager::render()
 		i->render();
 	}
 }
+
+void UIManager::render(SDL_Rect& rect)
+{
+	for (auto i : interfaz)
+	{
+		i->render(rect);
+	}
+	for (auto i : comandas)
+	{
+		i->render(rect);
+		i->dibujaPedido();
+	}
+	for (auto i : teclado)
+	{
+		i->render(rect);
+	}
+}
+
 void UIManager::creaComanda(Game* game)
 {
 	actual = new Comanda(game, 2,this);

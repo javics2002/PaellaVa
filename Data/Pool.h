@@ -113,9 +113,20 @@ public:
 			it->render();
 	}
 
+	void render(SDL_Rect& rect) {
+		for (auto it : activeObjects)
+			it->render(rect);
+	}
+
 	void debug() {
 		for (auto it : activeObjects) {
 			it->drawDebug();
+		}
+	}
+
+	void debug(SDL_Rect& rect) {
+		for (auto it : activeObjects) {
+			it->drawDebug(rect);
 		}
 	}
 

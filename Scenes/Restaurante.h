@@ -11,6 +11,8 @@
 #include "./tmxlite/Tileset.hpp"
 #include "../GameObjects/Fondo.h"
 
+#include "../Control/Camera.h"
+
 #include <unordered_map>
 
 using namespace std;
@@ -41,17 +43,25 @@ struct MapInfo {
 
 class Restaurante : public Scene
 {
+	const float LERP_INTERPOLATION = 0.2f;
+	 
 	Game* game;
 
 	//Punteros a los jugadores (Quizas deberian llamarse yo y amigo, en relativo)
 	Player* host;
 	Player* client;
 
+	Camera* camara;
+
 	ObjectManager* objectManager;
 	UIManager* uiManager;
 
 	MapInfo mapInfo;
 	Fondo* fondo;
+
+	Vector2D<int> tamRestaurante = Vector2D<int>(0, 1216);
+
+
 public:
 	Restaurante(Game* game);
 	~Restaurante();
