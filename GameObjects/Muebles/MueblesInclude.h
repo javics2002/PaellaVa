@@ -8,5 +8,5 @@
 #include "Mesa.h"
 #include "Puerta.h"
 #include "TablaProcesado.h"
-#include "Ventanilla.h"
+#include "Encimera.h"
 #include "Silla.h"

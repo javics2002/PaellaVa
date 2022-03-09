@@ -25,7 +25,6 @@
     <ClCompile Include="GameObjects\PoolObject.cpp" />
     <ClCompile Include="GameObjects\Muebles\Silla.cpp" />
     <ClCompile Include="GameObjects\Muebles\TablaProcesado.cpp" />
-    <ClCompile Include="GameObjects\Muebles\Ventanilla.cpp" />
     <ClCompile Include="SDL2-2.0.20\include\SDL_rect.cpp" />
     <ClCompile Include="sdlutils\SDLUtils.cpp" />
     <ClCompile Include="Scenes\Restaurante.cpp" />
@@ -44,6 +43,7 @@
     <ClCompile Include="Scenes\Scene.cpp" />
     <ClCompile Include="Scenes\Menu.cpp" />
     <ClCompile Include="Control\Camera.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Encimera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
@@ -77,7 +77,6 @@
     <ClInclude Include="GameObjects\Muebles\TablaProcesado.h" />
     <ClInclude Include="sdlutils\SDLUtils.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="GameObjects\Muebles\Ventanilla.h" />
     <ClInclude Include="Utils\Vector2D.h" />
     <ClInclude Include="GameObjects\Fondo.h" />
     <ClInclude Include="Utils\Texture.h" />
@@ -114,6 +113,7 @@
     <ClInclude Include="Scenes\Scene.h" />
     <ClInclude Include="Scenes\Menu.h" />
     <ClInclude Include="Control\Camera.h" />
+    <ClInclude Include="GameObjects\Muebles\Encimera.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />

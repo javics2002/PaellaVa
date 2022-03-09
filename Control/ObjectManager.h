@@ -32,20 +32,17 @@ public:
 	void handleInput();
 	void update();
 
-	void render();
-	void render(SDL_Rect& rect);
-
-	void debug();
-	void debug(SDL_Rect& rect);
+	void render(SDL_Rect* rect);
+	void debug(SDL_Rect* rect);
 
 	vector<Collider*> getGrupoClientes(SDL_Rect gOC);
 	vector<Collider*> getClientes(SDL_Rect gOC);
 	vector<Collider*> getIngredientes(SDL_Rect gOC);
 
 	void addMueble(GameObject* mueble);
-	//void addPaella(GameObject* paella);
-	//void addComanda(GameObject* comanda);
-	//void addInterfaz(GameObject* interfaz);
+	void addPaella(GameObject* paella);
+	void addComanda(GameObject* comanda);
+	void addInterfaz(GameObject* interfaz);
 
 	Pool<Cliente>* getPoolClientes() { return clientes; };
 	Pool<GrupoClientes>* getPoolGrupoClientes() { return grupoClientes; };

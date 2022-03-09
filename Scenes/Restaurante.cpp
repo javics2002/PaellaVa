@@ -4,6 +4,7 @@
 #include "../GameObjects/Paella.h"
 #include "../GameObjects/Ingrediente.h"
 #include "../GameObjects/Muebles/MueblesInclude.h"
+#include  "../GameObjects/UI/RedactaComandabutton.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../Control/Game.h"
 #include <iostream>
@@ -23,9 +24,8 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 
 	fondo = new Fondo(game);
 	fondo->setTexture(mapInfo.ruta);
-	int width = sdlutils().images().at(mapInfo.ruta).width();
-	int height = sdlutils().images().at(mapInfo.ruta).height();
-	fondo->setDimension(width, height);
+	fondo->setPosition(mapInfo.anchoFondo / 2, sdlutils().height() / 2);
+	fondo->setDimension(mapInfo.anchoFondo, mapInfo.altoFondo);
 
 	// camara init
 	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
@@ -61,27 +61,18 @@ void Restaurante::update()
 
 void Restaurante::render()
 {
-	// camara->renderRect();
-	SDL_Rect* r = camara->renderRect();
-
-	fondo->render(*r);
-	objectManager->render(*r);
-
-	host->render(*r);
-	uiManager->render();
-
-	delete r;
+	fondo->render(camara->renderRect());
+	objectManager->render(camara->renderRect());
+	
+	host->render(camara->renderRect());
+	uiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
 }
 
 void Restaurante::debug()
 {
-	SDL_Rect* r = camara->renderRect();
-
-	fondo->drawDebug(*r);
-	objectManager->debug(*r);
-	host->drawDebug(*r);
-
-	delete r;
+	fondo->drawDebug(camara->renderRect());
+	objectManager->debug(camara->renderRect());
+	host->drawDebug(camara->renderRect());
 }
 
 //Check colisiones
@@ -104,12 +95,12 @@ void Restaurante::loadMap(string const& path) {
 
 	//Creamos la textura de fondo
 	auto renderer = sdlutils().renderer();
-	int anchoFondo = mapInfo.anchoTile * mapInfo.columnas;
-	int altoFondo = mapInfo.altoTile * mapInfo.filas;
+	mapInfo.anchoFondo = mapInfo.anchoTile * mapInfo.columnas;
+	mapInfo.altoFondo = mapInfo.altoTile * mapInfo.filas;
 	SDL_Texture* fondo = SDL_CreateTexture(renderer,
 		SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET,
-		anchoFondo,
-		altoFondo
+		mapInfo.anchoFondo,
+		mapInfo.altoFondo
 	);
 
 	SDL_SetTextureBlendMode(fondo, SDL_BLENDMODE_BLEND);
@@ -249,21 +240,24 @@ void Restaurante::loadMap(string const& path) {
 				else if (name == "puerta") {
 					getObjectManager()->addMueble(new Puerta(game, position));
 				}
-				else if (name == "ventanilla") {
-					getObjectManager()->addMueble(new Ventanilla(game, position));
-				}
 				else if (name == "cartel") {
 					getObjectManager()->addMueble(new Cartel(game, position));
 				}
 				else if (name == "tabla") {
 					getObjectManager()->addMueble(new TablaProcesado(game, position));
 				}
+				else if (name == "encimera") {
+					getObjectManager()->addMueble(new Encimera(game, position));
+				}
 			}
 		}
 
+		getObjectManager()->addComanda(new RedactaComandabutton(game, "redactaboton", 10, 10, 30, 30));
+
+
 		SDL_SetRenderTarget(renderer, nullptr);
 
-		if (!sdlutils().images().count(path))
-			sdlutils().images().emplace(path, Texture(renderer, fondo, anchoFondo, altoFondo));
+		if (!sdlutils().images().count(path)) 
+			sdlutils().images().emplace(path, Texture(renderer, fondo, mapInfo.anchoFondo, mapInfo.altoFondo));
 	}
 }

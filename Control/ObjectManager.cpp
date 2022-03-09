@@ -15,7 +15,7 @@ ObjectManager::ObjectManager(Game* game)
 	clientes = new Pool<Cliente>(game, 50);
 	grupoClientes = new Pool<GrupoClientes>(game, 20);
 
-	interfaz.push_back(new RedactaComandabutton(game, "redactaboton", 10, 10, 30, 30));
+	//interfaz.push_back(new RedactaComandabutton(game, "redactaboton", 10, 10, 30, 30));
 }
 
 ObjectManager::~ObjectManager()
@@ -28,23 +28,7 @@ ObjectManager::~ObjectManager()
 	delete ingredientes;
 }
 
-void ObjectManager::render()
-{
-	for (auto m : muebles)
-		m->render();
-
-	/*for (auto c : comandas)
-		c->render();
-
-	for (auto i : interfaz)
-		i->render();*/
-
-	ingredientes->render();
-
-	clientes->render();
-}
-
-void ObjectManager::render(SDL_Rect& rect)
+void ObjectManager::render(SDL_Rect* rect)
 {
 	for (auto m : muebles)
 		m->render(rect);
@@ -60,17 +44,7 @@ void ObjectManager::render(SDL_Rect& rect)
 	clientes->render(rect);
 }
 
-void ObjectManager::debug()
-{
-	for (auto i : muebles)
-		i->drawDebug();
-
-	ingredientes->debug();
-
-	clientes->debug();
-}
-
-void ObjectManager::debug(SDL_Rect& rect)
+void ObjectManager::debug(SDL_Rect* rect)
 {
 	for (auto i : muebles)
 		i->drawDebug(rect);
@@ -108,6 +82,11 @@ void ObjectManager::addMueble(GameObject* mueble)
 	muebles.push_back(mueble);
 }
 
+void ObjectManager::addComanda(GameObject* comanda)
+{
+	interfaz.push_back(comanda);
+}
+
 
 
 vector<Collider*> ObjectManager::getClientes(SDL_Rect gOC)
@@ -124,3 +103,4 @@ vector<Collider*> ObjectManager::getGrupoClientes(SDL_Rect gOC)
 {
 	return grupoClientes->getCollisions(gOC);
 }
+
