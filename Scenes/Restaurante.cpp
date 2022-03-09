@@ -61,27 +61,18 @@ void Restaurante::update()
 
 void Restaurante::render()
 {
-	// camara->renderRect();
-	SDL_Rect* r = camara->renderRect();
-
-	fondo->render(*r);
-	objectManager->render(*r);
+	fondo->render(camara->renderRect());
+	objectManager->render(camara->renderRect());
 	
-	host->render(*r);
-	uiManager->render();
-
-	delete r;
+	host->render(camara->renderRect());
+	uiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
 }
 
 void Restaurante::debug()
 {
-	SDL_Rect* r = camara->renderRect();
-
-	fondo->drawDebug(*r);
-	objectManager->debug(*r);
-	host->drawDebug(*r);
-
-	delete r;
+	fondo->drawDebug(camara->renderRect());
+	objectManager->debug(camara->renderRect());
+	host->drawDebug(camara->renderRect());
 }
 
 ObjectManager* Restaurante::getObjectManager()
