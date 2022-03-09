@@ -92,6 +92,6 @@ void Comanda::dibujaPedido()
 {
     for (auto i : Pedido)
     {
-        i->render();
+        i->render(nullptr); // nullptr es porque es un elemento de la interfaz y no se mueve con la cámara.
     }
 }

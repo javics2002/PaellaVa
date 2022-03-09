@@ -28,23 +28,7 @@ ObjectManager::~ObjectManager()
 	delete ingredientes;
 }
 
-void ObjectManager::render()
-{
-	for (auto m : muebles)
-		m->render();
-
-	/*for (auto c : comandas)
-		c->render();
-
-	for (auto i : interfaz)
-		i->render();*/
-
-	ingredientes->render();
-
-	clientes->render();
-}
-
-void ObjectManager::render(SDL_Rect& rect)
+void ObjectManager::render(SDL_Rect* rect)
 {
 	for (auto m : muebles)
 		m->render(rect);
@@ -60,17 +44,7 @@ void ObjectManager::render(SDL_Rect& rect)
 	clientes->render(rect);
 }
 
-void ObjectManager::debug()
-{
-	for (auto i : muebles)
-		i->drawDebug();
-
-	ingredientes->debug();
-
-	clientes->debug();
-}
-
-void ObjectManager::debug(SDL_Rect& rect)
+void ObjectManager::debug(SDL_Rect* rect)
 {
 	for (auto i : muebles)
 		i->drawDebug(rect);

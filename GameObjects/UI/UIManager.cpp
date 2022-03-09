@@ -61,24 +61,24 @@ void UIManager::update()
 	}
 	
 }
-void UIManager::render()
-{
-	for (auto i : interfaz)
-	{
-		i->render();
-	}
-	for (auto i : comandas)
-	{
-		i->render();
-		i->dibujaPedido();
-	}
-	for (auto i : teclado)
-	{
-		i->render();
-	}
-}
+//void UIManager::render()
+//{
+//	for (auto i : interfaz)
+//	{
+//		i->render();
+//	}
+//	for (auto i : comandas)
+//	{
+//		i->render();
+//		i->dibujaPedido();
+//	}
+//	for (auto i : teclado)
+//	{
+//		i->render();
+//	}
+//}
 
-void UIManager::render(SDL_Rect& rect)
+void UIManager::render(SDL_Rect* rect=nullptr)
 {
 	for (auto i : interfaz)
 	{

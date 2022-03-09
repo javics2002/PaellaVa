@@ -36,8 +36,7 @@ public:
         pos = pos + vel;
     };
 
-    virtual void render();
-    virtual void render(SDL_Rect& cameraRect);
+    virtual void render(SDL_Rect* cameraRect);
 
     virtual bool OnClick(int mx, int my) { return false; };
 
@@ -56,8 +55,7 @@ public:
     virtual SDL_Rect getCollider();
     virtual SDL_Rect getCenter();
 
-    virtual void drawDebug();
-    virtual void drawDebug(SDL_Rect& rect);
+    virtual void drawDebug(SDL_Rect* rect);
 
     virtual bool collide(SDL_Rect other);
 };
