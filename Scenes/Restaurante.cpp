@@ -24,9 +24,8 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 
 	fondo = new Fondo(game);
 	fondo->setTexture(mapInfo.ruta);
-	int width = sdlutils().images().at(mapInfo.ruta).width();
-	int height = sdlutils().images().at(mapInfo.ruta).height();
-	fondo->setDimension(width, height);
+	fondo->setPosition(mapInfo.anchoFondo / 2, sdlutils().height() / 2);
+	fondo->setDimension(mapInfo.anchoFondo, mapInfo.altoFondo);
 
 	// camara init
 	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
@@ -105,12 +104,12 @@ void Restaurante::loadMap(string const& path) {
 
 	//Creamos la textura de fondo
 	auto renderer = sdlutils().renderer();
-	int anchoFondo = mapInfo.anchoTile * mapInfo.columnas;
-	int altoFondo = mapInfo.altoTile * mapInfo.filas;
+	mapInfo.anchoFondo = mapInfo.anchoTile * mapInfo.columnas;
+	mapInfo.altoFondo = mapInfo.altoTile * mapInfo.filas;
 	SDL_Texture* fondo = SDL_CreateTexture(renderer,
 		SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET,
-		anchoFondo,
-		altoFondo
+		mapInfo.anchoFondo,
+		mapInfo.altoFondo
 	);
 
 	SDL_SetTextureBlendMode(fondo, SDL_BLENDMODE_BLEND);
@@ -267,7 +266,7 @@ void Restaurante::loadMap(string const& path) {
 
 		SDL_SetRenderTarget(renderer, nullptr);
 
-		if (!sdlutils().images().count(path))
-			sdlutils().images().emplace(path, Texture(renderer, fondo, anchoFondo, altoFondo));
+		if (!sdlutils().images().count(path)) 
+			sdlutils().images().emplace(path, Texture(renderer, fondo, mapInfo.anchoFondo, mapInfo.altoFondo));
 	}
 }

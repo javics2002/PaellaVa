@@ -25,6 +25,7 @@ struct MapInfo {
 	string ruta;
 	int filas, columnas;
 	int anchoTile, altoTile;
+	int anchoFondo, altoFondo;
 	unordered_map<uint, Texture*> tilesets;
 
 	MapInfo() {
