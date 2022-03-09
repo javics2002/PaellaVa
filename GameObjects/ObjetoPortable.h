@@ -5,7 +5,7 @@ class ObjetoPortable : public GameObject
 {
 public:
 
-	ObjetoPortable():GameObject(game){};
+	ObjetoPortable() :GameObject(game) {};
 	~ObjetoPortable() {};
 
 	virtual bool interaccionFogones();

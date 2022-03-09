@@ -4,6 +4,8 @@
 #include "../GameObjects/Paella.h"
 #include "../GameObjects/Ingrediente.h"
 #include "../GameObjects/Muebles/MueblesInclude.h"
+#include "../sdlutils/SDLUtils.h"
+#include "../Control/Game.h"
 #include <iostream>
 
 using namespace std;
@@ -14,13 +16,12 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 
 	objectManager = new ObjectManager(game);
 	uiManager = new UIManager(game);
-  
 	host = new Player(game);
 
 	mapInfo.ruta = "..\\..\\..\\Assets\\Tilemap\\Restaurante.tmx";
 	loadMap(mapInfo.ruta);
 
-
+	fondo = new Fondo(game);
 	fondo->setTexture(mapInfo.ruta);
 	int width = sdlutils().images().at(mapInfo.ruta).width();
 	int height = sdlutils().images().at(mapInfo.ruta).height();
@@ -28,7 +29,7 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 
 	// camara init
 	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
-	
+
 }
 
 Restaurante::~Restaurante()
@@ -65,7 +66,7 @@ void Restaurante::render()
 
 	fondo->render(*r);
 	objectManager->render(*r);
-	
+
 	host->render(*r);
 	uiManager->render();
 
