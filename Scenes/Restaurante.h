@@ -43,6 +43,8 @@ struct MapInfo {
 
 class Restaurante : public Scene
 {
+	const float LERP_INTERPOLATION = 0.2f;
+	 
 	Game* game;
 
 	//Punteros a los jugadores (Quizas deberian llamarse yo y amigo, en relativo)
@@ -58,8 +60,6 @@ class Restaurante : public Scene
 	Fondo* fondo;
 
 	Vector2D<int> tamRestaurante = Vector2D<int>(0, 1216);
-	bool playerInRestaurante = true;
-	bool lerpEmpezado = true;
 
 
 public:

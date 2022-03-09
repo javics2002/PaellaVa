@@ -14,8 +14,6 @@ private:
 	float xmin, ymin, xmax, ymax;
 	float ogxmin, ogymin, ogxmax, ogymax;
 
-	const float EPSILON = 0.01;
-
 public:
 	static Camera* mainCamera;
 
@@ -25,7 +23,7 @@ public:
 	void Move(const Vector2D<float>& v);
 	void MoveToPoint(const Vector2D<float>& v);
 
-	bool Lerp(const Vector2D<float>& v, float i);
+	void Lerp(const Vector2D<float>& v, float i);
 	void LerpWithBounds(const Vector2D<float>& v, float i);
 	void setBounds(float xmin, float ymin, float xmax, float ymax);
 

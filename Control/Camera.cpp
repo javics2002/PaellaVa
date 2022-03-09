@@ -58,15 +58,13 @@ void Camera::Move(const Vector2D<float>& newPos) {
 //	pos = newcamerapos;
 //}
 //
-bool Camera::Lerp(const Vector2D<float>& newPos, float i) {
+void Camera::Lerp(const Vector2D<float>& newPos, float i) {
 	Vector2D<float> newcamerapos = newPos - Vector2D<float>(winWidth / 2, winHeight / 2) + Vector2D<float>(winWidth - width, winHeight - height) / 2;
 	if ((pos - newcamerapos).magnitude() > 2) {
 		//pos = Vector2D<int>::Lerp(pos, newcamerapos, i * consts::DELTA_TIME);
 
 		pos = pos + (newPos - pos) * i;
 	}
-
-	return std::abs(pos.getX() - newPos.getX()) < EPSILON && std::abs(pos.getY() - newPos.getY()) < EPSILON;
 }
 //void Camera::LerpWithBounds(const Vector2D& newPos, float i) {
 //	Lerp(newPos, i);
