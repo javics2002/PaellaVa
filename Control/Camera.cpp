@@ -4,7 +4,7 @@
 
 Camera* Camera::mainCamera = nullptr;
 
-Camera::Camera(Vector2D<int> initial, int cam_w, int cam_h) {
+Camera::Camera(Vector2D<float> initial, int cam_w, int cam_h) {
 	pos = initial;
 
 	width = cam_w;
@@ -13,9 +13,9 @@ Camera::Camera(Vector2D<int> initial, int cam_w, int cam_h) {
 	winWidth = sdlutils().width();
 	winHeight = sdlutils().height();
 
-	xmin = ymin = xmax = ymax = 0;
+	/*xmin = ymin = xmax = ymax = 0;
 
-	ogScale = scale = float(winWidth) / width;
+	ogScale = scale = float(winWidth) / width;*/
 }
 
 void Camera::setScale(float value) {
@@ -32,7 +32,7 @@ void Camera::setScale(float value) {
 	ymin = ogymin * scale;
 	ymax = ogymax * scale;
 
-	pos = pos + Vector2D<int>(auxWidth / 2 - width / 2, auxHeight / 2 - height / 2);
+	pos = pos + Vector2D<float>(auxWidth / 2 - width / 2, auxHeight / 2 - height / 2);
 }
 
 float Camera::getScale() {
@@ -49,7 +49,7 @@ void Camera::setMain(Camera* cam) {
 	mainCamera = cam;
 }
 
-void Camera::Move(const Vector2D<int>& newPos) {
+void Camera::Move(const Vector2D<float>& newPos) {
 	pos = newPos;
 }
 
@@ -58,11 +58,14 @@ void Camera::Move(const Vector2D<int>& newPos) {
 //	pos = newcamerapos;
 //}
 //
-//void Camera::Lerp(const Vector2D<double>& newPos, float i) {
-//	Vector2D newcamerapos = newPos - Vector2D(winWidth / 2, winHeight / 2) + Vector2D(winWidth - width, winHeight - height) / 2;
-//	if ((pos - newcamerapos).magnitude() > 2)
-//		pos = Vector2D::Lerp(pos, newcamerapos, i * consts::DELTA_TIME);
-//}
+void Camera::Lerp(const Vector2D<float>& newPos, float i) {
+	Vector2D<float> newcamerapos = newPos - Vector2D<float>(winWidth / 2, winHeight / 2) + Vector2D<float>(winWidth - width, winHeight - height) / 2;
+	if ((pos - newcamerapos).magnitude() > 2) {
+		//pos = Vector2D<int>::Lerp(pos, newcamerapos, i * consts::DELTA_TIME);
+
+		pos = pos + (newPos - pos) * i;
+	}
+}
 //void Camera::LerpWithBounds(const Vector2D& newPos, float i) {
 //	Lerp(newPos, i);
 //
@@ -87,22 +90,22 @@ void Camera::setBounds(float a, float b, float c, float d) {
 	ymax = ogymax * scale;
 }
 
-void Camera::MoveDir(Vector2D<int> dir) {
+void Camera::MoveDir(Vector2D<float> dir) {
 	pos = pos + dir;
 }
 
 
 SDL_Rect* Camera::renderRect() {
-	return new SDL_Rect{ pos.getX(), pos.getY(), width, height };
+	return new SDL_Rect{ (int) pos.getX(), (int) pos.getY(), width, height };
 }
 
 
-Vector2D<int> Camera::getCameraPosition()
+Vector2D<float> Camera::getCameraPosition()
 {
 	return pos;
 }
 
-Vector2D<int> Camera::getCameraCenterPosition()
+Vector2D<float> Camera::getCameraCenterPosition()
 {
-	return pos + Vector2D<int>(winWidth / 2, winHeight / 2) - Vector2D<int>(winWidth - width, winHeight - height) / 2;
+	return pos + Vector2D<float>(winWidth / 2, winHeight / 2) - Vector2D<float>(winWidth - width, winHeight - height) / 2;
 }

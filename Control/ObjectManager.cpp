@@ -70,6 +70,16 @@ void ObjectManager::debug()
 	clientes->debug();
 }
 
+void ObjectManager::debug(SDL_Rect& rect)
+{
+	for (auto i : muebles)
+		i->drawDebug(rect);
+
+	ingredientes->debug(rect);
+
+	clientes->debug(rect);
+}
+
 void ObjectManager::handleInput()
 {
 }

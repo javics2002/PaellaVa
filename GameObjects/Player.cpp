@@ -13,7 +13,7 @@ Player::Player(Game* game) : GameObject(game)
 
 	//posicion_ = posicion;
 	setPosition(100, 100);
-	setDimension(100, 100);
+	setDimension(64, 64);
 
 	objetoCargado_ = nullptr;
 

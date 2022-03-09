@@ -11,8 +11,6 @@ using namespace std;
 Restaurante::Restaurante(Game* game) : Scene(game)
 {
 	this->game = game;
-	// camara init
-	camara = new Camera(*new Vector2D<int>(0, 0), sdlutils().width()*2, sdlutils().height()*2);
 
 	objectManager = new ObjectManager(game);
 	uiManager = new UIManager(game);
@@ -28,6 +26,8 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 	int height = sdlutils().images().at(mapInfo.ruta).height();
 	fondo->setDimension(width, height);
 
+	// camara init
+	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
 	
 }
 
@@ -49,6 +49,13 @@ void Restaurante::update()
 	objectManager->update();
 	uiManager->update();
 	host->update();
+
+	if (host->getX() > tamRestaurante.getY() + TILE_SIZE) { // tamRestaurante es un rango, no una posición, por eso tengo que hacer getY()
+		camara->Lerp(Vector2D<float>(tamRestaurante.getY(), 16), LERP_INTERPOLATION);
+	}
+	else if (host->getX() < tamRestaurante.getY()) {
+		camara->Lerp(Vector2D<float>(tamRestaurante.getX(), 16), LERP_INTERPOLATION);
+	}
 }
 
 void Restaurante::render()
@@ -60,16 +67,20 @@ void Restaurante::render()
 	objectManager->render(*r);
 	
 	host->render(*r);
-	uiManager->render(*r);
+	uiManager->render();
 
 	delete r;
 }
 
 void Restaurante::debug()
 {
-	fondo->drawDebug();
-	objectManager->debug();
-	host->drawDebug();
+	SDL_Rect* r = camara->renderRect();
+
+	fondo->drawDebug(*r);
+	objectManager->debug(*r);
+	host->drawDebug(*r);
+
+	delete r;
 }
 
 //Check colisiones
