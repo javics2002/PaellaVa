@@ -30,7 +30,7 @@ void Menu::update()
 
 void Menu::render()
 {
-	objectManager->render();
+	objectManager->debug(camara->renderRect());
 }
 
 ObjectManager* Menu::getObjectManager()

@@ -49,7 +49,6 @@ class Restaurante : public Scene
 	Player* host;
 	Player* client;
 
-	Camera* camara;
 
 	MapInfo mapInfo;
 	Fondo* fondo;

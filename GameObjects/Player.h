@@ -36,7 +36,7 @@ public:
 	SDL_Rect getOverlapCollider();
 	void debugOverlap(SDL_Rect& rect);
 
-	void drawDebug(SDL_Rect& rect) override;
+	//void drawDebug(SDL_Rect& rect) override;
 	
 };
 

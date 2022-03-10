@@ -200,20 +200,20 @@ void Player::debugOverlap(SDL_Rect& rect)
 
 	
 }
-
-void Player::drawDebug(SDL_Rect& rect)
-{
-	debugOverlap(rect);
-
-	SDL_Rect collider = getCollider();
-	SDL_Rect center = getCenter();
-	collider = { collider.x - rect.x, collider.y - rect.y, collider.w, collider.h };
-	center = { center.x - rect.x, center.y - rect.y, center.w, center.h };
-
-	SDL_SetRenderDrawColor(sdlutils().renderer(), 255, 0, 0, 0);
-	SDL_RenderDrawRect(sdlutils().renderer(), &collider);
-	SDL_SetRenderDrawColor(sdlutils().renderer(), 0, 0, 255, 0);
-	SDL_RenderFillRect(sdlutils().renderer(), &center);
-	SDL_SetRenderDrawColor(sdlutils().renderer(), 255, 255, 255, 0);
-}
+//
+//void Player::drawDebug(SDL_Rect& rect)
+//{
+//	debugOverlap(rect);
+//
+//	SDL_Rect collider = getCollider();
+//	SDL_Rect center = getCenter();
+//	collider = { collider.x - rect.x, collider.y - rect.y, collider.w, collider.h };
+//	center = { center.x - rect.x, center.y - rect.y, center.w, center.h };
+//
+//	SDL_SetRenderDrawColor(sdlutils().renderer(), 255, 0, 0, 0);
+//	SDL_RenderDrawRect(sdlutils().renderer(), &collider);
+//	SDL_SetRenderDrawColor(sdlutils().renderer(), 0, 0, 255, 0);
+//	SDL_RenderFillRect(sdlutils().renderer(), &center);
+//	SDL_SetRenderDrawColor(sdlutils().renderer(), 255, 255, 255, 0);
+//}
 
