@@ -17,6 +17,8 @@ Scene::~Scene()
 	delete uiManager;
 	delete objectManager;
 	delete fondo;
+	delete camara;
+
 }
 
 void Scene::handleInput()

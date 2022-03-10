@@ -37,6 +37,7 @@ Restaurante::~Restaurante()
 	delete host;
 	delete objectManager;
 	delete fondo;
+	delete camara;
 }
 
 void Restaurante::handleInput()
