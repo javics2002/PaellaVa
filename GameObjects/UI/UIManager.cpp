@@ -3,6 +3,9 @@
 #include "../../GameObjects/UI/RedactaComandabutton.h"
 #include "../../sdlutils/InputHandler.h"
 #include "../UI/Ingredientebutton.h"
+#include "DescartaCommandaButton.h"
+#include "EnviaComandaButton.h"
+#include "BorrarButton.h"
 #include <iostream>
 using namespace std;
 UIManager::UIManager(Game* game)
@@ -82,6 +85,15 @@ void UIManager::creaComanda(Game* game)
 	actual = new Comanda(game, 2,this);
 	comandas.push_back(actual);
 	creaTeclado();
+	
+	//creamos el resto de botones de la comanda
+	EnviaComandaButton* e = new EnviaComandaButton(gamet, "acepta", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() +actual->getHeight() / 4, anchobotones, anchobotones);
+	interfaz.push_back(e);
+	DescartaCommandaButton* b = new DescartaCommandaButton(actual, gamet, "cancela", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() + actual->getHeight() / 4 - anchobotones, anchobotones, anchobotones);
+	interfaz.push_back(b);
+	BorrarButton* bo = new BorrarButton(gamet, "borra", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() + actual->getHeight() / 4 - 2 * anchobotones, anchobotones, anchobotones);
+	interfaz.push_back(bo);
+
 }
 Comanda* UIManager::getComanda()
 {
@@ -136,3 +148,7 @@ void UIManager::setPosTeclado(vector<Point2D<double>> t)
 	posicionesBotones = t;
 }
 
+void UIManager::borraIngrediente()
+{
+	actual->borraPedido();
+}

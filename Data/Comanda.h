@@ -25,6 +25,7 @@ public:
     void randomizaIconos();
     //void abrirComanda(int x,int y);
     void dibujaPedido();
+    void borraPedido();
     /*void cierraComanda();*/
     //void Ecribeinfoenjson();
     //Compara las paellas recibidas con el pedido y le pone la puntuación

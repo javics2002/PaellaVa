@@ -41,6 +41,9 @@
     <ClCompile Include="GameObjects\UI\UiButton.cpp" />
     <ClCompile Include="GameObjects\UI\UIManager.cpp" />
     <ClCompile Include="GameObjects\UI\Ingredientebutton.cpp" />
+    <ClCompile Include="GameObjects\UI\BorrarButton.cpp" />
+    <ClCompile Include="GameObjects\UI\DescartaCommandaButton.cpp" />
+    <ClCompile Include="GameObjects\UI\EnviaComandaButton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
@@ -108,6 +111,9 @@
     <ClInclude Include="GameObjects\UI\Ingredientebutton.h" />
     <ClInclude Include="Utils\Traza.h" />
     <ClInclude Include="GameObjects\Muebles\MueblesInclude.h" />
+    <ClInclude Include="GameObjects\UI\BorrarButton.h" />
+    <ClInclude Include="GameObjects\UI\DescartaCommandaButton.h" />
+    <ClInclude Include="GameObjects\UI\EnviaComandaButton.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />

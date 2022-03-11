@@ -95,3 +95,11 @@ void Comanda::dibujaPedido()
         i->render();
     }
 }
+void Comanda::borraPedido()
+{
+    if (Pedido.size() > 0)
+    {
+        
+        Pedido.erase(Pedido.begin(), Pedido.begin() + Pedido.size() - 1);
+    }
+}

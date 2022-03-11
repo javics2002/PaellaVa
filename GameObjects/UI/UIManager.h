@@ -31,5 +31,6 @@ public:
 	 void setPosTeclado(vector< Point2D<double>> t);
 	void creaTeclado();
 	void randomizaTeclado();
+	void borraIngrediente();
 };
 
