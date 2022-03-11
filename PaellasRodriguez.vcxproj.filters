@@ -44,6 +44,7 @@
     <ClCompile Include="Scenes\Menu.cpp" />
     <ClCompile Include="Control\Camera.cpp" />
     <ClCompile Include="GameObjects\Muebles\Encimera.cpp" />
+    <ClCompile Include="GameObjects\UI\StartButton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
@@ -114,6 +115,7 @@
     <ClInclude Include="Scenes\Menu.h" />
     <ClInclude Include="Control\Camera.h" />
     <ClInclude Include="GameObjects\Muebles\Encimera.h" />
+    <ClInclude Include="GameObjects\UI\StartButton.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />

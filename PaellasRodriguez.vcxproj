@@ -175,6 +175,7 @@
     <ClInclude Include="GameObjects\Muebles\InicioCinta.h" />
     <ClInclude Include="GameObjects\UI\Ingredientebutton.h" />
     <ClInclude Include="GameObjects\UI\RedactaComandabutton.h" />
+    <ClInclude Include="GameObjects\UI\StartButton.h" />
     <ClInclude Include="GameObjects\UI\UiButton.h" />
     <ClInclude Include="GameObjects\UI\UIManager.h" />
     <ClInclude Include="json\JSON.h" />
@@ -247,6 +248,7 @@
     <ClCompile Include="GameObjects\Muebles\TablaProcesado.cpp" />
     <ClCompile Include="GameObjects\UI\Ingredientebutton.cpp" />
     <ClCompile Include="GameObjects\UI\RedactaComandabutton.cpp" />
+    <ClCompile Include="GameObjects\UI\StartButton.cpp" />
     <ClCompile Include="GameObjects\UI\UiButton.cpp" />
     <ClCompile Include="GameObjects\UI\UIManager.cpp" />
     <ClCompile Include="json\JSON.cpp" />
