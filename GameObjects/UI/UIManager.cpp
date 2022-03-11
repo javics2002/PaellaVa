@@ -7,7 +7,6 @@
 using namespace std;
 UIManager::UIManager(Game* game)
 {
-	interfaz.push_back(new RedactaComandabutton(game, "redactaboton", 10, 10, 30, 30));
 	gamet = game;
 }
 UIManager::~UIManager()

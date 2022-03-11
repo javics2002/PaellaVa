@@ -57,16 +57,20 @@
       "file": "../../../Assets/Images/player.png"
     },
     {
-      "id": "acepta",
+      "id": "cancela",
       "file": "../../../Assets/Images/cancelaboton.png"
     },
     {
-      "id": "cancela",
+      "id": "acepta",
       "file": "../../../Assets/Images/aceptaboton.png"
     },
     {
       "id": "borra",
       "file": "../../../Assets/Images/borraboton.png"
+    },
+    {
+      "id": "start",
+      "file": "../../../Assets/Images/start.png"
     },
     {
       "id": "cartel",

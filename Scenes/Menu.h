@@ -15,8 +15,6 @@ public:
 	Menu(Game* game);
 	~Menu();
 
-	void handleInput() override;
-	void update() override;
 	void render() override;
 	void debug() override;
 
