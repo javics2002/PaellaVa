@@ -16,6 +16,8 @@ ObjectManager::ObjectManager(Game* game)
 	grupoClientes = new Pool<GrupoClientes>(game, 20);
 
 	//interfaz.push_back(new RedactaComandabutton(game, "redactaboton", 10, 10, 30, 30));
+
+	addPaella(new Paella(Paella::Mediana));
 }
 
 ObjectManager::~ObjectManager()
@@ -48,6 +50,9 @@ void ObjectManager::render(SDL_Rect& rect)
 {
 	for (auto m : muebles)
 		m->render(rect);
+
+	for (auto j : paellas)
+		j->render(rect);
 
 	/*for (auto c : comandas)
 		c->render(rect);
@@ -108,11 +113,17 @@ void ObjectManager::addMueble(GameObject* mueble)
 	muebles.push_back(mueble);
 }
 
+
 void ObjectManager::addComanda(GameObject* comanda)
 {
 	interfaz.push_back(comanda);
 }
 
+void ObjectManager::addPaella(GameObject* paella)
+{
+	paellas.push_back(paella);
+
+}
 
 
 vector<Collider*> ObjectManager::getClientes(SDL_Rect gOC)

@@ -10,5 +10,8 @@ class TablaProcesado: public Mueble
 public:
 	TablaProcesado(Game* game, Vector2D<double> pos);
 	~TablaProcesado() = default;
+
+	//void update();
+	//void onCollision();
 };
 

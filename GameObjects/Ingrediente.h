@@ -11,10 +11,14 @@ class Ingrediente : public PoolObject
 {
 	const unsigned int DIMENSION = 70;
 
-	
-
 	vector<string> texturaIngrediente = { "alcachofa", "calamar", "cangrejo", "gamba",
 		"langosta", "mejillon", "pimientoRojo", "pimientoVerde", "pollo" };
+
+	const double TIEMPO_PROCESADO = 3000.0;
+
+	double tiempo = 0.0;
+
+	bool procesado = false;
 
 public:
 	Ingrediente(Game* game);
@@ -26,5 +30,8 @@ public:
 	void onActivate() override;
 
 	void ingredienteRecogido();
+
+	void procesando();
+	
 };
 

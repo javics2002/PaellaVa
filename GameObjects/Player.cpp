@@ -70,7 +70,9 @@ void Player::handleInput()
 
 			vector<Collider*> ingredientes = game->getObjectManager()->getIngredientes(this->getCollider());
 			cout << "Ingredientes colisionando " << ingredientes.size() << endl;
+
 			TRACE(ingredientes.size());
+
 			for (auto it : ingredientes)
 			{
 				if (myIng == nullptr)

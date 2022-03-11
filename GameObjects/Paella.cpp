@@ -3,6 +3,12 @@
 
 Paella::Paella(Tamaño tamaño_):ObjetoPortable() , tamaño(tamaño_)
 {
+
+	setPosition(sdlutils().width() / 2, 100);
+	setDimension(100, 100);
+
+	setTexture("barraTolerancia");
+
 	switch (tamaño)
 	{
 	case Mediana:
@@ -24,6 +30,7 @@ void Paella::añadeIngr(Ingrediente ingr_)
 void Paella::setState(Estado estado_)
 {
 	estado = estado_;
+	tiempo = sdlutils().currRealTime();
 }
 
 void Paella::update()
@@ -31,24 +38,24 @@ void Paella::update()
 	switch (estado)
 	{
 	case Preparacion:
-		break;
-	case Coccion:
-		tiempoCocion += sdlutils().currRealTime();
-		break;
-	case Preparada:
-		bool encontrado = false;
-		int i = 0;
-		while (!encontrado && i<tiemposDeCoccion.size()) {
-			if (tiempoCocion < tiemposDeCoccion[i] + sumaIntervalo) {
-				estadoFinal = Resultado(i);
-				encontrado = true;
-			}
-			i++;
-		}
-		if (!encontrado)estadoFinal = Incomestible;
 
 		break;
+	case Coccion:
+
+		if (i < tiemposDeCoccion.size()) {
+			if (sdlutils().currRealTime() - tiempo > tiemposDeCoccion[i]) {
+				tiempo = tiemposDeCoccion[i];
+				i++;
+				estadoFinal = Resultado(i);
+			}
+		}
+
+		break;
+	case Preparada:
+		break;
 	}
+
+	cout << "Estado actual: " << estadoFinal;
 }
 
 Estado Paella::getState()

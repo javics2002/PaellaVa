@@ -32,3 +32,16 @@ void Ingrediente::ingredienteRecogido()
 {
 	vel = { 0,0 };
 }
+
+void Ingrediente::procesando()
+{
+	if (tiempo == 0.0) {
+		tiempo = sdlutils().currRealTime();
+	}
+
+	if (sdlutils().currRealTime() - tiempo >= TIEMPO_PROCESADO) {
+		procesado = true;
+	}
+}
+
+

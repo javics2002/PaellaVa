@@ -3,6 +3,7 @@
 #include "../GameObjects/Ingrediente.h"
 #include "../GameObjects/Cliente.h"
 #include "../GameObjects/GrupoClientes.h"
+#include "../GameObjects/Paella.h"
 #include <queue>
 #include <vector>
 
@@ -44,6 +45,7 @@ public:
 
 	void addMueble(GameObject* mueble);
 	void addPaella(GameObject* paella);
+
 	void addComanda(GameObject* comanda);
 	void addInterfaz(GameObject* interfaz);
 
