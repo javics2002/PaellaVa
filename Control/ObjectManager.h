@@ -41,7 +41,6 @@ public:
 
 	void addMueble(GameObject* mueble);
 	void addPaella(GameObject* paella);
-	void addComanda(GameObject* comanda);
 	void addInterfaz(GameObject* interfaz);
 
 	Pool<Cliente>* getPoolClientes() { return clientes; };

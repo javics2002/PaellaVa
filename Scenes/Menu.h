@@ -11,19 +11,13 @@ class Game;
 class Menu : public Scene
 {
 
-	Game* game;
-
-	ObjectManager* objectManager;
-
 public:
 	Menu(Game* game);
 	~Menu();
 
-	void handleInput();
-	void update();
-	void render();
-
-	ObjectManager* getObjectManager();
-
+	void handleInput() override;
+	void update() override;
+	void render() override;
+	void debug() override;
 
 };

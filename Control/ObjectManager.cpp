@@ -82,13 +82,6 @@ void ObjectManager::addMueble(GameObject* mueble)
 	muebles.push_back(mueble);
 }
 
-void ObjectManager::addComanda(GameObject* comanda)
-{
-	interfaz.push_back(comanda);
-}
-
-
-
 vector<Collider*> ObjectManager::getClientes(SDL_Rect gOC)
 {
 	return clientes->getCollisions(gOC);

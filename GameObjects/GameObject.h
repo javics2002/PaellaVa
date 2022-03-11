@@ -59,4 +59,3 @@ public:
 
     virtual bool collide(SDL_Rect other);
 };
-

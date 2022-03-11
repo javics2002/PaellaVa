@@ -33,7 +33,6 @@ void Menu::render()
 	objectManager->debug(camara->renderRect());
 }
 
-ObjectManager* Menu::getObjectManager()
+void Menu::debug()
 {
-	return objectManager;
 }

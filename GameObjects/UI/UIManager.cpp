@@ -145,12 +145,18 @@ void UIManager::randomizaTeclado()
 			j = rand() % posdis.size();
 	}
 }
+
+void UIManager::addInterfaz(GameObject* elementoInterfaz)
+{
+	interfaz.push_back(elementoInterfaz);
+}
+
 vector<Point2D<double>> UIManager::getPosTeclado()
 {
 	return posicionesBotones;
 }
+
 void UIManager::setPosTeclado(vector<Point2D<double>> t)
 {
 	posicionesBotones = t;
 }
-
