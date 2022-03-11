@@ -25,8 +25,8 @@ public:
 	void uiEvent(int mx, int my);
 	void update();
 
-	void render();
-	void render(SDL_Rect& rect);
+	// void render();
+	void render(SDL_Rect* rect);
 
 	void creaComanda(Game* game);
 	Comanda* getComanda();
@@ -34,5 +34,8 @@ public:
 	void setPosTeclado(vector< Point2D<double>> t);
 	void creaTeclado();
 	void randomizaTeclado();
+
+	void addInterfaz(GameObject* comanda);
+
 };
 

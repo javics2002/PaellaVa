@@ -119,7 +119,7 @@ public:
 			it->render();
 	}
 
-	void render(SDL_Rect& rect) {
+	void render(SDL_Rect* rect) {
 		for (auto it : activeObjects)
 			it->render(rect);
 	}
@@ -130,7 +130,7 @@ public:
 		}
 	}
 
-	void debug(SDL_Rect& rect) {
+	void debug(SDL_Rect* rect) {
 		for (auto it : activeObjects) {
 			it->drawDebug(rect);
 		}

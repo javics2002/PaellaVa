@@ -4,6 +4,7 @@
 #include <time.h>       /* time */
 
 #include "../Scenes/Restaurante.h"
+#include "../Scenes/Menu.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../sdlutils/InputHandler.h"
 #include "../Control/ObjectManager.h"
@@ -23,7 +24,7 @@ void Game::init()
 
 	SDLUtils::instance()->showCursor();
 
-	currentScene = new Restaurante(this);
+	currentScene = new Menu(this);
 }
 
 void Game::start()
@@ -49,7 +50,8 @@ void Game::start()
 
 void Game::changeScene(Scene* scene) {
 	//Cambio de escena 
-	//currentScene = n;
+	currentScene = nullptr;
+	currentScene = scene;
 }
 
 void Game::handleInput(SDL_Event& event, bool& exit) {

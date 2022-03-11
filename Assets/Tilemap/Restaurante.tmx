@@ -36,7 +36,7 @@
   <object id="9" name="fogon" x="1730.67" y="128">
    <point/>
   </object>
-  <object id="10" name="ventanilla" x="1220" y="384">
+  <object id="10" name="encimera" x="1220" y="384">
    <point/>
   </object>
   <object id="11" name="lavavajillas" x="1220" y="250.667">
@@ -84,7 +84,7 @@
   <object id="26" name="finalCinta" x="1057.33" y="105.333">
    <point/>
   </object>
-  <object id="27" name="puerta" x="53.3333" y="581.333">
+  <object id="27" name="puerta" x="0" y="642.666">
    <point/>
   </object>
  </objectgroup>

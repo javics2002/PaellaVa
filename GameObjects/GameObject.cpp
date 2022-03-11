@@ -37,29 +37,14 @@ SDL_Rect GameObject::getCenter()
 			 int(getY() - CENTER_TAM / 2),
 			CENTER_TAM,
 			CENTER_TAM };
-
 }
 
-void GameObject::drawDebug()
+void GameObject::drawDebug(SDL_Rect* rect)
 {
 	SDL_Rect collider = getCollider();
 	SDL_Rect center = getCenter();
-	collider = { collider.x, collider.y, collider.w, collider.h };
-	center = { center.x, center.y, center.w, center.h };
-
-	SDL_SetRenderDrawColor(sdlutils().renderer(), 255, 0, 0, 0);
-	SDL_RenderDrawRect(sdlutils().renderer(), &collider);
-	SDL_SetRenderDrawColor(sdlutils().renderer(), 0, 0, 255, 0);
-	SDL_RenderFillRect(sdlutils().renderer(), &center);
-	SDL_SetRenderDrawColor(sdlutils().renderer(), 255, 255, 255, 0);
-}
-
-void GameObject::drawDebug(SDL_Rect& rect)
-{
-	SDL_Rect collider = getCollider();
-	SDL_Rect center = getCenter();
-	collider = { collider.x - rect.x, collider.y - rect.y, collider.w, collider.h };
-	center = { center.x - rect.x, center.y - rect.y, center.w, center.h };
+	collider = { collider.x - rect->x, collider.y - rect->y, collider.w, collider.h };
+	center = { center.x - rect->x, center.y - rect->y, center.w, center.h };
 
 	SDL_SetRenderDrawColor(sdlutils().renderer(), 255, 0, 0, 0);
 	SDL_RenderDrawRect(sdlutils().renderer(), &collider);
@@ -76,17 +61,17 @@ bool GameObject::collide(SDL_Rect other)
 	return SDL_HasIntersection(&rect1, &rect2);
 }
 
-void GameObject::render()
+void GameObject::render(SDL_Rect* cameraRect=nullptr)
 {
 	SDL_Rect c = getCollider();
-	SDL_Rect textureBox = { c.x, c.y, c.w, c.h };
-	texture->render(textureBox);
-}
+	SDL_Rect textureBox;
 
-void GameObject::render(SDL_Rect& cameraRect)
-{
-	SDL_Rect c = getCollider();
-	SDL_Rect textureBox = { c.x - cameraRect.x, c.y - cameraRect.y, c.w, c.h};
+	if (cameraRect != nullptr) {
+		textureBox = { c.x - cameraRect->x, c.y - cameraRect->y, c.w, c.h };
+	}
+	else {
+		textureBox = { c.x, c.y, c.w, c.h };
+	}
 	texture->render(textureBox);
 }
 

@@ -5,8 +5,12 @@
 class Ingrediente;
 class Cliente;
 
+enum orientacion { N, S, E, O };
+
 class Player : public GameObject
 {
+	orientacion orientacion;
+
 	GameObject* objetoCargado_;
 	Input* input_;
 
@@ -15,6 +19,9 @@ class Player : public GameObject
 	Ingrediente* myIng = nullptr;
 	Cliente* myClient = nullptr;
 	//Configuraci�n de skin
+
+	Vector2D<double> overlapPos;
+	Vector2D<int> overlapDim;
 
 public:
 	Player(Game* game);
@@ -25,6 +32,11 @@ public:
 	void update();
 
 	void moverObjeto(GameObject* objeto);
+
+	SDL_Rect getOverlapCollider();
+	void debugOverlap(SDL_Rect* rect);
+
+	void drawDebug(SDL_Rect* rect) override;
 	
 };
 

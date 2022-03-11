@@ -33,11 +33,8 @@ public:
 	void handleInput();
 	void update();
 
-	void render();
-	void render(SDL_Rect& rect);
-
-	void debug();
-	void debug(SDL_Rect& rect);
+	void render(SDL_Rect* rect);
+	void debug(SDL_Rect* rect);
 
 	vector<Collider*> getGrupoClientes(SDL_Rect gOC);
 	vector<Collider*> getClientes(SDL_Rect gOC);
@@ -45,7 +42,6 @@ public:
 
 	void addMueble(GameObject* mueble);
 	void addPaella(GameObject* paella);
-
 	void addComanda(GameObject* comanda);
 	void addInterfaz(GameObject* interfaz);
 

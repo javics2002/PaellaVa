@@ -7,12 +7,14 @@
 #include "../GameObjects/Fondo.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../Control/Game.h"
+#include "../Control/Camera.h"
 
 class Scene {
 
 protected:
 	Game* game;
 	ObjectManager* objectManager;
+	Camera* camara;
 
 	UIManager* uiManager;
 

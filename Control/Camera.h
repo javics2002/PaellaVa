@@ -11,8 +11,6 @@ private:
 	int winWidth, winHeight;
 
 	float scale, ogScale;
-	float xmin, ymin, xmax, ymax;
-	float ogxmin, ogymin, ogxmax, ogymax;
 
 public:
 	static Camera* mainCamera;
@@ -21,15 +19,12 @@ public:
 	static void setMain(Camera* cam);
 
 	void Move(const Vector2D<float>& v);
-	void MoveToPoint(const Vector2D<float>& v);
+	void MoveDir(Vector2D<float>& dir);
 
 	void Lerp(const Vector2D<float>& v, float i);
-	void LerpWithBounds(const Vector2D<float>& v, float i);
-	void setBounds(float xmin, float ymin, float xmax, float ymax);
 
 	SDL_Rect* renderRect();
 
-	void MoveDir(Vector2D<float> dir);
 
 	void setScale(float value);
 	float getScale();

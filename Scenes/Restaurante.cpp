@@ -30,6 +30,8 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 	// camara init
 	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
 
+	getUIManager()->addInterfaz(new RedactaComandabutton(game, "redactaboton", 10, 10, 30, 30));
+
 }
 
 Restaurante::~Restaurante()
@@ -37,6 +39,7 @@ Restaurante::~Restaurante()
 	delete host;
 	delete objectManager;
 	delete fondo;
+	delete camara;
 }
 
 void Restaurante::handleInput()
@@ -61,27 +64,18 @@ void Restaurante::update()
 
 void Restaurante::render()
 {
-	// camara->renderRect();
-	SDL_Rect* r = camara->renderRect();
-
-	fondo->render(*r);
-	objectManager->render(*r);
-
-	host->render(*r);
-	uiManager->render();
-
-	delete r;
+	fondo->render(camara->renderRect());
+	objectManager->render(camara->renderRect());
+	
+	host->render(camara->renderRect());
+	uiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
 }
 
 void Restaurante::debug()
 {
-	SDL_Rect* r = camara->renderRect();
-
-	fondo->drawDebug(*r);
-	objectManager->debug(*r);
-	host->drawDebug(*r);
-
-	delete r;
+	fondo->drawDebug(camara->renderRect());
+	objectManager->debug(camara->renderRect());
+	host->drawDebug(camara->renderRect());
 }
 
 //Check colisiones
@@ -249,20 +243,17 @@ void Restaurante::loadMap(string const& path) {
 				else if (name == "puerta") {
 					getObjectManager()->addMueble(new Puerta(game, position));
 				}
-				else if (name == "ventanilla") {
-					getObjectManager()->addMueble(new Ventanilla(game, position));
-				}
 				else if (name == "cartel") {
 					getObjectManager()->addMueble(new Cartel(game, position));
 				}
 				else if (name == "tabla") {
 					getObjectManager()->addMueble(new TablaProcesado(game, position));
 				}
+				else if (name == "encimera") {
+					getObjectManager()->addMueble(new Encimera(game, position));
+				}
 			}
 		}
-
-		getObjectManager()->addComanda(new RedactaComandabutton(game, "redactaboton", 10, 10, 30, 30));
-
 
 		SDL_SetRenderTarget(renderer, nullptr);
 

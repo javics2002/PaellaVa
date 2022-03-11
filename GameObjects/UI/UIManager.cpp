@@ -7,7 +7,6 @@
 using namespace std;
 UIManager::UIManager(Game* game)
 {
-	interfaz.push_back(new RedactaComandabutton(game, "redactaboton", 10, 10, 30, 30));
 	gamet = game;
 }
 UIManager::~UIManager()
@@ -61,24 +60,24 @@ void UIManager::update()
 	}
 	
 }
-void UIManager::render()
-{
-	for (auto i : interfaz)
-	{
-		i->render();
-	}
-	for (auto i : comandas)
-	{
-		i->render();
-		i->dibujaPedido();
-	}
-	for (auto i : teclado)
-	{
-		i->render();
-	}
-}
+//void UIManager::render()
+//{
+//	for (auto i : interfaz)
+//	{
+//		i->render();
+//	}
+//	for (auto i : comandas)
+//	{
+//		i->render();
+//		i->dibujaPedido();
+//	}
+//	for (auto i : teclado)
+//	{
+//		i->render();
+//	}
+//}
 
-void UIManager::render(SDL_Rect& rect)
+void UIManager::render(SDL_Rect* rect=nullptr)
 {
 	for (auto i : interfaz)
 	{
@@ -145,12 +144,18 @@ void UIManager::randomizaTeclado()
 			j = rand() % posdis.size();
 	}
 }
+
+void UIManager::addInterfaz(GameObject* elementoInterfaz)
+{
+	interfaz.push_back(elementoInterfaz);
+}
+
 vector<Point2D<double>> UIManager::getPosTeclado()
 {
 	return posicionesBotones;
 }
+
 void UIManager::setPosTeclado(vector<Point2D<double>> t)
 {
 	posicionesBotones = t;
 }
-

@@ -28,7 +28,7 @@ public:
     Game();
     ~Game();
 
-    void init();
+    void init(); 
     void start();
     void changeScene(Scene* scene);
 
