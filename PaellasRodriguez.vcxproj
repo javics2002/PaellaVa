@@ -146,6 +146,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Control\Camera.h" />
+    <ClInclude Include="GameObjects\UI\CustomizationButton.h" />
+    <ClInclude Include="GameObjects\UI\ExitButton.h" />
     <ClInclude Include="GameObjects\Muebles\Encimera.h" />
     <ClInclude Include="GameObjects\Cola.h" />
     <ClInclude Include="GameObjects\Fondo.h" />
@@ -180,6 +182,7 @@
     <ClInclude Include="GameObjects\UI\UIManager.h" />
     <ClInclude Include="json\JSON.h" />
     <ClInclude Include="json\JSONValue.h" />
+    <ClInclude Include="GameObjects\UI\OpcionesButton.h" />
     <ClInclude Include="PaellasRodriguez.h" />
     <ClInclude Include="GameObjects\Player.h" />
     <ClInclude Include="Data\Pool.h" />
@@ -218,7 +221,9 @@
   <ItemGroup>
     <ClCompile Include="Control\Camera.cpp" />
     <ClCompile Include="Control\Input.cpp" />
+    <ClCompile Include="GameObjects\UI\CustomizationButton.cpp" />
     <ClCompile Include="Data\Comanda.cpp" />
+    <ClCompile Include="GameObjects\UI\ExitButton.cpp" />
     <ClCompile Include="GameObjects\Muebles\Encimera.cpp" />
     <ClCompile Include="GameObjects\Cola.cpp" />
     <ClCompile Include="GameObjects\Fondo.cpp" />
@@ -253,6 +258,7 @@
     <ClCompile Include="GameObjects\UI\UIManager.cpp" />
     <ClCompile Include="json\JSON.cpp" />
     <ClCompile Include="json\JSONValue.cpp" />
+    <ClCompile Include="GameObjects\UI\OpcionesButton.cpp" />
     <ClCompile Include="Scenes\Menu.cpp" />
     <ClCompile Include="Scenes\Restaurante.cpp" />
     <ClCompile Include="Scenes\Scene.cpp" />

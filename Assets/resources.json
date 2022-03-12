@@ -73,6 +73,18 @@
       "file": "../../../Assets/Images/start.png"
     },
     {
+      "id": "exit",
+      "file": "../../../Assets/Images/exit.png"
+    },
+    {
+      "id": "customization",
+      "file": "../../../Assets/Images/customization.png"
+    },
+    {
+      "id": "settings",
+      "file": "../../../Assets/Images/settings.png"
+    },
+    {
       "id": "cartel",
       "file": "../../../Assets/Images/mesa.png"
     },
