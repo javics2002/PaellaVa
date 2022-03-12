@@ -17,7 +17,7 @@ ObjectManager::ObjectManager(Game* game)
 
 	//interfaz.push_back(new RedactaComandabutton(game, "redactaboton", 10, 10, 30, 30));
 
-	addPaella(new Paella(Paella::Mediana));
+	addPaella(new Paella(Paella::Minima));
 }
 
 ObjectManager::~ObjectManager()
@@ -67,6 +67,9 @@ void ObjectManager::update()
 {
 	for (auto i : muebles)
 		i->update();
+
+	for (auto j : paellas)
+		j->update();
 
 	ingredientes->update();	
 

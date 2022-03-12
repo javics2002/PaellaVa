@@ -38,24 +38,36 @@ void Paella::update()
 	switch (estado)
 	{
 	case Preparacion:
-
+		//Setear textura de preparacion
+		setState(Coccion);
 		break;
 	case Coccion:
 
+		//Setear textura dependiendo del estado de la paella
+
 		if (i < tiemposDeCoccion.size()) {
-			if (sdlutils().currRealTime() - tiempo > tiemposDeCoccion[i]) {
-				tiempo = tiemposDeCoccion[i];
+
+			auto t = sdlutils().currRealTime() - tiempo;
+
+			if (t > tiemposDeCoccion[i] - tiempoCoccion) {
+				tiempoCoccion = tiemposDeCoccion[i];
+				tiempo = sdlutils().currRealTime();
 				i++;
 				estadoFinal = Resultado(i);
 			}
 		}
 
+		else setState(Preparada);
+
 		break;
 	case Preparada:
+
+		//Setear textura de preparada
+
 		break;
 	}
 
-	cout << "Estado actual: " << estadoFinal;
+	cout << "Estado del proceso: " << estado << " Estado paella: " << estadoFinal << endl;
 }
 
 Estado Paella::getState()
