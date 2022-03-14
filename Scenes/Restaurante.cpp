@@ -32,7 +32,7 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 
 	getUIManager()->addInterfaz(new RedactaComandabutton(game, "redactaboton", 10, 10, 30, 30));
 
-	objectManager->addPaella(new Paella(Paella::Minima));
+	//objectManager->addPaella(new Paella(Paella::Minima));
 
 }
 

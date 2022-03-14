@@ -44,7 +44,7 @@ void ObjectManager::render(SDL_Rect* rect)
 
 	ingredientes->render(rect);
 
-	clientes->render(rect);
+	grupoClientes->render(rect);
 }
 
 void ObjectManager::debug(SDL_Rect* rect)

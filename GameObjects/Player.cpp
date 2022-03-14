@@ -8,23 +8,19 @@
 #include "../Utils/Traza.h"
 
 
-Player::Player(Game* game) : GameObject(game), 
+Player::Player(Game* game) : GameObject(game), objectType_(INGREDIENTE), pickedObject_(nullptr),
 	overlapPos(Vector2D<double>(getX() - overlapPos.getX() / 2, getY() - getHeight() / 2 - overlapDim.getY())), overlapDim(Vector2D<int>(50, 50))
 {
 
-	//posicion_ = posicion;
 	setPosition(100, 100);
 	setDimension(64, 64);
 
-	objetoCargado_ = nullptr;
 
 	aceleracion = 1.2;
 	deceleracion = 0.8;
 	maxVel = 7;
 
 	myIng = nullptr;
-
-	//TRACE_F(__FILE__ , __LINE__,   maxVel);
 	
 	setTexture("player");
 }
@@ -36,7 +32,6 @@ Player::~Player()
 void Player::handleInput()
 {
 	vel = (vel + ih().getAxis() * aceleracion);
-
 
 	//Altura
 	if (vel.getY() != 0 && ih().getAxisY() == 0) { 
@@ -69,107 +64,80 @@ void Player::handleInput()
 		}
 	}
 	vel.clamp(-maxVel, maxVel);
+	
 
-	if (ih().isKeyboardEvent() && ih().getKeyPressed() == SDL_SCANCODE_E)
-	{
-		if (myIng == nullptr && myClient == nullptr && myPae==nullptr)
-		{
-			cout << "E pressed" << endl;
-
-			vector<Collider*> ingredientes = game->getObjectManager()->getIngredientes(this->getCollider());
-			cout << "Ingredientes colisionando " << ingredientes.size() << endl;
-
-			TRACE(ingredientes.size());
-
-			for (auto it : ingredientes)
-			{
-				if (myIng == nullptr)
-				{
-					myIng = dynamic_cast<Ingrediente*>(it);
-					myIng->ingredienteRecogido();
-				}
+	//Todos los dynamic cast se puden evitar con métodos comunes en pool o con una nueva clase
+	if (ih().isKeyboardEvent() && ih().getKeyPressed() == SDL_SCANCODE_E) {
+		if (pickedObject_ == nullptr) {
+			for (auto i : game->getObjectManager()->getPoolIngredientes()->getCollisions(getOverlapCollider())) {
+				if (nearestObject(dynamic_cast<GameObject*>(i)))
+					objectType_ = INGREDIENTE;
+			}
+			for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getCollisions(getOverlapCollider())) {
+				if (nearestObject(dynamic_cast<GameObject*>(i))) 
+					objectType_ = CLIENTES;					
 			}
 
-			if (!myIng)
+			switch (objectType_)
 			{
-				vector<Collider*> clientes = game->getObjectManager()->getClientes(this->getCollider());
-				cout << "Clientes colisionando " << clientes.size() << endl;
-				TRACE(clientes.size());
-				for (auto it : clientes)
-				{
-					if (myClient == nullptr)
-					{
-						myClient = dynamic_cast<Cliente*>(it);
-						myClient->clienteRecogido();
-					}
-				}
-
-				if (!myPae) {
-					vector<GameObject*> paellas = game->getObjectManager()->getPaellas();
-					cout << "Clientes colisionando " << clientes.size() << endl;
-					TRACE(paellas.size());
-					for (auto it : paellas)
-					{
-						if (myPae == nullptr)
-						{
-							myPae = dynamic_cast<Paella*>(it);
-							myPae->paellaRecogida();
-						}
-					}
-				}
+			case INGREDIENTE:
+				dynamic_cast<Ingrediente*>(pickedObject_)->ingredienteRecogido();			
+				break;
+			case CLIENTES:
+				if (dynamic_cast<GrupoClientes*>(pickedObject_)->getState() == estado::ENCOLA)
+					dynamic_cast<GrupoClientes*>(pickedObject_)->setState(estado::COGIDO);
+				else pickedObject_ = nullptr;
+				break;
+			case PAELLA:
+				break;
+			default:
+				break;
 			}
-
-			
 		}
-		else if (myIng != nullptr)
-		{
-			myIng = nullptr;
-		}
-		else if (myClient != nullptr)
-		{
-			myClient = nullptr;
-		}
+		else pickedObject_ = nullptr;
 	}
+}
 
+bool Player::nearestObject(GameObject* go)
+{
+	if (pickedObject_ == nullptr) {
+		pickedObject_ = go;
+		return true;
+	}	
+	else
+	{
+		Vector2D<double> pos = getPosition();
+		if ((pos - go->getPosition()).magnitude() < (pos - pickedObject_->getPosition()).magnitude()) {
+			pickedObject_ = go;
+			return true;
+		}
+		else return false;
+	}
 }
 
 void Player::update()
 {
-	//cout << ih().getAxisX() << " " << ih().getAxisY() << endl;
 	pos = pos + vel;
-	
-	if (myIng != nullptr)
-	{
-		if (myIng->isActive())
-			moverObjeto(myIng);
-		else
-			myIng = nullptr;
-	}
 
-	if (myClient != nullptr)
-	{
-		if (myClient->isActive())
-			moverObjeto(myClient);
+	if (pickedObject_ != nullptr) {
+		if (dynamic_cast<PoolObject*>(pickedObject_)->isActive())
+			pickedObject_->setPosition(getX(), getY() - getHeight() / 2);
 		else
-			myClient = nullptr;
-	}
-	if (myPae != nullptr)
-	{
-		moverObjeto(myPae);
+			pickedObject_ = nullptr;
 	}
 
 	if (ih().getAxisY() == 1) 
-		orientacion = S;		
+		orientation_ = S;		
 	else if (ih().getAxisY() == -1)
-		orientacion = N;		
+		orientation_ = N;		
 
 	if (ih().getAxisX() == 1)
-		orientacion = E;		
+		orientation_ = E;		
 	else if (ih().getAxisX() == -1) 
-		orientacion = O;
+		orientation_ = O;
 
 
-	switch (orientacion)
+	switch (orientation_)
 	{
 	case E:
 		overlapPos = Vector2D<double>(getX() + getWidth() / 2,
@@ -192,15 +160,6 @@ void Player::update()
 	}
 }
 
-void Player::moverObjeto(GameObject* objeto)
-{
-	Vector2D<double> objPos = pos;
-
-	objPos.setY(objPos.getY() - this->getHeight() / 2);
-
-	objeto->setPosition(objPos);
-}
-
 SDL_Rect Player::getOverlapCollider()
 {
 	return { int(overlapPos.getX()),
@@ -216,9 +175,7 @@ void Player::debugOverlap(SDL_Rect* rect)
 
 	SDL_SetRenderDrawColor(sdlutils().renderer(), 255, 255, 0, 0);
 	SDL_RenderDrawRect(sdlutils().renderer(), &collider);
-	SDL_SetRenderDrawColor(sdlutils().renderer(), 255, 255, 255, 0);
-
-	
+	SDL_SetRenderDrawColor(sdlutils().renderer(), 255, 255, 255, 0);	
 }
 
 void Player::drawDebug(SDL_Rect* rect)

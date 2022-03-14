@@ -116,11 +116,10 @@ class GrupoClientes : public PoolObject
 	float tolerancia, mLastTime;
 
 public:
-	GrupoClientes(Game* game) : PoolObject(game){};
+	GrupoClientes(Game* game);
+	
 	~GrupoClientes() = default;
 
-	void Pedir();
-	void Comer();
 	float Puntuacion();
 
 	void setGrupo(list<GrupoClientes*>::const_iterator pos, vector<Cliente*> clientes_);
@@ -138,6 +137,9 @@ public:
 	void bajaTolerancia();
 
 	void setState(estado est);
+	estado getState();
+
+	void render(SDL_Rect* cameraRect) override;
 };
 
 

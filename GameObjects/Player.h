@@ -6,13 +6,15 @@ class Ingrediente;
 class Cliente;
 class Paella;
 
-enum orientacion { N, S, E, O };
+enum orientation { N, S, E, O };
+enum objectType { INGREDIENTE, CLIENTES, PAELLA};
 
 class Player : public GameObject
 {
-	orientacion orientacion;
+	orientation orientation_;
+	objectType objectType_;
 
-	GameObject* objetoCargado_;
+	GameObject* pickedObject_;
 	Input* input_;
 
 	float aceleracion, deceleracion, maxVel;
@@ -25,6 +27,8 @@ class Player : public GameObject
 	Vector2D<double> overlapPos;
 	Vector2D<int> overlapDim;
 
+	bool nearestObject(GameObject* go);
+
 public:
 	Player(Game* game);
 	~Player();
@@ -32,8 +36,6 @@ public:
 	void handleInput();
 
 	void update();
-
-	void moverObjeto(GameObject* objeto);
 
 	SDL_Rect getOverlapCollider();
 	void debugOverlap(SDL_Rect* rect);

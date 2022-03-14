@@ -2,14 +2,11 @@
 #include "../Control/Game.h"
 #include "../Control/ObjectManager.h"
 
-void GrupoClientes::Pedir()
+GrupoClientes::GrupoClientes(Game* game) : PoolObject(game) 
 {
+	setDimension(60, 60);
 
-}
-
-void GrupoClientes::Comer()
-{
-
+	setTexture("alcachofa");
 }
 
 float GrupoClientes::Puntuacion()
@@ -108,5 +105,30 @@ void GrupoClientes::setState(estado est)
 {
 	estado_ = est;
 	mLastTime = SDL_GetTicks();
+}
+
+estado GrupoClientes::getState()
+{
+	return estado_;
+}
+
+void GrupoClientes::render(SDL_Rect* cameraRect)
+{
+	for (auto i : clientes)
+		i->render(cameraRect);
+
+	if (estado_ == COGIDO) {
+		SDL_Rect c = getCollider();
+		SDL_Rect textureBox;
+
+		if (cameraRect != nullptr) {
+			textureBox = { c.x - cameraRect->x, c.y - cameraRect->y, c.w, c.h };
+		}
+		else {
+			textureBox = { c.x, c.y, c.w, c.h };
+		}
+
+		texture->render(textureBox);
+	}
 }
 
