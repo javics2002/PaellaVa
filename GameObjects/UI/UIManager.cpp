@@ -52,10 +52,10 @@ void UIManager::update()
 
 	}*/
 	//muy lento
-	if(ih().getMouseButtonState(ih().LEFT))
+	if(ih().getMouseButtonState(InputHandler::MOUSE_LEFT))
 	{
 		cout << "UIM DETECTED CLICK ";
-		uiEvent(ih().Getmx(), ih().Getmy());
+		uiEvent(ih().getmx(), ih().getmy());
 		ih().clearState();
 	}
 	

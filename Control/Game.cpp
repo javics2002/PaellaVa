@@ -24,13 +24,22 @@ void Game::init()
 
 	SDLUtils::instance()->showCursor();
 
+#ifdef _DEBUG
+	currentScene = new Restaurante(this);
+#else
 	currentScene = new Menu(this);
+#endif // _DEBUG
 }
 
 void Game::start()
 {
 	bool exit = false;
 	SDL_Event event;
+
+#ifndef _DEBUG
+	sdlutils().toggleFullScreen();
+#endif // _DEBUG
+
 
 	while (!exit) {
 		Uint32 startTime = sdlutils().currRealTime();
@@ -55,12 +64,12 @@ void Game::changeScene(Scene* scene) {
 }
 
 void Game::handleInput(SDL_Event& event, bool& exit) {
-	ih().clearState();
 	while (SDL_PollEvent(&event))
 		ih().update(event);
 
-	//Salimos del juego (PROVISIONAL)
-	exit = ih().GetKey(SDL_SCANCODE_ESCAPE);
+#ifdef _DEBUG
+	exit = ih().getKey(SDL_SCANCODE_ESCAPE);
+#endif // _DEBUG
 
 	currentScene->handleInput();
 }

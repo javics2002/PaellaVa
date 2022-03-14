@@ -67,7 +67,7 @@ void Player::handleInput()
 	
 
 	//Todos los dynamic cast se puden evitar con métodos comunes en pool o con una nueva clase
-	if (ih().isKeyboardEvent() && ih().getKeyPressed() == SDL_SCANCODE_E) {
+	if (ih().isKeyboardEvent() && ih().getKey(InputHandler::INTERACT)) {
 		if (pickedObject_ == nullptr) {
 			for (auto i : game->getObjectManager()->getPoolIngredientes()->getCollisions(getOverlapCollider())) {
 				if (nearestObject(dynamic_cast<GameObject*>(i)))
