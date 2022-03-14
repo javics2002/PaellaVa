@@ -72,7 +72,7 @@ void Player::handleInput()
 
 	if (ih().isKeyboardEvent() && ih().getKeyPressed() == SDL_SCANCODE_E)
 	{
-		if (myIng == nullptr && myClient == nullptr)
+		if (myIng == nullptr && myClient == nullptr && myPae==nullptr)
 		{
 			cout << "E pressed" << endl;
 
@@ -101,6 +101,20 @@ void Player::handleInput()
 					{
 						myClient = dynamic_cast<Cliente*>(it);
 						myClient->clienteRecogido();
+					}
+				}
+
+				if (!myPae) {
+					vector<GameObject*> paellas = game->getObjectManager()->getPaellas();
+					cout << "Clientes colisionando " << clientes.size() << endl;
+					TRACE(paellas.size());
+					for (auto it : paellas)
+					{
+						if (myPae == nullptr)
+						{
+							myPae = dynamic_cast<Paella*>(it);
+							myPae->paellaRecogida();
+						}
 					}
 				}
 			}
@@ -138,6 +152,13 @@ void Player::update()
 			moverObjeto(myClient);
 		else
 			myClient = nullptr;
+	}
+	if (myPae != nullptr)
+	{
+		if (myPae->isActive())
+			moverObjeto(myPae);
+		else
+			myPae = nullptr;
 	}
 
 	if (ih().getAxisY() == 1) 

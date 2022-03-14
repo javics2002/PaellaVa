@@ -32,6 +32,7 @@ public:
 
 	void añadeIngr(Ingrediente ingr_);
 	void setState(Estado estado_);
+	void paellaRecogida();
 	void update() override;
 	Estado getState();
 

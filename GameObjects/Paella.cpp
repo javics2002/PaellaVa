@@ -33,6 +33,11 @@ void Paella::setState(Estado estado_)
 	tiempo = sdlutils().currRealTime();
 }
 
+void Paella::paellaRecogida()
+{
+	vel = { 0,0 };
+}
+
 void Paella::update()
 {
 	switch (estado)

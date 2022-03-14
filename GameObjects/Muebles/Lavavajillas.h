@@ -13,7 +13,7 @@ public:
 	
 	const int MAX_PAELLERAS = 5;
 	int paelleras = 0;
-	vector<Paella> paelleras;
+	vector<GameObject*> paelleras;
 
 public:
 	Lavavajillas(Game* game, Vector2D<double> pos);

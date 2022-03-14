@@ -48,5 +48,6 @@ public:
 	Pool<Cliente>* getPoolClientes() { return clientes; };
 	Pool<GrupoClientes>* getPoolGrupoClientes() { return grupoClientes; };
 	Pool<Ingrediente>* getPoolIngredientes() { return ingredientes; };
+	vector<GameObject*> getPaellas() { return paellas; };
 };
 

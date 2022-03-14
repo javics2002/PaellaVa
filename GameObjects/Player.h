@@ -17,6 +17,7 @@ class Player : public GameObject
 	float aceleracion, deceleracion, maxVel;
 
 	Ingrediente* myIng = nullptr;
+	Paella* myPae = nullptr;
 	Cliente* myClient = nullptr;
 	//Configuraci�n de skin
 
