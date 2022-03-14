@@ -7,13 +7,13 @@ Lavavajillas::Lavavajillas(Game* game, Vector2D<double> pos) : Mueble(game, pos,
 
 void Lavavajillas::onCollision()
 {
-	if (paelleras < MAX_PAELLERAS)
-		paelleras++;
+	if (paellas < MAX_PAELLERAS)
+		paellas++;
 }
 
 bool Lavavajillas::LavavajillasLleno()
 {
-	return paelleras==MAX_PAELLERAS;
+	return paellas==MAX_PAELLERAS;
 }
 
 void Lavavajillas::metePaellera()

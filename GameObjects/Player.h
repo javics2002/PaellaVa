@@ -4,6 +4,7 @@
 
 class Ingrediente;
 class Cliente;
+class Paella;
 
 enum orientacion { N, S, E, O };
 
@@ -17,7 +18,7 @@ class Player : public GameObject
 	float aceleracion, deceleracion, maxVel;
 
 	Ingrediente* myIng = nullptr;
-	Paella* myPae = nullptr;
+	Paella* myPae=nullptr;
 	Cliente* myClient = nullptr;
 	//Configuraci�n de skin
 

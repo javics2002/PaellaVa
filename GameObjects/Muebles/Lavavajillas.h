@@ -12,7 +12,7 @@ public:
 	const unsigned int DIMENSION_H = 1;
 	
 	const int MAX_PAELLERAS = 5;
-	int paelleras = 0;
+	int paellas = 0;
 	vector<GameObject*> paelleras;
 
 public:

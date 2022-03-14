@@ -155,10 +155,7 @@ void Player::update()
 	}
 	if (myPae != nullptr)
 	{
-		if (myPae->isActive())
-			moverObjeto(myPae);
-		else
-			myPae = nullptr;
+		moverObjeto(myPae);
 	}
 
 	if (ih().getAxisY() == 1) 
