@@ -6,11 +6,22 @@ TablaProcesado::TablaProcesado(Game* game, Vector2D<double> pos) : Mueble(game, 
 
 void TablaProcesado::onCollision()
 {
-	ingr->procesando();
+	procesando();
 	tablaLLena = true;
 }
 
 bool TablaProcesado::getTablaLlena()
 {
 	return tablaLLena;
+}
+
+void TablaProcesado::procesando()
+{
+	if (tiempo == 0.0) {
+		tiempo = sdlutils().currRealTime();
+	}
+
+	if (sdlutils().currRealTime() - tiempo >= TIEMPO_PROCESADO) {
+		ingr->setProcesado(true);
+	}
 }

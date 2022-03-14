@@ -14,10 +14,6 @@ class Ingrediente : public PoolObject
 	vector<string> texturaIngrediente = { "alcachofa", "calamar", "cangrejo", "gamba",
 		"langosta", "mejillon", "pimientoRojo", "pimientoVerde", "pollo" };
 
-	const double TIEMPO_PROCESADO = 3000.0;
-
-	double tiempo = 0.0;
-
 	bool procesado = false;
 
 public:
@@ -30,8 +26,7 @@ public:
 	void onActivate() override;
 
 	void ingredienteRecogido();
-
-	void procesando();
 	
+	void setProcesado(bool estadoIngr);
 };
 

@@ -24,7 +24,7 @@ Paella::Paella(Tamaño tamaño_):ObjetoPortable() , tamaño(tamaño_)
 
 void Paella::añadeIngr(Ingrediente ingr_)
 {
-	if (ingredientes.size() < MAX_INGR) ingredientes.push_back(ingr_);
+	if (ingredientes.size() < MAX_INGR && estado != Cruda) ingredientes.push_back(ingr_);
 }
 
 void Paella::setState(Estado estado_)
@@ -59,6 +59,8 @@ void Paella::update()
 				tiempo = sdlutils().currRealTime();
 				i++;
 				estadoFinal = Resultado(i);
+
+				cout << "Estado del proceso: " << estado << " Estado paella: " << estadoFinal << endl;
 			}
 		}
 
@@ -71,8 +73,6 @@ void Paella::update()
 
 		break;
 	}
-
-	cout << "Estado del proceso: " << estado << " Estado paella: " << estadoFinal << endl;
 }
 
 Estado Paella::getState()

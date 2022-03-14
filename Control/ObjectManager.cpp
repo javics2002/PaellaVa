@@ -16,8 +16,6 @@ ObjectManager::ObjectManager(Game* game)
 	grupoClientes = new Pool<GrupoClientes>(game, 20);
 
 	//interfaz.push_back(new RedactaComandabutton(game, "redactaboton", 10, 10, 30, 30));
-
-	addPaella(new Paella(Paella::Minima));
 }
 
 ObjectManager::~ObjectManager()
@@ -53,6 +51,9 @@ void ObjectManager::debug(SDL_Rect* rect)
 {
 	for (auto i : muebles)
 		i->drawDebug(rect);
+
+	for (auto j : paellas)
+		j->drawDebug(rect);
 
 	ingredientes->debug(rect);
 
