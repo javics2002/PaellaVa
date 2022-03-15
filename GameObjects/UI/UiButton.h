@@ -10,6 +10,7 @@ private:
 	//int w;
 	//int h;
 	//Texture* textura;
+	string textura;
 	
 public:
 	//UiButton(int x, int y, Texture* texture,int w,int h) :x(x), y(y), textura(texture) ,w(w),h(h){};
@@ -18,5 +19,6 @@ public:
 	virtual bool  OnClick(int mx, int my) override;
 	virtual void execute();
 	void update() override;
+	string getTextura() { return textura; };
 };
 

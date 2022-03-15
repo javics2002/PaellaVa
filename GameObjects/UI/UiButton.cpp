@@ -7,6 +7,7 @@ UiButton::UiButton(Game* game, string claveTextura, int x, int y, int w, int h):
 	setPosition(p);
 	setDimension(w, h);
 	setTexture(claveTextura);
+	textura = claveTextura;
 }
 UiButton::~UiButton()
 {

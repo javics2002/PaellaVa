@@ -3,6 +3,10 @@
 #include "../../GameObjects/UI/RedactaComandabutton.h"
 #include "../../sdlutils/InputHandler.h"
 #include "../UI/Ingredientebutton.h"
+#include "DescartaCommandaButton.h"
+#include "EnviaComandaButton.h"
+#include "BorrarButton.h"
+#include "aceptaPaellaButton.h"
 #include <iostream>
 using namespace std;
 UIManager::UIManager(Game* game)
@@ -98,7 +102,18 @@ void UIManager::creaComanda(Game* game)
 {
 	actual = new Comanda(game, 2,this);
 	comandas.push_back(actual);
+	
 	creaTeclado();
+	actual->guardaTeclado();
+	aceptaPaellaButton* e = new aceptaPaellaButton(gamet, actual, "acepta", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() + actual->getHeight() / 4, anchobotones, anchobotones);
+	interfaz.push_back(e);
+	DescartaCommandaButton* b = new DescartaCommandaButton(actual, gamet, "cancela", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() + actual->getHeight() / 4 - anchobotones, anchobotones, anchobotones);
+	interfaz.push_back(b);
+	BorrarButton* bo = new BorrarButton(gamet, actual, "borra", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() + actual->getHeight() / 4 - 2 * anchobotones, anchobotones, anchobotones);
+	interfaz.push_back(bo);
+	EnviaComandaButton* en = new EnviaComandaButton(gamet, "envia", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() + actual->getHeight() / 4 + anchobotones, anchobotones, anchobotones);
+	interfaz.push_back(en);
+
 }
 Comanda* UIManager::getComanda()
 {
