@@ -2,7 +2,7 @@
 #include "../../Control/Game.h"
 #include "../../Control/ObjectManager.h"
 
-FinalCinta::FinalCinta(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, TILE_SIZE, "finalCinta")
+FinalCinta::FinalCinta(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, "basura")
 {
 }
 

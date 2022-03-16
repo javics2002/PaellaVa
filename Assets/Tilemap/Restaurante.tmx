@@ -30,7 +30,7 @@
   <object id="7" name="cinta" x="2398.67" y="125.333">
    <point/>
   </object>
-  <object id="8" name="finalCinta" x="2398.67" y="698.667">
+  <object id="8" name="finalCinta" x="2398.67" y="581.334">
    <point/>
   </object>
   <object id="9" name="fogon" x="1730.67" y="128">
@@ -73,15 +73,6 @@
    <point/>
   </object>
   <object id="23" name="sillaAr" x="577.333" y="452">
-   <point/>
-  </object>
-  <object id="24" name="inicioCinta" x="1056" y="608">
-   <point/>
-  </object>
-  <object id="25" name="cinta" x="1060" y="162.666">
-   <point/>
-  </object>
-  <object id="26" name="finalCinta" x="1057.33" y="105.333">
    <point/>
   </object>
   <object id="27" name="puerta" x="0" y="642.666">

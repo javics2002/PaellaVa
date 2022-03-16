@@ -213,16 +213,16 @@ void Restaurante::loadMap(string const& path) {
 				string name = obj.getName();
 
 				if (name == "mesaS") {
-					getObjectManager()->addMueble(new Mesa(game, position, { 1, 1 }, name));
-				}
-				else if (name == "mesaMH") {
-					getObjectManager()->addMueble(new Mesa(game, position, { 2, 1 }, name));
-				}
-				else if (name == "mesaMV") {
 					getObjectManager()->addMueble(new Mesa(game, position, { 1, 2 }, name));
 				}
-				else if (name == "mesaL") {
+				else if (name == "mesaMH") {
 					getObjectManager()->addMueble(new Mesa(game, position, { 2, 2 }, name));
+				}
+				else if (name == "mesaMV") {
+					getObjectManager()->addMueble(new Mesa(game, position, { 1, 3 }, name));
+				}
+				else if (name == "mesaL") {
+					getObjectManager()->addMueble(new Mesa(game, position, { 2, 4 }, name));
 				}
 				else if (name == "sillaIz" || name == "sillaDer" || name == "sillaAr" || name == "sillaAb") {
 					getObjectManager()->addMueble(new Silla(game, position, name));

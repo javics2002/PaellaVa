@@ -9,7 +9,7 @@ Ingrediente::Ingrediente(Game* game) :  PoolObject(game) {
 
 void Ingrediente::update()
 {
-	setPosition(getX(), getY() - vel.getY());
+	setPosition(getX(), getY() + vel.getY());
 }
 
 std::list<PoolObject*>::const_iterator Ingrediente::ingredientCollide()

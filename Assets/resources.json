@@ -98,7 +98,7 @@
     },
     {
       "id": "fogon",
-      "file": "../../../Assets/Images/berenjena.png"
+      "file": "../../../Assets/Images/fogon.png"
     },
     {
       "id": "inicioCinta",
@@ -114,43 +114,51 @@
     },
     {
       "id": "tablaProcesado",
-      "file": "../../../Assets/Images/berenjena.png"
-    },
-    {
-      "id": "ventanilla",
-      "file": "../../../Assets/Images/berenjena.png"
+      "file": "../../../Assets/Images/tabla.png"
     },
     {
       "id": "mesaS",
-      "file": "../../../Assets/Images/berenjena.png"
+      "file": "../../../Assets/Images/mesaS.png"
     },
     {
       "id": "mesaMH",
-      "file": "../../../Assets/Images/berenjena.png"
+      "file": "../../../Assets/Images/mesaS.png"
     },
     {
       "id": "mesaMV",
-      "file": "../../../Assets/Images/berenjena.png"
+      "file": "../../../Assets/Images/mesaS.png"
     },
     {
       "id": "mesaL",
-      "file": "../../../Assets/Images/berenjena.png"
+      "file": "../../../Assets/Images/mesaS.png"
     },
     {
       "id": "sillaIz",
-      "file": "../../../Assets/Images/berenjena.png"
+      "file": "../../../Assets/Images/sillaIz.png"
     },
     {
       "id": "sillaDer",
-      "file": "../../../Assets/Images/berenjena.png"
+      "file": "../../../Assets/Images/sillaDer.png"
     },
     {
       "id": "sillaAr",
-      "file": "../../../Assets/Images/berenjena.png"
+      "file": "../../../Assets/Images/sillaAr.png"
     },
     {
       "id": "sillaAb",
-      "file": "../../../Assets/Images/berenjena.png"
+      "file": "../../../Assets/Images/sillaAb.png"
+    },
+    {
+      "id": "encimera",
+      "file": "../../../Assets/Images/encimera.png"
+    },
+    {
+      "id": "basura",
+      "file": "../../../Assets/Images/basura.png"
+    },
+    {
+      "id": "arroz",
+      "file": "../../../Assets/Images/arroz.png"
     }
   ],
 
