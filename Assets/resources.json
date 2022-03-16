@@ -57,6 +57,10 @@
       "file": "../../../Assets/Images/player.png"
     },
     {
+      "id": "envia",
+      "file": "../../../Assets/Images/enviaboton.png"
+  },
+    {
       "id": "cancela",
       "file": "../../../Assets/Images/cancelaboton.png"
     },

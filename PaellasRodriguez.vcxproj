@@ -146,7 +146,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Control\Camera.h" />
+    <ClInclude Include="GameObjects\UI\aceptaPaellaButton.h" />
+    <ClInclude Include="GameObjects\UI\BorrarButton.h" />
     <ClInclude Include="GameObjects\UI\CustomizationButton.h" />
+    <ClInclude Include="GameObjects\UI\DescartaCommandaButton.h" />
+    <ClInclude Include="GameObjects\UI\EnviaComandaButton.h" />
     <ClInclude Include="GameObjects\UI\ExitButton.h" />
     <ClInclude Include="GameObjects\Muebles\Encimera.h" />
     <ClInclude Include="GameObjects\Cola.h" />
@@ -221,8 +225,12 @@
   <ItemGroup>
     <ClCompile Include="Control\Camera.cpp" />
     <ClCompile Include="Control\Input.cpp" />
+    <ClCompile Include="GameObjects\UI\aceptaPaellaButton.cpp" />
+    <ClCompile Include="GameObjects\UI\BorrarButton.cpp" />
     <ClCompile Include="GameObjects\UI\CustomizationButton.cpp" />
     <ClCompile Include="Data\Comanda.cpp" />
+    <ClCompile Include="GameObjects\UI\DescartaCommandaButton.cpp" />
+    <ClCompile Include="GameObjects\UI\EnviaComandaButton (1).cpp" />
     <ClCompile Include="GameObjects\UI\ExitButton.cpp" />
     <ClCompile Include="GameObjects\Muebles\Encimera.cpp" />
     <ClCompile Include="GameObjects\Cola.cpp" />

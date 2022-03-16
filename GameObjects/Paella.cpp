@@ -75,6 +75,11 @@ void Paella::update()
 	}
 }
 
+void Paella::setLavado(Contenido contenidoPaella)
+{
+	contenido = contenidoPaella;
+}
+
 Estado Paella::getState()
 {
 	return estado;
