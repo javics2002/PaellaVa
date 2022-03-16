@@ -10,6 +10,8 @@
 #include "../Data/ListaComandas.h"
 #include "../GameObjects/UI/Reloj.h"
 
+
+#include "../Control/NetworkManager.h"
 #include <iostream>
 
 using namespace std;
@@ -37,6 +39,9 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 	uiManager->addInterfaz(new Reloj(game));
 
 	//objectManager->initMuebles();
+	// NETWORK
+	NetworkManager* nm = new NetworkManager(game);
+	
 }
 
 Restaurante::~Restaurante()
