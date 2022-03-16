@@ -1,5 +1,7 @@
 #include "Paella.h"
 #include "../sdlutils/SDLUtils.h"
+#include "Ingrediente.h"
+#include <map>
 
 Paella::Paella(Tamaño tamaño_):ObjetoPortable() , tamaño(tamaño_)
 {
@@ -20,11 +22,16 @@ Paella::Paella(Tamaño tamaño_):ObjetoPortable() , tamaño(tamaño_)
 	default:
 		break;
 	}
+
+	ingrEnPaella = vector<bool>(tipoIngrediente::LAST, false);
 }
 
 void Paella::añadeIngr(Ingrediente ingr_)
 {
-	if (ingredientes.size() < MAX_INGR && estado != Cruda) ingredientes.push_back(ingr_);
+	if (ingredientes.size() < MAX_INGR && estado == Cruda && !ingrEnPaella[ingr_.getTipo()]) {
+		ingredientes.push_back(ingr_);
+		ingrEnPaella[ingr_.getTipo()] = true;
+	}
 }
 
 void Paella::setState(Estado estado_)

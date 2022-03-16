@@ -8,7 +8,7 @@ class Lavavajillas : public Mueble
 {
 public:
 
-	enum Contenido { Limpia, Entera, Mitad, Sucia };
+	//um Contenido { Limpia, Entera, Mitad, Sucia };
 
 	const unsigned int DIMENSION_W = 1;
 	const unsigned int DIMENSION_H = 1;

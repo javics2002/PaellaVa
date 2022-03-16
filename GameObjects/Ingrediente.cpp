@@ -21,21 +21,40 @@ std::list<PoolObject*>::const_iterator Ingrediente::ingredientCollide()
 
 void Ingrediente::onActivate()
 {
-	int n = rand() % (texturaIngrediente.size());
+	int n = rand() % (tipoIngrediente::LAST);
 
 	vel = { 0, 1.3 };
 	
+	miTipo = tipoIngrediente(n);
+
 	setTexture(texturaIngrediente[n]);
 }
 
 void Ingrediente::ingredienteRecogido()
 {
 	vel = { 0,0 };
+
+	cogido = true;
 }
 
 void Ingrediente::setProcesado(bool estadoIngr)
 {
 	procesado = estadoIngr;
+}
+
+void Ingrediente::setCogido(bool cogido_)
+{
+	cogido = cogido_;
+}
+
+bool Ingrediente::getCogido()
+{
+	return cogido;
+}
+
+tipoIngrediente Ingrediente::getTipo()
+{
+	return miTipo;
 }
 
 

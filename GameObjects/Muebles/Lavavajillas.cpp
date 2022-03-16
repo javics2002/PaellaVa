@@ -32,7 +32,7 @@ void Lavavajillas::lavando()
 
 	if (sdlutils().currRealTime() - tiempo >= TIEMPO_LAVADO) {
 		for (int i = 0; i < paelleras.size(); i++) {
-			paelleras[i]->setLavado(Paella::Limpia);
+			paelleras[i]->setLavado(Contenido::Limpia);
 		}
 	}
 }

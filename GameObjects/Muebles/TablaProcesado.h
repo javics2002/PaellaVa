@@ -21,7 +21,7 @@ public:
 	TablaProcesado(Game* game, Vector2D<double> pos);
 	~TablaProcesado() = default;
 
-	//void update();
+	void update();
 	void onCollision();
 	bool getTablaLlena();
 	void procesando();
