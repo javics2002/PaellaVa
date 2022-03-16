@@ -74,24 +74,25 @@ void Player::handleInput()
 					objectType_ = INGREDIENTE;
 			}
 			for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getCollisions(getOverlapCollider())) {
-				if (nearestObject(dynamic_cast<GameObject*>(i))) 
-					objectType_ = CLIENTES;					
+				if (nearestObject(dynamic_cast<GameObject*>(i)))
+					objectType_ = CLIENTES;
 			}
-
-			switch (objectType_)
-			{
-			case INGREDIENTE:
-				dynamic_cast<Ingrediente*>(pickedObject_)->ingredienteRecogido();			
-				break;
-			case CLIENTES:
-				if (dynamic_cast<GrupoClientes*>(pickedObject_)->getState() == estado::ENCOLA)
-					dynamic_cast<GrupoClientes*>(pickedObject_)->setState(estado::COGIDO);
-				else pickedObject_ = nullptr;
-				break;
-			case PAELLA:
-				break;
-			default:
-				break;
+			if (pickedObject_ != nullptr) {
+				switch (objectType_)
+				{
+				case INGREDIENTE:
+					dynamic_cast<Ingrediente*>(pickedObject_)->ingredienteRecogido();
+					break;
+				case CLIENTES:
+					if (dynamic_cast<GrupoClientes*>(pickedObject_)->getState() == estado::ENCOLA)
+						dynamic_cast<GrupoClientes*>(pickedObject_)->setState(estado::COGIDO);
+					else pickedObject_ = nullptr;
+					break;
+				case PAELLA:
+					break;
+				default:
+					break;
+				}
 			}
 		}
 		else pickedObject_ = nullptr;
