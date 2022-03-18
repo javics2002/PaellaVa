@@ -282,7 +282,7 @@ vector<vector<UiButton*>> Comanda::copyPaellas()
     {
         paellascopiadas.push_back( vector<UiButton*>());
 
-        for (int j = 0; j < paellas.size(); j++)
+        for (int j = 0; j < paellas[i].size(); j++)
         {
             UiButton u = *paellas[i][j];
             UiButton* up = new UiButton(gamet,u.getTextura(),u.getPosition().getX(),u.getPosition().getY(),u.getWidth(),u.getHeight());
