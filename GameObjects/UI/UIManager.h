@@ -3,6 +3,7 @@
 class Game;
 class Ingredientebutton;
 class Comanda;
+class ListaComandas;
 using namespace std;
 
 class UIManager
@@ -19,6 +20,7 @@ class UIManager
 	int anchobotones = 25;
 	Game* gamet;
 	Comanda* actual;
+	ListaComandas* barra;
 public:
 	UIManager(Game* game);
 	~UIManager();
@@ -30,6 +32,8 @@ public:
 
 	void creaComanda(Game* game);
 	Comanda* getComanda();
+	ListaComandas* getBarra();
+	void setBarra(ListaComandas* b);
 	vector< Point2D<double>> getPosTeclado();
 	void setPosTeclado(vector< Point2D<double>> t);
 	void creaTeclado();

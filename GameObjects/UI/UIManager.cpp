@@ -7,6 +7,7 @@
 #include "EnviaComandaButton.h"
 #include "BorrarButton.h"
 #include "aceptaPaellaButton.h"
+#include "../../Data/ListaComandas.h"
 #include <iostream>
 using namespace std;
 UIManager::UIManager(Game* game)
@@ -25,9 +26,9 @@ UIManager::~UIManager()
 }
 void UIManager::uiEvent(int mx, int my)
 {
-	for (auto i : interfaz)
+	for (int i = 0; i<interfaz.size(); ++i)
 	{
-		if (i->OnClick(mx, my))
+		if (interfaz[i]->OnClick(mx, my))
 		{
 			mx = -1;
 			my = -1;
@@ -96,6 +97,7 @@ void UIManager::render(SDL_Rect* rect=nullptr)
 	{
 		i->render(rect);
 	}
+	barra->render(rect);
 }
 
 void UIManager::creaComanda(Game* game)
@@ -118,6 +120,15 @@ void UIManager::creaComanda(Game* game)
 Comanda* UIManager::getComanda()
 {
 	return actual;
+}
+ListaComandas* UIManager::getBarra()
+{
+	return barra;
+}
+void UIManager::setBarra(ListaComandas* b)
+{
+	barra = b;
+	
 }
 void UIManager::creaTeclado()
 {

@@ -32,6 +32,8 @@ public:
     void guardaTeclado();
     void aceptaPaella();
     void enviaComanda();
+
+    void renderizaPaellas();
     /*void cierraComanda();*/
     //void Ecribeinfoenjson();
     //Compara las paellas recibidas con el pedido y le pone la puntuación
@@ -68,7 +70,7 @@ private:
     vector<UiButton*> Pedido;//lo que mostramos en la ui  de lo que vas añadiendo a la comanda
     vector<Ingredientebutton*> teclado;
     vector<Point2D<double>> postecladoini;
-    vector<vector <string >> paellas; // esto es lo que se envia a la lista de comandas y vamos haciendo paellas[i,j.pushback(]pedido[i])
+    vector<vector <UiButton* >> paellas; // esto es lo que se envia a la lista de comandas y vamos haciendo paellas[i,j.pushback(]pedido[i])
 
     //float calculaPuntuacion(Paella paella) ; definicion pendiente de la creacion e paella
     void update() override {};

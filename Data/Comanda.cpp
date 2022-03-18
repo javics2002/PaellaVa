@@ -3,6 +3,7 @@
 #include "../Control/Game.h"
 #include "../Control/ObjectManager.h"
 #include "../GameObjects/UI/UIManager.h"
+#include "ListaComandas.h"
 Comanda::Comanda(Game* game, uint nmesa, UIManager* uim) :GameObject(game)
 {
 
@@ -99,6 +100,7 @@ void Comanda::dibujaPedido()
     {
         i->render(nullptr);
     }
+    renderizaPaellas();
 }
 void Comanda::borraPedido()
 {//FALTA SUBIR EL TECLADO DE BOTONES AL BORRAR
@@ -169,13 +171,14 @@ void Comanda::aceptaPaella()
     //se renderice otdo guay
     if (!Pedido.empty())
     {
-        paellas.push_back(vector<string>());
+        paellas.push_back(vector<UiButton*>());
         for (int j = 0; j < Pedido.size(); j++)
         {
-            string s = Pedido[j]->getTextura();
+            paellas[numeroPaellas].push_back(Pedido[j]);
+          //  string s = Pedido[j]->getTextura();
 
             //paellas[numeroPaellas][j].push_back(*s.c_str()); //el vector qeuire chars raros por algun motivo
-            paellas[numeroPaellas].push_back(s);
+            ///paellas[numeroPaellas].push_back(s);
             //esta explotando ahi por algun motivo//el motivo : no se leer
         }
         Pedido.erase(Pedido.begin(), Pedido.begin() + Pedido.size());
@@ -185,9 +188,32 @@ void Comanda::aceptaPaella()
 }
 void Comanda::enviaComanda()
 {
+ /*   if (numeroPaellas > 0)
+    {
+        
+
+
+    }*/
+    uimt->getBarra()->AñadeComanda(this);
+    cancelaPedido();
+
+}
+void Comanda::renderizaPaellas()
+{
+
     if (numeroPaellas > 0)
     {
+        for (int i = 0; i < numeroPaellas; i++)
+        {
+
+            for (int j = 0; j < paellas[i].size(); j++)
+            {
+                paellas[i][j]->render(nullptr);
+            }
+        }
+
 
 
     }
+
 }

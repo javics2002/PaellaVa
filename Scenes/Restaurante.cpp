@@ -7,6 +7,7 @@
 #include  "../GameObjects/UI/RedactaComandabutton.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../Control/Game.h"
+#include "../Data/ListaComandas.h"
 #include <iostream>
 
 using namespace std;
@@ -31,7 +32,7 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
 
 	getUIManager()->addInterfaz(new RedactaComandabutton(game, "redactaboton", 10, 10, 30, 30));
-
+	uiManager->setBarra(new ListaComandas(game));
 	//objectManager->addPaella(new Paella(Paella::Minima));
 
 }

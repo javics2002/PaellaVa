@@ -1,170 +1,174 @@
 {
-  "images": [
-    {
-      "id": "barraTolerancia",
-      "file": "../../../Assets/Images/barraTolerancia.png"
-    },
-    {
-      "id": "cuadernillo",
-      "file": "../../../Assets/Images/cuadernillo.png"
-    },
-    {
-      "id": "redactaboton",
-      "file": "../../../Assets/Images/redactaboton.png"
-    },
-    {
-      "id": "alcachofa",
-      "file": "../../../Assets/Images/Ingredientes/alcachofa.png"
-    },
-    {
-      "id": "berenjena",
-      "file": "../../../Assets/Images/berenjena.png"
-    },
-    {
-      "id": "calamar",
-      "file": "../../../Assets/Images/Ingredientes/calamar.png"
-    },
-    {
-      "id": "cangrejo",
-      "file": "../../../Assets/Images/Ingredientes/cangrejo.png"
-    },
-    {
-      "id": "gamba",
-      "file": "../../../Assets/Images/Ingredientes/gamba.png"
-    },
-    {
-      "id": "langosta",
-      "file": "../../../Assets/Images/Ingredientes/langosta.png"
-    },
-    {
-      "id": "mejillon",
-      "file": "../../../Assets/Images/Ingredientes/mejillon.png"
-    },
-    {
-      "id": "pimientoRojo",
-      "file": "../../../Assets/Images/Ingredientes/pimientoRojo.png"
-    },
-    {
-      "id": "pimientoVerde",
-      "file": "../../../Assets/Images/Ingredientes/pimientoVerde.png"
-    },
-    {
-      "id": "pollo",
-      "file": "../../../Assets/Images/Ingredientes/pollo.png"
-    },
-    {
-      "id": "player",
-      "file": "../../../Assets/Images/player.png"
-    },
-    {
-      "id": "envia",
-      "file": "../../../Assets/Images/enviaboton.png"
-  },
-    {
-      "id": "cancela",
-      "file": "../../../Assets/Images/cancelaboton.png"
-    },
-    {
-      "id": "acepta",
-      "file": "../../../Assets/Images/aceptaboton.png"
-    },
-    {
-      "id": "borra",
-      "file": "../../../Assets/Images/borraboton.png"
-    },
-    {
-      "id": "start",
-      "file": "../../../Assets/Images/start.png"
-    },
-    {
-      "id": "exit",
-      "file": "../../../Assets/Images/exit.png"
-    },
-    {
-      "id": "customization",
-      "file": "../../../Assets/Images/customization.png"
-    },
-    {
-      "id": "settings",
-      "file": "../../../Assets/Images/settings.png"
-    },
-    {
-      "id": "cartel",
-      "file": "../../../Assets/Images/mesa.png"
-    },
-    {
-      "id": "cinta",
-      "file": "../../../Assets/Images/berenjena.png"
-    },
-    {
-      "id": "finalCinta",
-      "file": "../../../Assets/Images/finalCinta.png"
-    },
-    {
-      "id": "fogon",
-      "file": "../../../Assets/Images/fogon.png"
-    },
-    {
-      "id": "inicioCinta",
-      "file": "../../../Assets/Images/inicioCinta.png"
-    },
-    {
-      "id": "lavavajillas",
-      "file": "../../../Assets/Images/berenjena.png"
-    },
-    {
-      "id": "puerta",
-      "file": "../../../Assets/Images/inicioCinta.png"
-    },
-    {
-      "id": "tablaProcesado",
-      "file": "../../../Assets/Images/tabla.png"
-    },
-    {
-      "id": "mesaS",
-      "file": "../../../Assets/Images/mesaS.png"
-    },
-    {
-      "id": "mesaMH",
-      "file": "../../../Assets/Images/mesaS.png"
-    },
-    {
-      "id": "mesaMV",
-      "file": "../../../Assets/Images/mesaS.png"
-    },
-    {
-      "id": "mesaL",
-      "file": "../../../Assets/Images/mesaS.png"
-    },
-    {
-      "id": "sillaIz",
-      "file": "../../../Assets/Images/sillaIz.png"
-    },
-    {
-      "id": "sillaDer",
-      "file": "../../../Assets/Images/sillaDer.png"
-    },
-    {
-      "id": "sillaAr",
-      "file": "../../../Assets/Images/sillaAr.png"
-    },
-    {
-      "id": "sillaAb",
-      "file": "../../../Assets/Images/sillaAb.png"
-    },
-    {
-      "id": "encimera",
-      "file": "../../../Assets/Images/encimera.png"
-    },
-    {
-      "id": "basura",
-      "file": "../../../Assets/Images/basura.png"
-    },
-    {
-      "id": "arroz",
-      "file": "../../../Assets/Images/arroz.png"
-    }
-  ],
+    "images": [
+        {
+            "id": "barraTolerancia",
+            "file": "../../../Assets/Images/barraTolerancia.png"
+        },
+        {
+            "id": "cuadernillo",
+            "file": "../../../Assets/Images/cuadernillo.png"
+        },
+        {
+            "id": "barra",
+            "file": "../../../Assets/Images/barracomandas.png"
+        },
+        {
+            "id": "redactaboton",
+            "file": "../../../Assets/Images/redactaboton.png"
+        },
+        {
+            "id": "alcachofa",
+            "file": "../../../Assets/Images/Ingredientes/alcachofa.png"
+        },
+        {
+            "id": "berenjena",
+            "file": "../../../Assets/Images/berenjena.png"
+        },
+        {
+            "id": "calamar",
+            "file": "../../../Assets/Images/Ingredientes/calamar.png"
+        },
+        {
+            "id": "cangrejo",
+            "file": "../../../Assets/Images/Ingredientes/cangrejo.png"
+        },
+        {
+            "id": "gamba",
+            "file": "../../../Assets/Images/Ingredientes/gamba.png"
+        },
+        {
+            "id": "langosta",
+            "file": "../../../Assets/Images/Ingredientes/langosta.png"
+        },
+        {
+            "id": "mejillon",
+            "file": "../../../Assets/Images/Ingredientes/mejillon.png"
+        },
+        {
+            "id": "pimientoRojo",
+            "file": "../../../Assets/Images/Ingredientes/pimientoRojo.png"
+        },
+        {
+            "id": "pimientoVerde",
+            "file": "../../../Assets/Images/Ingredientes/pimientoVerde.png"
+        },
+        {
+            "id": "pollo",
+            "file": "../../../Assets/Images/Ingredientes/pollo.png"
+        },
+        {
+            "id": "player",
+            "file": "../../../Assets/Images/player.png"
+        },
+        {
+            "id": "envia",
+            "file": "../../../Assets/Images/enviaboton.png"
+        },
+        {
+            "id": "cancela",
+            "file": "../../../Assets/Images/cancelaboton.png"
+        },
+        {
+            "id": "acepta",
+            "file": "../../../Assets/Images/aceptaboton.png"
+        },
+        {
+            "id": "borra",
+            "file": "../../../Assets/Images/borraboton.png"
+        },
+        {
+            "id": "start",
+            "file": "../../../Assets/Images/start.png"
+        },
+        {
+            "id": "exit",
+            "file": "../../../Assets/Images/exit.png"
+        },
+        {
+            "id": "customization",
+            "file": "../../../Assets/Images/customization.png"
+        },
+        {
+            "id": "settings",
+            "file": "../../../Assets/Images/settings.png"
+        },
+        {
+            "id": "cartel",
+            "file": "../../../Assets/Images/mesa.png"
+        },
+        {
+            "id": "cinta",
+            "file": "../../../Assets/Images/berenjena.png"
+        },
+        {
+            "id": "finalCinta",
+            "file": "../../../Assets/Images/finalCinta.png"
+        },
+        {
+            "id": "fogon",
+            "file": "../../../Assets/Images/fogon.png"
+        },
+        {
+            "id": "inicioCinta",
+            "file": "../../../Assets/Images/inicioCinta.png"
+        },
+        {
+            "id": "lavavajillas",
+            "file": "../../../Assets/Images/berenjena.png"
+        },
+        {
+            "id": "puerta",
+            "file": "../../../Assets/Images/inicioCinta.png"
+        },
+        {
+            "id": "tablaProcesado",
+            "file": "../../../Assets/Images/tabla.png"
+        },
+        {
+            "id": "mesaS",
+            "file": "../../../Assets/Images/mesaS.png"
+        },
+        {
+            "id": "mesaMH",
+            "file": "../../../Assets/Images/mesaS.png"
+        },
+        {
+            "id": "mesaMV",
+            "file": "../../../Assets/Images/mesaS.png"
+        },
+        {
+            "id": "mesaL",
+            "file": "../../../Assets/Images/mesaS.png"
+        },
+        {
+            "id": "sillaIz",
+            "file": "../../../Assets/Images/sillaIz.png"
+        },
+        {
+            "id": "sillaDer",
+            "file": "../../../Assets/Images/sillaDer.png"
+        },
+        {
+            "id": "sillaAr",
+            "file": "../../../Assets/Images/sillaAr.png"
+        },
+        {
+            "id": "sillaAb",
+            "file": "../../../Assets/Images/sillaAb.png"
+        },
+        {
+            "id": "encimera",
+            "file": "../../../Assets/Images/encimera.png"
+        },
+        {
+            "id": "basura",
+            "file": "../../../Assets/Images/basura.png"
+        },
+        {
+            "id": "arroz",
+            "file": "../../../Assets/Images/arroz.png"
+        }
+    ],
 
   "tilesets": [
     {
