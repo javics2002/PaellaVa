@@ -174,6 +174,44 @@ void SDLUtils::loadReasources(std::string filename) {
 		}
 	}
 
+	// load messages
+	jValue = root["messages"];
+	if (jValue != nullptr) {
+		if (jValue->IsArray()) {
+			for (auto& v : jValue->AsArray()) {
+				if (v->IsObject()) {
+					JSONObject vObj = v->AsObject();
+					std::string key = vObj["id"]->AsString();
+					std::string txt = vObj["text"]->AsString();
+					auto& font = fonts_.at(vObj["font"]->AsString());
+#ifdef _DEBUG
+					std::cout << "Loading message with id: " << key
+						<< std::endl;
+#endif
+					if (vObj["bg"] == nullptr)
+						msgs_.emplace(key,
+							Texture(renderer(), txt, font,
+								build_sdlcolor(
+									vObj["color"]->AsString())));
+					else
+						msgs_.emplace(key,
+							Texture(renderer(), txt, font,
+								build_sdlcolor(
+									vObj["color"]->AsString()),
+								build_sdlcolor(
+									vObj["bg"]->AsString())));
+				}
+				else {
+					throw "'messages' array in '" + filename
+						+ "' includes and invalid value";
+				}
+			}
+		}
+
+		else {
+			throw "'messages' is not an array in '" + filename + "'";
+		}
+	}
 	// load tilesets
 	jValue = root["tilesets"];
 	if (jValue != nullptr) {
@@ -253,6 +291,7 @@ void SDLUtils::closeSDLExtensions() {
 	tilesets_.clear();
 	images_.clear();
 	fonts_.clear();
+	msgs_.clear();
 
 	Mix_Quit(); // quit SDL_mixer
 	IMG_Quit(); // quit SDL_image

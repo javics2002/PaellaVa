@@ -288,6 +288,11 @@
     <None Include="json\RAEDME.md" />
     <None Include="tmxlite\include\tmxlite\Types.inl" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="Assets\fonts\ARIAL.ttf" />
+    <Font Include="Assets\fonts\Capture_it.ttf" />
+    <Font Include="Assets\fonts\NES-Chimera.ttf" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

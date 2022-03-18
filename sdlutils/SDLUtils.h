@@ -106,6 +106,11 @@ public:
 	}
 
 	// messages map
+	inline sdl_resource_table<Texture>& msgs() {
+		return msgs_;
+	}
+
+	// messages map
 	inline sdl_resource_table<Texture>& tilesets() {
 		return tilesets_;
 	}
@@ -160,6 +165,7 @@ private:
 	sdl_resource_table<Font> fonts_; // fonts map (string -> font)
 	sdl_resource_table<Texture> images_; // textures map (string -> texture)
 	sdl_resource_table<Texture> tilesets_; // textures map (string -> texture)
+	sdl_resource_table<Texture> msgs_; // textures map (string -> texture)
 	sdl_resource_table<SoundEffect> sounds_; // sounds map (string -> sound)
 	sdl_resource_table<Music> musics_; // musics map (string -> music)
 

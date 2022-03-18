@@ -150,4 +150,9 @@
       <Extensions>.cpp</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="Assets\fonts\ARIAL.ttf" />
+    <Font Include="Assets\fonts\Capture_it.ttf" />
+    <Font Include="Assets\fonts\NES-Chimera.ttf" />
+  </ItemGroup>
 </Project>

@@ -72,6 +72,14 @@ void Restaurante::render()
 	
 	host->render(camara->renderRect());
 	uiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
+
+	//auto time = sdlutils().currRealTime();
+
+	//auto time_ = to_string(time);
+
+	//Texture* tex;
+
+	//tex->constructFromText(camara->renderRect(), time_, );
 }
 
 void Restaurante::debug()
