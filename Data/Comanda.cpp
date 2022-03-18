@@ -9,8 +9,10 @@ Comanda::Comanda(Game* game, uint nmesa, UIManager* uim) :GameObject(game)
 
     setTexture("cuadernillo");
     Vector2D<double> p;
-    p.setX(100);
-    p.setY(110);
+    x = 100;
+    y = 110;
+    p.setX(x);
+    p.setY(y);
     setPosition(p);
     setDimension(ancho, alto);
     altoini = alto;
@@ -49,6 +51,23 @@ Comanda::Comanda(Game* game, uint nmesa, UIManager* uim) :GameObject(game)
 
          j++;
      }*/
+}
+Comanda::Comanda( Comanda& c) :GameObject(c.gamet)
+{
+    setTexture("cuadernillo");
+    setPosition(c.x, c.y);
+     paellas = c.copyPaellas();
+    gamet = c.gamet;
+    setDimension(c.ancho, c.alto);
+    numeroPaellas = c.numeroPaellas;
+    for (int i = 0; i < c.numeroPaellas;i++)
+    {
+        paellas.push_back(c.paellas[i]);
+      /*  for (int j = 0; j < paellas[i].size(); j++)
+        {
+            paellas[i].push_back(c.paellas[i][j]);
+        }*/
+    }
 }
 Comanda::~Comanda()
 {
@@ -143,6 +162,7 @@ void Comanda::cancelaPedido()
     setPosition(getPosition().getX(), iniy);
     uimt->setPosTeclado(postecladoini);
     uimt->randomizaTeclado();
+    clearPaellas();
     numeroPaellas = 0;
 
 
@@ -208,7 +228,7 @@ void Comanda::renderizaPaellas()
 
             for (int j = 0; j < paellas[i].size(); j++)
             {
-                paellas[i][j]->render(nullptr);
+                paellas[i][j]->render(nullptr);//los strings de las texturas no llegan y se muere
             }
         }
 
@@ -235,4 +255,40 @@ void Comanda::desplazacomandas(int d)
 
     }
 
+}
+void Comanda::clearPaellas()
+{
+    if (numeroPaellas > 0)
+    {
+        for (int i = 0; i < numeroPaellas; i++)
+        {
+
+            for (int j = 0; j < paellas[i].size(); j++)
+            {
+                delete paellas[i][j]; paellas[i][j] = nullptr;
+            }
+            paellas[i].clear();
+        }
+
+        paellas.clear();
+
+    }
+    numeroPaellas = 0;
+}
+vector<vector<UiButton*>> Comanda::copyPaellas()
+{
+    vector<vector <UiButton*>> paellascopiadas;
+    for (int i = 0; i < paellas.size(); i++)
+    {
+        paellascopiadas.push_back( vector<UiButton*>());
+
+        for (int j = 0; j < paellas.size(); j++)
+        {
+            UiButton u = *paellas[i][j];
+            UiButton* up = new UiButton(gamet,u.getTextura(),u.getPosition().getX(),u.getPosition().getY(),u.getWidth(),u.getHeight());
+            paellascopiadas[i].push_back(up);
+
+        }
+    }
+    return paellascopiadas;
 }

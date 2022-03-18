@@ -10,7 +10,7 @@ using namespace std;
 
 class ListaComandas :public GameObject
 {
-	vector<Comanda> lista;
+	vector<Comanda*> lista;
 public:
 	//Añade la comanda que escribe el camarero a la lista
 	ListaComandas(Game* game );

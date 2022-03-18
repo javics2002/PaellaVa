@@ -20,6 +20,7 @@ class Comanda :public GameObject
 public:
     enum Tamaño { Pequeña, Mediana, Grande };
     Comanda(Game* game, uint nmesa, UIManager* uim);//crear comanda
+    Comanda( Comanda& c); //NECESARIO PARA QUE LA LIST DE COMANDAS FUNCIONE
 
     ~Comanda();//No se puede definir todavia y no compila NO LO BORREIS/
     void añadiraPedido(string i);
@@ -35,6 +36,8 @@ public:
 
     void renderizaPaellas();
     void desplazacomandas(int d);
+    void clearPaellas();
+    vector<vector<UiButton*>> copyPaellas();
     /*void cierraComanda();*/
     //void Ecribeinfoenjson();
     //Compara las paellas recibidas con el pedido y le pone la puntuación
