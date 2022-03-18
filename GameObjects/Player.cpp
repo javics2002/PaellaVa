@@ -20,7 +20,6 @@ Player::Player(Game* game) : GameObject(game), objectType_(INGREDIENTE), pickedO
 	deceleracion = 0.8;
 	maxVel = 7;
 
-	myIng = nullptr;
 	
 	setTexture("player");
 }
@@ -68,38 +67,30 @@ void Player::handleInput()
 
 	//Todos los dynamic cast se puden evitar con métodos comunes en pool o con una nueva clase
 	if (ih().isKeyboardEvent() && ih().getKey(InputHandler::INTERACT)) {
+		cout << "e" << endl;
+
 		if (pickedObject_ == nullptr) {
 			for (auto i : game->getObjectManager()->getPoolIngredientes()->getCollisions(getOverlapCollider())) {
-				if (nearestObject(dynamic_cast<GameObject*>(i)))
+				if (nearestObject(dynamic_cast<ObjetoPortable*>(i)))
 					objectType_ = INGREDIENTE;
 			}
 			for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getCollisions(getOverlapCollider())) {
-				if (nearestObject(dynamic_cast<GameObject*>(i)))
+				if (nearestObject(dynamic_cast<ObjetoPortable*>(i)))
 					objectType_ = CLIENTES;
 			}
+
 			if (pickedObject_ != nullptr) {
-				switch (objectType_)
-				{
-				case INGREDIENTE:
-					dynamic_cast<Ingrediente*>(pickedObject_)->ingredienteRecogido();
-					break;
-				case CLIENTES:
-					if (dynamic_cast<GrupoClientes*>(pickedObject_)->getState() == estado::ENCOLA)
-						dynamic_cast<GrupoClientes*>(pickedObject_)->setState(estado::COGIDO);
-					else pickedObject_ = nullptr;
-					break;
-				case PAELLA:
-					break;
-				default:
-					break;
-				}
+				pickedObject_->pickObject();
 			}
 		}
-		else pickedObject_ = nullptr;
+		else {
+			pickedObject_->dropObject();
+			pickedObject_ = nullptr;
+		}
 	}
 }
 
-bool Player::nearestObject(GameObject* go)
+bool Player::nearestObject(ObjetoPortable* go)
 {
 	if (pickedObject_ == nullptr) {
 		pickedObject_ = go;

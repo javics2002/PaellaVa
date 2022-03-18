@@ -9,6 +9,8 @@ enum Estado { Preparacion, Coccion, Preparada };
 enum Resultado { Cruda, PocoHecha, Perfecta, MuyHecha, Quemada, Incomestible };
 enum Contenido { Limpia, Entera, Mitad, Sucia };
 
+class Game;
+
 class Paella : public ObjetoPortable
 {	
 
@@ -18,7 +20,7 @@ public:
 
 	Tamaño tamaño;
 
-	Paella(Tamaño tamaño_);
+	Paella(Game* game, Tamaño tamaño_);
 	~Paella() {};
 
 	void añadeIngr(Ingrediente ingr_);

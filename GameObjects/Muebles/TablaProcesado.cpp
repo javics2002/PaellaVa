@@ -6,7 +6,7 @@ TablaProcesado::TablaProcesado(Game* game, Vector2D<double> pos) : Mueble(game, 
 
 void TablaProcesado::update() {
 
-	if (ingr != nullptr && ingr->getCogido()) {
+	if (ingr != nullptr && ingr->getIsPicked()) {
 		tiempo = 0;
 		tablaLLena = true;
 	}
@@ -29,7 +29,7 @@ void TablaProcesado::procesando()
 	if (tiempo == 0.0) {
 		tiempo = sdlutils().currRealTime();
 		tablaLLena = true;
-		ingr->setCogido(false);
+		ingr->setIsPicked(true);
 	}
 
 	if (sdlutils().currRealTime() - tiempo >= TIEMPO_PROCESADO) {

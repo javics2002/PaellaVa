@@ -1,21 +1,27 @@
 #include "ObjetoPortable.h"
 
-bool ObjetoPortable::interaccionFogones()
+ObjetoPortable::ObjetoPortable(Game* game) : GameObject(game), isPicked_(false)
 {
-    return false;
 }
 
-bool ObjetoPortable::interaccionMesa()
+void ObjetoPortable::pickObject()
 {
-    return false;
+	isPicked_ = true;
+	onObjectPicked();
 }
 
-bool ObjetoPortable::InteraccionLavaplatos()
+void ObjetoPortable::dropObject()
 {
-    return false;
+	isPicked_ = false;
+	onObjectDropped();
 }
 
-bool ObjetoPortable::InteraccionTabla()
+void ObjetoPortable::setIsPicked(bool b)
 {
-    return false;
+	isPicked_ = b;
+}
+
+bool ObjetoPortable::getIsPicked()
+{
+	return isPicked_;
 }

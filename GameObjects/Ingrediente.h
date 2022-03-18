@@ -22,7 +22,6 @@ class Ingrediente : public PoolObject
 		"langosta", "mejillon", "pimientoRojo", "pimientoVerde", "pollo" };
 
 	bool procesado = false;
-	bool cogido = false;
 
 public:
 
@@ -38,10 +37,9 @@ public:
 	
 	void setProcesado(bool estadoIngr);
 
-	void setCogido(bool cogido_);
-
-	bool getCogido();
-
 	tipoIngrediente getTipo();
+
+	void onObjectPicked() override;
+	void onObjectDropped() override;
 };
 

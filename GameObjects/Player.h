@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "ObjetoPortable.h"
 #include "../Control/Input.h"
 
 class Ingrediente;
@@ -14,20 +15,15 @@ class Player : public GameObject
 	orientation orientation_;
 	objectType objectType_;
 
-	GameObject* pickedObject_;
+	ObjetoPortable* pickedObject_;
 	Input* input_;
 
 	float aceleracion, deceleracion, maxVel;
 
-	Ingrediente* myIng = nullptr;
-	Paella* myPae=nullptr;
-	Cliente* myClient = nullptr;
-	//Configuraci�n de skin
-
 	Vector2D<double> overlapPos;
 	Vector2D<int> overlapDim;
 
-	bool nearestObject(GameObject* go);
+	bool nearestObject(ObjetoPortable* go);
 
 public:
 	Player(Game* game);

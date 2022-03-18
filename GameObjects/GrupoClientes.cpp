@@ -1,4 +1,5 @@
 #include "GrupoClientes.h"
+
 #include "../Control/Game.h"
 #include "../Control/ObjectManager.h"
 
@@ -117,7 +118,7 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 	for (auto i : clientes)
 		i->render(cameraRect);
 
-	if (estado_ == COGIDO) {
+	if (getIsPicked()) {
 		SDL_Rect c = getCollider();
 		SDL_Rect textureBox;
 
@@ -130,5 +131,15 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 
 		texture->render(textureBox);
 	}
+}
+
+void GrupoClientes::onObjectPicked()
+{
+}
+
+void GrupoClientes::onObjectDropped()
+{
+	if (estado_ == ENCOLA)
+		estado_ = SENTADO;
 }
 
