@@ -217,3 +217,22 @@ void Comanda::renderizaPaellas()
     }
 
 }
+void Comanda::desplazacomandas(int d)
+{
+
+    if (numeroPaellas > 0)
+    {
+        for (int i = 0; i < numeroPaellas; i++)
+        {
+
+            for (int j = 0; j < paellas[i].size(); j++)
+            {
+                paellas[i][j]->setPosition(paellas[i][j]->getPosition().getX()+d,paellas[i][j]->getPosition().getY());
+            }
+        }
+
+
+
+    }
+
+}

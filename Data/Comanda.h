@@ -34,6 +34,7 @@ public:
     void enviaComanda();
 
     void renderizaPaellas();
+    void desplazacomandas(int d);
     /*void cierraComanda();*/
     //void Ecribeinfoenjson();
     //Compara las paellas recibidas con el pedido y le pone la puntuación

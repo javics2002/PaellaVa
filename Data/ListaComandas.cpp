@@ -17,14 +17,19 @@ ListaComandas::~ListaComandas()
 }
 void ListaComandas::AñadeComanda(Comanda* comanda)
 {
-	comanda->setPosition(cX, cY);
-	lista.push_back(comanda);
+	Comanda c = *comanda;
+	int x = c.getX();
+	desplazamineto = cX - x;
+	c.desplazacomandas(desplazamineto);
+	c.setPosition(cX, cY);
+	lista.push_back(c);
+	cX += 1.5*c.getWidth();
 }
 void ListaComandas::renderComandas()
 {
 	for (int i = 0; i < lista.size(); i++)
 	{
-
-		lista[i]->dibujaPedido();
+		lista[i].render(nullptr);
+		lista[i].dibujaPedido();
 	}
 }

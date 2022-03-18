@@ -84,6 +84,8 @@ void UIManager::update()
 
 void UIManager::render(SDL_Rect* rect=nullptr)
 {
+	barra->render(rect);
+	barra->renderComandas();
 	for (auto i : interfaz)
 	{
 		i->render(rect);
@@ -97,7 +99,7 @@ void UIManager::render(SDL_Rect* rect=nullptr)
 	{
 		i->render(rect);
 	}
-	barra->render(rect);
+	
 }
 
 void UIManager::creaComanda(Game* game)
