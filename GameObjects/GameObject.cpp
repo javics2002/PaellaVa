@@ -23,6 +23,14 @@ void GameObject::setTexture(string clave)
 	texture = &sdlutils().images().at(clave);
 }
 
+void GameObject::setTexture(const string text, const string font, const SDL_Color& fgColor, const SDL_Color& bgColor)
+{
+	if (!sdlutils().msgs().count(text))
+		sdlutils().msgs().emplace(text, Texture(sdlutils().renderer(), text, sdlutils().fonts().at(font), fgColor));
+
+	texture = &sdlutils().msgs().at(text);
+}
+
 SDL_Rect GameObject::getCollider()
 {
 	return { int(getX() - getWidth() / 2),

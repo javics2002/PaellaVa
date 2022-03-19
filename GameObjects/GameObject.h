@@ -52,6 +52,7 @@ public:
     void setPosition(Vector2D<double> v);
     void setDimension(int width, int height);
     void setTexture(string clave);
+    void setTexture(const string text, const string font, const SDL_Color& fgColor, const SDL_Color& bgColor);
 
     int getWidth() { return w; };
     int getHeight() { return h; };

@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GameObjects\Muebles\BolsaArroz.h" />
     <ClInclude Include="Control\Camera.h" />
     <ClInclude Include="GameObjects\UI\AceptaPaellaButton.h" />
     <ClInclude Include="GameObjects\UI\BorrarButton.h" />
@@ -183,6 +184,7 @@
     <ClInclude Include="GameObjects\UI\StartButton.h" />
     <ClInclude Include="GameObjects\UI\UiButton.h" />
     <ClInclude Include="GameObjects\UI\UIManager.h" />
+    <ClInclude Include="GameObjects\Muebles\Pared.h" />
     <ClInclude Include="Scenes\GameOver.h" />
     <ClInclude Include="json\JSON.h" />
     <ClInclude Include="json\JSONValue.h" />
@@ -205,6 +207,7 @@
     <ClInclude Include="sdlutils\SoundEffect.h" />
     <ClInclude Include="sdlutils\VirtualTimer.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="GameObjects\UI\Text.h" />
     <ClInclude Include="tmxlite\include\tmxlite\Config.hpp" />
     <ClInclude Include="tmxlite\include\tmxlite\FreeFuncs.hpp" />
     <ClInclude Include="tmxlite\include\tmxlite\ImageLayer.hpp" />
@@ -224,6 +227,7 @@
     <ClInclude Include="GameObjects\Muebles\Ventanilla.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameObjects\Muebles\BolsaArroz.cpp" />
     <ClCompile Include="Control\Camera.cpp" />
     <ClCompile Include="Control\Input.cpp" />
     <ClCompile Include="GameObjects\UI\AceptaPaellaButton.cpp" />
@@ -264,6 +268,7 @@
     <ClCompile Include="GameObjects\UI\StartButton.cpp" />
     <ClCompile Include="GameObjects\UI\UiButton.cpp" />
     <ClCompile Include="GameObjects\UI\UIManager.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Pared.cpp" />
     <ClCompile Include="Scenes\GameOver.cpp" />
     <ClCompile Include="json\JSON.cpp" />
     <ClCompile Include="json\JSONValue.cpp" />
@@ -274,6 +279,7 @@
     <ClCompile Include="SDL2-2.0.20\include\SDL_rect.cpp" />
     <ClCompile Include="sdlutils\SDLUtils.cpp" />
     <ClCompile Include="sdlutils\SoundEffect.cpp" />
+    <ClCompile Include="GameObjects\UI\Text.cpp" />
     <ClCompile Include="Utils\Texture.cpp" />
     <ClCompile Include="GameObjects\Muebles\Ventanilla.cpp" />
   </ItemGroup>

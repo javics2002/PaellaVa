@@ -53,6 +53,9 @@
     <ClCompile Include="GameObjects\UI\EnviaComandaButton (1).cpp" />
     <ClCompile Include="Scenes\GameOver.cpp" />
     <ClCompile Include="GameObjects\Muebles\Ventanilla.cpp" />
+    <ClCompile Include="GameObjects\UI\Text.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Pared.cpp" />
+    <ClCompile Include="GameObjects\Muebles\BolsaArroz.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
@@ -132,6 +135,9 @@
     <ClInclude Include="GameObjects\UI\EnviaComandaButton.h" />
     <ClInclude Include="Scenes\GameOver.h" />
     <ClInclude Include="GameObjects\Muebles\Ventanilla.h" />
+    <ClInclude Include="GameObjects\UI\Text.h" />
+    <ClInclude Include="GameObjects\Muebles\Pared.h" />
+    <ClInclude Include="GameObjects\Muebles\BolsaArroz.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />
