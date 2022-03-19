@@ -84,6 +84,7 @@ void Player::handleInput()
 					objectType_ = CLIENTES;
 			}
 
+
 			if (pickedObject_ != nullptr) {
 				pickedObject_->pickObject();
 			}
@@ -93,7 +94,9 @@ void Player::handleInput()
 			{
 			case INGREDIENTE:
 				for (auto i : game->getObjectManager()->getMueblesCollider(getOverlapCollider())) {
-					
+					if (i->recieveIngrediente(dynamic_cast<Ingrediente*>(pickedObject_))) {
+
+					}			
 				}
 				break;
 			case CLIENTES:

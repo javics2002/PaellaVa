@@ -35,7 +35,7 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 	uiManager->setBarra(new ListaComandas(game));
 	//objectManager->addPaella(new Paella(Paella::Minima));
 
-
+	//objectManager->initMuebles();
 }
 
 Restaurante::~Restaurante()

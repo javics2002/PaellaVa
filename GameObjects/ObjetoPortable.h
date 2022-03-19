@@ -19,6 +19,7 @@ public:
 	bool isPicked();
 
 	virtual bool canPick() { return true; };
+	virtual bool canDrop() { return true; };
 
 protected:
 	virtual void onObjectPicked() = 0;
