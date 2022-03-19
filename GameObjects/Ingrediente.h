@@ -21,6 +21,9 @@ class Ingrediente : public PoolObject
 	vector<string> texturaIngrediente = { "alcachofa", "calamar", "cangrejo", "gamba",
 		"langosta", "mejillon", "pimientoRojo", "pimientoVerde", "pollo" };
 
+	vector<string> texturaIngrProcesado = { "alcachofaP", "calamarP", "cangrejoP", "gambaP",
+		"langostaP", "mejillonP", "pimientoRojoP", "pimientoVerdeP", "polloP" };
+
 	bool procesado = false;
 
 public:
@@ -35,7 +38,7 @@ public:
 
 	void ingredienteRecogido();
 	
-	void setProcesado(bool estadoIngr);
+	void setProcesado(bool estadoIngr, Ingrediente *ingr);
 
 	tipoIngrediente getTipo();
 

@@ -66,6 +66,42 @@
       "file": "../../../Assets/Images/Ingredientes/pollo.png"
     },
     {
+      "id": "alcachofaP",
+      "file": "../../../Assets/Images/Ingredientes/alcachofaProcesada.png"
+    },
+    {
+      "id": "calamarP",
+      "file": "../../../Assets/Images/Ingredientes/calamarProcesado.png"
+    },
+    {
+      "id": "cangrejoP",
+      "file": "../../../Assets/Images/Ingredientes/cangrejoProcesado.png"
+    },
+    {
+      "id": "gambaP",
+      "file": "../../../Assets/Images/Ingredientes/gambaProcesada.png"
+    },
+    {
+      "id": "langostaP",
+      "file": "../../../Assets/Images/Ingredientes/langostaProcesada.png"
+    },
+    {
+      "id": "mejillonP",
+      "file": "../../../Assets/Images/Ingredientes/mejillonProcesado.png"
+    },
+    {
+      "id": "pimientoRojoP",
+      "file": "../../../Assets/Images/Ingredientes/pimientoRojoProcesado.png"
+    },
+    {
+      "id": "pimientoVerdeP",
+      "file": "../../../Assets/Images/Ingredientes/pimientoVerdeProcesado.png"
+    },
+    {
+      "id": "polloP",
+      "file": "../../../Assets/Images/Ingredientes/polloProcesado.png"
+    },
+    {
       "id": "player",
       "file": "../../../Assets/Images/player.png"
     },
