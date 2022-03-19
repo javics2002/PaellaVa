@@ -10,5 +10,7 @@ class Silla : public Mueble
 public:
 	Silla(Game* game, Vector2D<double> pos, string texture);
 	~Silla() = default;
+
+	Silla* initMesa() override;
 };
 

@@ -1,14 +1,18 @@
 #pragma once
-#include "GameObject.h"
 #include <list>
+#include "ObjetoPortable.h"
 
-class PoolObject : public GameObject
+using namespace std;
+
+class Game;
+
+class PoolObject : public ObjetoPortable
 {
 	bool active;
 	list<PoolObject*>::const_iterator it;
 
 public:
-	PoolObject(Game* game) : GameObject(game), active(false) {};
+	PoolObject(Game* game) : ObjetoPortable(game), active(false) {};
 	~PoolObject() = default;
 
 	void activate(list<PoolObject*>::const_iterator iterator);

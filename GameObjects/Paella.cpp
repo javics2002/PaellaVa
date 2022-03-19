@@ -3,7 +3,7 @@
 #include "Ingrediente.h"
 #include <map>
 
-Paella::Paella(Tamaño tamaño_):ObjetoPortable() , tamaño(tamaño_)
+Paella::Paella(Game* game, Tamaño tamaño_): ObjetoPortable(game) , tamaño(tamaño_)
 {
 
 	setPosition(sdlutils().width() / 2, 100);

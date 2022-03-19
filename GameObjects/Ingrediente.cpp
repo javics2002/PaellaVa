@@ -32,9 +32,6 @@ void Ingrediente::onActivate()
 
 void Ingrediente::ingredienteRecogido()
 {
-	vel = { 0,0 };
-
-	cogido = true;
 }
 
 void Ingrediente::setProcesado(bool estadoIngr)
@@ -42,19 +39,20 @@ void Ingrediente::setProcesado(bool estadoIngr)
 	procesado = estadoIngr;
 }
 
-void Ingrediente::setCogido(bool cogido_)
-{
-	cogido = cogido_;
-}
-
-bool Ingrediente::getCogido()
-{
-	return cogido;
-}
 
 tipoIngrediente Ingrediente::getTipo()
 {
 	return miTipo;
 }
+
+void Ingrediente::onObjectPicked()
+{
+	vel = { 0,0 };
+}
+
+void Ingrediente::onObjectDropped()
+{
+}
+
 
 

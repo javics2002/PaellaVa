@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "ObjetoPortable.h"
 #include "../Control/Input.h"
 
 class Ingrediente;
@@ -11,23 +12,20 @@ enum objectType { INGREDIENTE, CLIENTES, PAELLA};
 
 class Player : public GameObject
 {
-	orientation orientation_;
+	float lastTime_;
+
+	ObjetoPortable* pickedObject_;
 	objectType objectType_;
 
-	GameObject* pickedObject_;
 	Input* input_;
-
+	orientation orientation_;
+	
 	float aceleracion, deceleracion, maxVel;
-
-	Ingrediente* myIng = nullptr;
-	Paella* myPae=nullptr;
-	Cliente* myClient = nullptr;
-	//Configuraci�n de skin
 
 	Vector2D<double> overlapPos;
 	Vector2D<int> overlapDim;
 
-	bool nearestObject(GameObject* go);
+	bool nearestObject(ObjetoPortable* go);
 
 public:
 	Player(Game* game);
@@ -35,12 +33,9 @@ public:
 
 	void handleInput();
 
-	void update();
+	void update() override;
+	void renderDebug(SDL_Rect* cameraRect) override;
 
-	SDL_Rect getOverlapCollider();
-	void debugOverlap(SDL_Rect* rect);
-
-	void drawDebug(SDL_Rect* rect) override;
-	
+	SDL_Rect getOverlapCollider();	
 };
 

@@ -9,7 +9,7 @@ class Game;
 
 class Puerta : public Mueble
 {
-	const unsigned int maxGrupo = 6;
+	const unsigned int MAX_TAM = 3;
 
 	const double SPAWN_DELAY = 8000;
 	double time;

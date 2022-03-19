@@ -1,25 +1,23 @@
 #include "GrupoClientes.h"
+
 #include "../Control/Game.h"
 #include "../Control/ObjectManager.h"
 
+#include "../GameObjects/Cola.h"
+
 GrupoClientes::GrupoClientes(Game* game) : PoolObject(game) 
 {
-	setDimension(60, 60);
+	setDimension(DIMENSION, DIMENSION);
 
-	setTexture("alcachofa");
+	setTexture("berenjena");
 }
 
-float GrupoClientes::Puntuacion()
-{
-	return 0.0f;
-}
-
-
-void GrupoClientes::setGrupo(list<GrupoClientes*>::const_iterator pos, vector<Cliente*> clientes_)
+void GrupoClientes::initGrupo(Cola* cola_, vector<Cliente*> clientes_)
 {
 	tolerancia = 100;
 
-	posCola = pos;
+	posCola = cola_->getPos();
+	cola = cola_;
 	clientes = clientes_;
 
 	setState(CAMINANDO);
@@ -37,7 +35,7 @@ void GrupoClientes::update()
 		SDL_Rect rect = { clientes[0]->getX() + clientes[0]->getWidth() / 2, clientes[0]->getY() - clientes[0]->getHeight() / 2,
 			clientes[0]->getWidth() / 2, clientes[0]->getWidth() };
 
-		for (auto i : game->getObjectManager()->getGrupoClientes(rect)) {
+		for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getCollisions(rect)) {
 			setState(ENCOLA);
 		}
 	}
@@ -45,6 +43,15 @@ void GrupoClientes::update()
 	else if (estado_ == ENCOLA) {
 		bajaTolerancia();
 	}
+}
+
+void GrupoClientes::render(SDL_Rect* cameraRect)
+{
+	for (auto i : clientes)
+		i->render(cameraRect);
+
+	if (isPicked())
+		drawRender(cameraRect);
 }
 
 bool GrupoClientes::collide(SDL_Rect rect)
@@ -58,6 +65,97 @@ bool GrupoClientes::collide(SDL_Rect rect)
 	return false;
 }
 
+bool GrupoClientes::colisionClientes()
+{
+	if (estado_ == CAMINANDO) 
+		setState(ENCOLA);
+	return true;
+}
+
+bool GrupoClientes::ratonEncima()
+{
+	SDL_Rect rect = { mitadGrupo() - DIMENSION / 2, clientes[0]->getY() - clientes[0]->getHeight() * 1.25, DIMENSION, DIMENSION };
+
+	Texture *t = &sdlutils().images().at(texturaTolerancia);
+
+	t->render(rect);
+
+	cout << tolerancia << endl;
+
+	return true;
+}
+
+void GrupoClientes::bajaTolerancia()
+{
+	if (tolerancia > 0 && SDL_GetTicks() - lastTime >= DIMIN_TIME) {
+		tolerancia -= DIMIN_TOLERANCIA;
+
+		if (tolerancia < 0) tolerancia = 0;
+
+		lastTime = SDL_GetTicks();
+	}
+}
+
+void GrupoClientes::setState(estado est)
+{
+	estado_ = est;
+	lastTime = SDL_GetTicks();
+}
+
+estado GrupoClientes::getState()
+{
+	return estado_;
+}
+
+int GrupoClientes::numIntegrantes()
+{
+	return clientes.size();
+}
+
+vector<Cliente*> GrupoClientes::getIntegrantes()
+{
+	return clientes;
+}
+
+
+
+void GrupoClientes::onObjectDropped()
+{
+	switch (estado_)
+	{
+	case CAMINANDO:
+		break;
+	case ENCOLA:
+		estado_ = SENTADO;
+		cola->remove(posCola, clientes.size());
+		break;
+	case SENTADO:
+		break;
+	default:
+		break;
+	}
+}
+
+void GrupoClientes::onObjectPicked()
+{
+	switch (estado_)
+	{
+	case CAMINANDO:
+		break;
+	case ENCOLA:
+		break;
+	case SENTADO:
+		break;
+	default:
+		break;
+	}
+}
+
+bool GrupoClientes::canPick()
+{
+	return estado_ == ENCOLA;
+}
+
 float GrupoClientes::mitadGrupo()
 {
 	float mitad = 0.0f;
@@ -69,66 +167,4 @@ float GrupoClientes::mitadGrupo()
 	return mitad / clientes.size();
 }
 
-bool GrupoClientes::ratonEncima()
-{
-	SDL_Rect rect = { mitadGrupo() - dimension / 2, clientes[0]->getY() - clientes[0]->getHeight() * 1.25, dimension, dimension };
-
-	Texture *t = &sdlutils().images().at(texturaTolerancia);
-
-	t->render(rect);
-
-	cout << tolerancia << endl;
-
-	return true;
-}
-
-bool GrupoClientes::colisionClientes()
-{
-	if (estado_ == CAMINANDO) setState(ENCOLA);
-	return true;
-}
-
-void GrupoClientes::bajaTolerancia()
-{
-
-	if (tolerancia > 0 && SDL_GetTicks() - mLastTime >= TIME_BAJADA) {
-
-		tolerancia -= BAJADA;
-
-		if (tolerancia < 0) tolerancia = 0;
-
-		mLastTime = SDL_GetTicks();
-	}
-}
-
-void GrupoClientes::setState(estado est)
-{
-	estado_ = est;
-	mLastTime = SDL_GetTicks();
-}
-
-estado GrupoClientes::getState()
-{
-	return estado_;
-}
-
-void GrupoClientes::render(SDL_Rect* cameraRect)
-{
-	for (auto i : clientes)
-		i->render(cameraRect);
-
-	if (estado_ == COGIDO) {
-		SDL_Rect c = getCollider();
-		SDL_Rect textureBox;
-
-		if (cameraRect != nullptr) {
-			textureBox = { c.x - cameraRect->x, c.y - cameraRect->y, c.w, c.h };
-		}
-		else {
-			textureBox = { c.x, c.y, c.w, c.h };
-		}
-
-		texture->render(textureBox);
-	}
-}
 

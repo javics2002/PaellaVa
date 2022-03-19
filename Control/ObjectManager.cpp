@@ -50,10 +50,10 @@ void ObjectManager::render(SDL_Rect* rect)
 void ObjectManager::debug(SDL_Rect* rect)
 {
 	for (auto i : muebles)
-		i->drawDebug(rect);
+		i->renderDebug(rect);
 
 	for (auto j : paellas)
-		j->drawDebug(rect);
+		j->renderDebug(rect);
 
 	ingredientes->debug(rect);
 
@@ -102,18 +102,31 @@ void ObjectManager::addPaella(GameObject* paella)
 
 }
 
-vector<Collider*> ObjectManager::getClientes(SDL_Rect gOC)
+vector<Collider*> ObjectManager::getMueblesCollider()
 {
-	return clientes->getCollisions(gOC);
+	vector<Collider*> c;
+
+	for (auto i : muebles)
+		c.push_back(i);
+
+	return c;
 }
 
-vector<Collider*> ObjectManager::getIngredientes(SDL_Rect gOC)
+vector<Collider*> ObjectManager::getMueblesCollider(SDL_Rect collider)
 {
-	return ingredientes->getCollisions(gOC);
+	vector<Collider*> c;
+
+	for (auto i : muebles) {
+		if (i->collide(collider))
+			c.push_back(i);
+	}
+
+	return c;
 }
 
-vector<Collider*> ObjectManager::getGrupoClientes(SDL_Rect gOC)
+void ObjectManager::initMuebles()
 {
-	return grupoClientes->getCollisions(gOC);
+	for (auto i : muebles)
+		i->init();
 }
 

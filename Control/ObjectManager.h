@@ -36,10 +36,6 @@ public:
 	void render(SDL_Rect* rect);
 	void debug(SDL_Rect* rect);
 
-	vector<Collider*> getGrupoClientes(SDL_Rect gOC);
-	vector<Collider*> getClientes(SDL_Rect gOC);
-	vector<Collider*> getIngredientes(SDL_Rect gOC);
-
 	void addMueble(GameObject* mueble);
 	void addPaella(GameObject* paella);
 	void addComanda(GameObject* comanda);
@@ -48,6 +44,12 @@ public:
 	Pool<Cliente>* getPoolClientes() { return clientes; };
 	Pool<GrupoClientes>* getPoolGrupoClientes() { return grupoClientes; };
 	Pool<Ingrediente>* getPoolIngredientes() { return ingredientes; };
+
 	vector<GameObject*> getPaellas() { return paellas; };
+
+
+	void initMuebles();
+	vector<Collider*> getMueblesCollider();
+	vector<Collider*> getMueblesCollider(SDL_Rect collider);
 };
 
