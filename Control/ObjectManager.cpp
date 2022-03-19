@@ -33,8 +33,8 @@ void ObjectManager::render(SDL_Rect* rect)
 	for (auto m : muebles)
 		m->render(rect);
 
-	for (auto j : paellas)
-		j->render(rect);
+	for (auto i : paellas)
+		i->render(rect);
 
 	/*for (auto c : comandas)
 		c->render(rect);
@@ -52,8 +52,8 @@ void ObjectManager::debug(SDL_Rect* rect)
 	for (auto i : muebles)
 		i->renderDebug(rect);
 
-	for (auto j : paellas)
-		j->renderDebug(rect);
+	for (auto i : paellas)
+		i->renderDebug(rect);
 
 	ingredientes->debug(rect);
 
@@ -69,8 +69,8 @@ void ObjectManager::update()
 	for (auto i : muebles)
 		i->update();
 
-	for (auto j : paellas)
-		j->update();
+	for (auto i : paellas)
+		i->update();
 
 	ingredientes->update();	
 
@@ -99,7 +99,6 @@ void ObjectManager::addComanda(GameObject* comanda)
 void ObjectManager::addPaella(GameObject* paella)
 {
 	paellas.push_back(paella);
-
 }
 
 vector<Collider*> ObjectManager::getMueblesCollider()
@@ -117,6 +116,18 @@ vector<Collider*> ObjectManager::getMueblesCollider(SDL_Rect collider)
 	vector<Collider*> c;
 
 	for (auto i : muebles) {
+		if (i->collide(collider))
+			c.push_back(i);
+	}
+
+	return c;
+}
+
+vector<Collider*> ObjectManager::getPaellasCollider(SDL_Rect collider)
+{
+	vector<Collider*> c;
+
+	for (auto i : paellas) {
 		if (i->collide(collider))
 			c.push_back(i);
 	}

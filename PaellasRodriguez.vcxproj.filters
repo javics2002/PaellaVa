@@ -47,11 +47,14 @@
     <ClCompile Include="GameObjects\UI\StartButton.cpp" />
     <ClCompile Include="GameObjects\UI\OpcionesButton.cpp" />
     <ClCompile Include="GameObjects\UI\ExitButton.cpp" />
-    <ClCompile Include="GameObjects\UI\CustomizationButton.cpp" />
-    <ClCompile Include="GameObjects\UI\aceptaPaellaButton.cpp" />
+    <ClCompile Include="GameObjects\UI\AceptaPaellaButton.cpp" />
     <ClCompile Include="GameObjects\UI\BorrarButton.cpp" />
     <ClCompile Include="GameObjects\UI\DescartaCommandaButton.cpp" />
     <ClCompile Include="GameObjects\UI\EnviaComandaButton (1).cpp" />
+    <ClCompile Include="GameObjects\UI\Numerobutton.cpp" />
+    <ClCompile Include="GameObjects\UI\Tamanobutton.cpp" />
+    <ClCompile Include="Scenes\GameOver.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Ventanilla.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
@@ -125,11 +128,14 @@
     <ClInclude Include="GameObjects\UI\StartButton.h" />
     <ClInclude Include="GameObjects\UI\OpcionesButton.h" />
     <ClInclude Include="GameObjects\UI\ExitButton.h" />
-    <ClInclude Include="GameObjects\UI\CustomizationButton.h" />
-    <ClInclude Include="GameObjects\UI\aceptaPaellaButton.h" />
+    <ClInclude Include="GameObjects\UI\AceptaPaellaButton.h" />
     <ClInclude Include="GameObjects\UI\BorrarButton.h" />
     <ClInclude Include="GameObjects\UI\DescartaCommandaButton.h" />
     <ClInclude Include="GameObjects\UI\EnviaComandaButton.h" />
+    <ClInclude Include="GameObjects\UI\Numerobutton.h" />
+    <ClInclude Include="GameObjects\UI\Tamanobutton.h" />
+    <ClInclude Include="Scenes\GameOver.h" />
+    <ClInclude Include="GameObjects\Muebles\Ventanilla.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />

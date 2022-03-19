@@ -3,15 +3,13 @@
 #include "Ingrediente.h"
 #include <map>
 
-Paella::Paella(Game* game, Tamaño tamaño_): ObjetoPortable(game) , tamaño(tamaño_)
+Paella::Paella(Game* game, Volumen volumen_): ObjetoPortable(game), volumen(volumen_)
 {
 
 	setPosition(sdlutils().width() / 2, 100);
 	setDimension(100, 100);
 
-	setTexture("barraTolerancia");
-
-	switch (tamaño)
+	switch (volumen)
 	{
 	case Mediana:
 		sumaIntervalo = 5000;
@@ -22,6 +20,8 @@ Paella::Paella(Game* game, Tamaño tamaño_): ObjetoPortable(game) , tamaño(tamaño
 	default:
 		break;
 	}
+
+	setTexture("barraTolerancia");
 
 	ingrEnPaella = vector<bool>(tipoIngrediente::LAST, false);
 }
@@ -85,6 +85,21 @@ void Paella::update()
 void Paella::setLavado(Contenido contenidoPaella)
 {
 	contenido = contenidoPaella;
+}
+
+void Paella::onObjectPicked()
+{
+
+}
+
+void Paella::onObjectDropped()
+{
+
+}
+
+bool Paella::canPick()
+{
+	return true;
 }
 
 Estado Paella::getState()

@@ -9,6 +9,8 @@ class Paella;
 class Ingrediente;
 class Game;
 class Ingredientebutton;
+class Numerobutton;
+class Tamanobutton;
 class UIManager;
 using namespace std;
 using uint = uint32_t;
@@ -34,6 +36,9 @@ public:
 
     void guardaTeclado();
     void guardaBoton(UiButton* b);
+    void guardaTecladonum(vector <Numerobutton*> n);
+    void guardaTecladotam(vector <Tamanobutton*> t);
+
 
     void renderizaPaellas();
     void desplazacomandas(int d);
@@ -76,6 +81,8 @@ private:
      //vector<Paella> paellas;//datos de la paella recogida en la comanda con la que se calcula la puntuacion
     vector<UiButton*> Pedido;//lo que mostramos en la ui  de lo que vas añadiendo a la comanda
     vector<Ingredientebutton*> teclado;
+    vector <Numerobutton*> tecladonum;
+    vector <Tamanobutton*> tecladotam;
     vector<UiButton*> botones;
     vector<Point2D<double>> postecladoini;
     vector<vector <UiButton* >> paellas; // esto es lo que se envia a la lista de comandas y vamos haciendo paellas[i,j.pushback(]pedido[i])

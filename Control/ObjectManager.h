@@ -37,7 +37,7 @@ public:
 	void debug(SDL_Rect* rect);
 
 	void addMueble(GameObject* mueble);
-	void addPaella(GameObject* paella);
+	void addPaella(GameObject *paella);
 	void addComanda(GameObject* comanda);
 	void addInterfaz(GameObject* interfaz);
 
@@ -51,5 +51,6 @@ public:
 	void initMuebles();
 	vector<Collider*> getMueblesCollider();
 	vector<Collider*> getMueblesCollider(SDL_Rect collider);
+	vector<Collider*> getPaellasCollider(SDL_Rect collider);
 };
 

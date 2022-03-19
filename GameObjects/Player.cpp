@@ -77,21 +77,21 @@ void Player::handleInput()
 		//Si el jugador no lleva nada encima
 		if (pickedObject_ == nullptr) {
 
-			//Se prioriza la interacción con los muebles por encima de otros objetos
-			//Se prioriza el mueble más cercano al jugador
+			//Se prioriza la interacciï¿½n con los muebles por encima de otros objetos
+			//Se prioriza el mueble mï¿½s cercano al jugador
 			Mueble* m = nullptr;
 			for (auto i : game->getObjectManager()->getMueblesCollider(getOverlapCollider())) {
 				m = nearestObject(m, dynamic_cast<Mueble*>(i));
 			}
-
+			
 			//Si se ha encontrado un mueble, se intenta interactuar con 
 			//este con returnObject(), para que te devuelva el objeto
-			if (m != nullptr && m->returnObject(this)) {;
+			if (m != nullptr && m->returnObject(this)) {
 				pickedObject_->pickObject();
 			}
 
 			//En caso contrario se recorre el resto de objetos del juego para ver si el jugador puede cogerlos
-			//Una vez más se prioriza el objeto más cercano
+			//Una vez mï¿½s se prioriza el objeto mï¿½s cercano
 			else
 			{
 				//Ingredientes
@@ -108,7 +108,13 @@ void Player::handleInput()
 						objectType_ = CLIENTES;
 				}
 
-				//Una vez encontrado el más cercano, se interactúa con él
+				for (auto i : game->getObjectManager()->getPaellasCollider(getOverlapCollider())) {
+				ObjetoPortable* op = dynamic_cast<ObjetoPortable*>(i);
+				if (op->canPick() && nearestObject(op))
+					objectType_ = PAELLA;
+			}
+
+				//Una vez encontrado el mï¿½s cercano, se interactï¿½a con ï¿½l
 				if (pickedObject_ != nullptr) {
 					pickedObject_->pickObject();
 				}
@@ -117,13 +123,13 @@ void Player::handleInput()
 		//Si el jugador lleva algo encima
 		else {
 
-			//Se busca el mueble más cercano de nuevo
+			//Se busca el mueble mï¿½s cercano de nuevo
 			Mueble* m = nullptr;
 			for (auto i : game->getObjectManager()->getMueblesCollider(getOverlapCollider())) {
 				m = nearestObject(m, dynamic_cast<Mueble*>(i));
 			}
 
-			//Dependiendo de lo que lleve el jugador encima, la interacción con el mueble será distinta
+			//Dependiendo de lo que lleve el jugador encima, la interacciï¿½n con el mueble serï¿½ distinta
 			switch (objectType_)
 			{
 			case INGREDIENTE:
@@ -147,8 +153,11 @@ void Player::handleInput()
 				}			
 				break;
 			case PAELLA:
-				if (m != nullptr && m->recievePaella(dynamic_cast<Paella*>(pickedObject_))) {
 
+				if (m != nullptr && m->recievePaella(dynamic_cast<Paella*>(pickedObject_))) {
+					pickedObject_->setPicked(false);
+					pickedObject_ = nullptr;
+					return;
 				}
 				break;
 			default:

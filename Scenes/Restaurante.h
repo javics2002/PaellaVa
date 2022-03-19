@@ -1,6 +1,5 @@
 #pragma once
 #include "../Scenes/Scene.h"
-#include "SDL.h"
 
 #include "./tmxlite/Map.hpp"
 #include "./tmxlite/Layer.hpp"
@@ -18,7 +17,6 @@ using uint = unsigned int;
 
 class Player;
 class Mueble;
-class Game;
 
 struct MapInfo {
 	Map* tilemap;
@@ -51,10 +49,8 @@ class Restaurante : public Scene
 
 
 	MapInfo mapInfo;
-	Fondo* fondo;
 
 	Vector2D<int> tamRestaurante = Vector2D<int>(0, 1216);
-
 
 public:
 	Restaurante(Game* game);
@@ -64,7 +60,6 @@ public:
 	void update() override;
 	void render() override;
 	void debug() override;
-
 
 	void loadMap(string const& path);
 };
