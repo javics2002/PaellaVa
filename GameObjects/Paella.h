@@ -16,11 +16,11 @@ class Paella : public ObjetoPortable
 
 public:
 	
-	enum Tamaño { Minima, Mediana, Grande };
+	enum Volumen { Minima, Mediana, Grande };
 
-	Tamaño tamaño;
+	Volumen volumen;
 
-	Paella(Game* game, Tamaño tamaño_);
+	Paella(Game* game, Volumen volumen_);
 	~Paella() {};
 
 	void añadeIngr(Ingrediente ingr_);
@@ -28,6 +28,12 @@ public:
 	void paellaRecogida();
 	void update() override;
 	void setLavado(Contenido contenidoPaella);
+
+	void onObjectPicked() override;
+	void onObjectDropped() override;
+
+	bool canPick() override;
+
 	Estado getState();
 
 

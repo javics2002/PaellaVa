@@ -84,6 +84,11 @@ void Player::handleInput()
 					objectType_ = CLIENTES;
 			}
 
+			for (auto i : game->getObjectManager()->getPaellasCollider(getOverlapCollider())) {
+				ObjetoPortable* op = dynamic_cast<ObjetoPortable*>(i);
+				if (op->canPick() && nearestObject(op))
+					objectType_ = PAELLA;
+			}
 
 			if (pickedObject_ != nullptr) {
 				pickedObject_->pickObject();
@@ -117,8 +122,10 @@ void Player::handleInput()
 				}
 				break;
 			case PAELLA:
-				for (auto i : game->getObjectManager()->getMueblesCollider(getOverlapCollider())) {
-
+				for (auto i : game->getObjectManager()->getPaellas()) {
+					pickedObject_->setPicked(false);
+					pickedObject_ = nullptr;
+					return;
 				}
 				break;
 			default:
