@@ -52,6 +52,8 @@
     <ClCompile Include="GameObjects\UI\BorrarButton.cpp" />
     <ClCompile Include="GameObjects\UI\DescartaCommandaButton.cpp" />
     <ClCompile Include="GameObjects\UI\EnviaComandaButton (1).cpp" />
+    <ClCompile Include="GameObjects\UI\Numerobutton.cpp" />
+    <ClCompile Include="GameObjects\UI\Tamanobutton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
@@ -130,6 +132,8 @@
     <ClInclude Include="GameObjects\UI\BorrarButton.h" />
     <ClInclude Include="GameObjects\UI\DescartaCommandaButton.h" />
     <ClInclude Include="GameObjects\UI\EnviaComandaButton.h" />
+    <ClInclude Include="GameObjects\UI\Numerobutton.h" />
+    <ClInclude Include="GameObjects\UI\Tamanobutton.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />
