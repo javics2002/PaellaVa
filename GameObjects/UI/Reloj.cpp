@@ -25,7 +25,6 @@ bool Reloj::finDia()
 void Reloj::update()
 {
 
-	cout << "hfhdhtfyuy" << endl;
 	if (finDia())
 	{
 		//TODO: Evento de fin del día
@@ -37,11 +36,11 @@ void Reloj::update()
 		//1 minuto en Ticks = 1 hora en el juego
 		currentTime.hours = (SDL_GetTicks() - tInit) / MIN_TICKS;
 		currentTime.minutes = (SDL_GetTicks() - tInit) % MIN_TICKS;
-		cout << "no va nada" << endl;
+		cout << "se updetea" << endl;
 
 		//TODO: Representar cuantas horas han pasado
 		//renderTimeText();
-		string timeText = currentTime.hours + ":" + currentTime.minutes;
+		string timeText = to_string(currentTime.hours) + ":" + to_string(currentTime.minutes);
 
 		setTexture(timeText, string("paella"), fgColor, bgColor);
 
