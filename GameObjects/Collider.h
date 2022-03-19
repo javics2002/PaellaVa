@@ -27,6 +27,7 @@ public:
     virtual Silla* initMesa() {
         return nullptr;
     }
+
     virtual bool recieveIngrediente(Ingrediente* in) { return false; };
     virtual bool recieveGrupoClientes(GrupoClientes* gc) { return false; };
     virtual bool recievePaella(Paella* pa) { return false; };

@@ -171,4 +171,14 @@ float GrupoClientes::mitadGrupo()
 	return mitad / clientes.size();
 }
 
+void GrupoClientes::onDesactivate()
+{
+	auto list = game->getObjectManager()->getPoolClientes();
+
+	for (auto i : clientes) {
+		i->desactivate();
+		list->remove(i->getIterator());
+	}	
+}
+
 

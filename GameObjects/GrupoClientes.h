@@ -59,6 +59,10 @@ public:
 	void onObjectDropped() override;
 
 	bool canPick() override;
+
+	void onDesactivate() override;
+
+
 };
 
 
