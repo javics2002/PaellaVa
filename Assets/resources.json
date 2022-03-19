@@ -190,6 +190,10 @@
             "file": "../../../Assets/Images/settings.png"
         },
         {
+          "id": "menufondo",
+          "file": "../../../Assets/Images/menufondo.png"
+      },
+        {
             "id": "cartel",
             "file": "../../../Assets/Images/mesa.png"
         },
