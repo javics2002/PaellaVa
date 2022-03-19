@@ -353,6 +353,13 @@ vector<vector<UiButton*>> Comanda::copyPaellas()
     }
     return paellascopiadas;
 }
+void Comanda::setSitio(int s)
+{
+}
+int Comanda::getSitio()
+{
+    return 0;
+}
 void Comanda::toggleactive()
 {
     setActive(!isActive());
