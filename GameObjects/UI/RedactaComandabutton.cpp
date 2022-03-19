@@ -5,9 +5,7 @@
 
 RedactaComandabutton::RedactaComandabutton(Game* game, string claveTextura, int x, int y, int w, int h) : UiButton(game, claveTextura, x, y, w, h)
 {
-	gamet = game;
-
-	//uim = game->getUIManager();
+	this->game = game;
 }
 
 RedactaComandabutton::~RedactaComandabutton()
@@ -16,15 +14,14 @@ RedactaComandabutton::~RedactaComandabutton()
 
 void RedactaComandabutton::execute()
 {
-	uim = gamet->getUIManager();
+	uim = game->getUIManager();
 	if (uim->getComanda() == nullptr)
 	{
-		uim->creaComanda(gamet);
+		uim->creaComanda(game);
 	}
 	else
 	{
 		uim->getComanda()->toggleactive();
 	}
-
 }
 

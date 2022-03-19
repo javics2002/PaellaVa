@@ -146,9 +146,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Control\Camera.h" />
-    <ClInclude Include="GameObjects\UI\aceptaPaellaButton.h" />
+    <ClInclude Include="GameObjects\UI\AceptaPaellaButton.h" />
     <ClInclude Include="GameObjects\UI\BorrarButton.h" />
-    <ClInclude Include="GameObjects\UI\CustomizationButton.h" />
     <ClInclude Include="GameObjects\UI\DescartaCommandaButton.h" />
     <ClInclude Include="GameObjects\UI\EnviaComandaButton.h" />
     <ClInclude Include="GameObjects\UI\ExitButton.h" />
@@ -186,6 +185,7 @@
     <ClInclude Include="GameObjects\UI\Tamanobutton.h" />
     <ClInclude Include="GameObjects\UI\UiButton.h" />
     <ClInclude Include="GameObjects\UI\UIManager.h" />
+    <ClInclude Include="Scenes\GameOver.h" />
     <ClInclude Include="json\JSON.h" />
     <ClInclude Include="json\JSONValue.h" />
     <ClInclude Include="GameObjects\UI\OpcionesButton.h" />
@@ -223,13 +223,13 @@
     <ClInclude Include="Utils\Singleton.h" />
     <ClInclude Include="Utils\Texture.h" />
     <ClInclude Include="Utils\Vector2D.h" />
+    <ClInclude Include="GameObjects\Muebles\Ventanilla.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Control\Camera.cpp" />
     <ClCompile Include="Control\Input.cpp" />
-    <ClCompile Include="GameObjects\UI\aceptaPaellaButton.cpp" />
+    <ClCompile Include="GameObjects\UI\AceptaPaellaButton.cpp" />
     <ClCompile Include="GameObjects\UI\BorrarButton.cpp" />
-    <ClCompile Include="GameObjects\UI\CustomizationButton.cpp" />
     <ClCompile Include="Data\Comanda.cpp" />
     <ClCompile Include="GameObjects\UI\DescartaCommandaButton.cpp" />
     <ClCompile Include="GameObjects\UI\EnviaComandaButton (1).cpp" />
@@ -268,6 +268,7 @@
     <ClCompile Include="GameObjects\UI\Tamanobutton.cpp" />
     <ClCompile Include="GameObjects\UI\UiButton.cpp" />
     <ClCompile Include="GameObjects\UI\UIManager.cpp" />
+    <ClCompile Include="Scenes\GameOver.cpp" />
     <ClCompile Include="json\JSON.cpp" />
     <ClCompile Include="json\JSONValue.cpp" />
     <ClCompile Include="GameObjects\UI\OpcionesButton.cpp" />
@@ -278,6 +279,7 @@
     <ClCompile Include="sdlutils\SDLUtils.cpp" />
     <ClCompile Include="sdlutils\SoundEffect.cpp" />
     <ClCompile Include="Utils\Texture.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Ventanilla.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />

@@ -5,7 +5,6 @@
 #include "../GameObjects/UI/StartButton.h"
 #include "../GameObjects/UI/OpcionesButton.h"
 #include "../GameObjects/UI/ExitButton.h"
-#include "../GameObjects/UI/CustomizationButton.h"
 
 #include <iostream>
 
@@ -15,35 +14,13 @@ Menu::Menu(Game* game) : Scene(game)
 {
 	this->game = game;
 
-	objectManager = new ObjectManager(game);
-	uiManager = new UIManager(game);
+	fondo->setTexture("menufondo");
+	fondo->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
+	fondo->setDimension(sdlutils().width(), sdlutils().height()+100);
 
-
-
-	// camara init
-	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
-
-	getUIManager()->addInterfaz(new StartButton(game, "start", 640, 360, 100, 100));
-	getUIManager()->addInterfaz(new OpcionesButton(game, "settings", 640, 460, 100, 100));
-	getUIManager()->addInterfaz(new ExitButton(game, "exit", 640, 560, 100, 100));
-	getUIManager()->addInterfaz(new CustomizationButton(game, "customization", 640, 660, 100, 100));
-
-
-}
-
-Menu::~Menu()
-{
-	delete  objectManager;
-	delete uiManager;
-}
-
-void Menu::render()
-{
-	objectManager->debug(camara->renderRect());
-	uiManager->render(nullptr);
-}
-
-void Menu::debug()
-{
-	objectManager->debug(camara->renderRect());
+	int posIni = 260;
+	int aumento = 150;
+	getUIManager()->addInterfaz(new StartButton(game, "start", 640, posIni, 170, 100));
+	getUIManager()->addInterfaz(new OpcionesButton(game, "settings", 640, posIni+aumento, 170, 100));
+	getUIManager()->addInterfaz(new ExitButton(game, "exit", 640, posIni+aumento*2, 170, 100));
 }

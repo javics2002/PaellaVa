@@ -6,9 +6,6 @@
 
 ExitButton::ExitButton(Game* game, string claveTextura, int x, int y, int w, int h) : UiButton(game, claveTextura, x, y, w, h)
 {
-    gamet = game;
-
-
 }
 
 ExitButton::~ExitButton()
@@ -17,6 +14,6 @@ ExitButton::~ExitButton()
 
 void ExitButton::execute()
 {
-    uim = gamet->getUIManager();
+    uim = game->getUIManager();
     //exit game
 }

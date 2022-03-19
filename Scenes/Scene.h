@@ -8,6 +8,7 @@
 #include "../sdlutils/SDLUtils.h"
 #include "../Control/Game.h"
 #include "../Control/Camera.h"
+#include "SDL.h"
 
 class Scene {
 
@@ -31,5 +32,4 @@ public:
 
 	ObjectManager* getObjectManager();
 	UIManager* getUIManager();
-
 };

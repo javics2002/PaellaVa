@@ -17,11 +17,11 @@ class UIManager
 	vector<GameObject*> interfaz;//el resto de iconos 
 	vector<Comanda*> comandas;//comandas de la lista de comandas
 	vector<	UiButton*> teclado;//iconos que se usan en la comanda qeu esta redactando
-	//vector <GameObject*> pedido;//pedido que se está redactando lo lleva la comanda
+	//vector <GameObject*> pedido;//pedido que se estï¿½ redactando lo lleva la comanda
 	int mx;
 	int my;
 	int anchobotones = 25;
-	Game* gamet;
+	Game* game;
 	Comanda* actual;
 	ListaComandas* barra;
 public:
