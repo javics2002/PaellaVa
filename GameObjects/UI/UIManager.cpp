@@ -90,8 +90,11 @@ void UIManager::update()
 
 void UIManager::render(SDL_Rect* rect=nullptr)
 {
-	barra->render(rect);
-	barra->renderComandas();
+	if (barra != nullptr) {
+		barra->render(rect);
+		barra->renderComandas();
+	}
+	
 	for (auto i : interfaz)
 	{
 		if (i->isActive())
