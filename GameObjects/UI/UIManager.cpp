@@ -3,6 +3,8 @@
 #include "../../GameObjects/UI/RedactaComandabutton.h"
 #include "../../sdlutils/InputHandler.h"
 #include "../UI/Ingredientebutton.h"
+#include "../UI/Numerobutton.h"
+#include "../UI/Tamanobutton.h"
 #include "DescartaCommandaButton.h"
 #include "EnviaComandaButton.h"
 #include "BorrarButton.h"
@@ -42,7 +44,7 @@ void UIManager::uiEvent(int mx, int my)
 	}
 	for (auto j : teclado)
 	{
-		if (actual->isActive())
+		if (j->isActive())
 		{
 			if (j->OnClick(mx, my))
 			{
@@ -115,8 +117,8 @@ void UIManager::render(SDL_Rect* rect = nullptr)
 	}
 	for (auto i : teclado)
 	{
-		if (actual->isActive())
-			i->render(rect);
+		if(i->isActive())
+		i->render(rect);
 	}
 
 }
@@ -185,6 +187,32 @@ void UIManager::creaTeclado()
 		//  objectmanager->creaTeclado(a);
 
 		j++;
+		
+	}
+	j = 0;
+	for (auto i :texturasNumeros)
+	{
+	
+		vector <Numerobutton*> tecladonum;
+	
+		//Comanda comanda,Game* game, TextureName texturename, int x, int y, int w, int h
+		Numerobutton* a = new Numerobutton(this, game, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), anchobotones, anchobotones);
+		teclado.push_back(a);
+		//  objectmanager->creaTeclado(a);
+
+		j++;
+	}
+	j = 0;
+	for (auto i : texturasTamanos)
+	{
+	
+	/*	vector <Tamanobutton*> tecladotam;
+		//Comanda comanda,Game* game, TextureName texturename, int x, int y, int w, int h
+		Tamanobutton* a = new Tamanobutton(this, gamet, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), anchobotones, anchobotones);
+		teclado.push_back(a);
+		//  objectmanager->creaTeclado(a);
+
+		j++;*/
 	}
 }
 

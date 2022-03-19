@@ -51,6 +51,8 @@
     <ClCompile Include="GameObjects\UI\BorrarButton.cpp" />
     <ClCompile Include="GameObjects\UI\DescartaCommandaButton.cpp" />
     <ClCompile Include="GameObjects\UI\EnviaComandaButton (1).cpp" />
+    <ClCompile Include="GameObjects\UI\Numerobutton.cpp" />
+    <ClCompile Include="GameObjects\UI\Tamanobutton.cpp" />
     <ClCompile Include="Scenes\GameOver.cpp" />
     <ClCompile Include="GameObjects\Muebles\Ventanilla.cpp" />
     <ClCompile Include="GameObjects\UI\Text.cpp" />
@@ -133,6 +135,8 @@
     <ClInclude Include="GameObjects\UI\BorrarButton.h" />
     <ClInclude Include="GameObjects\UI\DescartaCommandaButton.h" />
     <ClInclude Include="GameObjects\UI\EnviaComandaButton.h" />
+    <ClInclude Include="GameObjects\UI\Numerobutton.h" />
+    <ClInclude Include="GameObjects\UI\Tamanobutton.h" />
     <ClInclude Include="Scenes\GameOver.h" />
     <ClInclude Include="GameObjects\Muebles\Ventanilla.h" />
     <ClInclude Include="GameObjects\UI\Text.h" />

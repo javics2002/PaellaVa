@@ -1,5 +1,8 @@
 #include "Comanda.h"
 #include "../GameObjects/UI/Ingredientebutton.h"
+#include "../GameObjects/UI/Numerobutton.h"
+#include "../GameObjects/UI/Tamanobutton.h"
+
 #include "../Control/Game.h"
 #include "../Control/ObjectManager.h"
 #include "../GameObjects/UI/UIManager.h"
@@ -185,6 +188,12 @@ void Comanda::guardaTeclado()
    // de momento voy a forzar una sangria aqui s tnego tiempo mirare una manera mejor xd
 
 }
+void Comanda::guardaTecladonum(vector<Numerobutton*> n)
+{
+}
+void Comanda::guardaTecladotam(vector<Tamanobutton*> t)
+{
+}
 void Comanda::guardaBoton(UiButton* b)
 {
     botones.push_back(b);
@@ -305,5 +314,5 @@ void Comanda::toggleactive()
     {
         b->setActive(!b->isActive());
     }
-    cancelaPedido();
+  //  cancelaPedido();
 }

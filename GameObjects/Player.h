@@ -7,6 +7,8 @@ class Ingrediente;
 class Cliente;
 class Paella;
 
+class Mueble;
+
 enum orientation { N, S, E, O };
 enum objectType { INGREDIENTE, CLIENTES, PAELLA};
 
@@ -26,6 +28,7 @@ class Player : public GameObject
 	Vector2D<int> overlapDim;
 
 	bool nearestObject(ObjetoPortable* go);
+	Mueble* nearestObject(Mueble* m1, Mueble* m2);
 
 public:
 	Player(Game* game);
@@ -37,5 +40,7 @@ public:
 	void renderDebug(SDL_Rect* cameraRect) override;
 
 	SDL_Rect getOverlapCollider();	
+
+	void setPickedObject(ObjetoPortable* op, objectType ot);
 };
 
