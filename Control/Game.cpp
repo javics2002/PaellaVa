@@ -28,7 +28,7 @@ void Game::init()
 	SDLUtils::instance()->showCursor();
 
 #ifdef _DEBUG
-	currentScene = new Menu(this);
+	currentScene = new Restaurante(this);
 	getObjectManager()->initMuebles();
 #else
 	currentScene = new Menu(this);
