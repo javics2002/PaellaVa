@@ -7,8 +7,4 @@ class Menu : public Scene
 {
 public:
 	Menu(Game* game);
-	~Menu();
-
-	void render() override;
-	void debug() override;
 };

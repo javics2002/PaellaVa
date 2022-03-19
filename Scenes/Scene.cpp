@@ -34,9 +34,9 @@ void Scene::update()
 
 void Scene::render()
 {
+	fondo->render(camara->renderRect());
 	objectManager->render(camara->renderRect());
 	uiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
-	fondo->render(camara->renderRect());
 }
 
 void Scene::debug()

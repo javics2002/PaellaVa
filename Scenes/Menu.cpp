@@ -25,22 +25,3 @@ Menu::Menu(Game* game) : Scene(game)
 	getUIManager()->addInterfaz(new OpcionesButton(game, "settings", 640, posIni+aumento, 170, 100));
 	getUIManager()->addInterfaz(new ExitButton(game, "exit", 640, posIni+aumento*2, 170, 100));
 }
-
-Menu::~Menu()
-{
-	delete objectManager;
-	delete uiManager;
-}
-
-void Menu::render()
-{
-	fondo->render(camara->renderRect());
-
-	objectManager->debug(camara->renderRect());
-	uiManager->render(nullptr);
-}
-
-void Menu::debug()
-{
-	objectManager->debug(camara->renderRect());
-}
