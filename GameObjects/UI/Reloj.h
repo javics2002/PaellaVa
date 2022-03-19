@@ -1,5 +1,7 @@
 #pragma once
 #include "../GameObject.h"
+#include "../UI/Text.h"
+
 class Reloj : public GameObject
 {
 
@@ -16,7 +18,13 @@ private:
 	struct time { int hours = 0; int minutes = 0; };
 	time currentTime;
 
+	//Text* hourText = new Text(game, string("hola"), string("paella"));
+
+	void renderTimeText();
 	int h = 50;
 	int w = 120;
+
+	const SDL_Color& fgColor = { 255, 255, 255, 255 };
+	const SDL_Color& bgColor = { 0, 0, 0, 0 };
 };
 
