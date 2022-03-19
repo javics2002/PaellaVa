@@ -28,6 +28,8 @@ protected:
     void drawDebug(SDL_Rect* cameraRect);
     void drawDebug(SDL_Rect* cameraRect, SDL_Rect rect);
 
+    bool hasCollision(SDL_Rect rect1, SDL_Rect rect2);
+
 public:
 
     GameObject(Game* game) 

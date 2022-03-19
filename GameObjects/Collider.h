@@ -5,6 +5,7 @@
 class PoolObject;
 
 class Silla;
+class Mesa;
 
 class Ingrediente;
 class GrupoClientes;
@@ -24,7 +25,7 @@ public:
     virtual bool ratonEncima() {
         return false;
     }
-    virtual Silla* initMesa() {
+    virtual Silla* initMesa(Mesa* mesa) {
         return nullptr;
     }
 

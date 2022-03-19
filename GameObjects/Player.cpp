@@ -136,7 +136,8 @@ void Player::handleInput()
 			{
 			case INGREDIENTE:
 				if (m != nullptr && m->recieveIngrediente(dynamic_cast<Ingrediente*>(pickedObject_))) {
-
+					pickedObject_->dropObject();
+					pickedObject_ = nullptr;
 				}
 				break;
 			case CLIENTES:
@@ -156,9 +157,8 @@ void Player::handleInput()
 				break;
 			case PAELLA:
 				if (m != nullptr && m->recievePaella(dynamic_cast<Paella*>(pickedObject_))) {
-					pickedObject_->setPicked(false);
+					pickedObject_->dropObject();
 					pickedObject_ = nullptr;
-					return;
 				}
 				break;
 			default:
@@ -264,5 +264,9 @@ void Player::setPickedObject(ObjetoPortable* op, objectType ot)
 {
 	pickedObject_ = op;
 	objectType_ = ot;
+}
+
+void Player::setV(float aceleration_) {
+	aceleracion = aceleration_;
 }
 

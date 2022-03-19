@@ -21,6 +21,10 @@ Game::~Game() {
 
 }
 
+void Game::procesandoIngr(float aceleration) {
+	
+}
+
 void Game::init()
 {
 	SDLUtils::init("Paellas", 1280, 720, "../../../Assets/resources.json");
@@ -29,6 +33,7 @@ void Game::init()
 
 #ifdef _DEBUG
 	currentScene = new Restaurante(this);
+	
 	getObjectManager()->initMuebles();
 #else
 	currentScene = new Menu(this);

@@ -23,7 +23,7 @@ void Mesa::init()
 		getWidth() + aum * 2, getHeight() + aum * 2 };
 
 	for (auto i : game->getObjectManager()->getMueblesCollider(c)) {
-		Silla* s = i->initMesa();
+		Silla* s = i->initMesa(this);
 		if (s != nullptr)
 			sillas.push_back(s);
 	}
@@ -35,8 +35,6 @@ void Mesa::init()
 
 bool Mesa::recieveGrupoClientes(GrupoClientes* gc)
 {
-	
-
 	if (mGrupo == nullptr) {
 		int n = gc->numIntegrantes();
 
@@ -70,6 +68,7 @@ bool Mesa::returnObject(Player* p)
 
 	return false;
 }
+
 
 
 

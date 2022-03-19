@@ -24,5 +24,6 @@ public:
 
 	bool recieveGrupoClientes(GrupoClientes* gc) override;
 	virtual bool returnObject(Player* p) override;
+
 };
 
