@@ -4,12 +4,8 @@
 //#include "Utils/Vector2D.h"
 class UiButton: public GameObject
 {
-private:
-	//int x;
-	//int y;
-	//int w;
-	//int h;
-	//Texture* textura;
+protected:
+	Game* game;
 	string textura;
 	
 public:

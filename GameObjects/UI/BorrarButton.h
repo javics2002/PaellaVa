@@ -4,8 +4,7 @@ class Game;
 class Comanda;
 class BorrarButton: public UiButton
 {
-	Game* gamet;
-	Comanda* comandat;
+	Comanda* comanda;
 
 public:
 	BorrarButton(Game* game, Comanda* c ,string texturename, int x, int y, int w, int h);

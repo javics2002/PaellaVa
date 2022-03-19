@@ -3,12 +3,13 @@
 #include "../Control/ObjectManager.h"
 #include "../Scenes/Scene.h"
 
-class Menu : public Scene
+class GameOver : public Scene
 {
 public:
-	Menu(Game* game);
-	~Menu();
+	GameOver(Game* game);
+	~GameOver();
 
 	void render() override;
 	void debug() override;
 };
+

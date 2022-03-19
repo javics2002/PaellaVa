@@ -16,14 +16,11 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 {
 	this->game = game;
 
-	objectManager = new ObjectManager(game);
-	uiManager = new UIManager(game);
 	host = new Player(game);
 
 	mapInfo.ruta = "..\\..\\..\\Assets\\Tilemap\\Restaurante.tmx";
 	loadMap(mapInfo.ruta);
 
-	fondo = new Fondo(game);
 	fondo->setTexture(mapInfo.ruta);
 	fondo->setPosition(mapInfo.anchoFondo / 2, sdlutils().height() / 2);
 	fondo->setDimension(mapInfo.anchoFondo, mapInfo.altoFondo);
@@ -263,6 +260,9 @@ void Restaurante::loadMap(string const& path) {
 				}
 				else if (name == "encimera") {
 					getObjectManager()->addMueble(new Encimera(game, position));
+				}
+				else if (name == "ventanilla") {
+					getObjectManager()->addMueble(new Ventanilla(game, position));
 				}
 			}
 		}

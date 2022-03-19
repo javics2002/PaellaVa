@@ -3,13 +3,11 @@
 Scene::Scene(Game* game) 
 {
 	this->game = game;
-	//camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
 
 	objectManager = new ObjectManager(game);
 	uiManager = new UIManager(game);
 	fondo = new Fondo(game);
 	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
-
 }
 
 Scene::~Scene()

@@ -4,8 +4,7 @@ class Game;
 class Comanda;
 class DescartaCommandaButton:public UiButton
 {
-	Game* gamet;
-	Comanda* comandat;
+	Comanda* comanda;
 public:
 	DescartaCommandaButton(Comanda* c,Game* game, string texturename, int x, int y, int w, int h);
 	~DescartaCommandaButton();

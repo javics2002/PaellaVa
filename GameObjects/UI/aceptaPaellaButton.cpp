@@ -1,19 +1,18 @@
 #include "aceptaPaellaButton.h"
 #include "../../Data/Comanda.h"
 
-aceptaPaellaButton::aceptaPaellaButton(Game* game, Comanda* c, string texturename, int x, int y, int w, int h) :UiButton(game, texturename, x, y, w, h)
+AceptaPaellaButton::AceptaPaellaButton(Game* game, Comanda* c, string texturename, int x, int y, int w, int h) :UiButton(game, texturename, x, y, w, h)
 {
-	gamet = game;
-	comandat = c;
+	comanda = c;
 }
 
-aceptaPaellaButton::~aceptaPaellaButton()
+AceptaPaellaButton::~AceptaPaellaButton()
 {
 
 }
-void aceptaPaellaButton::execute()
+void AceptaPaellaButton::execute()
 {
 	std::cout << "paella aceptada";
-	comandat->aceptaPaella();
+	comanda->aceptaPaella();
 	
 }

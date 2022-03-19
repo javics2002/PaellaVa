@@ -6,9 +6,7 @@
 
 OpcionesButton::OpcionesButton(Game* game, string claveTextura, int x, int y, int w, int h) : UiButton(game, claveTextura, x, y, w, h)
 {
-    gamet = game;
-
-
+    this->game = game;
 }
 
 OpcionesButton::~OpcionesButton()
@@ -17,6 +15,5 @@ OpcionesButton::~OpcionesButton()
 
 void OpcionesButton::execute()
 {
-    uim = gamet->getUIManager();
     //cambio de escena a opciones
 }

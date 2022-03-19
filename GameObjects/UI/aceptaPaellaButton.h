@@ -2,13 +2,13 @@
 #include "UiButton.h"
 class Comanda;
 class Game;
-class aceptaPaellaButton:public UiButton
+class AceptaPaellaButton:public UiButton
 {
-	Comanda* comandat;
-	Game* gamet;
+	Comanda* comanda;
+
 public:
-	aceptaPaellaButton(Game* game,Comanda* c, string texturename, int x, int y, int w, int h);
-	~aceptaPaellaButton();
+	AceptaPaellaButton(Game* game,Comanda* c, string texturename, int x, int y, int w, int h);
+	~AceptaPaellaButton();
 	void execute()override;
 };
 
