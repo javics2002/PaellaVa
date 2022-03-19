@@ -268,7 +268,11 @@
         {
             "id": "arroz",
             "file": "../../../Assets/Images/arroz.png"
-        }
+        },
+        {
+          "id": "reloj",
+          "file": "../../../Assets/Images/reloj.png"
+       }
     ],
 
   "tilesets": [
