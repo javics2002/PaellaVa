@@ -16,8 +16,6 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 {
 	this->game = game;
 
-	objectManager = new ObjectManager(game);
-	uiManager = new UIManager(game);
 	host = new Player(game);
 
 	mapInfo.ruta = "..\\..\\..\\Assets\\Tilemap\\Restaurante.tmx";

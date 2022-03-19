@@ -15,8 +15,6 @@ Menu::Menu(Game* game) : Scene(game)
 {
 	this->game = game;
 
-	objectManager = new ObjectManager(game);
-	uiManager = new UIManager(game);
 
 	fondo = new Fondo(game);
 	fondo->setTexture("menufondo");
@@ -33,23 +31,4 @@ Menu::Menu(Game* game) : Scene(game)
 	getUIManager()->addInterfaz(new ExitButton(game, "exit", 640, posIni+aumento*2, 170, 100));
 
 
-}
-
-Menu::~Menu()
-{
-	delete  objectManager;
-	delete uiManager;
-}
-
-void Menu::render()
-{
-	fondo->render(camara->renderRect());
-
-	objectManager->debug(camara->renderRect());
-	uiManager->render(nullptr);
-}
-
-void Menu::debug()
-{
-	objectManager->debug(camara->renderRect());
 }
