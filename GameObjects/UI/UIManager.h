@@ -10,7 +10,7 @@ class UIManager
 {
 	vector<string> texturasIngredienes = { "alcachofa",  "calamar", "cangrejo", "gamba",
 		   "langosta", "mejillon", "pimientoRojo", "pimientoVerde", "pollo" };
-	vector<Point2D<double> >posicionesBotones;
+	vector<Point2D<double>> posicionesBotones;
 	vector<GameObject*> interfaz;//el resto de iconos 
 	vector<Comanda*> comandas;//comandas de la lista de comandas
 	vector<	Ingredientebutton*> teclado;//iconos que se usan en la comanda qeu esta redactando
@@ -18,7 +18,7 @@ class UIManager
 	int mx;
 	int my;
 	int anchobotones = 25;
-	Game* gamet;
+	Game* game;
 	Comanda* actual;
 	ListaComandas* barra;
 public:

@@ -47,7 +47,7 @@
     <ClCompile Include="GameObjects\UI\StartButton.cpp" />
     <ClCompile Include="GameObjects\UI\OpcionesButton.cpp" />
     <ClCompile Include="GameObjects\UI\ExitButton.cpp" />
-    <ClCompile Include="GameObjects\UI\aceptaPaellaButton.cpp" />
+    <ClCompile Include="GameObjects\UI\AceptaPaellaButton.cpp" />
     <ClCompile Include="GameObjects\UI\BorrarButton.cpp" />
     <ClCompile Include="GameObjects\UI\DescartaCommandaButton.cpp" />
     <ClCompile Include="GameObjects\UI\EnviaComandaButton (1).cpp" />
@@ -126,7 +126,7 @@
     <ClInclude Include="GameObjects\UI\StartButton.h" />
     <ClInclude Include="GameObjects\UI\OpcionesButton.h" />
     <ClInclude Include="GameObjects\UI\ExitButton.h" />
-    <ClInclude Include="GameObjects\UI\aceptaPaellaButton.h" />
+    <ClInclude Include="GameObjects\UI\AceptaPaellaButton.h" />
     <ClInclude Include="GameObjects\UI\BorrarButton.h" />
     <ClInclude Include="GameObjects\UI\DescartaCommandaButton.h" />
     <ClInclude Include="GameObjects\UI\EnviaComandaButton.h" />

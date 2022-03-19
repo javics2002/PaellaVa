@@ -10,9 +10,9 @@ AceptaPaellaButton::~AceptaPaellaButton()
 {
 
 }
+
 void AceptaPaellaButton::execute()
 {
 	std::cout << "paella aceptada";
 	comanda->aceptaPaella();
-	
 }

@@ -5,7 +5,6 @@
 #include "../GameObjects/UI/StartButton.h"
 #include "../GameObjects/UI/OpcionesButton.h"
 #include "../GameObjects/UI/ExitButton.h"
-#include "../GameObjects/UI/CustomizationButton.h"
 
 #include <iostream>
 
