@@ -35,6 +35,8 @@ void Mesa::init()
 bool Mesa::recieveGrupoClientes(GrupoClientes* gc)
 {
 	if (!ocupada) {
+		ocupada = true;
+
 		int n = gc->numIntegrantes();
 
 		if (n <= sillas.size()) {
@@ -44,6 +46,8 @@ bool Mesa::recieveGrupoClientes(GrupoClientes* gc)
 			}
 			return true;
 		}
+
+		
 	}	
 	return false;
 }
