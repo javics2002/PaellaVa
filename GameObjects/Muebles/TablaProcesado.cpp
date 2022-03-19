@@ -33,7 +33,7 @@ void TablaProcesado::procesando()
 	}
 
 	if (sdlutils().currRealTime() - tiempo >= TIEMPO_PROCESADO) {
-		ingr->setProcesado(true);
+		ingr->setProcesado(true, ingr);
 		tiempo = 0;
 	}
 }

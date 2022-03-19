@@ -34,9 +34,11 @@ void Ingrediente::ingredienteRecogido()
 {
 }
 
-void Ingrediente::setProcesado(bool estadoIngr)
+void Ingrediente::setProcesado(bool estadoIngr, Ingrediente ingr)
 {
 	procesado = estadoIngr;
+
+	setTexture(texturaIngrProcesado[ingr.miTipo]);
 }
 
 
