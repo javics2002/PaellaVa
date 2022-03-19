@@ -71,6 +71,7 @@ Comanda::Comanda( Comanda& c) :GameObject(c.gamet)
 }
 Comanda::~Comanda()
 {
+    //si hay leaks esq aqui tengo qeu borrar algun puntero de botone spero creo que el uimanager ya los borra todos
 }
 void Comanda::añadiraPedido(string i)
 {
@@ -184,6 +185,11 @@ void Comanda::guardaTeclado()
    // de momento voy a forzar una sangria aqui s tnego tiempo mirare una manera mejor xd
 
 }
+void Comanda::guardaBoton(UiButton* b)
+{
+    botones.push_back(b);
+
+}
 void Comanda::aceptaPaella()
 {
     //aqui esta lo dificil el vector de la paella que envias ya no lo podras editar pero deberia seguir siendo visible 
@@ -291,4 +297,13 @@ vector<vector<UiButton*>> Comanda::copyPaellas()
         }
     }
     return paellascopiadas;
+}
+void Comanda::toggleactive()
+{
+    setActive(!isActive());
+    for (auto b : botones)
+    {
+        b->setActive(!b->isActive());
+    }
+    cancelaPedido();
 }

@@ -21,6 +21,10 @@ void RedactaComandabutton::execute()
 	{
 		uim->creaComanda(gamet);
 	}
+	else
+	{
+		uim->getComanda()->toggleactive();
+	}
 
 }
 

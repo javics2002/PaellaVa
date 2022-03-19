@@ -22,6 +22,7 @@ protected:
 
     Game* game;
     Texture* texture;
+    bool active = true;
 
 public:
 
@@ -51,6 +52,9 @@ public:
     double getX() { return pos.getX(); };
     double getY() { return pos.getY(); };
     Vector2D<double> getPosition() { return pos; }
+
+    bool isActive() { return active; };
+    void setActive(bool a) { active = a; };
 
     virtual SDL_Rect getCollider();
     virtual SDL_Rect getCenter();

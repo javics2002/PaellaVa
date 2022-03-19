@@ -26,20 +26,26 @@ UIManager::~UIManager()
 }
 void UIManager::uiEvent(int mx, int my)
 {
-	for (int i = 0; i<interfaz.size(); ++i)
+	for (int i = 0; i < interfaz.size(); ++i)
 	{
-		if (interfaz[i]->OnClick(mx, my))
+		if (interfaz[i]->isActive())
 		{
-			mx = -1;
-			my = -1;
+			if (interfaz[i]->OnClick(mx, my))
+			{
+				mx = -1;
+				my = -1;
+			}
 		}
-	}
+}
 	for (auto j: teclado)
 	{
-		if (j->OnClick(mx, my))
+		if (actual->isActive())
 		{
-			mx = -1;
-			my = -1;
+			if (j->OnClick(mx, my))
+			{
+				mx = -1;
+				my = -1;
+			}
 		}
 	}
 }
@@ -88,15 +94,22 @@ void UIManager::render(SDL_Rect* rect=nullptr)
 	barra->renderComandas();
 	for (auto i : interfaz)
 	{
-		i->render(rect);
+		if (i->isActive())
+		{
+			i->render(rect);
+		}
 	}
 	for (auto i : comandas)
 	{
-		i->render(rect);
-		i->dibujaPedido();
+		if (i->isActive())
+		{
+			i->render(rect);
+			i->dibujaPedido();
+		}
 	}
 	for (auto i : teclado)
 	{
+		if(actual->isActive())
 		i->render(rect);
 	}
 	
@@ -111,12 +124,16 @@ void UIManager::creaComanda(Game* game)
 	actual->guardaTeclado();
 	aceptaPaellaButton* e = new aceptaPaellaButton(gamet, actual, "acepta", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() + actual->getHeight() / 4, anchobotones, anchobotones);
 	interfaz.push_back(e);
+	actual->guardaBoton(e);
 	DescartaCommandaButton* b = new DescartaCommandaButton(actual, gamet, "cancela", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() + actual->getHeight() / 4 - anchobotones, anchobotones, anchobotones);
 	interfaz.push_back(b);
+	actual->guardaBoton(b);
 	BorrarButton* bo = new BorrarButton(gamet, actual, "borra", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() + actual->getHeight() / 4 - 2 * anchobotones, anchobotones, anchobotones);
 	interfaz.push_back(bo);
+	actual->guardaBoton(bo);
 	EnviaComandaButton* en = new EnviaComandaButton(gamet, "envia", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() + actual->getHeight() / 4 + anchobotones, anchobotones, anchobotones);
 	interfaz.push_back(en);
+	actual->guardaBoton(en);
 
 }
 Comanda* UIManager::getComanda()

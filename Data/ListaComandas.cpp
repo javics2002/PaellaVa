@@ -8,7 +8,7 @@ ListaComandas::ListaComandas(Game* game) :GameObject(game)
 	p.setX(500);
 	p.setY(40);
 	setPosition(p);
-	cX = p.getX();
+	cX = p.getX()/2;
 	cY = p.getY();
 	setDimension(ancho, alto);
 }
