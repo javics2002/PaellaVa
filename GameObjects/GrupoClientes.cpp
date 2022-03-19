@@ -131,6 +131,8 @@ void GrupoClientes::onObjectDropped()
 		break;
 	case SENTADO:
 		break;
+	case CUENTA:
+		break;
 	default:
 		break;
 	}
@@ -145,6 +147,8 @@ void GrupoClientes::onObjectPicked()
 	case ENCOLA:
 		break;
 	case SENTADO:
+		break;
+	case CUENTA:
 		break;
 	default:
 		break;

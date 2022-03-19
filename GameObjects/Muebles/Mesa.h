@@ -2,13 +2,16 @@
 #include "Mueble.h"
 #include "Silla.h"
 
+#include "../../GameObjects/GrupoClientes.h"
+#include "../../GameObjects/Player.h"
+
 class Game;
 
 class Mesa : public Mueble
 {
 	int mWidht, mHight;
 
-	bool ocupada;
+	GrupoClientes* mGrupo;
 
 	std::vector<Silla*> sillas;
 	int nSillas;
@@ -20,5 +23,6 @@ public:
 	void init() override;
 
 	bool recieveGrupoClientes(GrupoClientes* gc) override;
+	virtual bool returnObject(Player* p) override;
 };
 
