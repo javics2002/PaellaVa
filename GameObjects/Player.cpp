@@ -5,6 +5,7 @@
 #include "../Control/ObjectManager.h"
 #include "Ingrediente.h"
 #include "Cliente.h"
+#include "Muebles/Mueble.h"
 #include "../Utils/Traza.h"
 
 
@@ -22,6 +23,8 @@ Player::Player(Game* game) : GameObject(game), objectType_(INGREDIENTE), pickedO
 
 	
 	setTexture("player");
+
+	lastTime_ = SDL_GetTicks();
 }
 
 Player::~Player()
@@ -65,17 +68,19 @@ void Player::handleInput()
 	vel.clamp(-maxVel, maxVel);
 	
 
-	//Todos los dynamic cast se puden evitar con métodos comunes en pool o con una nueva clase
-	if (ih().isKeyboardEvent() && ih().getKey(InputHandler::INTERACT)) {
-		cout << "e" << endl;
+
+	if (ih().isKeyboardEvent() && ih().getKey(InputHandler::INTERACT) && SDL_GetTicks() - lastTime_ > 500) {
+		lastTime_ = SDL_GetTicks();
 
 		if (pickedObject_ == nullptr) {
 			for (auto i : game->getObjectManager()->getPoolIngredientes()->getCollisions(getOverlapCollider())) {
-				if (nearestObject(dynamic_cast<ObjetoPortable*>(i)))
+				ObjetoPortable* op = dynamic_cast<ObjetoPortable*>(i);
+				if (op->canPick() && nearestObject(op))
 					objectType_ = INGREDIENTE;
 			}
 			for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getCollisions(getOverlapCollider())) {
-				if (nearestObject(dynamic_cast<ObjetoPortable*>(i)))
+				ObjetoPortable* op = dynamic_cast<ObjetoPortable*>(i);
+				if (op->canPick() && nearestObject(op))
 					objectType_ = CLIENTES;
 			}
 
@@ -84,8 +89,30 @@ void Player::handleInput()
 			}
 		}
 		else {
-			pickedObject_->dropObject();
-			pickedObject_ = nullptr;
+			switch (objectType_)
+			{
+			case INGREDIENTE:
+				for (auto i : game->getObjectManager()->getMueblesCollider(getOverlapCollider())) {
+					
+				}
+				break;
+			case CLIENTES:
+				for (auto i : game->getObjectManager()->getMueblesCollider(getOverlapCollider())) {
+					if (i->recieveGrupoClientes(dynamic_cast<GrupoClientes*>(pickedObject_))) {
+						pickedObject_->dropObject();
+						pickedObject_ = nullptr;
+						return;
+					}
+				}
+				break;
+			case PAELLA:
+				for (auto i : game->getObjectManager()->getMueblesCollider(getOverlapCollider())) {
+
+				}
+				break;
+			default:
+				break;
+			}
 		}
 	}
 }
@@ -112,7 +139,7 @@ void Player::update()
 	pos = pos + vel;
 
 	if (pickedObject_ != nullptr) {
-		if (dynamic_cast<PoolObject*>(pickedObject_)->isActive())
+		if (pickedObject_->isPicked())
 			pickedObject_->setPosition(getX(), getY() - getHeight() / 2);
 		else
 			pickedObject_ = nullptr;
@@ -160,29 +187,9 @@ SDL_Rect Player::getOverlapCollider()
 		  (overlapDim.getY()) };
 }
 
-void Player::debugOverlap(SDL_Rect* rect)
+void Player::renderDebug(SDL_Rect* cameraRect)
 {
-	SDL_Rect collider = getOverlapCollider();
-	collider = { collider.x - rect->x, collider.y - rect->y, collider.w, collider.h };
-
-	SDL_SetRenderDrawColor(sdlutils().renderer(), 255, 255, 0, 0);
-	SDL_RenderDrawRect(sdlutils().renderer(), &collider);
-	SDL_SetRenderDrawColor(sdlutils().renderer(), 255, 255, 255, 0);	
-}
-
-void Player::drawDebug(SDL_Rect* rect)
-{
-	debugOverlap(rect);
-
-	SDL_Rect collider = getCollider();
-	SDL_Rect center = getCenter();
-	collider = { collider.x - rect->x, collider.y - rect->y, collider.w, collider.h };
-	center = { center.x - rect->x, center.y - rect->y, center.w, center.h };
-	
-	SDL_SetRenderDrawColor(sdlutils().renderer(), 255, 0, 0, 0);
-	SDL_RenderDrawRect(sdlutils().renderer(), &collider);
-	SDL_SetRenderDrawColor(sdlutils().renderer(), 0, 0, 255, 0);
-	SDL_RenderFillRect(sdlutils().renderer(), &center);
-	SDL_SetRenderDrawColor(sdlutils().renderer(), 255, 255, 255, 0);
+	drawDebug(cameraRect);
+	drawDebug(cameraRect, getOverlapCollider());
 }
 

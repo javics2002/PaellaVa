@@ -26,6 +26,7 @@ void Game::init()
 
 #ifdef _DEBUG
 	currentScene = new Restaurante(this);
+	getObjectManager()->initMuebles();
 #else
 	currentScene = new Menu(this);
 #endif // _DEBUG

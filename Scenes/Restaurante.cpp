@@ -35,6 +35,7 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 	uiManager->setBarra(new ListaComandas(game));
 	//objectManager->addPaella(new Paella(Paella::Minima));
 
+
 }
 
 Restaurante::~Restaurante()
@@ -76,9 +77,9 @@ void Restaurante::render()
 
 void Restaurante::debug()
 {
-	fondo->drawDebug(camara->renderRect());
+	fondo->renderDebug(camara->renderRect());
 	objectManager->debug(camara->renderRect());
-	host->drawDebug(camara->renderRect());
+	host->renderDebug(camara->renderRect());
 }
 
 //Check colisiones

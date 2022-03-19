@@ -23,12 +23,16 @@ protected:
     Game* game;
     Texture* texture;
 
+    void drawRender(SDL_Rect* cameraRect);   
+    void drawDebug(SDL_Rect* cameraRect);
+    void drawDebug(SDL_Rect* cameraRect, SDL_Rect rect);
+
 public:
 
-    GameObject(Game* game) : game(game), texture(nullptr), w(0), h(0) {
-    };
-    GameObject(Game* game, string claveTextura) : game(game), texture(&sdlutils().images().at(claveTextura)), w(0), h(0) {
-    };
+    GameObject(Game* game) 
+        : game(game), texture(nullptr), w(0), h(0) {};
+    GameObject(Game* game, string claveTextura) 
+        : game(game), texture(&sdlutils().images().at(claveTextura)), w(0), h(0) {};
 
     virtual ~GameObject() {};
 
@@ -36,7 +40,10 @@ public:
         pos = pos + vel;
     };
 
+    virtual void init() {};
+
     virtual void render(SDL_Rect* cameraRect);
+    virtual void renderDebug(SDL_Rect* cameraRect);
 
     virtual bool OnClick(int mx, int my) { return false; };
 
@@ -54,8 +61,6 @@ public:
 
     virtual SDL_Rect getCollider();
     virtual SDL_Rect getCenter();
-
-    virtual void drawDebug(SDL_Rect* rect);
 
     virtual bool collide(SDL_Rect other);
 };

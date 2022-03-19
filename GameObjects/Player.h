@@ -12,6 +12,9 @@ enum objectType { INGREDIENTE, CLIENTES, PAELLA};
 
 class Player : public GameObject
 {
+	float lastTime_;
+
+
 	orientation orientation_;
 	objectType objectType_;
 
@@ -31,12 +34,12 @@ public:
 
 	void handleInput();
 
-	void update();
+	void update() override;
+	void renderDebug(SDL_Rect* cameraRect) override;
 
 	SDL_Rect getOverlapCollider();
-	void debugOverlap(SDL_Rect* rect);
 
-	void drawDebug(SDL_Rect* rect) override;
+	
 	
 };
 

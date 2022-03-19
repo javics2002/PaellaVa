@@ -15,8 +15,10 @@ public:
 	void pickObject();
 	void dropObject();
 
-	void setIsPicked(bool b);
-	bool getIsPicked();
+	void setPicked(bool b);
+	bool isPicked();
+
+	virtual bool canPick() { return true; };
 
 protected:
 	virtual void onObjectPicked() = 0;

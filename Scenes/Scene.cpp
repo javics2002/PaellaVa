@@ -43,7 +43,7 @@ void Scene::render()
 
 void Scene::debug()
 {
-	fondo->drawDebug(camara->renderRect());
+	fondo->renderDebug(camara->renderRect());
 	objectManager->debug(camara->renderRect());
 	//objectManager->debug();
 }

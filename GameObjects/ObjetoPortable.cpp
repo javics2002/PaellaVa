@@ -16,12 +16,12 @@ void ObjetoPortable::dropObject()
 	onObjectDropped();
 }
 
-void ObjetoPortable::setIsPicked(bool b)
+void ObjetoPortable::setPicked(bool b)
 {
 	isPicked_ = b;
 }
 
-bool ObjetoPortable::getIsPicked()
+bool ObjetoPortable::isPicked()
 {
 	return isPicked_;
 }

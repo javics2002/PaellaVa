@@ -126,13 +126,13 @@ public:
 
 	void debug() {
 		for (auto it : activeObjects) {
-			it->drawDebug();
+			it->renderDebug();
 		}
 	}
 
 	void debug(SDL_Rect* rect) {
 		for (auto it : activeObjects) {
-			it->drawDebug(rect);
+			it->renderDebug(rect);
 		}
 	}
 

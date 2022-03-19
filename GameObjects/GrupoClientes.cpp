@@ -3,24 +3,21 @@
 #include "../Control/Game.h"
 #include "../Control/ObjectManager.h"
 
+#include "../GameObjects/Cola.h"
+
 GrupoClientes::GrupoClientes(Game* game) : PoolObject(game) 
 {
-	setDimension(60, 60);
+	setDimension(DIMENSION, DIMENSION);
 
 	setTexture("alcachofa");
 }
 
-float GrupoClientes::Puntuacion()
-{
-	return 0.0f;
-}
-
-
-void GrupoClientes::setGrupo(list<GrupoClientes*>::const_iterator pos, vector<Cliente*> clientes_)
+void GrupoClientes::initGrupo(Cola* cola_, vector<Cliente*> clientes_)
 {
 	tolerancia = 100;
 
-	posCola = pos;
+	posCola = cola_->getPos();
+	cola = cola_;
 	clientes = clientes_;
 
 	setState(CAMINANDO);
@@ -38,7 +35,7 @@ void GrupoClientes::update()
 		SDL_Rect rect = { clientes[0]->getX() + clientes[0]->getWidth() / 2, clientes[0]->getY() - clientes[0]->getHeight() / 2,
 			clientes[0]->getWidth() / 2, clientes[0]->getWidth() };
 
-		for (auto i : game->getObjectManager()->getGrupoClientes(rect)) {
+		for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getCollisions(rect)) {
 			setState(ENCOLA);
 		}
 	}
@@ -72,7 +69,7 @@ float GrupoClientes::mitadGrupo()
 
 bool GrupoClientes::ratonEncima()
 {
-	SDL_Rect rect = { mitadGrupo() - dimension / 2, clientes[0]->getY() - clientes[0]->getHeight() * 1.25, dimension, dimension };
+	SDL_Rect rect = { mitadGrupo() - DIMENSION / 2, clientes[0]->getY() - clientes[0]->getHeight() * 1.25, DIMENSION, DIMENSION };
 
 	Texture *t = &sdlutils().images().at(texturaTolerancia);
 
@@ -92,20 +89,19 @@ bool GrupoClientes::colisionClientes()
 void GrupoClientes::bajaTolerancia()
 {
 
-	if (tolerancia > 0 && SDL_GetTicks() - mLastTime >= TIME_BAJADA) {
-
-		tolerancia -= BAJADA;
+	if (tolerancia > 0 && SDL_GetTicks() - lastTime >= DIMIN_TIME) {
+		tolerancia -= DIMIN_TOLERANCIA;
 
 		if (tolerancia < 0) tolerancia = 0;
 
-		mLastTime = SDL_GetTicks();
+		lastTime = SDL_GetTicks();
 	}
 }
 
 void GrupoClientes::setState(estado est)
 {
 	estado_ = est;
-	mLastTime = SDL_GetTicks();
+	lastTime = SDL_GetTicks();
 }
 
 estado GrupoClientes::getState()
@@ -113,12 +109,22 @@ estado GrupoClientes::getState()
 	return estado_;
 }
 
+int GrupoClientes::numIntegrantes()
+{
+	return clientes.size();
+}
+
+vector<Cliente*> GrupoClientes::getIntegrantes()
+{
+	return clientes;
+}
+
 void GrupoClientes::render(SDL_Rect* cameraRect)
 {
 	for (auto i : clientes)
 		i->render(cameraRect);
 
-	if (getIsPicked()) {
+	if (isPicked()) {
 		SDL_Rect c = getCollider();
 		SDL_Rect textureBox;
 
@@ -128,18 +134,46 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 		else {
 			textureBox = { c.x, c.y, c.w, c.h };
 		}
-
 		texture->render(textureBox);
+	}
+}
+
+void GrupoClientes::onObjectDropped()
+{
+	switch (estado_)
+	{
+	case CAMINANDO:
+		break;
+	case ENCOLA:
+		estado_ = SENTADO;
+		cola->remove(posCola, clientes.size());
+		break;
+	case SENTADO:
+		break;
+	default:
+		break;
 	}
 }
 
 void GrupoClientes::onObjectPicked()
 {
+	switch (estado_)
+	{
+	case CAMINANDO:
+		break;
+	case ENCOLA:
+		break;
+	case SENTADO:
+		break;
+	default:
+		break;
+	}
 }
 
-void GrupoClientes::onObjectDropped()
+bool GrupoClientes::canPick()
 {
-	if (estado_ == ENCOLA)
-		estado_ = SENTADO;
+	return estado_ == ENCOLA;
 }
+
+
 

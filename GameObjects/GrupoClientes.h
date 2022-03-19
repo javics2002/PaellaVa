@@ -6,56 +6,58 @@
 #include "PoolObject.h"
 #include "ObjetoPortable.h"
 
+class Cola;
 class Game;
 
-enum estado { SENTADO, COMIENDO, ENCOLA, CAMINANDO };
+enum estado { CAMINANDO, ENCOLA, SENTADO };
 
 class GrupoClientes : public PoolObject
 {
+	const unsigned int DIMENSION = 60;
+
 	vector<Cliente*> clientes;
+
 	list<GrupoClientes*>::const_iterator posCola;
+	Cola* cola;
 
 	string texturaTolerancia = "barraTolerancia";
 
-	const float BAJADA = 2;
-	const float TIME_BAJADA = 3000;
+	const float DIMIN_TOLERANCIA = 2;
+	const float DIMIN_TIME = 3000;
 
-	bool espera = false;
+	float tolerancia;
+	float lastTime;
 
 	estado estado_;
 
-	const int dimension = 60;
-
-	float tolerancia, mLastTime;
-
-public:
-	GrupoClientes(Game* game);
-	
-	~GrupoClientes() = default;
-
-	float Puntuacion();
-
-	void setGrupo(list<GrupoClientes*>::const_iterator pos, vector<Cliente*> clientes_);
-
-	void update();
-
-	bool collide(SDL_Rect rect) override;
-
 	float mitadGrupo();
 
-	bool ratonEncima() override;
+public:
+	GrupoClientes(Game* game);	
+	~GrupoClientes() = default;
 
+	void initGrupo(Cola* cola_, vector<Cliente*> clientes_);
+
+	void update() override;
+
+	void render(SDL_Rect* cameraRect) override;
+
+	bool collide(SDL_Rect rect) override;
 	bool colisionClientes() override;
-
-	void bajaTolerancia();
 
 	void setState(estado est);
 	estado getState();
 
-	void render(SDL_Rect* cameraRect) override;
+	int numIntegrantes();
+	vector<Cliente*> getIntegrantes();
+
+	bool ratonEncima() override;
+	void bajaTolerancia();	
 
 	void onObjectPicked() override;
 	void onObjectDropped() override;
+
+	bool canPick() override;
 };
 
 
