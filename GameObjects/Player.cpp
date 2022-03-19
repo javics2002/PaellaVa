@@ -108,11 +108,12 @@ void Player::handleInput()
 						objectType_ = CLIENTES;
 				}
 
+				//Paellas
 				for (auto i : game->getObjectManager()->getPaellasCollider(getOverlapCollider())) {
-				ObjetoPortable* op = dynamic_cast<ObjetoPortable*>(i);
-				if (op->canPick() && nearestObject(op))
-					objectType_ = PAELLA;
-			}
+					ObjetoPortable* op = dynamic_cast<ObjetoPortable*>(i);
+					if (op->canPick() && nearestObject(op))
+						objectType_ = PAELLA;
+				}
 
 				//Una vez encontrado el m�s cercano, se interact�a con �l
 				if (pickedObject_ != nullptr) {
@@ -153,7 +154,6 @@ void Player::handleInput()
 				}			
 				break;
 			case PAELLA:
-
 				if (m != nullptr && m->recievePaella(dynamic_cast<Paella*>(pickedObject_))) {
 					pickedObject_->setPicked(false);
 					pickedObject_ = nullptr;

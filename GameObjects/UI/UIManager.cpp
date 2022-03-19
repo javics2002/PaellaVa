@@ -196,7 +196,7 @@ void UIManager::creaTeclado()
 		vector <Numerobutton*> tecladonum;
 	
 		//Comanda comanda,Game* game, TextureName texturename, int x, int y, int w, int h
-		Numerobutton* a = new Numerobutton(this, gamet, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), anchobotones, anchobotones);
+		Numerobutton* a = new Numerobutton(this, game, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), anchobotones, anchobotones);
 		teclado.push_back(a);
 		//  objectmanager->creaTeclado(a);
 
