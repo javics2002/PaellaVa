@@ -79,6 +79,13 @@ void UIManager::update()
 
 		}*/
 		//muy lento
+	for (auto i : interfaz)
+	{
+		if (i->isActive())
+		{
+			i->update();
+		}
+	}
 	if (ih().getMouseButtonState(InputHandler::MOUSE_LEFT))
 	{
 		cout << "UIM DETECTED CLICK ";

@@ -2,6 +2,7 @@
 #include "../GameObjects/GameObject.h"
 #include <list>
 #include <vector>
+#include<queue>
 
 class Comanda;
 class Game;
@@ -10,13 +11,16 @@ using namespace std;
 
 class ListaComandas :public GameObject
 {
+	int maxvisibles = 4;
+	int  numcomandas=0;
 	vector<Comanda*> lista;
+	queue<Comanda*> listanovisibles;
 public:
 	//Añade la comanda que escribe el camarero a la lista
 	ListaComandas(Game* game );
 	~ListaComandas();
 	void AñadeComanda(Comanda* comanda);
-
+	void finalizacomanda(Comanda* comanda);
 	//Interfaz
 	void renderComandas();
 	

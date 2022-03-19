@@ -49,6 +49,9 @@ public:
     void clearPaellas();
     vector<vector<UiButton*>> copyPaellas();
 
+    void setSitio(int s);
+    int getSitio();
+
     void toggleactive();
     /*void cierraComanda();*/
     //void Ecribeinfoenjson();
@@ -74,6 +77,7 @@ private:
     int altoini;
     uint numeroMesa;
     uint numeroPaellas = 0;
+    int sitiolista;
     float puntuacion;
     Game* gamet;
     UIManager* uimt;
