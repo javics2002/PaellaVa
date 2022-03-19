@@ -1,8 +1,10 @@
 #include "Reloj.h"
+#include "../../Scenes/GameOver.h"
 
 Reloj::Reloj(Game* game)
 	: GameObject(game)
 {
+	this->game = game;
 	setDimension(w, h);
 	setPosition(sdlutils().width() - getWidth(), getHeight() );
 	setActive(true);
@@ -28,7 +30,7 @@ void Reloj::update()
 	if (finDia())
 	{
 		//TODO: Evento de fin del día
-		cout << "fin de dia es true" << endl;
+		//game->changeScene(new GameOver(game));
 
 	}
 	else
@@ -36,7 +38,6 @@ void Reloj::update()
 		//1 minuto en Ticks = 1 hora en el juego
 		currentTime.hours = (SDL_GetTicks() - tInit) / MIN_TICKS;
 		currentTime.minutes = (SDL_GetTicks() - tInit) % MIN_TICKS;
-		cout << "se updetea" << endl;
 
 		//TODO: Representar cuantas horas han pasado
 		//renderTimeText();
