@@ -6,7 +6,9 @@ class Game;
 
 class Mesa : public Mueble
 {
-	int mWidht_, mHight_;
+	int mWidht, mHight;
+
+	bool ocupada;
 
 	std::vector<Silla*> sillas;
 	int nSillas;

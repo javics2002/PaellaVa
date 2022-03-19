@@ -14,13 +14,12 @@ class Player : public GameObject
 {
 	float lastTime_;
 
-
-	orientation orientation_;
+	ObjetoPortable* pickedObject_;
 	objectType objectType_;
 
-	ObjetoPortable* pickedObject_;
 	Input* input_;
-
+	orientation orientation_;
+	
 	float aceleracion, deceleracion, maxVel;
 
 	Vector2D<double> overlapPos;
@@ -37,9 +36,6 @@ public:
 	void update() override;
 	void renderDebug(SDL_Rect* cameraRect) override;
 
-	SDL_Rect getOverlapCollider();
-
-	
-	
+	SDL_Rect getOverlapCollider();	
 };
 

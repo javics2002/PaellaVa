@@ -32,6 +32,8 @@ class GrupoClientes : public PoolObject
 
 	float mitadGrupo();
 
+	void bajaTolerancia();
+
 public:
 	GrupoClientes(Game* game);	
 	~GrupoClientes() = default;
@@ -52,8 +54,7 @@ public:
 	vector<Cliente*> getIntegrantes();
 
 	bool ratonEncima() override;
-	void bajaTolerancia();	
-
+	
 	void onObjectPicked() override;
 	void onObjectDropped() override;
 

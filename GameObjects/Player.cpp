@@ -104,6 +104,14 @@ void Player::handleInput()
 						return;
 					}
 				}
+				for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getCollisions(getOverlapCollider())) {
+					if (i == pickedObject_) {
+						pickedObject_->setPicked(false);
+						pickedObject_ = nullptr;
+						return;
+					}
+
+				}
 				break;
 			case PAELLA:
 				for (auto i : game->getObjectManager()->getMueblesCollider(getOverlapCollider())) {

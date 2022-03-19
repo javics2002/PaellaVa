@@ -9,7 +9,7 @@ GrupoClientes::GrupoClientes(Game* game) : PoolObject(game)
 {
 	setDimension(DIMENSION, DIMENSION);
 
-	setTexture("alcachofa");
+	setTexture("berenjena");
 }
 
 void GrupoClientes::initGrupo(Cola* cola_, vector<Cliente*> clientes_)
@@ -45,6 +45,15 @@ void GrupoClientes::update()
 	}
 }
 
+void GrupoClientes::render(SDL_Rect* cameraRect)
+{
+	for (auto i : clientes)
+		i->render(cameraRect);
+
+	if (isPicked())
+		drawRender(cameraRect);
+}
+
 bool GrupoClientes::collide(SDL_Rect rect)
 {
 	for (auto i : clientes) {
@@ -56,15 +65,11 @@ bool GrupoClientes::collide(SDL_Rect rect)
 	return false;
 }
 
-float GrupoClientes::mitadGrupo()
+bool GrupoClientes::colisionClientes()
 {
-	float mitad = 0.0f;
-
-	for (auto i : clientes) {
-		mitad += i->getX();
-	}
-
-	return mitad / clientes.size();
+	if (estado_ == CAMINANDO) 
+		setState(ENCOLA);
+	return true;
 }
 
 bool GrupoClientes::ratonEncima()
@@ -80,15 +85,8 @@ bool GrupoClientes::ratonEncima()
 	return true;
 }
 
-bool GrupoClientes::colisionClientes()
-{
-	if (estado_ == CAMINANDO) setState(ENCOLA);
-	return true;
-}
-
 void GrupoClientes::bajaTolerancia()
 {
-
 	if (tolerancia > 0 && SDL_GetTicks() - lastTime >= DIMIN_TIME) {
 		tolerancia -= DIMIN_TOLERANCIA;
 
@@ -119,24 +117,7 @@ vector<Cliente*> GrupoClientes::getIntegrantes()
 	return clientes;
 }
 
-void GrupoClientes::render(SDL_Rect* cameraRect)
-{
-	for (auto i : clientes)
-		i->render(cameraRect);
 
-	if (isPicked()) {
-		SDL_Rect c = getCollider();
-		SDL_Rect textureBox;
-
-		if (cameraRect != nullptr) {
-			textureBox = { c.x - cameraRect->x, c.y - cameraRect->y, c.w, c.h };
-		}
-		else {
-			textureBox = { c.x, c.y, c.w, c.h };
-		}
-		texture->render(textureBox);
-	}
-}
 
 void GrupoClientes::onObjectDropped()
 {
@@ -175,5 +156,15 @@ bool GrupoClientes::canPick()
 	return estado_ == ENCOLA;
 }
 
+float GrupoClientes::mitadGrupo()
+{
+	float mitad = 0.0f;
+
+	for (auto i : clientes) {
+		mitad += i->getX();
+	}
+
+	return mitad / clientes.size();
+}
 
 
