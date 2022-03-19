@@ -11,3 +11,5 @@
 #include "Encimera.h"
 #include "Silla.h"
 #include "Ventanilla.h"
+#include "Pared.h"
+#include "BolsaArroz.h"

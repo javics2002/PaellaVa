@@ -40,13 +40,10 @@ struct MapInfo {
 class Restaurante : public Scene
 {
 	const float LERP_INTERPOLATION = 0.2f;
-	 
-	Game* game;
 
 	//Punteros a los jugadores (Quizas deberian llamarse yo y amigo, en relativo)
 	Player* host;
 	Player* client;
-
 
 	MapInfo mapInfo;
 
@@ -60,6 +57,8 @@ public:
 	void update() override;
 	void render() override;
 	void debug() override;
+
+	void setVPlayer(float aceleration);
 
 	void loadMap(string const& path);
 };

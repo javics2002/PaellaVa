@@ -28,6 +28,8 @@ protected:
     void drawDebug(SDL_Rect* cameraRect);
     void drawDebug(SDL_Rect* cameraRect, SDL_Rect rect);
 
+    bool hasCollision(SDL_Rect rect1, SDL_Rect rect2);
+
 public:
 
     GameObject(Game* game) 
@@ -52,6 +54,7 @@ public:
     void setPosition(Vector2D<double> v);
     void setDimension(int width, int height);
     void setTexture(string clave);
+    void setTexture(const string text, const string font, const SDL_Color& fgColor, const SDL_Color& bgColor);
 
     int getWidth() { return w; };
     int getHeight() { return h; };

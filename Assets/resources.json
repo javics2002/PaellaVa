@@ -1,10 +1,14 @@
 {
-
   "fonts": [
     {
-      "id": "ARIAL16",
-      "file": "../../../Assets/fonts/ARIAL.ttf",
+      "id": "abadi",
+      "file": "../../../Assets/fonts/Abadi.otf",
       "size": 16
+    },
+    {
+      "id": "paella",
+      "file": "../../../Assets/fonts/Paella.ttf",
+      "size": 48
     }
   ],
 
@@ -186,6 +190,10 @@
             "file": "../../../Assets/Images/settings.png"
         },
         {
+          "id": "menufondo",
+          "file": "../../../Assets/Images/menufondo.png"
+      },
+        {
             "id": "cartel",
             "file": "../../../Assets/Images/mesa.png"
         },
@@ -274,7 +282,7 @@
     {
       "id": "prueba",
       "text": "Nigga",
-      "font": "ARIAL16",
+      "font": "abadi",
       "color": "0x0000ffff"
     }
   ]

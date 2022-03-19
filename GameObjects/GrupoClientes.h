@@ -9,7 +9,7 @@
 class Cola;
 class Game;
 
-enum estado { CAMINANDO, ENCOLA, SENTADO };
+enum estado { CAMINANDO, ENCOLA, SENTADO, CUENTA };
 
 class GrupoClientes : public PoolObject
 {
@@ -59,6 +59,10 @@ public:
 	void onObjectDropped() override;
 
 	bool canPick() override;
+
+	void onDesactivate() override;
+
+
 };
 
 

@@ -8,8 +8,6 @@
 
 #include <iostream>
 
-using namespace std;
-
 Menu::Menu(Game* game) : Scene(game)
 {
 	this->game = game;

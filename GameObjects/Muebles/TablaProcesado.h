@@ -13,17 +13,15 @@ class TablaProcesado: public Mueble
 
 	Ingrediente* ingr;
 
-	bool tablaLLena = false;
-
 	double tiempo = 0.0;
 
 public:
-	TablaProcesado(Game* game, Vector2D<double> pos);
+	TablaProcesado(Game* game_, Vector2D<double> pos);
 	~TablaProcesado() = default;
 
 	void update();
-	void onCollision();
-	bool getTablaLlena();
 	void procesando();
+
+	bool recieveIngrediente(Ingrediente *ingr_) override;
 };
 

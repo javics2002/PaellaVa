@@ -30,17 +30,19 @@ void GrupoClientes::update()
 
 		for (auto i : clientes) {
 			i->update();
-		}
-
-		SDL_Rect rect = { clientes[0]->getX() + clientes[0]->getWidth() / 2, clientes[0]->getY() - clientes[0]->getHeight() / 2,
-			clientes[0]->getWidth() / 2, clientes[0]->getWidth() };
-
-		for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getCollisions(rect)) {
-			setState(ENCOLA);
-		}
+		}		
 	}
 
 	else if (estado_ == ENCOLA) {
+		int n = clientes.size() - 1;
+
+		SDL_Rect rect = { clientes[n]->getX() - clientes[n]->getWidth(), clientes[n]->getY() - clientes[n]->getHeight() / 2,
+			clientes[n]->getWidth() / 2, clientes[0]->getWidth() };
+
+		for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getCollisions(rect)) {
+			i->colisionClientes();
+		}
+
 		bajaTolerancia();
 	}
 }
@@ -131,6 +133,8 @@ void GrupoClientes::onObjectDropped()
 		break;
 	case SENTADO:
 		break;
+	case CUENTA:
+		break;
 	default:
 		break;
 	}
@@ -145,6 +149,8 @@ void GrupoClientes::onObjectPicked()
 	case ENCOLA:
 		break;
 	case SENTADO:
+		break;
+	case CUENTA:
 		break;
 	default:
 		break;
@@ -165,6 +171,16 @@ float GrupoClientes::mitadGrupo()
 	}
 
 	return mitad / clientes.size();
+}
+
+void GrupoClientes::onDesactivate()
+{
+	auto list = game->getObjectManager()->getPoolClientes();
+
+	for (auto i : clientes) {
+		i->desactivate();
+		list->remove(i->getIterator());
+	}	
 }
 
 

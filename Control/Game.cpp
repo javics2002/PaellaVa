@@ -3,8 +3,11 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 
-#include "../Scenes/Restaurante.h"
 #include "../Scenes/Menu.h"
+#ifdef _DEBUG
+#include "../Scenes/Restaurante.h"
+#include "../Scenes/GameOver.h"
+#endif // _DEBUG
 #include "../sdlutils/SDLUtils.h"
 #include "../sdlutils/InputHandler.h"
 #include "../Control/ObjectManager.h"
@@ -18,6 +21,10 @@ Game::~Game() {
 
 }
 
+void Game::procesandoIngr(float aceleration) {
+	
+}
+
 void Game::init()
 {
 	SDLUtils::init("Paellas", 1280, 720, "../../../Assets/resources.json");
@@ -26,6 +33,7 @@ void Game::init()
 
 #ifdef _DEBUG
 	currentScene = new Restaurante(this);
+	
 	getObjectManager()->initMuebles();
 #else
 	currentScene = new Menu(this);

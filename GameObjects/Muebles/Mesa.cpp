@@ -3,13 +3,14 @@
 #include "../../Control/ObjectManager.h"
 
 
+
 Mesa::Mesa(Game* game, Vector2D<double> pos, Vector2D<int> dim, string texture) 
 	: Mueble(game, pos, dim.getX() * TILE_SIZE, dim.getY() * TILE_SIZE, texture) 
 {
 	mWidht = dim.getX();
 	mHight = dim.getY();
 
-	ocupada = false;
+	mGrupo = nullptr;
 
 	nSillas = 0;
 }
@@ -22,7 +23,7 @@ void Mesa::init()
 		getWidth() + aum * 2, getHeight() + aum * 2 };
 
 	for (auto i : game->getObjectManager()->getMueblesCollider(c)) {
-		Silla* s = i->initMesa();
+		Silla* s = i->initMesa(this);
 		if (s != nullptr)
 			sillas.push_back(s);
 	}
@@ -34,12 +35,14 @@ void Mesa::init()
 
 bool Mesa::recieveGrupoClientes(GrupoClientes* gc)
 {
-	if (!ocupada) {
-		ocupada = true;
-
+	if (mGrupo == nullptr) {
 		int n = gc->numIntegrantes();
 
 		if (n <= sillas.size()) {
+			cout << "Clientes colocados" << endl;
+
+			mGrupo = gc;
+
 			vector<Cliente*> clientes = gc->getIntegrantes();
 			for (int i = 0; i < n; i++) {
 				clientes[i]->setPosition(sillas[i]->getPosition());
@@ -51,4 +54,23 @@ bool Mesa::recieveGrupoClientes(GrupoClientes* gc)
 	}	
 	return false;
 }
+
+bool Mesa::returnObject(Player* p)
+{
+	if (mGrupo != nullptr) {
+		cout << "Clientes recogidos" << endl;
+
+		p->setPickedObject(mGrupo, objectType::CLIENTES);
+
+		mGrupo = nullptr;
+		return true;
+	}
+
+	return false;
+}
+
+
+
+
+
 

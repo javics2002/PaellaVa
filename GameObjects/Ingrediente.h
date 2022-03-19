@@ -9,21 +9,17 @@ enum tipoIngrediente {
 	alcachofa, calamar, cangrejo, gamba, langosta, mejillon, pimientoRojo, pimientoVerde, pollo, LAST
 };
 
-//vector<string> texturaIngrediente = { "alcachofa", "calamar", "cangrejo", "gamba",
-//	"langosta", "mejillon", "pimientoRojo", "pimientoVerde", "pollo" };
+const vector<string> texturaIngrediente = { "alcachofa", "calamar", "cangrejo", "gamba",
+	"langosta", "mejillon", "pimientoRojo", "pimientoVerde", "pollo" };
+
+const vector<string> texturaIngrProcesado = { "alcachofaP", "calamarP", "cangrejoP", "gambaP",
+	"langostaP", "mejillonP", "pimientoRojoP", "pimientoVerdeP", "polloP" };
 
 class Ingrediente : public PoolObject
 {
-	tipoIngrediente miTipo;
-
 	const unsigned int DIMENSION = 70;
 
-	vector<string> texturaIngrediente = { "alcachofa", "calamar", "cangrejo", "gamba",
-		"langosta", "mejillon", "pimientoRojo", "pimientoVerde", "pollo" };
-
-	vector<string> texturaIngrProcesado = { "alcachofaP", "calamarP", "cangrejoP", "gambaP",
-		"langostaP", "mejillonP", "pimientoRojoP", "pimientoVerdeP", "polloP" };
-
+	tipoIngrediente miTipo;
 	bool procesado = false;
 
 public:
