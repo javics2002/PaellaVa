@@ -53,6 +53,17 @@ void UIManager::uiEvent(int mx, int my)
 			}
 		}
 	}
+	for (auto j : uicomandas)
+	{
+		if (j->isActive())
+		{
+			if (j->OnClick(mx, my))
+			{
+				mx = -1;
+				my = -1;
+			}
+		}
+	}
 }
 void UIManager::update()
 {
@@ -117,9 +128,17 @@ void UIManager::render(SDL_Rect* rect = nullptr)
 	}
 	for (auto i : teclado)
 	{
-		if(i->isActive())
-		i->render(rect);
+		if (i->isActive())
+		{
+			i->render(rect);
+		}
 	}
+	for (auto i : uicomandas)
+	{
+		if (i->isActive())
+			i->render(rect);
+	}
+
 
 }
 
@@ -130,6 +149,8 @@ void UIManager::creaComanda(Game* game)
 
 	creaTeclado();
 	actual->guardaTeclado();
+	actual->toggleTeclado(false);
+	actual->toggleTecaldotam(false);
 	AceptaPaellaButton* e = new AceptaPaellaButton(game, actual, "acepta", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() + actual->getHeight() / 4, anchobotones, anchobotones);
 	interfaz.push_back(e);
 	actual->guardaBoton(e);
@@ -190,30 +211,39 @@ void UIManager::creaTeclado()
 		
 	}
 	j = 0;
+	vector <Numerobutton*> tecladonum;
+
 	for (auto i :texturasNumeros)
 	{
 	
-		vector <Numerobutton*> tecladonum;
 	
 		//Comanda comanda,Game* game, TextureName texturename, int x, int y, int w, int h
-		Numerobutton* a = new Numerobutton(this, gamet, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), anchobotones, anchobotones);
-		teclado.push_back(a);
+		Numerobutton* a = new Numerobutton(this, game, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), anchobotones, anchobotones);
+		tecladonum.push_back(a);
+		//interfaz.push_back(a);
+		//teclado.push_back(a);
 		//  objectmanager->creaTeclado(a);
-
+		uicomandas.push_back(a);
 		j++;
 	}
+	actual->guardaTecladonum(tecladonum);
 	j = 0;
+	vector <Tamanobutton*> tecladotam;
 	for (auto i : texturasTamanos)
 	{
 	
-	/*	vector <Tamanobutton*> tecladotam;
+		//vector <Tamanobutton*> tecladotam;
 		//Comanda comanda,Game* game, TextureName texturename, int x, int y, int w, int h
-		Tamanobutton* a = new Tamanobutton(this, gamet, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), anchobotones, anchobotones);
-		teclado.push_back(a);
+		Tamanobutton* a = new Tamanobutton(this, game, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), anchobotones, anchobotones);
+	//	teclado.push_back(a);
+		//interfaz.push_back(a);
 		//  objectmanager->creaTeclado(a);
-
-		j++;*/
+		tecladotam.push_back(a);
+		uicomandas.push_back(a);
+		j++;
 	}
+	actual->guardaTecladotam(tecladotam);
+	
 }
 
 void UIManager::randomizaTeclado()
