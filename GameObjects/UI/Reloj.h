@@ -1,7 +1,6 @@
 #pragma once
 #include "../GameObject.h"
 #include "../UI/Text.h"
-
 class Reloj : public GameObject
 {
 
@@ -12,6 +11,8 @@ public:
 	void update() override;
 
 private:
+	Game* game;
+
 	unsigned int tInit = 0, currentHour = 0, hoursTotal = 10000;
 	const unsigned int MIN_TICKS = 1000; //ticks en un min (1 hora en el juego)
 

@@ -1,8 +1,10 @@
 #include "Reloj.h"
+#include "../../Scenes/GameOver.h"
 
 Reloj::Reloj(Game* game)
 	: GameObject(game)
 {
+	this->game = game;
 	setDimension(w, h);
 	setPosition(sdlutils().width() - getWidth(), getHeight() );
 	setActive(true);
@@ -28,6 +30,7 @@ void Reloj::update()
 	if (finDia())
 	{
 		//TODO: Evento de fin del día
+		//game->changeScene(new GameOver(game));
 
 	}
 	else
