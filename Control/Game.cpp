@@ -3,8 +3,11 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 
-#include "../Scenes/Restaurante.h"
 #include "../Scenes/Menu.h"
+#ifdef _DEBUG
+#include "../Scenes/Restaurante.h"
+#include "../Scenes/GameOver.h"
+#endif // _DEBUG
 #include "../sdlutils/SDLUtils.h"
 #include "../sdlutils/InputHandler.h"
 #include "../Control/ObjectManager.h"

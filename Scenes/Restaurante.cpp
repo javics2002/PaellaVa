@@ -265,6 +265,12 @@ void Restaurante::loadMap(string const& path) {
 				else if (name == "ventanilla") {
 					getObjectManager()->addMueble(new Ventanilla(game, position));
 				}
+				else if (name == "arroz") {
+					getObjectManager()->addMueble(new BolsaArroz(game, position));
+				}
+				else if (name == "pared") {
+					//getObjectManager()->addMueble(new Pared(game, position));
+				}
 			}
 		}
 

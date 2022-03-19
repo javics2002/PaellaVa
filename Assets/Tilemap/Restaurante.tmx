@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="39" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="3" nextobjectid="45">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="39" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="3" nextobjectid="70">
  <tileset firstgid="1" source="Tileset.tsx"/>
  <layer id="1" name="Capa de patrones 1" width="39" height="12">
   <data encoding="csv">
@@ -33,7 +33,7 @@
   <object id="8" name="finalCinta" x="2398.67" y="581.334">
    <point/>
   </object>
-  <object id="9" name="fogon" x="1730.67" y="128">
+  <object id="9" name="fogon" x="1730.67" y="514.667">
    <point/>
   </object>
   <object id="10" name="ventanilla" x="1220" y="384">
@@ -42,7 +42,7 @@
   <object id="11" name="lavavajillas" x="1220" y="250.667">
    <point/>
   </object>
-  <object id="12" name="mesaMV" x="769" y="130">
+  <object id="12" name="mesaMV" x="835.667" y="130">
    <point/>
   </object>
   <object id="13" name="mesaL" x="197" y="198">
@@ -51,7 +51,7 @@
   <object id="14" name="mesaMH" x="478" y="386.667">
    <point/>
   </object>
-  <object id="15" name="fogon" x="1793.33" y="128">
+  <object id="15" name="fogon" x="1793.33" y="514.667">
    <point/>
   </object>
   <object id="16" name="fogon" x="1856" y="126.667">
@@ -60,13 +60,13 @@
   <object id="17" name="fogon" x="1921.33" y="128">
    <point/>
   </object>
-  <object id="18" name="tabla" x="1661.33" y="438.667">
+  <object id="18" name="tabla" x="1598.66" y="128">
    <point/>
   </object>
   <object id="19" name="sillaDer" x="510.667" y="128.333">
    <point/>
   </object>
-  <object id="21" name="sillaIz" x="644" y="127">
+  <object id="21" name="sillaIz" x="900" y="132.333">
    <point/>
   </object>
   <object id="22" name="sillaAb" x="197" y="128.667">
@@ -121,6 +121,63 @@
    <point/>
   </object>
   <object id="44" name="sillaAb" x="532" y="320">
+   <point/>
+  </object>
+  <object id="46" name="arroz" x="1406.67" y="125.333">
+   <point/>
+  </object>
+  <object id="47" name="tabla" x="1982.67" y="509.333">
+   <point/>
+  </object>
+  <object id="48" name="encimera" x="1726.67" y="382.667">
+   <point/>
+  </object>
+  <object id="49" name="pared" x="4.44089e-16" y="130.667">
+   <point/>
+  </object>
+  <object id="50" name="sillaDer" x="770.667" y="124">
+   <point/>
+  </object>
+  <object id="51" name="sillaAr" x="844" y="453.333">
+   <point/>
+  </object>
+  <object id="52" name="sillaIz" x="648" y="126.667">
+   <point/>
+  </object>
+  <object id="53" name="sillaIz" x="900" y="184">
+   <point/>
+  </object>
+  <object id="54" name="sillaDer" x="768" y="189.333">
+   <point/>
+  </object>
+  <object id="60" name="encimera" x="1666.67" y="126.667">
+   <point/>
+  </object>
+  <object id="61" name="encimera" x="1726.67" y="130.667">
+   <point/>
+  </object>
+  <object id="62" name="encimera" x="1730.67" y="448">
+   <point/>
+  </object>
+  <object id="63" name="encimera" x="1856" y="385.333">
+   <point/>
+  </object>
+  <object id="64" name="encimera" x="1788" y="380">
+   <point/>
+  </object>
+  <object id="65" name="encimera" x="1922.67" y="384">
+   <point/>
+  </object>
+  <object id="66" name="encimera" x="1984" y="381.333">
+   <point/>
+  </object>
+  <object id="67" name="encimera" x="1854.67" y="512">
+   <point/>
+  </object>
+  <object id="68" name="encimera" x="1917.33" y="514.667">
+   <point/>
+  </object>
+  <object id="69" name="encimera" x="1982.67" y="449.333">
    <point/>
   </object>
  </objectgroup>
