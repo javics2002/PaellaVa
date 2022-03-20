@@ -47,8 +47,18 @@ void Reloj::update()
 	else
 	{
 		//1 minuto en Ticks = 1 hora en el juego
-		currentTime.hours = (SDL_GetTicks() - tInit) / MIN_TICKS;
-		currentTime.minutes = (SDL_GetTicks() - tInit) % MIN_TICKS;
+		currentTime.minutes += addedMinutes;
+
+		if (currentTime.minutes >= 60) {
+			currentTime.hours += currentTime.minutes / 60;
+			currentTime.minutes = currentTime.minutes % 60;
+		}
+		if (currentTime.hours >= 24) {
+			currentTime.hours = currentTime.hours % 24;
+
+		}
+		
+		//currentTime.hours
 
 		//TODO: Representar cuantas horas han pasado
 		//renderTimeText();

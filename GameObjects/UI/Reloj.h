@@ -15,12 +15,14 @@ private:
 	Game* game;
 
 	Uint32 lastUpdate_;//tiempo desde el último update
-	Uint32 updateTime_ = 10 * 1000; //los segundos que tarda en actualizarse el reloj
+	Uint32 updateTime_ = 1 * 1000; //los segundos que tarda en actualizarse el reloj
 	int totalJornada = 5 * 1000 *60; //horas totales que dura una jornada
 
 
 	int hourIni = 9; //la hora del día a la que empieza la jornada
 	int minuteIni = 0; //los minutos de la hora a la que empieza el juego
+
+	int addedMinutes = 10; //los minutos añadidos en cada update 
 
 	unsigned int tInit = 0;
 
