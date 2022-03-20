@@ -58,7 +58,5 @@ public:
 	void render() override;
 	void debug() override;
 
-	void setVPlayer(float aceleration);
-
 	void loadMap(string const& path);
 };

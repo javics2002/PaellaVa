@@ -26,12 +26,10 @@ Paella::Paella(Game* game, Volumen volumen_): ObjetoPortable(game), volumen(volu
 	ingrEnPaella = vector<bool>(tipoIngrediente::LAST, false);
 }
 
-void Paella::añadeIngr(Ingrediente ingr_)
+void Paella::añadeIngr(Ingrediente *ingr_)
 {
-	if (ingredientes.size() < MAX_INGR && estado == Cruda && !ingrEnPaella[ingr_.getTipo()]) {
-		ingredientes.push_back(ingr_);
-		ingrEnPaella[ingr_.getTipo()] = true;
-	}
+	ingredientes.push_back(ingr_->getTipo());
+	ingrEnPaella[ingr_->getTipo()] = true;
 }
 
 void Paella::setState(Estado estado_)
@@ -66,8 +64,6 @@ void Paella::update()
 				tiempo = sdlutils().currRealTime();
 				i++;
 				estadoFinal = Resultado(i);
-
-				cout << "Estado del proceso: " << estado << " Estado paella: " << estadoFinal << endl;
 			}
 		}
 
@@ -89,7 +85,7 @@ void Paella::setLavado(Contenido contenidoPaella)
 
 void Paella::onObjectPicked()
 {
-
+	if(estado == Coccion) setState(Preparada);
 }
 
 void Paella::onObjectDropped()
@@ -100,6 +96,11 @@ void Paella::onObjectDropped()
 bool Paella::canPick()
 {
 	return true;
+}
+
+bool Paella::ingrValido(Ingrediente* ingr)
+{
+	return ingredientes.size() < MAX_INGR && estado == Cruda && !ingrEnPaella[ingr->getTipo()];
 }
 
 Estado Paella::getState()

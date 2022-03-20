@@ -36,8 +36,6 @@ public:
     void update();
     void render();
 
-    void procesandoIngr(float aceleration);
-
     ObjectManager* getObjectManager();
     UIManager* getUIManager();
 };
