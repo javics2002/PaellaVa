@@ -21,7 +21,7 @@ ListaComandas::~ListaComandas()
 }
 void ListaComandas::AñadeComanda(Comanda* comanda)
 {
-	if (numcomandas < 4)
+	if (numcomandas < maxvisibles)
 	{
 		Comanda* c = new Comanda(*comanda);
 		int x = c->getX();
@@ -44,13 +44,46 @@ void ListaComandas::renderComandas()
 {
 	for (int i = 0; i < lista.size(); i++)
 	{
-		lista[i]->render(nullptr);//se pasan bien pero los uibutton de la lista de paelas deciden morir aqui xd
-		lista[i]->dibujaPedido();//XD son punteros y la comanda hace paella clear y los borra lol
-	}
+		if (lista[i] != nullptr)
+		{
+			lista[i]->render(nullptr);//se pasan bien pero los uibutton de la lista de paelas deciden morir aqui xd
+			lista[i]->dibujaPedido();//XD son punteros y la comanda hace paella clear y los borra lol
+		}
+		}
 }
 void ListaComandas::finalizacomanda(Comanda* comanda)
 {
+	int desplazables = maxvisibles- comanda->getSitio();
+	int aborrar = comanda->getSitio();
+
+	//delete lista[comanda->getSitio()];
+	//lista[comanda->getSitio()] = nullptr;
+
+	//desplazamiento estetico a la derecha
+	for (auto c : lista)
+	{
+
+		if (c->getSitio() < aborrar)
+		{
+			int nx=c->getPosition().getX()+ 1.5 * c->getWidth();
+			int dsp = nx - c->getPosition().getX();
+			c->desplazacomandas(dsp);//esta la paella anterior en el mismo  vector 
+			c->setPosition(nx, cY);
+			c->getEliminabutton()->setPosition(nx, cY+c->getHeight()/2);
+		}
+	}
+
+	//shift del vector a la izquierda
+	for (auto c : lista)
+	{
+
+		if (c->getSitio() > aborrar)
+		{
+			c->setSitio(c->getSitio() - 1);
+		}
+	}
 	lista.erase(lista.begin() + comanda->getSitio());
+	//
 	numcomandas--;
 
 }
