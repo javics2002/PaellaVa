@@ -46,7 +46,6 @@ void Puerta::update()
 
 bool Puerta::receiveGrupoClientes(GrupoClientes* gc)
 {
-	gc->desactivate();
 	game->getObjectManager()->getPoolGrupoClientes()->remove(gc->getIterator());
 
 	return true;

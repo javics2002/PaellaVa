@@ -18,11 +18,12 @@ public:
 	void activate(list<PoolObject*>::const_iterator iterator);
 	void desactivate();
 
-	virtual void onActivate() {}
-	virtual void onDesactivate() {}
-
 	bool isActive();
 
 	list<PoolObject*>::const_iterator getIterator();
+
+protected:
+	virtual void onActivate() {}
+	virtual void onDesactivate() {}
 };
 

@@ -14,8 +14,6 @@ void Ingrediente::update()
 
 std::list<PoolObject*>::const_iterator Ingrediente::ingredientCollide()
 {
-	desactivate();
-
 	return getIterator();
 }
 

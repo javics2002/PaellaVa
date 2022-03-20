@@ -28,8 +28,6 @@ bool Encimera::receiveIngrediente(Ingrediente* ingr)
 
 			ingr->setPosition(paella_->getX(), paella_->getY());
 
-			ingr->desactivate();
-
 			game->getObjectManager()->getPoolIngredientes()->remove(ingr->getIterator());
 
 			return true;
