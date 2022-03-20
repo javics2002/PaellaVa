@@ -14,9 +14,9 @@ Silla* Silla::initMesa(Mesa* mesa)
 	return this;
 }
 
-bool Silla::recieveGrupoClientes(GrupoClientes* gc)
+bool Silla::receiveGrupoClientes(GrupoClientes* gc)
 {
-	return mMesa->recieveGrupoClientes(gc);
+	return mMesa->receiveGrupoClientes(gc);
 }
 
 bool Silla::returnObject(Player* p)

@@ -33,7 +33,7 @@ void Mesa::init()
 	cout << nSillas << endl;
 }
 
-bool Mesa::recieveGrupoClientes(GrupoClientes* gc)
+bool Mesa::receiveGrupoClientes(GrupoClientes* gc)
 {
 	if (mGrupo == nullptr) {
 		int n = gc->numIntegrantes();

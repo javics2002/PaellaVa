@@ -22,6 +22,6 @@ public:
 	void update();
 	void procesando();
 
-	bool recieveIngrediente(Ingrediente *ingr_) override;
+	bool receiveIngrediente(Ingrediente *ingr_) override;
 };
 

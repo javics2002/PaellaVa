@@ -22,7 +22,7 @@ public:
 
 	void init() override;
 
-	bool recieveGrupoClientes(GrupoClientes* gc) override;
+	bool receiveGrupoClientes(GrupoClientes* gc) override;
 	virtual bool returnObject(Player* p) override;
 
 };

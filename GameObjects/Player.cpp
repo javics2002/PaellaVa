@@ -135,13 +135,13 @@ void Player::handleInput()
 			switch (objectType_)
 			{
 			case INGREDIENTE:
-				if (m != nullptr && m->recieveIngrediente(dynamic_cast<Ingrediente*>(pickedObject_))) {
+				if (m != nullptr && m->receiveIngrediente(dynamic_cast<Ingrediente*>(pickedObject_))) {
 					pickedObject_->dropObject();
 					pickedObject_ = nullptr;
 				}
 				break;
 			case CLIENTES:
-				if (m != nullptr && m->recieveGrupoClientes(dynamic_cast<GrupoClientes*>(pickedObject_))) {
+				if (m != nullptr && m->receiveGrupoClientes(dynamic_cast<GrupoClientes*>(pickedObject_))) {
 					pickedObject_->dropObject();
 					pickedObject_ = nullptr;
 				}
@@ -156,7 +156,7 @@ void Player::handleInput()
 				}			
 				break;
 			case PAELLA:
-				if (m != nullptr && m->recievePaella(dynamic_cast<Paella*>(pickedObject_))) {
+				if (m != nullptr && m->receivePaella(dynamic_cast<Paella*>(pickedObject_))) {
 					pickedObject_->dropObject();
 					pickedObject_ = nullptr;
 				}

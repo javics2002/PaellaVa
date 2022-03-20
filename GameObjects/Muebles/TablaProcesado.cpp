@@ -32,7 +32,7 @@ void TablaProcesado::procesando()
 	}
 }
 
-bool TablaProcesado::recieveIngrediente(Ingrediente* ingr_)
+bool TablaProcesado::receiveIngrediente(Ingrediente* ingr_)
 {
 	
 	if (ingr == nullptr) {
