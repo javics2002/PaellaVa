@@ -8,12 +8,7 @@ TablaProcesado::TablaProcesado(Game* game_, Vector2D<double> pos) : Mueble(game,
 void TablaProcesado::update() {
 
 	if (ingr_ != nullptr) {
-
-		if (ingr_->isPicked()) {
-			tiempo = 0;
-		}
-
-		else procesando();
+		procesando();
 	}
 
 
@@ -21,14 +16,9 @@ void TablaProcesado::update() {
 
 void TablaProcesado::procesando()
 {
-	if (tiempo == 0.0) {
-		tiempo = sdlutils().currRealTime();
-	}
-
 	if (sdlutils().currRealTime() - tiempo >= TIEMPO_PROCESADO) {
 		ingr_->setProcesado(true, ingr_);
-		game->procesandoIngr(1.2);
-		tiempo = 0;
+		tiempo = sdlutils().currRealTime();
 	}
 }
 
@@ -39,9 +29,9 @@ bool TablaProcesado::receiveIngrediente(Ingrediente* ingr)
 
 		ingr_ = ingr;
 
-		ingr_->setPosition(getX(), getY());
+		tiempo = sdlutils().currRealTime();
 
-		game->procesandoIngr(0);
+		ingr_->setPosition(getX(), getY());
 
 		return true;
 	}

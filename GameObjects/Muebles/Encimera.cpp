@@ -2,6 +2,7 @@
 #include "../Ingrediente.h"
 #include "../Player.h"
 #include "../Paella.h"
+#include "../../Control/Game.h"
 
 Encimera::Encimera(Game* game, Vector2D<double> pos) : Mueble(game, pos, 1 * TILE_SIZE, 2 * TILE_SIZE, "encimera")
 {
@@ -18,8 +19,24 @@ bool Encimera::receiveIngrediente(Ingrediente* ingr)
 
 		return true;
 	}
-	else
-		return false;
+	
+	else if (paella_ != nullptr) {
+
+		if (paella_->ingrValido(ingr)) {
+
+			paella_->añadeIngr(ingr);
+
+			ingr->setPosition(paella_->getX(), paella_->getY());
+
+			ingr->desactivate();
+
+			game->getObjectManager()->getPoolIngredientes()->remove(ingr->getIterator());
+
+			return true;
+		}
+	}
+
+	return false;
 }
 
 bool Encimera::receivePaella(Paella* pa)

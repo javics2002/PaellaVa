@@ -21,10 +21,6 @@ Game::~Game() {
 
 }
 
-void Game::procesandoIngr(float aceleration) {
-	
-}
-
 void Game::init()
 {
 	SDLUtils::init("Paellas", 1280, 720, "../../../Assets/resources.json");

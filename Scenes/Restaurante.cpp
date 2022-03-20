@@ -90,12 +90,6 @@ void Restaurante::debug()
 	objectManager->debug(camara->renderRect());
 	host->renderDebug(camara->renderRect());
 }
-
-void Restaurante::setVPlayer(float aceleration)
-{
-	client->setV(aceleration);
-}
-
 //Check colisiones
 
 void Restaurante::loadMap(string const& path) {

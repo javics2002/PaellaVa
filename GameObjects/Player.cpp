@@ -268,7 +268,3 @@ void Player::setPickedObject(ObjetoPortable* op, objectType ot)
 	objectType_ = ot;
 }
 
-void Player::setV(float aceleration_) {
-	aceleracion = aceleration_;
-}
-

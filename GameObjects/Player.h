@@ -42,7 +42,5 @@ public:
 	SDL_Rect getOverlapCollider();	
 
 	void setPickedObject(ObjetoPortable* op, objectType ot);
-
-	void setV(float aceleration_);
 };
 
