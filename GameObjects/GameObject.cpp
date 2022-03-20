@@ -81,6 +81,11 @@ void GameObject::drawRender(SDL_Rect* cameraRect)
 	texture->render(textureBox);
 }
 
+void GameObject::drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex)
+{
+	tex->render({ rect.x - cameraRect->x, rect.y - cameraRect->y, rect.w, rect.h });
+}
+
 void GameObject::drawDebug(SDL_Rect* cameraRect)
 {
 	SDL_Rect collider = getCollider();

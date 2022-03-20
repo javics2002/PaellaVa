@@ -25,6 +25,7 @@ protected:
     bool active = true;
 
     void drawRender(SDL_Rect* cameraRect);   
+    void drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex);
     void drawDebug(SDL_Rect* cameraRect);
     void drawDebug(SDL_Rect* cameraRect, SDL_Rect rect);
 

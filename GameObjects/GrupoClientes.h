@@ -20,17 +20,18 @@ class GrupoClientes : public PoolObject
 	list<GrupoClientes*>::const_iterator posCola;
 	Cola* cola;
 
-	string texturaTolerancia = "barraTolerancia";
-
-	const float DIMIN_TOLERANCIA = 2;
 	const float DIMIN_TIME = 3000;
-
-	float tolerancia;
+	const float DIMIN_TOLERANCIA = 2;
+		
 	float lastTime;
+	float tolerancia;
+	bool showTol;
+
+	Texture* texTolerancia;
 
 	estado estado_;
 
-	float mitadGrupo();
+	int mitadGrupo();
 
 	void bajaTolerancia();
 

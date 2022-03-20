@@ -43,6 +43,8 @@ bool Mesa::recieveGrupoClientes(GrupoClientes* gc)
 
 			mGrupo = gc;
 
+			gc->setPosition(getPosition());
+
 			vector<Cliente*> clientes = gc->getIntegrantes();
 			for (int i = 0; i < n; i++) {
 				clientes[i]->setPosition(sillas[i]->getPosition());

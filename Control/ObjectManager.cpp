@@ -80,7 +80,6 @@ void ObjectManager::update()
 
 	SDL_Rect rect = SDL_Rect{ x, y, range, range };
 
-
 	for (auto i : grupoClientes->getCollisions(rect)) {
 		i->ratonEncima();
 	}
