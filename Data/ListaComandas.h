@@ -32,6 +32,7 @@ private:
 	int cX = 0;
 	int cY = 0;
 	int desplazamineto = 0;
+	int inicx = 0;
 	UIManager* uimt;
 };
 

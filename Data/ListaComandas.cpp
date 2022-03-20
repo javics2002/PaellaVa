@@ -15,6 +15,7 @@ ListaComandas::ListaComandas(Game* game,UIManager* m) :GameObject(game)
 	cY = p.getY();
 	setDimension(ancho, alto);
 	uimt = m;
+	inicx = cX;
 }
 ListaComandas::~ListaComandas()
 {
@@ -25,19 +26,50 @@ void ListaComandas::AñadeComanda(Comanda* comanda)
 	{
 		Comanda* c = new Comanda(*comanda);
 		int x = c->getX();
+		c->setSitio(numcomandas);
+		//comprobar si la posicion 0 está libre
+		if (numcomandas > 0)
+		{
+
+
+			if (lista[0]->getPosition().getX() != inicx)
+			{
+				//priemraposicion de la lista libre
+				cX = inicx;
+				//shift derecho visual y en el vector
+				for (auto c : lista)
+				{
+
+					
+						//c->setSitio(c->getSitio()+ 1);
+					
+				}
+				
+			}
+			else 
+				cX = inicx + (numcomandas * 1.5 * c->getWidth());
+		}
+		//cX = inicx + (numcomandas * 1.5 * c->getWidth());//al llenar y vaciar de locos pero añadir si ya hay 3 , en la posicion 0 ....
 		desplazamineto = cX - x;
+		
 		c->desplazacomandas(desplazamineto);//esta la paella anterior en el mismo  vector 
 		c->setPosition(cX, cY);
 		c->getPosition().setX(cX);
 		lista.push_back(c);
-		
-		c->setSitio(numcomandas);
+		//c->setSitio(inicx/(1.5 * c->getWidth())-1); AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+		//c->setSitio(numcomandas);
 		//UIManager* u,Comanda* c, Game* game, string texturename, int x, int y, int w, int h
 		EliminaComandaButton* e = new EliminaComandaButton(uimt, c, game, "cancela", cX, cY + c->getHeight()/2, 25, 25);
 		//uimt->addInterfaz(e);
 		c->setEliminabutton(e);
 		numcomandas++;
-		cX += 1.5 * c->getWidth();
+		//cX += 1.5 * c->getWidth();
+
+	}
+	else 
+	{
+	//se guardan en el buffer de comandas.
+	
 	}
 }
 void ListaComandas::renderComandas()
@@ -80,11 +112,16 @@ void ListaComandas::finalizacomanda(Comanda* comanda)
 		if (c->getSitio() > aborrar)
 		{
 			c->setSitio(c->getSitio() - 1);
+
 		}
 	}
 	lista.erase(lista.begin() + comanda->getSitio());
-	//
+	if(listanovisibles.empty())
 	numcomandas--;
+	else
+	{
+		//traer comanda del buffer 
+	}
 
 }
 void ListaComandas::update()
