@@ -7,6 +7,7 @@ class Encimera : public Mueble
 {
 private:
 	Ingrediente* ingr_ = nullptr;
+	Paella* paella_ = nullptr;
 
 public:
 	Encimera(Game* game, Vector2D<double> pos);
@@ -14,5 +15,6 @@ public:
 
 	virtual bool receiveIngrediente(Ingrediente* ingr) override;
 	virtual bool returnObject(Player* p) override;
+	virtual bool receivePaella(Paella* pa) override;
 };
 

@@ -32,6 +32,5 @@ public:
     virtual bool receiveIngrediente(Ingrediente* ingr) { return false; };
     virtual bool receiveGrupoClientes(GrupoClientes* gc) { return false; };
     virtual bool receivePaella(Paella* pa) { return false; };
-
     virtual bool returnObject(Player* p) { return false; }
 };

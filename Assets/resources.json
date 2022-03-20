@@ -269,10 +269,14 @@
             "id": "arroz",
             "file": "../../../Assets/Images/arroz.png"
         },
-        {
-          "id": "reloj",
-          "file": "../../../Assets/Images/reloj.png"
-       }
+      {
+        "id": "reloj",
+        "file": "../../../Assets/Images/reloj.png"
+      },
+      {
+        "id": "paella",
+        "file": "../../../Assets/Images/paella.png"
+      }
     ],
 
   "tilesets": [
