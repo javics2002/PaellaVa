@@ -51,7 +51,7 @@ void Paella::update()
 	{
 	case Preparacion:
 		//Setear textura de preparacion
-		setState(Coccion);
+		//setState(Coccion);
 		break;
 	case Coccion:
 

@@ -16,6 +16,9 @@ bool Fogon::receivePaella(Paella* pa)
 
 		paella_->setPosition(getX(), getY());
 
+		//empezar a cocer la paella
+		paella_->setState(Coccion);
+
 		return true;
 	}
 	else
@@ -29,6 +32,9 @@ bool Fogon::returnObject(Player* p)
 		p->setPickedObject(paella_, PAELLA);
 
 		paella_ = nullptr;
+
+		//TOCHECK: Habría que devolver la paella al estado de "Preparación" si no está Preparada?
+		//Y desde donde se llama a que esté ya Preparada?
 
 		return true;
 	}
