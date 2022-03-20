@@ -15,7 +15,7 @@ public:
 
 	Silla* initMesa(Mesa* mesa) override;
 
-	bool recieveGrupoClientes(GrupoClientes* gc) override;
+	bool receiveGrupoClientes(GrupoClientes* gc) override;
 	virtual bool returnObject(Player* p) override;
 };
 

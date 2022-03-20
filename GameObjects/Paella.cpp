@@ -7,7 +7,7 @@ Paella::Paella(Game* game, Volumen volumen_): ObjetoPortable(game), volumen(volu
 {
 
 	setPosition(sdlutils().width() / 2, 100);
-	setDimension(100, 100);
+	setDimension(50, 50);
 
 	switch (volumen)
 	{
@@ -21,7 +21,7 @@ Paella::Paella(Game* game, Volumen volumen_): ObjetoPortable(game), volumen(volu
 		break;
 	}
 
-	setTexture("barraTolerancia");
+	setTexture("paella");
 
 	ingrEnPaella = vector<bool>(tipoIngrediente::LAST, false);
 }
@@ -51,7 +51,7 @@ void Paella::update()
 	{
 	case Preparacion:
 		//Setear textura de preparacion
-		setState(Coccion);
+		//setState(Coccion);
 		break;
 	case Coccion:
 

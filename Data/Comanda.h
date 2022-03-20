@@ -26,6 +26,7 @@ public:
 
     ~Comanda();//No se puede definir todavia y no compila NO LO BORREIS/
     void añadiraPedido(string i);
+    void anadirNumeromesa(string n);
     void randomizaIconos();
     //void abrirComanda(int x,int y);
     void dibujaPedido();
@@ -38,12 +39,18 @@ public:
     void guardaBoton(UiButton* b);
     void guardaTecladonum(vector <Numerobutton*> n);
     void guardaTecladotam(vector <Tamanobutton*> t);
+    void toggleTeclado(bool b);
+    void toggleTecladonum(bool b);
+    void toggleTecaldotam(bool b);
 
 
     void renderizaPaellas();
     void desplazacomandas(int d);
     void clearPaellas();
     vector<vector<UiButton*>> copyPaellas();
+
+    void setSitio(int s);
+    int getSitio();
 
     void toggleactive();
     /*void cierraComanda();*/
@@ -70,6 +77,7 @@ private:
     int altoini;
     uint numeroMesa;
     uint numeroPaellas = 0;
+    int sitiolista;
     float puntuacion;
     Game* gamet;
     UIManager* uimt;
@@ -84,6 +92,7 @@ private:
     vector <Numerobutton*> tecladonum;
     vector <Tamanobutton*> tecladotam;
     vector<UiButton*> botones;
+    UiButton* numeromesa;
     vector<Point2D<double>> postecladoini;
     vector<vector <UiButton* >> paellas; // esto es lo que se envia a la lista de comandas y vamos haciendo paellas[i,j.pushback(]pedido[i])
 
