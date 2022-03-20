@@ -87,7 +87,9 @@ void Player::handleInput()
 			
 			//Si se ha encontrado un mueble, se intenta interactuar con 
 			//este con returnObject(), para que te devuelva el objeto
-			if (m != nullptr && m->returnObject(this)) {
+			if (m != nullptr && m->returnObject(this)) 
+			{
+				assert(pickedObject_ != nullptr);
 				pickedObject_->pickObject();
 			}
 
