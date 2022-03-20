@@ -8,9 +8,14 @@ Reloj::Reloj(Game* game)
 	setDimension(w, h);
 	setPosition(sdlutils().width() - getWidth(), getHeight() );
 	setActive(true);
-
-	int horaa = 12;
-	string timeText =  "porfs123";
+	lastUpdate_ = 0;
+	
+	hourIni = 9;
+	minuteIni = 0;
+	
+	currentTime.hours = hourIni;
+	currentTime.minutes = minuteIni;
+	string timeText = parseTimeToString(hourIni, minuteIni);
 
 	setTexture(timeText, string("paella"), fgColor, bgColor);
 }
@@ -21,11 +26,17 @@ Reloj::~Reloj()
 
 bool Reloj::finDia()
 {
-	return SDL_TICKS_PASSED(SDL_GetTicks(), hoursTotal);
+	return SDL_TICKS_PASSED(SDL_GetTicks(), totalJornada);
 }
 
 void Reloj::update()
 {
+
+	if (lastUpdate_ + updateTime_ > sdlutils().currRealTime()) { //si no pasan
+		return;
+	}
+
+	lastUpdate_ = sdlutils().currRealTime();
 
 	if (finDia())
 	{
@@ -41,7 +52,7 @@ void Reloj::update()
 
 		//TODO: Representar cuantas horas han pasado
 		//renderTimeText();
-		string timeText = to_string(currentTime.hours) + ":" + to_string(currentTime.minutes);
+		string timeText = parseTimeToString(currentTime.hours, currentTime.minutes);
 
 		setTexture(timeText, string("paella"), fgColor, bgColor);
 
@@ -61,4 +72,17 @@ void Reloj::renderTimeText()
 		scoreTex.height());
 	cout << "entra a render time" << endl;
 	scoreTex.render(dest);
+}
+
+string Reloj::parseTimeToString(int hours, int minutes)
+{
+	string timeText = "";
+	if (hours < 10) timeText += "0";
+	timeText += to_string(hours);
+
+	timeText += ":";
+
+	if (minutes < 10) timeText += "0";
+	timeText += to_string(minutes);
+	return timeText;
 }
