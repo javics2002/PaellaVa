@@ -150,6 +150,7 @@
     <ClInclude Include="GameObjects\UI\AceptaPaellaButton.h" />
     <ClInclude Include="GameObjects\UI\BorrarButton.h" />
     <ClInclude Include="GameObjects\UI\DescartaCommandaButton.h" />
+    <ClInclude Include="GameObjects\UI\EliminaComandaButton.h" />
     <ClInclude Include="GameObjects\UI\EnviaComandaButton.h" />
     <ClInclude Include="GameObjects\UI\ExitButton.h" />
     <ClInclude Include="GameObjects\Muebles\Encimera.h" />
@@ -237,6 +238,7 @@
     <ClCompile Include="GameObjects\UI\BorrarButton.cpp" />
     <ClCompile Include="Data\Comanda.cpp" />
     <ClCompile Include="GameObjects\UI\DescartaCommandaButton.cpp" />
+    <ClCompile Include="GameObjects\UI\EliminaComandaButton.cpp" />
     <ClCompile Include="GameObjects\UI\EnviaComandaButton (1).cpp" />
     <ClCompile Include="GameObjects\UI\ExitButton.cpp" />
     <ClCompile Include="GameObjects\Muebles\Encimera.cpp" />

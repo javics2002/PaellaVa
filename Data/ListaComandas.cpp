@@ -1,6 +1,9 @@
 #include "ListaComandas.h"
 #include "Comanda.h"
-ListaComandas::ListaComandas(Game* game) :GameObject(game)
+#include "../GameObjects/UI/EliminaComandaButton.h"
+#include "../Control/Game.h"
+#include "../GameObjects/UI/UIManager.h"
+ListaComandas::ListaComandas(Game* game,UIManager* m) :GameObject(game)
 {
 
 	setTexture("barra");
@@ -11,6 +14,7 @@ ListaComandas::ListaComandas(Game* game) :GameObject(game)
 	cX = p.getX()/2;
 	cY = p.getY();
 	setDimension(ancho, alto);
+	uimt = m;
 }
 ListaComandas::~ListaComandas()
 {
@@ -26,9 +30,14 @@ void ListaComandas::AñadeComanda(Comanda* comanda)
 		c->setPosition(cX, cY);
 		c->getPosition().setX(cX);
 		lista.push_back(c);
-		cX += 1.5 * c->getWidth();
 		
+		c->setSitio(numcomandas);
+		//UIManager* u,Comanda* c, Game* game, string texturename, int x, int y, int w, int h
+		EliminaComandaButton* e = new EliminaComandaButton(uimt, c, game, "cancela", cX, cY + c->getHeight()/2, 25, 25);
+		//uimt->addInterfaz(e);
+		c->setEliminabutton(e);
 		numcomandas++;
+		cX += 1.5 * c->getWidth();
 	}
 }
 void ListaComandas::renderComandas()
@@ -41,6 +50,10 @@ void ListaComandas::renderComandas()
 }
 void ListaComandas::finalizacomanda(Comanda* comanda)
 {
-	
+	lista.erase(lista.begin() + comanda->getSitio());
+	numcomandas--;
 
+}
+void ListaComandas::update()
+{
 }

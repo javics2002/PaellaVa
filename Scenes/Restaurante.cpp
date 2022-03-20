@@ -31,7 +31,7 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
 
 	getUIManager()->addInterfaz(new RedactaComandabutton(game, "redactaboton", 10, 10, 30, 30));
-	uiManager->setBarra(new ListaComandas(game));
+	uiManager->setBarra(new ListaComandas(game,uiManager));
 
 	objectManager->addPaella(new Paella(game, Paella::Minima));
 	uiManager->addInterfaz(new Reloj(game));

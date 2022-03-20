@@ -9,6 +9,7 @@
 #include "EnviaComandaButton.h"
 #include "BorrarButton.h"
 #include "AceptaPaellaButton.h"
+#include "EliminaComandaButton.h"
 #include "../../Data/ListaComandas.h"
 #include <iostream>
 
@@ -62,6 +63,19 @@ void UIManager::uiEvent(int mx, int my)
 				mx = -1;
 				my = -1;
 			}
+		}
+	}
+	if (barra != nullptr)
+	{
+		for (auto c : barra->getlista())
+		{
+
+			if (c->getEliminabutton()->OnClick(mx, my))
+			{
+				mx = -1;
+				my = -1;
+			}
+
 		}
 	}
 }

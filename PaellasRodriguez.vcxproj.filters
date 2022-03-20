@@ -59,6 +59,7 @@
     <ClCompile Include="GameObjects\Muebles\Pared.cpp" />
     <ClCompile Include="GameObjects\Muebles\BolsaArroz.cpp" />
     <ClCompile Include="GameObjects\UI\Reloj.cpp" />
+    <ClCompile Include="GameObjects\UI\EliminaComandaButton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
@@ -144,6 +145,7 @@
     <ClInclude Include="GameObjects\Muebles\Pared.h" />
     <ClInclude Include="GameObjects\Muebles\BolsaArroz.h" />
     <ClInclude Include="GameObjects\UI\Reloj.h" />
+    <ClInclude Include="GameObjects\UI\EliminaComandaButton.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />

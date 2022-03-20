@@ -2,6 +2,7 @@
 #include "../GameObjects/UI/Ingredientebutton.h"
 #include "../GameObjects/UI/Numerobutton.h"
 #include "../GameObjects/UI/Tamanobutton.h"
+#include  "../GameObjects/UI/EliminaComandaButton.h"
 
 #include "../Control/Game.h"
 #include "../Control/ObjectManager.h"
@@ -75,6 +76,8 @@ Comanda::Comanda( Comanda& c) :GameObject(c.gamet)
 Comanda::~Comanda()
 {
     //si hay leaks esq aqui tengo qeu borrar algun puntero de botone spero creo que el uimanager ya los borra todos
+    if(eliminarboton!=nullptr)
+    delete eliminarboton; eliminarboton = nullptr;
 }
 void Comanda::añadiraPedido(string i)
 {
@@ -286,6 +289,10 @@ void Comanda::renderizaPaellas()
 
 
     }
+    if (eliminarboton != nullptr)
+    {
+        eliminarboton->render(nullptr);
+    }
   /*  for (auto t : tecladonum)
     {
         if (t->isActive())
@@ -355,10 +362,11 @@ vector<vector<UiButton*>> Comanda::copyPaellas()
 }
 void Comanda::setSitio(int s)
 {
+    sitiolista = s;
 }
 int Comanda::getSitio()
 {
-    return 0;
+    return sitiolista;
 }
 void Comanda::toggleactive()
 {

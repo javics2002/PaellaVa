@@ -11,6 +11,7 @@ class Game;
 class Ingredientebutton;
 class Numerobutton;
 class Tamanobutton;
+class EliminaComandaButton;
 class UIManager;
 using namespace std;
 using uint = uint32_t;
@@ -52,6 +53,8 @@ public:
     void setSitio(int s);
     int getSitio();
 
+    void setEliminabutton(EliminaComandaButton* e) { eliminarboton = e; };
+    EliminaComandaButton* getEliminabutton() { return eliminarboton; };
     void toggleactive();
     /*void cierraComanda();*/
     //void Ecribeinfoenjson();
@@ -78,6 +81,7 @@ private:
     uint numeroMesa;
     uint numeroPaellas = 0;
     int sitiolista;
+    EliminaComandaButton* eliminarboton;
     float puntuacion;
     Game* gamet;
     UIManager* uimt;
