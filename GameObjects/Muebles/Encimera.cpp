@@ -6,14 +6,14 @@ Encimera::Encimera(Game* game, Vector2D<double> pos) : Mueble(game, pos, 1 * TIL
 {
 }
 
-bool Encimera::receiveIngrediente(Ingrediente* in)
+bool Encimera::receiveIngrediente(Ingrediente* ingr)
 {
 	//Si ya tiene objeto, no recoge objeto
-	if (in_ == nullptr) 
+	if (ingr_ == nullptr) 
 	{
-		in->setPosition(getX(), getY());
+		ingr->setPosition(getX(), getY());
 
-		in_ = in;
+		ingr_ = ingr;
 
 		return true;
 	}
@@ -23,12 +23,12 @@ bool Encimera::receiveIngrediente(Ingrediente* in)
 
 bool Encimera::returnObject(Player* p)
 {
-	if (in_ != nullptr)
+	if (ingr_ != nullptr)
 	{
 		//TOCHECK: Podríamos hacer un return del objeto y que el player se lo guarde a sí mismo
-		p->setPickedObject(in_, INGREDIENTE);
+		p->setPickedObject(ingr_, INGREDIENTE);
 
-		in_ = nullptr;
+		ingr_ = nullptr;
 
 		return true;
 	}

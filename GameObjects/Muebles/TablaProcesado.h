@@ -11,7 +11,7 @@ class TablaProcesado: public Mueble
 
 	const double TIEMPO_PROCESADO = 3000.0;
 
-	Ingrediente* ingr;
+	Ingrediente* ingr_;
 
 	double tiempo = 0.0;
 
@@ -23,5 +23,6 @@ public:
 	void procesando();
 
 	bool receiveIngrediente(Ingrediente *ingr_) override;
+	bool returnObject(Player* p);
 };
 

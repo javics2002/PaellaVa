@@ -29,7 +29,7 @@ public:
         return nullptr;
     }
 
-    virtual bool receiveIngrediente(Ingrediente* in) { return false; };
+    virtual bool receiveIngrediente(Ingrediente* ingr) { return false; };
     virtual bool receiveGrupoClientes(GrupoClientes* gc) { return false; };
     virtual bool receivePaella(Paella* pa) { return false; };
 

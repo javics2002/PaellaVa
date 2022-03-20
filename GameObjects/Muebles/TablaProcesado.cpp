@@ -7,9 +7,9 @@ TablaProcesado::TablaProcesado(Game* game_, Vector2D<double> pos) : Mueble(game,
 
 void TablaProcesado::update() {
 
-	if (ingr != nullptr) {
+	if (ingr_ != nullptr) {
 
-		if (ingr->isPicked()) {
+		if (ingr_->isPicked()) {
 			tiempo = 0;
 		}
 
@@ -26,20 +26,20 @@ void TablaProcesado::procesando()
 	}
 
 	if (sdlutils().currRealTime() - tiempo >= TIEMPO_PROCESADO) {
-		ingr->setProcesado(true, ingr);
+		ingr_->setProcesado(true, ingr_);
 		game->procesandoIngr(1.2);
 		tiempo = 0;
 	}
 }
 
-bool TablaProcesado::receiveIngrediente(Ingrediente* ingr_)
+bool TablaProcesado::receiveIngrediente(Ingrediente* ingr)
 {
 	
-	if (ingr == nullptr) {
+	if (ingr_ == nullptr) {
+
+		ingr_ = ingr;
 
 		ingr_->setPosition(getX(), getY());
-
-		ingr = ingr_;
 
 		game->procesandoIngr(0);
 
@@ -48,4 +48,19 @@ bool TablaProcesado::receiveIngrediente(Ingrediente* ingr_)
 
 	return false;
 
+}
+
+bool TablaProcesado::returnObject(Player* p)
+{
+	if (ingr_ != nullptr)
+	{
+		//TOCHECK: Podríamos hacer un return del objeto y que el player se lo guarde a sí mismo
+		p->setPickedObject(ingr_, INGREDIENTE);
+
+		ingr_ = nullptr;
+
+		return true;
+	}
+	else
+		return false;
 }
