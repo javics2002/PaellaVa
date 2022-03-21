@@ -4,18 +4,23 @@
 #include "../GameObjects/Player.h"
 #include "../Control/ObjectManager.h"
 
+
+// SERVIDOR
+
+// Función que acepta a los jugadores (se encuentra en un hilo)
+// Problemas que da: ---
 void NetworkManager::AcceptPlayers()
 {
-	while (1) {
+	while (true) {
 		TCPsocket csd;
 		if ((csd = SDLNet_TCP_Accept(socket)))
 		{
 			IPaddress* remoteIP;
 
 			if ((remoteIP = SDLNet_TCP_GetPeerAddress(csd)))
-				printf("Host connected: %x %d\n", SDLNet_Read32(&remoteIP->host), SDLNet_Read16(&remoteIP->port));
+				std::cout << ("Host connected: %x %d\n", SDLNet_Read32(&remoteIP->host), SDLNet_Read16(&remoteIP->port)) << std::endl;
 			else
-				fprintf(stderr, "SDLNet_TCP_GetPeerAddress: %s\n", SDLNet_GetError());
+				std::cout << ("SDLNet_TCP_GetPeerAddress: %s\n", SDLNet_GetError()) << std::endl;
 
 			int id = GetClientID(*remoteIP);
 
@@ -39,9 +44,9 @@ void NetworkManager::AcceptPlayers()
 
 			pkt.player_id = id;
 
-			if (SDLNet_TCP_Send(csd, (void*)&pkt, sizeof(PacketAccept)) < sizeof(PacketAccept))
+			if (SDLNet_TCP_Send(csd, &pkt, sizeof(PacketAccept)) < sizeof(PacketAccept))
 			{
-				fprintf(stderr, "SDLNet_TCP_Send: %s\n", SDLNet_GetError());
+				std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 				exit(EXIT_FAILURE);
 			}
 		}
@@ -50,19 +55,19 @@ void NetworkManager::AcceptPlayers()
 	}
 }
 
+// Función que se encarga de actualizar los jugadores (se encuentra en un hilo)
+// Problemas que da: ---
 void NetworkManager::ReceivePlayers()
 {
-	while (1) {
+	while (true) {
 		PacketRecv packet;
 
-		for (int i = 1; i < id_count; i++) { // empezamos en uno pq el 0 soy yo
+		for (int i = 1; i < id_count; i++) { // Comenzamos en uno porque el 0 somos nosotros mismos
 			if (SDLNet_TCP_Recv(player_sockets[i], &packet, sizeof(PacketRecv)) > 0)
 			{
 				switch (packet.packet_type) {
 				case EPT_UPDATE:
 					game_->getObjectManager()->getPlayers()[i]->handleInput(Vector2D<double>(packet.player_horizontal, packet.player_vertical));
-
-					/*UpdatePlayer(i, packet.player_horizontal, packet.player_vertical);*/
 					break;
 				case EPT_QUIT:
 					printf("Client disconnected: ID(%d)\n", i);
@@ -72,15 +77,19 @@ void NetworkManager::ReceivePlayers()
 					break;
 				}
 			} // TODO: CHECK WHEN TIRAR DEL CABLE
+			  // TODO: SYNC PLAYERS?
 		}
 
 		SDL_Delay(recv_frequency);
 	}
 }
 
+
+// Función que se encarga de mandar la información de todos los jugadores a todos los jugadores (se encuentra en un hilo)
+// Problemas que da: ---
 void NetworkManager::SendPlayers()
 {
-	while (1) {
+	while (true) {
 		// UPDATE CLIENTS
 		Player* p;
 		PacketSend packet;
@@ -93,11 +102,14 @@ void NetworkManager::SendPlayers()
 			packet.player_horizontal = p->getAxis().getX();
 			packet.player_vertical = p->getAxis().getY();
 
-			for (int j = 0; j < id_count; j++) {
-				if (SDLNet_TCP_Send(player_sockets[j], (void*)&packet, sizeof(PacketSend)) < sizeof(PacketSend))
-				{
-					fprintf(stderr, "SDLNet_TCP_Send: %s\n", SDLNet_GetError());
-					exit(EXIT_FAILURE);
+			for (int j = 1; j < id_count; j++) { // Empezamos en uno porque el servidor ya tiene su propio hilo
+												 // que recibe los datos de los clientes, por tanto no hace falta mandar nada.
+				if (i != j) {
+					if (SDLNet_TCP_Send(player_sockets[j], &packet, sizeof(PacketSend)) < sizeof(PacketSend))
+					{
+						std::cout << (stderr, "SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+						exit(EXIT_FAILURE);
+					}
 				}
 			}
 		}
@@ -106,12 +118,15 @@ void NetworkManager::SendPlayers()
 	}
 }
 
+
+// Función que tienen los clientes (se encuentra en un hilo)
+// Problemas que da: ---
 void NetworkManager::UpdateClient()
 {
-	while (1) {
+	while (true) {
 		PacketSend server_pkt;
 		
-		// Receive info
+		// Receive info from server
 		if (SDLNet_TCP_Recv(socket, &server_pkt, sizeof(PacketSend)) > 0) {
 			Player* p = players[server_pkt.player_id];
 
@@ -124,6 +139,12 @@ void NetworkManager::UpdateClient()
 			case EPT_UPDATE:
 				p->handleInput(Vector2D<double>(server_pkt.player_horizontal, server_pkt.player_vertical));
 				break;
+			//case EPT_SYNCPLAYER:
+			//	// parsear pkt
+			//	PacketSyncPlayer newPkt = *(PacketSyncPlayer*)(void*)&server_pkt;
+			//	p->setPosition(newPkt.posX, newPkt.posY);
+
+			//	break;
 			}
 		}
 
@@ -131,13 +152,12 @@ void NetworkManager::UpdateClient()
 		PacketRecv client_pkt;
 		client_pkt.packet_type = EPT_UPDATE;
 		
-
-		client_pkt.player_horizontal = players[client_id]->getAxis().getX();
-		client_pkt.player_vertical = players[client_id]->getAxis().getY();
+		client_pkt.player_horizontal = players[0]->getAxis().getX(); // Ponemos 0 porque somos nosotros mismos
+		client_pkt.player_vertical = players[0]->getAxis().getY();
 
 		if (SDLNet_TCP_Send(socket, &client_pkt, sizeof(PacketRecv)) < sizeof(PacketRecv))
 		{
-			fprintf(stderr, "SDLNet_TCP_Send: %s\n", SDLNet_GetError());
+			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 			exit(EXIT_FAILURE);
 		}
 
@@ -145,6 +165,7 @@ void NetworkManager::UpdateClient()
 	}
 }
 
+// Función para asignar IDs
 int NetworkManager::GetClientID(const IPaddress& addr)
 {
 	int id = -1;
@@ -162,18 +183,6 @@ int NetworkManager::GetClientID(const IPaddress& addr)
 bool NetworkManager::CompareAddress(const IPaddress& addr1, const IPaddress& addr2)
 {
 	return addr1.host == addr2.host && addr1.port == addr2.port;
-}
-
-void NetworkManager::UpdatePlayer(int id, Sint8 horizontal, Sint8 vertical)
-{
-	//Player* p = players[id];
-	//int movespeed = 10;
-
-	//int x = p->getX() + horizontal * movespeed;
-	//int y = p->getY() + vertical * movespeed;
-
-	//p->setPosition(x, y);
-	std::cout << "no deberia usarme" << std::endl;
 }
 
 NetworkManager::NetworkManager(Game* game)
@@ -196,11 +205,14 @@ NetworkManager::~NetworkManager()
 	SDLNet_Quit();
 }
 
+// Función que inicializa SDL_Net y tu función (servidor o cliente)
+// Problemas que da: ---
+
 bool NetworkManager::Init(char type, const char* ip_addr)
 {
 	if (SDLNet_Init() < 0)
 	{
-		fprintf(stderr, "SDLNet_Init: %s\n", SDLNet_GetError());
+		std::cout << ("SDLNet_Init: %s\n", SDLNet_GetError()) << std::endl;
 		exit(EXIT_FAILURE);
 	}
 
@@ -208,37 +220,38 @@ bool NetworkManager::Init(char type, const char* ip_addr)
 
 	if (SDLNet_ResolveHost(&ip, ip_addr, 2000) < 0)
 	{
-		fprintf(stderr, "SDLNet_ResolveHost: %s\n", SDLNet_GetError());
+		std::cout << ("SDLNet_ResolveHost: %s\n", SDLNet_GetError()) << std::endl;
 		exit(EXIT_FAILURE);
 	}
 
 	if (!(socket = SDLNet_TCP_Open(&ip)))
 	{
-		fprintf(stderr, "SDLNet_TCP_Open: %s\n", SDLNet_GetError());
+		std::cout << ("SDLNet_TCP_Open: %s\n", SDLNet_GetError()) << std::endl;
 		exit(EXIT_FAILURE);
 	}
 	
 	PacketAccept pkt;
 
-	if (type == 'c') { // NOS CREAMOS A NOSOTROS MISMOS
-		while (SDLNet_TCP_Recv(socket, &pkt, sizeof(PacketAccept)) == 0);
+	if (type == 'c') { // Si somos un cliente
+		while (SDLNet_TCP_Recv(socket, &pkt, sizeof(PacketAccept)) == 0); // Esperamos a que el servidor nos acepte
 
-		if (pkt.packet_type == EPT_ACCEPT) {
+		if (pkt.packet_type == EPT_ACCEPT) { // Cuando nos acepte, se crea el personaje, etc.
 			game_->getObjectManager()->addPlayer(AddPlayerClient(pkt.player_id));
-			// player->SetColor(0xFFFFFF);
-
+			
 			client_id = pkt.player_id;
 
 			id_count = MAX_PLAYERS;
+
+			updateclient_t = new std::thread(&NetworkManager::UpdateClient, this);
 		}
-		else if (pkt.packet_type == EPT_DENY) {
+		else if (pkt.packet_type == EPT_DENY) { // Si nos rechazan porque la partida está llena
 			return false;
 		}
 	}
-	else {
+	else { // Si somos un host
 		game_->getObjectManager()->addPlayer(AddPlayerHost());
-		// player->SetColor(0xFFFFFF);
 
+		// Hilos
 		accept_t = new std::thread(&NetworkManager::AcceptPlayers, this);
 		receiveplayers_t = new std::thread(&NetworkManager::ReceivePlayers, this);
 		sendplayers_t = new std::thread(&NetworkManager::SendPlayers, this);
@@ -249,22 +262,41 @@ bool NetworkManager::Init(char type, const char* ip_addr)
 		client_id = 0;
 	}
 
-	updateclient_t = new std::thread(&NetworkManager::UpdateClient, this);
-
+	
 	return true;
 }
 
-void NetworkManager::Update()
-{
-}
 
-void NetworkManager::Render()
+// Duda: Aquí es donde se sincronizarían las cosas?
+
+void NetworkManager::Update() // SINCRONIZAR ESTADO DE JUEGO CADA 0.5 SEGS
 {
+	if (lastUpdate_ + updateTime_ > sdlutils().currRealTime()) { //si no pasan
+		return;
+	}
+
+	lastUpdate_ = sdlutils().currRealTime();
+	
+	//PacketSyncPlayer pkt_send;
+	// Send status
 	//for (int i = 0; i < id_count; i++) {
-	//	if (players[i]) {
-	//		players[i]->Render();
+	//	
+	//	pkt_send.packet_type = EPT_SYNCPLAYER;
+	//	pkt_send.player_id = players[i]->getId();
+	//	pkt_send.posX = players[i]->getPosition().getX();
+	//	pkt_send.posY = players[i]->getPosition().getY();
+	//	
+	//	for (int j = 0; j < id_count; j++) {
+	//		if (i != j) {
+	//			if (SDLNet_TCP_Send(player_sockets[j], (void*)&pkt_send, sizeof(PacketSyncPlayer)) < sizeof(PacketSyncPlayer))
+	//			{
+	//				fprintf(stderr, "SDLNet_TCP_Send: %s\n", SDLNet_GetError());
+	//				exit(EXIT_FAILURE);
+	//			}
+	//		}
 	//	}
 	//}
+
 }
 
 void NetworkManager::Close()
@@ -312,9 +344,4 @@ Player* NetworkManager::AddPlayerClient(int id)
 	players[id] = p;
 
 	return p;
-}
-
-Player* NetworkManager::GetClientPlayer()
-{
-	return players[client_id];
 }
