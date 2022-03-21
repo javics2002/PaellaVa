@@ -18,7 +18,6 @@
     <ClCompile Include="GameObjects\Paella.cpp" />
     <ClCompile Include="GameObjects\GrupoClientes.cpp" />
     <ClCompile Include="Data\ListaComandas.cpp" />
-    <ClCompile Include="Control\NetworkManager.cpp" />
     <ClCompile Include="Control\ObjectManager.cpp" />
     <ClCompile Include="GameObjects\Ingrediente.cpp" />
     <ClCompile Include="GameObjects\Muebles\InicioCinta.cpp" />
@@ -80,7 +79,6 @@
     <ClInclude Include="GameObjects\Paella.h" />
     <ClInclude Include="GameObjects\GrupoClientes.h" />
     <ClInclude Include="Data\ListaComandas.h" />
-    <ClInclude Include="Control\NetworkManager.h" />
     <ClInclude Include="Control\ObjectManager.h" />
     <ClInclude Include="GameObjects\Ingrediente.h" />
     <ClInclude Include="GameObjects\Muebles\InicioCinta.h" />

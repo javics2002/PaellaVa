@@ -39,8 +39,9 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 	uiManager->addInterfaz(new Reloj(game));
 
 	//objectManager->initMuebles();
+
 	// NETWORK
-	NetworkManager* nm = new NetworkManager(game);
+	// NetworkManager* nm = new NetworkManager(game);
 	
 }
 
