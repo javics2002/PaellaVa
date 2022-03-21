@@ -16,8 +16,7 @@ class Puerta : public Mueble
 
 	Cola* cola;
 
-	vector<string> texturasClientes = { "alcachofa", "calamar", "cangrejo",
-	"gamba", "langosta", "mejillon", "pimientoRojo", "pimientoVerde", "pollo"
+	vector<string> texturasClientes = { "clienteBase"
 	};
 
 public:
