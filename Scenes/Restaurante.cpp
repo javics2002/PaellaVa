@@ -8,6 +8,8 @@
 #include "../sdlutils/SDLUtils.h"
 #include "../Control/Game.h"
 #include "../Data/ListaComandas.h"
+#include "../GameObjects/UI/Reloj.h"
+
 #include <iostream>
 
 using namespace std;
@@ -29,9 +31,10 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
 
 	getUIManager()->addInterfaz(new RedactaComandabutton(game, "redactaboton", 10, 10, 30, 30));
-	uiManager->setBarra(new ListaComandas(game));
+	uiManager->setBarra(new ListaComandas(game,uiManager));
 
 	objectManager->addPaella(new Paella(game, Paella::Minima));
+	uiManager->addInterfaz(new Reloj(game));
 
 	//objectManager->initMuebles();
 }
@@ -87,7 +90,6 @@ void Restaurante::debug()
 	objectManager->debug(camara->renderRect());
 	host->renderDebug(camara->renderRect());
 }
-
 //Check colisiones
 
 void Restaurante::loadMap(string const& path) {

@@ -90,6 +90,7 @@ public:
 
 	//borra el objeto de la lista de activos
 	void remove(list<PoolObject*>::const_iterator it) {
+		(*it)->desactivate();
 		activeObjects.erase(it);
 	}
 

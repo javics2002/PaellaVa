@@ -43,3 +43,10 @@ void Puerta::update()
 		time = SDL_GetTicks();
 	}
 }
+
+bool Puerta::receiveGrupoClientes(GrupoClientes* gc)
+{
+	game->getObjectManager()->getPoolGrupoClientes()->remove(gc->getIterator());
+
+	return true;
+}

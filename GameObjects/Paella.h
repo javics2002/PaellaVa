@@ -24,8 +24,7 @@ public:
 	Paella(Game* game, Volumen volumen_);
 	~Paella() {};
 
-	void añadeIngr(Ingrediente ingr_);
-	void eliminarIngr();
+	void añadeIngr(Ingrediente *ingr_);
 	void setState(Estado estado_);
 	void paellaRecogida();
 	void update() override;
@@ -37,6 +36,8 @@ public:
 	bool canPick() override;
 
 	void changeTexture(string clave);
+	bool ingrValido(Ingrediente *ingr);
+
 	Estado getState();
 
 
@@ -51,7 +52,7 @@ private:
 
 	vector<int> tiemposDeCoccion = { 14000, 20000, 25000, 28000, 33000, 38000 };
 
-	list<Ingrediente> ingredientes;
+	list<tipoIngrediente> ingredientes;
 
 	vector<bool> ingrEnPaella;
 

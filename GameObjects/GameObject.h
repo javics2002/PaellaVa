@@ -25,8 +25,11 @@ protected:
     bool active = true;
 
     void drawRender(SDL_Rect* cameraRect);   
+    void drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex);
     void drawDebug(SDL_Rect* cameraRect);
     void drawDebug(SDL_Rect* cameraRect, SDL_Rect rect);
+
+    bool hasCollision(SDL_Rect rect1, SDL_Rect rect2);
 
 public:
 

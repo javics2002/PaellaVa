@@ -16,6 +16,7 @@ const vector<string> texturaIngrediente = { "alcachofa", "calamar", "cangrejo", 
 const vector<string> texturaIngrProcesado = { "alcachofaP", "calamarP", "cangrejoP", "gambaP",
 	"langostaP", "mejillonP", "pimientoRojoP", "pimientoVerdeP", "polloP" };
 
+
 class Ingrediente : public PoolObject
 {
 	const unsigned int DIMENSION = 70;
@@ -39,6 +40,8 @@ public:
 	void setProcesado(bool estadoIngr, Ingrediente *ingr);
 
 	tipoIngrediente getTipo();
+
+	void setEnPaella();
 
 	void onObjectPicked() override;
 	void onObjectDropped() override;

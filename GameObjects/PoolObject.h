@@ -16,13 +16,14 @@ public:
 	~PoolObject() = default;
 
 	void activate(list<PoolObject*>::const_iterator iterator);
-	void deactivate();
-
-	virtual void onActivate() {}
-	virtual void onDesactivate() {}
+	void desactivate();
 
 	bool isActive();
 
 	list<PoolObject*>::const_iterator getIterator();
+
+protected:
+	virtual void onActivate() {}
+	virtual void onDesactivate() {}
 };
 

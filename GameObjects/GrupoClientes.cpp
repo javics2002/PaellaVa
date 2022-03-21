@@ -10,6 +10,9 @@ GrupoClientes::GrupoClientes(Game* game) : PoolObject(game)
 	setDimension(DIMENSION, DIMENSION);
 
 	setTexture("berenjena");
+
+	texTolerancia = &sdlutils().images().at("barraTolerancia");
+	showTol = false;
 }
 
 void GrupoClientes::initGrupo(Cola* cola_, vector<Cliente*> clientes_)
@@ -30,17 +33,19 @@ void GrupoClientes::update()
 
 		for (auto i : clientes) {
 			i->update();
-		}
-
-		SDL_Rect rect = { clientes[0]->getX() + clientes[0]->getWidth() / 2, clientes[0]->getY() - clientes[0]->getHeight() / 2,
-			clientes[0]->getWidth() / 2, clientes[0]->getWidth() };
-
-		for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getCollisions(rect)) {
-			setState(ENCOLA);
-		}
+		}		
 	}
 
 	else if (estado_ == ENCOLA) {
+		int n = clientes.size() - 1;
+
+		SDL_Rect rect = { clientes[n]->getX() - clientes[n]->getWidth(), clientes[n]->getY() - clientes[n]->getHeight() / 2,
+			clientes[n]->getWidth() / 2, clientes[0]->getWidth() };
+
+		for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getCollisions(rect)) {
+			i->colisionClientes();
+		}
+
 		bajaTolerancia();
 	}
 }
@@ -52,6 +57,36 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 
 	if (isPicked())
 		drawRender(cameraRect);
+
+	if (showTol) {
+		if (!isPicked()) {
+
+			int tolX = 80;
+			int tolY = 60;
+
+			SDL_Rect rect = {};
+
+			switch (estado_)
+			{
+			case CAMINANDO:
+			case ENCOLA:
+				rect = { mitadGrupo() - tolX / 2,
+					(int)clientes[0]->getY() - clientes[0]->getHeight() / 2 - tolY, tolX, tolY };
+				break;
+			case SENTADO:
+			case CUENTA:
+				rect = { (int)getX() - tolX / 2, (int)getY() - tolY, tolX, tolY };
+				break;
+			default:
+				break;
+			}
+
+			drawRender(cameraRect, rect, texTolerancia);
+		}
+
+		showTol = false;
+	}
+
 }
 
 bool GrupoClientes::collide(SDL_Rect rect)
@@ -74,13 +109,9 @@ bool GrupoClientes::colisionClientes()
 
 bool GrupoClientes::ratonEncima()
 {
-	SDL_Rect rect = { mitadGrupo() - DIMENSION / 2, clientes[0]->getY() - clientes[0]->getHeight() * 1.25, DIMENSION, DIMENSION };
-
-	Texture *t = &sdlutils().images().at(texturaTolerancia);
-
-	t->render(rect);
-
 	cout << tolerancia << endl;
+
+	showTol = true;
 
 	return true;
 }
@@ -116,8 +147,6 @@ vector<Cliente*> GrupoClientes::getIntegrantes()
 {
 	return clientes;
 }
-
-
 
 void GrupoClientes::onObjectDropped()
 {
@@ -160,15 +189,23 @@ bool GrupoClientes::canPick()
 	return estado_ == ENCOLA;
 }
 
-float GrupoClientes::mitadGrupo()
+int GrupoClientes::mitadGrupo()
 {
-	float mitad = 0.0f;
+	int mitad = 0;
 
 	for (auto i : clientes) {
 		mitad += i->getX();
 	}
 
 	return mitad / clientes.size();
+}
+
+void GrupoClientes::onDesactivate()
+{
+	auto list = game->getObjectManager()->getPoolClientes();
+
+	for (auto i : clientes) 
+		list->remove(i->getIterator());	
 }
 
 

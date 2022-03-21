@@ -47,17 +47,19 @@ SDL_Rect GameObject::getCenter()
 			CENTER_TAM };
 }
 
+bool GameObject::collide(SDL_Rect other)
+{
+	return hasCollision(getCollider(), other);
+}
+
+bool GameObject::hasCollision(SDL_Rect rect1, SDL_Rect rect2)
+{
+	return SDL_HasIntersection(&rect1, &rect2);
+}
+
 void GameObject::renderDebug(SDL_Rect* cameraRect)
 {
 	drawDebug(cameraRect);
-}
-
-bool GameObject::collide(SDL_Rect other)
-{
-	SDL_Rect rect1 = getCollider();
-	SDL_Rect rect2 = other;
-
-	return SDL_HasIntersection(&rect1, &rect2);
 }
 
 void GameObject::render(SDL_Rect* cameraRect)
@@ -77,6 +79,11 @@ void GameObject::drawRender(SDL_Rect* cameraRect)
 		textureBox = { c.x, c.y, c.w, c.h };
 	}
 	texture->render(textureBox);
+}
+
+void GameObject::drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex)
+{
+	tex->render({ rect.x - cameraRect->x, rect.y - cameraRect->y, rect.w, rect.h });
 }
 
 void GameObject::drawDebug(SDL_Rect* cameraRect)

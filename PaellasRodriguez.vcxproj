@@ -151,6 +151,7 @@
     <ClInclude Include="GameObjects\UI\AceptaPaellaButton.h" />
     <ClInclude Include="GameObjects\UI\BorrarButton.h" />
     <ClInclude Include="GameObjects\UI\DescartaCommandaButton.h" />
+    <ClInclude Include="GameObjects\UI\EliminaComandaButton.h" />
     <ClInclude Include="GameObjects\UI\EnviaComandaButton.h" />
     <ClInclude Include="GameObjects\UI\ExitButton.h" />
     <ClInclude Include="GameObjects\Muebles\Encimera.h" />
@@ -188,6 +189,7 @@
     <ClInclude Include="GameObjects\UI\UiButton.h" />
     <ClInclude Include="GameObjects\UI\UIManager.h" />
     <ClInclude Include="GameObjects\Muebles\Pared.h" />
+    <ClInclude Include="GameObjects\UI\Reloj.h" />
     <ClInclude Include="Scenes\GameOver.h" />
     <ClInclude Include="json\JSON.h" />
     <ClInclude Include="json\JSONValue.h" />
@@ -238,6 +240,7 @@
     <ClCompile Include="GameObjects\UI\BorrarButton.cpp" />
     <ClCompile Include="Data\Comanda.cpp" />
     <ClCompile Include="GameObjects\UI\DescartaCommandaButton.cpp" />
+    <ClCompile Include="GameObjects\UI\EliminaComandaButton.cpp" />
     <ClCompile Include="GameObjects\UI\EnviaComandaButton (1).cpp" />
     <ClCompile Include="GameObjects\UI\ExitButton.cpp" />
     <ClCompile Include="GameObjects\Muebles\Encimera.cpp" />
@@ -275,6 +278,7 @@
     <ClCompile Include="GameObjects\UI\UiButton.cpp" />
     <ClCompile Include="GameObjects\UI\UIManager.cpp" />
     <ClCompile Include="GameObjects\Muebles\Pared.cpp" />
+    <ClCompile Include="GameObjects\UI\Reloj.cpp" />
     <ClCompile Include="Scenes\GameOver.cpp" />
     <ClCompile Include="json\JSON.cpp" />
     <ClCompile Include="json\JSONValue.cpp" />

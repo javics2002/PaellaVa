@@ -25,6 +25,7 @@ public:
 	~Puerta() = default;
 
 	void update() override;
+	virtual bool receiveGrupoClientes(GrupoClientes* gc);
 };
 
 

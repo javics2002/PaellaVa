@@ -10,6 +10,8 @@
 #include "../Control/Camera.h"
 #include "SDL.h"
 
+class Player;
+
 class Scene {
 
 protected:
@@ -32,4 +34,5 @@ public:
 
 	ObjectManager* getObjectManager();
 	UIManager* getUIManager();
+	virtual Player* getPlayer() { return nullptr; };
 };

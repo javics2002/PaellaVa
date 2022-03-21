@@ -2,6 +2,7 @@
 #include "../GameObjects/UI/Ingredientebutton.h"
 #include "../GameObjects/UI/Numerobutton.h"
 #include "../GameObjects/UI/Tamanobutton.h"
+#include  "../GameObjects/UI/EliminaComandaButton.h"
 
 #include "../Control/Game.h"
 #include "../Control/ObjectManager.h"
@@ -55,26 +56,33 @@ Comanda::Comanda(Game* game, uint nmesa, UIManager* uim) :GameObject(game)
          j++;
      }*/
 }
-Comanda::Comanda( Comanda& c) :GameObject(c.gamet)
+Comanda::Comanda(Comanda& c) :GameObject(c.gamet)
 {
     setTexture("cuadernillo");
     setPosition(c.x, c.y);
-     paellas = c.copyPaellas();
+    paellas = c.copyPaellas();
     gamet = c.gamet;
     setDimension(c.ancho, c.alto);
     numeroPaellas = c.numeroPaellas;
-    for (int i = 0; i < c.numeroPaellas;i++)
+    for (int i = 0; i < c.numeroPaellas; i++)
     {
         paellas.push_back(c.paellas[i]);
-      /*  for (int j = 0; j < paellas[i].size(); j++)
-        {
-            paellas[i].push_back(c.paellas[i][j]);
-        }*/
+        /*  for (int j = 0; j < paellas[i].size(); j++)
+          {
+              paellas[i].push_back(c.paellas[i][j]);
+          }*/
+    }
+    if (c.numeromesa != nullptr)
+    {       UiButton* nm = new UiButton(gamet, c.numeromesa->getTextura(), c.numeromesa->getPosition().getX(), c.numeromesa->getPosition().getY(), c.numeromesa->getWidth(), c.numeromesa->getHeight());
+             numeromesa = nm;
+    
     }
 }
 Comanda::~Comanda()
 {
     //si hay leaks esq aqui tengo qeu borrar algun puntero de botone spero creo que el uimanager ya los borra todos
+    if(eliminarboton!=nullptr)
+    delete eliminarboton; eliminarboton = nullptr;
 }
 void Comanda::añadiraPedido(string i)
 {
@@ -104,6 +112,12 @@ void Comanda::añadiraPedido(string i)
     randomizaIconos();
 
 }
+void Comanda::anadirNumeromesa(string n)
+{
+    numeromesa = new UiButton(gamet, n, x +1.5*anchobotones, anchobotones, anchobotones / 2, anchobotones / 2);
+    toggleTecladonum(false);
+    toggleTecaldotam(true);
+}
 void Comanda::randomizaIconos()
 {
     vector<Point2D<double>> posdis = uimt->getPosTeclado();
@@ -119,6 +133,10 @@ void Comanda::randomizaIconos()
 }
 void Comanda::dibujaPedido()
 {
+    if (numeromesa != nullptr)
+    {
+        numeromesa->render(nullptr);
+    }
     for (auto i : Pedido)
     {
         i->render(nullptr);
@@ -168,6 +186,7 @@ void Comanda::cancelaPedido()
     uimt->randomizaTeclado();
     clearPaellas();
     numeroPaellas = 0;
+    delete numeromesa; numeromesa = nullptr;
 
 
 }
@@ -184,20 +203,44 @@ void Comanda::guardaTeclado()
     }
     //uimt->setPosTeclado(sangria);
     postecladoini = sangria;
+    teclado = uimt->getTeclado();
     //pero al inicial le falta la primera sangria y queda por encima de la primera linea de pedido D:
    // de momento voy a forzar una sangria aqui s tnego tiempo mirare una manera mejor xd
 
 }
 void Comanda::guardaTecladonum(vector<Numerobutton*> n)
 {
+    tecladonum = n;
 }
 void Comanda::guardaTecladotam(vector<Tamanobutton*> t)
 {
+    tecladotam = t;
 }
 void Comanda::guardaBoton(UiButton* b)
 {
     botones.push_back(b);
 
+}
+void Comanda::toggleTeclado(bool b)
+{
+    for (auto t:teclado)
+    {
+        t->setActive(b);
+    }
+}
+void Comanda::toggleTecladonum(bool b)
+{
+    for (auto t : tecladonum)
+    {
+        t->setActive(b);
+    }
+}
+void Comanda::toggleTecaldotam(bool b)
+{
+    for (auto t : tecladotam)
+    {
+        t->setActive(b);
+    }
 }
 void Comanda::aceptaPaella()
 {
@@ -220,6 +263,25 @@ void Comanda::aceptaPaella()
         Pedido.clear();
         numeroPaellas++;
     }
+    //sangriado
+  
+        escritoY += anchobotones / 2 + margenbotones;
+        escritoX = getPosition().getX() / 2 + margenbotones + anchobotones / 2;
+        alto = alto + anchobotones / 2 + 2 * margenbotones;
+        setDimension(ancho, alto);
+        setPosition(getPosition().getX(), getPosition().getY() + 2 * margenbotones);
+        vector<Point2D<double>> sangria = uimt->getPosTeclado();
+        for (int i = 0; i < sangria.size(); i++)
+        {
+            int ny = sangria[i].getY() + anchobotones * 0.7f;
+            sangria[i].setY(ny);
+            //en algun lugar vuelven a tener el valor default lo tengo que mirar
+            //bajar teclado
+            //lo bajará en uim?
+        }
+        uimt->setPosTeclado(sangria);
+    toggleTeclado(false);
+    toggleTecaldotam(true);
 }
 void Comanda::enviaComanda()
 {
@@ -231,6 +293,9 @@ void Comanda::enviaComanda()
     }*/
     uimt->getBarra()->AñadeComanda(this);
     cancelaPedido();
+    toggleTecaldotam(false);
+    toggleTeclado(false);
+    toggleTecladonum(true);
 
 }
 void Comanda::renderizaPaellas()
@@ -250,6 +315,20 @@ void Comanda::renderizaPaellas()
 
 
     }
+    if (eliminarboton != nullptr)
+    {
+        eliminarboton->render(nullptr);
+    }
+  /*  for (auto t : tecladonum)
+    {
+        if (t->isActive())
+            t->render(nullptr);
+    }
+    for (auto t : tecladotam)
+    {
+        if(t->isActive())
+        t->render(nullptr);
+    }*/
 
 }
 void Comanda::desplazacomandas(int d)
@@ -269,6 +348,11 @@ void Comanda::desplazacomandas(int d)
 
 
     }
+    if (numeromesa!=nullptr)
+    {
+        numeromesa->setPosition(numeromesa->getPosition().getX() + d, numeromesa->getPosition().getY());
+    }
+   
 
 }
 void Comanda::clearPaellas()
@@ -307,6 +391,14 @@ vector<vector<UiButton*>> Comanda::copyPaellas()
     }
     return paellascopiadas;
 }
+void Comanda::setSitio(list<Comanda*>::iterator  s)
+{
+    sitiolista = s;
+}
+list<Comanda*>::iterator  Comanda::getSitio()
+{
+    return sitiolista;
+}
 void Comanda::toggleactive()
 {
     setActive(!isActive());
@@ -314,5 +406,16 @@ void Comanda::toggleactive()
     {
         b->setActive(!b->isActive());
     }
-  //  cancelaPedido();
+    if (isActive())//activando comanda
+    {
+        toggleTecladonum(isActive());
+        
+    }
+    else
+    {
+        toggleTecaldotam(isActive());
+        toggleTeclado(isActive());
+        toggleTecladonum(isActive());
+    }
+    cancelaPedido();
 }

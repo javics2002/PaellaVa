@@ -87,7 +87,9 @@ void Player::handleInput()
 			
 			//Si se ha encontrado un mueble, se intenta interactuar con 
 			//este con returnObject(), para que te devuelva el objeto
-			if (m != nullptr && m->returnObject(this)) {
+			if (m != nullptr && m->returnObject(this)) 
+			{
+				assert(pickedObject_ != nullptr);
 				pickedObject_->pickObject();
 			}
 
@@ -135,12 +137,13 @@ void Player::handleInput()
 			switch (objectType_)
 			{
 			case INGREDIENTE:
-				if (m != nullptr && m->recieveIngrediente(dynamic_cast<Ingrediente*>(pickedObject_))) {
-
+				if (m != nullptr && m->receiveIngrediente(dynamic_cast<Ingrediente*>(pickedObject_))) {
+					pickedObject_->dropObject();
+					pickedObject_ = nullptr;
 				}
 				break;
 			case CLIENTES:
-				if (m != nullptr && m->recieveGrupoClientes(dynamic_cast<GrupoClientes*>(pickedObject_))) {
+				if (m != nullptr && m->receiveGrupoClientes(dynamic_cast<GrupoClientes*>(pickedObject_))) {
 					pickedObject_->dropObject();
 					pickedObject_ = nullptr;
 				}
@@ -155,10 +158,9 @@ void Player::handleInput()
 				}			
 				break;
 			case PAELLA:
-				if (m != nullptr && m->recievePaella(dynamic_cast<Paella*>(pickedObject_))) {
-					pickedObject_->setPicked(false);
+				if (m != nullptr && m->receivePaella(dynamic_cast<Paella*>(pickedObject_))) {
+					pickedObject_->dropObject();
 					pickedObject_ = nullptr;
-					return;
 				}
 				break;
 			default:

@@ -190,6 +190,10 @@
             "file": "../../../Assets/Images/settings.png"
         },
         {
+          "id": "menufondo",
+          "file": "../../../Assets/Images/menufondo.png"
+      },
+        {
             "id": "cartel",
             "file": "../../../Assets/Images/mesa.png"
         },
@@ -264,7 +268,15 @@
         {
             "id": "arroz",
             "file": "../../../Assets/Images/arroz.png"
-        }
+        },
+      {
+        "id": "reloj",
+        "file": "../../../Assets/Images/reloj.png"
+      },
+      {
+        "id": "paella",
+        "file": "../../../Assets/Images/paella.png"
+      }
     ],
 
   "tilesets": [
