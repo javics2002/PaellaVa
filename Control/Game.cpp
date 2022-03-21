@@ -35,8 +35,24 @@ void Game::init()
 #endif // _DEBUG
 
 	// NETWORK
+	bool decision = false;
+	char nType = ' ';
+
+	std::cout << "Host or client? (h/c)" << std::endl;
+
+	while (!decision) {
+		cin >> nType;
+		if (nType == 'h' || nType == 'c')
+			decision = true;
+	}
+
 	nm = new NetworkManager(this);
-	nm->Init('h');
+
+	if (nType == 'h') {
+		nm->Init(nType);
+	}
+	else nm->Init(nType, "localhost");
+	
 }
 
 void Game::start()

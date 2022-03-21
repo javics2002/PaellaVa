@@ -28,7 +28,9 @@ void NetworkManager::AcceptPlayers()
 			else {
 				if (id == -1) {
 					Player* p = AddPlayerHost();
-					// id = p->GetId();
+
+					game_->getObjectManager()->addPlayer(p);
+					id = p->getId();
 				}
 
 				player_sockets[id] = csd;
@@ -212,11 +214,11 @@ bool NetworkManager::Init(char type, const char* ip_addr)
 	
 	PacketAccept pkt;
 
-	if (type == 'c') {
+	if (type == 'c') { // NOS CREAMOS A NOSOTROS MISMOS
 		while (SDLNet_TCP_Recv(socket, &pkt, sizeof(PacketAccept)) == 0);
 
 		if (pkt.packet_type == EPT_ACCEPT) {
-			Player* player = AddPlayerClient(pkt.player_id);
+			game_->getObjectManager()->addPlayer(AddPlayerClient(pkt.player_id));
 			// player->SetColor(0xFFFFFF);
 
 			client_id = pkt.player_id;
@@ -285,9 +287,8 @@ void NetworkManager::Close()
 Player* NetworkManager::AddPlayerHost()
 {
 	Player* p = new Player(game_);
-
-	// p->Init(surface);
-	// p->SetId(id_count);
+	
+	p->setId(id_count);
 
 	players[id_count] = p;
 
@@ -299,8 +300,8 @@ Player* NetworkManager::AddPlayerHost()
 Player* NetworkManager::AddPlayerClient(int id)
 {
 	Player* p = new Player(game_);
-	/*p->Init(surface);
-	p->SetId(id);*/
+	
+	p->setId(id);
 
 	players[id] = p;
 

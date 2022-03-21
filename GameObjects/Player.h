@@ -30,6 +30,8 @@ class Player : public GameObject
 	bool nearestObject(ObjetoPortable* go);
 	Mueble* nearestObject(Mueble* m1, Mueble* m2);
 
+	int id_;
+
 public:
 	Player(Game* game);
 	~Player();
@@ -42,5 +44,8 @@ public:
 	SDL_Rect getOverlapCollider();	
 
 	void setPickedObject(ObjetoPortable* op, objectType ot);
+
+	void setId(int id) { id_ = id; }
+	int getId() { return id_; }
 };
 
