@@ -31,8 +31,8 @@ enum EInputType {
 struct PacketSend {
 	Uint8 packet_type;
 	Uint8 player_id;
-	Uint16 posX;
-	Uint16 posY;
+	Sint8 player_horizontal;
+	Sint8 player_vertical;
 };
 
 struct PacketRecv {

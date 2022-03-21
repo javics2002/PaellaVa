@@ -55,12 +55,14 @@ void NetworkManager::ReceivePlayers()
 	while (1) {
 		PacketRecv packet;
 
-		for (int i = 0; i < id_count; i++) {
+		for (int i = 1; i < id_count; i++) { // empezamos en uno pq el 0 soy yo
 			if (SDLNet_TCP_Recv(player_sockets[i], &packet, sizeof(PacketRecv)) > 0)
 			{
 				switch (packet.packet_type) {
 				case EPT_UPDATE:
-					UpdatePlayer(i, packet.player_horizontal, packet.player_vertical);
+					game_->getObjectManager()->getPlayers()[i]->handleInput(Vector2D<double>(packet.player_horizontal, packet.player_vertical));
+
+					/*UpdatePlayer(i, packet.player_horizontal, packet.player_vertical);*/
 					break;
 				case EPT_QUIT:
 					printf("Client disconnected: ID(%d)\n", i);
@@ -88,8 +90,8 @@ void NetworkManager::SendPlayers()
 		for (int i = 0; i < id_count; i++) {
 			p = players[i];
 			packet.player_id = i;
-			packet.posX = p->getX();
-			packet.posY = p->getY();
+			packet.player_horizontal = p->getAxis().getX();
+			packet.player_vertical = p->getAxis().getY();
 
 			for (int j = 0; j < id_count; j++) {
 				if (SDLNet_TCP_Send(player_sockets[j], (void*)&packet, sizeof(PacketSend)) < sizeof(PacketSend))
@@ -113,13 +115,14 @@ void NetworkManager::UpdateClient()
 		if (SDLNet_TCP_Recv(socket, &server_pkt, sizeof(PacketSend)) > 0) {
 			Player* p = players[server_pkt.player_id];
 
-			if (p == NULL) {
+			if (p == nullptr) {
 				p = AddPlayerClient(server_pkt.player_id);
+				game_->getObjectManager()->addPlayer(p);
 			}
 
 			switch (server_pkt.packet_type) {
 			case EPT_UPDATE:
-				p->setPosition(server_pkt.posX, server_pkt.posY);
+				p->handleInput(Vector2D<double>(server_pkt.player_horizontal, server_pkt.player_vertical));
 				break;
 			}
 		}
@@ -127,8 +130,10 @@ void NetworkManager::UpdateClient()
 		// Send info
 		PacketRecv client_pkt;
 		client_pkt.packet_type = EPT_UPDATE;
-		//client_pkt.player_horizontal = players[client_id]->GetHorizontal();
-		//client_pkt.player_vertical = players[client_id]->GetVertical();
+		
+
+		client_pkt.player_horizontal = players[client_id]->getAxis().getX();
+		client_pkt.player_vertical = players[client_id]->getAxis().getY();
 
 		if (SDLNet_TCP_Send(socket, &client_pkt, sizeof(PacketRecv)) < sizeof(PacketRecv))
 		{
@@ -161,13 +166,14 @@ bool NetworkManager::CompareAddress(const IPaddress& addr1, const IPaddress& add
 
 void NetworkManager::UpdatePlayer(int id, Sint8 horizontal, Sint8 vertical)
 {
-	Player* p = players[id];
-	int movespeed = 10;
+	//Player* p = players[id];
+	//int movespeed = 10;
 
-	int x = p->getX() + horizontal * movespeed;
-	int y = p->getY() + vertical * movespeed;
+	//int x = p->getX() + horizontal * movespeed;
+	//int y = p->getY() + vertical * movespeed;
 
-	p->setPosition(x, y);
+	//p->setPosition(x, y);
+	std::cout << "no deberia usarme" << std::endl;
 }
 
 NetworkManager::NetworkManager(Game* game)
