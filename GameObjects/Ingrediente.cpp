@@ -12,9 +12,9 @@ void Ingrediente::update()
 	setPosition(getX(), getY() + vel.getY());
 }
 
-std::list<PoolObject*>::const_iterator Ingrediente::ingredientCollide()
+pair<bool, std::list<PoolObject*>::const_iterator> Ingrediente::ingredientCollide()
 {
-	return getIterator();
+	return { !isPicked(), getIterator() };
 }
 
 void Ingrediente::onActivate()
