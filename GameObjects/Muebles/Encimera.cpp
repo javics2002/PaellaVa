@@ -24,7 +24,7 @@ bool Encimera::receiveIngrediente(Ingrediente* ingr)
 
 		if (paella_->ingrValido(ingr)) {
 
-			paella_->añadeIngr(ingr);
+			paella_->anadeIngr(ingr);
 
 			ingr->setPosition(paella_->getX(), paella_->getY());
 

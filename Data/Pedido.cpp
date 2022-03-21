@@ -7,7 +7,7 @@ Pedido::Pedido(int numComensales, int numeroTiles)
 	tilesMesa = numeroTiles;
 
 	Volumen tamano;
-	int suma_tamanos;
+	int suma_tamanos = 0;
 
 	tipoIngrediente ingredienteRand;
 

@@ -26,7 +26,7 @@ Paella::Paella(Game* game, Volumen volumen_): ObjetoPortable(game), volumen(volu
 	ingrEnPaella = vector<bool>(tipoIngrediente::LAST, false);
 }
 
-void Paella::añadeIngr(Ingrediente ingr_)
+void Paella::anadeIngr(Ingrediente* ingr_)
 {
 	ingredientes.push_back(ingr_->getTipo());
 	ingrEnPaella[ingr_->getTipo()] = true;

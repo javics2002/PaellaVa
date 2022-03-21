@@ -25,8 +25,3 @@ bool ObjetoPortable::isPicked()
 {
 	return isPicked_;
 }
-
-bool ObjetoPortable::InteraccionBasura()
-{
-    return false;
-}

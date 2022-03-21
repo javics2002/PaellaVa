@@ -22,9 +22,10 @@ public:
 	Volumen volumen;
 
 	Paella(Game* game, Volumen volumen_);
+	
 	~Paella() {};
-
-	void añadeIngr(Ingrediente *ingr_);
+	void anadeIngr(Ingrediente* ingr_);
+	void eliminarIngr();
 	void setState(Estado estado_);
 	void paellaRecogida();
 	void update() override;
