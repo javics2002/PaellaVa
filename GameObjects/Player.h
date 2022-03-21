@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "ObjetoPortable.h"
 #include "../Control/Input.h"
+#include "../sdlutils/InputHandler.h"
 
 class Ingrediente;
 class Cliente;
@@ -37,6 +38,7 @@ public:
 	~Player();
 
 	void handleInput();
+	void handleInput(Vector2D<double> axis);
 
 	void update() override;
 	void renderDebug(SDL_Rect* cameraRect) override;
@@ -47,5 +49,7 @@ public:
 
 	void setId(int id) { id_ = id; }
 	int getId() { return id_; }
+
+	Vector2D<double> getAxis() { return ih().getAxis(); }
 };
 
