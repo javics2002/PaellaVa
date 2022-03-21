@@ -1,6 +1,7 @@
 #include "NetworkManager.h"
 
 #include "../Control/Game.h"
+#include "../GameObjects/Player.h"
 
 void NetworkManager::AcceptPlayers()
 {
@@ -26,7 +27,7 @@ void NetworkManager::AcceptPlayers()
 			else {
 				if (id == -1) {
 					Player* p = AddPlayerHost();
-					id = p->GetId();
+					// id = p->GetId();
 				}
 
 				player_sockets[id] = csd;
@@ -84,8 +85,8 @@ void NetworkManager::SendPlayers()
 		for (int i = 0; i < id_count; i++) {
 			p = players[i];
 			packet.player_id = i;
-			packet.posX = p->GetX();
-			packet.posY = p->GetY();
+			packet.posX = p->getX();
+			packet.posY = p->getY();
 
 			for (int j = 0; j < id_count; j++) {
 				if (SDLNet_TCP_Send(player_sockets[j], (void*)&packet, sizeof(PacketSend)) < sizeof(PacketSend))
@@ -115,7 +116,7 @@ void NetworkManager::UpdateClient()
 
 			switch (server_pkt.packet_type) {
 			case EPT_UPDATE:
-				p->SetPosition(server_pkt.posX, server_pkt.posY);
+				p->setPosition(server_pkt.posX, server_pkt.posY);
 				break;
 			}
 		}
@@ -123,8 +124,8 @@ void NetworkManager::UpdateClient()
 		// Send info
 		PacketRecv client_pkt;
 		client_pkt.packet_type = EPT_UPDATE;
-		client_pkt.player_horizontal = players[client_id]->GetHorizontal();
-		client_pkt.player_vertical = players[client_id]->GetVertical();
+		//client_pkt.player_horizontal = players[client_id]->GetHorizontal();
+		//client_pkt.player_vertical = players[client_id]->GetVertical();
 
 		if (SDLNet_TCP_Send(socket, &client_pkt, sizeof(PacketRecv)) < sizeof(PacketRecv))
 		{
@@ -160,10 +161,10 @@ void NetworkManager::UpdatePlayer(int id, Sint8 horizontal, Sint8 vertical)
 	Player* p = players[id];
 	int movespeed = 10;
 
-	int x = p->GetX() + horizontal * movespeed;
-	int y = p->GetY() + vertical * movespeed;
+	int x = p->getX() + horizontal * movespeed;
+	int y = p->getY() + vertical * movespeed;
 
-	p->SetPosition(x, y);
+	p->setPosition(x, y);
 }
 
 NetworkManager::NetworkManager(Game* game)
@@ -217,7 +218,7 @@ bool NetworkManager::Init(char type, SDL_Surface* srfc, const char* ip_addr)
 
 		if (pkt.packet_type == EPT_ACCEPT) {
 			Player* player = AddPlayerClient(pkt.player_id);
-			player->SetColor(0xFFFFFF);
+			// player->SetColor(0xFFFFFF);
 
 			client_id = pkt.player_id;
 
@@ -229,7 +230,7 @@ bool NetworkManager::Init(char type, SDL_Surface* srfc, const char* ip_addr)
 	}
 	else {
 		Player* player = AddPlayerHost();
-		player->SetColor(0xFFFFFF);
+		// player->SetColor(0xFFFFFF);
 
 		accept_t = new std::thread(&NetworkManager::AcceptPlayers, this);
 		receiveplayers_t = new std::thread(&NetworkManager::ReceivePlayers, this);
@@ -252,11 +253,11 @@ void NetworkManager::Update()
 
 void NetworkManager::Render()
 {
-	for (int i = 0; i < id_count; i++) {
-		if (players[i]) {
-			players[i]->Render();
-		}
-	}
+	//for (int i = 0; i < id_count; i++) {
+	//	if (players[i]) {
+	//		players[i]->Render();
+	//	}
+	//}
 }
 
 void NetworkManager::Close()
@@ -265,7 +266,7 @@ void NetworkManager::Close()
 
 	PacketSend pkt;
 	pkt.packet_type = EPT_QUIT;
-	pkt.player_id = player->GetId();
+	// pkt.player_id = player->GetId();
 
 	if (SDLNet_TCP_Send(socket, (void*)&pkt, sizeof(PacketSend)) < sizeof(PacketSend))
 	{
@@ -284,9 +285,9 @@ void NetworkManager::Close()
 
 Player* NetworkManager::AddPlayerHost()
 {
-	Player* p = new Player();
-	p->Init(surface);
-	p->SetId(id_count);
+	Player* p = new Player(game_);
+	// p->Init(surface);
+	// p->SetId(id_count);
 
 	players[id_count] = p;
 
@@ -297,9 +298,9 @@ Player* NetworkManager::AddPlayerHost()
 
 Player* NetworkManager::AddPlayerClient(int id)
 {
-	Player* p = new Player();
-	p->Init(surface);
-	p->SetId(id);
+	Player* p = new Player(game_);
+	/*p->Init(surface);
+	p->SetId(id);*/
 
 	players[id] = p;
 

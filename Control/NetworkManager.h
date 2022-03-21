@@ -10,6 +10,9 @@
 
 #define MAX_PLAYERS 15
 
+class Game;
+class Player;
+
 enum EPacketType {
 	EPT_UPDATE,
 	EPT_QUIT,
@@ -48,6 +51,7 @@ class NetworkManager
 private:
 	int id_count;
 	SDL_Surface* surface;
+	Game* game_;
 
 	Player* players[MAX_PLAYERS];
 	TCPsocket player_sockets[MAX_PLAYERS];
@@ -97,7 +101,7 @@ private:
 
 	// Timer network_timer;
 public:
-	NetworkManager();
+	NetworkManager(Game* game);
 	~NetworkManager();
 
 	bool Init(char type, SDL_Surface* srfc, const char* ip_addr = NULL);

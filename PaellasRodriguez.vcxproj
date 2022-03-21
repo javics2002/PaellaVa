@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Control\NetworkManager.h" />
     <ClInclude Include="Data\Pedido.h" />
     <ClInclude Include="GameObjects\Muebles\BolsaArroz.h" />
     <ClInclude Include="Control\Camera.h" />
@@ -231,6 +232,7 @@
     <ClInclude Include="GameObjects\Muebles\Ventanilla.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Control\NetworkManager.cpp" />
     <ClCompile Include="Data\Pedido.cpp" />
     <ClCompile Include="GameObjects\Muebles\BolsaArroz.cpp" />
     <ClCompile Include="Control\Camera.cpp" />

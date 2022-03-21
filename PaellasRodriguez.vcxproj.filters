@@ -60,6 +60,7 @@
     <ClCompile Include="Data\Pedido.cpp" />
     <ClCompile Include="GameObjects\UI\Reloj.cpp" />
     <ClCompile Include="GameObjects\UI\EliminaComandaButton.cpp" />
+    <ClCompile Include="Control\NetworkManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
@@ -146,6 +147,7 @@
     <ClInclude Include="Data\Pedido.h" />
     <ClInclude Include="GameObjects\UI\Reloj.h" />
     <ClInclude Include="GameObjects\UI\EliminaComandaButton.h" />
+    <ClInclude Include="Control\NetworkManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />
