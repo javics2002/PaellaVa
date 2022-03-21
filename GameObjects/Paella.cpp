@@ -26,12 +26,20 @@ Paella::Paella(Game* game, Volumen volumen_): ObjetoPortable(game), volumen(volu
 	ingrEnPaella = vector<bool>(tipoIngrediente::LAST, false);
 }
 
-void Paella::añadeIngr(Ingrediente ingr_)
+void Paella::aÃ±adeIngr(Ingrediente ingr_)
 {
 	if (ingredientes.size() < MAX_INGR && estado == Cruda && !ingrEnPaella[ingr_.getTipo()]) {
 		ingredientes.push_back(ingr_);
 		ingrEnPaella[ingr_.getTipo()] = true;
 	}
+}
+
+void Paella::eliminarIngr()
+{
+	ingredientes.clear();
+	for (int i : ingrEnPaella) {
+		ingrEnPaella[i] = false;
+	}	
 }
 
 void Paella::setState(Estado estado_)
@@ -100,6 +108,10 @@ void Paella::onObjectDropped()
 bool Paella::canPick()
 {
 	return true;
+}
+void Paella::changeTexture(string clave)
+{
+	setTexture(clave);
 }
 
 Estado Paella::getState()

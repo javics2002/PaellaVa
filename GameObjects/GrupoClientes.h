@@ -5,6 +5,7 @@
 #include "Cliente.h"
 #include "PoolObject.h"
 #include "ObjetoPortable.h"
+#include "../Data/Comanda.h"
 
 class Cola;
 class Game;
@@ -24,7 +25,7 @@ class GrupoClientes : public PoolObject
 
 	const float DIMIN_TOLERANCIA = 2;
 	const float DIMIN_TIME = 3000;
-
+	Comanda* comanda;
 	float tolerancia;
 	float lastTime;
 

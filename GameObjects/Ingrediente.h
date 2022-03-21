@@ -1,5 +1,6 @@
  #pragma once
 #include "PoolObject.h"
+#include "ObjetoPortable.h"
 #include <vector>
 
 class Game;
@@ -31,6 +32,7 @@ public:
 	std::list<PoolObject*>::const_iterator ingredientCollide() override;
 
 	void onActivate() override;
+	void onDesactivate()override;
 
 	void ingredienteRecogido();
 	

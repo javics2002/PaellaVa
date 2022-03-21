@@ -30,6 +30,11 @@ void Ingrediente::onActivate()
 	setTexture(texturaIngrediente[n]);
 }
 
+void Ingrediente::onDesactivate()
+{
+
+}
+
 void Ingrediente::ingredienteRecogido()
 {
 }

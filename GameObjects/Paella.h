@@ -8,6 +8,7 @@
 enum Estado { Preparacion, Coccion, Preparada };
 enum Resultado { Cruda, PocoHecha, Perfecta, MuyHecha, Quemada, Incomestible };
 enum Contenido { Limpia, Entera, Mitad, Sucia };
+enum Volumen { Minima, Mediana, Grande };
 
 class Game;
 
@@ -16,14 +17,15 @@ class Paella : public ObjetoPortable
 
 public:
 	
-	enum Volumen { Minima, Mediana, Grande };
+	
 
 	Volumen volumen;
 
 	Paella(Game* game, Volumen volumen_);
 	~Paella() {};
 
-	void añadeIngr(Ingrediente ingr_);
+	void aÃ±adeIngr(Ingrediente ingr_);
+	void eliminarIngr();
 	void setState(Estado estado_);
 	void paellaRecogida();
 	void update() override;
@@ -34,6 +36,7 @@ public:
 
 	bool canPick() override;
 
+	void changeTexture(string clave);
 	Estado getState();
 
 

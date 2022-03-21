@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Data\Pedido.h" />
     <ClInclude Include="GameObjects\Muebles\BolsaArroz.h" />
     <ClInclude Include="Control\Camera.h" />
     <ClInclude Include="GameObjects\UI\AceptaPaellaButton.h" />
@@ -229,6 +230,7 @@
     <ClInclude Include="GameObjects\Muebles\Ventanilla.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Data\Pedido.cpp" />
     <ClCompile Include="GameObjects\Muebles\BolsaArroz.cpp" />
     <ClCompile Include="Control\Camera.cpp" />
     <ClCompile Include="Control\Input.cpp" />

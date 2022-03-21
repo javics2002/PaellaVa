@@ -22,7 +22,7 @@ class Comanda :public GameObject
 public:
     enum Tamaño { Pequeña, Mediana, Grande };
     Comanda(Game* game, uint nmesa, UIManager* uim);//crear comanda
-    Comanda( Comanda& c); //NECESARIO PARA QUE LA LIST DE COMANDAS FUNCIONE
+    Comanda( Comanda& c);//NECESARIO PARA QUE LA LIST DE COMANDAS FUNCIONE
 
     ~Comanda();//No se puede definir todavia y no compila NO LO BORREIS/
     void añadiraPedido(string i);

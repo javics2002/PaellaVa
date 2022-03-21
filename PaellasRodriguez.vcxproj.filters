@@ -58,6 +58,7 @@
     <ClCompile Include="GameObjects\UI\Text.cpp" />
     <ClCompile Include="GameObjects\Muebles\Pared.cpp" />
     <ClCompile Include="GameObjects\Muebles\BolsaArroz.cpp" />
+    <ClCompile Include="Data\Pedido.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
@@ -142,6 +143,7 @@
     <ClInclude Include="GameObjects\UI\Text.h" />
     <ClInclude Include="GameObjects\Muebles\Pared.h" />
     <ClInclude Include="GameObjects\Muebles\BolsaArroz.h" />
+    <ClInclude Include="Data\Pedido.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />
