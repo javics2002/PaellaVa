@@ -64,6 +64,7 @@ Comanda::Comanda(Comanda& c) :GameObject(c.gamet)
     gamet = c.gamet;
     setDimension(c.ancho, c.alto);
     numeroPaellas = c.numeroPaellas;
+    uimt = c.uimt;
     for (int i = 0; i < c.numeroPaellas; i++)
     {
         paellas.push_back(c.paellas[i]);
@@ -187,6 +188,12 @@ void Comanda::cancelaPedido()
     clearPaellas();
     numeroPaellas = 0;
     delete numeromesa; numeromesa = nullptr;
+    toggleTecaldotam(false);
+    toggleTeclado(false);
+    if (isActive())
+    {
+        toggleTecladonum(true);
+    }
 
 
 }
@@ -402,20 +409,42 @@ list<Comanda*>::iterator  Comanda::getSitio()
 void Comanda::toggleactive()
 {
     setActive(!isActive());
+   
     for (auto b : botones)
     {
         b->setActive(!b->isActive());
     }
     if (isActive())//activando comanda
     {
-        toggleTecladonum(isActive());
+       toggleTecladonum(isActive());
         
     }
-    else
+    else//desactivando comanda
     {
         toggleTecaldotam(isActive());
         toggleTeclado(isActive());
         toggleTecladonum(isActive());
     }
     cancelaPedido();
+}
+bool Comanda::OnClick(int mx, int my)
+{
+    SDL_Rect z = getCollider();
+    SDL_Rect d = { mx,my,1,1 };
+    if (SDL_HasIntersection(&z, &d))
+    {
+      uimt->getBarra()->seleccionaComanda(seleccionaComanda());
+        return true;
+    }
+    else
+        return false;
+}
+Comanda* Comanda::seleccionaComanda()
+{
+    setTexture("cuadernilloseleted");
+    return this;
+}
+void Comanda::deseleccionaComanda()
+{
+    setTexture("cuadernillo");
 }

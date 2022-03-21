@@ -151,7 +151,8 @@ void ListaComandas::finalizacomanda(Comanda* comanda)
 
 		}
 	}*/
-
+	if (comanda == selected)
+		selected = nullptr;
 	for (auto c : lista)
 	{
 
@@ -207,4 +208,22 @@ void ListaComandas::finalizacomanda(Comanda* comanda)
 }
 void ListaComandas::update()
 {
+}
+void ListaComandas::seleccionaComanda(Comanda* comanda)
+{
+	if (selected != nullptr)
+	{
+		selected->deseleccionaComanda();
+		selected = comanda;
+	}
+	else
+		selected = comanda;
+}
+Comanda* ListaComandas::getComandaSeleccionada()
+{
+	if (selected == nullptr)
+	{
+	}
+	else
+	return selected;
 }

@@ -57,6 +57,10 @@ public:
     void setEliminabutton(EliminaComandaButton* e) { eliminarboton = e; };
     EliminaComandaButton* getEliminabutton() { return eliminarboton; };
     void toggleactive();
+
+    bool  OnClick(int mx, int my);
+        Comanda *seleccionaComanda();
+    void deseleccionaComanda();
     /*void cierraComanda();*/
     //void Ecribeinfoenjson();
     //Compara las paellas recibidas con el pedido y le pone la puntuación

@@ -17,12 +17,15 @@ class ListaComandas :public GameObject
 	int limit = 0;
 	list<Comanda*> lista;
 	queue<Comanda*> listanovisibles;
+	Comanda* selected = nullptr;
 public:
 	//Añade la comanda que escribe el camarero a la lista
 	ListaComandas(Game* game, UIManager* m);
 	~ListaComandas();
 	void AñadeComanda(Comanda* comanda);
 	void finalizacomanda(Comanda* comanda);
+	void seleccionaComanda(Comanda* comanda);
+	Comanda* getComandaSeleccionada();
 	//Interfaz
 	void renderComandas();
 	void update() override;

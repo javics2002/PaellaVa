@@ -69,8 +69,14 @@ void UIManager::uiEvent(int mx, int my)
 	{
 		for (auto c : barra->getlista())
 		{
+			
 
 			if (c->getEliminabutton()->OnClick(mx, my))
+			{
+				mx = -1;
+				my = -1;
+			}
+			if (c->OnClick(mx, my))
 			{
 				mx = -1;
 				my = -1;
@@ -172,6 +178,7 @@ void UIManager::creaComanda(Game* game)
 	actual->guardaTeclado();
 	actual->toggleTeclado(false);
 	actual->toggleTecaldotam(false);
+	
 	AceptaPaellaButton* e = new AceptaPaellaButton(game, actual, "acepta", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() + actual->getHeight() / 4, anchobotones, anchobotones);
 	interfaz.push_back(e);
 	actual->guardaBoton(e);
