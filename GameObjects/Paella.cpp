@@ -3,13 +3,13 @@
 #include "Ingrediente.h"
 #include <map>
 
-Paella::Paella(Game* game, Volumen volumen_): ObjetoPortable(game), volumen(volumen_)
+Paella::Paella(Game* game, TipoPaella tipo): ObjetoPortable(game), miTipo(tipo)
 {
 
 	setPosition(sdlutils().width() / 2, 100);
 	setDimension(50, 50);
 
-	switch (volumen)
+	switch (miTipo)
 	{
 	case Mediana:
 		sumaIntervalo = 5000;
@@ -104,6 +104,14 @@ void Paella::onObjectDropped()
 bool Paella::canPick()
 {
 	return true;
+}
+TipoPaella Paella::getTipo()
+{
+	return miTipo;
+}
+Contenido Paella::getContenido()
+{
+	return contenido;
 }
 void Paella::changeTexture(string clave)
 {
