@@ -2,12 +2,12 @@
   "fonts": [
     {
       "id": "abadi",
-      "file": "../../../Assets/fonts/Abadi.otf",
+      "file": "../../../Assets/Fonts/Abadi.otf",
       "size": 16
     },
     {
       "id": "paella",
-      "file": "../../../Assets/fonts/Paella.ttf",
+      "file": "../../../Assets/Fonts/Paella.ttf",
       "size": 48
     }
   ],
@@ -297,5 +297,38 @@
       "font": "abadi",
       "color": "0x0000ffff"
     }
+  ],
+
+  "sounds": [
+    { "id": "1star", "file": "../../../Assets/Sounds/1star.mp3" },
+    { "id": "2star", "file": "../../../Assets/Sounds/2star.mp3" },
+    { "id": "3star", "file": "../../../Assets/Sounds/3star.mp3" },
+    { "id": "4star", "file": "../../../Assets/Sounds/4star.mp3" },
+    { "id": "5star", "file": "../../../Assets/Sounds/5star.mp3" },
+    { "id": "cancel", "file": "../../../Assets/Sounds/Cancel.mp3" },
+    { "id": "cinta", "file": "../../../Assets/Sounds/Cinta.mp3" },
+    { "id": "clienteCome", "file": "../../../Assets/Sounds/ClienteCome.mp3" },
+    { "id": "comandaDescartada", "file": "../../../Assets/Sounds/ComandaDescartada.mp3" },
+    { "id": "comandaEnviada", "file": "../../../Assets/Sounds/comandaEnviada.mp3" },
+    { "id": "connected", "file": "../../../Assets/Sounds/Connected.mp3" },
+    { "id": "conversacion2", "file": "../../../Assets/Sounds/Conversacion2.mp3" },
+    { "id": "conversacion4", "file": "../../../Assets/Sounds/Conversacion4.mp3" },
+    { "id": "cortar1", "file": "../../../Assets/Sounds/Cortar1.mp3" },
+    { "id": "cortar2", "file": "../../../Assets/Sounds/Cortar2.mp3" },
+    { "id": "cortar3", "file": "../../../Assets/Sounds/Cortar3.mp3" },
+    { "id": "cubiertos", "file": "../../../Assets/Sounds/Cubiertos.mp3" },
+    { "id": "disconnected", "file": "../../../Assets/Sounds/Disconnected.mp3" },
+    { "id": "enciendeFogon", "file": "../../../Assets/Sounds/EnciendeFogon.mp3" },
+    { "id": "escribir1", "file": "../../../Assets/Sounds/Escribir1.mp3" },
+    { "id": "escribir2", "file": "../../../Assets/Sounds/Escribir2.mp3" },
+    { "id": "escribir3", "file": "../../../Assets/Sounds/Escribir3.mp3" },
+    { "id": "escribir4", "file": "../../../Assets/Sounds/Escribir4.mp3" },
+    { "id": "escribir5", "file": "../../../Assets/Sounds/Escribir5.mp3" },
+    { "id": "fogon", "file": "../../../Assets/Sounds/Fogon.mp3" },
+    { "id": "inicioCinta", "file": "../../../Assets/Sounds/InicioCinta.mp3" },
+    { "id": "puerta", "file": "../../../Assets/Sounds/Puerta.mp3" },
+    { "id": "select", "file": "../../../Assets/Sounds/Select.mp3" },
+    { "id": "tirarPaella", "file": "../../../Assets/Sounds/tirarPaella.mp3" },
+    { "id": "ultimaHora", "file": "../../../Assets/Sounds/UltimaHora.mp3" }
   ]
 }

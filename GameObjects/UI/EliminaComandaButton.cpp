@@ -12,6 +12,7 @@ EliminaComandaButton::~EliminaComandaButton()
 void EliminaComandaButton::execute()
 {
 	uimt->getBarra()->finalizacomanda(comandat);
+	sdlutils().soundEffects().at("comandaDescartada").play(0, game->UI);
 }
 void EliminaComandaButton::update()
 {

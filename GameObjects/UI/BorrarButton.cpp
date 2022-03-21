@@ -11,4 +11,5 @@ BorrarButton::~BorrarButton()
 void BorrarButton::execute()
 {
 	comanda->borraPedido();
+	sdlutils().soundEffects().at("escribir5").play(0, game->UI);
 }

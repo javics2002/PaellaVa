@@ -12,6 +12,9 @@ Numerobutton::~Numerobutton()
 void Numerobutton::execute()
 {
 	c->anadirNumeromesa(textura);
+
+	//Sonido de escribir aleatorio
+	sdlutils().soundEffects().at("escribir" + std::to_string(sdlutils().rand().nextInt(2, 5))).play(0, game->UI);
 }
 void Numerobutton::update()
 {

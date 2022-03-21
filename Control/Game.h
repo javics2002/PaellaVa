@@ -19,7 +19,6 @@ class NetworkManager;
 
 using namespace std;
 
-//senum escenasJuego { MENU, RESTAURANTE };
 
 class Game {
     //Cambiar a scene actual
@@ -42,4 +41,6 @@ public:
 
     ObjectManager* getObjectManager();
     UIManager* getUIManager();
+
+    enum CanalesSonido { UI, JUGADOR, MUEBLES, CLIENTES };
 };

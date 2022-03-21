@@ -15,4 +15,6 @@ void AceptaPaellaButton::execute()
 {
 	//std::cout << "paella aceptada";
 	comanda->aceptaPaella();
+	
+	sdlutils().soundEffects().at("escribir1").play(0, game->UI);
 }
