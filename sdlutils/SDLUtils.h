@@ -125,10 +125,12 @@ public:
 		return musics_;
 	}
 
+	/*
 	// anims map
 	inline sdl_resource_table<Texture>& anims() {
 		return anims_;
 	}
+	*/
 
 	// Access to the random number generator. It is important to always
 	// use this generator, this way you can regenerate the same sequence
@@ -173,7 +175,7 @@ private:
 	sdl_resource_table<Texture> msgs_; // textures map (string -> texture)
 	sdl_resource_table<SoundEffect> sounds_; // sounds map (string -> sound)
 	sdl_resource_table<Music> musics_; // musics map (string -> music)
-	sdl_resource_table<Texture> anims_; // anims map (string -> anim)
+	// sdl_resource_table<Texture> anims_; // anims map (string -> anim)
 
 	RandomNumberGenerator random_; // (pseudo) random numbers generator
 	VirtualTimer timer_; // virtual timer

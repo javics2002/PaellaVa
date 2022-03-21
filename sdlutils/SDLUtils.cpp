@@ -282,7 +282,8 @@ void SDLUtils::loadReasources(std::string filename) {
 		}
 	}
 
-	// load images
+	/*
+	// load anims
 	jValue = root["anims"];
 	if (jValue != nullptr) {
 		if (jValue->IsArray()) {
@@ -291,6 +292,12 @@ void SDLUtils::loadReasources(std::string filename) {
 					JSONObject vObj = v->AsObject();
 					std::string key = vObj["id"]->AsString();
 					std::string file = vObj["file"]->AsString();
+					uint8_t length = static_cast<uint8_t>(vObj["length"]->AsNumber());
+					uint8_t sheetWidth = static_cast<uint8_t>(vObj["sheetWidth"]->AsNumber());
+					uint8_t sheetHeight = static_cast<uint8_t>(vObj["sheetLength"]->AsNumber());
+					int spriteWidth = static_cast<int>(vObj["spriteWidth"]->AsNumber());
+					int spriteHeight = static_cast<int>(vObj["spriteHeight"]->AsNumber());
+					uint8_t padding = static_cast<uint8_t>(vObj["padding"]->AsNumber());
 #ifdef _DEBUG
 					std::cout << "Loading anim with id: " << key << std::endl;
 #endif
@@ -306,7 +313,7 @@ void SDLUtils::loadReasources(std::string filename) {
 			throw "'anims' is not an array in '" + filename + "'";
 		}
 	}
-
+	*/
 }
 
 void SDLUtils::closeSDLExtensions() {

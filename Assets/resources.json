@@ -276,6 +276,10 @@
     {
       "id": "paella",
       "file": "../../../Assets/Images/paella.png"
+    },
+    {
+      "id": "clienteBase",
+      "file": "../../../Assets/Images/clienteBase.png"
     }
   ],
 
@@ -293,20 +297,5 @@
       "font": "abadi",
       "color": "0x0000ffff"
     }
-  ],
-
-  // Frames van: Frame 0 en (1, 1), y luego se suma spriteWidth o spriteHeight y padding
-  "anims": [
-    {
-      "id": "cocineraIdleDown",
-      "file": "../../../Assets/Anims/Cocinera/cocineraIdleDown.png",
-      "length": 31,
-      "sheetWidth": 6,
-      "sheetHeight":  6,
-      "spriteWidth": 1024,
-      "spriteHeight": 1024,
-      "padding": 2
-    }
   ]
-
 }
