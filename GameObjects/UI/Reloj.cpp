@@ -6,10 +6,12 @@ Reloj::Reloj(Game* game)
 {
 	this->game = game;
 	setDimension(w, h);
-	setPosition(sdlutils().width() - getWidth(), getHeight() );
+	setPosition(sdlutils().width() - getWidth(), getHeight());
 	setActive(true);
 	lastUpdate_ = 0;
-	
+
+	relojTexture = &sdlutils().images().at("reloj");
+
 	hourIni = 9;
 	minuteIni = 0;
 	
@@ -28,6 +30,15 @@ bool Reloj::finDia()
 {
 	return SDL_TICKS_PASSED(SDL_GetTicks(), totalJornada);
 }
+
+void Reloj::render(SDL_Rect* cameraRect)
+{
+
+	drawRender(getCollider(), relojTexture);
+	drawRender(cameraRect);
+
+}
+
 
 void Reloj::update()
 {
@@ -57,31 +68,9 @@ void Reloj::update()
 			currentTime.hours = currentTime.hours % 24;
 
 		}
-		
-		//currentTime.hours
-
-		//TODO: Representar cuantas horas han pasado
-		//renderTimeText();
 		string timeText = parseTimeToString(currentTime.hours, currentTime.minutes);
-
 		setTexture(timeText, string("paella"), fgColor, bgColor);
-
 	}
-}
-
-void Reloj::renderTimeText()
-{
-	string timeText = currentTime.hours + ":" + currentTime.minutes;
-	Texture scoreTex(sdlutils().renderer(), timeText,
-		sdlutils().fonts().at("ARIAL24"), build_sdlcolor(0x111111ff));
-
-	SDL_Rect dest = build_sdlrect( //
-		getPosition().getX(), //
-		getPosition().getY(), //
-		scoreTex.width(), //
-		scoreTex.height());
-	cout << "entra a render time" << endl;
-	scoreTex.render(dest);
 }
 
 string Reloj::parseTimeToString(int hours, int minutes)
