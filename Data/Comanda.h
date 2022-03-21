@@ -29,6 +29,7 @@ public:
     ~Comanda();//No se puede definir todavia y no compila NO LO BORREIS/
     void añadiraPedido(string i);
     void anadirNumeromesa(string n);
+    UiButton* getNumeromesa();
     void randomizaIconos();
     //void abrirComanda(int x,int y);
     void dibujaPedido();

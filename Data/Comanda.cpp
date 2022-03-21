@@ -119,6 +119,10 @@ void Comanda::anadirNumeromesa(string n)
     toggleTecladonum(false);
     toggleTecaldotam(true);
 }
+UiButton* Comanda::getNumeromesa()
+{
+    return numeromesa;
+}
 void Comanda::randomizaIconos()
 {
     vector<Point2D<double>> posdis = uimt->getPosTeclado();
