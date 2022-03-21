@@ -56,22 +56,27 @@ Comanda::Comanda(Game* game, uint nmesa, UIManager* uim) :GameObject(game)
          j++;
      }*/
 }
-Comanda::Comanda( Comanda& c) :GameObject(c.gamet)
+Comanda::Comanda(Comanda& c) :GameObject(c.gamet)
 {
     setTexture("cuadernillo");
     setPosition(c.x, c.y);
-     paellas = c.copyPaellas();
+    paellas = c.copyPaellas();
     gamet = c.gamet;
     setDimension(c.ancho, c.alto);
     numeroPaellas = c.numeroPaellas;
-    for (int i = 0; i < c.numeroPaellas;i++)
+    for (int i = 0; i < c.numeroPaellas; i++)
     {
         paellas.push_back(c.paellas[i]);
-      /*  for (int j = 0; j < paellas[i].size(); j++)
-        {
-            paellas[i].push_back(c.paellas[i][j]);
-        }*/
+        /*  for (int j = 0; j < paellas[i].size(); j++)
+          {
+              paellas[i].push_back(c.paellas[i][j]);
+          }*/
     }
+    if (numeromesa != nullptr)
+    {       UiButton* nm = new UiButton(gamet, c.numeromesa->getTextura(), c.numeromesa->getPosition().getX(), c.numeromesa->getPosition().getY(), c.numeromesa->getWidth(), c.numeromesa->getHeight());
+             numeromesa = nm;
+    
+      }
 }
 Comanda::~Comanda()
 {
@@ -181,6 +186,7 @@ void Comanda::cancelaPedido()
     uimt->randomizaTeclado();
     clearPaellas();
     numeroPaellas = 0;
+    delete numeromesa; numeromesa = nullptr;
 
 
 }
@@ -270,6 +276,9 @@ void Comanda::enviaComanda()
     }*/
     uimt->getBarra()->AñadeComanda(this);
     cancelaPedido();
+    toggleTecaldotam(false);
+    toggleTeclado(false);
+    toggleTecladonum(true);
 
 }
 void Comanda::renderizaPaellas()
@@ -322,6 +331,11 @@ void Comanda::desplazacomandas(int d)
 
 
     }
+    if (numeromesa!=nullptr)
+    {
+        numeromesa->setPosition(numeromesa->getPosition().getX() + d, numeromesa->getPosition().getY());
+    }
+   
 
 }
 void Comanda::clearPaellas()
@@ -360,11 +374,11 @@ vector<vector<UiButton*>> Comanda::copyPaellas()
     }
     return paellascopiadas;
 }
-void Comanda::setSitio(int s)
+void Comanda::setSitio(list<Comanda*>::iterator  s)
 {
     sitiolista = s;
 }
-int Comanda::getSitio()
+list<Comanda*>::iterator  Comanda::getSitio()
 {
     return sitiolista;
 }

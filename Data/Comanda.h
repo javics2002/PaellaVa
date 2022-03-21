@@ -4,6 +4,7 @@
 #include "../GameObjects/GameObject.h"
 #include "../GameObjects/UI/UiButton.h"
 #include <string>
+#include <list>
 #define NK_IMPLEMENTATION
 class Paella;
 class Ingrediente;
@@ -50,8 +51,8 @@ public:
     void clearPaellas();
     vector<vector<UiButton*>> copyPaellas();
 
-    void setSitio(int s);
-    int getSitio();
+    void setSitio(list<Comanda*>::iterator  s);
+    list<Comanda*>::iterator  getSitio();
 
     void setEliminabutton(EliminaComandaButton* e) { eliminarboton = e; };
     EliminaComandaButton* getEliminabutton() { return eliminarboton; };
@@ -80,7 +81,8 @@ private:
     int altoini;
     uint numeroMesa;
     uint numeroPaellas = 0;
-    int sitiolista;
+    list<Comanda*>::iterator sitiolista;
+
     EliminaComandaButton* eliminarboton;
     float puntuacion;
     Game* gamet;

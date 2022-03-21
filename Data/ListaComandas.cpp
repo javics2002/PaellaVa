@@ -11,24 +11,37 @@ ListaComandas::ListaComandas(Game* game,UIManager* m) :GameObject(game)
 	p.setX(500);
 	p.setY(40);
 	setPosition(p);
-	cX = p.getX()/2;
+	cX = p.getX()/5;
 	cY = p.getY();
 	setDimension(ancho, alto);
 	uimt = m;
 	inicx = cX;
+
 }
 ListaComandas::~ListaComandas()
 {
 }
 void ListaComandas::AñadeComanda(Comanda* comanda)
 {
+	Comanda* c = new Comanda(*comanda);
+	limit = inicx + maxvisibles * 1.5 * c->getWidth();
 	if (numcomandas < maxvisibles)
 	{
-		Comanda* c = new Comanda(*comanda);
+		
 		int x = c->getX();
-		c->setSitio(numcomandas);
+		if (lista.empty())
+		{
+			cX = inicx;//añadimos siempre al principio y empujamos las demas
+		}
+		else
+		{
+			auto ic = lista.begin();
+			
+			Comanda* d=*ic;
+			cX = d->getPosition().getX() - 1.5 * c->getWidth();
+		}
 		//comprobar si la posicion 0 está libre
-		if (numcomandas > 0)
+		/*if (numcomandas > 0)
 		{
 
 
@@ -48,14 +61,15 @@ void ListaComandas::AñadeComanda(Comanda* comanda)
 			}
 			else 
 				cX = inicx + (numcomandas * 1.5 * c->getWidth());
-		}
+		}*/
 		//cX = inicx + (numcomandas * 1.5 * c->getWidth());//al llenar y vaciar de locos pero añadir si ya hay 3 , en la posicion 0 ....
 		desplazamineto = cX - x;
 		
 		c->desplazacomandas(desplazamineto);//esta la paella anterior en el mismo  vector 
 		c->setPosition(cX, cY);
 		c->getPosition().setX(cX);
-		lista.push_back(c);
+		//c->setSitio();
+		c->setSitio(lista.insert(lista.begin(),c));
 		//c->setSitio(inicx/(1.5 * c->getWidth())-1); AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 		//c->setSitio(numcomandas);
 		//UIManager* u,Comanda* c, Game* game, string texturename, int x, int y, int w, int h
@@ -64,28 +78,50 @@ void ListaComandas::AñadeComanda(Comanda* comanda)
 		c->setEliminabutton(e);
 		numcomandas++;
 		//cX += 1.5 * c->getWidth();
+		auto ec = lista.end();
+		ec--;
+		Comanda* ed = *ec;
+		if (ed->getPosition().getX() < limit)
+		{
+			for (auto c : lista)//al agregar otra comanda se desplazan topdas y la ultima se sale :(
+			{
+
+
+
+				int nx = c->getPosition().getX() + 1.5 * c->getWidth();
+				int dsp = nx - c->getPosition().getX();
+				c->desplazacomandas(dsp);//esta la paella anterior en el mismo  vector 
+				c->setPosition(nx, cY);
+				c->getEliminabutton()->setPosition(nx, cY + c->getHeight() / 2);
+
+			}
+		}
 
 	}
 	else 
 	{
 	//se guardan en el buffer de comandas.
+		c->desplazacomandas(-500);//esta la paella anterior en el mismo  vector 
+		c->setPosition(-500, cY);
+		EliminaComandaButton* e = new EliminaComandaButton(uimt, c, game, "cancela", -500, cY + c->getHeight() / 2, 25, 25);
 	
+		c->setEliminabutton(e);
+		listanovisibles.push(c);
 	}
 }
 void ListaComandas::renderComandas()
 {
-	for (int i = 0; i < lista.size(); i++)
+	for (auto i: lista)
 	{
-		if (lista[i] != nullptr)
-		{
-			lista[i]->render(nullptr);//se pasan bien pero los uibutton de la lista de paelas deciden morir aqui xd
-			lista[i]->dibujaPedido();//XD son punteros y la comanda hace paella clear y los borra lol
-		}
-		}
+		
+			i->render(nullptr);//se pasan bien pero los uibutton de la lista de paelas deciden morir aqui xd
+			i->dibujaPedido();//XD son punteros y la comanda hace paella clear y los borra lol
+		
+	}
 }
 void ListaComandas::finalizacomanda(Comanda* comanda)
 {
-	int desplazables = maxvisibles- comanda->getSitio();
+	/*int desplazables = maxvisibles- comanda->getSitio();
 	int aborrar = comanda->getSitio();
 
 	//delete lista[comanda->getSitio()];
@@ -114,13 +150,35 @@ void ListaComandas::finalizacomanda(Comanda* comanda)
 			c->setSitio(c->getSitio() - 1);
 
 		}
-	}
-	lista.erase(lista.begin() + comanda->getSitio());
-	if(listanovisibles.empty())
-	numcomandas--;
-	else
+	}*/
+
+	for (auto c : lista)
 	{
+
+		if (c->getPosition().getX()<comanda->getPosition().getX())
+		{
+			int nx = c->getPosition().getX() + 1.5 * c->getWidth();
+			int dsp = nx - c->getPosition().getX();
+			c->desplazacomandas(dsp);//esta la paella anterior en el mismo  vector 
+			c->setPosition(nx, cY);
+			c->getEliminabutton()->setPosition(nx, cY + c->getHeight() / 2);
+		}
+	}
+	lista.erase( comanda->getSitio());
+	numcomandas--;
+	if (!listanovisibles.empty())
+	{
+
+	
+	
+	
 		//traer comanda del buffer 
+		Comanda* c = listanovisibles.back();
+		AñadeComanda(c);
+			
+			
+		listanovisibles.pop();
+
 	}
 
 }

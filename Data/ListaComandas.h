@@ -14,7 +14,8 @@ class ListaComandas :public GameObject
 {
 	int maxvisibles = 4;
 	int  numcomandas=0;
-	vector<Comanda*> lista;
+	int limit = 0;
+	list<Comanda*> lista;
 	queue<Comanda*> listanovisibles;
 public:
 	//Añade la comanda que escribe el camarero a la lista
@@ -25,9 +26,9 @@ public:
 	//Interfaz
 	void renderComandas();
 	void update() override;
-	vector<Comanda*> getlista() { return lista; };
+	list<Comanda*> getlista() { return lista; };
 private:
-	int ancho = 400;
+	int ancho =600;
 	int alto = 50;
 	int cX = 0;
 	int cY = 0;
