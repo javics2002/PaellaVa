@@ -338,6 +338,16 @@ Mueble* Player::nearestObject(Mueble* m1, Mueble* m2)
 	}
 }
 
+void Player::animUpdate()
+{
+
+}
+
+void Player::setAnimResources()
+{
+
+}
+
 
 
 void Player::update()

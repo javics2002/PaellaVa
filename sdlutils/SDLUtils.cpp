@@ -282,6 +282,31 @@ void SDLUtils::loadReasources(std::string filename) {
 		}
 	}
 
+	// load images
+	jValue = root["anims"];
+	if (jValue != nullptr) {
+		if (jValue->IsArray()) {
+			for (auto& v : jValue->AsArray()) {
+				if (v->IsObject()) {
+					JSONObject vObj = v->AsObject();
+					std::string key = vObj["id"]->AsString();
+					std::string file = vObj["file"]->AsString();
+#ifdef _DEBUG
+					std::cout << "Loading anim with id: " << key << std::endl;
+#endif
+					anims_.emplace(key, Texture(renderer(), file));
+				}
+				else {
+					throw "'anims' array in '" + filename
+						+ "' includes and invalid value";
+				}
+			}
+		}
+		else {
+			throw "'anims' is not an array in '" + filename + "'";
+		}
+	}
+
 }
 
 void SDLUtils::closeSDLExtensions() {

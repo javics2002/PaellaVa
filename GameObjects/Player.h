@@ -30,6 +30,8 @@ class Player : public GameObject
 
 	bool nearestObject(ObjetoPortable* go);
 	Mueble* nearestObject(Mueble* m1, Mueble* m2);
+	void setAnimResources();
+	void animUpdate();
 
 	int id_;
 
