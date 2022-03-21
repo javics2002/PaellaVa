@@ -6,7 +6,7 @@ Pedido::Pedido(int numComensales, int numeroTiles)
 	comensales = numComensales;
 	tilesMesa = numeroTiles;
 
-	Volumen tamano;
+	TipoPaella tamano;
 	int suma_tamanos = 0;
 
 	tipoIngrediente ingredienteRand;
@@ -22,7 +22,7 @@ Pedido::Pedido(int numComensales, int numeroTiles)
 	{
 		int t = rand() % max_rand + 1;
 
-		tamano = Volumen(t);
+		tamano = TipoPaella(t);
 
 		suma_tamanos += t;
 		if (suma_tamanos > comensales) {

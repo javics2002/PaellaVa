@@ -3,7 +3,7 @@
 #include "../GameObjects/Paella.h"
 
 struct pedidoPaella {
-	Volumen tamanoPaella;
+	TipoPaella tamanoPaella;
 	vector<tipoIngrediente> ingredientesPedido;
 };
 
