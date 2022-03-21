@@ -50,7 +50,6 @@ class NetworkManager
 {
 private:
 	int id_count;
-	SDL_Surface* surface;
 	Game* game_;
 
 	Player* players[MAX_PLAYERS];
@@ -104,7 +103,7 @@ public:
 	NetworkManager(Game* game);
 	~NetworkManager();
 
-	bool Init(char type, SDL_Surface* srfc, const char* ip_addr = NULL);
+	bool Init(char type, const char* ip_addr = NULL);
 	void Update();
 	void Render();
 

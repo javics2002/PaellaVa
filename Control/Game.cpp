@@ -12,6 +12,7 @@
 #include "../sdlutils/InputHandler.h"
 #include "../Control/ObjectManager.h"
 #include "../GameObjects/UI/UIManager.h"
+#include "../Control/NetworkManager.h"
 
 Game::Game() {
 	srand(time(NULL));
@@ -24,16 +25,18 @@ Game::~Game() {
 void Game::init()
 {
 	SDLUtils::init("Paellas", 1280, 720, "../../../Assets/resources.json");
-
 	SDLUtils::instance()->showCursor();
 
 #ifdef _DEBUG
 	currentScene = new Restaurante(this);
-	
 	getObjectManager()->initMuebles();
 #else
 	currentScene = new Menu(this);
 #endif // _DEBUG
+
+	// NETWORK
+	nm = new NetworkManager(this);
+	nm->Init('h');
 }
 
 void Game::start()

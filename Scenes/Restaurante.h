@@ -17,6 +17,7 @@ using uint = unsigned int;
 
 class Player;
 class Mueble;
+class NetworkManager;
 
 struct MapInfo {
 	Map* tilemap;
@@ -41,11 +42,8 @@ class Restaurante : public Scene
 {
 	const float LERP_INTERPOLATION = 0.2f;
 
-	//Punteros a los jugadores (Quizas deberian llamarse yo y amigo, en relativo)
-	Player* host;
-	Player* client;
-
 	MapInfo mapInfo;
+	NetworkManager* nm;
 
 	Vector2D<int> tamRestaurante = Vector2D<int>(0, 1216);
 

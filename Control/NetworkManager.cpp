@@ -2,6 +2,7 @@
 
 #include "../Control/Game.h"
 #include "../GameObjects/Player.h"
+#include "../Control/ObjectManager.h"
 
 void NetworkManager::AcceptPlayers()
 {
@@ -169,7 +170,6 @@ void NetworkManager::UpdatePlayer(int id, Sint8 horizontal, Sint8 vertical)
 
 NetworkManager::NetworkManager(Game* game)
 {
-	surface = NULL;
 	nType = '0';
 	id_count = 0;
 
@@ -188,7 +188,7 @@ NetworkManager::~NetworkManager()
 	SDLNet_Quit();
 }
 
-bool NetworkManager::Init(char type, SDL_Surface* srfc, const char* ip_addr)
+bool NetworkManager::Init(char type, const char* ip_addr)
 {
 	if (SDLNet_Init() < 0)
 	{
@@ -196,7 +196,6 @@ bool NetworkManager::Init(char type, SDL_Surface* srfc, const char* ip_addr)
 		exit(EXIT_FAILURE);
 	}
 
-	surface = srfc;
 	nType = type;
 
 	if (SDLNet_ResolveHost(&ip, ip_addr, 2000) < 0)
@@ -229,7 +228,7 @@ bool NetworkManager::Init(char type, SDL_Surface* srfc, const char* ip_addr)
 		}
 	}
 	else {
-		Player* player = AddPlayerHost();
+		game_->getObjectManager()->addPlayer(AddPlayerHost());
 		// player->SetColor(0xFFFFFF);
 
 		accept_t = new std::thread(&NetworkManager::AcceptPlayers, this);
@@ -286,6 +285,7 @@ void NetworkManager::Close()
 Player* NetworkManager::AddPlayerHost()
 {
 	Player* p = new Player(game_);
+
 	// p->Init(surface);
 	// p->SetId(id_count);
 

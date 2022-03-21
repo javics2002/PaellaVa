@@ -25,6 +25,11 @@ ObjectManager::~ObjectManager()
 		i = nullptr;
 	}
 
+	for (auto i : players) {
+		delete i;
+		i = nullptr;
+	}
+
 	delete ingredientes;
 }
 
@@ -36,6 +41,10 @@ void ObjectManager::render(SDL_Rect* rect)
 	for (auto i : paellas)
 		i->render(rect);
 
+	for (auto p : players)
+		p->render(rect);
+	
+
 	/*for (auto c : comandas)
 		c->render(rect);
 
@@ -45,11 +54,16 @@ void ObjectManager::render(SDL_Rect* rect)
 	ingredientes->render(rect);
 
 	grupoClientes->render(rect);
+
+
 }
 
 void ObjectManager::debug(SDL_Rect* rect)
 {
 	for (auto i : muebles)
+		i->renderDebug(rect);
+
+	for (auto i : players)
 		i->renderDebug(rect);
 
 	for (auto i : paellas)
@@ -62,11 +76,16 @@ void ObjectManager::debug(SDL_Rect* rect)
 
 void ObjectManager::handleInput()
 {
+	// solo se handlea tu propio input
+	getPlayers()[0]->handleInput();
 }
 
 void ObjectManager::update()
 {
 	for (auto i : muebles)
+		i->update();
+
+	for (auto i : players)
 		i->update();
 
 	for (auto i : paellas)
@@ -88,6 +107,11 @@ void ObjectManager::update()
 void ObjectManager::addMueble(GameObject* mueble)
 {
 	muebles.push_back(mueble);
+}
+
+void ObjectManager::addPlayer(Player* player)
+{
+	players.push_back(player);
 }
 
 void ObjectManager::addComanda(GameObject* comanda)

@@ -15,6 +15,7 @@ class Restaurante;
 class ObjectManager;
 class Scene;
 class UIManager;
+class NetworkManager;
 
 using namespace std;
 
@@ -23,6 +24,9 @@ using namespace std;
 class Game {
     //Cambiar a scene actual
     Scene* currentScene;
+
+    NetworkManager* nm;
+
 
 public:
     Game();

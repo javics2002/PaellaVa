@@ -20,7 +20,7 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 {
 	this->game = game;
 
-	host = new Player(game);
+	// host = new Player(game);
 
 	mapInfo.ruta = "..\\..\\..\\Assets\\Tilemap\\Restaurante.tmx";
 	loadMap(mapInfo.ruta);
@@ -39,15 +39,10 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 	uiManager->addInterfaz(new Reloj(game));
 
 	//objectManager->initMuebles();
-
-	// NETWORK
-	NetworkManager* nm = new NetworkManager(game);
-	
 }
 
 Restaurante::~Restaurante()
 {
-	delete host;
 	delete objectManager;
 	delete fondo;
 	delete camara;
@@ -56,19 +51,18 @@ Restaurante::~Restaurante()
 void Restaurante::handleInput()
 {
 	objectManager->handleInput();
-	host->handleInput();
 }
 
 void Restaurante::update()
 {
 	objectManager->update();
 	uiManager->update();
-	host->update();
 
-	if (host->getX() > tamRestaurante.getY() + TILE_SIZE) { // tamRestaurante es un rango, no una posición, por eso tengo que hacer getY()
+	// CAMBIO TEMPORAL PARA QUE FUNCIONE LA CAMARA:::
+	if (objectManager->getPlayers()[0]->getX() > tamRestaurante.getY() + TILE_SIZE) { // tamRestaurante es un rango, no una posición, por eso tengo que hacer getY()
 		camara->Lerp(Vector2D<float>(tamRestaurante.getY(), 16), LERP_INTERPOLATION);
 	}
-	else if (host->getX() < tamRestaurante.getY()) {
+	else if (objectManager->getPlayers()[0]->getX() < tamRestaurante.getY()) {
 		camara->Lerp(Vector2D<float>(tamRestaurante.getX(), 16), LERP_INTERPOLATION);
 	}
 }
@@ -78,7 +72,6 @@ void Restaurante::render()
 	fondo->render(camara->renderRect());
 	objectManager->render(camara->renderRect());
 	
-	host->render(camara->renderRect());
 	uiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
 
 	//auto time = sdlutils().currRealTime();
@@ -94,7 +87,6 @@ void Restaurante::debug()
 {
 	fondo->renderDebug(camara->renderRect());
 	objectManager->debug(camara->renderRect());
-	host->renderDebug(camara->renderRect());
 }
 //Check colisiones
 
