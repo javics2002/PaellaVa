@@ -72,11 +72,11 @@ Comanda::Comanda(Comanda& c) :GameObject(c.gamet)
               paellas[i].push_back(c.paellas[i][j]);
           }*/
     }
-    if (numeromesa != nullptr)
+    if (c.numeromesa != nullptr)
     {       UiButton* nm = new UiButton(gamet, c.numeromesa->getTextura(), c.numeromesa->getPosition().getX(), c.numeromesa->getPosition().getY(), c.numeromesa->getWidth(), c.numeromesa->getHeight());
              numeromesa = nm;
     
-      }
+    }
 }
 Comanda::~Comanda()
 {
@@ -263,6 +263,23 @@ void Comanda::aceptaPaella()
         Pedido.clear();
         numeroPaellas++;
     }
+    //sangriado
+  
+        escritoY += anchobotones / 2 + margenbotones;
+        escritoX = getPosition().getX() / 2 + margenbotones + anchobotones / 2;
+        alto = alto + anchobotones / 2 + 2 * margenbotones;
+        setDimension(ancho, alto);
+        setPosition(getPosition().getX(), getPosition().getY() + 2 * margenbotones);
+        vector<Point2D<double>> sangria = uimt->getPosTeclado();
+        for (int i = 0; i < sangria.size(); i++)
+        {
+            int ny = sangria[i].getY() + anchobotones * 0.7f;
+            sangria[i].setY(ny);
+            //en algun lugar vuelven a tener el valor default lo tengo que mirar
+            //bajar teclado
+            //lo bajará en uim?
+        }
+        uimt->setPosTeclado(sangria);
     toggleTeclado(false);
     toggleTecaldotam(true);
 }

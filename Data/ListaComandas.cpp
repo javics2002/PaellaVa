@@ -174,8 +174,31 @@ void ListaComandas::finalizacomanda(Comanda* comanda)
 	
 		//traer comanda del buffer 
 		Comanda* c = listanovisibles.back();
-		AñadeComanda(c);
+		//AñadeComanda(c);
+		int x = c->getX();
+		
+		
 			
+		
+		
+		
+			auto ic = lista.begin();
+
+			Comanda* d = *ic;
+			cX = d->getPosition().getX() - 1.5 * c->getWidth();
+		
+		
+		
+		desplazamineto = cX - x;
+
+		c->desplazacomandas(desplazamineto -  c->getWidth());//esta la paella anterior en el mismo  vector 
+		c->setPosition(cX, cY);
+		c->getPosition().setX(cX);
+		
+		c->setSitio(lista.insert(lista.begin(), c));
+		c->getEliminabutton()->setPosition(cX, cY + c->getHeight() / 2);
+		
+		numcomandas++;
 			
 		listanovisibles.pop();
 
