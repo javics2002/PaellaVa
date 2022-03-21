@@ -77,7 +77,7 @@ void ObjectManager::debug(SDL_Rect* rect)
 void ObjectManager::handleInput()
 {
 	// solo se handlea tu propio input
-	getPlayers()[0]->handleInput();
+	getHost()->handleInput();
 }
 
 void ObjectManager::update()

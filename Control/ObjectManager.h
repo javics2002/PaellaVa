@@ -55,6 +55,8 @@ public:
 
 	vector<Player*> getPlayers() { return players; }
 
+	Player* getHost() { return players[0]; }
+
 
 	void initMuebles();
 	vector<Collider*> getMueblesCollider();

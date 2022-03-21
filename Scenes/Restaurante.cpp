@@ -59,10 +59,10 @@ void Restaurante::update()
 	uiManager->update();
 
 	// CAMBIO TEMPORAL PARA QUE FUNCIONE LA CAMARA:::
-	if (objectManager->getPlayers()[0]->getX() > tamRestaurante.getY() + TILE_SIZE) { // tamRestaurante es un rango, no una posición, por eso tengo que hacer getY()
+	if (objectManager->getHost()->getX() > tamRestaurante.getY() + TILE_SIZE) { // tamRestaurante es un rango, no una posición, por eso tengo que hacer getY()
 		camara->Lerp(Vector2D<float>(tamRestaurante.getY(), 16), LERP_INTERPOLATION);
 	}
-	else if (objectManager->getPlayers()[0]->getX() < tamRestaurante.getY()) {
+	else if (objectManager->getHost()->getX() < tamRestaurante.getY()) {
 		camara->Lerp(Vector2D<float>(tamRestaurante.getX(), 16), LERP_INTERPOLATION);
 	}
 }
