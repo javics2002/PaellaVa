@@ -10,13 +10,17 @@ FinalCinta::FinalCinta(Game* game, Vector2D<double> pos) : Mueble(game, pos, TIL
 void FinalCinta::update()
 {
 	vector<Collider*> ingredientes = game->getObjectManager()->getPoolIngredientes()->getCollisions(getCollider());
-	for (auto i : ingredientes)
-		game->getObjectManager()->getPoolIngredientes()->remove(i->ingredientCollide());
+	for (auto i : ingredientes) {
+		auto pair = i->ingredientCollide();
+		if (pair.first)
+			game->getObjectManager()->getPoolIngredientes()->remove(pair.second);
+	}
+		
 }
 
 bool FinalCinta::receiveIngrediente(Ingrediente* ingr)
 {
-	game->getObjectManager()->getPoolIngredientes()->remove(ingr->ingredientCollide());
+	game->getObjectManager()->getPoolIngredientes()->remove(ingr->getIterator());
 
 	return true;
 }

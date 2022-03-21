@@ -2,6 +2,7 @@
 
 #include <list>
 
+
 class PoolObject;
 
 class Silla;
@@ -13,11 +14,13 @@ class Paella;
 
 class Player;
 
+
+
 class Collider {
 
 public:
-    virtual std::list<PoolObject*>::const_iterator ingredientCollide() {
-        return std::list<PoolObject*>::const_iterator();
+    virtual std::pair<bool, std::list<PoolObject*>::const_iterator> ingredientCollide() {
+        return { false , std::list<PoolObject*>::const_iterator() };
     };
     virtual bool colisionClientes() {
         return false;
