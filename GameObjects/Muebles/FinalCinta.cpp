@@ -9,22 +9,22 @@ FinalCinta::FinalCinta(Game* game, Vector2D<double> pos) : Mueble(game, pos, TIL
 
 void FinalCinta::update()
 {
-	/*vector<Collider*> ingredientes = game->getObjectManager()->getPoolIngredientes()->getCollisions(getCollider());
+	vector<Collider*> ingredientes = game->getObjectManager()->getPoolIngredientes()->getCollisions(getCollider());
 	for (auto i : ingredientes)
-		game->getObjectManager()->getPoolIngredientes()->remove(i->ingredientCollide());*/
+		game->getObjectManager()->getPoolIngredientes()->remove(i->ingredientCollide());
 }
 
-void FinalCinta::interact(ObjetoPortable* o)
+bool FinalCinta::receiveIngrediente(Ingrediente* ingr)
 {
-	if (dynamic_cast<Ingrediente*>(o)) {
-		//desactivar ingrediente
-		//o->remove
-	}
-	else if (dynamic_cast<Paella*>(o)) {
+	game->getObjectManager()->getPoolIngredientes()->remove(ingr->ingredientCollide());
 
-		/*o->eliminarIngr();
-		o->changeTexture(clave);*/
-	}
+	return true;
 }
 
+bool FinalCinta::receivePaella(Paella* pa)
+{
+	//hacer cosas
+
+	return false;
+}
 
