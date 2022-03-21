@@ -14,7 +14,8 @@ public:
 	~FinalCinta() = default;
 
 	void update() override;
-	void interact(ObjetoPortable* o);
+	bool receiveIngrediente(Ingrediente* ingr) override;
+	bool receivePaella(Paella* pa) override;
 };
 
 

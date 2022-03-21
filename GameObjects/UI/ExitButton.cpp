@@ -15,5 +15,6 @@ ExitButton::~ExitButton()
 void ExitButton::execute()
 {
     uim = game->getUIManager();
+    sdlutils().soundEffects().at("select").play(0, game->UI);
     //exit game
 }

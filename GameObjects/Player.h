@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "ObjetoPortable.h"
 #include "../Control/Input.h"
+#include "../sdlutils/InputHandler.h"
 
 class Ingrediente;
 class Cliente;
@@ -29,6 +30,8 @@ class Player : public GameObject
 
 	bool nearestObject(ObjetoPortable* go);
 	Mueble* nearestObject(Mueble* m1, Mueble* m2);
+	void setAnimResources();
+	void animUpdate();
 
 	int id_;
 
@@ -37,6 +40,7 @@ public:
 	~Player();
 
 	void handleInput();
+	void handleInput(Vector2D<double> axis);
 
 	void update() override;
 	void renderDebug(SDL_Rect* cameraRect) override;
@@ -47,5 +51,7 @@ public:
 
 	void setId(int id) { id_ = id; }
 	int getId() { return id_; }
+
+	Vector2D<double> getAxis() { return ih().getAxis(); }
 };
 

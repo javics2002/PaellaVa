@@ -15,5 +15,6 @@ OpcionesButton::~OpcionesButton()
 
 void OpcionesButton::execute()
 {
+    sdlutils().soundEffects().at("select").play(0, game->UI);
     //cambio de escena a opciones
 }

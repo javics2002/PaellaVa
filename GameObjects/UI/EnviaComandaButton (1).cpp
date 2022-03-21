@@ -12,4 +12,5 @@ void EnviaComandaButton::execute()
 {
 	std::cout << "comanda enviada";
 	game->getUIManager()->getComanda()->enviaComanda();
+	sdlutils().soundEffects().at("comandaEnviada").play(0, game->UI);
 }

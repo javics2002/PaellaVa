@@ -101,6 +101,9 @@ void Game::handleInput(SDL_Event& event, bool& exit) {
 void Game::update()
 {
 	currentScene->update();
+
+	// update nm
+	nm->Update();
 }
 
 void Game::render()

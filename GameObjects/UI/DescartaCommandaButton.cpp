@@ -13,4 +13,6 @@ void DescartaCommandaButton::execute()
 	//gamet->getObjectManager()->borracomanda();
 	cout << "CANCELADO";
 	comanda->cancelaPedido();
+
+	sdlutils().soundEffects().at("comandaDescartada").play(0, game->UI);
 }

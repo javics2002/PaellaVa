@@ -17,4 +17,5 @@ StartButton::~StartButton()
 void StartButton::execute()
 {
     game->changeScene(new Restaurante(game));
+    sdlutils().soundEffects().at("select").play(0, game->UI);
 }

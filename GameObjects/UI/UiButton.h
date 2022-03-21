@@ -1,11 +1,11 @@
 #pragma once
 #include "../../Utils/Texture.h"
 #include "../GameObject.h"
-//#include "Utils/Vector2D.h"
+#include "../../Control/Game.h"
+
 class UiButton: public GameObject
 {
 protected:
-	Game* game;
 	string textura;
 	
 public:
