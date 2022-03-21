@@ -280,6 +280,10 @@
         {
             "id": "paella",
             "file": "../../../Assets/Images/paella.png"
+        },
+        {
+            "id": "clienteBase",
+            "file": "../../../Assets/Images/clienteBase.png"
         }
     ],
 
