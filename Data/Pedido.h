@@ -7,7 +7,6 @@ struct pedidoPaella {
 	vector<tipoIngrediente> ingredientesPedido;
 };
 
-
 class Pedido 
 {
 public:
@@ -27,7 +26,7 @@ private:
 
 	const int LIMITE_TAMANO = 3;
 	const int LIMITE_INGR = 3;
-
+	vector<pedidoPaella> getPedido();
 
 };
 
