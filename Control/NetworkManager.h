@@ -61,12 +61,11 @@ struct PacketAccept {
 class NetworkManager
 {
 private:
-	
-
 	int id_count;
 	Game* game_;
 
 	Player* players[MAX_PLAYERS];
+
 	TCPsocket player_sockets[MAX_PLAYERS];
 	IPaddress player_ips[MAX_PLAYERS];
 

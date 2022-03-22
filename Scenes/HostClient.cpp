@@ -1,5 +1,6 @@
 #include "HostClient.h"
 #include "../Scenes/Restaurante.h"
+#include "../Control/NetworkManager.h"
 
 HostClient::HostClient(Game* game) : Scene(game)
 {
@@ -20,6 +21,9 @@ HostClient::HostClient(Game* game) : Scene(game)
 		sdlutils().width() / 2 - offsetX, sdlutils().height() / 2 - offsetY);
 	hostButton->setAction([](Game* game) { 
 			//Aqui rayito mete el host
+			game->changeScene(new Restaurante(game));
+			game->getNetworkManager()->Init('h');
+			
 		});
 	uiManager->addInterfaz(hostButton);
 
@@ -27,6 +31,9 @@ HostClient::HostClient(Game* game) : Scene(game)
 		sdlutils().width() / 2 + offsetX, sdlutils().height() / 2 - offsetY);
 	clientButton->setAction([](Game* game) {
 			//Aqui rayito mete el client
+			game->changeScene(new Restaurante(game));
+			game->getNetworkManager()->Init('c', "localhost");
+			
 		});
 	uiManager->addInterfaz(clientButton);
 }

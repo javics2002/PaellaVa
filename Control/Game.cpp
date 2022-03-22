@@ -29,31 +29,31 @@ void Game::init()
 	SDLUtils::instance()->showCursor();
 
 #ifdef _DEBUG
-	currentScene = new Restaurante(this);
-	getObjectManager()->initMuebles();
+	currentScene = new Menu(this);
+	// getObjectManager()->initMuebles();
 #else
 	currentScene = new Menu(this);
 #endif // _DEBUG
 
-	// NETWORK
-	bool decision = false;
-	char nType = ' ';
+	//// NETWORK
+	//bool decision = false;
+	//char nType = ' ';
 
-	std::cout << "Host or client? (h/c)" << std::endl;
+	//std::cout << "Host or client? (h/c)" << std::endl;
 
-	while (!decision) {
-		cin >> nType;
-		if (nType == 'h' || nType == 'c')
-			decision = true;
-	}
+	//while (!decision) {
+	//	cin >> nType;
+	//	if (nType == 'h' || nType == 'c')
+	//		decision = true;
+	//}
 
 	nm = new NetworkManager(this);
 
-	if (nType == 'h') {
-		nm->Init(nType);
-	}
-	else nm->Init(nType, "localhost");
-	
+	//if (nType == 'h') {
+	//	nm->Init(nType);
+	//}
+	//else nm->Init(nType, "localhost");
+	//
 }
 
 void Game::start()
@@ -104,7 +104,8 @@ void Game::update()
 	currentScene->update();
 
 	// update nm
-	nm->Update();
+	if(nm != nullptr)
+		nm->Update();
 }
 
 void Game::render()
@@ -127,4 +128,8 @@ ObjectManager* Game::getObjectManager()
 UIManager* Game::getUIManager()
 {
 	return currentScene->getUIManager();
+}
+
+NetworkManager* Game::getNetworkManager() {
+	return nm;
 }

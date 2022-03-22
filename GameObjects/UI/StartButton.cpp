@@ -3,6 +3,7 @@
 #include "../../Control/ObjectManager.h";
 #include "../../GameObjects/UI/UIManager.h"
 #include "../../Scenes/Restaurante.h"
+#include "../../Scenes/HostClient.h"
 
 #include "../../Scenes/Menu.h"
 
@@ -16,6 +17,6 @@ StartButton::~StartButton()
 
 void StartButton::execute()
 {
-    game->changeScene(new Restaurante(game));
+    game->changeScene(new HostClient(game));
     sdlutils().soundEffects().at("select").play(0, game->UI);
 }

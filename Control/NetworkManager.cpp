@@ -70,7 +70,7 @@ void NetworkManager::ReceivePlayers()
 					game_->getObjectManager()->getPlayers()[i]->handleInput(Vector2D<double>(packet.player_horizontal, packet.player_vertical));
 					break;
 				case EPT_QUIT:
-					printf("Client disconnected: ID(%d)\n", i);
+					std::cout << ("Client disconnected: ID(%d)\n", i) << std::endl;
 
 					SDLNet_TCP_Close(player_sockets[i]);
 					player_sockets[i] = NULL;
@@ -268,7 +268,6 @@ bool NetworkManager::Init(char type, const char* ip_addr)
 
 
 // Duda: Aquí es donde se sincronizarían las cosas?
-
 void NetworkManager::Update() // SINCRONIZAR ESTADO DE JUEGO CADA 0.5 SEGS
 {
 	if (lastUpdate_ + updateTime_ > sdlutils().currRealTime()) { //si no pasan

@@ -40,6 +40,7 @@ public:
 
     ObjectManager* getObjectManager();
     UIManager* getUIManager();
+    NetworkManager* getNetworkManager();
 
     enum CanalesSonido { UI, JUGADOR, MUEBLES, CLIENTES };
 };
