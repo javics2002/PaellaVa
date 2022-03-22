@@ -11,7 +11,17 @@ GameOver::GameOver(Game* game, int puntuacion) : Scene(game)
 	int sizePuntH = 70;
 	int posPuntX = sdlutils().width()/2/2;
 	int posPuntY = sizePuntH*2;
+
+	int numEstrellas = 3;
 	
+	GameObject* estrella = new GameObject(game);
+	estrella->setTexture("estrella");
+	estrella->setDimension(50, 50);
+	estrella->setPosition(Vector2D<double>(posPuntX-estrella->getWidth(), posPuntY));
+	uiManager->addInterfaz(estrella);
+	
+	
+
 	GameObject* puntos = new GameObject(game);
 	puntos->setTexture(string("Puntuacion: " + to_string(puntuacion)), string("paella"), SDL_Color{ 255, 255, 255, 255 }, SDL_Color{ 0, 0, 0, 0 });
 	puntos->setDimension();

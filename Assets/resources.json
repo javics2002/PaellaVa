@@ -282,6 +282,10 @@
           "file": "../../../Assets/Images/periodico.png"
         },
         {
+          "id": "estrella",
+          "file": "../../../Assets/Images/estrella.png"
+        },
+        {
             "id": "paella",
             "file": "../../../Assets/Images/paella.png"
         },
