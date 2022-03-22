@@ -52,7 +52,7 @@ void Reloj::update()
 	if (finDia())
 	{
 		//TODO: Evento de fin del día
-		//game->changeScene(new GameOver(game, 200));
+		game->changeScene(new GameOver(game, 200));
 
 	}
 	else
