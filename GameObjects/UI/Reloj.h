@@ -20,8 +20,8 @@ private:
 	Texture* relojTexture;
 
 	Uint32 lastUpdate_;//tiempo desde el último update
-	Uint32 updateTime_ = 1 * 1000; //los segundos que tarda en actualizarse el reloj
-	int totalJornada = 10000; //tiempo real en ms que dura una jornada
+	Uint32 updateTime_ = 60 * 1000; //los segundos que tarda en actualizarse el reloj
+	int totalJornada = 1000; //tiempo real en ms que dura una jornada
 
 
 	int hourIni = 9; //la hora del día a la que empieza la jornada

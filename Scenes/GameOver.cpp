@@ -52,8 +52,21 @@ GameOver::GameOver(Game* game, int puntuacion) : Scene(game)
 	auto continueButton = new UiButton(game, "Continuar", "paella", { 255, 0, 0, 255 }, { 0, 0, 0, 0 },
 		sdlutils().width() / 2 +300, sdlutils().height() / 2+200);
 	continueButton->setAction([](Game* game) {
-		//hay que hacer más cosas con lo del host porque si no peta pero xd
-		//game->changeScene(new Menu(game));
+		
 		});
 	uiManager->addInterfaz(continueButton);
+
+	auto mejoraButton = new UiButton(game, "mas velocidad", "paella", { 0, 0, 255, 255 }, { 0, 0, 0, 0 },
+		300, sdlutils().height() / 2 + 200);
+	mejoraButton->setAction([](Game* game) {
+		
+		});
+	uiManager->addInterfaz(mejoraButton);
+
+	auto mejoraButton2 = new UiButton(game, "mas propina", "paella", { 0, 0, 255, 255 }, { 0, 0, 0, 0 },
+		300, sdlutils().height() / 2 + 250);
+	mejoraButton2->setAction([](Game* game) {
+
+		});
+	uiManager->addInterfaz(mejoraButton2);
 }
