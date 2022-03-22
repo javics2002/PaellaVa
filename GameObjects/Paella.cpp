@@ -81,7 +81,7 @@ void Paella::update()
 	case Preparada:
 
 		//Setear textura de preparada
-
+		contenido = Entera;
 		break;
 	}
 }
@@ -104,7 +104,7 @@ void Paella::onObjectDropped()
 
 bool Paella::canPick()
 {
-	return true;
+	return contenido==Limpia;
 }
 TipoPaella Paella::getTipo()
 {

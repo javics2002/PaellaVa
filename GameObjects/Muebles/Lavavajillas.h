@@ -1,6 +1,7 @@
 #pragma once
 #include "Mueble.h"
 #include "../Paella.h"
+#include <deque>
 
 class Game;
 
@@ -17,7 +18,8 @@ public:
 
 	double tiempo = 0.0;
 
-	Paella* paella;
+	deque<Paella*> pilaPaellas;
+	deque<Paella*> paellasLimpias;
 
 public:
 	Lavavajillas(Game* game, Vector2D<double> pos);
