@@ -6,6 +6,7 @@
 #include "PoolObject.h"
 #include "ObjetoPortable.h"
 #include "../Data/Comanda.h"
+#include "../Data/Pedido.h"
 
 class Cola;
 class Game;
@@ -64,7 +65,7 @@ public:
 
 	void onDesactivate() override;
 
-
+	void puntuarComanda(Pedido* pedido, vector<Paella>* comanda);
 };
 
 
