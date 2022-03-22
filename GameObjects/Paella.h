@@ -28,7 +28,7 @@ public:
 	void setState(Estado estado_);
 	void paellaRecogida();
 	void update() override;
-	void setLavado(Contenido contenidoPaella);
+	void setLavado(Contenido contenidoPaella,string texturaPaella);
 
 	void changeTexture(string clave);
 

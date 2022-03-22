@@ -86,9 +86,10 @@ void Paella::update()
 	}
 }
 
-void Paella::setLavado(Contenido contenidoPaella)
+void Paella::setLavado(Contenido contenidoPaella,string texturaPaella)
 {
 	contenido = contenidoPaella;
+	setTexture(texturaPaella);
 }
 
 void Paella::onObjectPicked()

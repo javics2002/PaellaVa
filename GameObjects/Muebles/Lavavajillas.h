@@ -14,23 +14,21 @@ public:
 	const unsigned int DIMENSION_H = 1;
 
 	const double TIEMPO_LAVADO = 3000.0;
-	const int MAX_PAELLERAS = 5;
 
-	int paellas = 0;
 	double tiempo = 0.0;
 
-	
-	vector<Paella*> paelleras;
+	Paella* paella;
 
 public:
 	Lavavajillas(Game* game, Vector2D<double> pos);
 	~Lavavajillas() = default;
 
-	//void update();
-	void onCollision();
-	bool LavavajillasLleno();
-	void metePaellera(Paella* paella);
-	void sacaPaellera(vector<Paella*>::iterator it);
+	void update();
 	void lavando();
+
+	bool receivePaella(Paella* paella_) override;
+	bool returnObject(Player* p);
 };
+
+
 
