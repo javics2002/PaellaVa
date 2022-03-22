@@ -1,4 +1,6 @@
 #include "Silla.h"
+#include "../../Control/Game.h"
+#include "../../Control/ObjectManager.h"
 
 #include "Mesa.h"
 
@@ -16,6 +18,8 @@ Silla* Silla::initMesa(Mesa* mesa)
 
 bool Silla::receiveGrupoClientes(GrupoClientes* gc)
 {
+	game->getObjectManager()->initMuebles();
+
 	return mMesa->receiveGrupoClientes(gc);
 }
 

@@ -30,9 +30,10 @@ void Game::init()
 
 #ifdef _DEBUG
 	currentScene = new Menu(this);
-	// getObjectManager()->initMuebles();
+	//getObjectManager()->initMuebles();
 #else
 	currentScene = new Menu(this);
+
 #endif // _DEBUG
 
 	//// NETWORK

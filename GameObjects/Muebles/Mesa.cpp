@@ -17,6 +17,8 @@ Mesa::Mesa(Game* game, Vector2D<double> pos, Vector2D<int> dim, string texture)
 
 void Mesa::init()
 {
+	sillas.clear();
+
 	int aum = 20;
 
 	SDL_Rect c = { getX() - getWidth() / 2 - aum, getY() - getHeight() / 2 - aum,
@@ -35,6 +37,8 @@ void Mesa::init()
 
 bool Mesa::receiveGrupoClientes(GrupoClientes* gc)
 {
+	game->getObjectManager()->initMuebles();
+
 	if (mGrupo == nullptr) {
 		int n = gc->numIntegrantes();
 
