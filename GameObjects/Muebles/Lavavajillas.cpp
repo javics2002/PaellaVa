@@ -5,35 +5,48 @@ Lavavajillas::Lavavajillas(Game* game, Vector2D<double> pos) : Mueble(game, pos,
 
 }
 
-void Lavavajillas::onCollision()
+void Lavavajillas::update()
 {
-	if (!LavavajillasLleno())
-		paellas++;
-}
-
-bool Lavavajillas::LavavajillasLleno()
-{
-	return paellas==MAX_PAELLERAS;
-}
-
-void Lavavajillas::metePaellera(Paella* paella)
-{
-	paelleras.push_back(paella);
-}
-
-void Lavavajillas::sacaPaellera(vector<Paella*>::iterator it)
-{
-	paelleras.erase(it);
+	if (paella != nullptr)
+		lavando();
 }
 
 void Lavavajillas::lavando()
 {
-	if (tiempo == 0.0) tiempo = sdlutils().currRealTime();
-
 	if (sdlutils().currRealTime() - tiempo >= TIEMPO_LAVADO) {
-		for (int i = 0; i < paelleras.size(); i++) {
-			paelleras[i]->setLavado(Contenido::Limpia);
-		}
+		paella->setLavado(Limpia,"alcachofa");
+		tiempo = sdlutils().currRealTime();
 	}
+}
+
+bool Lavavajillas::receivePaella(Paella* paella_)
+{
+	if (paella == nullptr) {
+
+		paella = paella_;
+
+		tiempo = sdlutils().currRealTime();
+
+		paella->setPosition(getX(), getY());
+
+		return true;
+	}
+
+	return false;
+}
+
+bool Lavavajillas::returnObject(Player* p)
+{
+	if (paella != nullptr)
+	{
+		//TOCHECK: Podríamos hacer un return del objeto y que el player se lo guarde a sí mismo
+		p->setPickedObject(paella, PAELLA);
+
+		paella = nullptr;
+
+		return true;
+	}
+	else
+		return false;
 }
 
