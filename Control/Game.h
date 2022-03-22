@@ -19,7 +19,6 @@ class NetworkManager;
 
 using namespace std;
 
-
 class Game {
     //Cambiar a scene actual
     Scene* currentScene;

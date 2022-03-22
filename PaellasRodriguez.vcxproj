@@ -191,6 +191,7 @@
     <ClInclude Include="GameObjects\Muebles\Pared.h" />
     <ClInclude Include="GameObjects\UI\Reloj.h" />
     <ClInclude Include="GameObjects\Muebles\Pila.h" />
+    <ClInclude Include="Scenes\HostClient.h" />
     <ClInclude Include="Scenes\GameOver.h" />
     <ClInclude Include="json\JSON.h" />
     <ClInclude Include="json\JSONValue.h" />
@@ -281,6 +282,7 @@
     <ClCompile Include="GameObjects\Muebles\Pared.cpp" />
     <ClCompile Include="GameObjects\UI\Reloj.cpp" />
     <ClCompile Include="GameObjects\Muebles\Pila.cpp" />
+    <ClCompile Include="Scenes\HostClient.cpp" />
     <ClCompile Include="Scenes\GameOver.cpp" />
     <ClCompile Include="json\JSON.cpp" />
     <ClCompile Include="json\JSONValue.cpp" />

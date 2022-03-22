@@ -57,7 +57,6 @@ public:
 
 	Player* getHost() { return players[0]; }
 
-
 	void initMuebles();
 	vector<Collider*> getMueblesCollider();
 	vector<Collider*> getMueblesCollider(SDL_Rect collider);

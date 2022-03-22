@@ -62,6 +62,7 @@
     <ClCompile Include="GameObjects\UI\EliminaComandaButton.cpp" />
     <ClCompile Include="Control\NetworkManager.cpp" />
     <ClCompile Include="GameObjects\Muebles\Pila.cpp" />
+    <ClCompile Include="Scenes\HostClient.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
@@ -150,6 +151,7 @@
     <ClInclude Include="GameObjects\UI\EliminaComandaButton.h" />
     <ClInclude Include="Control\NetworkManager.h" />
     <ClInclude Include="GameObjects\Muebles\Pila.h" />
+    <ClInclude Include="Scenes\HostClient.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />

@@ -8,7 +8,7 @@
     {
       "id": "paella",
       "file": "../../../Assets/Fonts/Paella.ttf",
-      "size": 48
+      "size": 64
     }
   ],
 
@@ -281,10 +281,12 @@
             "id": "paella",
             "file": "../../../Assets/Images/paella.png"
         },
-        {
-            "id": "clienteBase",
-            "file": "../../../Assets/Images/clienteBase.png"
-        }
+      {
+        "id": "clienteBase",
+        "file": "../../../Assets/Images/clienteBase.png"
+      },
+      { "id": "cocinera", "file": "../../../Assets/Images/cocinera.png" },
+      { "id": "camarero", "file": "../../../Assets/Images/camarero.png" }
     ],
 
   "tilesets": [

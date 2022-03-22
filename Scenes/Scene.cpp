@@ -7,6 +7,7 @@ Scene::Scene(Game* game)
 	objectManager = new ObjectManager(game);
 	uiManager = new UIManager(game);
 	fondo = new Fondo(game);
+	fondo->setTexture("menufondo");
 	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
 }
 
@@ -16,14 +17,12 @@ Scene::~Scene()
 	delete objectManager;
 	delete fondo;
 	delete camara;
-
 }
 
 void Scene::handleInput()
 {
 	objectManager->handleInput();
 	//uiManager->handleInput();
-
 }
 
 void Scene::update()
@@ -43,7 +42,6 @@ void Scene::debug()
 {
 	fondo->renderDebug(camara->renderRect());
 	objectManager->debug(camara->renderRect());
-	//objectManager->debug();
 }
 
 ObjectManager* Scene::getObjectManager()

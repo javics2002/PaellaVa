@@ -7,6 +7,7 @@
 #ifdef _DEBUG
 #include "../Scenes/Restaurante.h"
 #include "../Scenes/GameOver.h"
+#include "../Scenes/HostClient.h"
 #endif // _DEBUG
 #include "../sdlutils/SDLUtils.h"
 #include "../sdlutils/InputHandler.h"
