@@ -55,6 +55,8 @@ public:
     void setPosition(double x, double y);
     void setPosition(Vector2D<double> v);
     void setDimension(int width, int height);
+    void setDimension();
+
     void setTexture(string clave);
     void setTexture(const string text, const string font, const SDL_Color& fgColor, const SDL_Color& bgColor);
 

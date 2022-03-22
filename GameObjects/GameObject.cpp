@@ -18,6 +18,17 @@ void GameObject::setDimension(int width, int height)
 	h = height;
 }
 
+
+void GameObject::setDimension() //pone la dimension al tamaño de la textura
+{
+	if (texture != nullptr) {
+	w = texture->width();
+	h = texture->height();
+	}
+	
+}
+
+
 void GameObject::setTexture(string clave)
 {
 	texture = &sdlutils().images().at(clave);

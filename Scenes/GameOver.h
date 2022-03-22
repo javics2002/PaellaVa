@@ -5,6 +5,6 @@
 class GameOver : public Scene
 {
 public:
-	GameOver(Game* game);
+	GameOver(Game* game, int puntuacion);
 };
 

@@ -278,6 +278,10 @@
             "file": "../../../Assets/Images/reloj.png"
         },
         {
+          "id": "periodico",
+          "file": "../../../Assets/Images/periodico.png"
+        },
+        {
             "id": "paella",
             "file": "../../../Assets/Images/paella.png"
         },
