@@ -2,7 +2,6 @@
 #include "../GameObjects/GrupoClientes.h"
 #include "../GameObjects/Player.h"
 #include "../GameObjects/Paella.h"
-#include "../Data/Pedido.h"
 #include "../GameObjects/Ingrediente.h"
 #include "../GameObjects/Muebles/MueblesInclude.h"
 #include  "../GameObjects/UI/RedactaComandabutton.h"
@@ -29,8 +28,6 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 	fondo->setTexture(mapInfo.ruta);
 	fondo->setPosition(mapInfo.anchoFondo / 2, sdlutils().height() / 2);
 	fondo->setDimension(mapInfo.anchoFondo, mapInfo.altoFondo);
-
-	//pedidoPrueba = new Pedido(2, 2);
 
 	// camara init
 	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());

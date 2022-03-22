@@ -7,32 +7,12 @@ struct pedidoPaella {
 	vector<tipoIngrediente> ingredientesPedido;
 };
 
-struct penalizacionTamano {
-	double pequenaUno = -1;
-	double pequenaDos = -2;
-	double grandeUno = -0.5;
-	double grandeDos = -1;
-};
-struct penalizacionIngredientes {
-	double sobraIngr = -0.1;
-	double faltaIngr = -0.25;
-};
-struct penalizacionCoccion {
-	double cruda = -0.5;
-	double pocoHecha = 0;
-	double perfecta = 0.5;
-	double muyHecha = 0;
-	double quemada = -0.5;
-	double incomestible = -4;
-};
 
 class Pedido 
 {
 public:
 	Pedido(int numComensales, int numeroTiles);
 	~Pedido() {};
-
-	vector<pedidoPaella> getPedido();
 
 	//No se hasta que punto merece la pena crear otro método que sea ejecutado en la constructora.
 	//void crearPedido(int numCmensales);

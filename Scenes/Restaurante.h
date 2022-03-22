@@ -18,7 +18,6 @@ using uint = unsigned int;
 class Player;
 class Mueble;
 class NetworkManager;
-class Pedido;
 
 struct MapInfo {
 	Map* tilemap;
@@ -42,8 +41,6 @@ struct MapInfo {
 class Restaurante : public Scene
 {
 	const float LERP_INTERPOLATION = 0.2f;
-
-	Pedido* pedidoPrueba;
 
 	MapInfo mapInfo;
 	NetworkManager* nm;

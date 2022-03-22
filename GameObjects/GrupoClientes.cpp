@@ -208,11 +208,4 @@ void GrupoClientes::onDesactivate()
 		list->remove(i->getIterator());	
 }
 
-void GrupoClientes::puntuarComanda(Pedido* pedido, vector<Paella>* comanda)
-{
-	for (auto i : pedido->getPedido()) {
-
-	}
-}
-
 
