@@ -20,7 +20,7 @@ public:
 	Mesa(Game* game, Vector2D<double> pos, Vector2D<int> dim, string texture);
 	~Mesa() = default;
 
-	void init() override;
+	void init(ObjectManager* objectManager) override;
 
 	bool receiveGrupoClientes(GrupoClientes* gc) override;
 	virtual bool returnObject(Player* p) override;

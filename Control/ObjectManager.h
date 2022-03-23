@@ -34,7 +34,7 @@ public:
 	ObjectManager(Game* game);
 	~ObjectManager();
 
-	void handleInput();
+	void handleInput(bool& exit);
 	void update();
 
 	void render(SDL_Rect* rect);

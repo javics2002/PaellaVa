@@ -8,7 +8,7 @@ EnviaComandaButton::EnviaComandaButton(Game* game,string texturename, int x, int
 EnviaComandaButton::~EnviaComandaButton()
 {
 }
-void EnviaComandaButton::execute()
+void EnviaComandaButton::execute(bool& exit)
 {
 	std::cout << "comanda enviada";
 	game->getUIManager()->getComanda()->enviaComanda();

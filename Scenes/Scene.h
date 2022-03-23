@@ -27,7 +27,7 @@ public:
 	Scene(Game* game);
 	virtual ~Scene();
 
-	virtual void handleInput();
+	virtual void handleInput(bool& exit);
 	virtual void update();
 	virtual void render();
 	virtual void debug();

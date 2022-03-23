@@ -14,8 +14,6 @@ ObjectManager::ObjectManager(Game* game)
 	ingredientes = new Pool<Ingrediente>(game, 1);
 	clientes = new Pool<Cliente>(game, 50);
 	grupoClientes = new Pool<GrupoClientes>(game, 20);
-
-	//interfaz.push_back(new RedactaComandabutton(game, "redactaboton", 10, 10, 30, 30));
 }
 
 ObjectManager::~ObjectManager()
@@ -74,7 +72,7 @@ void ObjectManager::debug(SDL_Rect* rect)
 	clientes->debug(rect);
 }
 
-void ObjectManager::handleInput()
+void ObjectManager::handleInput(bool& exit)
 {
 	// solo se handlea tu propio input
 	Player* p = getHost();
@@ -163,6 +161,6 @@ vector<Collider*> ObjectManager::getPaellasCollider(SDL_Rect collider)
 void ObjectManager::initMuebles()
 {
 	for (auto i : muebles)
-		i->init();
+		i->init(this);
 }
 

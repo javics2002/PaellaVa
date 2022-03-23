@@ -154,7 +154,6 @@
     <ClInclude Include="GameObjects\UI\DescartaCommandaButton.h" />
     <ClInclude Include="GameObjects\UI\EliminaComandaButton.h" />
     <ClInclude Include="GameObjects\UI\EnviaComandaButton.h" />
-    <ClInclude Include="GameObjects\UI\ExitButton.h" />
     <ClInclude Include="GameObjects\Muebles\Encimera.h" />
     <ClInclude Include="GameObjects\Cola.h" />
     <ClInclude Include="GameObjects\Fondo.h" />
@@ -184,7 +183,6 @@
     <ClInclude Include="GameObjects\UI\Ingredientebutton.h" />
     <ClInclude Include="GameObjects\UI\Numerobutton.h" />
     <ClInclude Include="GameObjects\UI\RedactaComandabutton.h" />
-    <ClInclude Include="GameObjects\UI\StartButton.h" />
     <ClInclude Include="GameObjects\UI\Tamanobutton.h" />
     <ClInclude Include="GameObjects\UI\UiButton.h" />
     <ClInclude Include="GameObjects\UI\UIManager.h" />
@@ -195,7 +193,6 @@
     <ClInclude Include="Scenes\GameOver.h" />
     <ClInclude Include="json\JSON.h" />
     <ClInclude Include="json\JSONValue.h" />
-    <ClInclude Include="GameObjects\UI\OpcionesButton.h" />
     <ClInclude Include="PaellasRodriguez.h" />
     <ClInclude Include="GameObjects\Player.h" />
     <ClInclude Include="Data\Pool.h" />
@@ -245,7 +242,6 @@
     <ClCompile Include="GameObjects\UI\DescartaCommandaButton.cpp" />
     <ClCompile Include="GameObjects\UI\EliminaComandaButton.cpp" />
     <ClCompile Include="GameObjects\UI\EnviaComandaButton (1).cpp" />
-    <ClCompile Include="GameObjects\UI\ExitButton.cpp" />
     <ClCompile Include="GameObjects\Muebles\Encimera.cpp" />
     <ClCompile Include="GameObjects\Cola.cpp" />
     <ClCompile Include="GameObjects\Fondo.cpp" />
@@ -275,7 +271,6 @@
     <ClCompile Include="GameObjects\UI\Ingredientebutton.cpp" />
     <ClCompile Include="GameObjects\UI\Numerobutton.cpp" />
     <ClCompile Include="GameObjects\UI\RedactaComandabutton.cpp" />
-    <ClCompile Include="GameObjects\UI\StartButton.cpp" />
     <ClCompile Include="GameObjects\UI\Tamanobutton.cpp" />
     <ClCompile Include="GameObjects\UI\UiButton.cpp" />
     <ClCompile Include="GameObjects\UI\UIManager.cpp" />
@@ -286,7 +281,6 @@
     <ClCompile Include="Scenes\GameOver.cpp" />
     <ClCompile Include="json\JSON.cpp" />
     <ClCompile Include="json\JSONValue.cpp" />
-    <ClCompile Include="GameObjects\UI\OpcionesButton.cpp" />
     <ClCompile Include="Scenes\Menu.cpp" />
     <ClCompile Include="Scenes\Restaurante.cpp" />
     <ClCompile Include="Scenes\Scene.cpp" />

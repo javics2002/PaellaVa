@@ -19,10 +19,10 @@ Scene::~Scene()
 	delete camara;
 }
 
-void Scene::handleInput()
+void Scene::handleInput(bool& exit)
 {
-	objectManager->handleInput();
-	//uiManager->handleInput();
+	objectManager->handleInput(exit);
+	uiManager->handleInput(exit);
 }
 
 void Scene::update()

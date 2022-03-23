@@ -7,7 +7,7 @@ Ingredientebutton::Ingredientebutton(UIManager* uim, Game* game, string texturen
 Ingredientebutton::~Ingredientebutton()
 {
 }
-void Ingredientebutton::execute()
+void Ingredientebutton::execute(bool& exit)
 {
 	uim->getComanda()->añadiraPedido(textura);
 	uim->randomizaTeclado();

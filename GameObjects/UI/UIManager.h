@@ -28,7 +28,9 @@ class UIManager
 public:
 	UIManager(Game* game);
 	~UIManager();
-	void uiEvent(int mx, int my);
+	void uiEvent(int mx, int my, bool& exit);
+
+	void handleInput(bool& exit);
 	void update();
 
 	// void render();

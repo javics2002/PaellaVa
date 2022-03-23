@@ -22,19 +22,18 @@ UiButton::~UiButton()
 {
 }
 
-void UiButton::execute()
+void UiButton::execute(bool& exit)
 {
-	callback(game);
+	callback(game, exit);
 }
 
-bool UiButton::OnClick(int mx, int my)
+bool UiButton::onClick(int mx, int my, bool& exit)
 {
 	SDL_Rect z = getCollider();
 	SDL_Rect d = { mx,my,1,1 };
 	if (SDL_HasIntersection(&z, &d))
 	{
-		execute();
-		cout << "PULSADO";
+		execute(exit);
 		return true;
 	}
 	else
@@ -45,7 +44,7 @@ void UiButton::update()
 {
 }
 
-void UiButton::setAction(function<void(Game* game)> action)
+void UiButton::setAction(function<void(Game* game, bool& exit)> action)
 {
 	callback = action;
 }

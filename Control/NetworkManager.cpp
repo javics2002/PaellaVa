@@ -9,7 +9,7 @@
 
 // Función que acepta a los jugadores (se encuentra en un hilo)
 // Problemas que da: ---
-void NetworkManager::AcceptPlayers()
+void NetworkManager::acceptPlayers()
 {
 	while (true) {
 		TCPsocket csd;
@@ -22,7 +22,7 @@ void NetworkManager::AcceptPlayers()
 			else
 				std::cout << ("SDLNet_TCP_GetPeerAddress: %s\n", SDLNet_GetError()) << std::endl;
 
-			int id = GetClientID(*remoteIP);
+			int id = getClientID(*remoteIP);
 
 			PacketAccept pkt;
 			pkt.packet_type = EPT_ACCEPT;
@@ -32,7 +32,7 @@ void NetworkManager::AcceptPlayers()
 			}
 			else {
 				if (id == -1) {
-					Player* p = AddPlayerHost();
+					Player* p = addPlayerHost();
 
 					game_->getObjectManager()->addPlayer(p);
 					id = p->getId();
@@ -57,7 +57,7 @@ void NetworkManager::AcceptPlayers()
 
 // Función que se encarga de actualizar los jugadores (se encuentra en un hilo)
 // Problemas que da: ---
-void NetworkManager::ReceivePlayers()
+void NetworkManager::receivePlayers()
 {
 	while (true) {
 		PacketRecv packet;
@@ -87,7 +87,7 @@ void NetworkManager::ReceivePlayers()
 
 // Función que se encarga de mandar la información de todos los jugadores a todos los jugadores (se encuentra en un hilo)
 // Problemas que da: ---
-void NetworkManager::SendPlayers()
+void NetworkManager::sendPlayers()
 {
 	while (true) {
 		// UPDATE CLIENTS
@@ -121,7 +121,7 @@ void NetworkManager::SendPlayers()
 
 // Función que tienen los clientes (se encuentra en un hilo)
 // Problemas que da: ---
-void NetworkManager::UpdateClient()
+void NetworkManager::updateClient()
 {
 	while (true) {
 		PacketSend server_pkt;
@@ -131,7 +131,7 @@ void NetworkManager::UpdateClient()
 			Player* p = players[server_pkt.player_id];
 
 			if (p == nullptr) {
-				p = AddPlayerClient(server_pkt.player_id);
+				p = addPlayerClient(server_pkt.player_id);
 				game_->getObjectManager()->addPlayer(p);
 			}
 
@@ -166,12 +166,12 @@ void NetworkManager::UpdateClient()
 }
 
 // Función para asignar IDs
-int NetworkManager::GetClientID(const IPaddress& addr)
+int NetworkManager::getClientID(const IPaddress& addr)
 {
 	int id = -1;
 
 	for (int i = 0; i < id_count; i++) {
-		if (CompareAddress(player_ips[i], addr)) {
+		if (compareAddress(player_ips[i], addr)) {
 			id = i;
 			break;
 		}
@@ -180,7 +180,7 @@ int NetworkManager::GetClientID(const IPaddress& addr)
 	return id;
 }
 
-bool NetworkManager::CompareAddress(const IPaddress& addr1, const IPaddress& addr2)
+bool NetworkManager::compareAddress(const IPaddress& addr1, const IPaddress& addr2)
 {
 	return addr1.host == addr2.host && addr1.port == addr2.port;
 }
@@ -208,7 +208,7 @@ NetworkManager::~NetworkManager()
 // Función que inicializa SDL_Net y tu función (servidor o cliente)
 // Problemas que da: ---
 
-bool NetworkManager::Init(char type, const char* ip_addr)
+bool NetworkManager::init(char type, const char* ip_addr)
 {
 	if (SDLNet_Init() < 0)
 	{
@@ -236,25 +236,25 @@ bool NetworkManager::Init(char type, const char* ip_addr)
 		while (SDLNet_TCP_Recv(socket, &pkt, sizeof(PacketAccept)) == 0); // Esperamos a que el servidor nos acepte
 
 		if (pkt.packet_type == EPT_ACCEPT) { // Cuando nos acepte, se crea el personaje, etc.
-			game_->getObjectManager()->addPlayer(AddPlayerClient(pkt.player_id));
+			game_->getObjectManager()->addPlayer(addPlayerClient(pkt.player_id));
 			
 			client_id = pkt.player_id;
 
 			id_count = MAX_PLAYERS;
 
-			updateclient_t = new std::thread(&NetworkManager::UpdateClient, this);
+			updateclient_t = new std::thread(&NetworkManager::updateClient, this);
 		}
 		else if (pkt.packet_type == EPT_DENY) { // Si nos rechazan porque la partida está llena
 			return false;
 		}
 	}
 	else { // Si somos un host
-		game_->getObjectManager()->addPlayer(AddPlayerHost());
+		game_->getObjectManager()->addPlayer(addPlayerHost());
 
 		// Hilos
-		accept_t = new std::thread(&NetworkManager::AcceptPlayers, this);
-		receiveplayers_t = new std::thread(&NetworkManager::ReceivePlayers, this);
-		sendplayers_t = new std::thread(&NetworkManager::SendPlayers, this);
+		accept_t = new std::thread(&NetworkManager::acceptPlayers, this);
+		receiveplayers_t = new std::thread(&NetworkManager::receivePlayers, this);
+		sendplayers_t = new std::thread(&NetworkManager::sendPlayers, this);
 
 		player_sockets[0] = socket;
 		player_ips[0] = ip;
@@ -268,7 +268,7 @@ bool NetworkManager::Init(char type, const char* ip_addr)
 
 
 // Duda: Aquí es donde se sincronizarían las cosas?
-void NetworkManager::Update() // SINCRONIZAR ESTADO DE JUEGO CADA 0.5 SEGS
+void NetworkManager::update() // SINCRONIZAR ESTADO DE JUEGO CADA 0.5 SEGS
 {
 	if (lastUpdate_ + updateTime_ > sdlutils().currRealTime()) { //si no pasan
 		return;
@@ -298,7 +298,7 @@ void NetworkManager::Update() // SINCRONIZAR ESTADO DE JUEGO CADA 0.5 SEGS
 
 }
 
-void NetworkManager::Close()
+void NetworkManager::close()
 {
 	Player* player = players[client_id];
 
@@ -321,7 +321,7 @@ void NetworkManager::Close()
 	delete updateclient_t;
 }
 
-Player* NetworkManager::AddPlayerHost()
+Player* NetworkManager::addPlayerHost()
 {
 	Player* p = new Player(game_);
 	
@@ -334,7 +334,7 @@ Player* NetworkManager::AddPlayerHost()
 	return p;
 }
 
-Player* NetworkManager::AddPlayerClient(int id)
+Player* NetworkManager::addPlayerClient(int id)
 {
 	Player* p = new Player(game_);
 	

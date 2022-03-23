@@ -9,6 +9,7 @@
 #include <string>
 
 class Game;
+class ObjectManager;
 
 using namespace std;
 
@@ -45,12 +46,12 @@ public:
         pos = pos + vel;
     };
 
-    virtual void init() {};
+    virtual void init(ObjectManager* objectManager) {};
 
     virtual void render(SDL_Rect* cameraRect);
     virtual void renderDebug(SDL_Rect* cameraRect);
 
-    virtual bool OnClick(int mx, int my) { return false; };
+    virtual bool onClick(int mx, int my, bool& exit) { return false; };
 
     void setPosition(double x, double y);
     void setPosition(Vector2D<double> v);

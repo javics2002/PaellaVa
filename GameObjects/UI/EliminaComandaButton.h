@@ -9,7 +9,7 @@ class EliminaComandaButton: public UiButton
 public:
 	EliminaComandaButton(UIManager* u,Comanda* c, Game* game, string texturename, int x, int y, int w, int h);
 	~EliminaComandaButton();
-	void execute() override;
+	void execute(bool& exit) override;
 	void update() override;
 
 };

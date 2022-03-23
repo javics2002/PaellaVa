@@ -30,31 +30,11 @@ void Game::init()
 
 #ifdef _DEBUG
 	currentScene = new Menu(this);
-	//getObjectManager()->initMuebles();
 #else
 	currentScene = new Menu(this);
-
 #endif // _DEBUG
 
-	//// NETWORK
-	//bool decision = false;
-	//char nType = ' ';
-
-	//std::cout << "Host or client? (h/c)" << std::endl;
-
-	//while (!decision) {
-	//	cin >> nType;
-	//	if (nType == 'h' || nType == 'c')
-	//		decision = true;
-	//}
-
 	nm = new NetworkManager(this);
-
-	//if (nType == 'h') {
-	//	nm->Init(nType);
-	//}
-	//else nm->Init(nType, "localhost");
-	//
 }
 
 void Game::start()
@@ -93,11 +73,7 @@ void Game::handleInput(SDL_Event& event, bool& exit) {
 	while (SDL_PollEvent(&event))
 		ih().update(event);
 
-#ifdef _DEBUG
-	exit = ih().getKey(SDL_SCANCODE_ESCAPE);
-#endif // _DEBUG
-
-	currentScene->handleInput();
+	currentScene->handleInput(exit);
 }
 
 void Game::update()
@@ -106,7 +82,7 @@ void Game::update()
 
 	// update nm
 	if(nm != nullptr)
-		nm->Update();
+		nm->update();
 }
 
 void Game::render()
@@ -117,7 +93,6 @@ void Game::render()
 #ifdef _DEBUG
 	currentScene->debug();
 #endif // _DEBUG
-
 
 	sdlutils().presentRenderer();
 }

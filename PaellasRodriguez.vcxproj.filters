@@ -43,9 +43,6 @@
     <ClCompile Include="Scenes\Menu.cpp" />
     <ClCompile Include="Control\Camera.cpp" />
     <ClCompile Include="GameObjects\Muebles\Encimera.cpp" />
-    <ClCompile Include="GameObjects\UI\StartButton.cpp" />
-    <ClCompile Include="GameObjects\UI\OpcionesButton.cpp" />
-    <ClCompile Include="GameObjects\UI\ExitButton.cpp" />
     <ClCompile Include="GameObjects\UI\AceptaPaellaButton.cpp" />
     <ClCompile Include="GameObjects\UI\BorrarButton.cpp" />
     <ClCompile Include="GameObjects\UI\DescartaCommandaButton.cpp" />
@@ -132,9 +129,6 @@
     <ClInclude Include="Scenes\Menu.h" />
     <ClInclude Include="Control\Camera.h" />
     <ClInclude Include="GameObjects\Muebles\Encimera.h" />
-    <ClInclude Include="GameObjects\UI\StartButton.h" />
-    <ClInclude Include="GameObjects\UI\OpcionesButton.h" />
-    <ClInclude Include="GameObjects\UI\ExitButton.h" />
     <ClInclude Include="GameObjects\UI\AceptaPaellaButton.h" />
     <ClInclude Include="GameObjects\UI\BorrarButton.h" />
     <ClInclude Include="GameObjects\UI\DescartaCommandaButton.h" />

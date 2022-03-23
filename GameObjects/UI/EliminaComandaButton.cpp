@@ -9,7 +9,7 @@ EliminaComandaButton::EliminaComandaButton(UIManager* u,Comanda* c, Game* game, 
 EliminaComandaButton::~EliminaComandaButton()
 {
 }
-void EliminaComandaButton::execute()
+void EliminaComandaButton::execute(bool& exit)
 {
 	uimt->getBarra()->finalizacomanda(comandat);
 	sdlutils().soundEffects().at("comandaDescartada").play(0, game->UI);

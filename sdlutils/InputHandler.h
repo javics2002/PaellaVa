@@ -18,13 +18,10 @@ class InputHandler : public Singleton<InputHandler> {
 
 	SDL_Joystick* joystick_;
 
-	bool isMouseMotionEvent_;
-	bool isMouseButtonEvent_;
-	bool isKeyboardEvent_;
 	vector<bool> keyPressed;
+	vector<bool> mousePressed;
 
 	std::pair<Sint32, Sint32> mousePos_;
-	std::array<bool, 3> mbState_;
 	const Uint8* kbState_;
 	const int CONTROLLER_DEAD_ZONE = 8000;
 	float ejeX, ejeY;
@@ -33,33 +30,31 @@ class InputHandler : public Singleton<InputHandler> {
 
 	InputHandler() {
 		kbState_ = SDL_GetKeyboardState(0);
-		clearState();
 		initJoystick();
+		keyPressed = vector<bool>(botones::UNKNOWN, false);
+		mousePressed = vector<bool>(botones::UNKNOWN, false);
 	}
 
 	inline void onMouseMotion(const SDL_Event& event) {
-		isMouseMotionEvent_ = true;
 		mousePos_.first = event.motion.x;
 		mousePos_.second = event.motion.y;
 	}
 
 	inline void onMouseButtonChange(const SDL_Event& event, bool isDown) {
-		isMouseButtonEvent_ = true;
 		switch (event.button.button) {
 		case SDL_BUTTON_LEFT:
-			mbState_[LEFT] = isDown;
+			mousePressed[LEFT] = isDown;
 			SDL_GetMouseState(&mx, &my);
 			break;
 		case SDL_BUTTON_MIDDLE:
-			mbState_[MOUSE_MIDDLE] = isDown;
+			mousePressed[MOUSE_MIDDLE] = isDown;
 			break;
 		case SDL_BUTTON_RIGHT:
-			mbState_[MOUSE_RIGHT] = isDown;
+			mousePressed[MOUSE_RIGHT] = isDown;
 			break;
 		default:
 			break;
 		}
-		//clearState();
 	}
 
 public:
@@ -69,20 +64,6 @@ public:
 	enum botones { LEFT, RIGHT, UP, DOWN, INTERACT, CANCEL, UNKNOWN };
 
 	virtual ~InputHandler() {
-	}
-
-	// clear the state
-	inline void clearState() {
-		isMouseButtonEvent_ = false;
-		isMouseMotionEvent_ = false;
-		isKeyboardEvent_ = false;
-
-		//Unknown es el número de botones que usa nuestro juego
-		keyPressed = vector<bool>(botones::UNKNOWN, false);
-
-		for (auto i = 0u; i < 3; i++) {
-			mbState_[i] = false;
-		}
 	}
 
 	// update the state with a new event
@@ -133,7 +114,6 @@ public:
 	inline void refresh() {
 		SDL_Event event;
 
-		//clearState();
 		while (SDL_PollEvent(&event))
 			update(event);
 	}
@@ -205,8 +185,6 @@ public:
 			default:
 				break;
 			}
-
-			isKeyboardEvent_ = true;
 		}
 	}
 
@@ -276,28 +254,16 @@ public:
 		return axis;
 	}
 
-	// mouse
-	inline bool mouseMotionEvent() {
-		return isMouseMotionEvent_;
-
-	}
-
-	inline bool mouseButtonEvent() {
-
-		return isMouseButtonEvent_;
-
-	}
-
 	inline const std::pair<Sint32, Sint32>& getMousePos() {
 		return mousePos_;
 	}
 
 	inline int getMouseButtonState(MOUSEBUTTON b) {
-		return mbState_[b];
-	}
-
-	inline bool isKeyboardEvent() {
-		return isKeyboardEvent_;
+		if (mousePressed[b]) {
+			mousePressed[b] = false;
+			return true;
+		}
+		else return false;
 	}
 
 	bool getKey(Uint8 key)

@@ -51,7 +51,7 @@ public:
 	Restaurante(Game* game);
 	~Restaurante();
 
-	void handleInput()  override;
+	void handleInput(bool& exit)  override;
 	void update() override;
 	void render() override;
 	void debug() override;

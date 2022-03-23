@@ -6,7 +6,7 @@
 
 class UiButton: public GameObject
 {
-	function<void(Game* game)> callback = [](Game* game) { cout << "funciona" << endl; };
+	function<void(Game* game, bool& exit)> callback = [](Game* game, bool& exit) { };
 
 protected:
 	string textura;
@@ -17,11 +17,11 @@ public:
 	UiButton(Game* game, string texto, const string font, const SDL_Color& fgColor, const SDL_Color& bgColor, 
 		int x, int y);
 	~UiButton();
-	virtual bool  OnClick(int mx, int my) override;
-	virtual void execute();
+	virtual bool onClick(int mx, int my, bool& exit) override;
+	virtual void execute(bool& exit);
 	void update() override;
 	string getTextura() { return textura; };
 
-	void setAction(function<void(Game* game)> action);
+	void setAction(function<void(Game* game, bool& exit)> action);
 };
 

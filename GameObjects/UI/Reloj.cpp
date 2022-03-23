@@ -51,9 +51,9 @@ void Reloj::update()
 
 	if (finDia())
 	{
-		//TODO: Evento de fin del día
-		game->changeScene(new GameOver(game, 200));
-
+#ifndef _DEBUG
+		game->changeScene(new GameOver(game, 100));
+#endif // _DEBUG
 	}
 	else
 	{
@@ -66,7 +66,6 @@ void Reloj::update()
 		}
 		if (currentTime.hours >= 24) {
 			currentTime.hours = currentTime.hours % 24;
-
 		}
 		string timeText = parseTimeToString(currentTime.hours, currentTime.minutes);
 		setTexture(timeText, string("paella"), fgColor, bgColor);

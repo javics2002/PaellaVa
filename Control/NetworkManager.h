@@ -75,9 +75,9 @@ private:
 	std::thread* receiveplayers_t;
 	std::thread* sendplayers_t;
 
-	void AcceptPlayers();
-	void ReceivePlayers();
-	void SendPlayers();
+	void acceptPlayers();
+	void receivePlayers();
+	void sendPlayers();
 
 	// CLIENT
 
@@ -85,13 +85,13 @@ private:
 
 	std::thread* updateclient_t;
 
-	void UpdateClient();
+	void updateClient();
 
 	// UTILS
 
-	int GetClientID(const IPaddress& addr);
+	int getClientID(const IPaddress& addr);
 
-	bool CompareAddress(const IPaddress& addr1, const IPaddress& addr2);
+	bool compareAddress(const IPaddress& addr1, const IPaddress& addr2);
 
 	// VARIABLES
 
@@ -117,13 +117,11 @@ public:
 	NetworkManager(Game* game);
 	~NetworkManager();
 
-	bool Init(char type, const char* ip_addr = NULL);
-	void Update();
+	bool init(char type, const char* ip_addr = NULL);
+	void update();
 
-	void Close();
+	void close();
 
-	Player* AddPlayerHost();
-	Player* AddPlayerClient(int id);
-
-	Player* GetFirst() { return players[0]; }
+	Player* addPlayerHost();
+	Player* addPlayerClient(int id);
 };

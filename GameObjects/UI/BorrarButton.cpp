@@ -8,7 +8,7 @@ BorrarButton::BorrarButton(Game* game, Comanda* c,string texturename, int x, int
 BorrarButton::~BorrarButton()
 {
 }
-void BorrarButton::execute()
+void BorrarButton::execute(bool& exit)
 {
 	comanda->borraPedido();
 	sdlutils().soundEffects().at("escribir5").play(0, game->UI);

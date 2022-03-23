@@ -6,10 +6,12 @@ Tamanobutton::Tamanobutton(UIManager* uim, Game* game, string texturename, int x
 	c = uim->getComanda();
 	textura = texturename;
 }
+
 Tamanobutton::~Tamanobutton()
 {
 }
-void Tamanobutton::execute()
+
+void Tamanobutton::execute(bool& exit)
 {
 	c->añadiraPedido(textura);
 	c->toggleTecaldotam(false);
@@ -18,6 +20,7 @@ void Tamanobutton::execute()
 	//Sonido de escribir aleatorio
 	sdlutils().soundEffects().at("escribir" + std::to_string(sdlutils().rand().nextInt(2, 5))).play(0, game->UI);
 }
+
 void Tamanobutton::update()
 {
 }

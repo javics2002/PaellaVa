@@ -9,7 +9,7 @@ class Ingredientebutton:public UiButton
 public:
 	Ingredientebutton(UIManager* uim,Game* game, string texturename, int x, int y, int w, int h);
 	~Ingredientebutton();
-	void execute() override;
+	void execute(bool& exit) override;
 	void update() override;
 
 };

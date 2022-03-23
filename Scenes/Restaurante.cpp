@@ -9,9 +9,12 @@
 #include "../Control/Game.h"
 #include "../Data/ListaComandas.h"
 #include "../GameObjects/UI/Reloj.h"
-
-
 #include "../Control/NetworkManager.h"
+#ifdef _DEBUG
+#include "../Scenes/GameOver.h"
+#endif // _DEBUG
+
+
 #include <iostream>
 
 using namespace std;
@@ -19,8 +22,6 @@ using namespace std;
 Restaurante::Restaurante(Game* game) : Scene(game)
 {
 	this->game = game;
-
-	// host = new Player(game);
 
 	mapInfo.ruta = "..\\..\\..\\Assets\\Tilemap\\Restaurante.tmx";
 	loadMap(mapInfo.ruta);
@@ -32,7 +33,7 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 	// camara init
 	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
 
-	getUIManager()->addInterfaz(new RedactaComandabutton(game, "redactaboton", 10, 10, 30, 30));
+	uiManager->addInterfaz(new RedactaComandabutton(game, uiManager, "redactaboton", 10, 10, 30, 30));
 	uiManager->setBarra(new ListaComandas(game,uiManager));
 
 	objectManager->addPaella(new Paella(game, TipoPaella::Minima));
@@ -40,7 +41,7 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 	objectManager->addPaella(new Paella(game, TipoPaella::Minima));
 	uiManager->addInterfaz(new Reloj(game));
 
-	//objectManager->initMuebles();
+	objectManager->initMuebles();
 }
 
 Restaurante::~Restaurante()
@@ -50,9 +51,17 @@ Restaurante::~Restaurante()
 	delete camara;
 }
 
-void Restaurante::handleInput()
+void Restaurante::handleInput(bool& exit)
 {
-	objectManager->handleInput();
+	Scene::handleInput(exit);
+
+	if (ih().getKey(InputHandler::CANCEL)) {
+#ifdef _DEBUG
+		game->changeScene(new GameOver(game, 100));
+#else
+		//Abrir menú de pausa
+#endif // _DEBUG
+	}
 }
 
 void Restaurante::update()
@@ -60,7 +69,6 @@ void Restaurante::update()
 	objectManager->update();
 	uiManager->update();
 
-	// CAMBIO TEMPORAL PARA QUE FUNCIONE LA CAMARA:::
 	if (objectManager->getHost()->getX() > tamRestaurante.getY() + TILE_SIZE) { // tamRestaurante es un rango, no una posición, por eso tengo que hacer getY()
 		camara->Lerp(Vector2D<float>(tamRestaurante.getY(), 16), LERP_INTERPOLATION);
 	}
@@ -75,14 +83,6 @@ void Restaurante::render()
 	objectManager->render(camara->renderRect());
 	
 	uiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
-
-	//auto time = sdlutils().currRealTime();
-
-	//auto time_ = to_string(time);
-
-	//Texture* tex;
-
-	//tex->constructFromText(camara->renderRect(), time_, );
 }
 
 void Restaurante::debug()
@@ -90,7 +90,6 @@ void Restaurante::debug()
 	fondo->renderDebug(camara->renderRect());
 	objectManager->debug(camara->renderRect());
 }
-//Check colisiones
 
 void Restaurante::loadMap(string const& path) {
 	//Cargamos el mapa .tmx del archivo indicado

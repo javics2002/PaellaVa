@@ -1,7 +1,9 @@
 #pragma once
 #include "UiButton.h"
+
 class Comanda;
 class Game;
+
 class AceptaPaellaButton:public UiButton
 {
 	Comanda* comanda;
@@ -9,6 +11,5 @@ class AceptaPaellaButton:public UiButton
 public:
 	AceptaPaellaButton(Game* game,Comanda* c, string texturename, int x, int y, int w, int h);
 	~AceptaPaellaButton();
-	void execute()override;
+	void execute(bool& exit)override;
 };
-

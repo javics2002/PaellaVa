@@ -62,14 +62,9 @@ public:
     bool  OnClick(int mx, int my);
         Comanda *seleccionaComanda();
     void deseleccionaComanda();
-    /*void cierraComanda();*/
-    //void Ecribeinfoenjson();
-    //Compara las paellas recibidas con el pedido y le pone la puntuación
-    //float Puntuacion(vector<Paella> paellas);
+
 private:
     vector<Point2D<double> >posicionesBotones;//vas seleccionando y vas borrando las ya usadas
-   /* vector<string> texturasIngredienes = { "alcachofa", "berenjena", "calamar", "cangrejo", "gamba",
-        "langosta", "mejillon", "pimientoRojo", "pimientoVerde", "pollo"};*/
     int x;
     int iniy;
     int y;
@@ -90,14 +85,7 @@ private:
 
     EliminaComandaButton* eliminarboton;
     float puntuacion;
-    Game* gamet;
-    UIManager* uimt;
-    // ObjectManager* objectmanager;
-     //Texture textura;
-     //Por cada paella, un tamaño y un vector de ingredientes
-     //vector<Tamaño> tamaños;
-     //vector<vector<Ingrediente>> ingredientes;
-     //vector<Paella> paellas;//datos de la paella recogida en la comanda con la que se calcula la puntuacion
+    UIManager* uiManager;
     vector<UiButton*> Pedido;//lo que mostramos en la ui  de lo que vas añadiendo a la comanda
     vector<Ingredientebutton*> teclado;
     vector <Numerobutton*> tecladonum;

@@ -71,7 +71,7 @@ void Player::handleInput()
 	
 
 
-	if (ih().isKeyboardEvent() && ih().getKey(InputHandler::INTERACT) && SDL_GetTicks() - lastTime_ > 500) {
+	if (ih().getKey(InputHandler::INTERACT) && SDL_GetTicks() - lastTime_ > 500) {
 		//Este lastTime_ peruano se quitará en un futuro
 		lastTime_ = SDL_GetTicks();
 
