@@ -1,7 +1,7 @@
 #pragma once
 #include "../UI/UiButton.h"
 class Game;
-class Ingredientebutton;
+class IngredienteButton;
 class Comanda;
 class ListaComandas;
 using namespace std;
@@ -16,7 +16,7 @@ class UIManager
 	vector<Point2D<double> >posicionesBotones;
 	vector<GameObject*> interfaz;//el resto de iconos 
 	vector<Comanda*> comandas;//comandas de la lista de comandas
-	vector<	Ingredientebutton*> teclado;//iconos que se usan en la comanda qeu esta redactando
+	vector<	IngredienteButton*> teclado;//iconos que se usan en la comanda qeu esta redactando
 	vector<	UiButton*> uicomandas;
 	//vector <GameObject*> pedido;//pedido que se est� redactando lo lleva la comanda
 	int mx;
@@ -41,7 +41,7 @@ public:
 	ListaComandas* getBarra();
 	void setBarra(ListaComandas* b);
 	vector< Point2D<double>> getPosTeclado();
-	vector<Ingredientebutton*> getTeclado() { return teclado; };
+	vector<IngredienteButton*> getTeclado() { return teclado; };
 	void setPosTeclado(vector< Point2D<double>> t);
 	void creaTeclado();
 	void randomizaTeclado();

@@ -11,6 +11,5 @@ public:
 	~EliminaComandaButton();
 	void execute(bool& exit) override;
 	void update() override;
-
 };
 

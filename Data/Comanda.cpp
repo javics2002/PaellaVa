@@ -191,12 +191,12 @@ void Comanda::guardaTeclado()
    // de momento voy a forzar una sangria aqui s tnego tiempo mirare una manera mejor xd
 }
 
-void Comanda::guardaTecladonum(vector<Numerobutton*> n)
+void Comanda::guardaTecladonum(vector<NumeroButton*> n)
 {
 	tecladonum = n;
 }
 
-void Comanda::guardaTecladotam(vector<Tamanobutton*> t)
+void Comanda::guardaTecladotam(vector<TamanoButton*> t)
 {
 	tecladotam = t;
 }

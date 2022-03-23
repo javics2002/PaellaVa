@@ -9,9 +9,9 @@
 class Paella;
 class Ingrediente;
 class Game;
-class Ingredientebutton;
-class Numerobutton;
-class Tamanobutton;
+class IngredienteButton;
+class NumeroButton;
+class TamanoButton;
 class EliminaComandaButton;
 class UIManager;
 using namespace std;
@@ -40,8 +40,8 @@ public:
 
     void guardaTeclado();
     void guardaBoton(UiButton* b);
-    void guardaTecladonum(vector <Numerobutton*> n);
-    void guardaTecladotam(vector <Tamanobutton*> t);
+    void guardaTecladonum(vector <NumeroButton*> n);
+    void guardaTecladotam(vector <TamanoButton*> t);
     void toggleTeclado(bool b);
     void toggleTecladonum(bool b);
     void toggleTecaldotam(bool b);
@@ -87,9 +87,9 @@ private:
     float puntuacion;
     UIManager* uiManager;
     vector<UiButton*> Pedido;//lo que mostramos en la ui  de lo que vas añadiendo a la comanda
-    vector<Ingredientebutton*> teclado;
-    vector <Numerobutton*> tecladonum;
-    vector <Tamanobutton*> tecladotam;
+    vector<IngredienteButton*> teclado;
+    vector <NumeroButton*> tecladonum;
+    vector <TamanoButton*> tecladotam;
     vector<UiButton*> botones;
     UiButton* numeromesa;
     vector<Point2D<double>> postecladoini;

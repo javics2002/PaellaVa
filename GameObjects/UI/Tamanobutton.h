@@ -2,13 +2,13 @@
 #include "UiButton.h"
 #include "../../Data/Comanda.h"
 
-class Tamanobutton: public UiButton
+class TamanoButton: public UiButton
 {
 	Comanda* c;
 	string textura;
 public:
-	Tamanobutton(UIManager* uim, Game* game, string texturename, int x, int y, int w, int h);
-	~Tamanobutton();
+	TamanoButton(UIManager* uim, Game* game, string texturename, int x, int y, int w, int h);
+	~TamanoButton();
 	void execute(bool& exit) override;
 	void update() override;
 };

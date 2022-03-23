@@ -1,17 +1,17 @@
 #include "Tamanobutton.h"
 #include"UIManager.h"
 
-Tamanobutton::Tamanobutton(UIManager* uim, Game* game, string texturename, int x, int y, int w, int h) :UiButton(game, texturename, x, y, w, h)
+TamanoButton::TamanoButton(UIManager* uim, Game* game, string texturename, int x, int y, int w, int h) :UiButton(game, texturename, x, y, w, h)
 {
 	c = uim->getComanda();
 	textura = texturename;
 }
 
-Tamanobutton::~Tamanobutton()
+TamanoButton::~TamanoButton()
 {
 }
 
-void Tamanobutton::execute(bool& exit)
+void TamanoButton::execute(bool& exit)
 {
 	c->añadiraPedido(textura);
 	c->toggleTecaldotam(false);
@@ -21,7 +21,7 @@ void Tamanobutton::execute(bool& exit)
 	sdlutils().soundEffects().at("escribir" + std::to_string(sdlutils().rand().nextInt(2, 5))).play(0, game->UI);
 }
 
-void Tamanobutton::update()
+void TamanoButton::update()
 {
 }
 

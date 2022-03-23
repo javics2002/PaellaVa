@@ -2,17 +2,17 @@
 #include "../../Data/Comanda.h"
 #include "UIManager.h"
 
-Numerobutton::Numerobutton(UIManager* uim, Game* game, string texturename, int x, int y, int w, int h) :UiButton(game, texturename, x, y, w, h)
+NumeroButton::NumeroButton(UIManager* uim, Game* game, string texturename, int x, int y, int w, int h) :UiButton(game, texturename, x, y, w, h)
 {
 	c = uim->getComanda();
 	textura = texturename;
 }
 
-Numerobutton::~Numerobutton()
+NumeroButton::~NumeroButton()
 {
 }
 
-void Numerobutton::execute(bool& exit)
+void NumeroButton::execute(bool& exit)
 {
 	c->anadirNumeromesa(textura);
 
@@ -20,6 +20,6 @@ void Numerobutton::execute(bool& exit)
 	sdlutils().soundEffects().at("escribir" + std::to_string(sdlutils().rand().nextInt(2, 5))).play(0, game->UI);
 }
 
-void Numerobutton::update()
+void NumeroButton::update()
 {
 }
