@@ -1,15 +1,11 @@
 #pragma once
-#include "../Control/ObjectManager.h"
-#include "../GameObjects/UI/UIManager.h"
 #include "../Scenes/Scene.h"
-#include "SDL.h"
 
 #include "./tmxlite/Map.hpp"
 #include "./tmxlite/Layer.hpp"
 #include "./tmxlite/TileLayer.hpp"
 #include "./tmxlite/ObjectGroup.hpp"
 #include "./tmxlite/Tileset.hpp"
-#include "../GameObjects/Fondo.h"
 
 #include "../Control/Camera.h"
 
@@ -21,13 +17,14 @@ using uint = unsigned int;
 
 class Player;
 class Mueble;
-class Game;
+class NetworkManager;
 
 struct MapInfo {
 	Map* tilemap;
 	string ruta;
 	int filas, columnas;
 	int anchoTile, altoTile;
+	int anchoFondo, altoFondo;
 	unordered_map<uint, Texture*> tilesets;
 
 	MapInfo() {
@@ -44,34 +41,20 @@ struct MapInfo {
 class Restaurante : public Scene
 {
 	const float LERP_INTERPOLATION = 0.2f;
-	 
-	Game* game;
-
-	//Punteros a los jugadores (Quizas deberian llamarse yo y amigo, en relativo)
-	Player* host;
-	Player* client;
-
-	Camera* camara;
-
-	ObjectManager* objectManager;
-	UIManager* uiManager;
 
 	MapInfo mapInfo;
-	Fondo* fondo;
+	NetworkManager* nm;
 
 	Vector2D<int> tamRestaurante = Vector2D<int>(0, 1216);
-
 
 public:
 	Restaurante(Game* game);
 	~Restaurante();
 
-	void handleInput();
-	void update();
-	void render();
-	void debug();
+	void handleInput(bool& exit)  override;
+	void update() override;
+	void render() override;
+	void debug() override;
 
-	ObjectManager* getObjectManager();
-	UIManager* getUIManager();
-	void loadMap(string const & path);
+	void loadMap(string const& path);
 };

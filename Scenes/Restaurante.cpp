@@ -4,57 +4,75 @@
 #include "../GameObjects/Paella.h"
 #include "../GameObjects/Ingrediente.h"
 #include "../GameObjects/Muebles/MueblesInclude.h"
+#include  "../GameObjects/UI/RedactaComandabutton.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../Control/Game.h"
+#include "../Data/ListaComandas.h"
+#include "../GameObjects/UI/Reloj.h"
+#include "../Control/NetworkManager.h"
+#ifdef _DEBUG
+#include "../Scenes/GameOver.h"
+#endif // _DEBUG
+
+
 #include <iostream>
 
 using namespace std;
 
-Restaurante::Restaurante(Game* game)
+Restaurante::Restaurante(Game* game) : Scene(game)
 {
 	this->game = game;
-
-	objectManager = new ObjectManager(game);
-	uiManager = new UIManager(game);
-	host = new Player(game);
 
 	mapInfo.ruta = "..\\..\\..\\Assets\\Tilemap\\Restaurante.tmx";
 	loadMap(mapInfo.ruta);
 
-	fondo = new Fondo(game);
 	fondo->setTexture(mapInfo.ruta);
-	int width = sdlutils().images().at(mapInfo.ruta).width();
-	int height = sdlutils().images().at(mapInfo.ruta).height();
-	fondo->setDimension(width, height);
+	fondo->setPosition(mapInfo.anchoFondo / 2, sdlutils().height() / 2);
+	fondo->setDimension(mapInfo.anchoFondo, mapInfo.altoFondo);
 
 	// camara init
 	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
-	
+
+	uiManager->addInterfaz(new RedactaComandabutton(game, uiManager, "redactaboton", 10, 10, 30, 30));
+	uiManager->setBarra(new ListaComandas(game,uiManager));
+
+	objectManager->addPaella(new Paella(game, TipoPaella::Minima));
+	objectManager->addPaella(new Paella(game, TipoPaella::Minima));
+	objectManager->addPaella(new Paella(game, TipoPaella::Minima));
+	uiManager->addInterfaz(new Reloj(game));
+
+	objectManager->initMuebles();
 }
 
 Restaurante::~Restaurante()
 {
-	delete host;
 	delete objectManager;
 	delete fondo;
+	delete camara;
 }
 
-void Restaurante::handleInput()
+void Restaurante::handleInput(bool& exit)
 {
-	objectManager->handleInput();
-	host->handleInput();
+	Scene::handleInput(exit);
+
+	if (ih().getKey(InputHandler::CANCEL)) {
+#ifdef _DEBUG
+		game->changeScene(new GameOver(game, 100));
+#else
+		//Abrir menú de pausa
+#endif // _DEBUG
+	}
 }
 
 void Restaurante::update()
 {
 	objectManager->update();
 	uiManager->update();
-	host->update();
 
-	if (host->getX() > tamRestaurante.getY() + TILE_SIZE) { // tamRestaurante es un rango, no una posición, por eso tengo que hacer getY()
+	if (objectManager->getHost()->getX() > tamRestaurante.getY() + TILE_SIZE) { // tamRestaurante es un rango, no una posición, por eso tengo que hacer getY()
 		camara->Lerp(Vector2D<float>(tamRestaurante.getY(), 16), LERP_INTERPOLATION);
 	}
-	else if (host->getX() < tamRestaurante.getY()) {
+	else if (objectManager->getHost()->getX() < tamRestaurante.getY()) {
 		camara->Lerp(Vector2D<float>(tamRestaurante.getX(), 16), LERP_INTERPOLATION);
 	}
 }
@@ -64,29 +82,16 @@ void Restaurante::render()
 	fondo->render(camara->renderRect());
 	objectManager->render(camara->renderRect());
 	
-	host->render(camara->renderRect());
 	uiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
 }
 
 void Restaurante::debug()
 {
-	fondo->drawDebug(camara->renderRect());
+	fondo->renderDebug(camara->renderRect());
 	objectManager->debug(camara->renderRect());
-	host->drawDebug(camara->renderRect());
 }
 
-ObjectManager* Restaurante::getObjectManager()
-{
-	return objectManager;
-}
-UIManager* Restaurante::getUIManager()
-{
-	return uiManager;
-	
-}
-//Check colisiones
-
-void Restaurante::loadMap(string const &path) {
+void Restaurante::loadMap(string const& path) {
 	//Cargamos el mapa .tmx del archivo indicado
 	mapInfo.tilemap = new tmx::Map();
 	mapInfo.tilemap->load(path);
@@ -104,12 +109,12 @@ void Restaurante::loadMap(string const &path) {
 
 	//Creamos la textura de fondo
 	auto renderer = sdlutils().renderer();
-	int anchoFondo = mapInfo.anchoTile * mapInfo.columnas;
-	int altoFondo = mapInfo.altoTile * mapInfo.filas;
+	mapInfo.anchoFondo = mapInfo.anchoTile * mapInfo.columnas;
+	mapInfo.altoFondo = mapInfo.altoTile * mapInfo.filas;
 	SDL_Texture* fondo = SDL_CreateTexture(renderer,
 		SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET,
-		anchoFondo,
-		altoFondo
+		mapInfo.anchoFondo,
+		mapInfo.altoFondo
 	);
 
 	SDL_SetTextureBlendMode(fondo, SDL_BLENDMODE_BLEND);
@@ -211,22 +216,22 @@ void Restaurante::loadMap(string const &path) {
 
 
 			for (auto obj : objs) {
-				auto &aabb = obj.getAABB();
+				auto& aabb = obj.getAABB();
 				auto position = Vector2D<double>(aabb.left, aabb.top);
 				auto dimension = Vector2D<int>(mapInfo.anchoTile, mapInfo.altoTile);
 				string name = obj.getName();
-		
+
 				if (name == "mesaS") {
-					getObjectManager()->addMueble(new Mesa(game, position, { 1, 1 }, name));
-				}
-				else if (name == "mesaMH") {
-					getObjectManager()->addMueble(new Mesa(game, position, { 2, 1 }, name));
-				}
-				else if (name == "mesaMV") {
 					getObjectManager()->addMueble(new Mesa(game, position, { 1, 2 }, name));
 				}
-				else if (name == "mesaL") {
+				else if (name == "mesaMH") {
 					getObjectManager()->addMueble(new Mesa(game, position, { 2, 2 }, name));
+				}
+				else if (name == "mesaMV") {
+					getObjectManager()->addMueble(new Mesa(game, position, { 1, 3 }, name));
+				}
+				else if (name == "mesaL") {
+					getObjectManager()->addMueble(new Mesa(game, position, { 2, 4 }, name));
 				}
 				else if (name == "sillaIz" || name == "sillaDer" || name == "sillaAr" || name == "sillaAb") {
 					getObjectManager()->addMueble(new Silla(game, position, name));
@@ -249,14 +254,23 @@ void Restaurante::loadMap(string const &path) {
 				else if (name == "puerta") {
 					getObjectManager()->addMueble(new Puerta(game, position));
 				}
-				else if (name == "ventanilla") {
-					getObjectManager()->addMueble(new Ventanilla(game, position));
-				}
 				else if (name == "cartel") {
 					getObjectManager()->addMueble(new Cartel(game, position));
 				}
 				else if (name == "tabla") {
 					getObjectManager()->addMueble(new TablaProcesado(game, position));
+				}
+				else if (name == "encimera") {
+					getObjectManager()->addMueble(new Encimera(game, position));
+				}
+				else if (name == "ventanilla") {
+					getObjectManager()->addMueble(new Ventanilla(game, position, camara->renderRect()));
+				}
+				else if (name == "arroz") {
+					getObjectManager()->addMueble(new BolsaArroz(game, position));
+				}
+				else if (name == "pared") {
+					//getObjectManager()->addMueble(new Pared(game, position));
 				}
 			}
 		}
@@ -264,6 +278,6 @@ void Restaurante::loadMap(string const &path) {
 		SDL_SetRenderTarget(renderer, nullptr);
 
 		if (!sdlutils().images().count(path)) 
-			sdlutils().images().emplace(path, Texture(renderer, fondo, anchoFondo, altoFondo));
+			sdlutils().images().emplace(path, Texture(renderer, fondo, mapInfo.anchoFondo, mapInfo.altoFondo));
 	}
 }

@@ -42,8 +42,14 @@ class Pool
 		if (cont == numElems) {
 			for (int i = 0; i < numElems; i++)
 				v.push_back(new T(game));
-
+		
 			numElems *= 2;
+
+			while (cont < numElems && v[nextElem]->isActive())
+			{
+				cont++;
+				nextElem = (nextElem + 1) % numElems;
+			}		
 		}
 	}
 
@@ -84,6 +90,7 @@ public:
 
 	//borra el objeto de la lista de activos
 	void remove(list<PoolObject*>::const_iterator it) {
+		(*it)->desactivate();
 		activeObjects.erase(it);
 	}
 
@@ -120,13 +127,13 @@ public:
 
 	void debug() {
 		for (auto it : activeObjects) {
-			it->drawDebug();
+			it->renderDebug();
 		}
 	}
 
 	void debug(SDL_Rect* rect) {
 		for (auto it : activeObjects) {
-			it->drawDebug(rect);
+			it->renderDebug(rect);
 		}
 	}
 

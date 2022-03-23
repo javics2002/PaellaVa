@@ -11,16 +11,19 @@
 
 ObjectManager::ObjectManager(Game* game)
 {
-	ingredientes = new Pool<Ingrediente>(game, 50);
+	ingredientes = new Pool<Ingrediente>(game, 1);
 	clientes = new Pool<Cliente>(game, 50);
 	grupoClientes = new Pool<GrupoClientes>(game, 20);
-
-	interfaz.push_back(new RedactaComandabutton(game, "redactaboton", 10, 10, 30, 30));
 }
 
 ObjectManager::~ObjectManager()
 {
 	for (auto i : muebles) {
+		delete i;
+		i = nullptr;
+	}
+
+	for (auto i : players) {
 		delete i;
 		i = nullptr;
 	}
@@ -33,6 +36,13 @@ void ObjectManager::render(SDL_Rect* rect)
 	for (auto m : muebles)
 		m->render(rect);
 
+	for (auto i : paellas)
+		i->render(rect);
+
+	for (auto p : players)
+		p->render(rect);
+	
+
 	/*for (auto c : comandas)
 		c->render(rect);
 
@@ -41,26 +51,44 @@ void ObjectManager::render(SDL_Rect* rect)
 
 	ingredientes->render(rect);
 
-	clientes->render(rect);
+	grupoClientes->render(rect);
+
+
 }
 
 void ObjectManager::debug(SDL_Rect* rect)
 {
 	for (auto i : muebles)
-		i->drawDebug(rect);
+		i->renderDebug(rect);
+
+	for (auto i : players)
+		i->renderDebug(rect);
+
+	for (auto i : paellas)
+		i->renderDebug(rect);
 
 	ingredientes->debug(rect);
 
 	clientes->debug(rect);
 }
 
-void ObjectManager::handleInput()
+void ObjectManager::handleInput(bool& exit)
 {
+	// solo se handlea tu propio input
+	Player* p = getHost();
+	if (p != nullptr)
+		p->handleInput();
 }
 
 void ObjectManager::update()
 {
 	for (auto i : muebles)
+		i->update();
+
+	for (auto i : players)
+		i->update();
+
+	for (auto i : paellas)
 		i->update();
 
 	ingredientes->update();	
@@ -70,7 +98,6 @@ void ObjectManager::update()
 	SDL_GetMouseState(&x, &y);
 
 	SDL_Rect rect = SDL_Rect{ x, y, range, range };
-
 
 	for (auto i : grupoClientes->getCollisions(rect)) {
 		i->ratonEncima();
@@ -82,19 +109,58 @@ void ObjectManager::addMueble(GameObject* mueble)
 	muebles.push_back(mueble);
 }
 
-
-
-vector<Collider*> ObjectManager::getClientes(SDL_Rect gOC)
+void ObjectManager::addPlayer(Player* player)
 {
-	return clientes->getCollisions(gOC);
+	players.push_back(player);
 }
 
-vector<Collider*> ObjectManager::getIngredientes(SDL_Rect gOC)
+void ObjectManager::addComanda(GameObject* comanda)
 {
-	return ingredientes->getCollisions(gOC);
+	interfaz.push_back(comanda);
 }
 
-vector<Collider*> ObjectManager::getGrupoClientes(SDL_Rect gOC)
+void ObjectManager::addPaella(GameObject* paella)
 {
-	return grupoClientes->getCollisions(gOC);
+	paellas.push_back(paella);
 }
+
+vector<Collider*> ObjectManager::getMueblesCollider()
+{
+	vector<Collider*> c;
+
+	for (auto i : muebles)
+		c.push_back(i);
+
+	return c;
+}
+
+vector<Collider*> ObjectManager::getMueblesCollider(SDL_Rect collider)
+{
+	vector<Collider*> c;
+
+	for (auto i : muebles) {
+		if (i->collide(collider))
+			c.push_back(i);
+	}
+
+	return c;
+}
+
+vector<Collider*> ObjectManager::getPaellasCollider(SDL_Rect collider)
+{
+	vector<Collider*> c;
+
+	for (auto i : paellas) {
+		if (i->collide(collider))
+			c.push_back(i);
+	}
+
+	return c;
+}
+
+void ObjectManager::initMuebles()
+{
+	for (auto i : muebles)
+		i->init(this);
+}
+

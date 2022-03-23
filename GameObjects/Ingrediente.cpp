@@ -5,33 +5,59 @@
 
 Ingrediente::Ingrediente(Game* game) :  PoolObject(game) {
 	setDimension(DIMENSION, DIMENSION);
-	setPosition(sdlutils().width() / 2, sdlutils().height());
-
-	vel = { 0, 1.3 };
 }
 
 void Ingrediente::update()
 {
-	setPosition(getX(), getY() - vel.getY());
+	setPosition(getX(), getY() + vel.getY());
 }
 
-std::list<PoolObject*>::const_iterator Ingrediente::ingredientCollide()
+pair<bool, std::list<PoolObject*>::const_iterator> Ingrediente::ingredientCollide()
 {
-	deactivate();
-
-	return getIterator();
+	return { !isPicked(), getIterator() };
 }
 
 void Ingrediente::onActivate()
 {
-	int n = rand() % (texturaIngrediente.size());
+	int n = rand() % (tipoIngrediente::LAST);
+
+	vel = { 0, 1.3 };
+	
+	miTipo = tipoIngrediente(n);
 
 	setTexture(texturaIngrediente[n]);
 }
 
+void Ingrediente::onDesactivate()
+{
+
+}
+
 void Ingrediente::ingredienteRecogido()
 {
-	vel = { 0,0 };
-
-	//cout << "vel " << vel.getX() << ", " << vel.getY() << endl;
 }
+
+void Ingrediente::setProcesado(bool estadoIngr, Ingrediente *ingr)
+{
+	procesado = estadoIngr;
+
+	setTexture(texturaIngrProcesado[ingr->miTipo]);
+}
+
+
+tipoIngrediente Ingrediente::getTipo()
+{
+	return miTipo;
+}
+
+void Ingrediente::onObjectPicked()
+{
+	vel = { 0,0 };
+}
+
+void Ingrediente::onObjectDropped()
+{
+}
+
+
+

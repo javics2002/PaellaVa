@@ -1,28 +1,36 @@
 #pragma once
 #include "../UI/UiButton.h"
 class Game;
-class Ingredientebutton;
+class IngredienteButton;
 class Comanda;
+class ListaComandas;
 using namespace std;
 
 class UIManager
 {
 	vector<string> texturasIngredienes = { "alcachofa",  "calamar", "cangrejo", "gamba",
 		   "langosta", "mejillon", "pimientoRojo", "pimientoVerde", "pollo" };
+	vector<string> texturasNumeros= { "uno",  "dos", "tres", "cuatro",
+	   "cinco", "seis", "siete", "ocho", "nueve" };
+	vector<string> texturasTamanos = {"small","medium","large"};
 	vector<Point2D<double> >posicionesBotones;
 	vector<GameObject*> interfaz;//el resto de iconos 
 	vector<Comanda*> comandas;//comandas de la lista de comandas
-	vector<	Ingredientebutton*> teclado;//iconos que se usan en la comanda qeu esta redactando
-	//vector <GameObject*> pedido;//pedido que se está redactando lo lleva la comanda
+	vector<	IngredienteButton*> teclado;//iconos que se usan en la comanda qeu esta redactando
+	vector<	UiButton*> uicomandas;
+	//vector <GameObject*> pedido;//pedido que se estï¿½ redactando lo lleva la comanda
 	int mx;
 	int my;
 	int anchobotones = 25;
-	Game* gamet;
+	Game* game;
 	Comanda* actual;
+	ListaComandas* barra;
 public:
 	UIManager(Game* game);
 	~UIManager();
-	void uiEvent(int mx, int my);
+	void uiEvent(int mx, int my, bool& exit);
+
+	void handleInput(bool& exit);
 	void update();
 
 	// void render();
@@ -30,9 +38,15 @@ public:
 
 	void creaComanda(Game* game);
 	Comanda* getComanda();
+	ListaComandas* getBarra();
+	void setBarra(ListaComandas* b);
 	vector< Point2D<double>> getPosTeclado();
+	vector<IngredienteButton*> getTeclado() { return teclado; };
 	void setPosTeclado(vector< Point2D<double>> t);
 	void creaTeclado();
 	void randomizaTeclado();
+
+	void addInterfaz(GameObject* comanda);
+
 };
 

@@ -18,14 +18,12 @@
     <ClCompile Include="GameObjects\Paella.cpp" />
     <ClCompile Include="GameObjects\GrupoClientes.cpp" />
     <ClCompile Include="Data\ListaComandas.cpp" />
-    <ClCompile Include="Control\NetworkManager.cpp" />
     <ClCompile Include="Control\ObjectManager.cpp" />
     <ClCompile Include="GameObjects\Ingrediente.cpp" />
     <ClCompile Include="GameObjects\Muebles\InicioCinta.cpp" />
     <ClCompile Include="GameObjects\PoolObject.cpp" />
     <ClCompile Include="GameObjects\Muebles\Silla.cpp" />
     <ClCompile Include="GameObjects\Muebles\TablaProcesado.cpp" />
-    <ClCompile Include="GameObjects\Muebles\Ventanilla.cpp" />
     <ClCompile Include="SDL2-2.0.20\include\SDL_rect.cpp" />
     <ClCompile Include="sdlutils\SDLUtils.cpp" />
     <ClCompile Include="Scenes\Restaurante.cpp" />
@@ -37,11 +35,31 @@
     <ClCompile Include="GameObjects\Muebles\Cartel.cpp" />
     <ClCompile Include="GameObjects\Muebles\Puerta.cpp" />
     <ClCompile Include="GameObjects\Cola.cpp" />
-    <ClCompile Include="GameObjects\UI\RedactaComandabutton.cpp" />
+    <ClCompile Include="GameObjects\UI\RedactaComandaButton.cpp" />
     <ClCompile Include="GameObjects\UI\UiButton.cpp" />
     <ClCompile Include="GameObjects\UI\UIManager.cpp" />
-    <ClCompile Include="GameObjects\UI\Ingredientebutton.cpp" />
+    <ClCompile Include="GameObjects\UI\IngredienteButton.cpp" />
+    <ClCompile Include="Scenes\Scene.cpp" />
+    <ClCompile Include="Scenes\Menu.cpp" />
     <ClCompile Include="Control\Camera.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Encimera.cpp" />
+    <ClCompile Include="GameObjects\UI\AceptaPaellaButton.cpp" />
+    <ClCompile Include="GameObjects\UI\BorrarButton.cpp" />
+    <ClCompile Include="GameObjects\UI\DescartaCommandaButton.cpp" />
+    <ClCompile Include="GameObjects\UI\EnviaComandaButton.cpp" />
+    <ClCompile Include="GameObjects\UI\NumeroButton.cpp" />
+    <ClCompile Include="GameObjects\UI\TamanoButton.cpp" />
+    <ClCompile Include="Scenes\GameOver.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Ventanilla.cpp" />
+    <ClCompile Include="GameObjects\UI\Text.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Pared.cpp" />
+    <ClCompile Include="GameObjects\Muebles\BolsaArroz.cpp" />
+    <ClCompile Include="Data\Pedido.cpp" />
+    <ClCompile Include="GameObjects\UI\Reloj.cpp" />
+    <ClCompile Include="GameObjects\UI\EliminaComandaButton.cpp" />
+    <ClCompile Include="Control\NetworkManager.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Pila.cpp" />
+    <ClCompile Include="Scenes\HostClient.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
@@ -61,7 +79,6 @@
     <ClInclude Include="GameObjects\Paella.h" />
     <ClInclude Include="GameObjects\GrupoClientes.h" />
     <ClInclude Include="Data\ListaComandas.h" />
-    <ClInclude Include="Control\NetworkManager.h" />
     <ClInclude Include="Control\ObjectManager.h" />
     <ClInclude Include="GameObjects\Ingrediente.h" />
     <ClInclude Include="GameObjects\Muebles\InicioCinta.h" />
@@ -75,7 +92,6 @@
     <ClInclude Include="GameObjects\Muebles\TablaProcesado.h" />
     <ClInclude Include="sdlutils\SDLUtils.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="GameObjects\Muebles\Ventanilla.h" />
     <ClInclude Include="Utils\Vector2D.h" />
     <ClInclude Include="GameObjects\Fondo.h" />
     <ClInclude Include="Utils\Texture.h" />
@@ -103,13 +119,33 @@
     <ClInclude Include="GameObjects\Muebles\Cartel.h" />
     <ClInclude Include="GameObjects\Muebles\Puerta.h" />
     <ClInclude Include="GameObjects\Cola.h" />
-    <ClInclude Include="GameObjects\UI\RedactaComandabutton.h" />
+    <ClInclude Include="GameObjects\UI\RedactaComandaButton.h" />
     <ClInclude Include="GameObjects\UI\UiButton.h" />
     <ClInclude Include="GameObjects\UI\UIManager.h" />
-    <ClInclude Include="GameObjects\UI\Ingredientebutton.h" />
+    <ClInclude Include="GameObjects\UI\IngredienteButton.h" />
     <ClInclude Include="Utils\Traza.h" />
     <ClInclude Include="GameObjects\Muebles\MueblesInclude.h" />
+    <ClInclude Include="Scenes\Scene.h" />
+    <ClInclude Include="Scenes\Menu.h" />
     <ClInclude Include="Control\Camera.h" />
+    <ClInclude Include="GameObjects\Muebles\Encimera.h" />
+    <ClInclude Include="GameObjects\UI\AceptaPaellaButton.h" />
+    <ClInclude Include="GameObjects\UI\BorrarButton.h" />
+    <ClInclude Include="GameObjects\UI\DescartaCommandaButton.h" />
+    <ClInclude Include="GameObjects\UI\EnviaComandaButton.h" />
+    <ClInclude Include="GameObjects\UI\NumeroButton.h" />
+    <ClInclude Include="GameObjects\UI\TamanoButton.h" />
+    <ClInclude Include="Scenes\GameOver.h" />
+    <ClInclude Include="GameObjects\Muebles\Ventanilla.h" />
+    <ClInclude Include="GameObjects\UI\Text.h" />
+    <ClInclude Include="GameObjects\Muebles\Pared.h" />
+    <ClInclude Include="GameObjects\Muebles\BolsaArroz.h" />
+    <ClInclude Include="Data\Pedido.h" />
+    <ClInclude Include="GameObjects\UI\Reloj.h" />
+    <ClInclude Include="GameObjects\UI\EliminaComandaButton.h" />
+    <ClInclude Include="Control\NetworkManager.h" />
+    <ClInclude Include="GameObjects\Muebles\Pila.h" />
+    <ClInclude Include="Scenes\HostClient.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />
@@ -119,6 +155,52 @@
     <Image Include="PaellasRodriguez.ico" />
     <Image Include="SDL2-2.0.20\Images\coin.png" />
     <Image Include="small.ico" />
+    <Image Include="Assets\Images\aceptaboton.png" />
+    <Image Include="Assets\Images\arroz.png" />
+    <Image Include="Assets\Images\barracomandas.png" />
+    <Image Include="Assets\Images\barraTolerancia.png" />
+    <Image Include="Assets\Images\basura.png" />
+    <Image Include="Assets\Images\berenjena.png" />
+    <Image Include="Assets\Images\borraboton.png" />
+    <Image Include="Assets\Images\cancelaboton.png" />
+    <Image Include="Assets\Images\cuadernillo.png" />
+    <Image Include="Assets\Images\customization.png" />
+    <Image Include="Assets\Images\encimera.png" />
+    <Image Include="Assets\Images\enviaboton.png" />
+    <Image Include="Assets\Images\exit.png" />
+    <Image Include="Assets\Images\finalCinta.png" />
+    <Image Include="Assets\Images\fogon.png" />
+    <Image Include="Assets\Images\inicioCinta.png" />
+    <Image Include="Assets\Images\lavavajillas.png" />
+    <Image Include="Assets\Images\mesa.png" />
+    <Image Include="Assets\Images\mesaS.png" />
+    <Image Include="Assets\Images\player.png" />
+    <Image Include="Assets\Images\redactaboton.png" />
+    <Image Include="Assets\Images\settings.png" />
+    <Image Include="Assets\Images\sillaAb.png" />
+    <Image Include="Assets\Images\sillaAr.png" />
+    <Image Include="Assets\Images\sillaDer.png" />
+    <Image Include="Assets\Images\sillaIz.png" />
+    <Image Include="Assets\Images\start.png" />
+    <Image Include="Assets\Images\tabla.png" />
+    <Image Include="Assets\Images\Ingredientes\pollo.png" />
+    <Image Include="Assets\Images\Ingredientes\alcachofa.png" />
+    <Image Include="Assets\Images\Ingredientes\calamar.png" />
+    <Image Include="Assets\Images\Ingredientes\cangrejo.png" />
+    <Image Include="Assets\Images\Ingredientes\gamba.png" />
+    <Image Include="Assets\Images\Ingredientes\langosta.png" />
+    <Image Include="Assets\Images\Ingredientes\mejillon.png" />
+    <Image Include="Assets\Images\Ingredientes\pimientoRojo.png" />
+    <Image Include="Assets\Images\Ingredientes\pimientoVerde.png" />
+    <Image Include="Assets\Images\Ingredientes\alcachofaProcesada.png" />
+    <Image Include="Assets\Images\Ingredientes\calamarProcesado.png" />
+    <Image Include="Assets\Images\Ingredientes\cangrejoProcesado.png" />
+    <Image Include="Assets\Images\Ingredientes\gambaProcesada.png" />
+    <Image Include="Assets\Images\Ingredientes\langostaProcesada.png" />
+    <Image Include="Assets\Images\Ingredientes\mejillonProcesado.png" />
+    <Image Include="Assets\Images\Ingredientes\pimientoRojoProcesado.png" />
+    <Image Include="Assets\Images\Ingredientes\pimientoVerdeProcesado.png" />
+    <Image Include="Assets\Images\Ingredientes\polloProcesado.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="json\RAEDME.md" />
@@ -129,5 +211,10 @@
       <UniqueIdentifier>{3d85bc96-12e5-4cc5-bc06-5d96a22d9ee1}</UniqueIdentifier>
       <Extensions>.cpp</Extensions>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Assets\fonts\ARIAL.ttf" />
+    <Font Include="Assets\fonts\Capture_it.ttf" />
+    <Font Include="Assets\fonts\NES-Chimera.ttf" />
   </ItemGroup>
 </Project>

@@ -11,7 +11,7 @@ void Puerta::update()
 {
 	if (SDL_GetTicks() - time >= SPAWN_DELAY) {
 
-		int integrantes = 1 + rand() % maxGrupo;
+		int integrantes = 1 + rand() % MAX_TAM;
 
 		cout << integrantes << endl;
 
@@ -21,10 +21,10 @@ void Puerta::update()
 			Cliente* c = game->getObjectManager()->getPoolClientes()->add();
 			c->cambiaTextura(texturasClientes[0 + rand() % texturasClientes.size()]);
 			c->setPosition(Vector2D<double>(w, getY()));
+
 			v.push_back(c);
 
-			int width = c->getWidth();
-			
+			int width = c->getWidth();		
 			int w = c->getPosition().getX();
 		
 			for (int i = 1; i < integrantes; i++) {
@@ -32,15 +32,21 @@ void Puerta::update()
 
 				c = game->getObjectManager()->getPoolClientes()->add(Vector2D<double>(w, getY()));
 				c->cambiaTextura(texturasClientes[0 + rand() % texturasClientes.size()]);
+
 				v.push_back(c);
 			}
 
 			GrupoClientes* g = game->getObjectManager()->getPoolGrupoClientes()->add();
 			cola->add(g, integrantes);
-			g->setGrupo(cola->getPos(), v);
+			g->initGrupo(cola, v);
 		}
-
 		time = SDL_GetTicks();
 	}
 }
 
+bool Puerta::receiveGrupoClientes(GrupoClientes* gc)
+{
+	game->getObjectManager()->getPoolGrupoClientes()->remove(gc->getIterator());
+
+	return true;
+}

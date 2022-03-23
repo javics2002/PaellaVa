@@ -9,15 +9,14 @@ class Game;
 
 class Puerta : public Mueble
 {
-	const unsigned int maxGrupo = 6;
+	const unsigned int MAX_TAM = 3;
 
 	const double SPAWN_DELAY = 8000;
 	double time;
 
 	Cola* cola;
 
-	vector<string> texturasClientes = { "alcachofa", "calamar", "cangrejo",
-	"gamba", "langosta", "mejillon", "pimientoRojo", "pimientoVerde", "pollo"
+	vector<string> texturasClientes = { "clienteBase"
 	};
 
 public:
@@ -25,6 +24,7 @@ public:
 	~Puerta() = default;
 
 	void update() override;
+	virtual bool receiveGrupoClientes(GrupoClientes* gc);
 };
 
 

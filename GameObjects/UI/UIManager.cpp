@@ -3,108 +3,185 @@
 #include "../../GameObjects/UI/RedactaComandabutton.h"
 #include "../../sdlutils/InputHandler.h"
 #include "../UI/Ingredientebutton.h"
+#include "../UI/Numerobutton.h"
+#include "../UI/Tamanobutton.h"
+#include "DescartaCommandaButton.h"
+#include "EnviaComandaButton.h"
+#include "BorrarButton.h"
+#include "AceptaPaellaButton.h"
+#include "EliminaComandaButton.h"
+#include "../../Data/ListaComandas.h"
 #include <iostream>
+
 using namespace std;
+
 UIManager::UIManager(Game* game)
 {
-	interfaz.push_back(new RedactaComandabutton(game, "redactaboton", 10, 10, 30, 30));
-	gamet = game;
+	this->game = game;
 }
+
 UIManager::~UIManager()
 {
 	for (auto i : interfaz)
 	{
-
 		delete i;
 		i = nullptr;
 	}
-	
 }
-void UIManager::uiEvent(int mx, int my)
+
+void UIManager::uiEvent(int mx, int my, bool& exit)
 {
-	for (auto i : interfaz)
+	for (int i = 0; i < interfaz.size(); ++i)
 	{
-		if (i->OnClick(mx, my))
+		if (interfaz[i]->isActive())
 		{
-			mx = -1;
-			my = -1;
+			if (interfaz[i]->onClick(mx, my, exit))
+			{
+				mx = -1;
+				my = -1;
+			}
 		}
 	}
-	for (auto j: teclado)
+
+	for (auto j : teclado)
 	{
-		if (j->OnClick(mx, my))
+		if (j->isActive())
 		{
-			mx = -1;
-			my = -1;
+			if (j->onClick(mx, my, exit))
+			{
+				mx = -1;
+				my = -1;
+			}
+		}
+	}
+	for (auto j : uicomandas)
+	{
+		if (j->isActive())
+		{
+			if (j->onClick(mx, my, exit))
+			{
+				mx = -1;
+				my = -1;
+			}
+		}
+	}
+
+	if (barra != nullptr)
+	{
+		for (auto c : barra->getlista())
+		{
+
+			if (c->getEliminabutton()->onClick(mx, my, exit))
+			{
+				mx = -1;
+				my = -1;
+			}
+			if (c->onClick(mx, my, exit))
+			{
+				mx = -1;
+				my = -1;
+			}
 		}
 	}
 }
+
+void UIManager::handleInput(bool& exit)
+{
+	if (ih().getMouseButtonState(InputHandler::MOUSE_LEFT))
+	{
+		uiEvent(ih().getmx(), ih().getmy(), exit);
+	}
+}
+
 void UIManager::update()
 {
-/*	SDL_Event event;
-	while (SDL_PollEvent(&event))
-	{
-		if (event.type == SDL_MOUSEBUTTONDOWN && event.button.clicks == 1)
-		{
-			SDL_GetMouseState(&mx, &my);
-
-			uiEvent(mx, my);
-		}
-
-	}*/
-	//muy lento
-	if(ih().getMouseButtonState(ih().LEFT))
-	{
-		cout << "UIM DETECTED CLICK ";
-		uiEvent(ih().Getmx(), ih().Getmy());
-		ih().clearState();
-	}
-	
-}
-//void UIManager::render()
-//{
-//	for (auto i : interfaz)
-//	{
-//		i->render();
-//	}
-//	for (auto i : comandas)
-//	{
-//		i->render();
-//		i->dibujaPedido();
-//	}
-//	for (auto i : teclado)
-//	{
-//		i->render();
-//	}
-//}
-
-void UIManager::render(SDL_Rect* rect=nullptr)
-{
 	for (auto i : interfaz)
 	{
-		i->render(rect);
+		if (i->isActive())
+		{
+			i->update();
+		}
 	}
+}
+
+void UIManager::render(SDL_Rect* rect = nullptr)
+{
+	if (barra != nullptr) {
+		barra->render(rect);
+		barra->renderComandas();
+	}
+
+	for (auto i : interfaz)
+	{
+		if (i->isActive())
+		{
+			i->render(rect);
+		}
+	}
+
 	for (auto i : comandas)
 	{
-		i->render(rect);
-		i->dibujaPedido();
+		if (i->isActive())
+		{
+			i->render(rect);
+			i->dibujaPedido();
+		}
 	}
+
 	for (auto i : teclado)
 	{
-		i->render(rect);
+		if (i->isActive())
+		{
+			i->render(rect);
+		}
+	}
+
+	for (auto i : uicomandas)
+	{
+		if (i->isActive())
+			i->render(rect);
 	}
 }
 
 void UIManager::creaComanda(Game* game)
 {
-	actual = new Comanda(game, 2,this);
+	actual = new Comanda(game, 2, this);
 	comandas.push_back(actual);
+
 	creaTeclado();
+	actual->guardaTeclado();
+	actual->toggleTeclado(false);
+	actual->toggleTecaldotam(false);
+	
+	AceptaPaellaButton* aceptaPaellaButton = new AceptaPaellaButton(game, actual, "acepta", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() + actual->getHeight() / 4, anchobotones, anchobotones);
+	interfaz.push_back(aceptaPaellaButton);
+	actual->guardaBoton(aceptaPaellaButton);
+	DescartaCommandaButton* descartaComandaButton = new DescartaCommandaButton(actual, game, "cancela", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() + actual->getHeight() / 4 - anchobotones, anchobotones, anchobotones);
+	interfaz.push_back(descartaComandaButton);
+	actual->guardaBoton(descartaComandaButton);
+	BorrarButton* borraComandaButton = new BorrarButton(game, actual, "borra", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() + actual->getHeight() / 4 - 2 * anchobotones, anchobotones, anchobotones);
+	interfaz.push_back(borraComandaButton);
+	actual->guardaBoton(borraComandaButton);
+	EnviaComandaButton* enviaComandaButton = new EnviaComandaButton(game, "envia", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() + actual->getHeight() / 4 + anchobotones, anchobotones, anchobotones);
+	interfaz.push_back(enviaComandaButton);
+	actual->guardaBoton(enviaComandaButton);
 }
+
 Comanda* UIManager::getComanda()
 {
 	return actual;
 }
+
+ListaComandas* UIManager::getBarra()
+{
+	return barra;
+}
+
+void UIManager::setBarra(ListaComandas* b)
+{
+	barra = b;
+}
+
 void UIManager::creaTeclado()
 {
 	int margenbotones = 5;
@@ -119,20 +196,45 @@ void UIManager::creaTeclado()
 			ix = actual->getPosition().getX() / 2 + margenbotones + anchobotones / 2;
 			iy += anchobotones + margenbotones;
 		}
-
-
 	}
 	int j = 0;
 	for (auto i : texturasIngredienes)
 	{
 		//Comanda comanda,Game* game, TextureName texturename, int x, int y, int w, int h
-		Ingredientebutton* a = new Ingredientebutton(this, gamet, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), anchobotones, anchobotones);
+		IngredienteButton* a = new IngredienteButton(this, game, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), anchobotones, anchobotones);
 		teclado.push_back(a);
 		//  objectmanager->creaTeclado(a);
 
 		j++;
 	}
+	j = 0;
+	vector <NumeroButton*> tecladonum;
+
+	for (auto i :texturasNumeros)
+	{
+		//Comanda comanda,Game* game, TextureName texturename, int x, int y, int w, int h
+		NumeroButton* a = new NumeroButton(this, game, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), anchobotones, anchobotones);
+		tecladonum.push_back(a);
+		uicomandas.push_back(a);
+		j++;
+	}
+
+	actual->guardaTecladonum(tecladonum);
+
+	j = 0;
+	vector <TamanoButton*> tecladotam;
+	for (auto i : texturasTamanos)
+	{
+		TamanoButton* a = new TamanoButton(this, game, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), anchobotones, anchobotones);
+
+		tecladotam.push_back(a);
+		uicomandas.push_back(a);
+		j++;
+	}
+	actual->guardaTecladotam(tecladotam);
+	
 }
+
 void UIManager::randomizaTeclado()
 {
 	vector<Point2D<double>> posdis = posicionesBotones;
@@ -145,12 +247,18 @@ void UIManager::randomizaTeclado()
 			j = rand() % posdis.size();
 	}
 }
+
+void UIManager::addInterfaz(GameObject* elementoInterfaz)
+{
+	interfaz.push_back(elementoInterfaz);
+}
+
 vector<Point2D<double>> UIManager::getPosTeclado()
 {
 	return posicionesBotones;
 }
+
 void UIManager::setPosTeclado(vector<Point2D<double>> t)
 {
 	posicionesBotones = t;
 }
-

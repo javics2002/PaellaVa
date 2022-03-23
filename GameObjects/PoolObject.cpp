@@ -14,7 +14,7 @@ void PoolObject::activate(list<PoolObject*>::const_iterator iterator)
 	onActivate();
 }
 
-void PoolObject::deactivate()
+void PoolObject::desactivate()
 {
 	active = false;
 

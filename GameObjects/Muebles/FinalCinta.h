@@ -2,6 +2,8 @@
 #include "Mueble.h"
 #include "../Ingrediente.h"
 #include "../../Data/Pool.h"
+#include "../ObjetoPortable.h"
+#include "../Paella.h"
 
 class Game;
 
@@ -12,6 +14,8 @@ public:
 	~FinalCinta() = default;
 
 	void update() override;
+	bool receiveIngrediente(Ingrediente* ingr) override;
+	bool receivePaella(Paella* pa) override;
 };
 
 

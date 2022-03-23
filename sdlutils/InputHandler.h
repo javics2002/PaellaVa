@@ -12,22 +12,16 @@
 // Instead of a Singleton class, we could make it part of
 // SDLUtils as well.
 
-class InputHandler: public Singleton<InputHandler> {
+class InputHandler : public Singleton<InputHandler> {
 
-	friend Singleton<InputHandler> ;
-	
+	friend Singleton<InputHandler>;
+
 	SDL_Joystick* joystick_;
 
-private:
-
-	bool isMouseMotionEvent_;
-	bool isMouseButtonEvent_;
-	bool isKeyboardEvent_;
-	SDL_Scancode keyPressed;
-	bool interactPressed;
+	vector<bool> keyPressed;
+	vector<bool> mousePressed;
 
 	std::pair<Sint32, Sint32> mousePos_;
-	std::array<bool, 3> mbState_;
 	const Uint8* kbState_;
 	const int CONTROLLER_DEAD_ZONE = 8000;
 	float ejeX, ejeY;
@@ -36,72 +30,50 @@ private:
 
 	InputHandler() {
 		kbState_ = SDL_GetKeyboardState(0);
-		clearState();
 		initJoystick();
-		interactPressed = false;
+		keyPressed = vector<bool>(botones::UNKNOWN, false);
+		mousePressed = vector<bool>(botones::UNKNOWN, false);
 	}
 
 	inline void onMouseMotion(const SDL_Event& event) {
-		isMouseMotionEvent_ = true;
 		mousePos_.first = event.motion.x;
 		mousePos_.second = event.motion.y;
-
 	}
 
 	inline void onMouseButtonChange(const SDL_Event& event, bool isDown) {
-		isMouseButtonEvent_ = true;
 		switch (event.button.button) {
 		case SDL_BUTTON_LEFT:
-			mbState_[LEFT] = isDown;
-			cout << "CLICK IH  ";
-			cout << isDown;
+			mousePressed[LEFT] = isDown;
 			SDL_GetMouseState(&mx, &my);
-			/*if (uim != nullptr)
-			{
-				uim->uiEvent(mx, my);
-			}*/
-
-			/*	mx = -1;
-				my = -1;*/
 			break;
 		case SDL_BUTTON_MIDDLE:
-			mbState_[MIDDLE] = isDown;
+			mousePressed[MOUSE_MIDDLE] = isDown;
 			break;
 		case SDL_BUTTON_RIGHT:
-			mbState_[RIGHT] = isDown;
+			mousePressed[MOUSE_RIGHT] = isDown;
 			break;
 		default:
 			break;
 		}
-		//clearState();
 	}
 
 public:
-	enum MOUSEBUTTON : uint8_t {
-		LEFT = 0, MIDDLE = 1, RIGHT = 2
-	};
+	enum MOUSEBUTTON : uint8_t { MOUSE_LEFT, MOUSE_MIDDLE, MOUSE_RIGHT };
+
+	//Unknown debe ser el último botón para marcar el número de botones
+	enum botones { LEFT, RIGHT, UP, DOWN, INTERACT, CANCEL, UNKNOWN };
 
 	virtual ~InputHandler() {
 	}
 
-	// clear the state
-	inline void clearState() {
-		isMouseButtonEvent_ = false;
-		isMouseMotionEvent_ = false;
-		isKeyboardEvent_ = false;
-		keyPressed = SDL_SCANCODE_UNKNOWN;
-
-		for (auto i = 0u; i < 3; i++) {
-			mbState_[i] = false;
-		}
-	}
-
 	// update the state with a new event
-	inline void update(const SDL_Event& event) {
-		
+	inline void update(const SDL_Event& event, bool& exit) {
 		switch (event.type) {
 		case SDL_KEYDOWN:
-		 	onKeyboardPressed(event.key.keysym.scancode);
+			onKeyboardDown(event.key.keysym.scancode);
+			break;
+		case SDL_KEYUP:
+			onKeyboardUp(event.key.keysym.scancode);
 			break;
 		case SDL_MOUSEMOTION:
 			onMouseMotion(event);
@@ -115,13 +87,10 @@ public:
 		case SDL_JOYAXISMOTION:
 			onJoystickMotion(event);
 			break;
-		case SDL_KEYUP:
-			if (event.key.keysym.scancode == SDL_SCANCODE_E)
-				interactPressed = false;
-			onKeyboardPressed(event.key.keysym.scancode);
+		case SDL_QUIT:
+			exit = true;
 			break;
 		default:
-			onKeyboardPressed(SDL_SCANCODE_UNKNOWN);
 			break;
 		}
 	}
@@ -144,15 +113,6 @@ public:
 		}
 	}
 
-	// refresh
-	inline void refresh() {
-		SDL_Event event;
-
-		clearState();
-		while (SDL_PollEvent(&event))
-			update(event);
-	}
-
 	inline int getAxisX()
 	{
 		return ejeX;
@@ -163,29 +123,98 @@ public:
 		return ejeY;
 	}
 
-	//Refactorizar para que con el KeyUp cambie los valores en vez de con la ausencia de esos KeyDowns 
-	//para que no necesite GetKey() y cree un array cada vez
-	inline void onKeyboardPressed(SDL_Scancode key) {
-		if (GetKey(SDL_SCANCODE_A))
-			ejeX = -1; // valor entre -1 y 1
-		else if (GetKey(SDL_SCANCODE_D))
-			ejeX = 1;
-		else
-			ejeX = 0;
+	inline void onKeyboardDown(SDL_Scancode key) {
+		switch (key) {
+		case SDL_SCANCODE_A:
+		case SDL_SCANCODE_LEFT:
+			keyJustDown(botones::LEFT);
+			break;
+		case SDL_SCANCODE_D:
+		case SDL_SCANCODE_RIGHT:
+			keyJustDown(botones::RIGHT);
+			break;
+		case SDL_SCANCODE_W:
+		case SDL_SCANCODE_UP:
+			keyJustDown(botones::UP);
+			break;
+		case SDL_SCANCODE_S:
+		case SDL_SCANCODE_DOWN:
+			keyJustDown(botones::DOWN);
+			break;
+		case SDL_SCANCODE_E:
+		case SDL_SCANCODE_SPACE:
+		case SDL_SCANCODE_EXECUTE:
+			keyJustDown(botones::INTERACT);
+			break;
+		case SDL_SCANCODE_ESCAPE:
+			keyJustDown(botones::CANCEL);
+			break;
+		default:
+			break;
+		}
+	}
 
-		if (GetKey(SDL_SCANCODE_W))
-			ejeY = -1; // valor entre -1 y 1
-		else if (GetKey(SDL_SCANCODE_S))
-			ejeY = 1;
-		else
-			ejeY = 0;
+	//Se encarga de revisar de que una tecla se acaba de pulsar y actualiza el estado en ese caso
+	inline void keyJustDown(botones boton) {
+		if (!keyPressed[boton]) {
+			//KeyDown!
+			keyPressed[boton] = true;
 
-		if (GetKey(SDL_SCANCODE_E) && !interactPressed)
-		{
-			interactPressed = true;
+			switch (boton) {
+			case botones::LEFT:
+				ejeX = -1; // valor entre -1 y 1
+				break;
+			case botones::RIGHT:
+				ejeX = 1;
+				break;
+			case botones::UP:
+				ejeY = -1; // valor entre -1 y 1
+				break;
+			case botones::DOWN:
+				ejeY = 1;
+				break;
+			case botones::INTERACT:
+				break;
+			case botones::CANCEL:
+				break;
+			default:
+				break;
+			}
+		}
+	}
 
-			keyPressed = SDL_SCANCODE_E;
-			isKeyboardEvent_ = true; // Intentar recoger objeto
+	inline void onKeyboardUp(SDL_Scancode key) {
+		switch (key) {
+		case SDL_SCANCODE_A:
+		case SDL_SCANCODE_LEFT:
+			keyPressed[botones::LEFT] = false;
+			ejeX = keyPressed[botones::RIGHT] ? 1 : 0;
+			break;
+		case SDL_SCANCODE_D:
+		case SDL_SCANCODE_RIGHT:
+			keyPressed[botones::RIGHT] = false;
+			ejeX = keyPressed[botones::LEFT] ? -1 : 0;
+			break;
+		case SDL_SCANCODE_W:
+		case SDL_SCANCODE_UP:
+			keyPressed[botones::UP] = false;
+			ejeY = keyPressed[botones::DOWN] ? 1 : 0;
+			break;
+		case SDL_SCANCODE_S:
+		case SDL_SCANCODE_DOWN:
+			keyPressed[botones::DOWN] = false;
+			ejeY = keyPressed[botones::UP] ? -1 : 0;
+			break;
+		case SDL_SCANCODE_E:
+		case SDL_SCANCODE_SPACE:
+		case SDL_SCANCODE_EXECUTE:
+			keyPressed[botones::INTERACT] = false;
+			break;
+		case SDL_SCANCODE_ESCAPE:
+			keyPressed[botones::CANCEL] = false;
+			break;
+		default:
+			break;
 		}
 	}
 
@@ -220,49 +249,32 @@ public:
 		return axis;
 	}
 
-	// mouse
-	inline bool mouseMotionEvent() {
-		return isMouseMotionEvent_;
-		
-	}
-
-	inline bool mouseButtonEvent() {
-		
-		return isMouseButtonEvent_;
-
-	}
-
 	inline const std::pair<Sint32, Sint32>& getMousePos() {
 		return mousePos_;
 	}
 
 	inline int getMouseButtonState(MOUSEBUTTON b) {
-		return mbState_[b];
+		if (mousePressed[b]) {
+			mousePressed[b] = false;
+			return true;
+		}
+		else return false;
 	}
 
-	inline bool isKeyboardEvent() {
-		return isKeyboardEvent_;
-	}
-
-	inline SDL_Scancode getKeyPressed() {
-		return keyPressed;
-	}
-
-	/// prueba
-
-	bool GetKey(Uint8 key)
+	bool getKey(Uint8 key)
 	{
 		return SDL_GetKeyboardState(NULL)[key];
 	}
 
+	bool getKey(botones boton)
+	{
+		return keyPressed[boton];
+	}
+
 	// TODO add support for Joystick, see Chapter 4 of
 	// the book 'SDL Game Development'
-	int Getmx() { return mx; };
-	int Getmy() { return my; };
-
-
-
-	
+	int getmx() { return mx; };
+	int getmy() { return my; };
 };
 
 // This macro defines a compact way for using the singleton InputHandler, instead of

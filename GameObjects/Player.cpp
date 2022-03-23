@@ -1,31 +1,32 @@
 #include "Player.h"
+
 #include "../Control/Input.h"
-#include "../Control/Game.h"
 #include "../sdlutils/InputHandler.h"
+#include "../Control/Game.h"
 #include "../Control/ObjectManager.h"
+
 #include "Ingrediente.h"
-#include "Cliente.h"
+#include "Muebles/Mueble.h"
+
 #include "../Utils/Traza.h"
 
 
-Player::Player(Game* game) : GameObject(game)
+Player::Player(Game* game) : GameObject(game), objectType_(INGREDIENTE), pickedObject_(nullptr),
+	overlapPos(Vector2D<double>(getX() - overlapPos.getX() / 2, getY() - getHeight() / 2 - overlapDim.getY())), overlapDim(Vector2D<int>(50, 50))
 {
 
-	//posicion_ = posicion;
 	setPosition(100, 100);
 	setDimension(64, 64);
 
-	objetoCargado_ = nullptr;
 
 	aceleracion = 1.2;
 	deceleracion = 0.8;
 	maxVel = 7;
 
-	myIng = nullptr;
-
-	//TRACE_F(__FILE__ , __LINE__,   maxVel);
 	
 	setTexture("player");
+
+	lastTime_ = SDL_GetTicks();
 }
 
 Player::~Player()
@@ -36,101 +37,381 @@ void Player::handleInput()
 {
 	vel = (vel + ih().getAxis() * aceleracion);
 
-
-	// esto es un test
-	if (vel.getX() != 0 && ih().getAxis().getX() == 0) { // aplicar rozamiento
-		if (vel.getX() < 0) {
-			vel.setX(vel.getX() + deceleracion);
-			if (std::round(vel.getX()) == 0) vel.setX(0);
-		}
-		else {
-			vel.setX(vel.getX() - deceleracion);
-			if (std::round(vel.getX()) == 0) vel.setX(0);
-		}
-
-		
-	}
-	if (vel.getY() != 0 && ih().getAxisY() == 0) { // aplicar rozamiento
+	//Altura
+	if (vel.getY() != 0 && ih().getAxisY() == 0) { 
+		//Arriba
 		if (vel.getY() < 0) {
+			
 			vel.setY(vel.getY() + deceleracion);
 			if (std::round(vel.getY()) == 0) vel.setY(0);
 		}
+		//Abajo
 		else {
+			
 			vel.setY(vel.getY() - deceleracion);
 			if (std::round(vel.getY()) == 0) vel.setY(0);
 		}
 	}
-	vel.clamp(-maxVel, maxVel);
-
-	if (ih().isKeyboardEvent() && ih().getKeyPressed() == SDL_SCANCODE_E)
-	{
-		if (myIng == nullptr && myClient == nullptr)
-		{
-			cout << "E pressed" << endl;
-
-			vector<Collider*> ingredientes = game->getObjectManager()->getIngredientes(this->getCollider());
-			cout << "Ingredientes colisionando " << ingredientes.size() << endl;
-			TRACE(ingredientes.size());
-			for (auto it : ingredientes)
-			{
-				if (myIng == nullptr)
-				{
-					myIng = dynamic_cast<Ingrediente*>(it);
-					myIng->ingredienteRecogido();
-				}
-			}
-
-			if (!myIng)
-			{
-				vector<Collider*> clientes = game->getObjectManager()->getClientes(this->getCollider());
-				cout << "Clientes colisionando " << clientes.size() << endl;
-				TRACE(clientes.size());
-				for (auto it : clientes)
-				{
-					if (myClient == nullptr)
-					{
-						myClient = dynamic_cast<Cliente*>(it);
-						myClient->clienteRecogido();
-					}
-				}
-			}
-
+	//Lados
+	if (vel.getX() != 0 && ih().getAxis().getX() == 0) {
+		//Izquierda
+		if (vel.getX() < 0) {			
 			
+			vel.setX(vel.getX() + deceleracion);
+			if (std::round(vel.getX()) == 0) vel.setX(0);
 		}
-		else if (myIng != nullptr)
-		{
-			myIng = nullptr;
-		}
-		else if (myClient != nullptr)
-		{
-			myClient = nullptr;
+		//Derecha
+		else {
+			
+			vel.setX(vel.getX() - deceleracion);
+			if (std::round(vel.getX()) == 0) vel.setX(0);
 		}
 	}
+	vel.clamp(-maxVel, maxVel);
+	
+
+
+	if (ih().getKey(InputHandler::INTERACT) && SDL_GetTicks() - lastTime_ > 500) {
+		//Este lastTime_ peruano se quitará en un futuro
+		lastTime_ = SDL_GetTicks();
+
+		//Si el jugador no lleva nada encima
+		if (pickedObject_ == nullptr) {
+
+			//Se prioriza la interacci�n con los muebles por encima de otros objetos
+			//Se prioriza el mueble m�s cercano al jugador
+			Mueble* m = nullptr;
+			for (auto i : game->getObjectManager()->getMueblesCollider(getOverlapCollider())) {
+				m = nearestObject(m, dynamic_cast<Mueble*>(i));
+			}
+			
+			//Si se ha encontrado un mueble, se intenta interactuar con 
+			//este con returnObject(), para que te devuelva el objeto
+			if (m != nullptr && m->returnObject(this)) 
+			{
+				assert(pickedObject_ != nullptr);
+				pickedObject_->pickObject();
+			}
+
+			//En caso contrario se recorre el resto de objetos del juego para ver si el jugador puede cogerlos
+			//Una vez m�s se prioriza el objeto m�s cercano
+			else
+			{
+				//Ingredientes
+				for (auto i : game->getObjectManager()->getPoolIngredientes()->getCollisions(getOverlapCollider())) {
+					ObjetoPortable* op = dynamic_cast<ObjetoPortable*>(i);
+					if (op->canPick() && nearestObject(op))
+						objectType_ = INGREDIENTE;
+				}
+
+				//Grupo de Clientes
+				for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getCollisions(getOverlapCollider())) {
+					ObjetoPortable* op = dynamic_cast<ObjetoPortable*>(i);
+					if (op->canPick() && nearestObject(op))
+						objectType_ = CLIENTES;
+				}
+
+				//Paellas
+				for (auto i : game->getObjectManager()->getPaellasCollider(getOverlapCollider())) {
+					ObjetoPortable* op = dynamic_cast<ObjetoPortable*>(i);
+					if (op->canPick() && nearestObject(op))
+						objectType_ = PAELLA;
+				}
+
+				//Una vez encontrado el m�s cercano, se interact�a con �l
+				if (pickedObject_ != nullptr) {
+					pickedObject_->pickObject();
+				}
+			}			
+		}
+		//Si el jugador lleva algo encima
+		else {
+
+			//Se busca el mueble m�s cercano de nuevo
+			Mueble* m = nullptr;
+			for (auto i : game->getObjectManager()->getMueblesCollider(getOverlapCollider())) {
+				m = nearestObject(m, dynamic_cast<Mueble*>(i));
+			}
+
+			//Dependiendo de lo que lleve el jugador encima, la interacci�n con el mueble ser� distinta
+			switch (objectType_)
+			{
+			case INGREDIENTE:
+				if (m != nullptr && m->receiveIngrediente(dynamic_cast<Ingrediente*>(pickedObject_))) {
+					pickedObject_->dropObject();
+					pickedObject_ = nullptr;
+				}
+				break;
+			case CLIENTES:
+				if (m != nullptr && m->receiveGrupoClientes(dynamic_cast<GrupoClientes*>(pickedObject_))) {
+					pickedObject_->dropObject();
+					pickedObject_ = nullptr;
+				}
+				else {
+					for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getCollisions(getOverlapCollider())) {
+						if (i == pickedObject_) {
+							pickedObject_->setPicked(false);
+							pickedObject_ = nullptr;
+							return;
+						}
+					}
+				}			
+				break;
+			case PAELLA:
+				if (m != nullptr && m->receivePaella(dynamic_cast<Paella*>(pickedObject_))) {
+					pickedObject_->dropObject();
+					pickedObject_ = nullptr;
+				}
+				break;
+			default:
+				break;
+			}
+		}
+	}
+}
+
+void Player::handleInput(Vector2D<double> axis)
+{
+	vel = (vel + axis * aceleracion);
+
+	//Altura
+	if (vel.getY() != 0 && axis.getY() == 0) {
+		//Arriba
+		if (vel.getY() < 0) {
+
+			vel.setY(vel.getY() + deceleracion);
+			if (std::round(vel.getY()) == 0) vel.setY(0);
+		}
+		//Abajo
+		else {
+
+			vel.setY(vel.getY() - deceleracion);
+			if (std::round(vel.getY()) == 0) vel.setY(0);
+		}
+	}
+	//Lados
+	if (vel.getX() != 0 && axis.getX() == 0) {
+		//Izquierda
+		if (vel.getX() < 0) {
+
+			vel.setX(vel.getX() + deceleracion);
+			if (std::round(vel.getX()) == 0) vel.setX(0);
+		}
+		//Derecha
+		else {
+
+			vel.setX(vel.getX() - deceleracion);
+			if (std::round(vel.getX()) == 0) vel.setX(0);
+		}
+	}
+	vel.clamp(-maxVel, maxVel);
+
+
+
+	//if (ih().isKeyboardEvent() && ih().getKey(InputHandler::INTERACT) && SDL_GetTicks() - lastTime_ > 500) {
+	//	//Este lastTime_ peruano se quitará en un futuro
+	//	lastTime_ = SDL_GetTicks();
+
+	//	//Si el jugador no lleva nada encima
+	//	if (pickedObject_ == nullptr) {
+
+	//		//Se prioriza la interacci�n con los muebles por encima de otros objetos
+	//		//Se prioriza el mueble m�s cercano al jugador
+	//		Mueble* m = nullptr;
+	//		for (auto i : game->getObjectManager()->getMueblesCollider(getOverlapCollider())) {
+	//			m = nearestObject(m, dynamic_cast<Mueble*>(i));
+	//		}
+
+	//		//Si se ha encontrado un mueble, se intenta interactuar con 
+	//		//este con returnObject(), para que te devuelva el objeto
+	//		if (m != nullptr && m->returnObject(this))
+	//		{
+	//			assert(pickedObject_ != nullptr);
+	//			pickedObject_->pickObject();
+	//		}
+
+	//		//En caso contrario se recorre el resto de objetos del juego para ver si el jugador puede cogerlos
+	//		//Una vez m�s se prioriza el objeto m�s cercano
+	//		else
+	//		{
+	//			//Ingredientes
+	//			for (auto i : game->getObjectManager()->getPoolIngredientes()->getCollisions(getOverlapCollider())) {
+	//				ObjetoPortable* op = dynamic_cast<ObjetoPortable*>(i);
+	//				if (op->canPick() && nearestObject(op))
+	//					objectType_ = INGREDIENTE;
+	//			}
+
+	//			//Grupo de Clientes
+	//			for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getCollisions(getOverlapCollider())) {
+	//				ObjetoPortable* op = dynamic_cast<ObjetoPortable*>(i);
+	//				if (op->canPick() && nearestObject(op))
+	//					objectType_ = CLIENTES;
+	//			}
+
+	//			//Paellas
+	//			for (auto i : game->getObjectManager()->getPaellasCollider(getOverlapCollider())) {
+	//				ObjetoPortable* op = dynamic_cast<ObjetoPortable*>(i);
+	//				if (op->canPick() && nearestObject(op))
+	//					objectType_ = PAELLA;
+	//			}
+
+	//			//Una vez encontrado el m�s cercano, se interact�a con �l
+	//			if (pickedObject_ != nullptr) {
+	//				pickedObject_->pickObject();
+	//			}
+	//		}
+	//	}
+	//	//Si el jugador lleva algo encima
+	//	else {
+
+	//		//Se busca el mueble m�s cercano de nuevo
+	//		Mueble* m = nullptr;
+	//		for (auto i : game->getObjectManager()->getMueblesCollider(getOverlapCollider())) {
+	//			m = nearestObject(m, dynamic_cast<Mueble*>(i));
+	//		}
+
+	//		//Dependiendo de lo que lleve el jugador encima, la interacci�n con el mueble ser� distinta
+	//		switch (objectType_)
+	//		{
+	//		case INGREDIENTE:
+	//			if (m != nullptr && m->receiveIngrediente(dynamic_cast<Ingrediente*>(pickedObject_))) {
+	//				pickedObject_->dropObject();
+	//				pickedObject_ = nullptr;
+	//			}
+	//			break;
+	//		case CLIENTES:
+	//			if (m != nullptr && m->receiveGrupoClientes(dynamic_cast<GrupoClientes*>(pickedObject_))) {
+	//				pickedObject_->dropObject();
+	//				pickedObject_ = nullptr;
+	//			}
+	//			else {
+	//				for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getCollisions(getOverlapCollider())) {
+	//					if (i == pickedObject_) {
+	//						pickedObject_->setPicked(false);
+	//						pickedObject_ = nullptr;
+	//						return;
+	//					}
+	//				}
+	//			}
+	//			break;
+	//		case PAELLA:
+	//			if (m != nullptr && m->receivePaella(dynamic_cast<Paella*>(pickedObject_))) {
+	//				pickedObject_->dropObject();
+	//				pickedObject_ = nullptr;
+	//			}
+	//			break;
+	//		default:
+	//			break;
+	//		}
+	//	}
+	//}
+}
+
+bool Player::nearestObject(ObjetoPortable* go)
+{
+	if (pickedObject_ == nullptr) {
+		pickedObject_ = go;
+		return true;
+	}	
+	else
+	{
+		Vector2D<double> pos = getPosition();
+		if ((pos - go->getPosition()).magnitude() < (pos - pickedObject_->getPosition()).magnitude()) {
+			pickedObject_ = go;
+			return true;
+		}
+		else return false;
+	}
+}
+
+Mueble* Player::nearestObject(Mueble* m1, Mueble* m2)
+{
+	if (m1 == nullptr)
+		return m2;
+	else
+	{
+		Vector2D<double> pos = getPosition();
+		if ((pos - m1->getPosition()).magnitude() < (pos - m2->getPosition()).magnitude()) {
+			return m1;
+		}
+		else return m2;
+	}
+}
+
+void Player::animUpdate()
+{
 
 }
+
+void Player::setAnimResources()
+{
+
+}
+
+
 
 void Player::update()
 {
-	//cout << ih().getAxisX() << " " << ih().getAxisY() << endl;
 	pos = pos + vel;
-	
-	if (myIng != nullptr)
-	{
-		moverObjeto(myIng);
+
+	if (pickedObject_ != nullptr) {
+		if (pickedObject_->isPicked())
+			pickedObject_->setPosition(getX(), getY() - getHeight() / 2);
+		else
+			pickedObject_ = nullptr;
 	}
 
-	if (myClient != nullptr)
+	if (ih().getAxisY() == 1) 
+		orientation_ = S;		
+	else if (ih().getAxisY() == -1)
+		orientation_ = N;		
+
+	if (ih().getAxisX() == 1)
+		orientation_ = E;		
+	else if (ih().getAxisX() == -1) 
+		orientation_ = O;
+
+
+	switch (orientation_)
 	{
-		moverObjeto(myClient);
+	case E:
+		overlapPos = Vector2D<double>(getX() + getWidth() / 2,
+			getY() - overlapDim.getY() / 2);
+		break;
+	case O:
+		overlapPos = Vector2D<double>(getX() - getWidth() / 2 - overlapDim.getX(),
+			getY() - overlapDim.getY() / 2);
+		break;
+	case S:
+		overlapPos = Vector2D<double>(getX() - overlapDim.getX() / 2,
+			getY() + getHeight() / 2);		
+		break;
+	case N:
+		overlapPos = Vector2D<double>(getX() - overlapDim.getX() / 2,
+			getY() - getHeight() / 2 - overlapDim.getY());
+		break;		
+	default:
+		break;
 	}
 }
 
-void Player::moverObjeto(GameObject* objeto)
+SDL_Rect Player::getOverlapCollider()
 {
-	Vector2D<double> objPos = pos;
+	return { int(overlapPos.getX()),
+		 int(overlapPos.getY()),
+		  (overlapDim.getX()),
+		  (overlapDim.getY()) };
+}
 
-	objPos.setY(objPos.getY() - this->getHeight() / 2);
+void Player::renderDebug(SDL_Rect* cameraRect)
+{
+	drawDebug(cameraRect);
+	drawDebug(cameraRect, getOverlapCollider());
+}
 
-	objeto->setPosition(objPos);
+void Player::setPickedObject(ObjetoPortable* op, objectType ot)
+{
+	pickedObject_ = op;
+	objectType_ = ot;
 }
 
