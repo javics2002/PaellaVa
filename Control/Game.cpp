@@ -71,7 +71,7 @@ void Game::changeScene(Scene* scene) {
 
 void Game::handleInput(SDL_Event& event, bool& exit) {
 	while (SDL_PollEvent(&event))
-		ih().update(event);
+		ih().update(event, exit);
 
 	currentScene->handleInput(exit);
 }

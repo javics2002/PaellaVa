@@ -67,7 +67,7 @@ public:
 	}
 
 	// update the state with a new event
-	inline void update(const SDL_Event& event) {
+	inline void update(const SDL_Event& event, bool& exit) {
 		switch (event.type) {
 		case SDL_KEYDOWN:
 			onKeyboardDown(event.key.keysym.scancode);
@@ -86,6 +86,9 @@ public:
 			break;
 		case SDL_JOYAXISMOTION:
 			onJoystickMotion(event);
+			break;
+		case SDL_QUIT:
+			exit = true;
 			break;
 		default:
 			break;
@@ -108,14 +111,6 @@ public:
 				printf("Warning: Unable to open game controller! SDL Error: %s\n", SDL_GetError());
 			}
 		}
-	}
-
-	// refresh
-	inline void refresh() {
-		SDL_Event event;
-
-		while (SDL_PollEvent(&event))
-			update(event);
 	}
 
 	inline int getAxisX()
