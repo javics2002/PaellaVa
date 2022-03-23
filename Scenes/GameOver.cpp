@@ -54,7 +54,7 @@ GameOver::GameOver(Game* game, int puntuacion) : Scene(game)
 	auto continueButton = new UiButton(game, "Volver", "paella", { 255, 0, 0, 255 }, { 0, 0, 0, 0 },
 		sdlutils().width() / 2 + 300, sdlutils().height() / 2 + 200);
 	continueButton->setAction([](Game* game, bool& exit) {
-		//game->getNetworkManager()->close();
+		game->getNetworkManager()->close();
 		game->changeScene(new Menu(game));
 		});
 	uiManager->addInterfaz(continueButton);

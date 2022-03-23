@@ -64,6 +64,8 @@ private:
 	int id_count;
 	Game* game_;
 
+	bool exitThread;
+
 	Player* players[MAX_PLAYERS];
 
 	TCPsocket player_sockets[MAX_PLAYERS];

@@ -11,7 +11,7 @@
 // Problemas que da: ---
 void NetworkManager::acceptPlayers()
 {
-	while (true) {
+	while (!exitThread) {
 		TCPsocket csd;
 		if ((csd = SDLNet_TCP_Accept(socket)))
 		{
@@ -59,7 +59,7 @@ void NetworkManager::acceptPlayers()
 // Problemas que da: ---
 void NetworkManager::receivePlayers()
 {
-	while (true) {
+	while (!exitThread) {
 		PacketRecv packet;
 
 		for (int i = 1; i < id_count; i++) { // Comenzamos en uno porque el 0 somos nosotros mismos
@@ -89,7 +89,7 @@ void NetworkManager::receivePlayers()
 // Problemas que da: ---
 void NetworkManager::sendPlayers()
 {
-	while (true) {
+	while (!exitThread) {
 		// UPDATE CLIENTS
 		Player* p;
 		PacketSend packet;
@@ -123,7 +123,7 @@ void NetworkManager::sendPlayers()
 // Problemas que da: ---
 void NetworkManager::updateClient()
 {
-	while (true) {
+	while (!exitThread) {
 		PacketSend server_pkt;
 		
 		// Receive info from server
@@ -187,6 +187,8 @@ bool NetworkManager::compareAddress(const IPaddress& addr1, const IPaddress& add
 
 NetworkManager::NetworkManager(Game* game)
 {
+	exitThread = false;
+
 	nType = '0';
 	id_count = 0;
 
@@ -304,21 +306,31 @@ void NetworkManager::close()
 
 	PacketSend pkt;
 	pkt.packet_type = EPT_QUIT;
-	// pkt.player_id = player->GetId();
+	pkt.player_id = player->getId();
 
-	if (SDLNet_TCP_Send(socket, (void*)&pkt, sizeof(PacketSend)) < sizeof(PacketSend))
+	if (SDLNet_TCP_Send(socket, &pkt, sizeof(PacketSend)) < sizeof(PacketSend))
 	{
-		fprintf(stderr, "SDLNet_TCP_Send: %s\n", SDLNet_GetError());
+		std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 		exit(EXIT_FAILURE);
 	}
 
+	exitThread = true;
+
 	if (nType == 'h') {
+		accept_t->join();
+		receiveplayers_t->join();
+		sendplayers_t->join();
+
 		delete accept_t;
 		delete receiveplayers_t;
 		delete sendplayers_t;
 	}
-
-	delete updateclient_t;
+	else {
+		updateclient_t->join();
+		delete updateclient_t;
+	}
+	
+	SDLNet_TCP_Close(socket);
 }
 
 Player* NetworkManager::addPlayerHost()
