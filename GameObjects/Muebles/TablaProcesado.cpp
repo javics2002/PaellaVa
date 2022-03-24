@@ -1,5 +1,5 @@
 #include "TablaProcesado.h"
-#include "../../Control/Game.h"
+#include "../../GameObjects/Player.h"
 
 TablaProcesado::TablaProcesado(Game* game_, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, "tablaProcesado")
 {

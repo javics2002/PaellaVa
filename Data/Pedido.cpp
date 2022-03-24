@@ -3,6 +3,7 @@ Pedido::Pedido(int numComensales, int numeroTiles)
 {
 	comensales = numComensales;
 	tilesMesa = numeroTiles;
+
 	ingredientesPedidos = vector<bool>(tipoIngrediente::LAST, false);
 	TipoPaella tamano;
 	int suma_tamanos = 0;

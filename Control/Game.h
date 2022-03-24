@@ -7,10 +7,6 @@
 #include <vector>
 #include <cmath>
 
-#include "../GameObjects/Player.h"
-
-#include "../Utils/Texture.h"
-
 class Restaurante;
 class ObjectManager;
 class Scene;
@@ -24,7 +20,6 @@ class Game {
     Scene* currentScene;
 
     NetworkManager* nm;
-
 
 public:
     Game();

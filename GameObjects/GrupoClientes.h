@@ -10,7 +10,7 @@
 class Cola;
 class Game;
 
-enum estado { CAMINANDO, ENCOLA, SENTADO, CUENTA };
+enum EstadoClientes { CAMINANDO, ENCOLA, SENTADO, CUENTA };
 
 class GrupoClientes : public PoolObject
 {
@@ -30,7 +30,7 @@ class GrupoClientes : public PoolObject
 
 	Texture* texTolerancia;
 
-	estado estado_;
+	EstadoClientes estado_;
 
 	int mitadGrupo();
 
@@ -49,8 +49,8 @@ public:
 	bool collide(SDL_Rect rect) override;
 	bool colisionClientes() override;
 
-	void setState(estado est);
-	estado getState();
+	void setState(EstadoClientes est);
+	EstadoClientes getState();
 
 	int numIntegrantes();
 	vector<Cliente*> getIntegrantes();
