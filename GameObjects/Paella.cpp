@@ -40,7 +40,7 @@ void Paella::eliminarIngr()
 	}	
 }
 
-void Paella::setState(Estado estado_)
+void Paella::setState(EstadoPaellas estado_)
 {
 	estado = estado_;
 	tiempo = sdlutils().currRealTime();
@@ -124,7 +124,7 @@ bool Paella::ingrValido(Ingrediente* ingr)
 	return ingredientes.size() < MAX_INGR && estado == Cruda && !ingrEnPaella[ingr->getTipo()];
 }
 
-Estado Paella::getState()
+EstadoPaellas Paella::getState()
 {
 	return estado;
 }

@@ -5,7 +5,7 @@
 #include <list>
 
 
-enum Estado { Preparacion, Coccion, Preparada };
+enum EstadoPaellas { Preparacion, Coccion, Preparada };
 enum Resultado { Cruda, PocoHecha, Perfecta, MuyHecha, Quemada, Incomestible };
 enum Contenido { Limpia, Entera, Mitad, Sucia };
 enum TipoPaella { Minima, Mediana, Grande };
@@ -25,7 +25,7 @@ public:
 	void anadeIngr(Ingrediente* ingr_);
 	void eliminarIngr();
 
-	void setState(Estado estado_);
+	void setState(EstadoPaellas estado_);
 	void paellaRecogida();
 	void update() override;
 	void setLavado(Contenido contenidoPaella,string texturaPaella);
@@ -37,7 +37,7 @@ public:
 
 	bool canPick() override;
 
-	Estado getState();
+	EstadoPaellas getState();
 	TipoPaella getTipo();
 	Contenido getContenido();
 
@@ -46,7 +46,7 @@ private:
 	double tiempoCoccion = 0.0, tiempo = 0.0;
 	int sumaIntervalo = 0, i = 0;
 
-	Estado estado = Preparacion;
+	EstadoPaellas estado = Preparacion;
 	Resultado estadoFinal = Cruda;
 	Contenido contenido = Limpia;
 

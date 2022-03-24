@@ -127,13 +127,13 @@ void GrupoClientes::bajaTolerancia()
 	}
 }
 
-void GrupoClientes::setState(estado est)
+void GrupoClientes::setState(EstadoClientes est)
 {
 	estado_ = est;
 	lastTime = SDL_GetTicks();
 }
 
-estado GrupoClientes::getState()
+EstadoClientes GrupoClientes::getState()
 {
 	return estado_;
 }

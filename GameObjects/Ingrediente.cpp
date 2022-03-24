@@ -19,7 +19,8 @@ pair<bool, std::list<PoolObject*>::const_iterator> Ingrediente::ingredientCollid
 
 void Ingrediente::onActivate()
 {
-	int n = rand() % (tipoIngrediente::LAST);
+	int n = rand() % (tipoIngrediente::LAST - 1) + 1; // Se le resta uno a LAST porque el arroz no debe salir en la
+													  // cinta (siendo arroz = 0).
 
 	vel = { 0, 1.3 };
 	

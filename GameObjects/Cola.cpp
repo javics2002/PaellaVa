@@ -26,6 +26,6 @@ list<GrupoClientes*>::const_iterator Cola::getPos()
 void Cola::colaAvanza()
 {
     for (auto it : cola)
-        it->setState(estado::CAMINANDO);
+        it->setState(EstadoClientes::CAMINANDO);
 }
 
