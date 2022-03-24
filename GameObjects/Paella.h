@@ -37,9 +37,13 @@ public:
 
 	bool canPick() override;
 
+	list<tipoIngrediente> getVIngredientes();
+	vector<bool> getIngrPaella();
+
 	Estado getState();
 	TipoPaella getTipo();
 	Contenido getContenido();
+	Resultado getResultado();
 
 private:
 	const int MAX_INGR = 3;

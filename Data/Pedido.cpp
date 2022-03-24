@@ -70,3 +70,83 @@ vector<pedidoPaella> Pedido::getPedido()
 {
 	return paellas;
 }
+
+void Pedido::puntuarPedido(vector<Paella*> comanda, Pedido* pedido)
+{
+	penalizacionTamano valorarT;
+	penalizacionIngredientes valorarI;
+	penalizacionCoccion valorarC;
+	
+	for (int i = 0; i < pedido->getPedido().size(); i++) {
+
+		//Variar puntuacion en funcion de la diferencia de tamaños
+
+		int tamanoPaella1 = int(pedido->getPedido()[i].tamanoPaella +1);
+		int tamanoPaella2 = int(comanda[i]->getTipo() + 1);
+		int diferencia = tamanoPaella1 - tamanoPaella2;
+		switch (diferencia) {
+		case 2:
+			variarPuntuacion(valorarT.pequenaDos);
+			break;
+		case 1:
+			variarPuntuacion(valorarT.pequenaUno);
+			break;
+		case -2:
+			variarPuntuacion(valorarT.grandeDos);
+			break;
+		case -1:
+			variarPuntuacion(valorarT.grandeUno);
+			break;
+		default:
+			break;
+		}
+
+		//Variar puntuacion en funcion de la coccion de la paella.
+
+		switch (comanda[i]->getResultado()) {
+		case Cruda:
+			variarPuntuacion(valorarC.cruda);
+			break;
+		case PocoHecha:
+			variarPuntuacion(valorarC.pocoHecha);
+			break;
+		case Perfecta:
+			variarPuntuacion(valorarC.perfecta);
+			break;
+		case MuyHecha:
+			variarPuntuacion(valorarC.muyHecha);
+			break;
+		case Quemada:
+			variarPuntuacion(valorarC.quemada);
+			break;
+		case Incomestible:
+			variarPuntuacion(valorarC.incomestible);
+			break;
+		}
+
+		//Variar puntuaciones en funcion de la diferencia de ingredientes.
+
+		int cantidadIngr1 = int(pedido->getPedido()[i].ingredientesPedido.size());;
+		int cantidadIngr2 = int(comanda[i]->getVIngredientes().size());
+		int difCantidad = cantidadIngr2 - cantidadIngr1;
+		if (difCantidad >= 0) {
+			variarPuntuacion(valorarI.sobraIngr *difCantidad);
+		}
+
+		//Variar puntuaciones en funcion de los ingredientes que no se han cocinado.
+
+		for (int j = 0; j < pedido->getPedido()[i].ingredientesPedido.size(); j++) {
+			if (!comanda[i]->getIngrPaella()[pedido->getPedido()[i].ingredientesPedido[j]]) {
+				variarPuntuacion(valorarI.faltaIngr);
+			}
+		}
+	}	
+}
+
+
+
+
+void Pedido::variarPuntuacion(int variacion)
+{
+	puntuacion += variacion;
+}

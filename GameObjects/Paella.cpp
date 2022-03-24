@@ -106,6 +106,18 @@ bool Paella::canPick()
 {
 	return contenido==Limpia;
 }
+list<tipoIngrediente> Paella::getVIngredientes()
+{
+	return ingredientes;
+}
+vector<bool> Paella::getIngrPaella()
+{
+	return ingrEnPaella;
+}
+Resultado Paella::getResultado()
+{
+	return estadoFinal;
+}
 TipoPaella Paella::getTipo()
 {
 	return miTipo;
