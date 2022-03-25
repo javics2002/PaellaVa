@@ -307,6 +307,46 @@ SDL_Rect Player::getOverlapCollider()
 		  (overlapDim.getY()) };
 }
 
+void Player::setVel(double x, double y)
+{
+	vel.set(x, y);
+}
+
+void Player::setVel(Vector2D<double> vel2)
+{
+	vel.set(vel2);
+}
+
+Vector2D<double> Player::getOrientation()
+{
+	Vector2D<double> orientation = { 0, 0 };
+
+	switch (orientation_)
+	{
+	case E:
+		orientation.setX(1);
+		break;
+	case O:
+		orientation.setX(-1);
+		break;
+	case S:
+		orientation.setY(1);
+		break;
+	case N:
+		orientation.setY(-1);
+		break;
+	default:
+		break;
+	}
+
+	return orientation;
+}
+
+Vector2D<double> Player::getVel()
+{
+	return vel;
+}
+
 void Player::renderDebug(SDL_Rect* cameraRect)
 {
 	drawDebug(cameraRect);
@@ -318,4 +358,6 @@ void Player::setPickedObject(ObjetoPortable* op, objectType ot)
 	pickedObject_ = op;
 	objectType_ = ot;
 }
+
+
 

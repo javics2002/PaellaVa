@@ -72,6 +72,10 @@ bool Mesa::colisionPlayer(Player* p)
 	if (mGrupo != nullptr)
 		mGrupo->decirPedidio();
 
+	p->setPosition(p->getPosition() - Vector2D<double>(p->getOrientation().getX() * 2, p->getOrientation().getY() * 2));
+	p->setVel(0, 0);
+	//p->setVel(p->getVel() - p->getOrientation());
+
 	return false;
 }
 

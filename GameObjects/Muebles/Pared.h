@@ -9,6 +9,7 @@ class Pared : public GameObject
 public:
 	Pared(Game* game, Vector2D<double> position);
 	~Pared();
-	void update();
+	void update() override;
+	bool colisionPlayer(Player* p) override;
 };
 

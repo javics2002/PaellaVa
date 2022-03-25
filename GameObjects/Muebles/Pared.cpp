@@ -19,3 +19,9 @@ void Pared::update()
 		i->colisionClientes();
 	}
 }
+
+bool Pared::colisionPlayer(Player* p)
+{
+	p->setVel(0, 0);
+	return false;
+}

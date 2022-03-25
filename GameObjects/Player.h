@@ -53,5 +53,10 @@ public:
 	int getId() { return id_; }
 
 	Vector2D<double> getAxis() { return ih().getAxis(); }
+
+	void setVel(double x, double y);
+	void setVel(Vector2D<double> vel2);
+	Vector2D<double> getVel();
+	Vector2D<double> getOrientation();
 };
 
