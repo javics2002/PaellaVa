@@ -17,5 +17,7 @@ public:
 
 	bool receiveGrupoClientes(GrupoClientes* gc) override;
 	virtual bool returnObject(Player* p) override;
+
+	bool colisionPlayer(Player* p) override;
 };
 
