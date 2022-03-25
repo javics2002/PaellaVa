@@ -17,6 +17,7 @@ Player::Player(Game* game) : GameObject(game), objectType_(INGREDIENTE), pickedO
 
 	setPosition(100, 100);
 	setDimension(64, 64);
+	overlapDim.set(50, 50); //margen de choque para fluidez
 
 
 	aceleracion = 1.2;
@@ -40,31 +41,37 @@ void Player::handleInput()
 	//Altura
 	if (vel.getY() != 0 && ih().getAxisY() == 0) { 
 		//Arriba
-		if (vel.getY() < 0) {
-			
-			vel.setY(vel.getY() + deceleracion);
-			if (std::round(vel.getY()) == 0) vel.setY(0);
+		if (vel.getY() < 0) 
+		{
+			{
+				vel.setY(vel.getY() + deceleracion);
+				if (std::round(vel.getY()) == 0) vel.setY(0);
+			}
 		}
 		//Abajo
-		else {
-			
-			vel.setY(vel.getY() - deceleracion);
-			if (std::round(vel.getY()) == 0) vel.setY(0);
+		else 
+		{
+			{
+				vel.setY(vel.getY() - deceleracion);
+				if (std::round(vel.getY()) == 0) vel.setY(0);
+			}
 		}
 	}
 	//Lados
 	if (vel.getX() != 0 && ih().getAxis().getX() == 0) {
 		//Izquierda
 		if (vel.getX() < 0) {			
-			
-			vel.setX(vel.getX() + deceleracion);
-			if (std::round(vel.getX()) == 0) vel.setX(0);
+			{
+				vel.setX(vel.getX() + deceleracion);
+				if (std::round(vel.getX()) == 0) vel.setX(0);
+			}
 		}
 		//Derecha
 		else {
-			
-			vel.setX(vel.getX() - deceleracion);
-			if (std::round(vel.getX()) == 0) vel.setX(0);
+			{
+				vel.setX(vel.getX() - deceleracion);
+				if (std::round(vel.getX()) == 0) vel.setX(0);
+			}
 		}
 	}
 	vel.clamp(-maxVel, maxVel);
@@ -252,7 +259,51 @@ void Player::setAnimResources()
 
 void Player::update()
 {
-	pos = pos + vel;
+	Vector2D<double> newPos = pos + vel;
+
+	SDL_Rect newRect = { newPos.getX(), newPos.getY(), getCollider().w, getCollider().h };
+
+	if (game->getObjectManager()->getMueblesCollider(getCollider()).empty())
+	{
+		pos = pos + vel;
+	}
+	//else if (game->getObjectManager()->getMueblesCollider(getOverlapCollider()).empty())
+	//{
+	//	pos = pos + vel;
+	//}
+	//Este caso está para arreglar un bug de q el jugador se podía quedar atascado en las esquinas con la opción anterior
+	else
+	{
+		bool movPos = true;
+
+		Collider* col = nullptr;
+
+		for (auto i : game->getObjectManager()->getMueblesCollider(getCollider()))
+		{
+			if (game->getObjectManager()->getMueblesCollider(getOverlapCollider()).size() > 0)
+				movPos = movPos && i != game->getObjectManager()->getMueblesCollider(getOverlapCollider())[0];
+
+			if (game->getObjectManager()->getMueblesCollider(getOverlapCollider()).size() > 1)
+				movPos = movPos && i != game->getObjectManager()->getMueblesCollider(getOverlapCollider())[1];
+
+			if (game->getObjectManager()->getMueblesCollider(getOverlapCollider()).size() > 2)
+				movPos = movPos && i != game->getObjectManager()->getMueblesCollider(getOverlapCollider())[2];
+		}
+
+		if (movPos)
+		{
+			if (orientation_ == N || orientation_ == S)
+			{
+				vel.setX(0);
+			}	
+			else if (orientation_ == E || orientation_ == O)
+			{
+				vel.setY(0);
+			}
+
+			pos = pos + vel;
+		}
+	}
 
 	if (pickedObject_ != nullptr) {
 		if (pickedObject_->isPicked())
