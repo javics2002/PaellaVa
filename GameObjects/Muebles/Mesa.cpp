@@ -39,34 +39,38 @@ bool Mesa::receiveGrupoClientes(GrupoClientes* gc)
 		int n = gc->numIntegrantes();
 
 		if (n <= sillas.size()) {
-			cout << "Clientes colocados" << endl;
-
 			mGrupo = gc;
 
 			gc->setPosition(getPosition());
+
+			gc->hacerPedido(mWidht * mHight);
 
 			vector<Cliente*> clientes = gc->getIntegrantes();
 			for (int i = 0; i < n; i++) {
 				clientes[i]->setPosition(sillas[i]->getPosition());
 			}
 			return true;
-		}
-
-		
+		}		
 	}	
 	return false;
 }
 
 bool Mesa::returnObject(Player* p)
 {
-	if (mGrupo != nullptr) {
-		cout << "Clientes recogidos" << endl;
-
+	if (mGrupo != nullptr && mGrupo->canPick()) {
 		p->setPickedObject(mGrupo, objectType::CLIENTES);
 
 		mGrupo = nullptr;
 		return true;
 	}
+
+	return false;
+}
+
+bool Mesa::colisionPlayer(Player* p)
+{
+	if (mGrupo != nullptr)
+		mGrupo->decirPedidio();
 
 	return false;
 }

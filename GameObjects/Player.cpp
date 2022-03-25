@@ -205,106 +205,6 @@ void Player::handleInput(Vector2D<double> axis)
 		}
 	}
 	vel.clamp(-maxVel, maxVel);
-
-
-
-	//if (ih().isKeyboardEvent() && ih().getKey(InputHandler::INTERACT) && SDL_GetTicks() - lastTime_ > 500) {
-	//	//Este lastTime_ peruano se quitará en un futuro
-	//	lastTime_ = SDL_GetTicks();
-
-	//	//Si el jugador no lleva nada encima
-	//	if (pickedObject_ == nullptr) {
-
-	//		//Se prioriza la interacci�n con los muebles por encima de otros objetos
-	//		//Se prioriza el mueble m�s cercano al jugador
-	//		Mueble* m = nullptr;
-	//		for (auto i : game->getObjectManager()->getMueblesCollider(getOverlapCollider())) {
-	//			m = nearestObject(m, dynamic_cast<Mueble*>(i));
-	//		}
-
-	//		//Si se ha encontrado un mueble, se intenta interactuar con 
-	//		//este con returnObject(), para que te devuelva el objeto
-	//		if (m != nullptr && m->returnObject(this))
-	//		{
-	//			assert(pickedObject_ != nullptr);
-	//			pickedObject_->pickObject();
-	//		}
-
-	//		//En caso contrario se recorre el resto de objetos del juego para ver si el jugador puede cogerlos
-	//		//Una vez m�s se prioriza el objeto m�s cercano
-	//		else
-	//		{
-	//			//Ingredientes
-	//			for (auto i : game->getObjectManager()->getPoolIngredientes()->getCollisions(getOverlapCollider())) {
-	//				ObjetoPortable* op = dynamic_cast<ObjetoPortable*>(i);
-	//				if (op->canPick() && nearestObject(op))
-	//					objectType_ = INGREDIENTE;
-	//			}
-
-	//			//Grupo de Clientes
-	//			for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getCollisions(getOverlapCollider())) {
-	//				ObjetoPortable* op = dynamic_cast<ObjetoPortable*>(i);
-	//				if (op->canPick() && nearestObject(op))
-	//					objectType_ = CLIENTES;
-	//			}
-
-	//			//Paellas
-	//			for (auto i : game->getObjectManager()->getPaellasCollider(getOverlapCollider())) {
-	//				ObjetoPortable* op = dynamic_cast<ObjetoPortable*>(i);
-	//				if (op->canPick() && nearestObject(op))
-	//					objectType_ = PAELLA;
-	//			}
-
-	//			//Una vez encontrado el m�s cercano, se interact�a con �l
-	//			if (pickedObject_ != nullptr) {
-	//				pickedObject_->pickObject();
-	//			}
-	//		}
-	//	}
-	//	//Si el jugador lleva algo encima
-	//	else {
-
-	//		//Se busca el mueble m�s cercano de nuevo
-	//		Mueble* m = nullptr;
-	//		for (auto i : game->getObjectManager()->getMueblesCollider(getOverlapCollider())) {
-	//			m = nearestObject(m, dynamic_cast<Mueble*>(i));
-	//		}
-
-	//		//Dependiendo de lo que lleve el jugador encima, la interacci�n con el mueble ser� distinta
-	//		switch (objectType_)
-	//		{
-	//		case INGREDIENTE:
-	//			if (m != nullptr && m->receiveIngrediente(dynamic_cast<Ingrediente*>(pickedObject_))) {
-	//				pickedObject_->dropObject();
-	//				pickedObject_ = nullptr;
-	//			}
-	//			break;
-	//		case CLIENTES:
-	//			if (m != nullptr && m->receiveGrupoClientes(dynamic_cast<GrupoClientes*>(pickedObject_))) {
-	//				pickedObject_->dropObject();
-	//				pickedObject_ = nullptr;
-	//			}
-	//			else {
-	//				for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getCollisions(getOverlapCollider())) {
-	//					if (i == pickedObject_) {
-	//						pickedObject_->setPicked(false);
-	//						pickedObject_ = nullptr;
-	//						return;
-	//					}
-	//				}
-	//			}
-	//			break;
-	//		case PAELLA:
-	//			if (m != nullptr && m->receivePaella(dynamic_cast<Paella*>(pickedObject_))) {
-	//				pickedObject_->dropObject();
-	//				pickedObject_ = nullptr;
-	//			}
-	//			break;
-	//		default:
-	//			break;
-	//		}
-	//	}
-	//}
 }
 
 bool Player::nearestObject(ObjetoPortable* go)
@@ -392,6 +292,10 @@ void Player::update()
 		break;		
 	default:
 		break;
+	}
+
+	for (auto i : game->getObjectManager()->getMueblesCollider(getCollider())) {
+		i->colisionPlayer(this);
 	}
 }
 

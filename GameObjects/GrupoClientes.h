@@ -2,15 +2,19 @@
 
 #include <vector>
 #include <List>;
+
 #include "Cliente.h"
+
 #include "PoolObject.h"
 #include "ObjetoPortable.h"
+
 #include "../Data/Comanda.h"
 
 class Cola;
+class Pedido;
 class Game;
 
-enum EstadoClientes { CAMINANDO, ENCOLA, SENTADO, CUENTA };
+enum EstadoClientes { CAMINANDO, ENCOLA, PIDIENDO, CUENTA };
 
 class GrupoClientes : public PoolObject
 {
@@ -24,11 +28,21 @@ class GrupoClientes : public PoolObject
 	const float DIMIN_TIME = 3000;
 	const float DIMIN_TOLERANCIA = 2;
 		
-	float lastTime;
+	float lastTimeTol;
 	float tolerancia;
 	bool showTol;
 
 	Texture* texTolerancia;
+
+
+	float lastTimePed;
+	int itemNow;
+	bool showPed;
+	bool orderStart;
+	Pedido* pedido;
+	vector<string> texPedido;
+	
+	const float PED_DELAY = 2000;
 
 	EstadoClientes estado_;
 
@@ -64,7 +78,8 @@ public:
 
 	void onDesactivate() override;
 
-
+	void hacerPedido(int tamMesa);
+	void decirPedidio();
 };
 
 

@@ -5,7 +5,9 @@
 
 #include "../GameObjects/Cola.h"
 
-GrupoClientes::GrupoClientes(Game* game) : PoolObject(game) 
+#include "../../Data/Pedido.h"
+
+GrupoClientes::GrupoClientes(Game* game) : PoolObject(game), pedido(nullptr), cola(nullptr), estado_(CAMINANDO)
 {
 	setDimension(DIMENSION, DIMENSION);
 
@@ -13,6 +15,13 @@ GrupoClientes::GrupoClientes(Game* game) : PoolObject(game)
 
 	texTolerancia = &sdlutils().images().at("barraTolerancia");
 	showTol = false;
+	tolerancia = 100;	
+	lastTimeTol = 0;
+
+	showPed = false;
+	orderStart = true;
+	itemNow = 0;
+	lastTimePed = 0;
 }
 
 void GrupoClientes::initGrupo(Cola* cola_, vector<Cliente*> clientes_)
@@ -21,6 +30,7 @@ void GrupoClientes::initGrupo(Cola* cola_, vector<Cliente*> clientes_)
 
 	posCola = cola_->getPos();
 	cola = cola_;
+
 	clientes = clientes_;
 
 	setState(CAMINANDO);
@@ -48,6 +58,12 @@ void GrupoClientes::update()
 
 		bajaTolerancia();
 	}
+
+	else if (estado_ == PIDIENDO) {
+		if (!showPed)
+			orderStart = true;
+	}
+
 }
 
 void GrupoClientes::render(SDL_Rect* cameraRect)
@@ -58,24 +74,42 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 	if (isPicked())
 		drawRender(cameraRect);
 
+	int bocadilloX = 80;
+	int bocadilloY = 60;
+
+	if (showPed && estado_ == PIDIENDO) {
+		showTol = false;
+
+		if (SDL_GetTicks() - lastTimePed >= PED_DELAY) {
+			lastTimePed = SDL_GetTicks();
+
+			itemNow = (itemNow + 1) % texPedido.size();
+		}
+
+		int rectDim = 50;
+
+		drawRender(cameraRect, { (int)getX() - bocadilloX / 2, (int)getY() - bocadilloY, bocadilloX, bocadilloY }, texTolerancia);
+		drawRender(cameraRect, { (int)getX() - rectDim / 2, (int)getY() - rectDim - 10, rectDim, rectDim }, &sdlutils().images().at(texPedido[itemNow]));
+
+		showPed = false;
+	}
+
+
 	if (showTol) {
 		if (!isPicked()) {
 
-			int tolX = 80;
-			int tolY = 60;
-
-			SDL_Rect rect = {};
+			SDL_Rect rect = {};		
 
 			switch (estado_)
 			{
 			case CAMINANDO:
 			case ENCOLA:
-				rect = { mitadGrupo() - tolX / 2,
-					(int)clientes[0]->getY() - clientes[0]->getHeight() / 2 - tolY, tolX, tolY };
+				rect = { mitadGrupo() - bocadilloX / 2,
+					(int)clientes[0]->getY() - clientes[0]->getHeight() / 2 - bocadilloY, bocadilloX, bocadilloY };
 				break;
-			case SENTADO:
+			case PIDIENDO:
 			case CUENTA:
-				rect = { (int)getX() - tolX / 2, (int)getY() - tolY, tolX, tolY };
+				rect = { (int)getX() - bocadilloX / 2, (int)getY() - bocadilloY, bocadilloX, bocadilloY };
 				break;
 			default:
 				break;
@@ -86,7 +120,6 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 
 		showTol = false;
 	}
-
 }
 
 bool GrupoClientes::collide(SDL_Rect rect)
@@ -118,19 +151,19 @@ bool GrupoClientes::ratonEncima()
 
 void GrupoClientes::bajaTolerancia()
 {
-	if (tolerancia > 0 && SDL_GetTicks() - lastTime >= DIMIN_TIME) {
+	if (tolerancia > 0 && SDL_GetTicks() - lastTimeTol >= DIMIN_TIME) {
 		tolerancia -= DIMIN_TOLERANCIA;
 
 		if (tolerancia < 0) tolerancia = 0;
 
-		lastTime = SDL_GetTicks();
+		lastTimeTol = SDL_GetTicks();
 	}
 }
 
 void GrupoClientes::setState(EstadoClientes est)
 {
 	estado_ = est;
-	lastTime = SDL_GetTicks();
+	lastTimeTol = SDL_GetTicks();
 }
 
 EstadoClientes GrupoClientes::getState()
@@ -155,10 +188,10 @@ void GrupoClientes::onObjectDropped()
 	case CAMINANDO:
 		break;
 	case ENCOLA:
-		estado_ = SENTADO;
+		estado_ = PIDIENDO;
 		cola->remove(posCola, clientes.size());
 		break;
-	case SENTADO:
+	case PIDIENDO:
 		break;
 	case CUENTA:
 		break;
@@ -175,7 +208,7 @@ void GrupoClientes::onObjectPicked()
 		break;
 	case ENCOLA:
 		break;
-	case SENTADO:
+	case PIDIENDO:
 		break;
 	case CUENTA:
 		break;
@@ -207,5 +240,26 @@ void GrupoClientes::onDesactivate()
 	for (auto i : clientes) 
 		list->remove(i->getIterator());	
 }
+
+void GrupoClientes::hacerPedido(int tamMesa)
+{
+	pedido = new Pedido(clientes.size(), tamMesa);
+
+	texPedido = pedido->getPedidoTex();
+}
+
+void GrupoClientes::decirPedidio()
+{
+	if (estado_ == PIDIENDO) {
+		if (orderStart) {
+			lastTimePed = SDL_GetTicks();
+			itemNow = 0;
+			orderStart = false;		
+		}
+		showPed = true;
+	}
+		
+}
+
 
 

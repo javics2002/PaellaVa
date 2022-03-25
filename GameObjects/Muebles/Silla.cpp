@@ -26,3 +26,8 @@ bool Silla::returnObject(Player* p)
 	return mMesa->returnObject(p);
 }
 
+bool Silla::colisionPlayer(Player* p)
+{
+	return mMesa->colisionPlayer(p);
+}
+

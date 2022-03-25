@@ -12,7 +12,7 @@ void Ingrediente::update()
 	setPosition(getX(), getY() + vel.getY());
 }
 
-pair<bool, std::list<PoolObject*>::const_iterator> Ingrediente::ingredientCollide()
+pair<bool, std::list<PoolObject*>::const_iterator> Ingrediente::colisionIngrediente()
 {
 	return { !isPicked(), getIterator() };
 }
