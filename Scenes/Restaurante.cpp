@@ -91,6 +91,11 @@ void Restaurante::debug()
 	objectManager->debug(camara->renderRect());
 }
 
+void Restaurante::addPuntuaciones(double puntosComanda)
+{
+	puntuacionesComandas.push_back(puntosComanda);
+}
+
 void Restaurante::mediaPuntuaciones()
 {
 	int sumaMedia = 0;
