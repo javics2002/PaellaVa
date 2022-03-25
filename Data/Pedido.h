@@ -32,6 +32,7 @@ public:
 	Pedido(int numComensales, int numeroTiles);
 	~Pedido() {};
 	vector<pedidoPaella> getPedido();
+	vector<string> getPedidoTex();
 	void puntuarPedido(vector<Paella*> comanda, Pedido* pedido);
 	void variarPuntuacion(int variacion);
 	//No se hasta que punto merece la pena crear otro método que sea ejecutado en la constructora.
@@ -40,6 +41,10 @@ public:
 private:
 	vector<pedidoPaella> paellas;
 	vector<bool> ingredientesPedidos;
+
+	vector<string> paellasTex { "arroz", "alcachofa", "calamar", "cangrejo", "gamba",
+	"langosta", "mejillon", "pimientoRojo", "pimientoVerde", "pollo" };
+	vector<string> paellasTamTex { "small", "medium", "large" };
 
 	int comensales, tilesMesa, max_rand;
 

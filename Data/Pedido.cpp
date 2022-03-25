@@ -151,3 +151,17 @@ void Pedido::variarPuntuacion(int variacion)
 {
 	puntuacion += variacion;
 }
+
+vector<string> Pedido::getPedidoTex()
+{
+	vector<string> v;
+
+	for (auto i : paellas) {
+		v.push_back(paellasTamTex[i.tamanoPaella]);
+		for (auto j : i.ingredientesPedido) {
+			v.push_back(paellasTex[j]);
+		}
+	}
+
+	return v;
+}
