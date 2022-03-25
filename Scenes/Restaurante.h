@@ -45,6 +45,10 @@ class Restaurante : public Scene
 	MapInfo mapInfo;
 	NetworkManager* nm;
 
+	list<double> puntuacionesComandas;
+
+	double puntuaciónTotal;
+
 	Vector2D<int> tamRestaurante = Vector2D<int>(0, 1216);
 
 public:
@@ -55,6 +59,8 @@ public:
 	void update() override;
 	void render() override;
 	void debug() override;
+
+	void mediaPuntuaciones();
 
 	void loadMap(string const& path);
 };
