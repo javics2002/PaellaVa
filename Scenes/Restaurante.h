@@ -60,6 +60,7 @@ public:
 	void render() override;
 	void debug() override;
 
+	void addPuntuaciones(double puntosComanda);
 	void mediaPuntuaciones();
 
 	void loadMap(string const& path);
