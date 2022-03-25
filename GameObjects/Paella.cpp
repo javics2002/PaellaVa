@@ -92,12 +92,15 @@ void Paella::onObjectPicked()
 
 void Paella::onObjectDropped()
 {
-
 }
 
 bool Paella::canPick()
 {
-	return contenido==Limpia;
+	return contenido==Limpia && !enMesa;
+}
+void Paella::enLaMesa()
+{
+	enMesa = true;
 }
 list<tipoIngrediente> Paella::getVIngredientes()
 {

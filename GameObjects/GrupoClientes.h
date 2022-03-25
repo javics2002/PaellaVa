@@ -14,7 +14,7 @@ class Cola;
 class Pedido;
 class Game;
 
-enum EstadoClientes { CAMINANDO, ENCOLA, PIDIENDO, CUENTA };
+enum EstadoClientes { CAMINANDO, ENCOLA, PIDIENDO, ESPERANDO, COMIENDO, CUENTA };
 
 class GrupoClientes : public PoolObject
 {
@@ -34,8 +34,10 @@ class GrupoClientes : public PoolObject
 
 	Texture* texTolerancia;
 
+	Mesa* mesa;
 
 	float lastTimePed;
+	float lastTimeComido;
 	int itemNow;
 	bool showPed;
 	bool orderStart;
@@ -43,8 +45,11 @@ class GrupoClientes : public PoolObject
 	vector<string> texPedido;
 	
 	const float PED_DELAY = 2000;
+	const float TIEMPO_COMIDA = 5000;
 
 	EstadoClientes estado_;
+
+	int nPaellas;
 
 	int mitadGrupo();
 
@@ -75,11 +80,16 @@ public:
 	void onObjectDropped() override;
 
 	bool canPick() override;
+	bool canDrop() override;
 
 	void onDesactivate() override;
 
-	void hacerPedido(int tamMesa);
+	void hacerPedido(int tamMesa,Mesa* m);
 	void decirPedidio();
+
+
+
+	bool paellasPedidas();
 };
 
 

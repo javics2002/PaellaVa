@@ -21,6 +21,11 @@ bool Silla::receiveGrupoClientes(GrupoClientes* gc)
 	return mMesa->receiveGrupoClientes(gc);
 }
 
+bool Silla::receivePaella(Paella* paella)
+{
+	return mMesa->receivePaella(paella);
+}
+
 bool Silla::returnObject(Player* p)
 {
 	return mMesa->returnObject(p);

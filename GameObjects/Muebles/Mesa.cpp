@@ -35,7 +35,7 @@ void Mesa::init(ObjectManager* objectManager)
 
 bool Mesa::receiveGrupoClientes(GrupoClientes* gc)
 {
-	if (mGrupo == nullptr) {
+	if (mGrupo == nullptr && paellas.empty() && gc->canDrop()) {
 		int n = gc->numIntegrantes();
 
 		if (n <= sillas.size()) {
@@ -43,7 +43,8 @@ bool Mesa::receiveGrupoClientes(GrupoClientes* gc)
 
 			gc->setPosition(getPosition());
 
-			gc->hacerPedido(mWidht * mHight);
+			gc->hacerPedido(mWidht * mHight,this);
+
 
 			vector<Cliente*> clientes = gc->getIntegrantes();
 			for (int i = 0; i < n; i++) {
@@ -55,12 +56,30 @@ bool Mesa::receiveGrupoClientes(GrupoClientes* gc)
 	return false;
 }
 
+bool Mesa::receivePaella(Paella* paella)
+{
+	if (mGrupo != nullptr && mGrupo->paellasPedidas()) {
+		paellas.push_back(paella);
+		paella->setPosition(getPosition());
+		paella->enLaMesa();
+		return true;
+	}
+	return false;
+}
+
 bool Mesa::returnObject(Player* p)
 {
-	if (mGrupo != nullptr && mGrupo->canPick()) {
-		p->setPickedObject(mGrupo, objectType::CLIENTES);
+	if (mGrupo != nullptr ) {
+		if (mGrupo->canPick()) {
+			p->setPickedObject(mGrupo, objectType::CLIENTES);
 
-		mGrupo = nullptr;
+			return true;
+		}
+	}
+	else if (!paellas.empty()) {
+		p->setPickedObject(paellas.back(), objectType::PAELLA);
+		paellas.pop_back();
+
 		return true;
 	}
 
@@ -77,6 +96,11 @@ bool Mesa::colisionPlayer(Player* p)
 	//p->setVel(p->getVel() - p->getOrientation());
 
 	return false;
+}
+
+void Mesa::clienteSeVa()
+{
+	mGrupo = nullptr;
 }
 
 

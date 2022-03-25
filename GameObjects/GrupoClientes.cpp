@@ -7,7 +7,9 @@
 
 #include "../../Data/Pedido.h"
 
-GrupoClientes::GrupoClientes(Game* game) : PoolObject(game), pedido(nullptr), cola(nullptr), estado_(CAMINANDO)
+#include "../GameObjects/Muebles/Mesa.h"
+
+GrupoClientes::GrupoClientes(Game* game) : PoolObject(game), pedido(nullptr), cola(nullptr), estado_(CAMINANDO) , nPaellas(0)
 {
 	setDimension(DIMENSION, DIMENSION);
 
@@ -62,6 +64,14 @@ void GrupoClientes::update()
 	else if (estado_ == PIDIENDO) {
 		if (!showPed)
 			orderStart = true;
+
+		bajaTolerancia();
+	}
+
+	else if (estado_ == COMIENDO) {
+		if (SDL_GetTicks() - lastTimeComido >= TIEMPO_COMIDA) {
+			estado_ = CUENTA;
+		}
 	}
 
 }
@@ -108,6 +118,8 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 					(int)clientes[0]->getY() - clientes[0]->getHeight() / 2 - bocadilloY, bocadilloX, bocadilloY };
 				break;
 			case PIDIENDO:
+			case ESPERANDO:
+			case COMIENDO:
 			case CUENTA:
 				rect = { (int)getX() - bocadilloX / 2, (int)getY() - bocadilloY, bocadilloX, bocadilloY };
 				break;
@@ -193,6 +205,10 @@ void GrupoClientes::onObjectDropped()
 		break;
 	case PIDIENDO:
 		break;
+	case COMIENDO:
+		break;
+	case ESPERANDO:
+		break;
 	case CUENTA:
 		break;
 	default:
@@ -210,6 +226,10 @@ void GrupoClientes::onObjectPicked()
 		break;
 	case PIDIENDO:
 		break;
+	case COMIENDO:
+		break;
+	case ESPERANDO:
+		break;
 	case CUENTA:
 		break;
 	default:
@@ -219,7 +239,12 @@ void GrupoClientes::onObjectPicked()
 
 bool GrupoClientes::canPick()
 {
-	return estado_ == ENCOLA;
+	return estado_ == ENCOLA || estado_==CUENTA;
+}
+
+bool GrupoClientes::canDrop() {
+
+	return  estado_== ENCOLA;
 }
 
 int GrupoClientes::mitadGrupo()
@@ -235,14 +260,18 @@ int GrupoClientes::mitadGrupo()
 
 void GrupoClientes::onDesactivate()
 {
+	mesa->clienteSeVa();
+
 	auto list = game->getObjectManager()->getPoolClientes();
 
 	for (auto i : clientes) 
 		list->remove(i->getIterator());	
 }
 
-void GrupoClientes::hacerPedido(int tamMesa)
+void GrupoClientes::hacerPedido(int tamMesa,Mesa* m)
 {
+	mesa = m;
+
 	pedido = new Pedido(clientes.size(), tamMesa);
 
 	texPedido = pedido->getPedidoTex();
@@ -261,5 +290,24 @@ void GrupoClientes::decirPedidio()
 		
 }
 
+
+
+bool GrupoClientes::paellasPedidas() {
+	if (estado_ == ESPERANDO || estado_ == PIDIENDO) {
+
+		if (nPaellas + 1 <= pedido->getPedido().size()) {
+			nPaellas++;
+			if (nPaellas == pedido->getPedido().size()) {
+				estado_ = COMIENDO;
+				lastTimeComido = SDL_GetTicks();
+			}
+			else estado_ = ESPERANDO;
+
+			return true;
+		}
+	}
+
+	return false;
+}
 
 

@@ -35,6 +35,7 @@ public:
 	void onObjectDropped() override;
 
 	bool canPick() override;
+	void enLaMesa();
 
 	list<tipoIngrediente> getVIngredientes();
 	vector<bool> getIngrPaella();
@@ -48,6 +49,7 @@ private:
 	const int MAX_INGR = 3;
 	double tiempoCoccion = 0.0, tiempo = 0.0;
 	int sumaIntervalo = 0, i = 0;
+	bool enMesa = false;
 
 	EstadoPaellas estado = Preparacion;
 	Resultado estadoFinal = Cruda;
