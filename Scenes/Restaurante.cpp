@@ -279,7 +279,7 @@ void Restaurante::loadMap(string const& path) {
 					getObjectManager()->addMueble(new BolsaArroz(game, position));
 				}
 				else if (name == "pared") {
-					//getObjectManager()->addMueble(new Pared(game, position));
+					getObjectManager()->addMueble(new Pared(game, position));
 				}
 			}
 		}
