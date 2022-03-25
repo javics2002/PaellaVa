@@ -91,6 +91,20 @@ void Restaurante::debug()
 	objectManager->debug(camara->renderRect());
 }
 
+void Restaurante::addPuntuaciones(double puntosComanda)
+{
+	puntuacionesComandas.push_back(puntosComanda);
+}
+
+void Restaurante::mediaPuntuaciones()
+{
+	int sumaMedia = 0;
+	for (auto i : puntuacionesComandas) {
+		sumaMedia+=i;
+	}
+	puntuaciónTotal = sumaMedia / puntuacionesComandas.size();
+}
+
 void Restaurante::loadMap(string const& path) {
 	//Cargamos el mapa .tmx del archivo indicado
 	mapInfo.tilemap = new tmx::Map();

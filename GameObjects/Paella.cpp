@@ -32,13 +32,6 @@ void Paella::anadeIngr(Ingrediente* ingr_)
 	ingrEnPaella[ingr_->getTipo()] = true;
 }
 
-void Paella::eliminarIngr()
-{
-	ingredientes.clear();
-	for (int i : ingrEnPaella) {
-		ingrEnPaella[i] = false;
-	}	
-}
 
 void Paella::setState(EstadoPaellas estado_)
 {
@@ -126,8 +119,13 @@ Contenido Paella::getContenido()
 {
 	return contenido;
 }
-void Paella::changeTexture(string clave)
+void Paella::setEnsuciada(Contenido contenidoPaella, string clave)
 {
+	contenido = contenidoPaella;
+	ingredientes.clear();
+	for (int i : ingrEnPaella) {
+		ingrEnPaella[i] = false;
+	}
 	setTexture(clave);
 }
 

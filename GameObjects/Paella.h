@@ -23,14 +23,13 @@ public:
 
 	bool ingrValido(Ingrediente* ingr);
 	void anadeIngr(Ingrediente* ingr_);
-	void eliminarIngr();
 
 	void setState(EstadoPaellas estado_);
 	void paellaRecogida();
 	void update() override;
 	void setLavado(Contenido contenidoPaella,string texturaPaella);
 
-	void changeTexture(string clave);
+	void setEnsuciada(Contenido contenidoPaella, string clave);
 
 	void onObjectPicked() override;
 	void onObjectDropped() override;

@@ -72,17 +72,19 @@ vector<pedidoPaella> Pedido::getPedido()
 	return paellas;
 }
 
-void Pedido::puntuarPedido(vector<Paella*> comanda, Pedido* pedido)
+void Pedido::puntuarPedido(vector<Paella*> comanda)
 {
+
+	//quitar pedido ->
 	penalizacionTamano valorarT;
 	penalizacionIngredientes valorarI;
 	penalizacionCoccion valorarC;
 	
-	for (int i = 0; i < pedido->getPedido().size(); i++) {
+	for (int i = 0; i < getPedido().size(); i++) {
 
 		//Variar puntuacion en funcion de la diferencia de tamaños
 
-		int tamanoPaella1 = int(pedido->getPedido()[i].tamanoPaella +1);
+		int tamanoPaella1 = int(getPedido()[i].tamanoPaella +1);
 		int tamanoPaella2 = int(comanda[i]->getTipo() + 1);
 		int diferencia = tamanoPaella1 - tamanoPaella2;
 		switch (diferencia) {
@@ -127,7 +129,7 @@ void Pedido::puntuarPedido(vector<Paella*> comanda, Pedido* pedido)
 
 		//Variar puntuaciones en funcion de la diferencia de ingredientes.
 
-		int cantidadIngr1 = int(pedido->getPedido()[i].ingredientesPedido.size());;
+		int cantidadIngr1 = int(getPedido()[i].ingredientesPedido.size());;
 		int cantidadIngr2 = int(comanda[i]->getVIngredientes().size());
 		int difCantidad = cantidadIngr2 - cantidadIngr1;
 		if (difCantidad >= 0) {
@@ -136,8 +138,8 @@ void Pedido::puntuarPedido(vector<Paella*> comanda, Pedido* pedido)
 
 		//Variar puntuaciones en funcion de los ingredientes que no se han cocinado.
 
-		for (int j = 0; j < pedido->getPedido()[i].ingredientesPedido.size(); j++) {
-			if (!comanda[i]->getIngrPaella()[pedido->getPedido()[i].ingredientesPedido[j]]) {
+		for (int j = 0; j < getPedido()[i].ingredientesPedido.size(); j++) {
+			if (!comanda[i]->getIngrPaella()[getPedido()[i].ingredientesPedido[j]]) {
 				variarPuntuacion(valorarI.faltaIngr);
 			}
 		}

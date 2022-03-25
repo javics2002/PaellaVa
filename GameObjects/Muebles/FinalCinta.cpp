@@ -14,8 +14,7 @@ void FinalCinta::update()
 		auto pair = i->colisionIngrediente();
 		if (pair.first)
 			game->getObjectManager()->getPoolIngredientes()->remove(pair.second);
-	}
-		
+	}	
 }
 
 bool FinalCinta::receiveIngrediente(Ingrediente* ingr)
@@ -28,7 +27,7 @@ bool FinalCinta::receiveIngrediente(Ingrediente* ingr)
 bool FinalCinta::receivePaella(Paella* pa)
 {
 	//hacer cosas
-
+	pa->setEnsuciada(Sucia, "alcachofa");
 	return false;
 }
 

@@ -33,9 +33,9 @@ public:
 	~Pedido() {};
 	vector<pedidoPaella> getPedido();
 	vector<string> getPedidoTex();
-	void puntuarPedido(vector<Paella*> comanda, Pedido* pedido);
+	void puntuarPedido(vector<Paella*> comanda);
 	void variarPuntuacion(int variacion);
-	//No se hasta que punto merece la pena crear otro método que sea ejecutado en la constructora.
+	//No se hasta que punto merece la pena crear otro mï¿½todo que sea ejecutado en la constructora.
 	//void crearPedido(int numCmensales)
 
 private:
