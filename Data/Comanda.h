@@ -58,7 +58,7 @@ public:
     void setEliminabutton(EliminaComandaButton* e) { eliminarboton = e; };
     EliminaComandaButton* getEliminabutton() { return eliminarboton; };
     void toggleactive();
-
+    virtual bool onClick(int mx, int my, bool& exit) override;
     bool  OnClick(int mx, int my);
         Comanda *seleccionaComanda();
     void deseleccionaComanda();

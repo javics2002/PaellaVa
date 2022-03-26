@@ -393,7 +393,18 @@ void Comanda::toggleactive()
 
 	cancelaPedido();
 }
-
+bool Comanda::onClick(int mx, int my, bool& exit)
+{
+	SDL_Rect z = getCollider();
+	SDL_Rect d = { mx,my,1,1 };
+	if (SDL_HasIntersection(&z, &d))
+	{
+		uiManager->getBarra()->seleccionaComanda(seleccionaComanda());
+		return true;
+	}
+	else
+		return false;
+}
 bool Comanda::OnClick(int mx, int my)
 {
 	SDL_Rect z = getCollider();
