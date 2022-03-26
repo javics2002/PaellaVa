@@ -69,10 +69,17 @@ void GrupoClientes::update()
 	}
 
 	else if (estado_ == COMIENDO) {
+
+		if (SDL_GetTicks() - lastTimeComido >= TIEMPO_COMIDA/2) {
+			mesa->cambiaTexturaPaellas("paellaMedia",Contenido::Mitad);
+		}
+
 		if (SDL_GetTicks() - lastTimeComido >= TIEMPO_COMIDA) {
+			mesa->cambiaTexturaPaellas("paellaSucia",Contenido::Sucia);
 			estado_ = CUENTA;
 		}
 	}
+
 
 }
 
@@ -121,8 +128,6 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 			case ESPERANDO:
 			case COMIENDO:
 			case CUENTA:
-				rect = { (int)getX() - bocadilloX / 2, (int)getY() - bocadilloY, bocadilloX, bocadilloY };
-				break;
 			default:
 				break;
 			}
@@ -131,6 +136,13 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 		}
 
 		showTol = false;
+	}
+	if (estado_ == CUENTA) {
+
+		SDL_Rect rect = {};
+		rect = { (int)mesa->getX() - bocadilloX / 2, (int)mesa->getY() - bocadilloY, bocadilloX, bocadilloY };
+		//PONER ICONO DE QUE HAN TERMINADO LA COMIDA EN EL BOCADILLO
+		drawRender(cameraRect, rect, texTolerancia);
 	}
 }
 
@@ -260,7 +272,7 @@ int GrupoClientes::mitadGrupo()
 
 void GrupoClientes::onDesactivate()
 {
-	mesa->clienteSeVa();
+	if(mesa!=nullptr)mesa->clienteSeVa();
 
 	auto list = game->getObjectManager()->getPoolClientes();
 

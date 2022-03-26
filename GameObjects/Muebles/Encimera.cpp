@@ -26,8 +26,6 @@ bool Encimera::receiveIngrediente(Ingrediente* ingr)
 
 			paella_->anadeIngr(ingr);
 
-			ingr->setPosition(paella_->getX(), paella_->getY());
-
 			game->getObjectManager()->getPoolIngredientes()->remove(ingr->getIterator());
 
 			return true;

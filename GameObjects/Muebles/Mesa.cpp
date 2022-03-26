@@ -61,7 +61,7 @@ bool Mesa::receivePaella(Paella* paella)
 	if (mGrupo != nullptr && mGrupo->paellasPedidas()) {
 		paellas.push_back(paella);
 		paella->setPosition(getPosition());
-		paella->enLaMesa();
+		paella->enLaMesa(true);
 		return true;
 	}
 	return false;
@@ -78,6 +78,7 @@ bool Mesa::returnObject(Player* p)
 	}
 	else if (!paellas.empty()) {
 		p->setPickedObject(paellas.back(), objectType::PAELLA);
+		paellas.back()->enLaMesa(false);
 		paellas.pop_back();
 
 		return true;
@@ -101,6 +102,16 @@ bool Mesa::colisionPlayer(Player* p)
 void Mesa::clienteSeVa()
 {
 	mGrupo = nullptr;
+}
+
+void Mesa::cambiaTexturaPaellas(string clave,Contenido contenido)
+{
+	for (auto i : paellas) {
+		i->setContenido(contenido);
+		i->setTexture(clave);
+		if (contenido == Sucia)
+			i->setEnsuciada();
+	}
 }
 
 

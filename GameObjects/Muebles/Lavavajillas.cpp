@@ -15,7 +15,7 @@ void Lavavajillas::lavando()
 {
 
 	if (sdlutils().currRealTime() - tiempo >= TIEMPO_LAVADO) {
-		pilaPaellas.front()->setLavado(Limpia,"alcachofa");
+		pilaPaellas.front()->setLavado(Limpia,"paellaLimpia");
 		paellasLimpias.push_back(pilaPaellas.front());
 		pilaPaellas.pop_front();
 		tiempo = sdlutils().currRealTime();
@@ -24,7 +24,7 @@ void Lavavajillas::lavando()
 
 bool Lavavajillas::receivePaella(Paella* paella_)
 {
-	if (pilaPaellas.empty() && paella_->getContenido()!=Limpia) {
+	if (pilaPaellas.empty() && paella_->getContenido()==Sucia) {
 
 		pilaPaellas.push_back(paella_);
 

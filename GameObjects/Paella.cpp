@@ -21,15 +21,18 @@ Paella::Paella(Game* game, TipoPaella tipo): ObjetoPortable(game), miTipo(tipo)
 		break;
 	}
 
-	setTexture("paella");
+	setTexture("paellaLimpia");
 
 	ingrEnPaella = vector<bool>(tipoIngrediente::LAST, false);
 }
 
 void Paella::anadeIngr(Ingrediente* ingr_)
 {
+	if (ingredientes.size() == 0)
+		setTexture("paella");
 	ingredientes.push_back(ingr_->getTipo());
 	ingrEnPaella[ingr_->getTipo()] = true;
+	ingr_->setPosition(getPosition());
 }
 
 
@@ -98,10 +101,12 @@ bool Paella::canPick()
 {
 	return contenido==Limpia && !enMesa;
 }
-void Paella::enLaMesa()
+
+void Paella::enLaMesa(bool estaEnLaMesa)
 {
-	enMesa = true;
+	enMesa = estaEnLaMesa;
 }
+
 list<tipoIngrediente> Paella::getVIngredientes()
 {
 	return ingredientes;
@@ -122,14 +127,17 @@ Contenido Paella::getContenido()
 {
 	return contenido;
 }
-void Paella::setEnsuciada(Contenido contenidoPaella, string clave)
+void Paella::setEnsuciada()
 {
-	contenido = contenidoPaella;
 	ingredientes.clear();
 	for (int i : ingrEnPaella) {
 		ingrEnPaella[i] = false;
 	}
-	setTexture(clave);
+}
+
+void Paella::setContenido(Contenido contenidoP)
+{
+	contenido = contenidoP;
 }
 
 bool Paella::ingrValido(Ingrediente* ingr)

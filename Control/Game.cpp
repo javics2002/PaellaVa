@@ -28,9 +28,11 @@ void Game::init()
 	SDLUtils::init("Paellas", 1280, 720, "../../../Assets/resources.json");
 	SDLUtils::instance()->showCursor();
 
+
 	nm = new NetworkManager(this);
 
 #ifdef _DEBUG
+
 	currentScene = new Restaurante(this);
 	nm->init('h');
 #else

@@ -27,7 +27,8 @@ bool FinalCinta::receiveIngrediente(Ingrediente* ingr)
 bool FinalCinta::receivePaella(Paella* pa)
 {
 	//hacer cosas
-	pa->setEnsuciada(Sucia, "alcachofa");
+	pa->setTexture("paellaSucia");
+	pa->setContenido(Sucia);
 	return false;
 }
 

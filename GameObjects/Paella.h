@@ -29,13 +29,14 @@ public:
 	void update() override;
 	void setLavado(Contenido contenidoPaella,string texturaPaella);
 
-	void setEnsuciada(Contenido contenidoPaella, string clave);
+	void setEnsuciada();
+	void setContenido(Contenido contenidoP);
 
 	void onObjectPicked() override;
 	void onObjectDropped() override;
 
 	bool canPick() override;
-	void enLaMesa();
+	void enLaMesa(bool estaEnLaMesa);
 
 	list<tipoIngrediente> getVIngredientes();
 	vector<bool> getIngrPaella();
@@ -63,5 +64,6 @@ private:
 
 	vector<bool> ingrEnPaella;
 
+	
 };
 

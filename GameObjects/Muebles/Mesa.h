@@ -1,6 +1,7 @@
 #pragma once
 #include "Mueble.h"
 #include "Silla.h"
+#include "../Paella.h"
 #include <deque>
 
 #include "../../GameObjects/GrupoClientes.h"
@@ -31,6 +32,8 @@ public:
 	bool colisionPlayer(Player* p) override;
 
 	void clienteSeVa();
+
+	void cambiaTexturaPaellas(string clave, Contenido contenido);
 
 };
 
