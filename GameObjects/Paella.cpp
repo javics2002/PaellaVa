@@ -5,8 +5,7 @@
 
 Paella::Paella(Game* game, TipoPaella tipo): ObjetoPortable(game), miTipo(tipo)
 {
-
-	setPosition(sdlutils().width() / 2, 100);
+	setPosition(1500, 200);
 	setDimension(50, 50);
 
 	switch (miTipo)

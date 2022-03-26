@@ -2,10 +2,10 @@
 #include "../../Control/Game.h"
 #include "../../Control/ObjectManager.h"
 
-Pared::Pared(Game* game, Vector2D<double> position) : GameObject(game)
+Pared::Pared(Game* game, Vector2D<double> position) : Mueble(game, position, TILE_SIZE, TILE_SIZE, "cartel")
 {
-	game_ = game;
-	setTexture("berenjena"); //Con esto no se rompe
+	setDimension(50, 50);
+	setTexture("alcachofa"); //Con esto no se rompe
 	//Collider invisible
 }
 
@@ -13,15 +13,21 @@ Pared::~Pared()
 {
 }
 
+
+
 void Pared::update()
 {
-	for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getCollisions(getCollider())) {
-		i->colisionClientes();
-	}
+	//for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getCollisions(getCollider())) {
+	//	i->colisionClientes();
+	//}
 }
 
-bool Pared::colisionPlayer(Player* p)
+void Pared::render(SDL_Rect* cameraRect)
 {
-	p->setVel(0, 0);
-	return false;
 }
+
+//bool Pared::colisionPlayer(Player* p)
+//{
+//	p->setVel(0, 0);
+//	return false;
+//}

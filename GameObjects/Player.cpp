@@ -15,7 +15,7 @@ Player::Player(Game* game) : GameObject(game), objectType_(INGREDIENTE), pickedO
 	overlapPos(Vector2D<double>(getX() - overlapPos.getX() / 2, getY() - getHeight() / 2 - overlapDim.getY())), overlapDim(Vector2D<int>(50, 50))
 {
 
-	setPosition(100, 100);
+	setPosition(100, 200);
 	setDimension(64, 64);
 	overlapDim.set(50, 50); //margen de choque para fluidez
 
