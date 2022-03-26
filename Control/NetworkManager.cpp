@@ -352,7 +352,7 @@ void NetworkManager::close()
 		delete sendplayers_t;
 
 	}
-	else {
+	else if (nType == 'c') {
 		PacketSend pkt;
 
 		pkt.packet_type = EPT_QUIT;

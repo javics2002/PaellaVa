@@ -33,8 +33,8 @@ void Game::init()
 
 #ifdef _DEBUG
 
-	currentScene = new Restaurante(this);
-	nm->init('h');
+	currentScene = new Menu(this);
+	// nm->init('h');
 #else
 	currentScene = new Menu(this);
 #endif // _DEBUG
@@ -64,6 +64,8 @@ void Game::start()
 		if (frameTime < 20)
 			SDL_Delay(20 - frameTime);
 	}
+
+	nm->close();
 }
 
 void Game::changeScene(Scene* scene) {
@@ -73,9 +75,7 @@ void Game::changeScene(Scene* scene) {
 }
 
 void Game::handleInput(SDL_Event& event, bool& exit) {
-	while (SDL_PollEvent(&event))
-		ih().update(event, exit);
-
+	ih().update(event, exit);
 	currentScene->handleInput(exit);
 }
 

@@ -17,9 +17,8 @@ using namespace std;
 
 class Game {
     //Cambiar a scene actual
-    Scene* currentScene;
-
-    NetworkManager* nm;
+    Scene* currentScene = nullptr;
+    NetworkManager* nm = nullptr;
 
 public:
     Game();
