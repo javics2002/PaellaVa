@@ -33,8 +33,6 @@ class Player : public GameObject
 	void setAnimResources();
 	void animUpdate();
 
-	int id_;
-
 public:
 	Player(Game* game);
 	~Player();
@@ -48,9 +46,6 @@ public:
 	SDL_Rect getOverlapCollider();	
 
 	void setPickedObject(ObjetoPortable* op, objectType ot);
-
-	void setId(int id) { id_ = id; }
-	int getId() { return id_; }
 
 	Vector2D<double> getAxis() { return ih().getAxis(); }
 
