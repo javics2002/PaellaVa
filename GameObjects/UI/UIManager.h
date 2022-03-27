@@ -19,6 +19,9 @@ class UIManager
 	vector<	IngredienteButton*> teclado;//iconos que se usan en la comanda qeu esta redactando
 	vector<	UiButton*> uicomandas;
 	//vector <GameObject*> pedido;//pedido que se est� redactando lo lleva la comanda
+
+	vector<GameObject*> pauseMenu; // menú de pausa
+
 	int mx;
 	int my;
 	int anchobotones = 25;
@@ -47,6 +50,8 @@ public:
 	void randomizaTeclado();
 
 	void addInterfaz(GameObject* comanda);
+
+	void TogglePause();
 
 };
 

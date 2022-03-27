@@ -11,6 +11,7 @@
 #include "AceptaPaellaButton.h"
 #include "EliminaComandaButton.h"
 #include "../../Data/ListaComandas.h"
+#include "PauseMenu.h"
 #include <iostream>
 
 using namespace std;
@@ -18,12 +19,21 @@ using namespace std;
 UIManager::UIManager(Game* game)
 {
 	this->game = game;
+
+
+	// crear menú ?
+	pauseMenu.push_back(new PauseMenu(game));
 }
 
 UIManager::~UIManager()
 {
 	for (auto i : interfaz)
 	{
+		delete i;
+		i = nullptr;
+	}
+
+	for (auto i : pauseMenu) {
 		delete i;
 		i = nullptr;
 	}
@@ -138,6 +148,11 @@ void UIManager::render(SDL_Rect* rect = nullptr)
 
 	for (auto i : uicomandas)
 	{
+		if (i->isActive())
+			i->render(rect);
+	}
+
+	for (auto i : pauseMenu) {
 		if (i->isActive())
 			i->render(rect);
 	}
@@ -261,4 +276,10 @@ vector<Point2D<double>> UIManager::getPosTeclado()
 void UIManager::setPosTeclado(vector<Point2D<double>> t)
 {
 	posicionesBotones = t;
+}
+
+void UIManager::TogglePause() {
+	for (auto i : pauseMenu) {
+		i->setActive(!i->isActive());
+	}
 }

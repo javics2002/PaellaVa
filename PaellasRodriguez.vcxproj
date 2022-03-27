@@ -182,6 +182,7 @@
     <ClInclude Include="GameObjects\Muebles\InicioCinta.h" />
     <ClInclude Include="GameObjects\UI\IngredienteButton.h" />
     <ClInclude Include="GameObjects\UI\NumeroButton.h" />
+    <ClInclude Include="GameObjects\UI\PauseMenu.h" />
     <ClInclude Include="GameObjects\UI\RedactaComandaButton.h" />
     <ClInclude Include="GameObjects\UI\TamanoButton.h" />
     <ClInclude Include="GameObjects\UI\UiButton.h" />
@@ -270,6 +271,7 @@
     <ClCompile Include="GameObjects\Muebles\TablaProcesado.cpp" />
     <ClCompile Include="GameObjects\UI\IngredienteButton.cpp" />
     <ClCompile Include="GameObjects\UI\NumeroButton.cpp" />
+    <ClCompile Include="GameObjects\UI\PauseMenu.cpp" />
     <ClCompile Include="GameObjects\UI\RedactaComandaButton.cpp" />
     <ClCompile Include="GameObjects\UI\TamanoButton.cpp" />
     <ClCompile Include="GameObjects\UI\UiButton.cpp" />

@@ -59,6 +59,8 @@ void Restaurante::handleInput(bool& exit)
 #ifdef _DEBUG
 		// game->changeScene(new GameOver(game, 100));
 		paused = !paused;
+
+		uiManager->TogglePause();
 #else
 		//Abrir menú de pausa
 #endif // _DEBUG
@@ -78,6 +80,8 @@ void Restaurante::update()
 			camara->Lerp(Vector2D<float>(tamRestaurante.getX(), 16), LERP_INTERPOLATION);
 		}
 	}
+
+	
 }
 
 void Restaurante::render()

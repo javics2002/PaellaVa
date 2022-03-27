@@ -312,6 +312,10 @@
     {
       "id": "camarero",
       "file": "../../../Assets/Images/camarero.png"
+    },
+	{
+      "id": "pause1",
+      "file": "../../../Assets/Images/pause1.png"
     }
   ],
 
