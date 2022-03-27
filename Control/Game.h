@@ -27,6 +27,7 @@ public:
     void init(); 
     void start();
     void changeScene(Scene* scene);
+    Scene* getCurrentScene() { return currentScene; }
 
     void handleInput(SDL_Event& event, bool& exit);
     void update();

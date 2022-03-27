@@ -65,4 +65,5 @@ public:
 	void mediaPuntuaciones();
 
 	void loadMap(string const& path);
+	void togglePause() { paused = !paused; }
 };

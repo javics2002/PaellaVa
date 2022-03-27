@@ -21,6 +21,7 @@ class UIManager
 	//vector <GameObject*> pedido;//pedido que se est� redactando lo lleva la comanda
 
 	vector<GameObject*> pauseMenu; // menú de pausa
+	vector<UiButton*> pauseButtons; // botones del menú de pausa
 
 	int mx;
 	int my;
@@ -51,7 +52,8 @@ public:
 
 	void addInterfaz(GameObject* comanda);
 
-	void TogglePause();
+	void creaMenuPausa();
+	void togglePause();
 
 };
 

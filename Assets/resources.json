@@ -316,6 +316,18 @@
 	{
       "id": "pause1",
       "file": "../../../Assets/Images/pause1.png"
+    },
+	{
+      "id": "resumeBoton",
+      "file": "../../../Assets/Images/resumeBoton.png"
+    },
+	{
+      "id": "pause2",
+      "file": "../../../Assets/Images/pause2.png"
+    },
+	{
+      "id": "settingsBoton",
+      "file": "../../../Assets/Images/settingsBoton.png"
     }
   ],
 

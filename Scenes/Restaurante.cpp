@@ -36,6 +36,8 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 	uiManager->addInterfaz(new RedactaComandabutton(game, uiManager, "redactaboton", 10, 10, 30, 30));
 	uiManager->setBarra(new ListaComandas(game,uiManager));
 
+	uiManager->creaMenuPausa();
+
 	objectManager->addPaella(new Paella(game, TipoPaella::Minima));
 	objectManager->addPaella(new Paella(game, TipoPaella::Minima));
 	objectManager->addPaella(new Paella(game, TipoPaella::Minima));
@@ -58,9 +60,8 @@ void Restaurante::handleInput(bool& exit)
 	if (ih().getKey(InputHandler::CANCEL)) {
 #ifdef _DEBUG
 		// game->changeScene(new GameOver(game, 100));
-		paused = !paused;
-
-		uiManager->TogglePause();
+		togglePause();
+		uiManager->togglePause();
 #else
 		//Abrir menú de pausa
 #endif // _DEBUG

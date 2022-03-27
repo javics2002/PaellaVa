@@ -11,7 +11,11 @@
 #include "AceptaPaellaButton.h"
 #include "EliminaComandaButton.h"
 #include "../../Data/ListaComandas.h"
+
 #include "PauseMenu.h"
+#include "../../Scenes/Scene.h"
+#include "../../Scenes/Restaurante.h"
+
 #include <iostream>
 
 using namespace std;
@@ -19,10 +23,6 @@ using namespace std;
 UIManager::UIManager(Game* game)
 {
 	this->game = game;
-
-
-	// crear menú ?
-	pauseMenu.push_back(new PauseMenu(game));
 }
 
 UIManager::~UIManager()
@@ -34,6 +34,11 @@ UIManager::~UIManager()
 	}
 
 	for (auto i : pauseMenu) {
+		delete i;
+		i = nullptr;
+	}
+
+	for (auto i : pauseButtons) {
 		delete i;
 		i = nullptr;
 	}
@@ -87,6 +92,18 @@ void UIManager::uiEvent(int mx, int my, bool& exit)
 				my = -1;
 			}
 			if (c->onClick(mx, my, exit))
+			{
+				mx = -1;
+				my = -1;
+			}
+		}
+	}
+
+	for (auto i : pauseButtons)
+	{
+		if (i->isActive())
+		{
+			if (i->onClick(mx, my, exit))
 			{
 				mx = -1;
 				my = -1;
@@ -153,6 +170,11 @@ void UIManager::render(SDL_Rect* rect = nullptr)
 	}
 
 	for (auto i : pauseMenu) {
+		if (i->isActive())
+			i->render(rect);
+	}
+
+	for (auto i : pauseButtons) {
 		if (i->isActive())
 			i->render(rect);
 	}
@@ -278,8 +300,43 @@ void UIManager::setPosTeclado(vector<Point2D<double>> t)
 	posicionesBotones = t;
 }
 
-void UIManager::TogglePause() {
+void UIManager::creaMenuPausa() {
+	// crear menú ?
+	UiButton* background = new UiButton(game, "pause2", sdlutils().width() / 2, sdlutils().height() / 2, sdlutils().width(), sdlutils().height());
+	background->setActive(false);
+	pauseMenu.push_back(background);
+
+	pauseMenu.push_back(new PauseMenu(game));
+
+	UiButton* resumeButton = new UiButton(game, "resumeBoton", sdlutils().width() / 2, sdlutils().height() / 2 - 25, 200, 100);
+	resumeButton->setActive(false);
+
+	resumeButton->setAction([](Game* game, bool& exit) {
+		// Pausa
+		Restaurante* currentScene = dynamic_cast<Restaurante*>(game->getCurrentScene());
+		currentScene->togglePause();
+		game->getUIManager()->togglePause(); // no se puede hacer referencia a sí mismo?
+		});
+
+	pauseButtons.push_back(resumeButton);
+
+	UiButton* settingsButton = new UiButton(game, "settingsBoton", sdlutils().width() / 2, sdlutils().height() / 2 + 30, 200, 100);
+	settingsButton->setActive(false);
+
+	settingsButton->setAction([](Game* game, bool& exit) {
+		// Settings
+
+		});
+
+	pauseButtons.push_back(settingsButton);
+}
+
+void UIManager::togglePause() {
 	for (auto i : pauseMenu) {
+		i->setActive(!i->isActive());
+	}
+
+	for (auto i : pauseButtons) {
 		i->setActive(!i->isActive());
 	}
 }
