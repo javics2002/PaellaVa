@@ -27,7 +27,7 @@
     <ClCompile Include="SDL2-2.0.20\include\SDL_rect.cpp" />
     <ClCompile Include="sdlutils\SDLUtils.cpp" />
     <ClCompile Include="Scenes\Restaurante.cpp" />
-    <ClCompile Include="GameObjects\Fondo.cpp" />
+    <ClCompile Include="GameObjects\Imagen.cpp" />
     <ClCompile Include="Utils\Texture.cpp" />
     <ClCompile Include="json\JSON.cpp" />
     <ClCompile Include="json\JSONValue.cpp" />
@@ -60,7 +60,6 @@
     <ClCompile Include="Control\NetworkManager.cpp" />
     <ClCompile Include="GameObjects\Muebles\Pila.cpp" />
     <ClCompile Include="Scenes\HostClient.cpp" />
-    <ClCompile Include="GameObjects\UI\PauseMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
@@ -94,7 +93,7 @@
     <ClInclude Include="sdlutils\SDLUtils.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Utils\Vector2D.h" />
-    <ClInclude Include="GameObjects\Fondo.h" />
+    <ClInclude Include="GameObjects\Imagen.h" />
     <ClInclude Include="Utils\Texture.h" />
     <ClInclude Include="Utils\Singleton.h" />
     <ClInclude Include="json\JSON.h" />
@@ -147,7 +146,6 @@
     <ClInclude Include="Control\NetworkManager.h" />
     <ClInclude Include="GameObjects\Muebles\Pila.h" />
     <ClInclude Include="Scenes\HostClient.h" />
-    <ClInclude Include="GameObjects\UI\PauseMenu.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />

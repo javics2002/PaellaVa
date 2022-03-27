@@ -61,7 +61,6 @@ void Restaurante::handleInput(bool& exit)
 #ifdef _DEBUG
 		// game->changeScene(new GameOver(game, 100));
 		togglePause();
-		uiManager->togglePause();
 #else
 		//Abrir menú de pausa
 #endif // _DEBUG
@@ -111,6 +110,32 @@ void Restaurante::mediaPuntuaciones()
 		sumaMedia+=i;
 	}
 	puntuaciónTotal = sumaMedia / puntuacionesComandas.size();
+}
+
+void Restaurante::togglePause()
+{
+	uiManager->togglePause();
+
+	paused = !paused;
+
+	if (paused) {
+		Mueble* m;
+		double offsetM = 0;
+		for (int i = 0u; i < objectManager->getMuebles().size(); i++) {
+			m = dynamic_cast<Mueble*>(objectManager->getMuebles()[i]);
+			offsetM = SDL_GetTicks() - m->getTime();
+
+			m->setOffset(offsetM);
+		}
+	}
+	else {
+		Mueble* m;
+		for (int i = 0u; i < objectManager->getMuebles().size(); i++) {
+			m = dynamic_cast<Mueble*>(objectManager->getMuebles()[i]);
+
+			m->setTime(SDL_GetTicks());
+		}
+	}
 }
 
 void Restaurante::loadMap(string const& path) {

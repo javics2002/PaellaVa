@@ -12,7 +12,6 @@
 #include "EliminaComandaButton.h"
 #include "../../Data/ListaComandas.h"
 
-#include "PauseMenu.h"
 #include "../../Scenes/Scene.h"
 #include "../../Scenes/Restaurante.h"
 
@@ -301,12 +300,14 @@ void UIManager::setPosTeclado(vector<Point2D<double>> t)
 }
 
 void UIManager::creaMenuPausa() {
-	// crear menú ?
-	UiButton* background = new UiButton(game, "pause2", sdlutils().width() / 2, sdlutils().height() / 2, sdlutils().width(), sdlutils().height());
-	background->setActive(false);
-	pauseMenu.push_back(background);
+	// crear menú
+	Imagen* bg = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2, sdlutils().width(), sdlutils().height(), "pause2");
+	bg->setActive(false);
+	pauseMenu.push_back(bg);
 
-	pauseMenu.push_back(new PauseMenu(game));
+	Imagen* pauseImage = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2, 300, 300, "pause1");
+	pauseImage->setActive(false);
+	pauseMenu.push_back(pauseImage);
 
 	UiButton* resumeButton = new UiButton(game, "resumeBoton", sdlutils().width() / 2, sdlutils().height() / 2 - 25, 200, 100);
 	resumeButton->setActive(false);
@@ -315,7 +316,6 @@ void UIManager::creaMenuPausa() {
 		// Pausa
 		Restaurante* currentScene = dynamic_cast<Restaurante*>(game->getCurrentScene());
 		currentScene->togglePause();
-		game->getUIManager()->togglePause(); // no se puede hacer referencia a sí mismo?
 		});
 
 	pauseButtons.push_back(resumeButton);

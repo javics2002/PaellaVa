@@ -11,14 +11,23 @@ class Player;
 
 class Mueble : public GameObject
 {
+protected:
+    double time;
+    double offsetTime;
+
 public:
 	Mueble(Game* game, Vector2D<double> position, int width, int height, string claveTextura);
 	~Mueble() = default;
 
-    virtual bool receiveIngrediente(Ingrediente* ingr) { return false; };
-    virtual bool receiveGrupoClientes(GrupoClientes* gc) { return false; };
-    virtual bool receivePaella(Paella* pa) { return false; };
+    virtual bool receiveIngrediente(Ingrediente* ingr) { return false; }
+    virtual bool receiveGrupoClientes(GrupoClientes* gc) { return false; }
+    virtual bool receivePaella(Paella* pa) { return false; }
     virtual bool returnObject(Player* p) { return false; }
+
+    virtual void setTime(double newTime) { time = newTime; }
+    virtual double getTime() { return time; }
+
+    virtual void setOffset(double newOffset) { offsetTime = newOffset; }
 };
 
 

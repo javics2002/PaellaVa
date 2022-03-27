@@ -4,7 +4,7 @@
 
 #include "../Control/ObjectManager.h"
 #include "../GameObjects/UI/UIManager.h"
-#include "../GameObjects/Fondo.h"
+#include "../GameObjects/Imagen.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../Control/Game.h"
 #include "../Control/Camera.h"
@@ -21,7 +21,7 @@ protected:
 
 	UIManager* uiManager;
 
-	Fondo* fondo;
+	Imagen* fondo;
 
 public:
 	Scene(Game* game);

@@ -6,7 +6,7 @@ Scene::Scene(Game* game)
 
 	objectManager = new ObjectManager(game);
 	uiManager = new UIManager(game);
-	fondo = new Fondo(game);
+	fondo = new Imagen(game);
 	fondo->setTexture("menufondo");
 	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
 }

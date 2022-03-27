@@ -156,7 +156,7 @@
     <ClInclude Include="GameObjects\UI\EnviaComandaButton.h" />
     <ClInclude Include="GameObjects\Muebles\Encimera.h" />
     <ClInclude Include="GameObjects\Cola.h" />
-    <ClInclude Include="GameObjects\Fondo.h" />
+    <ClInclude Include="GameObjects\Imagen.h" />
     <ClInclude Include="GameObjects\Muebles\Cartel.h" />
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
     <ClInclude Include="GameObjects\Collider.h" />
@@ -182,7 +182,6 @@
     <ClInclude Include="GameObjects\Muebles\InicioCinta.h" />
     <ClInclude Include="GameObjects\UI\IngredienteButton.h" />
     <ClInclude Include="GameObjects\UI\NumeroButton.h" />
-    <ClInclude Include="GameObjects\UI\PauseMenu.h" />
     <ClInclude Include="GameObjects\UI\RedactaComandaButton.h" />
     <ClInclude Include="GameObjects\UI\TamanoButton.h" />
     <ClInclude Include="GameObjects\UI\UiButton.h" />
@@ -245,7 +244,7 @@
     <ClCompile Include="GameObjects\UI\EnviaComandaButton.cpp" />
     <ClCompile Include="GameObjects\Muebles\Encimera.cpp" />
     <ClCompile Include="GameObjects\Cola.cpp" />
-    <ClCompile Include="GameObjects\Fondo.cpp" />
+    <ClCompile Include="GameObjects\Imagen.cpp" />
     <ClCompile Include="GameObjects\Muebles\Cartel.cpp" />
     <ClCompile Include="GameObjects\Muebles\FinalCinta.cpp" />
     <ClCompile Include="GameObjects\Cliente.cpp" />
@@ -271,7 +270,6 @@
     <ClCompile Include="GameObjects\Muebles\TablaProcesado.cpp" />
     <ClCompile Include="GameObjects\UI\IngredienteButton.cpp" />
     <ClCompile Include="GameObjects\UI\NumeroButton.cpp" />
-    <ClCompile Include="GameObjects\UI\PauseMenu.cpp" />
     <ClCompile Include="GameObjects\UI\RedactaComandaButton.cpp" />
     <ClCompile Include="GameObjects\UI\TamanoButton.cpp" />
     <ClCompile Include="GameObjects\UI\UiButton.cpp" />
