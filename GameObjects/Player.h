@@ -1,7 +1,6 @@
 #pragma once
 #include "GameObject.h"
 #include "ObjetoPortable.h"
-#include "../Control/Input.h"
 #include "../sdlutils/InputHandler.h"
 
 class Ingrediente;
@@ -20,7 +19,6 @@ class Player : public GameObject
 	ObjetoPortable* pickedObject_;
 	objectType objectType_;
 
-	Input* input_;
 	orientation orientation_;
 	
 	float aceleracion, deceleracion, maxVel;

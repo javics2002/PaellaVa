@@ -42,8 +42,6 @@ public:
 
 	tipoIngrediente getTipo();
 
-	void setEnPaella();
-
 	void onObjectPicked() override;
 	void onObjectDropped() override;
 };

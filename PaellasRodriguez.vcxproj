@@ -24,6 +24,7 @@
     <ProjectGuid>{58989692-3f8e-49d7-9a07-8ec1e5212212}</ProjectGuid>
     <RootNamespace>PaellasRodriguez</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>PaellaVa</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -161,7 +162,6 @@
     <ClInclude Include="GameObjects\Muebles\Cartel.h" />
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
     <ClInclude Include="GameObjects\Collider.h" />
-    <ClInclude Include="Control\Input.h" />
     <ClInclude Include="Data\Comanda.h" />
     <ClInclude Include="GameObjects\Cliente.h" />
     <ClInclude Include="GameObjects\Muebles\Cinta.h" />
@@ -237,7 +237,6 @@
     <ClCompile Include="Data\Pedido.cpp" />
     <ClCompile Include="GameObjects\Muebles\BolsaArroz.cpp" />
     <ClCompile Include="Control\Camera.cpp" />
-    <ClCompile Include="Control\Input.cpp" />
     <ClCompile Include="GameObjects\UI\AceptaPaellaButton.cpp" />
     <ClCompile Include="GameObjects\UI\BorrarButton.cpp" />
     <ClCompile Include="Data\Comanda.cpp" />

@@ -172,7 +172,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="3" name="Pared" visible="0">
+ <objectgroup id="3" name="Pared">
   <object id="72" name="pared" x="128" y="102">
    <point/>
   </object>
@@ -428,25 +428,7 @@
   <object id="173" name="pared" x="2240.18" y="741.97">
    <point/>
   </object>
-  <object id="174" name="pared" x="0.333333" y="614">
-   <point/>
-  </object>
-  <object id="175" name="pared" x="0.333333" y="678">
-   <point/>
-  </object>
   <object id="187" name="pared" x="1215.67" y="168.667">
-   <point/>
-  </object>
-  <object id="188" name="pared" x="1215.67" y="232.667">
-   <point/>
-  </object>
-  <object id="189" name="pared" x="1215.67" y="296.667">
-   <point/>
-  </object>
-  <object id="190" name="pared" x="1215.67" y="360.667">
-   <point/>
-  </object>
-  <object id="191" name="pared" x="1215.67" y="424.667">
    <point/>
   </object>
   <object id="192" name="pared" x="1215.67" y="488.667">
