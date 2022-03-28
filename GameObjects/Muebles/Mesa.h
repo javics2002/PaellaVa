@@ -32,6 +32,7 @@ public:
 	bool colisionPlayer(Player* p) override;
 
 	void clienteSeVa();
+
 	vector<Paella*> getPaellasEntregadas();
 
 	void cambiaTexturaPaellas(string clave, Contenido contenido);

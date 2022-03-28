@@ -35,6 +35,7 @@ void Paella::anadeIngr(Ingrediente* ingr_,bool arroz)
 	}
 	else if(!arroz_ && arroz){
 		arroz_ = true;
+		setContenido(Entera);
 		game->getObjectManager()->arrozColocado();
 		setTexture("paella");
 	}
