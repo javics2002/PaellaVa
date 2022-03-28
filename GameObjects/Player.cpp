@@ -305,6 +305,8 @@ void Player::update()
 		}
 	}
 
+	setColliderRect({ (int)getX(), (int)getY(), w, h });
+
 	if (pickedObject_ != nullptr) {
 		if (pickedObject_->isPicked())
 			pickedObject_->setPosition(getX(), getY() - getHeight() / 2);
@@ -400,7 +402,8 @@ Vector2D<double> Player::getVel()
 
 void Player::renderDebug(SDL_Rect* cameraRect)
 {
-	drawDebug(cameraRect);
+	//setColliderRect({ (int)getX(), (int)getY(), w, h });
+	drawDebugColl(cameraRect);
 	drawDebug(cameraRect, getOverlapCollider());
 }
 

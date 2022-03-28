@@ -233,6 +233,7 @@
   <ItemGroup>
     <ClCompile Include="Control\NetworkManager.cpp" />
     <ClCompile Include="Data\Pedido.cpp" />
+    <ClCompile Include="GameObjects\Collider.cpp" />
     <ClCompile Include="GameObjects\Muebles\BolsaArroz.cpp" />
     <ClCompile Include="Control\Camera.cpp" />
     <ClCompile Include="Control\Input.cpp" />

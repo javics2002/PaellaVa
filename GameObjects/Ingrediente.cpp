@@ -10,6 +10,7 @@ Ingrediente::Ingrediente(Game* game) :  PoolObject(game) {
 void Ingrediente::update()
 {
 	setPosition(getX(), getY() + vel.getY());
+	setColliderRect({ (int)getX(), (int)getY(), w, h });
 }
 
 pair<bool, std::list<PoolObject*>::const_iterator> Ingrediente::colisionIngrediente()

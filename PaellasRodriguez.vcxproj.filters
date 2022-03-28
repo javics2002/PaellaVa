@@ -60,6 +60,7 @@
     <ClCompile Include="Control\NetworkManager.cpp" />
     <ClCompile Include="GameObjects\Muebles\Pila.cpp" />
     <ClCompile Include="Scenes\HostClient.cpp" />
+    <ClCompile Include="GameObjects\Collider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
