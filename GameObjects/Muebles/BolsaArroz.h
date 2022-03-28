@@ -4,12 +4,12 @@
 #include <deque>
 
 class Game;
-class Ingrediente;
+class Arroz;
 
 class BolsaArroz : public Mueble
 {
-private:
-	Pool<Ingrediente>* arroces;
+
+	Arroz* arroz = nullptr;
 
 public:
 	BolsaArroz(Game* game, Vector2D<double> pos);

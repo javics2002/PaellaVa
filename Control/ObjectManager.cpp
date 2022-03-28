@@ -41,6 +41,8 @@ void ObjectManager::render(SDL_Rect* rect)
 
 	for (auto p : players)
 		p->render(rect);
+
+	if(arroz_!=nullptr)arroz_->render(rect);
 	
 
 	/*for (auto c : comandas)
@@ -66,6 +68,8 @@ void ObjectManager::debug(SDL_Rect* rect)
 
 	for (auto i : paellas)
 		i->renderDebug(rect);
+
+
 
 	ingredientes->debug(rect);
 
@@ -124,6 +128,16 @@ void ObjectManager::addPaella(GameObject* paella)
 	paellas.push_back(paella);
 }
 
+void ObjectManager::addArroz(Arroz* arroz) {
+	arroz_ = arroz;
+}
+
+void ObjectManager::arrozColocado()
+{
+	arroz_ = nullptr;
+}
+
+
 vector<Collider*> ObjectManager::getMueblesCollider()
 {
 	vector<Collider*> c;
@@ -157,6 +171,8 @@ vector<Collider*> ObjectManager::getPaellasCollider(SDL_Rect collider)
 
 	return c;
 }
+
+
 
 void ObjectManager::initMuebles()
 {
