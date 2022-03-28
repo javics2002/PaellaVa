@@ -8,8 +8,6 @@
 
 Menu::Menu(Game* game) : Scene(game)
 {
-	this->game = game;
-
 	fondo->setTexture("menufondo");
 	fondo->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
 	fondo->setDimension(sdlutils().width(), sdlutils().height()+100);

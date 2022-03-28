@@ -5,7 +5,6 @@ class Game;
 
 class Pared : public Mueble
 {
-	Game* game_ = nullptr;
 public:
 	Pared(Game* game, Vector2D<double> position);
 	~Pared();

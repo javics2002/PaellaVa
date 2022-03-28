@@ -1,6 +1,5 @@
 #include "Player.h"
 
-#include "../Control/Input.h"
 #include "../sdlutils/InputHandler.h"
 #include "../Control/Game.h"
 #include "../Control/ObjectManager.h"
