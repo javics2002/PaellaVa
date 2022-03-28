@@ -22,7 +22,7 @@ public:
 	~Paella() {};
 
 	bool ingrValido(Ingrediente* ingr);
-	void anadeIngr(Ingrediente* ingr_);
+	void anadeIngr(Ingrediente* ingr_,bool arroz);
 
 	void setState(EstadoPaellas estado_);
 	void paellaRecogida();
@@ -36,6 +36,7 @@ public:
 	void onObjectDropped() override;
 
 	bool canPick() override;
+	bool conArroz();
 	void enLaMesa(bool estaEnLaMesa);
 
 	list<tipoIngrediente> getVIngredientes();
@@ -51,6 +52,7 @@ private:
 	double tiempoCoccion = 0.0, tiempo = 0.0;
 	int sumaIntervalo = 0, i = 0;
 	bool enMesa = false;
+	bool arroz_ = false;
 
 	EstadoPaellas estado = Preparacion;
 	Resultado estadoFinal = Cruda;

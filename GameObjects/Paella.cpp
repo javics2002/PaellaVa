@@ -25,13 +25,20 @@ Paella::Paella(Game* game, TipoPaella tipo): ObjetoPortable(game), miTipo(tipo)
 	ingrEnPaella = vector<bool>(tipoIngrediente::LAST, false);
 }
 
-void Paella::anadeIngr(Ingrediente* ingr_)
+void Paella::anadeIngr(Ingrediente* ingr_,bool arroz)
 {
-	if (ingredientes.size() == 0)
+
+	if (!arroz && arroz_) {
+		ingredientes.push_back(ingr_->getTipo());
+		ingrEnPaella[ingr_->getTipo()] = true;
+		ingr_->setPosition(getPosition());
+	}
+	else if(!arroz_ && arroz){
+		arroz_ = true;
+		game->getObjectManager()->arrozColocado();
 		setTexture("paella");
-	ingredientes.push_back(ingr_->getTipo());
-	ingrEnPaella[ingr_->getTipo()] = true;
-	ingr_->setPosition(getPosition());
+	}
+
 }
 
 
@@ -99,6 +106,11 @@ void Paella::onObjectDropped()
 bool Paella::canPick()
 {
 	return contenido==Limpia && !enMesa;
+}
+
+bool Paella::conArroz()
+{
+	return arroz_;
 }
 
 void Paella::enLaMesa(bool estaEnLaMesa)
