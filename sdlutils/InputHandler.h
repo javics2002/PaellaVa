@@ -19,6 +19,7 @@ class InputHandler : public Singleton<InputHandler> {
 	SDL_Joystick* joystick_;
 
 	vector<bool> keyPressed;
+	vector<bool> lastKeyPressed;
 	vector<bool> mousePressed;
 
 	bool leftLibre = true;
@@ -37,6 +38,7 @@ class InputHandler : public Singleton<InputHandler> {
 		kbState_ = SDL_GetKeyboardState(0);
 		initJoystick();
 		keyPressed = vector<bool>(botones::UNKNOWN, false);
+		lastKeyPressed = vector<bool>(botones::UNKNOWN, false);
 		mousePressed = vector<bool>(botones::UNKNOWN, false);
 	}
 
@@ -72,32 +74,39 @@ public:
 	}
 
 	// update the state with a new event
-	inline void update(const SDL_Event& event, bool& exit) {
-		switch (event.type) {
-		case SDL_KEYDOWN:
-			onKeyboardDown(event.key.keysym.scancode);
-			break;
-		case SDL_KEYUP:
-			onKeyboardUp(event.key.keysym.scancode);
-			break;
-		case SDL_MOUSEMOTION:
-			onMouseMotion(event);
-			break;
-		case SDL_MOUSEBUTTONDOWN:
-			onMouseButtonChange(event, true);
-			break;
-		case SDL_MOUSEBUTTONUP:
-			onMouseButtonChange(event, false);
-			break;
-		case SDL_JOYAXISMOTION:
-			onJoystickMotion(event);
-			break;
-		case SDL_QUIT:
-			exit = true;
-			break;
-		default:
-			break;
+	inline void update(SDL_Event& event, bool& exit) {
+		// sincronizar
+		lastKeyPressed = keyPressed;
+
+		while (SDL_PollEvent(&event)) {
+			switch (event.type) {
+			case SDL_KEYDOWN:
+				onKeyboardDown(event.key.keysym.scancode);
+				break;
+			case SDL_KEYUP:
+				onKeyboardUp(event.key.keysym.scancode);
+				break;
+			case SDL_MOUSEMOTION:
+				onMouseMotion(event);
+				break;
+			case SDL_MOUSEBUTTONDOWN:
+				onMouseButtonChange(event, true);
+				break;
+			case SDL_MOUSEBUTTONUP:
+				onMouseButtonChange(event, false);
+				break;
+			case SDL_JOYAXISMOTION:
+				onJoystickMotion(event);
+				break;
+			case SDL_QUIT:
+				exit = true;
+				break;
+			default:
+				break;
+			}
 		}
+		
+		
 	}
 
 	inline void initJoystick()
@@ -205,6 +214,10 @@ public:
 			case botones::INTERACT:
 				break;
 			case botones::CANCEL:
+				// pausa
+				// lastKeyPressed
+
+
 				break;
 			default:
 				break;
@@ -313,7 +326,7 @@ public:
 
 	bool getKey(botones boton)
 	{
-		return keyPressed[boton];
+		return keyPressed[boton] && !lastKeyPressed[boton];
 	}
 
 	// TODO add support for Joystick, see Chapter 4 of

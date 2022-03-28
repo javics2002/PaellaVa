@@ -36,6 +36,8 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 	uiManager->addInterfaz(new RedactaComandabutton(game, uiManager, "redactaboton", 10, 10, 30, 30));
 	uiManager->setBarra(new ListaComandas(game,uiManager));
 
+	uiManager->creaMenuPausa();
+
 	objectManager->addPaella(new Paella(game, TipoPaella::Minima));
 	objectManager->addPaella(new Paella(game, TipoPaella::Minima));
 	objectManager->addPaella(new Paella(game, TipoPaella::Minima));
@@ -57,7 +59,8 @@ void Restaurante::handleInput(bool& exit)
 
 	if (ih().getKey(InputHandler::CANCEL)) {
 #ifdef _DEBUG
-		game->changeScene(new GameOver(game, 100));
+		// game->changeScene(new GameOver(game, 100));
+		togglePause();
 #else
 		//Abrir menú de pausa
 #endif // _DEBUG
@@ -66,15 +69,19 @@ void Restaurante::handleInput(bool& exit)
 
 void Restaurante::update()
 {
-	objectManager->update();
-	uiManager->update();
+	if (!paused) {
+		objectManager->update();
+		uiManager->update();
 
-	if (objectManager->getHost()->getX() > tamRestaurante.getY() + TILE_SIZE) { // tamRestaurante es un rango, no una posición, por eso tengo que hacer getY()
-		camara->Lerp(Vector2D<float>(tamRestaurante.getY(), 16), LERP_INTERPOLATION);
+		if (objectManager->getHost()->getX() > tamRestaurante.getY() + TILE_SIZE) { // tamRestaurante es un rango, no una posición, por eso tengo que hacer getY()
+			camara->Lerp(Vector2D<float>(tamRestaurante.getY(), 16), LERP_INTERPOLATION);
+		}
+		else if (objectManager->getHost()->getX() < tamRestaurante.getY()) {
+			camara->Lerp(Vector2D<float>(tamRestaurante.getX(), 16), LERP_INTERPOLATION);
+		}
 	}
-	else if (objectManager->getHost()->getX() < tamRestaurante.getY()) {
-		camara->Lerp(Vector2D<float>(tamRestaurante.getX(), 16), LERP_INTERPOLATION);
-	}
+
+	
 }
 
 void Restaurante::render()
@@ -103,6 +110,32 @@ void Restaurante::mediaPuntuaciones()
 		sumaMedia+=i;
 	}
 	puntuaciónTotal = sumaMedia / puntuacionesComandas.size();
+}
+
+void Restaurante::togglePause()
+{
+	uiManager->togglePause();
+
+	paused = !paused;
+
+	if (paused) {
+		Mueble* m;
+		double offsetM = 0;
+		for (int i = 0u; i < objectManager->getMuebles().size(); i++) {
+			m = dynamic_cast<Mueble*>(objectManager->getMuebles()[i]);
+			offsetM = SDL_GetTicks() - m->getTime();
+
+			m->setOffset(offsetM);
+		}
+	}
+	else {
+		Mueble* m;
+		for (int i = 0u; i < objectManager->getMuebles().size(); i++) {
+			m = dynamic_cast<Mueble*>(objectManager->getMuebles()[i]);
+
+			m->setTime(SDL_GetTicks());
+		}
+	}
 }
 
 void Restaurante::loadMap(string const& path) {

@@ -6,10 +6,6 @@
 #include <iostream>
 #include <mutex>
 
-// #include "Timer.h"
-
-#define MAX_PLAYERS 15
-
 class Game;
 class Player;
 
@@ -61,15 +57,10 @@ struct PacketAccept {
 class NetworkManager
 {
 private:
-	int id_count;
-	Game* game_;
 
-	bool exitThread;
-
-	Player* players[MAX_PLAYERS];
-
-	TCPsocket player_sockets[MAX_PLAYERS];
-	IPaddress player_ips[MAX_PLAYERS];
+	std::vector<TCPsocket> player_sockets;
+	std::vector<IPaddress> player_ips;
+	std::vector<int> player_ids;
 
 	// SERVER
 
@@ -98,6 +89,13 @@ private:
 	// VARIABLES
 
 	char nType;
+
+	const int MAX_PLAYERS = 15;
+
+	int id_count;
+	Game* game_;
+
+	bool exitThread;
 
 	// For clients ip=server_address, for host ip=local_address
 	IPaddress ip;

@@ -61,6 +61,7 @@ public:
 	}
 
 	void initMuebles();
+	vector<GameObject*> getMuebles() { return muebles; }
 	vector<Collider*> getMueblesCollider();
 	vector<Collider*> getMueblesCollider(SDL_Rect collider);
 	vector<Collider*> getPaellasCollider(SDL_Rect collider);

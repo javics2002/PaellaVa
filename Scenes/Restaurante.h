@@ -51,6 +51,8 @@ class Restaurante : public Scene
 
 	Vector2D<int> tamRestaurante = Vector2D<int>(0, 1216);
 
+	bool paused = false;
+
 public:
 	Restaurante(Game* game);
 	~Restaurante();
@@ -64,4 +66,5 @@ public:
 	void mediaPuntuaciones();
 
 	void loadMap(string const& path);
+	void togglePause();
 };

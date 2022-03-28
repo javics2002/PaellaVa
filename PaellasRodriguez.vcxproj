@@ -156,7 +156,7 @@
     <ClInclude Include="GameObjects\UI\EnviaComandaButton.h" />
     <ClInclude Include="GameObjects\Muebles\Encimera.h" />
     <ClInclude Include="GameObjects\Cola.h" />
-    <ClInclude Include="GameObjects\Fondo.h" />
+    <ClInclude Include="GameObjects\Imagen.h" />
     <ClInclude Include="GameObjects\Muebles\Cartel.h" />
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
     <ClInclude Include="GameObjects\Collider.h" />
@@ -244,7 +244,7 @@
     <ClCompile Include="GameObjects\UI\EnviaComandaButton.cpp" />
     <ClCompile Include="GameObjects\Muebles\Encimera.cpp" />
     <ClCompile Include="GameObjects\Cola.cpp" />
-    <ClCompile Include="GameObjects\Fondo.cpp" />
+    <ClCompile Include="GameObjects\Imagen.cpp" />
     <ClCompile Include="GameObjects\Muebles\Cartel.cpp" />
     <ClCompile Include="GameObjects\Muebles\FinalCinta.cpp" />
     <ClCompile Include="GameObjects\Cliente.cpp" />

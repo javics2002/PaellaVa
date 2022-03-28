@@ -9,7 +9,7 @@ Puerta::Puerta(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 
 
 void Puerta::update()
 {
-	if (SDL_GetTicks() - time >= SPAWN_DELAY) {
+	if (SDL_GetTicks() - (time - offsetTime) >= SPAWN_DELAY) {
 
 		int integrantes = 1 + rand() % MAX_TAM;
 
