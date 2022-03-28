@@ -132,34 +132,26 @@ public:
 		switch (key) {
 		case SDL_SCANCODE_A:
 		case SDL_SCANCODE_LEFT:
-			if (rightLibre)
 			{
 				keyJustDown(botones::LEFT);
-				leftLibre = false;
 			}
 			break;
 		case SDL_SCANCODE_D:
 		case SDL_SCANCODE_RIGHT:
-			if (leftLibre)
 			{
 				keyJustDown(botones::RIGHT);
-				rightLibre = false;
 			}
 			break;
 		case SDL_SCANCODE_W:
 		case SDL_SCANCODE_UP:
-			if (downLibre)
 			{
 				keyJustDown(botones::UP);
-				upLibre = false;
 			}
 			break;
 		case SDL_SCANCODE_S:
 		case SDL_SCANCODE_DOWN:
-			if (upLibre)
 			{
 				keyJustDown(botones::DOWN);
-				downLibre = false;
 			}
 			break;
 		case SDL_SCANCODE_E:
@@ -183,16 +175,32 @@ public:
 
 			switch (boton) {
 			case botones::LEFT:
-				ejeX = -1; // valor entre -1 y 1
+				if (rightLibre)
+				{
+					ejeX = -1; // valor entre -1 y 1
+					leftLibre = false;
+				}
 				break;
 			case botones::RIGHT:
-				ejeX = 1;
+				if (leftLibre)
+				{
+					ejeX = 1;
+					rightLibre = false;
+				}
 				break;
 			case botones::UP:
-				ejeY = -1; // valor entre -1 y 1
+				if (downLibre)
+				{
+					ejeY = -1; // valor entre -1 y 1
+					upLibre = false;
+				}
 				break;
 			case botones::DOWN:
-				ejeY = 1;
+				if (upLibre)
+				{
+					ejeY = 1;
+					downLibre = false;
+				}
 				break;
 			case botones::INTERACT:
 				break;
@@ -208,7 +216,7 @@ public:
 		switch (key) {
 		case SDL_SCANCODE_A:
 		case SDL_SCANCODE_LEFT:
-			if (rightLibre)
+			//if (rightLibre)
 			{
 				keyPressed[botones::LEFT] = false;
 				ejeX = keyPressed[botones::RIGHT] ? 1 : 0;
@@ -217,7 +225,7 @@ public:
 			break;
 		case SDL_SCANCODE_D:
 		case SDL_SCANCODE_RIGHT:
-			if (leftLibre)
+			//if (leftLibre)
 			{
 				keyPressed[botones::RIGHT] = false;
 				ejeX = keyPressed[botones::LEFT] ? -1 : 0;
@@ -226,7 +234,7 @@ public:
 			break;
 		case SDL_SCANCODE_W:
 		case SDL_SCANCODE_UP:
-			if (downLibre)
+			//if (downLibre)
 			{
 				keyPressed[botones::UP] = false;
 				ejeY = keyPressed[botones::DOWN] ? 1 : 0;
@@ -235,7 +243,7 @@ public:
 			break;
 		case SDL_SCANCODE_S:
 		case SDL_SCANCODE_DOWN:
-			if (upLibre)
+			//if (upLibre)
 			{
 				keyPressed[botones::DOWN] = false;
 				ejeY = keyPressed[botones::UP] ? -1 : 0;
