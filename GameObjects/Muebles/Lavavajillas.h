@@ -16,7 +16,6 @@ public:
 
 	const double TIEMPO_LAVADO = 3000.0;
 
-	double tiempo = 0.0;
 
 	deque<Paella*> pilaPaellas;
 	deque<Paella*> paellasLimpias;
@@ -25,11 +24,11 @@ public:
 	Lavavajillas(Game* game, Vector2D<double> pos);
 	~Lavavajillas() = default;
 
-	void update();
+	void update() override;
 	void lavando();
 
 	bool receivePaella(Paella* paella_) override;
-	bool returnObject(Player* p);
+	bool returnObject(Player* p)override; 
 };
 
 

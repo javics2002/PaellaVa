@@ -38,6 +38,7 @@ public:
 	void ingredienteRecogido();
 	
 	void setProcesado(bool estadoIngr, Ingrediente *ingr);
+	bool getProcesado();
 
 	tipoIngrediente getTipo();
 

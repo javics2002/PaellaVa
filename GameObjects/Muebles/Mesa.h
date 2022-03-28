@@ -32,7 +32,6 @@ public:
 	bool colisionPlayer(Player* p) override;
 
 	void clienteSeVa();
-
 	void cambiaTexturaPaellas(string clave, Contenido contenido);
 
 };

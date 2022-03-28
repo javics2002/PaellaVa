@@ -22,7 +22,7 @@ bool Encimera::receiveIngrediente(Ingrediente* ingr)
 	
 	else if (paella_ != nullptr) {
 
-		if (paella_->ingrValido(ingr) && paella_->conArroz()) {
+		if (paella_->ingrValido(ingr) && paella_->conArroz() && ingr->getProcesado()) {
 
 			paella_->anadeIngr(ingr,false);
 

@@ -32,3 +32,10 @@ bool FinalCinta::receivePaella(Paella* pa)
 	return false;
 }
 
+bool FinalCinta::receiveArroz(Arroz* arr)
+{
+	game->getObjectManager()->arrozColocado();
+
+	return true;
+}
+

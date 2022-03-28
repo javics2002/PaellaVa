@@ -79,6 +79,7 @@ bool Mesa::returnObject(Player* p)
 	else if (!paellas.empty()) {
 		p->setPickedObject(paellas.back(), objectType::PAELLA);
 		paellas.back()->enLaMesa(false);
+		paellas.back()->setContenido(Sucia);
 		paellas.pop_back();
 
 		return true;
@@ -103,6 +104,7 @@ void Mesa::clienteSeVa()
 {
 	mGrupo = nullptr;
 }
+
 
 void Mesa::cambiaTexturaPaellas(string clave,Contenido contenido)
 {

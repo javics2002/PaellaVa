@@ -16,6 +16,7 @@ public:
 	void update() override;
 	bool receiveIngrediente(Ingrediente* ingr) override;
 	bool receivePaella(Paella* pa) override;
+	bool receiveArroz(Arroz* arr) override;
 };
 
 

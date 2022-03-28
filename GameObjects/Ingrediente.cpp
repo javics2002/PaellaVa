@@ -46,6 +46,11 @@ void Ingrediente::setProcesado(bool estadoIngr, Ingrediente *ingr)
 }
 
 
+bool Ingrediente::getProcesado()
+{
+	return procesado;
+}
+
 tipoIngrediente Ingrediente::getTipo()
 {
 	return miTipo;

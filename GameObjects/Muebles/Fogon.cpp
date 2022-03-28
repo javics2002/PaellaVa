@@ -10,7 +10,7 @@ Fogon::Fogon(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 2 
 bool Fogon::receivePaella(Paella* pa)
 {
 	//Si ya tiene objeto, no recoge objeto
-	if (paella_ == nullptr)
+	if (paella_ == nullptr && pa->getContenido()==Entera)
 	{
 		paella_ = pa;
 
