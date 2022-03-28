@@ -114,6 +114,17 @@ void Mesa::cambiaTexturaPaellas(string clave,Contenido contenido)
 	}
 }
 
+vector<Paella*> Mesa::getPaellasEntregadas()
+{
+	vector<Paella*> v;
+
+	for (auto it : paellas) {
+		v.push_back(it);
+	}
+
+	return v;
+}
+
 
 
 

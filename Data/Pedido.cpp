@@ -144,6 +144,8 @@ void Pedido::puntuarPedido(vector<Paella*> comanda)
 			}
 		}
 	}	
+
+	cout << puntuacion << endl;
 }
 
 
