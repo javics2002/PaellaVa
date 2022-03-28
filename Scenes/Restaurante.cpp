@@ -63,6 +63,7 @@ void Restaurante::handleInput(bool& exit)
 		togglePause();
 #else
 		//Abrir menú de pausa
+		togglePause();
 #endif // _DEBUG
 	}
 }
@@ -127,6 +128,8 @@ void Restaurante::togglePause()
 
 			m->setOffset(offsetM);
 		}
+
+		sdlutils().soundEffects().at("cancel").play(0, game->UI);
 	}
 	else {
 		Mueble* m;
@@ -135,6 +138,8 @@ void Restaurante::togglePause()
 
 			m->setTime(SDL_GetTicks());
 		}
+
+		sdlutils().soundEffects().at("select").play(0, game->UI);
 	}
 }
 

@@ -1,5 +1,7 @@
 #include "TablaProcesado.h"
 #include "../../GameObjects/Player.h"
+#include "../../Control/Game.h"
+#include "../../sdlutils/SDLUtils.h"
 
 TablaProcesado::TablaProcesado(Game* game_, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, "tablaProcesado")
 {
@@ -10,8 +12,6 @@ void TablaProcesado::update() {
 	if (ingr_ != nullptr) {
 		procesando();
 	}
-
-
 }
 
 void TablaProcesado::procesando()
@@ -33,6 +33,8 @@ bool TablaProcesado::receiveIngrediente(Ingrediente* ingr)
 
 		ingr_->setPosition(getX(), getY());
 
+		sdlutils().soundEffects().at("cortar" + to_string(sdlutils().rand().nextInt(1, 4))).play(4, game->MUEBLES);
+
 		return true;
 	}
 
@@ -48,6 +50,9 @@ bool TablaProcesado::returnObject(Player* p)
 		p->setPickedObject(ingr_, INGREDIENTE);
 
 		ingr_ = nullptr;
+
+		//Paro el sonido? Parece que solo puedo parar todo el canal
+		//sonido->haltChannel
 
 		return true;
 	}

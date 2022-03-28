@@ -59,7 +59,6 @@
     <ClCompile Include="Control\NetworkManager.cpp" />
     <ClCompile Include="GameObjects\Muebles\Pila.cpp" />
     <ClCompile Include="Scenes\HostClient.cpp" />
-    <ClCompile Include="GameObjects\UI\PauseMenu.cpp" />
     <ClCompile Include="GameObjects\Arroz.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -146,7 +145,6 @@
     <ClInclude Include="Control\NetworkManager.h" />
     <ClInclude Include="GameObjects\Muebles\Pila.h" />
     <ClInclude Include="Scenes\HostClient.h" />
-    <ClInclude Include="GameObjects\UI\PauseMenu.h" />
     <ClInclude Include="GameObjects\Arroz.h" />
   </ItemGroup>
   <ItemGroup>

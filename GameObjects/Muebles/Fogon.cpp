@@ -1,6 +1,7 @@
 #include "Fogon.h"
 #include "../../Control/Game.h"
 #include "../Paella.h"
+#include "../../sdlutils/SDLUtils.h"
 
 Fogon::Fogon(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, "fogon")
 {
@@ -18,6 +19,10 @@ bool Fogon::receivePaella(Paella* pa)
 
 		//empezar a cocer la paella
 		paella_->setState(Coccion);
+
+		sdlutils().soundEffects().at("enciendeFogon").play(0, game->MUEBLES);
+		sdlutils().soundEffects().at("paella").play(-1, game->MUEBLES);
+		sdlutils().soundEffects().at("fogon").play(-1, game->MUEBLES);
 
 		return true;
 	}

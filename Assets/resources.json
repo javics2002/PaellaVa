@@ -374,6 +374,7 @@
     { "id": "escribir5", "file": "../../../Assets/Sounds/Escribir5.mp3" },
     { "id": "fogon", "file": "../../../Assets/Sounds/Fogon.mp3" },
     { "id": "inicioCinta", "file": "../../../Assets/Sounds/InicioCinta.mp3" },
+    { "id": "paella", "file": "../../../Assets/Sounds/Paella.mp3" },
     { "id": "puerta", "file": "../../../Assets/Sounds/Puerta.mp3" },
     { "id": "select", "file": "../../../Assets/Sounds/Select.mp3" },
     { "id": "tirarPaella", "file": "../../../Assets/Sounds/tirarPaella.mp3" },

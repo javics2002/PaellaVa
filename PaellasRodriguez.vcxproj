@@ -117,7 +117,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>SDL2-2.0.20/include;SDL2_image-2.0.1/include;SDL2_mixer-2.0.2/include;SDL2_ttf-2.0.14/include;tmxlite/include;SDL2_net-2.0.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>SDL2-2.0.20/include;SDL2_image-2.0.1/include;SDL2_mixer-2.0.2/include;SDL2_ttf-2.0.14/include;tmxlite/include;SDL2_net-2.0.1/include;tweeny-3.2.0/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -134,7 +134,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>SDL2-2.0.20/include;SDL2_image-2.0.1/include;SDL2_mixer-2.0.2/include;SDL2_ttf-2.0.14/include;tmxlite/include;SDL2_net-2.0.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>SDL2-2.0.20/include;SDL2_image-2.0.1/include;SDL2_mixer-2.0.2/include;SDL2_ttf-2.0.14/include;tmxlite/include;SDL2_net-2.0.1/include;tweeny-3.2.0/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

@@ -32,9 +32,8 @@ void Game::init()
 	nm = new NetworkManager(this);
 
 #ifdef _DEBUG
-
 	currentScene = new Menu(this);
-	// nm->init('h');
+	//nm->init('h');
 #else
 	currentScene = new Menu(this);
 #endif // _DEBUG

@@ -27,6 +27,11 @@ Menu::Menu(Game* game) : Scene(game)
 	auto settingsButton = new UiButton(game, "settings", 640, posIni + aumento, 170, 100);
 	settingsButton->setAction([](Game* game, bool& exit) {
 		sdlutils().soundEffects().at("select").play(0, game->UI);
+		/*
+		auto t = tweeny::from(0).to(100).during(1000);
+		int a = t.peek();
+		game->getObjectManager()->addInterfaz(new Imagen(game, {200, 200}, 100, t.peek(), "alcachofa"));
+		*/
 		});
 	uiManager->addInterfaz(settingsButton);
 
