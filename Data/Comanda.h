@@ -23,7 +23,7 @@ class Comanda :public GameObject
     //hay 8 ingredientes distintos
 public:
     enum Tamaño { Pequeña, Mediana, Grande };
-    Comanda(Game* game, uint nmesa, UIManager* uim);//crear comanda
+    Comanda(Game* game, uint escala, UIManager* uim);//crear comanda
     Comanda( Comanda& c);//NECESARIO PARA QUE LA LIST DE COMANDAS FUNCIONE
 
     ~Comanda();//No se puede definir todavia y no compila NO LO BORREIS/
@@ -65,6 +65,7 @@ public:
 
 private:
     vector<Point2D<double> >posicionesBotones;//vas seleccionando y vas borrando las ya usadas
+    int escale = 1;//esta mas difisil de lo que pensaba mmh
     int x;
     int iniy;
     int y;
@@ -73,7 +74,7 @@ private:
     int w;
     int h;
     int margenbotones = 5;
-    int anchobotones = 25;
+    int anchobotones = 36;
     double margenizquierdo;
     double margensuperior;
     int ancho = 110;

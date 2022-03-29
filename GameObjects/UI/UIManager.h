@@ -19,6 +19,7 @@ class UIManager
 	vector<	IngredienteButton*> teclado;//iconos que se usan en la comanda qeu esta redactando
 	vector<	UiButton*> uicomandas;
 	//vector <GameObject*> pedido;//pedido que se est� redactando lo lleva la comanda
+	float uiscale =1.1;
 	int mx;
 	int my;
 	int anchobotones = 25;

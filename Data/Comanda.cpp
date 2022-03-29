@@ -9,15 +9,26 @@
 #include "../GameObjects/UI/UIManager.h"
 #include "ListaComandas.h"
 
-Comanda::Comanda(Game* game, uint nmesa, UIManager* uim) :GameObject(game)
+Comanda::Comanda(Game* game, uint escala, UIManager* uim) :GameObject(game)
 {
 	setTexture("cuadernillo");
+	escale = escala;
 	Vector2D<double> p;
+	ancho *= escale;
+	alto *= escale;
+	margenbotones *= escale;
+	anchobotones *= escale;
+	margenbotones *= escale;
+	margenizquierdo *= escale;
+	margensuperior *= escale;
 	x = 100;
 	y = 110;
+//	x += ancho /2*escale;
+	//y += alto / 4*escale;
 	p.setX(x);
 	p.setY(y);
 	setPosition(p);
+	
 	setDimension(ancho, alto);
 	altoini = alto;
 	iniy = p.getY();
@@ -28,6 +39,8 @@ Comanda::Comanda(Game* game, uint nmesa, UIManager* uim) :GameObject(game)
 	margenizquierdo = ix;
 	margensuperior = iy;
 	escritoX = ix;
+	//margenizquierdo= getPosition().getX() / 2 + anchobotones / 1*escale;
+	//escritoX = getPosition().getX() / 2 + anchobotones / 1*escale;
 	escritoY = iy - anchobotones - margenbotones;
 	//teclado inicial igualq eu lso magenes y eso para resetear la comanda bien
 	 //creamos las psiciones de los botones del teclado
@@ -68,7 +81,7 @@ void Comanda::añadiraPedido(string i)
 	if (Pedido.size() % 4 == 0)
 	{
 		escritoY += anchobotones / 2 + margenbotones;
-		escritoX = getPosition().getX() / 2 + margenbotones + anchobotones / 2;
+		escritoX = getPosition().getX() / 2  + anchobotones / 6;
 		alto = alto + anchobotones / 2 + 2 * margenbotones;
 		setDimension(ancho, alto);
 		setPosition(getPosition().getX(), getPosition().getY() + 2 * margenbotones);
@@ -81,6 +94,15 @@ void Comanda::añadiraPedido(string i)
 			//bajar teclado
 			//lo bajará en uim?
 		}
+		for (int i = 0; i<tecladotam.size();i++)
+		{
+			//b->getPosition().setY(b->getPosition().getY()+anchobotones*0.7);
+			int ny =tecladotam[i]->getY() + anchobotones * 0.5f;
+			
+			Point2D<double> np = tecladotam[i]->getPosition();
+			np.setY(ny);
+			tecladotam[i]->setPosition(np);
+		}
 		uiManager->setPosTeclado(sangria);
 	}
 	randomizaIconos();
@@ -88,7 +110,7 @@ void Comanda::añadiraPedido(string i)
 }
 void Comanda::anadirNumeromesa(string n)
 {
-	numeromesa = new UiButton(game, n, x + 1.5 * anchobotones, anchobotones, anchobotones / 2, anchobotones / 2);
+	numeromesa = new UiButton(game, n, x + anchobotones, anchobotones, anchobotones / 2, anchobotones / 2);
 	toggleTecladonum(false);
 	toggleTecaldotam(true);
 }
@@ -162,6 +184,13 @@ void Comanda::cancelaPedido()
 	setPosition(getPosition().getX(), iniy);
 	uiManager->setPosTeclado(postecladoini);
 	uiManager->randomizaTeclado();
+	for (int i = 0; i < tecladotam.size(); i++)
+	{
+		//b->getPosition().setY(b->getPosition().getY()+anchobotones*0.7);
+		
+
+		tecladotam[i]->setPosition(postecladoini[i]);
+	}
 	clearPaellas();
 	numeroPaellas = 0;
 	delete numeromesa; numeromesa = nullptr;
@@ -266,6 +295,15 @@ void Comanda::aceptaPaella()
 		//en algun lugar vuelven a tener el valor default lo tengo que mirar
 		//bajar teclado
 		//lo bajará en uim?
+	}
+	for (int i = 0; i < tecladotam.size(); i++)
+	{
+		//b->getPosition().setY(b->getPosition().getY()+anchobotones*0.7);
+		int ny = tecladotam[i]->getY() + anchobotones * 0.7f;
+
+		Point2D<double> np = tecladotam[i]->getPosition();
+		np.setY(ny);
+		tecladotam[i]->setPosition(np);
 	}
 	uiManager->setPosTeclado(sangria);
 	toggleTeclado(false);
