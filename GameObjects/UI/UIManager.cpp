@@ -18,6 +18,7 @@
 #include <iostream>
 
 using namespace std;
+using tweeny::easing;
 
 UIManager::UIManager(Game* game)
 {
@@ -319,6 +320,7 @@ void UIManager::creaMenuPausa() {
 	pauseMenu.push_back(pauseImage);
 
 	UiButton* resumeButton = new UiButton(game, "resumeBoton", sdlutils().width() / 2, sdlutils().height() / 2 - 25, 200, 100);
+	resumeButton->setInitialDimension(200, 100);
 	resumeButton->setActive(false);
 
 	resumeButton->setAction([](Game* game, bool& exit) {
@@ -330,6 +332,7 @@ void UIManager::creaMenuPausa() {
 	pauseButtons.push_back(resumeButton);
 
 	UiButton* settingsButton = new UiButton(game, "settingsBoton", sdlutils().width() / 2, sdlutils().height() / 2 + 30, 200, 100);
+	settingsButton->setInitialDimension(200, 100);
 	settingsButton->setActive(false);
 
 	settingsButton->setAction([](Game* game, bool& exit) {
@@ -348,26 +351,37 @@ void UIManager::togglePause() {
 		i->setActive(!i->isActive());
 
 		if (i->isActive()) {
-			tweeny::tween<int> test = tweeny::tween<int>::from(0).to(300).during(150);
-			test.onStep([i](tweeny::tween<int>& t, int) mutable {
-				i->setDimension(t.progress() * i->getInitialWidth(), t.progress() * i->getInitialHeight());
+			
+			tweeny::tween<int> pauseTween = tweeny::tween<int>::from(0).to(105).during(600).via(easing::exponentialOut);
+			
+			pauseTween.onStep([i](tweeny::tween<int>& t, int) mutable {
+				i->setDimension((t.peek() / 100.0f) * i->getInitialWidth(), (t.peek() / 100.0f) * i->getInitialHeight());
 
-				std::cout << "x " << i->getWidth() << "  " << "y " << i->getHeight() << std::endl;
-				// std::cout << t.progress() << std::endl;
 				if (t.progress() == 1) return true;
 				return false; });
 
-			activeTweens.push_back(test);
-			// activeTweens[iterator] = t;
+			activeTweens.push_back(pauseTween);
 		}
-		//else if (!i->isActive()) {
-		//	activeTweens.clear();
-		//}
-
-		//it = activeTweens.end();
+		else if (!i->isActive()) {
+			activeTweens.clear();
+		}
 	}
 
 	for (auto i : pauseButtons) {
+		i->setDimension(0, 0);
 		i->setActive(!i->isActive());
+
+		if (i->isActive()) {
+
+			tweeny::tween<int> pauseButtonTween = tweeny::tween<int>::from(0).to(105).during(600).via(easing::exponentialOut);
+
+			pauseButtonTween.onStep([i](tweeny::tween<int>& t, int) mutable {
+				i->setDimension((t.peek() / 100.0f) * i->getInitialWidth(), (t.peek() / 100.0f) * i->getInitialHeight());
+
+				if (t.progress() == 1) return true;
+				return false; });
+
+			activeTweens.push_back(pauseButtonTween);
+		}
 	}
 }
