@@ -28,6 +28,8 @@ void Ingrediente::onActivate()
 	miTipo = tipoIngrediente(n);
 
 	setTexture(texturaIngrediente[n]);
+
+	setColliderRect({ (int)getX(), (int)getY(), w, h });
 }
 
 void Ingrediente::onDesactivate()
