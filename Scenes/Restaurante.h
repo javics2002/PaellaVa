@@ -52,8 +52,6 @@ class Restaurante : public Scene
 
 	bool paused = false;
 
-	// tweeny::tween<int> test;
-
 public:
 	Restaurante(Game* game);
 	~Restaurante();

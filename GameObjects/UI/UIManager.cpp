@@ -198,7 +198,7 @@ void UIManager::creaComanda(Game* game)
 	actual->guardaTeclado();
 	actual->toggleTeclado(false);
 	actual->toggleTecaldotam(false);
-	
+
 	AceptaPaellaButton* aceptaPaellaButton = new AceptaPaellaButton(game, actual, "acepta", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() + actual->getHeight() / 4, anchobotones, anchobotones);
 	interfaz.push_back(aceptaPaellaButton);
 	actual->guardaBoton(aceptaPaellaButton);
@@ -256,7 +256,7 @@ void UIManager::creaTeclado()
 	j = 0;
 	vector <NumeroButton*> tecladonum;
 
-	for (auto i :texturasNumeros)
+	for (auto i : texturasNumeros)
 	{
 		//Comanda comanda,Game* game, TextureName texturename, int x, int y, int w, int h
 		NumeroButton* a = new NumeroButton(this, game, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), anchobotones, anchobotones);
@@ -278,7 +278,7 @@ void UIManager::creaTeclado()
 		j++;
 	}
 	actual->guardaTecladotam(tecladotam);
-	
+
 }
 
 void UIManager::randomizaTeclado()
@@ -323,10 +323,23 @@ void UIManager::creaMenuPausa() {
 	resumeButton->setInitialDimension(200, 100);
 	resumeButton->setActive(false);
 
-	resumeButton->setAction([](Game* game, bool& exit) {
+	resumeButton->setAction([this, resumeButton](Game* game, bool& exit) {
 		// Pausa
 		Restaurante* currentScene = dynamic_cast<Restaurante*>(game->getCurrentScene());
-		currentScene->togglePause();
+
+		tweeny::tween<int> resumeButtonTween = tweeny::tween<int>::from(90).to(105).during(600).via(easing::exponentialOut);
+
+		resumeButtonTween.onStep([resumeButton, currentScene](tweeny::tween<int>& t, int) mutable {
+			resumeButton->setDimension((t.peek() / 100.0f) * resumeButton->getInitialWidth(), (t.peek() / 100.0f) * resumeButton->getInitialHeight());
+
+			if (t.progress() > .2f) { //Busco una respuesta más rápida
+				currentScene->togglePause();
+				return true;
+			}
+			return false;
+			});
+
+		activeTweens.push_back(resumeButtonTween);
 		});
 
 	pauseButtons.push_back(resumeButton);
@@ -335,36 +348,46 @@ void UIManager::creaMenuPausa() {
 	settingsButton->setInitialDimension(200, 100);
 	settingsButton->setActive(false);
 
-	settingsButton->setAction([](Game* game, bool& exit) {
-		// Settings
+	settingsButton->setAction([this, settingsButton](Game* game, bool& exit) mutable {
+		sdlutils().soundEffects().at("select").play(0, game->UI);
+
+		tweeny::tween<int> settingsButtonTween = tweeny::tween<int>::from(90).to(105).during(600).via(easing::exponentialOut);
+
+		settingsButtonTween.onStep([game, settingsButton](tweeny::tween<int>& t, int) mutable {
+			settingsButton->setDimension((t.peek() / 100.0f) * settingsButton->getInitialWidth(), (t.peek() / 100.0f) * settingsButton->getInitialHeight());
+			
+			if (t.progress() > .2f) {
+				// Settings
+				return true;
+			}
+			return false;
+			});
+
+		activeTweens.push_back(settingsButtonTween);
 		});
 
 	pauseButtons.push_back(settingsButton);
 }
 
 void UIManager::togglePause() {
-	//list<tweeny::tween<int>>::iterator it;
-	//it = activeTweens.begin();
-
 	for (auto i : pauseMenu) {
-		i->setDimension(0, 0);
 		i->setActive(!i->isActive());
+	}
 
-		if (i->isActive()) {
-			
-			tweeny::tween<int> pauseTween = tweeny::tween<int>::from(0).to(105).during(600).via(easing::exponentialOut);
-			
-			pauseTween.onStep([i](tweeny::tween<int>& t, int) mutable {
-				i->setDimension((t.peek() / 100.0f) * i->getInitialWidth(), (t.peek() / 100.0f) * i->getInitialHeight());
+	//Solo una imagen tiene el tween
+	auto pauseImage = pauseMenu[1];
+	pauseImage->setDimension(0, 0);
 
-				if (t.progress() == 1) return true;
-				return false; });
+	if (pauseImage->isActive()) {
+		tweeny::tween<int> pauseTween = tweeny::tween<int>::from(80).to(105).during(600).via(easing::exponentialOut);
 
-			activeTweens.push_back(pauseTween);
-		}
-		else if (!i->isActive()) {
-			activeTweens.clear();
-		}
+		pauseTween.onStep([pauseImage](tweeny::tween<int>& t, int) mutable {
+			pauseImage->setDimension((t.peek() / 100.0f) * pauseImage->getInitialWidth(), (t.peek() / 100.0f) * pauseImage->getInitialHeight());
+
+			if (t.progress() == 1) return true;
+			return false; });
+
+		activeTweens.push_back(pauseTween);
 	}
 
 	for (auto i : pauseButtons) {
@@ -372,8 +395,7 @@ void UIManager::togglePause() {
 		i->setActive(!i->isActive());
 
 		if (i->isActive()) {
-
-			tweeny::tween<int> pauseButtonTween = tweeny::tween<int>::from(0).to(105).during(600).via(easing::exponentialOut);
+			tweeny::tween<int> pauseButtonTween = tweeny::tween<int>::from(80).to(105).during(600).via(easing::exponentialOut);
 
 			pauseButtonTween.onStep([i](tweeny::tween<int>& t, int) mutable {
 				i->setDimension((t.peek() / 100.0f) * i->getInitialWidth(), (t.peek() / 100.0f) * i->getInitialHeight());
@@ -384,4 +406,9 @@ void UIManager::togglePause() {
 			activeTweens.push_back(pauseButtonTween);
 		}
 	}
+}
+
+void UIManager::addTween(tweeny::tween<int> tween)
+{
+	activeTweens.push_back(tween);
 }

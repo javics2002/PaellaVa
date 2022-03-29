@@ -61,5 +61,6 @@ public:
 
 	vector<GameObject*> getPauseMenu() { return pauseMenu; }
 
+	void addTween(tweeny::tween<int> tween);
 };
 
