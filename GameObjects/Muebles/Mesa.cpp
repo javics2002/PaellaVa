@@ -5,8 +5,10 @@
 Mesa::Mesa(Game* game, Vector2D<double> pos, Vector2D<int> dim, string texture) 
 	: Mueble(game, pos, dim.getX() * TILE_SIZE, dim.getY() * TILE_SIZE, texture) 
 {
-	mWidht = dim.getX();
-	mHight = dim.getY();
+	mWidth = dim.getX();
+	mHeight = dim.getY();
+
+	setColliderRect({ (int)getX(), (int)getY() + h / 6, w, h / 2 + h / 4 });
 
 	mGrupo = nullptr;
 
@@ -43,7 +45,7 @@ bool Mesa::receiveGrupoClientes(GrupoClientes* gc)
 
 			gc->setPosition(getPosition());
 
-			gc->hacerPedido(mWidht * mHight,this);
+			gc->hacerPedido(mWidth * mHeight,this);
 
 
 			vector<Cliente*> clientes = gc->getIntegrantes();
