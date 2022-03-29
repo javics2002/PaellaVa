@@ -11,7 +11,7 @@ class Game;
 
 class Mesa : public Mueble
 {
-	int mWidth, mHeight;
+	int mWidht, mHight;
 
 	GrupoClientes* mGrupo;
 

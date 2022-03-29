@@ -28,8 +28,10 @@ protected:
     void drawRender(SDL_Rect* cameraRect);   
     void drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex);
     void drawRender(SDL_Rect rect, Texture* tex);
-    void drawDebug(SDL_Rect* cameraRect); //Mirar que no se esté usando y quitar
-    void drawDebug(SDL_Rect* cameraRect, SDL_Rect rect); //overlap collider, pasar a Collider
+    void drawDebug(SDL_Rect* cameraRect);
+    void drawDebug(SDL_Rect* cameraRect, SDL_Rect rect);
+
+    bool hasCollision(SDL_Rect rect1, SDL_Rect rect2);
 
 public:
 
@@ -47,7 +49,7 @@ public:
     virtual void init(ObjectManager* objectManager) {};
 
     virtual void render(SDL_Rect* cameraRect);
-    virtual void renderDebug(SDL_Rect* cameraRect); //Pasar a collider
+    virtual void renderDebug(SDL_Rect* cameraRect);
 
     virtual bool onClick(int mx, int my, bool& exit) { return false; };
 
@@ -69,6 +71,8 @@ public:
     bool isActive() { return active; };
     void setActive(bool a) { active = a; };
 
-    virtual SDL_Rect getTexRect();
-    virtual SDL_Rect getCenter(); //Implementar en collider (puede q tmb tenga q estar aquí, chequear referencias)
+    virtual SDL_Rect getCollider();
+    virtual SDL_Rect getCenter();
+
+    virtual bool collide(SDL_Rect other);
 };

@@ -29,7 +29,7 @@ void UiButton::execute(bool& exit)
 
 bool UiButton::onClick(int mx, int my, bool& exit)
 {
-	SDL_Rect z = getTexRect();
+	SDL_Rect z = getCollider();
 	SDL_Rect d = { mx,my,1,1 };
 	if (SDL_HasIntersection(&z, &d))
 	{

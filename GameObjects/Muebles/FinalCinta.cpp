@@ -9,7 +9,7 @@ FinalCinta::FinalCinta(Game* game, Vector2D<double> pos) : Mueble(game, pos, TIL
 
 void FinalCinta::update()
 {
-	vector<Collider*> ingredientes = game->getObjectManager()->getPoolIngredientes()->getCollisions(getTexRect());
+	vector<Collider*> ingredientes = game->getObjectManager()->getPoolIngredientes()->getCollisions(getCollider());
 	for (auto i : ingredientes) {
 		auto pair = i->colisionIngrediente();
 		if (pair.first)

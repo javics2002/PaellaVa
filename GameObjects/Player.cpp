@@ -15,7 +15,7 @@ Player::Player(Game* game) : GameObject(game), objectType_(INGREDIENTE), pickedO
 	overlapPos(Vector2D<double>(getX() - overlapPos.getX() / 2, getY() - getHeight() / 2 - overlapDim.getY())), overlapDim(Vector2D<int>(50, 50))
 {
 
-	setPosition(400, 200);
+	setPosition(100, 200);
 	setDimension(64, 64);
 	overlapDim.set(50, 50); //margen de choque para fluidez
 
@@ -267,9 +267,9 @@ void Player::update()
 {
 	Vector2D<double> newPos = pos + vel;
 
-	SDL_Rect newRect = { newPos.getX(), newPos.getY(), getTexRect().w, getTexRect().h };
+	SDL_Rect newRect = { newPos.getX(), newPos.getY(), getCollider().w, getCollider().h };
 
-	if (game->getObjectManager()->getMueblesCollider(getTexRect()).empty())
+	if (game->getObjectManager()->getMueblesCollider(getCollider()).empty())
 	{
 		pos = pos + vel;
 	}
@@ -284,7 +284,7 @@ void Player::update()
 
 		Collider* col = nullptr;
 
-		for (auto i : game->getObjectManager()->getMueblesCollider(getTexRect()))
+		for (auto i : game->getObjectManager()->getMueblesCollider(getCollider()))
 		{
 			if (game->getObjectManager()->getMueblesCollider(getOverlapCollider()).size() > 0)
 				movPos = movPos && i != game->getObjectManager()->getMueblesCollider(getOverlapCollider())[0];
@@ -310,8 +310,6 @@ void Player::update()
 			pos = pos + vel;
 		}
 	}
-
-	setColliderRect({ (int)getX(), (int)getY(), w, h });
 
 	if (pickedObject_ != nullptr) {
 		if (pickedObject_->isPicked())
@@ -353,7 +351,7 @@ void Player::update()
 		break;
 	}
 
-	for (auto i : game->getObjectManager()->getMueblesCollider(getTexRect())) {
+	for (auto i : game->getObjectManager()->getMueblesCollider(getCollider())) {
 		i->colisionPlayer(this);
 	}
 }
@@ -408,8 +406,7 @@ Vector2D<double> Player::getVel()
 
 void Player::renderDebug(SDL_Rect* cameraRect)
 {
-	//setColliderRect({ (int)getX(), (int)getY(), w, h });
-	drawDebugColl(cameraRect);
+	drawDebug(cameraRect);
 	drawDebug(cameraRect, getOverlapCollider());
 }
 
