@@ -4,7 +4,7 @@
 
 Pared::Pared(Game* game, Vector2D<double> position) : Mueble(game, position, TILE_SIZE, TILE_SIZE, "cartel")
 {
-	setDimension(64, 64);
+	setDimension(50, 50);
 	setColliderRect({ (int)getX(), (int)getY(), w, h});
 	//Collider invisible
 }
