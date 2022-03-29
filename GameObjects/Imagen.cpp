@@ -8,6 +8,7 @@ Imagen::Imagen(Game* game, Vector2D<double> pos, int w, int h, string clave) : G
 {
 	setPosition(pos);
 	setDimension(w, h);
+	setInitialDimension(w, h);
 	setTexture(clave);
 }
 
@@ -15,5 +16,6 @@ Imagen::Imagen(Game* game, double posX, double posY, int w, int h, string clave)
 {
 	setPosition(posX, posY);
 	setDimension(w, h);
+	setInitialDimension(w, h);
 	setTexture(clave);
 }

@@ -22,6 +22,7 @@ using namespace std;
 UIManager::UIManager(Game* game)
 {
 	this->game = game;
+
 }
 
 UIManager::~UIManager()
@@ -177,6 +178,14 @@ void UIManager::render(SDL_Rect* rect = nullptr)
 		if (i->isActive())
 			i->render(rect);
 	}
+
+	//for (auto i : activeTweens) {
+	//	i.step(20);
+	//}
+
+	for (int i = 0u; i < activeTweens.size(); i++) {
+		activeTweens[i].step(20);
+	}
 }
 
 void UIManager::creaComanda(Game* game)
@@ -325,15 +334,37 @@ void UIManager::creaMenuPausa() {
 
 	settingsButton->setAction([](Game* game, bool& exit) {
 		// Settings
-
 		});
 
 	pauseButtons.push_back(settingsButton);
 }
 
 void UIManager::togglePause() {
+	//list<tweeny::tween<int>>::iterator it;
+	//it = activeTweens.begin();
+
 	for (auto i : pauseMenu) {
+		i->setDimension(0, 0);
 		i->setActive(!i->isActive());
+
+		if (i->isActive()) {
+			tweeny::tween<int> test = tweeny::tween<int>::from(0).to(300).during(150);
+			test.onStep([i](tweeny::tween<int>& t, int) mutable {
+				i->setDimension(t.progress() * i->getInitialWidth(), t.progress() * i->getInitialHeight());
+
+				std::cout << "x " << i->getWidth() << "  " << "y " << i->getHeight() << std::endl;
+				// std::cout << t.progress() << std::endl;
+				if (t.progress() == 1) return true;
+				return false; });
+
+			activeTweens.push_back(test);
+			// activeTweens[iterator] = t;
+		}
+		//else if (!i->isActive()) {
+		//	activeTweens.clear();
+		//}
+
+		//it = activeTweens.end();
 	}
 
 	for (auto i : pauseButtons) {

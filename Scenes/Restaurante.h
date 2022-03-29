@@ -43,7 +43,6 @@ class Restaurante : public Scene
 	const float LERP_INTERPOLATION = 0.2f;
 
 	MapInfo mapInfo;
-	NetworkManager* nm;
 
 	list<double> puntuacionesComandas;
 
@@ -52,6 +51,8 @@ class Restaurante : public Scene
 	Vector2D<int> tamRestaurante = Vector2D<int>(0, 1216);
 
 	bool paused = false;
+
+	// tweeny::tween<int> test;
 
 public:
 	Restaurante(Game* game);

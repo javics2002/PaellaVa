@@ -9,11 +9,9 @@
 #include "../Control/Game.h"
 #include "../Data/ListaComandas.h"
 #include "../GameObjects/UI/Reloj.h"
-#include "../Control/NetworkManager.h"
 #ifdef _DEBUG
 #include "../Scenes/GameOver.h"
 #endif // _DEBUG
-
 
 #include <iostream>
 
@@ -44,6 +42,12 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 	uiManager->addInterfaz(new Reloj(game));
 
 	objectManager->initMuebles();
+
+	//test = tweeny::tween<int>::from(0).to(300).during(100);
+	//test.onStep([](tweeny::tween<int>& t, int) {
+	//	std::cout << t.progress() << std::endl;
+	//	if (t.progress() == 1) return true;
+	//	return false; });
 }
 
 Restaurante::~Restaurante()
@@ -87,6 +91,9 @@ void Restaurante::update()
 
 void Restaurante::render()
 {
+	// std::cout << test.progress() << std::endl;
+	// test.step(20);
+
 	fondo->render(camara->renderRect());
 	objectManager->render(camara->renderRect());
 	

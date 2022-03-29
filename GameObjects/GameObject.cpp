@@ -18,7 +18,6 @@ void GameObject::setDimension(int width, int height)
 	h = height;
 }
 
-
 void GameObject::setDimension() //pone la dimension al tamaño de la textura
 {
 	if (texture != nullptr) {
@@ -28,6 +27,11 @@ void GameObject::setDimension() //pone la dimension al tamaño de la textura
 	
 }
 
+void GameObject::setInitialDimension(int width, int height)
+{
+	iniW = width;
+	iniH = height;
+}
 
 void GameObject::setTexture(string clave)
 {
@@ -41,6 +45,7 @@ void GameObject::setTexture(const string text, const string font, const SDL_Colo
 
 	texture = &sdlutils().msgs().at(text);
 }
+
 
 SDL_Rect GameObject::getCollider()
 {

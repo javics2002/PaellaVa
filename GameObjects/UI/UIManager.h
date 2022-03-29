@@ -23,12 +23,16 @@ class UIManager
 	vector<GameObject*> pauseMenu; // menú de pausa
 	vector<UiButton*> pauseButtons; // botones del menú de pausa
 
+	vector<tweeny::tween<int>> activeTweens;
+
+
 	int mx;
 	int my;
 	int anchobotones = 25;
 	Game* game;
 	Comanda* actual;
 	ListaComandas* barra;
+
 public:
 	UIManager(Game* game);
 	~UIManager();
@@ -54,6 +58,8 @@ public:
 
 	void creaMenuPausa();
 	void togglePause();
+
+	vector<GameObject*> getPauseMenu() { return pauseMenu; }
 
 };
 
