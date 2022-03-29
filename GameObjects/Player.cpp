@@ -1,12 +1,12 @@
 #include "Player.h"
 
-#include "../Control/Input.h"
 #include "../sdlutils/InputHandler.h"
 #include "../Control/Game.h"
 #include "../Control/ObjectManager.h"
 
 #include "Ingrediente.h"
 #include "Muebles/Mueble.h"
+#include "Arroz.h"
 
 #include "../Utils/Traza.h"
 
@@ -166,6 +166,12 @@ void Player::handleInput()
 				break;
 			case PAELLA:
 				if (m != nullptr && m->receivePaella(dynamic_cast<Paella*>(pickedObject_))) {
+					pickedObject_->dropObject();
+					pickedObject_ = nullptr;
+				}
+				break;
+			case ARROZ:
+				if (m != nullptr && m->receiveArroz(dynamic_cast<Arroz*>(pickedObject_))) {
 					pickedObject_->dropObject();
 					pickedObject_ = nullptr;
 				}

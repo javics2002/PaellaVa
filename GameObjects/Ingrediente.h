@@ -7,13 +7,13 @@ class Game;
 
 
 enum tipoIngrediente {
-	arroz, alcachofa, calamar, cangrejo, gamba, langosta, mejillon, pimientoRojo, pimientoVerde, pollo, LAST
+	 alcachofa, calamar, cangrejo, gamba, langosta, mejillon, pimientoRojo, pimientoVerde, pollo, LAST
 };
 
-const vector<string> texturaIngrediente = { "arroz", "alcachofa", "calamar", "cangrejo", "gamba",
+const vector<string> texturaIngrediente = { "alcachofa", "calamar", "cangrejo", "gamba",
 	"langosta", "mejillon", "pimientoRojo", "pimientoVerde", "pollo" };
 
-const vector<string> texturaIngrProcesado = { "arrozP", "alcachofaP", "calamarP", "cangrejoP", "gambaP",
+const vector<string> texturaIngrProcesado = {  "alcachofaP", "calamarP", "cangrejoP", "gambaP",
 	"langostaP", "mejillonP", "pimientoRojoP", "pimientoVerdeP", "polloP" };
 
 
@@ -38,10 +38,9 @@ public:
 	void ingredienteRecogido();
 	
 	void setProcesado(bool estadoIngr, Ingrediente *ingr);
+	bool getProcesado();
 
 	tipoIngrediente getTipo();
-
-	void setEnPaella();
 
 	void onObjectPicked() override;
 	void onObjectDropped() override;

@@ -20,6 +20,7 @@ class GameObject : public Collider
 protected:
     Vector2D<double> pos, vel;
     int w, h;
+    int iniW, iniH;
 
     Game* game;
     Texture* texture;
@@ -36,17 +37,17 @@ protected:
 public:
 
     GameObject(Game* game) 
-        : game(game), texture(nullptr), w(0), h(0) {};
+        : game(game), texture(nullptr), w(0), h(0), iniW(0), iniH(0) {}
     GameObject(Game* game, string claveTextura) 
-        : game(game), texture(&sdlutils().images().at(claveTextura)), w(0), h(0) {};
+        : game(game), texture(&sdlutils().images().at(claveTextura)), w(0), h(0), iniW(0), iniH(0) {}
 
-    virtual ~GameObject() {};
+    virtual ~GameObject() {}
 
     virtual void update() {
         pos = pos + vel;
     };
 
-    virtual void init(ObjectManager* objectManager) {};
+    virtual void init(ObjectManager* objectManager) {}
 
     virtual void render(SDL_Rect* cameraRect);
     virtual void renderDebug(SDL_Rect* cameraRect);
@@ -61,15 +62,20 @@ public:
     void setTexture(string clave);
     void setTexture(const string text, const string font, const SDL_Color& fgColor, const SDL_Color& bgColor);
 
-    int getWidth() { return w; };
-    int getHeight() { return h; };
+    int getWidth() { return w; }
+    int getHeight() { return h; }
 
-    double getX() { return pos.getX(); };
-    double getY() { return pos.getY(); };
+    void setInitialDimension(int width, int height);
+    int getInitialWidth() { return iniW; }
+    int getInitialHeight() { return iniH; }
+
+
+    double getX() { return pos.getX(); }
+    double getY() { return pos.getY(); }
     Vector2D<double> getPosition() { return pos; }
 
-    bool isActive() { return active; };
-    void setActive(bool a) { active = a; };
+    bool isActive() { return active; }
+    void setActive(bool a) { active = a; }
 
     virtual SDL_Rect getCollider();
     virtual SDL_Rect getCenter();

@@ -272,7 +272,10 @@ int GrupoClientes::mitadGrupo()
 
 void GrupoClientes::onDesactivate()
 {
-	if(mesa!=nullptr)mesa->clienteSeVa();
+	if (estado_ == CUENTA) {
+		mesa->clienteSeVa();
+		pedido->puntuarPedido(mesa->getPaellasEntregadas());
+	}
 
 	auto list = game->getObjectManager()->getPoolClientes();
 

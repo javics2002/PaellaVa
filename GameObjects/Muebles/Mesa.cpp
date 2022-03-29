@@ -79,6 +79,7 @@ bool Mesa::returnObject(Player* p)
 	else if (!paellas.empty()) {
 		p->setPickedObject(paellas.back(), objectType::PAELLA);
 		paellas.back()->enLaMesa(false);
+		paellas.back()->setContenido(Sucia);
 		paellas.pop_back();
 
 		return true;
@@ -104,6 +105,7 @@ void Mesa::clienteSeVa()
 	mGrupo = nullptr;
 }
 
+
 void Mesa::cambiaTexturaPaellas(string clave,Contenido contenido)
 {
 	for (auto i : paellas) {
@@ -112,6 +114,17 @@ void Mesa::cambiaTexturaPaellas(string clave,Contenido contenido)
 		if (contenido == Sucia)
 			i->setEnsuciada();
 	}
+}
+
+vector<Paella*> Mesa::getPaellasEntregadas()
+{
+	vector<Paella*> v;
+
+	for (auto it : paellas) {
+		v.push_back(it);
+	}
+
+	return v;
 }
 
 

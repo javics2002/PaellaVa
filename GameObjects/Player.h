@@ -1,17 +1,16 @@
 #pragma once
 #include "GameObject.h"
 #include "ObjetoPortable.h"
-#include "../Control/Input.h"
 #include "../sdlutils/InputHandler.h"
 
 class Ingrediente;
 class Cliente;
 class Paella;
-
+class Arroz;
 class Mueble;
 
 enum orientation { N, S, E, O };
-enum objectType { INGREDIENTE, CLIENTES, PAELLA};
+enum objectType { INGREDIENTE, CLIENTES, PAELLA,ARROZ};
 
 class Player : public GameObject
 {
@@ -20,7 +19,6 @@ class Player : public GameObject
 	ObjetoPortable* pickedObject_;
 	objectType objectType_;
 
-	Input* input_;
 	orientation orientation_;
 	
 	float aceleracion, deceleracion, maxVel;
@@ -32,8 +30,6 @@ class Player : public GameObject
 	Mueble* nearestObject(Mueble* m1, Mueble* m2);
 	void setAnimResources();
 	void animUpdate();
-
-	int id_;
 
 public:
 	Player(Game* game);
@@ -48,9 +44,6 @@ public:
 	SDL_Rect getOverlapCollider();	
 
 	void setPickedObject(ObjetoPortable* op, objectType ot);
-
-	void setId(int id) { id_ = id; }
-	int getId() { return id_; }
 
 	Vector2D<double> getAxis() { return ih().getAxis(); }
 

@@ -19,7 +19,7 @@ pair<bool, std::list<PoolObject*>::const_iterator> Ingrediente::colisionIngredie
 
 void Ingrediente::onActivate()
 {
-	int n = rand() % (tipoIngrediente::LAST - 1) + 1; // Se le resta uno a LAST porque el arroz no debe salir en la
+	int n = rand() % (tipoIngrediente::LAST) ; // Se le resta uno a LAST porque el arroz no debe salir en la
 													  // cinta (siendo arroz = 0).
 
 	vel = { 0, 1.3 };
@@ -45,6 +45,11 @@ void Ingrediente::setProcesado(bool estadoIngr, Ingrediente *ingr)
 	setTexture(texturaIngrProcesado[ingr->miTipo]);
 }
 
+
+bool Ingrediente::getProcesado()
+{
+	return procesado;
+}
 
 tipoIngrediente Ingrediente::getTipo()
 {

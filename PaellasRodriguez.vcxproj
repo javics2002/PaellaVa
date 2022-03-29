@@ -24,6 +24,7 @@
     <ProjectGuid>{58989692-3f8e-49d7-9a07-8ec1e5212212}</ProjectGuid>
     <RootNamespace>PaellasRodriguez</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>PaellaVa</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -116,7 +117,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>SDL2-2.0.20/include;SDL2_image-2.0.1/include;SDL2_mixer-2.0.2/include;SDL2_ttf-2.0.14/include;tmxlite/include;SDL2_net-2.0.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>SDL2-2.0.20/include;SDL2_image-2.0.1/include;SDL2_mixer-2.0.2/include;SDL2_ttf-2.0.14/include;tmxlite/include;SDL2_net-2.0.1/include;tweeny-3.2.0/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,7 +134,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>SDL2-2.0.20/include;SDL2_image-2.0.1/include;SDL2_mixer-2.0.2/include;SDL2_ttf-2.0.14/include;tmxlite/include;SDL2_net-2.0.1/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>SDL2-2.0.20/include;SDL2_image-2.0.1/include;SDL2_mixer-2.0.2/include;SDL2_ttf-2.0.14/include;tmxlite/include;SDL2_net-2.0.1/include;tweeny-3.2.0/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -145,6 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GameObjects\Arroz.h" />
     <ClInclude Include="Control\NetworkManager.h" />
     <ClInclude Include="Data\Pedido.h" />
     <ClInclude Include="GameObjects\Muebles\BolsaArroz.h" />
@@ -156,11 +158,10 @@
     <ClInclude Include="GameObjects\UI\EnviaComandaButton.h" />
     <ClInclude Include="GameObjects\Muebles\Encimera.h" />
     <ClInclude Include="GameObjects\Cola.h" />
-    <ClInclude Include="GameObjects\Fondo.h" />
+    <ClInclude Include="GameObjects\Imagen.h" />
     <ClInclude Include="GameObjects\Muebles\Cartel.h" />
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
     <ClInclude Include="GameObjects\Collider.h" />
-    <ClInclude Include="Control\Input.h" />
     <ClInclude Include="Data\Comanda.h" />
     <ClInclude Include="GameObjects\Cliente.h" />
     <ClInclude Include="GameObjects\Muebles\Cinta.h" />
@@ -231,11 +232,11 @@
     <ClInclude Include="GameObjects\Muebles\Ventanilla.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameObjects\Arroz.cpp" />
     <ClCompile Include="Control\NetworkManager.cpp" />
     <ClCompile Include="Data\Pedido.cpp" />
     <ClCompile Include="GameObjects\Muebles\BolsaArroz.cpp" />
     <ClCompile Include="Control\Camera.cpp" />
-    <ClCompile Include="Control\Input.cpp" />
     <ClCompile Include="GameObjects\UI\AceptaPaellaButton.cpp" />
     <ClCompile Include="GameObjects\UI\BorrarButton.cpp" />
     <ClCompile Include="Data\Comanda.cpp" />
@@ -244,7 +245,7 @@
     <ClCompile Include="GameObjects\UI\EnviaComandaButton.cpp" />
     <ClCompile Include="GameObjects\Muebles\Encimera.cpp" />
     <ClCompile Include="GameObjects\Cola.cpp" />
-    <ClCompile Include="GameObjects\Fondo.cpp" />
+    <ClCompile Include="GameObjects\Imagen.cpp" />
     <ClCompile Include="GameObjects\Muebles\Cartel.cpp" />
     <ClCompile Include="GameObjects\Muebles\FinalCinta.cpp" />
     <ClCompile Include="GameObjects\Cliente.cpp" />

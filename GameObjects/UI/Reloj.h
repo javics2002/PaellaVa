@@ -1,7 +1,6 @@
 #pragma once
 #include "../GameObject.h"
 #include "../UI/Text.h"
-#include "../Fondo.h"
 #include "../../Utils/Texture.h"
 
 class Reloj : public GameObject
@@ -20,8 +19,8 @@ private:
 	Texture* relojTexture;
 
 	Uint32 lastUpdate_;//tiempo desde el último update
-	Uint32 updateTime_ = 1 * 1000; //los segundos que tarda en actualizarse el reloj
-	int totalJornada = 1000*60; //tiempo real en ms que dura una jornada
+	Uint32 updateTime_ = 5000; // los milisegundos que tarda en actualizarse el reloj
+	int totalJornada = 1000*60; // tiempo real en ms que dura una jornada
 
 
 	int hourIni = 9; //la hora del día a la que empieza la jornada

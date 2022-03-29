@@ -9,8 +9,9 @@ InicioCinta::InicioCinta(Game* game, Vector2D<double> pos) : Mueble(game, pos, T
 
 void InicioCinta::update()
 {
-	if (SDL_GetTicks() - time >= SPAWN_DELAY) {
+	if (SDL_GetTicks() - (time - offsetTime) >= SPAWN_DELAY) {
 		game->getObjectManager()->getPoolIngredientes()->add(getPosition());
 		time = SDL_GetTicks();
+		offsetTime = 0;
 	}
 }

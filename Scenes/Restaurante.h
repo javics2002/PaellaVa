@@ -43,13 +43,14 @@ class Restaurante : public Scene
 	const float LERP_INTERPOLATION = 0.2f;
 
 	MapInfo mapInfo;
-	NetworkManager* nm;
 
 	list<double> puntuacionesComandas;
 
 	double puntuaciónTotal;
 
 	Vector2D<int> tamRestaurante = Vector2D<int>(0, 1216);
+
+	bool paused = false;
 
 public:
 	Restaurante(Game* game);
@@ -64,4 +65,5 @@ public:
 	void mediaPuntuaciones();
 
 	void loadMap(string const& path);
+	void togglePause();
 };

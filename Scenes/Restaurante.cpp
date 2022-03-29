@@ -9,11 +9,9 @@
 #include "../Control/Game.h"
 #include "../Data/ListaComandas.h"
 #include "../GameObjects/UI/Reloj.h"
-#include "../Control/NetworkManager.h"
 #ifdef _DEBUG
 #include "../Scenes/GameOver.h"
 #endif // _DEBUG
-
 
 #include <iostream>
 
@@ -36,12 +34,20 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 	uiManager->addInterfaz(new RedactaComandabutton(game, uiManager, "redactaboton", 10, 10, 30, 30));
 	uiManager->setBarra(new ListaComandas(game,uiManager));
 
+	uiManager->creaMenuPausa();
+
 	objectManager->addPaella(new Paella(game, TipoPaella::Minima));
 	objectManager->addPaella(new Paella(game, TipoPaella::Minima));
 	objectManager->addPaella(new Paella(game, TipoPaella::Minima));
 	uiManager->addInterfaz(new Reloj(game));
 
 	objectManager->initMuebles();
+
+	//test = tweeny::tween<int>::from(0).to(300).during(100);
+	//test.onStep([](tweeny::tween<int>& t, int) {
+	//	std::cout << t.progress() << std::endl;
+	//	if (t.progress() == 1) return true;
+	//	return false; });
 }
 
 Restaurante::~Restaurante()
@@ -57,28 +63,37 @@ void Restaurante::handleInput(bool& exit)
 
 	if (ih().getKey(InputHandler::CANCEL)) {
 #ifdef _DEBUG
-		game->changeScene(new GameOver(game, 100));
+		// game->changeScene(new GameOver(game, 100));
+		togglePause();
 #else
 		//Abrir menú de pausa
+		togglePause();
 #endif // _DEBUG
 	}
 }
 
 void Restaurante::update()
 {
-	objectManager->update();
-	uiManager->update();
+	if (!paused) {
+		objectManager->update();
+		uiManager->update();
 
-	if (objectManager->getHost()->getX() > tamRestaurante.getY() + TILE_SIZE) { // tamRestaurante es un rango, no una posición, por eso tengo que hacer getY()
-		camara->Lerp(Vector2D<float>(tamRestaurante.getY(), 16), LERP_INTERPOLATION);
+		if (objectManager->getHost()->getX() > tamRestaurante.getY() + TILE_SIZE) { // tamRestaurante es un rango, no una posición, por eso tengo que hacer getY()
+			camara->Lerp(Vector2D<float>(tamRestaurante.getY(), 16), LERP_INTERPOLATION);
+		}
+		else if (objectManager->getHost()->getX() < tamRestaurante.getY()) {
+			camara->Lerp(Vector2D<float>(tamRestaurante.getX(), 16), LERP_INTERPOLATION);
+		}
 	}
-	else if (objectManager->getHost()->getX() < tamRestaurante.getY()) {
-		camara->Lerp(Vector2D<float>(tamRestaurante.getX(), 16), LERP_INTERPOLATION);
-	}
+
+	
 }
 
 void Restaurante::render()
 {
+	// std::cout << test.progress() << std::endl;
+	// test.step(20);
+
 	fondo->render(camara->renderRect());
 	objectManager->render(camara->renderRect());
 	
@@ -103,6 +118,36 @@ void Restaurante::mediaPuntuaciones()
 		sumaMedia+=i;
 	}
 	puntuaciónTotal = sumaMedia / puntuacionesComandas.size();
+}
+
+void Restaurante::togglePause()
+{
+	uiManager->togglePause();
+
+	paused = !paused;
+
+	if (paused) {
+		Mueble* m;
+		double offsetM = 0;
+		for (int i = 0u; i < objectManager->getMuebles().size(); i++) {
+			m = dynamic_cast<Mueble*>(objectManager->getMuebles()[i]);
+			offsetM = SDL_GetTicks() - m->getTime();
+
+			m->setOffset(offsetM);
+		}
+
+		sdlutils().soundEffects().at("cancel").play(0, game->UI);
+	}
+	else {
+		Mueble* m;
+		for (int i = 0u; i < objectManager->getMuebles().size(); i++) {
+			m = dynamic_cast<Mueble*>(objectManager->getMuebles()[i]);
+
+			m->setTime(SDL_GetTicks());
+		}
+
+		sdlutils().soundEffects().at("select").play(0, game->UI);
+	}
 }
 
 void Restaurante::loadMap(string const& path) {

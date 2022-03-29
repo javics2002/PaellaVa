@@ -19,13 +19,20 @@ class UIManager
 	vector<	IngredienteButton*> teclado;//iconos que se usan en la comanda qeu esta redactando
 	vector<	UiButton*> uicomandas;
 	//vector <GameObject*> pedido;//pedido que se est� redactando lo lleva la comanda
-	float uiscale =1.1;
+
+float uiscale =1.1;
+	vector<GameObject*> pauseMenu; // menú de pausa
+	vector<UiButton*> pauseButtons; // botones del menú de pausa
+
+	vector<tweeny::tween<int>> activeTweens;
+
 	int mx;
 	int my;
 	int anchobotones = 25;
 	Game* game;
 	Comanda* actual;
 	ListaComandas* barra;
+
 public:
 	UIManager(Game* game);
 	~UIManager();
@@ -49,5 +56,11 @@ public:
 
 	void addInterfaz(GameObject* comanda);
 
+	void creaMenuPausa();
+	void togglePause();
+
+	vector<GameObject*> getPauseMenu() { return pauseMenu; }
+
+	void addTween(tweeny::tween<int> tween);
 };
 

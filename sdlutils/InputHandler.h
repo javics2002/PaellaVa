@@ -19,6 +19,7 @@ class InputHandler : public Singleton<InputHandler> {
 	SDL_Joystick* joystick_;
 
 	vector<bool> keyPressed;
+	vector<bool> lastKeyPressed;
 	vector<bool> mousePressed;
 
 	bool leftLibre = true;
@@ -37,6 +38,7 @@ class InputHandler : public Singleton<InputHandler> {
 		kbState_ = SDL_GetKeyboardState(0);
 		initJoystick();
 		keyPressed = vector<bool>(botones::UNKNOWN, false);
+		lastKeyPressed = vector<bool>(botones::UNKNOWN, false);
 		mousePressed = vector<bool>(botones::UNKNOWN, false);
 	}
 
@@ -72,32 +74,39 @@ public:
 	}
 
 	// update the state with a new event
-	inline void update(const SDL_Event& event, bool& exit) {
-		switch (event.type) {
-		case SDL_KEYDOWN:
-			onKeyboardDown(event.key.keysym.scancode);
-			break;
-		case SDL_KEYUP:
-			onKeyboardUp(event.key.keysym.scancode);
-			break;
-		case SDL_MOUSEMOTION:
-			onMouseMotion(event);
-			break;
-		case SDL_MOUSEBUTTONDOWN:
-			onMouseButtonChange(event, true);
-			break;
-		case SDL_MOUSEBUTTONUP:
-			onMouseButtonChange(event, false);
-			break;
-		case SDL_JOYAXISMOTION:
-			onJoystickMotion(event);
-			break;
-		case SDL_QUIT:
-			exit = true;
-			break;
-		default:
-			break;
+	inline void update(SDL_Event& event, bool& exit) {
+		// sincronizar
+		lastKeyPressed = keyPressed;
+
+		while (SDL_PollEvent(&event)) {
+			switch (event.type) {
+			case SDL_KEYDOWN:
+				onKeyboardDown(event.key.keysym.scancode);
+				break;
+			case SDL_KEYUP:
+				onKeyboardUp(event.key.keysym.scancode);
+				break;
+			case SDL_MOUSEMOTION:
+				onMouseMotion(event);
+				break;
+			case SDL_MOUSEBUTTONDOWN:
+				onMouseButtonChange(event, true);
+				break;
+			case SDL_MOUSEBUTTONUP:
+				onMouseButtonChange(event, false);
+				break;
+			case SDL_JOYAXISMOTION:
+				onJoystickMotion(event);
+				break;
+			case SDL_QUIT:
+				exit = true;
+				break;
+			default:
+				break;
+			}
 		}
+		
+		
 	}
 
 	inline void initJoystick()
@@ -132,34 +141,26 @@ public:
 		switch (key) {
 		case SDL_SCANCODE_A:
 		case SDL_SCANCODE_LEFT:
-			if (rightLibre)
 			{
 				keyJustDown(botones::LEFT);
-				leftLibre = false;
 			}
 			break;
 		case SDL_SCANCODE_D:
 		case SDL_SCANCODE_RIGHT:
-			if (leftLibre)
 			{
 				keyJustDown(botones::RIGHT);
-				rightLibre = false;
 			}
 			break;
 		case SDL_SCANCODE_W:
 		case SDL_SCANCODE_UP:
-			if (downLibre)
 			{
 				keyJustDown(botones::UP);
-				upLibre = false;
 			}
 			break;
 		case SDL_SCANCODE_S:
 		case SDL_SCANCODE_DOWN:
-			if (upLibre)
 			{
 				keyJustDown(botones::DOWN);
-				downLibre = false;
 			}
 			break;
 		case SDL_SCANCODE_E:
@@ -183,20 +184,40 @@ public:
 
 			switch (boton) {
 			case botones::LEFT:
-				ejeX = -1; // valor entre -1 y 1
+				if (rightLibre)
+				{
+					ejeX = -1; // valor entre -1 y 1
+					leftLibre = false;
+				}
 				break;
 			case botones::RIGHT:
-				ejeX = 1;
+				if (leftLibre)
+				{
+					ejeX = 1;
+					rightLibre = false;
+				}
 				break;
 			case botones::UP:
-				ejeY = -1; // valor entre -1 y 1
+				if (downLibre)
+				{
+					ejeY = -1; // valor entre -1 y 1
+					upLibre = false;
+				}
 				break;
 			case botones::DOWN:
-				ejeY = 1;
+				if (upLibre)
+				{
+					ejeY = 1;
+					downLibre = false;
+				}
 				break;
 			case botones::INTERACT:
 				break;
 			case botones::CANCEL:
+				// pausa
+				// lastKeyPressed
+
+
 				break;
 			default:
 				break;
@@ -208,7 +229,7 @@ public:
 		switch (key) {
 		case SDL_SCANCODE_A:
 		case SDL_SCANCODE_LEFT:
-			if (rightLibre)
+			//if (rightLibre)
 			{
 				keyPressed[botones::LEFT] = false;
 				ejeX = keyPressed[botones::RIGHT] ? 1 : 0;
@@ -217,7 +238,7 @@ public:
 			break;
 		case SDL_SCANCODE_D:
 		case SDL_SCANCODE_RIGHT:
-			if (leftLibre)
+			//if (leftLibre)
 			{
 				keyPressed[botones::RIGHT] = false;
 				ejeX = keyPressed[botones::LEFT] ? -1 : 0;
@@ -226,7 +247,7 @@ public:
 			break;
 		case SDL_SCANCODE_W:
 		case SDL_SCANCODE_UP:
-			if (downLibre)
+			//if (downLibre)
 			{
 				keyPressed[botones::UP] = false;
 				ejeY = keyPressed[botones::DOWN] ? 1 : 0;
@@ -235,7 +256,7 @@ public:
 			break;
 		case SDL_SCANCODE_S:
 		case SDL_SCANCODE_DOWN:
-			if (upLibre)
+			//if (upLibre)
 			{
 				keyPressed[botones::DOWN] = false;
 				ejeY = keyPressed[botones::UP] ? -1 : 0;
@@ -305,7 +326,7 @@ public:
 
 	bool getKey(botones boton)
 	{
-		return keyPressed[boton];
+		return keyPressed[boton] && !lastKeyPressed[boton];
 	}
 
 	// TODO add support for Joystick, see Chapter 4 of

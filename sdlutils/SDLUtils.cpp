@@ -91,7 +91,7 @@ void SDLUtils::initSDLExtensions() {
 	assert(imgInit_ret != 0);
 
 #ifdef _DEBUG
-	std::cout << "Initializing SEL_Mixer" << std::endl;
+	std::cout << "Initializing SDL_Mixer" << std::endl;
 #endif
 	// initialize SDL_Mixer
 	int mixOpenAudio = Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);

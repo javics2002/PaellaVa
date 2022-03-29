@@ -5,6 +5,7 @@
 #include "../GameObjects/GrupoClientes.h"
 #include "../GameObjects/Paella.h"
 #include "../GameObjects/Player.h"
+#include "../GameObjects/Arroz.h"
 
 #include <queue>
 #include <vector>
@@ -24,6 +25,7 @@ class ObjectManager
 	vector<GameObject*> paellas;
 	vector<GameObject*> interfaz;
 	vector<GameObject*> comandas;
+	Arroz* arroz_;
 
 	vector<Player*> players;
 
@@ -42,6 +44,8 @@ public:
 
 	void addMueble(GameObject* mueble);
 	void addPaella(GameObject *paella);
+	void addArroz(Arroz* arroz);
+	void arrozColocado();
 	void addComanda(GameObject* comanda);
 	void addInterfaz(GameObject* interfaz);
 
@@ -61,6 +65,7 @@ public:
 	}
 
 	void initMuebles();
+	vector<GameObject*> getMuebles() { return muebles; }
 	vector<Collider*> getMueblesCollider();
 	vector<Collider*> getMueblesCollider(SDL_Rect collider);
 	vector<Collider*> getPaellasCollider(SDL_Rect collider);

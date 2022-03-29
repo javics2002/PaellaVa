@@ -1,24 +1,25 @@
 #include "BolsaArroz.h"
+#include "../Arroz.h"
+#include "../Player.h"
+#include "../Paella.h"
 #include "../../Control/Game.h"
+#include "../../Control/ObjectManager.h"
 
 BolsaArroz::BolsaArroz(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, "arroz")
 {
-	arroces = new Pool<Ingrediente>(game, 20);
+
 }
 
 bool BolsaArroz::returnObject(Player* p)
 {
-	//if (paellas.front() != nullptr)
-	//{
-	//	//TOCHECK: Podríamos hacer un return del objeto y que el player se lo guarde a sí mismo
-	//	p->setPickedObject(paellas.front(), PAELLA);
+	Arroz* arroz = new Arroz(game, "alcachofa");
+	game->getObjectManager()->addArroz(arroz);
+	
+	p->setPickedObject(arroz, ARROZ);
 
-	//	paellas.pop_front();
 
-	//	return true;
-	//}
+	return true;
 
-	return false;
 }
 
 //bool BolsaArroz::receivePaella(Paella* pa)

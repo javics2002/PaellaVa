@@ -22,9 +22,9 @@ bool Encimera::receiveIngrediente(Ingrediente* ingr)
 	
 	else if (paella_ != nullptr) {
 
-		if (paella_->ingrValido(ingr)) {
+		if (paella_->ingrValido(ingr) && paella_->conArroz() && ingr->getProcesado()) {
 
-			paella_->anadeIngr(ingr);
+			paella_->anadeIngr(ingr,false);
 
 			game->getObjectManager()->getPoolIngredientes()->remove(ingr->getIterator());
 
@@ -43,6 +43,19 @@ bool Encimera::receivePaella(Paella* pa)
 		paella_ = pa;
 
 		paella_->setPosition(getX(), getY());
+
+		return true;
+	}
+	else
+		return false;
+}
+
+bool Encimera::receiveArroz(Arroz* arr)
+{
+	//Si ya tiene objeto, no recoge objeto
+	if (paella_ != nullptr)
+	{
+		paella_->anadeIngr(arr,true);
 
 		return true;
 	}

@@ -1,8 +1,7 @@
 #include "Reloj.h"
 #include "../../Scenes/GameOver.h"
 
-Reloj::Reloj(Game* game)
-	: GameObject(game)
+Reloj::Reloj(Game* game) : GameObject(game)
 {
 	this->game = game;
 	setDimension(w, h);

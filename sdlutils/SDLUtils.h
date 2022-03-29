@@ -13,6 +13,7 @@
 #include "SoundEffect.h"
 #include "../Utils/Texture.h"
 #include "VirtualTimer.h"
+#include "tweeny-3.2.0.h"
 
 
 class SDLUtils: public Singleton<SDLUtils> {
