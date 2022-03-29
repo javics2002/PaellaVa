@@ -22,7 +22,7 @@ public:
 
     void setColliderRect(SDL_Rect coll);
 
-    SDL_Rect getCollider2();
+    SDL_Rect getCollider();
 
     void drawDebugColl(SDL_Rect* cameraRect);
 

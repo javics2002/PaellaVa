@@ -10,7 +10,7 @@ void Collider::setColliderRect(SDL_Rect coll)
     objectRect = coll;
 }
 
-SDL_Rect Collider::getCollider2()
+SDL_Rect Collider::getCollider()
 {
 	return { int(objectRect.x - objectRect.w / 2),
 			 int(objectRect.y - objectRect.h / 2),
@@ -20,7 +20,7 @@ SDL_Rect Collider::getCollider2()
 
 bool Collider::collide(SDL_Rect other)
 {
-	return hasCollision(getCollider2(), other);
+	return hasCollision(getCollider(), other);
 }
 
 bool Collider::hasCollision(SDL_Rect rect1, SDL_Rect rect2)
@@ -31,7 +31,7 @@ bool Collider::hasCollision(SDL_Rect rect1, SDL_Rect rect2)
 void Collider::drawDebugColl(SDL_Rect* cameraRect)
 {
 	//SDL_Rect center = getCenter();
-	SDL_Rect collider = getCollider2();
+	SDL_Rect collider = getCollider();
 	SDL_Rect drawColl = { collider.x - cameraRect->x, collider.y - cameraRect->y, collider.w, collider.h };
 	//center = { center.x - cameraRect->x, center.y - cameraRect->y, center.w, center.h };
 

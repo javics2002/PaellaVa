@@ -47,7 +47,7 @@ void GameObject::setTexture(const string text, const string font, const SDL_Colo
 	texture = &sdlutils().msgs().at(text);
 }
 
-SDL_Rect GameObject::getCollider()
+SDL_Rect GameObject::getTexRect()
 {
 	return { int(getX() - getWidth() / 2),
 			 int(getY() - getHeight() / 2),
@@ -77,7 +77,7 @@ void GameObject::render(SDL_Rect* cameraRect)
 
 void GameObject::drawRender(SDL_Rect* cameraRect)
 {
-	SDL_Rect c = getCollider();
+	SDL_Rect c = getTexRect();
 	SDL_Rect textureBox;
 
 	if (cameraRect != nullptr) {
@@ -101,7 +101,7 @@ void GameObject::drawRender(SDL_Rect rect, Texture* tex)
 
 void GameObject::drawDebug(SDL_Rect* cameraRect)
 {
-	SDL_Rect collider = getCollider();
+	SDL_Rect collider = getTexRect();
 	SDL_Rect center = getCenter();
 	collider = { collider.x - cameraRect->x, collider.y - cameraRect->y, collider.w, collider.h };
 	center = { center.x - cameraRect->x, center.y - cameraRect->y, center.w, center.h };

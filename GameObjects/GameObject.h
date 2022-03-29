@@ -69,6 +69,6 @@ public:
     bool isActive() { return active; };
     void setActive(bool a) { active = a; };
 
-    //virtual SDL_Rect getCollider();
+    virtual SDL_Rect getTexRect();
     virtual SDL_Rect getCenter(); //Implementar en collider (puede q tmb tenga q estar aquí, chequear referencias)
 };
