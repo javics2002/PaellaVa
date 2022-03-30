@@ -17,28 +17,28 @@ class Pool
 {
 	Game* game;
 
-	//lista con solo los objetos de la pool que están activos
+	//lista con solo los objetos de la pool que estï¿½n activos
 	list<PoolObject*> activeObjects;
 
 	//vector con toda la pool
 	vector<T*> v;
-	//número de objetos en la Pool
+	//nï¿½mero de objetos en la Pool
 	int numElems;
-	//siguiente objeto a añadir al juego (o último en haberse añadido)
+	//siguiente objeto a aï¿½adir al juego (o ï¿½ltimo en haberse aï¿½adido)
 	int nextElem;
 
 	void findNextElem() {
 		nextElem = (nextElem + 1) % numElems;
 		int cont = 0;
 
-		//el bucle no itera ninguna vez en la mayoría de casos, sobre todo en los ingredientes
-		//(es posible que en el caso de los clientes o paellas tarde más en encontrar al siguiente)
+		//el bucle no itera ninguna vez en la mayorï¿½a de casos, sobre todo en los ingredientes
+		//(es posible que en el caso de los clientes o paellas tarde mï¿½s en encontrar al siguiente)
 		while (cont < numElems && v[nextElem]->isActive())
 		{
 			cont++;
 			nextElem = (nextElem + 1) % numElems;
 		}
-		//si no encuentra ninguno, se duplica el tamaño de la pool
+		//si no encuentra ninguno, se duplica el tamaï¿½o de la pool
 		if (cont == numElems) {
 			for (int i = 0; i < numElems; i++)
 				v.push_back(new T(game));
@@ -66,14 +66,14 @@ public:
 		}
 	};
 
-	//método que busca el siguiente objeto y lo activa
+	//mï¿½todo que busca el siguiente objeto y lo activa
 	T* add(Vector2D<double> pos) {
 		findNextElem();
 
 		auto& elem = v[nextElem];
 		activeObjects.push_front(elem);
-		elem->activate(activeObjects.begin());
 		elem->setPosition(pos);
+		elem->activate(activeObjects.begin());	
 
 		return elem;
 	}

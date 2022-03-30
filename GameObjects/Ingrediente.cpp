@@ -10,6 +10,7 @@ Ingrediente::Ingrediente(Game* game) :  PoolObject(game) {
 void Ingrediente::update()
 {
 	setPosition(getX(), getY() + vel.getY());
+	setColliderRect({ (int)getX(), (int)getY(), w / 2, h / 2});
 }
 
 pair<bool, std::list<PoolObject*>::const_iterator> Ingrediente::colisionIngrediente()
@@ -27,11 +28,12 @@ void Ingrediente::onActivate()
 	miTipo = tipoIngrediente(n);
 
 	setTexture(texturaIngrediente[n]);
+	setColliderRect({ (int)getX(), (int)getY(), w / 2, h / 2 });
 }
 
 void Ingrediente::onDesactivate()
 {
-
+	cout << "ing desactivado" << endl;
 }
 
 void Ingrediente::ingredienteRecogido()
