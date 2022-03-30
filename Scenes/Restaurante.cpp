@@ -79,8 +79,6 @@ void Restaurante::update()
 			camara->Lerp(Vector2D<float>(tamRestaurante.getX(), 16), LERP_INTERPOLATION);
 		}
 	}
-
-	
 }
 
 void Restaurante::render()

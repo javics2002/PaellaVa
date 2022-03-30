@@ -57,7 +57,7 @@ void Game::start()
 		update();
 		
 		render();
-
+		
 		Uint32 frameTime = sdlutils().currRealTime() - startTime;
 
 		if (frameTime < 20)
