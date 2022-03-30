@@ -6,4 +6,6 @@ Mueble::Mueble(Game* game, Vector2D<double> position, int width, int height, str
 	setDimension(width, height);
 	setPosition(position.getX() + getWidth() / 2, position.getY() + getHeight() / 2);
 	setTexture(claveTextura);
+
+	timerTexture = &sdlutils().images().at("timer");
 }

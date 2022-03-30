@@ -15,6 +15,11 @@ class Mueble : public GameObject
 protected:
     double time;
     double offsetTime;
+    double rellenoTimer = 0.0;
+
+    int timerDimension = 50;
+
+    Texture* timerTexture;
 
 public:
 	Mueble(Game* game, Vector2D<double> position, int width, int height, string claveTextura);

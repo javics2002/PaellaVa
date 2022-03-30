@@ -13,11 +13,10 @@ class TablaProcesado: public Mueble
 
 	Ingrediente* ingr_;
 
-	double tiempo = 0.0, rellenoTimer = 0.0;
+	double tiempo = 0.0;
 
-	int i = 0, timerDimension;
+	int i = 0;
 
-	Texture* timerTexture;
 	SDL_Rect clip;
 
 public:

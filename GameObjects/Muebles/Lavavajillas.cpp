@@ -2,7 +2,9 @@
 
 Lavavajillas::Lavavajillas(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, TILE_SIZE, "lavavajillas")
 {
-
+	clip.w = timerTexture->width() / 8;
+	clip.h = timerTexture->height();
+	clip.y = 0;
 }
 
 void Lavavajillas::update()
@@ -19,6 +21,15 @@ void Lavavajillas::lavando()
 		paellasLimpias.push_back(pilaPaellas.front());
 		pilaPaellas.pop_front();
 		time = sdlutils().currRealTime();
+	}
+
+	else if (sdlutils().currRealTime() - time >= rellenoTimer + TIEMPO_LAVADO / 8) {
+
+		clip.x = i * clip.w;
+
+		i++;
+
+		rellenoTimer += TIEMPO_LAVADO / 8;
 	}
 }
 
@@ -47,9 +58,28 @@ bool Lavavajillas::returnObject(Player* p)
 
 		paellasLimpias.pop_front();
 
+		i = 0;
+		clip.x = 0;
+		rellenoTimer = 0;
+
 		return true;
 	}
 	else
 		return false;
+}
+
+void Lavavajillas::render(SDL_Rect* camera)
+{
+	SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, getWidth(),
+		getHeight() };
+
+	drawRender(camera, dest, &sdlutils().images().at("lavavajillas"));
+
+	if (!pilaPaellas.empty() && pilaPaellas.front()->getContenido() == Sucia && i != 0) {
+
+		SDL_Rect dest_ = { getX() + getWidth() / 2, getY() - getHeight() / 2, timerDimension, timerDimension };
+
+		drawRender(camera, dest_, &sdlutils().images().at("timer"), clip);
+	}
 }
 
