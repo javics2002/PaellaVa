@@ -23,6 +23,7 @@ using tweeny::easing;
 UIManager::UIManager(Game* game)
 {
 	this->game = game;
+	anchobotones *= uiscale;
 
 }
 
@@ -191,24 +192,24 @@ void UIManager::render(SDL_Rect* rect = nullptr)
 
 void UIManager::creaComanda(Game* game)
 {
-	actual = new Comanda(game, 2, this);
+	actual = new Comanda(game,uiscale, this);
 	comandas.push_back(actual);
 
 	creaTeclado();
 	actual->guardaTeclado();
 	actual->toggleTeclado(false);
 	actual->toggleTecaldotam(false);
-
-	AceptaPaellaButton* aceptaPaellaButton = new AceptaPaellaButton(game, actual, "acepta", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() + actual->getHeight() / 4, anchobotones, anchobotones);
+	
+	AceptaPaellaButton* aceptaPaellaButton = new AceptaPaellaButton(game, actual, "acepta", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() + actual->getHeight() / 4, uiscale*anchobotones, uiscale*anchobotones);
 	interfaz.push_back(aceptaPaellaButton);
 	actual->guardaBoton(aceptaPaellaButton);
-	DescartaCommandaButton* descartaComandaButton = new DescartaCommandaButton(actual, game, "cancela", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() + actual->getHeight() / 4 - anchobotones, anchobotones, anchobotones);
+	DescartaCommandaButton* descartaComandaButton = new DescartaCommandaButton(actual, game, "cancela", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() + actual->getHeight() / 4 - anchobotones, uiscale * anchobotones, uiscale * anchobotones);
 	interfaz.push_back(descartaComandaButton);
 	actual->guardaBoton(descartaComandaButton);
-	BorrarButton* borraComandaButton = new BorrarButton(game, actual, "borra", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() + actual->getHeight() / 4 - 2 * anchobotones, anchobotones, anchobotones);
+	BorrarButton* borraComandaButton = new BorrarButton(game, actual, "borra", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() + actual->getHeight() / 4 - 2 * anchobotones, uiscale * anchobotones, uiscale * anchobotones);
 	interfaz.push_back(borraComandaButton);
 	actual->guardaBoton(borraComandaButton);
-	EnviaComandaButton* enviaComandaButton = new EnviaComandaButton(game, "envia", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() + actual->getHeight() / 4 + anchobotones, anchobotones, anchobotones);
+	EnviaComandaButton* enviaComandaButton = new EnviaComandaButton(game, "envia", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() + actual->getHeight() / 4 + anchobotones, uiscale * anchobotones, uiscale * anchobotones);
 	interfaz.push_back(enviaComandaButton);
 	actual->guardaBoton(enviaComandaButton);
 }
@@ -247,7 +248,7 @@ void UIManager::creaTeclado()
 	for (auto i : texturasIngredienes)
 	{
 		//Comanda comanda,Game* game, TextureName texturename, int x, int y, int w, int h
-		IngredienteButton* a = new IngredienteButton(this, game, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), anchobotones, anchobotones);
+		IngredienteButton* a = new IngredienteButton(this, game, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), uiscale * anchobotones, uiscale * anchobotones);
 		teclado.push_back(a);
 		//  objectmanager->creaTeclado(a);
 
@@ -259,7 +260,7 @@ void UIManager::creaTeclado()
 	for (auto i : texturasNumeros)
 	{
 		//Comanda comanda,Game* game, TextureName texturename, int x, int y, int w, int h
-		NumeroButton* a = new NumeroButton(this, game, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), anchobotones, anchobotones);
+		NumeroButton* a = new NumeroButton(this, game, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), uiscale * anchobotones, uiscale * anchobotones);
 		tecladonum.push_back(a);
 		uicomandas.push_back(a);
 		j++;
@@ -271,7 +272,7 @@ void UIManager::creaTeclado()
 	vector <TamanoButton*> tecladotam;
 	for (auto i : texturasTamanos)
 	{
-		TamanoButton* a = new TamanoButton(this, game, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), anchobotones, anchobotones);
+		TamanoButton* a = new TamanoButton(this, game, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), uiscale * anchobotones, uiscale * anchobotones);
 
 		tecladotam.push_back(a);
 		uicomandas.push_back(a);
@@ -310,7 +311,7 @@ void UIManager::setPosTeclado(vector<Point2D<double>> t)
 }
 
 void UIManager::creaMenuPausa() {
-	// crear menú
+	// crear menï¿½
 	Imagen* bg = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2, sdlutils().width(), sdlutils().height(), "pause2");
 	bg->setActive(false);
 	pauseMenu.push_back(bg);
@@ -332,7 +333,7 @@ void UIManager::creaMenuPausa() {
 		resumeButtonTween.onStep([resumeButton, currentScene](tweeny::tween<int>& t, int) mutable {
 			resumeButton->setDimension((t.peek() / 100.0f) * resumeButton->getInitialWidth(), (t.peek() / 100.0f) * resumeButton->getInitialHeight());
 
-			if (t.progress() > .2f) { //Busco una respuesta más rápida
+			if (t.progress() > .2f) { //Busco una respuesta mï¿½s rï¿½pida
 				currentScene->togglePause();
 				return true;
 			}

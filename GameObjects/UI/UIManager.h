@@ -20,11 +20,11 @@ class UIManager
 	vector<	UiButton*> uicomandas;
 	//vector <GameObject*> pedido;//pedido que se est� redactando lo lleva la comanda
 
+float uiscale =1.1;
 	vector<GameObject*> pauseMenu; // menú de pausa
 	vector<UiButton*> pauseButtons; // botones del menú de pausa
 
 	vector<tweeny::tween<int>> activeTweens;
-
 
 	int mx;
 	int my;
