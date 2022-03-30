@@ -5,10 +5,12 @@
 #include "../Control/NetworkManager.h"
 #include "../sdlutils/SDLUtils.h"
 
+using tweeny::easing;
+
 GameOver::GameOver(Game* game, int puntuation) : Scene(game)
 {
 	points = puntuation;
-	points = 10;
+	points = 30;
 	calculateStarNumber();
 	createRandomReviews();
 
@@ -21,22 +23,21 @@ GameOver::GameOver(Game* game, int puntuation) : Scene(game)
 	int posPuntX = sdlutils().width() / 2 / 2;
 	int posPuntY = sizePuntH * 2;
 
-	int numEstrellas = 3;
 
 	starTexture = &sdlutils().images().at("estrella");
 
 	//pos = pos + Vector2D<int>(100 + 80, 0.0f);
 
-
-
-
-	GameObject* estrella = new GameObject(game);
-	estrella->setTexture("estrella");
-	estrella->setDimension(110, 100);
-	estrella->setPosition(Vector2D<double>(posPuntX - estrella->getWidth(), posPuntY));
-	uiManager->addInterfaz(estrella);
 	
-
+	
+	for (int i = 0; i < starNumber; i++)
+	{
+		GameObject* estrella = new GameObject(game);
+		estrella->setTexture("estrella");
+		estrella->setDimension(110, 100);
+		estrella->setPosition(Vector2D<double>(posPuntX - estrella->getWidth()+i*estrella->getWidth(), posPuntY));
+		uiManager->addInterfaz(estrella);
+	}
 	
 	GameObject* puntos = new GameObject(game);
 	puntos->setTexture(string("Puntuacion: " + to_string(starNumber)), string("paella"), SDL_Color{ 255, 255, 255, 255 }, SDL_Color{ 0, 0, 0, 0 });
@@ -44,27 +45,28 @@ GameOver::GameOver(Game* game, int puntuation) : Scene(game)
 	puntos->setPosition(Vector2D<double>(posPuntX, posPuntY + puntos->getHeight()));
 	uiManager->addInterfaz(puntos);
 
-	auto continueButton = new UiButton(game, "Volver", "paella", { 255, 0, 0, 255 }, { 0, 0, 0, 0 },
-		sdlutils().width() / 2 + 300, sdlutils().height() / 2 + 200);
-	continueButton->setAction([](Game* game, bool& exit) {
-		game->getNetworkManager()->close();
-		game->changeScene(new Menu(game));
+
+	auto continueButton = new UiButton(game, "continue",
+		sdlutils().width() / 2 + 300, sdlutils().height() / 2 + 200, 300, 120);
+	continueButton->setInitialDimension(300, 120);
+
+	continueButton->setAction([this, continueButton](Game* game, bool& exit) {
+		sdlutils().soundEffects().at("select").play(0, game->UI);
+
+		uiManager->addTween(0.9f, 1.0f, 600.0f).via(easing::exponentialOut).onStep([game, continueButton](tweeny::tween<float>& t, float) mutable {
+			continueButton->setDimension(t.peek() * continueButton->getInitialWidth(), t.peek() * continueButton->getInitialHeight());
+
+			if (t.progress() > .2f) {
+				//Start game
+				game->getNetworkManager()->close();
+				game->changeScene(new Menu(game));
+				return true;
+			}
+			return false;
+			});
 		});
 	uiManager->addInterfaz(continueButton);
 
-	auto mejoraButton = new UiButton(game, "mas velocidad", "paella", { 0, 0, 255, 255 }, { 0, 0, 0, 0 },
-		300, sdlutils().height() / 2 + 200);
-	mejoraButton->setAction([](Game* game, bool& exit) {
-
-		});
-	uiManager->addInterfaz(mejoraButton);
-
-	auto mejoraButton2 = new UiButton(game, "mas propina", "paella", { 0, 0, 255, 255 }, { 0, 0, 0, 0 },
-		300, sdlutils().height() / 2 + 250);
-	mejoraButton2->setAction([](Game* game, bool& exit) {
-
-		});
-	uiManager->addInterfaz(mejoraButton2);
 }
 
 void GameOver::calculateStarNumber()

@@ -326,8 +326,8 @@
       "file": "../../../Assets/Images/pause2.png"
     },
     {
-      "id": "settingsBoton",
-      "file": "../../../Assets/Images/settingsBoton.png"
+      "id": "exitBoton",
+      "file": "../../../Assets/Images/exitBoton.png"
     },
     {
       "id": "review",
@@ -356,6 +356,10 @@
     {
       "id": "timer",
       "file": "../../../Assets/Images/TimeAnimation.png"
+    },
+    {
+      "id": "continue",
+      "file": "../../../Assets/Images/continue.png"
     }
   ],
 

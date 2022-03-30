@@ -54,6 +54,7 @@ void Reloj::update()
 #ifndef _DEBUG
 		game->changeScene(new GameOver(game, 100));
 #endif // _DEBUG
+		game->changeScene(new GameOver(game, 100));
 
 	}
 	else

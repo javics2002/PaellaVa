@@ -5,14 +5,15 @@ class IngredienteButton;
 class Comanda;
 class ListaComandas;
 using namespace std;
+using tweeny::easing;
 
 class UIManager
 {
 	vector<string> texturasIngredienes = { "alcachofa",  "calamar", "cangrejo", "gamba",
 		   "langosta", "mejillon", "pimientoRojo", "pimientoVerde", "pollo" };
-	vector<string> texturasNumeros= { "uno",  "dos", "tres", "cuatro",
+	vector<string> texturasNumeros = { "uno",  "dos", "tres", "cuatro",
 	   "cinco", "seis", "siete", "ocho", "nueve" };
-	vector<string> texturasTamanos = {"small","medium","large"};
+	vector<string> texturasTamanos = { "small","medium","large" };
 	vector<Point2D<double> >posicionesBotones;
 	vector<GameObject*> interfaz;//el resto de iconos 
 	vector<Comanda*> comandas;//comandas de la lista de comandas
@@ -20,11 +21,11 @@ class UIManager
 	vector<	UiButton*> uicomandas;
 	//vector <GameObject*> pedido;//pedido que se est� redactando lo lleva la comanda
 
-float uiscale =1.1;
+	float uiscale = 1.1;
 	vector<GameObject*> pauseMenu; // menú de pausa
 	vector<UiButton*> pauseButtons; // botones del menú de pausa
 
-	vector<tweeny::tween<int>> activeTweens;
+	list<tweeny::tween<float>> activeTweens;
 
 	int mx;
 	int my;
@@ -61,6 +62,6 @@ public:
 
 	vector<GameObject*> getPauseMenu() { return pauseMenu; }
 
-	void addTween(tweeny::tween<int> tween);
+	tweeny::tween<float>& addTween(float from, float to, float during);
 };
 
