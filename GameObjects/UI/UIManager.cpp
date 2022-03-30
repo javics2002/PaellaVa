@@ -128,6 +128,19 @@ void UIManager::update()
 			i->update();
 		}
 	}
+
+	auto i = activeTweens.begin();
+	while (i != activeTweens.end()) {
+		i->step(20);
+
+		//Si el tween ha acabado, lo saco de la lista de tweens
+		if (i->progress() == 1) {
+			//Erase devuelve el iterador al siguiente tween
+			i = activeTweens.erase(i);
+		}
+		else 
+			i++;
+	}
 }
 
 void UIManager::render(SDL_Rect* rect = nullptr)
@@ -176,10 +189,6 @@ void UIManager::render(SDL_Rect* rect = nullptr)
 	for (auto i : pauseButtons) {
 		if (i->isActive())
 			i->render(rect);
-	}
-
-	for (auto i = activeTweens.begin(); i != activeTweens.end(); i++) {
-		i->step(20);
 	}
 }
 

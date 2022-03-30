@@ -14,8 +14,7 @@
 Player::Player(Game* game) : GameObject(game), objectType_(INGREDIENTE), pickedObject_(nullptr),
 	overlapPos(Vector2D<double>(getX() - overlapPos.getX() / 2, getY() - getHeight() / 2 - overlapDim.getY())), overlapDim(Vector2D<int>(50, 50))
 {
-
-	setPosition(100, 200);
+	setPosition(200, 600);
 	setDimension(64, 64);
 	overlapDim.set(50, 50); //margen de choque para fluidez
 
@@ -36,57 +35,31 @@ Player::~Player()
 
 void Player::handleInput()
 {
-	vel = (vel + ih().getAxis() * aceleracion);
 
-	//Altura
-	if (vel.getY() != 0 && ih().getAxisY() == 0) { 
-		//Arriba
-		if (vel.getY() < 0) 
-		{
-			{
-				vel.setY(vel.getY() + deceleracion);
-				if (std::round(vel.getY()) == 0) vel.setY(0);
-			}
-		}
-		//Abajo
-		else 
-		{
-			{
-				vel.setY(vel.getY() - deceleracion);
-				if (std::round(vel.getY()) == 0) vel.setY(0);
-			}
-		}
-	}
-	//Lados
-	if (vel.getX() != 0 && ih().getAxis().getX() == 0) {
-		//Izquierda
-		if (vel.getX() < 0) {			
-			{
-				vel.setX(vel.getX() + deceleracion);
-				if (std::round(vel.getX()) == 0) vel.setX(0);
-			}
-		}
-		//Derecha
-		else {
-			{
-				vel.setX(vel.getX() - deceleracion);
-				if (std::round(vel.getX()) == 0) vel.setX(0);
-			}
-		}
-	}
-	vel.clamp(-maxVel, maxVel);
-	
 	setColliderRect({ (int)getX(), (int)getY(), w, h });
 
+	//El jugador se mueve o se para en ambos ejes
+	if (abs(ih().getAxisX()) > .1f)
+		vel.setX(vel.getX() + ih().getAxisX() * aceleracion);
+	else
+		vel.setX(vel.getX() * deceleracion);
+
+	if (abs(ih().getAxisY()) > .1f)
+		vel.setY(vel.getY() + ih().getAxisY() * aceleracion);
+	else
+		vel.setY(vel.getY() * deceleracion);
+
+	vel.clamp(-maxVel, maxVel);
+
+
 	if (ih().getKey(InputHandler::INTERACT) && SDL_GetTicks() - lastTime_ > 500) {
-		//Este lastTime_ peruano se quitará en un futuro
 		lastTime_ = SDL_GetTicks();
 
 		//Si el jugador no lleva nada encima
 		if (pickedObject_ == nullptr) {
 
-			//Se prioriza la interacci�n con los muebles por encima de otros objetos
-			//Se prioriza el mueble m�s cercano al jugador
+			//Se prioriza la interaccion con los muebles por encima de otros objetos
+			//Se prioriza el mueble mas cercano al jugador
 			Mueble* m = nullptr;
 			for (auto i : game->getObjectManager()->getMueblesCollider(getOverlapCollider())) {
 				m = nearestObject(m, dynamic_cast<Mueble*>(i));
@@ -134,7 +107,7 @@ void Player::handleInput()
 		//Si el jugador lleva algo encima
 		else {
 
-			//Se busca el mueble m�s cercano de nuevo
+			//Se busca el mueble mas cercano de nuevo
 			Mueble* m = nullptr;
 			for (auto i : game->getObjectManager()->getMueblesCollider(getOverlapCollider())) {
 				m = nearestObject(m, dynamic_cast<Mueble*>(i));
@@ -185,39 +158,56 @@ void Player::handleInput()
 
 void Player::handleInput(Vector2D<double> axis)
 {
-	vel = (vel + axis * aceleracion);
+	//El jugador se mueve o se para en ambos ejes
+	if (abs(axis.getX()) > .1f)
+		vel.setX(vel.getX() + axis.getX() * aceleracion);
+	else
+		vel.setX(vel.getX() * deceleracion);
 
-	//Altura
-	if (vel.getY() != 0 && axis.getY() == 0) {
-		//Arriba
-		if (vel.getY() < 0) {
+	if (abs(axis.getY()) > .1f)
+		vel.setY(vel.getY() + axis.getY() * aceleracion);
+	else
+		vel.setY(vel.getY() * deceleracion);
 
-			vel.setY(vel.getY() + deceleracion);
-			if (std::round(vel.getY()) == 0) vel.setY(0);
-		}
-		//Abajo
-		else {
-
-			vel.setY(vel.getY() - deceleracion);
-			if (std::round(vel.getY()) == 0) vel.setY(0);
-		}
-	}
-	//Lados
-	if (vel.getX() != 0 && axis.getX() == 0) {
-		//Izquierda
-		if (vel.getX() < 0) {
-
-			vel.setX(vel.getX() + deceleracion);
-			if (std::round(vel.getX()) == 0) vel.setX(0);
-		}
-		//Derecha
-		else {
-
-			vel.setX(vel.getX() - deceleracion);
-			if (std::round(vel.getX()) == 0) vel.setX(0);
-		}
-	}
 	vel.clamp(-maxVel, maxVel);
+}
+
+void Player::update()
+{
+	auto colisionMuebles = game->getObjectManager()->getMueblesCollider(getCollider());
+	
+	for (auto i : colisionMuebles) {
+		//Si colisionamos con un mueble, le avisaremos y alejaremos al jugador
+		i->colisionPlayer(this);
+		
+	}
+
+	Vector2D<double> newPos = pos + vel;
+
+	SDL_Rect newRect = { newPos.getX() - getCollider().w / 2, newPos.getY() - getCollider().h / 2, getCollider().w, getCollider().h };
+
+	//Nos movemos al nuevo sitio si podemos
+	if (game->getObjectManager()->getMueblesCollider(newRect).empty())
+	{
+		pos = newPos;
+	}
+
+	if (vel.getY() > .1f)
+		orientation_ = S;
+	else if (vel.getY() < -.1f)
+		orientation_ = N;
+
+	if (vel.getX() > .1f)
+		orientation_ = E;
+	else if (vel.getX() < -.1f)
+		orientation_ = O;
+
+	if (pickedObject_ != nullptr) {
+		if (pickedObject_->isPicked())
+			pickedObject_->setPosition(getX(), getY() - getHeight() / 2);
+		else
+			pickedObject_ = nullptr;
+	}
 }
 
 bool Player::nearestObject(ObjetoPortable* go)
@@ -259,101 +249,6 @@ void Player::animUpdate()
 void Player::setAnimResources()
 {
 
-}
-
-
-
-void Player::update()
-{
-	Vector2D<double> newPos = pos + vel;
-
-	SDL_Rect newRect = { newPos.getX(), newPos.getY(), getCollider().w, getCollider().h };
-
-	if (game->getObjectManager()->getMueblesCollider(getCollider()).empty())
-	{
-		pos = pos + vel;
-	}
-	//else if (game->getObjectManager()->getMueblesCollider(getOverlapCollider()).empty())
-	//{
-	//	pos = pos + vel;
-	//}
-	//Este caso está para arreglar un bug de q el jugador se podía quedar atascado en las esquinas con la opción anterior
-	else
-	{
-		bool movPos = true;
-
-		Collider* col = nullptr;
-
-		for (auto i : game->getObjectManager()->getMueblesCollider(getCollider()))
-		{
-			if (game->getObjectManager()->getMueblesCollider(getOverlapCollider()).size() > 0)
-				movPos = movPos && i != game->getObjectManager()->getMueblesCollider(getOverlapCollider())[0];
-
-			if (game->getObjectManager()->getMueblesCollider(getOverlapCollider()).size() > 1)
-				movPos = movPos && i != game->getObjectManager()->getMueblesCollider(getOverlapCollider())[1];
-
-			if (game->getObjectManager()->getMueblesCollider(getOverlapCollider()).size() > 2)
-				movPos = movPos && i != game->getObjectManager()->getMueblesCollider(getOverlapCollider())[2];
-		}
-
-		if (movPos)
-		{
-			if (orientation_ == N || orientation_ == S)
-			{
-				vel.setX(0);
-			}	
-			else if (orientation_ == E || orientation_ == O)
-			{
-				vel.setY(0);
-			}
-
-			pos = pos + vel;
-		}
-	}
-
-	if (pickedObject_ != nullptr) {
-		if (pickedObject_->isPicked())
-			pickedObject_->setPosition(getX(), getY() - getHeight() / 2);
-		else
-			pickedObject_ = nullptr;
-	}
-
-	if (ih().getAxisY() == 1) 
-		orientation_ = S;		
-	else if (ih().getAxisY() == -1)
-		orientation_ = N;		
-
-	if (ih().getAxisX() == 1)
-		orientation_ = E;		
-	else if (ih().getAxisX() == -1) 
-		orientation_ = O;
-
-
-	switch (orientation_)
-	{
-	case E:
-		overlapPos = Vector2D<double>(getX() + getWidth() / 2,
-			getY() - overlapDim.getY() / 2);
-		break;
-	case O:
-		overlapPos = Vector2D<double>(getX() - getWidth() / 2 - overlapDim.getX(),
-			getY() - overlapDim.getY() / 2);
-		break;
-	case S:
-		overlapPos = Vector2D<double>(getX() - overlapDim.getX() / 2,
-			getY() + getHeight() / 2);		
-		break;
-	case N:
-		overlapPos = Vector2D<double>(getX() - overlapDim.getX() / 2,
-			getY() - getHeight() / 2 - overlapDim.getY());
-		break;		
-	default:
-		break;
-	}
-
-	for (auto i : game->getObjectManager()->getMueblesCollider(getCollider())) {
-		dynamic_cast<Mueble*>(i)->colisionPlayer(this);
-	}
 }
 
 SDL_Rect Player::getOverlapCollider()
