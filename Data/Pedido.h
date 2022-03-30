@@ -42,7 +42,7 @@ private:
 	vector<pedidoPaella> paellas;
 	vector<bool> ingredientesPedidos;
 
-	vector<string> paellasTex { "arroz", "alcachofa", "calamar", "cangrejo", "gamba",
+	vector<string> paellasTex { "alcachofa", "calamar", "cangrejo", "gamba",
 	"langosta", "mejillon", "pimientoRojo", "pimientoVerde", "pollo" };
 	vector<string> paellasTamTex { "small", "medium", "large" };
 
