@@ -16,7 +16,7 @@ void GameObject::setDimension(int width, int height)
 {
 	w = width;
 	h = height;
-	
+
 	setColliderRect({ (int)getX(), (int)getY(), w, h });
 }
 

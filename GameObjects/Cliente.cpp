@@ -10,6 +10,7 @@ Cliente::Cliente(Game* game) : PoolObject(game)
 void Cliente::update()
 {
 	setPosition(getX() + vel.getX(), getY());
+	setColliderRect({ (int)getX(), (int)getY(), w, h });
 
 }
 

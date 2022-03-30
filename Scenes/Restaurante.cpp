@@ -270,59 +270,117 @@ void Restaurante::loadMap(string const& path) {
 				auto dimension = Vector2D<int>(mapInfo.anchoTile, mapInfo.altoTile);
 				string name = obj.getName();
 
-				if (name == "mesaS") {
-					getObjectManager()->addMueble(new Mesa(game, position, { 1, 2 }, name));
+				/// <Z coords>
+				/// Fondo: -1
+				/// Pared: -5 (no tiene sprite o si tiene no queremos verlo)
+				/// Silla Arriba = 0
+				/// Silla Izq/Silla Der = 1
+				/// Mesas = 1
+				/// Silla Abajo = 2
+				/// Muebles = 1
+				/// Puerta = 1
+				/// 
+				/// </Z coords>
+				
+				if (name == "mesaS") { // 1 tile
+					Mesa* m = new Mesa(game, position, { 1, 2 }, name);
+					m->setDepth(1);
+					getObjectManager()->addMueble(m);
 				}
-				else if (name == "mesaMH") {
-					getObjectManager()->addMueble(new Mesa(game, position, { 2, 2 }, name));
+				else if (name == "mesaMH") { // 2 tiles horizontal
+					Mesa* m = new Mesa(game, position, { 2, 2 }, name);
+					m->setDepth(1);
+					getObjectManager()->addMueble(m);
 				}
-				else if (name == "mesaMV") {
-					getObjectManager()->addMueble(new Mesa(game, position, { 1, 3 }, name));
+				else if (name == "mesaMV") { // 2 tiles vertical
+					Mesa* m = new Mesa(game, position, { 1, 3 }, name);
+					m->setDepth(1);
+					getObjectManager()->addMueble(m);
 				}
-				else if (name == "mesaL") {
-					getObjectManager()->addMueble(new Mesa(game, position, { 2, 4 }, name));
+				else if (name == "mesaL") { // 4 tiles
+					Mesa* m = new Mesa(game, position, { 2, 4 }, name);
+					m->setDepth(1);
+					getObjectManager()->addMueble(m);
 				}
-				else if (name == "sillaIz" || name == "sillaDer" || name == "sillaAr" || name == "sillaAb") {
-					getObjectManager()->addMueble(new Silla(game, position, name));
+				else if (name == "sillaIz" || name == "sillaDer") {
+					Silla* s = new Silla(game, position, name);
+					s->setDepth(1);
+					getObjectManager()->addMueble(s);
+				}
+				else if (name == "sillaAr") {
+					Silla* s = new Silla(game, position, name);
+					s->setDepth(0);
+					getObjectManager()->addMueble(s);
+				}
+				else if (name == "sillaAb") {
+					Silla* s = new Silla(game, position, name);
+					s->setDepth(2);
+					getObjectManager()->addMueble(s);
 				}
 				else if (name == "fogon") {
-					getObjectManager()->addMueble(new Fogon(game, position));
+					Fogon* f = new Fogon(game, position);
+					f->setDepth(1);
+					getObjectManager()->addMueble(f);
 				}
 				else if (name == "lavavajillas") {
-					getObjectManager()->addMueble(new Lavavajillas(game, position));
+					Lavavajillas* l = new Lavavajillas(game, position);
+					l->setDepth(1);
+					getObjectManager()->addMueble(l);
 				}
 				else if (name == "cinta") {
-					getObjectManager()->addMueble(new Cinta(game, position));
+					Cinta* c = new Cinta(game, position);
+					c->setDepth(1);
+					getObjectManager()->addMueble(c);
 				}
 				else if (name == "inicioCinta") {
-					getObjectManager()->addMueble(new InicioCinta(game, position));
+					InicioCinta* c = new InicioCinta(game, position);
+					c->setDepth(1);
+					getObjectManager()->addMueble(c);
 				}
 				else if (name == "finalCinta") {
-					getObjectManager()->addMueble(new FinalCinta(game, position));
+					FinalCinta* c = new FinalCinta(game, position);
+					c->setDepth(1);
+					getObjectManager()->addMueble(c);
 				}
 				else if (name == "puerta") {
-					getObjectManager()->addMueble(new Puerta(game, position));
+					Puerta* p = new Puerta(game, position);
+					p->setDepth(1);
+					getObjectManager()->addMueble(p);
 				}
 				else if (name == "cartel") {
-					getObjectManager()->addMueble(new Cartel(game, position));
+					Cartel* c = new Cartel(game, position);
+					c->setDepth(1);
+					getObjectManager()->addMueble(c);
 				}
 				else if (name == "tabla") {
-					getObjectManager()->addMueble(new TablaProcesado(game, position));
+					TablaProcesado* t = new TablaProcesado(game, position);
+					t->setDepth(1);
+					getObjectManager()->addMueble(t);
 				}
 				else if (name == "encimera") {
-					getObjectManager()->addMueble(new Encimera(game, position));
+					Encimera* e = new Encimera(game, position);
+					e->setDepth(1);
+					getObjectManager()->addMueble(e);
 				}
 				else if (name == "ventanilla") {
-					getObjectManager()->addMueble(new Ventanilla(game, position, camara->renderRect()));
+					Ventanilla* v = new Ventanilla(game, position, camara->renderRect());
+					v->setDepth(1);
+					getObjectManager()->addMueble(v);
 				}
 				else if (name == "arroz") {
-					getObjectManager()->addMueble(new BolsaArroz(game, position));
+					BolsaArroz* b = new BolsaArroz(game, position);
+					b->setDepth(1);
+					getObjectManager()->addMueble(b);
 				}
 				else if (name == "pared") {
-					getObjectManager()->addMueble(new Pared(game, position));
+					Pared* p = new Pared(game, position);
+					p->setDepth(-5);
+					getObjectManager()->addMueble(p);
 				}
 			}
 		}
+		// ordenar renderstatic
+		getObjectManager()->sortRenderStatic();
 
 		SDL_SetRenderTarget(renderer, nullptr);
 

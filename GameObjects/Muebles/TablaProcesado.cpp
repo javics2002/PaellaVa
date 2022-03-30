@@ -6,13 +6,10 @@
 
 TablaProcesado::TablaProcesado(Game* game_, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, "tablaProcesado")
 {
-	timerTexture = &sdlutils().images().at("timer");
 
 	clip.w = timerTexture->width() / 8;
 	clip.h = timerTexture->height();
 	clip.y = 0;
-
-	timerDimension = 50;
 }
 
 void TablaProcesado::update() {
@@ -51,7 +48,7 @@ void TablaProcesado::render(SDL_Rect* camera)
 
 	drawRender(camera, dest, &sdlutils().images().at("tablaProcesado"));
 
-	if (ingr_ != nullptr && !ingr_->getProcesado()) {
+	if (ingr_ != nullptr && !ingr_->getProcesado() && i != 0) {
 
 		SDL_Rect dest_ = { getX() - getWidth() / 2, getY() + getHeight() / 2, timerDimension, timerDimension };
 
