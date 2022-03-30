@@ -313,25 +313,49 @@
       "id": "camarero",
       "file": "../../../Assets/Images/camarero.png"
     },
-	{
+    {
       "id": "pause1",
       "file": "../../../Assets/Images/pause1.png"
     },
-	{
+    {
       "id": "resumeBoton",
       "file": "../../../Assets/Images/resumeBoton.png"
     },
-	{
+    {
       "id": "pause2",
       "file": "../../../Assets/Images/pause2.png"
     },
-	{
+    {
       "id": "settingsBoton",
       "file": "../../../Assets/Images/settingsBoton.png"
     },
     {
       "id": "review",
       "file": "../../../Assets/Images/review.png"
+    },
+    {
+      "id": "enfadado",
+      "file": "../../../Assets/Images/enfadado.png"
+    },
+    {
+      "id": "enfadado_2",
+      "file": "../../../Assets/Images/enfadado1.png"
+    },
+    {
+      "id": "basico",
+      "file": "../../../Assets/Images/basic.png"
+    },
+    {
+      "id": "feliz_2",
+      "file": "../../../Assets/Images/feliz2.png"
+    },
+    {
+      "id": "feliz",
+      "file": "../../../Assets/Images/feliz.png"
+    },
+    {
+      "id": "timer",
+      "file": "../../../Assets/Images/TimeAnimation.png"
     }
   ],
 

@@ -13,14 +13,20 @@ class TablaProcesado: public Mueble
 
 	Ingrediente* ingr_;
 
-	double tiempo = 0.0;
+	double tiempo = 0.0, rellenoTimer = 0.0;
+
+	int i = 0, timerDimension;
+
+	Texture* timerTexture;
+	SDL_Rect clip;
 
 public:
 	TablaProcesado(Game* game_, Vector2D<double> pos);
 	~TablaProcesado() = default;
 
-	void update();
+	void update() override;
 	void procesando();
+	void render(SDL_Rect *camera) override;
 
 	bool receiveIngrediente(Ingrediente *ingr_) override;
 	bool returnObject(Player* p);

@@ -28,6 +28,7 @@ protected:
 
     void drawRender(SDL_Rect* cameraRect);   
     void drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex);
+    void drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex, SDL_Rect clip);
     void drawRender(SDL_Rect rect, Texture* tex);
     void drawDebug(SDL_Rect* cameraRect);
     void drawDebug(SDL_Rect* cameraRect, SDL_Rect rect);

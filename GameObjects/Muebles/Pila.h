@@ -2,21 +2,20 @@
 
 #include "Mueble.h"
 #include <deque>
-
-class Paella;
-
+#include "../Paella.h"
 
 class Pila : public Mueble
 {
 
 private:
 
-	//TipoPaella miTipo;
+	TipoPaella miTipo;
 
 	deque<Paella*> paellas;
 
 public:
-	Pila(Game* game, Vector2D<double> pos);
+
+	Pila(Game* game, Vector2D<double> pos, TipoPaella miTipo_);
 	~Pila() = default;
 
 	virtual bool returnObject(Player * p) override;

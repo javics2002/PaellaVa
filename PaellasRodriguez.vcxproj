@@ -300,6 +300,7 @@
     <Image Include="Assets\Images\arroz.png" />
     <Image Include="Assets\Images\barracomandas.png" />
     <Image Include="Assets\Images\barraTolerancia.png" />
+    <Image Include="Assets\Images\basic.png" />
     <Image Include="Assets\Images\basura.png" />
     <Image Include="Assets\Images\berenjena.png" />
     <Image Include="Assets\Images\borraboton.png" />
@@ -307,8 +308,12 @@
     <Image Include="Assets\Images\cuadernillo.png" />
     <Image Include="Assets\Images\customization.png" />
     <Image Include="Assets\Images\encimera.png" />
+    <Image Include="Assets\Images\enfadado.png" />
+    <Image Include="Assets\Images\enfadado1.png" />
     <Image Include="Assets\Images\enviaboton.png" />
     <Image Include="Assets\Images\exit.png" />
+    <Image Include="Assets\Images\feliz.png" />
+    <Image Include="Assets\Images\feliz2.png" />
     <Image Include="Assets\Images\finalCinta.png" />
     <Image Include="Assets\Images\fogon.png" />
     <Image Include="Assets\Images\Ingredientes\alcachofa.png" />
@@ -342,6 +347,7 @@
     <Image Include="Assets\Images\sillaIz.png" />
     <Image Include="Assets\Images\start.png" />
     <Image Include="Assets\Images\tabla.png" />
+    <Image Include="Assets\Images\TimeAnimation.png" />
     <Image Include="Images\a.png" />
     <Image Include="PaellasRodriguez.ico" />
     <Image Include="SDL2-2.0.20\Images\coin.png" />
