@@ -76,7 +76,7 @@ void Player::handleInput()
 	}
 	vel.clamp(-maxVel, maxVel);
 	
-
+	setColliderRect({ (int)getX(), (int)getY(), w, h });
 
 	if (ih().getKey(InputHandler::INTERACT) && SDL_GetTicks() - lastTime_ > 500) {
 		//Este lastTime_ peruano se quitará en un futuro
@@ -406,7 +406,7 @@ Vector2D<double> Player::getVel()
 
 void Player::renderDebug(SDL_Rect* cameraRect)
 {
-	drawDebug(cameraRect);
+	drawDebugColl(cameraRect);
 	drawDebug(cameraRect, getOverlapCollider());
 }
 

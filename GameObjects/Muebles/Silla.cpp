@@ -7,6 +7,7 @@
 Silla::Silla(Game* game, Vector2D<double> pos, string texture) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, texture)
 {
 	mMesa = nullptr;
+	setColliderRect({ (int)getX(), (int)getY() + h / 6, w, h / 2 + h / 4 });
 }
 
 Silla* Silla::initMesa(Mesa* mesa)
@@ -33,6 +34,7 @@ bool Silla::returnObject(Player* p)
 
 bool Silla::colisionPlayer(Player* p)
 {
-	return mMesa->colisionPlayer(p);
+	if (mMesa != nullptr)
+		return mMesa->colisionPlayer(p);
 }
 
