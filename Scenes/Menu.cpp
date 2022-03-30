@@ -16,8 +16,9 @@ Menu::Menu(Game* game) : Scene(game)
 
 	int posIni = 260;
 	int aumento = 150;
-
-	auto startButton = new UiButton(game, "start", 640, posIni, 170, 100);
+	int w = 300;
+	int h = 120;
+	auto startButton = new UiButton(game, "start", 640, posIni, w, h);
 	startButton->setInitialDimension(170, 100);
 	startButton->setAction([this, startButton](Game* game, bool& exit) {
 		sdlutils().soundEffects().at("select").play(0, game->UI);
@@ -39,7 +40,7 @@ Menu::Menu(Game* game) : Scene(game)
 		});
 	uiManager->addInterfaz(startButton);
 
-	auto settingsButton = new UiButton(game, "settings", 640, posIni + aumento, 170, 100);
+	auto settingsButton = new UiButton(game, "settings", 640, posIni + aumento, w, h);
 	settingsButton->setInitialDimension(170, 100);
 	settingsButton->setAction([this, settingsButton](Game* game, bool& exit) {
 		sdlutils().soundEffects().at("select").play(0, game->UI);
@@ -60,7 +61,7 @@ Menu::Menu(Game* game) : Scene(game)
 		});
 	uiManager->addInterfaz(settingsButton);
 
-	auto exitButton = new UiButton(game, "exit", 640, posIni + aumento * 2, 170, 100);
+	auto exitButton = new UiButton(game, "exit", 640, posIni + aumento * 2, w, h);
 	exitButton->setInitialDimension(170, 100);
 	exitButton->setAction([this, exitButton](Game* game, bool& exit) {
 		sdlutils().soundEffects().at("cancel").play(0, game->UI);

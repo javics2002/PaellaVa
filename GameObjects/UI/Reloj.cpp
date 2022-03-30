@@ -27,7 +27,8 @@ Reloj::~Reloj()
 
 bool Reloj::finDia()
 {
-	return SDL_TICKS_PASSED(SDL_GetTicks(), totalJornada);
+	//return SDL_TICKS_PASSED(SDL_GetTicks(), totalJornada);
+	return (hourFin <= currentTime.hours && minuteFin <= currentTime.minutes);
 }
 
 void Reloj::render(SDL_Rect* cameraRect)
@@ -53,6 +54,7 @@ void Reloj::update()
 #ifndef _DEBUG
 		game->changeScene(new GameOver(game, 100));
 #endif // _DEBUG
+
 	}
 	else
 	{

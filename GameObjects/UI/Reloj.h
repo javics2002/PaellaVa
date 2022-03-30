@@ -20,11 +20,11 @@ private:
 
 	Uint32 lastUpdate_;//tiempo desde el último update
 	Uint32 updateTime_ = 5000; // los milisegundos que tarda en actualizarse el reloj
-	int totalJornada = 1000*60; // tiempo real en ms que dura una jornada
-
 
 	int hourIni = 9; //la hora del día a la que empieza la jornada
 	int minuteIni = 0; //los minutos de la hora a la que empieza el juego
+	int hourFin = 17; //la hora del dia a la que termina la jornada
+	int minuteFin = 10; //los minutos de la hora del dia a la que termina la jornada
 
 	int addedMinutes = 10; //los minutos añadidos en cada update 
 

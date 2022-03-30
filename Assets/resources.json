@@ -328,6 +328,10 @@
 	{
       "id": "settingsBoton",
       "file": "../../../Assets/Images/settingsBoton.png"
+    },
+    {
+      "id": "review",
+      "file": "../../../Assets/Images/review.png"
     }
   ],
 
@@ -339,12 +343,44 @@
   ],
 
   "messages": [
-    {
-      "id": "prueba",
-      "text": "Hola",
-      "font": "abadi",
-      "color": "0x0000ffff"
-    }
+    
+    {"id": "5stars1","text": "El personal es majisimo y las paellas excelentes", "font": "abadi", "color": "0x000000"},
+    {"id": "5stars2","text": "Esta muy bueno/a... el camarero/a", "font": "abadi", "color": "0x000000"},
+    {"id": "5stars3","text": "MUY BUENA EXPERIENCIA", "font": "abadi", "color": "0x000000"},
+    {"id": "5stars4","text": "Tneis k probar sta mrda lkos", "font": "abadi", "color": "0x000000"},
+    {"id": "5stars5","text": "Oh la la...", "font": "abadi", "color": "0x000000"},
+    {"id": "5stars6","text": "@Chicote prueba esto", "font": "abadi", "color": "0x000000"},
+    {"id": "5stars7","text": "ARROZ CON MAYUSCULAS", "font": "abadi", "color": "0x000000"},
+    {"id": "5stars8","text": "Para mi de los mejores sitios de comer arroz, riquisimo y distintas variedades.", "font": "abadi", "color": "0x000000"},
+    {"id": "5stars9","text": "No llegue a entrar pero la fachada es preciosa", "font": "abadi", "color": "0x000000"},
+    {"id": "5stars10","text": "Me gusto tanto que llore por abajo del pantalon", "font": "abadi", "color": "0x000000"},
+
+    {"id": "4stars1","text": "La cocina no esta nada mal y el servicio es muy amable.", "font": "abadi", "color": "0x000000"},
+    {"id": "4stars2","text": "Trato genial por el personal. La paella exquisita y con cantidad. Bien de precio", "font": "abadi", "color": "0x000000"},
+    {"id": "4stars3","text": "Muy rico el arroz en sus variedades", "font": "abadi", "color": "0x000000"},
+    {"id": "4stars4","text": "Excelente. el arroz con bogavante buenas medidas anticovid bueno para colectivo lgtbi", "font": "abadi", "color": "0x000000"},
+    {"id": "4stars5","text": "Muy buenos arroces es un local sin pretensiones ni decoracion.", "font": "abadi", "color": "0x000000"},
+    {"id": "4stars6","text": "Excelente paella con el toque Valenciano y muy buena atencion!!!", "font": "abadi", "color": "0x000000"},
+
+    {"id": "3stars1","text": "El arroz muy normalito.. Con ese nombre deberian ofrecer un arroz mucho mejor", "font": "abadi", "color": "0x000000"},
+    {"id": "3stars2","text": "Muy agradable servicio aunque tardan un poco al servir la mesa. Platos sabrosos.", "font": "abadi", "color": "0x000000"},
+    {"id": "3stars3","text": "Precios excesivos, excelente atencion.", "font": "abadi", "color": "0x000000"},
+    {"id": "3stars4","text": "Buen sabor pero muy pocos ingredientes.", "font": "abadi", "color": "0x000000"},
+    {"id": "3stars5","text": "Buena comida pero no habia sitio lol", "font": "abadi", "color": "0x000000"},
+
+    {"id": "2stars1","text": "Bastante decepcionante. No trajeron lo que queria y los precios son bastante elevados.", "font": "abadi", "color": "0x000000"},
+    {"id": "2stars2","text": "Arroz demasiado quemado.", "font": "abadi", "color": "0x000000"},
+    {"id": "2stars3","text": "La comida floja. Ha decaido.", "font": "abadi", "color": "0x000000"},
+    {"id": "2stars4","text": "Arroz bastante duro y salado , la verdad que soy bastante de comer paellas y es de los peores sitios donde me he comido una.", "font": "abadi", "color": "0x000000"},
+    {"id": "2stars5","text": "Servicio muy lento. Arroz, normal.", "font": "abadi", "color": "0x000000"},
+
+    {"id": "1stars1","text": "QUE ASCO!! Llevo vomitando 3 dias seguidos", "font": "abadi", "color": "0x000000"},
+    {"id": "1stars2","text": "Que aburrimiento! 2 horas para servirme y luego otras 2 para traerme la cuenta! No volvere jamas.", "font": "abadi", "color": "0x000000"},
+    {"id": "1stars3","text": "Mal muy mal no se le puede decir a un cliente un sabado a las 10.45 que ya no les pueden servir.", "font": "abadi", "color": "0x000000"},
+    {"id": "1stars4","text": "El arroz pasado, muy flojo. Igual fuimos un mal dia... muy amables de trato, eso si", "font": "abadi", "color": "0x000000"},
+    {"id": "1stars5","text": "Ojala tuvieran hoja de reclamaciones >:T.", "font": "abadi", "color": "0x000000"},
+    {"id": "1stars6","text": "El pollo sabia como a la abuela que me comi ayer", "font": "abadi", "color": "0x000000"},
+    {"id": "1stars7","text": "La atencion al cliente era mas lenta que la sanidad publica", "font": "abadi", "color": "0x000000"}
   ],
 
   "sounds": [

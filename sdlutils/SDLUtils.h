@@ -107,7 +107,7 @@ public:
 	}
 
 	// messages map
-	inline sdl_resource_table<Texture>& msgs() {
+	inline sdl_resource_table<Texture>& messages() {
 		return msgs_;
 	}
 
