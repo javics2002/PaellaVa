@@ -5,6 +5,7 @@ class IngredienteButton;
 class Comanda;
 class ListaComandas;
 using namespace std;
+using tweeny::easing;
 
 class UIManager
 {
@@ -20,11 +21,11 @@ class UIManager
 	vector<	UiButton*> uicomandas;
 	//vector <GameObject*> pedido;//pedido que se est� redactando lo lleva la comanda
 
-float uiscale =1.1;
+	float uiscale =1.1;
 	vector<GameObject*> pauseMenu; // menú de pausa
 	vector<UiButton*> pauseButtons; // botones del menú de pausa
 
-	vector<tweeny::tween<int>> activeTweens;
+	list<tweeny::tween<float>> activeTweens;
 
 	int mx;
 	int my;
@@ -61,6 +62,6 @@ public:
 
 	vector<GameObject*> getPauseMenu() { return pauseMenu; }
 
-	void addTween(tweeny::tween<int> tween);
+	tweeny::tween<float>& addTween(float from, float to, float during);
 };
 

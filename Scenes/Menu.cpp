@@ -19,14 +19,12 @@ Menu::Menu(Game* game) : Scene(game)
 	int w = 300;
 	int h = 120;
 	auto startButton = new UiButton(game, "start", 640, posIni, w, h);
-	startButton->setInitialDimension(170, 100);
+	startButton->setInitialDimension(w, h);
 	startButton->setAction([this, startButton](Game* game, bool& exit) {
 		sdlutils().soundEffects().at("select").play(0, game->UI);
 
-		tweeny::tween<int> startButtonTween = tweeny::tween<int>::from(90).to(105).during(600).via(easing::exponentialOut);
-
-		startButtonTween.onStep([game, startButton](tweeny::tween<int>& t, int) mutable {
-			startButton->setDimension((t.peek() / 100.0f) * startButton->getInitialWidth(), (t.peek() / 100.0f) * startButton->getInitialHeight());
+		uiManager->addTween(0.9f, 1.0f, 600.0f).via(easing::exponentialOut).onStep([game, startButton](tweeny::tween<float>& t, float) mutable {
+			startButton->setDimension(t.peek() * startButton->getInitialWidth(), t.peek() * startButton->getInitialHeight());
 
 			if (t.progress() > .2f) {
 				//Start game
@@ -35,51 +33,42 @@ Menu::Menu(Game* game) : Scene(game)
 			}
 			return false;
 			});
-
-		uiManager->addTween(startButtonTween);
 		});
+
 	uiManager->addInterfaz(startButton);
 
 	auto settingsButton = new UiButton(game, "settings", 640, posIni + aumento, w, h);
-	settingsButton->setInitialDimension(170, 100);
+	settingsButton->setInitialDimension(w, h);
 	settingsButton->setAction([this, settingsButton](Game* game, bool& exit) {
 		sdlutils().soundEffects().at("select").play(0, game->UI);
 
-		tweeny::tween<int> settingsButtonTween = tweeny::tween<int>::from(90).to(105).during(600).via(easing::exponentialOut);
-
-		settingsButtonTween.onStep([game, settingsButton](tweeny::tween<int>& t, int) mutable {
-			settingsButton->setDimension((t.peek() / 100.0f) * settingsButton->getInitialWidth(), (t.peek() / 100.0f) * settingsButton->getInitialHeight());
+		uiManager->addTween(0.9f, 1.0f, 600.0f).via(easing::exponentialOut).onStep([game, settingsButton](tweeny::tween<float>& t, float) mutable {
+			settingsButton->setDimension(t.peek() * settingsButton->getInitialWidth(), t.peek() * settingsButton->getInitialHeight());
 
 			if (t.progress() > .2f) {
-				//Settings
+				// Settings
 				return true;
 			}
 			return false;
 			});
-
-		uiManager->addTween(settingsButtonTween);
 		});
 	uiManager->addInterfaz(settingsButton);
 
 	auto exitButton = new UiButton(game, "exit", 640, posIni + aumento * 2, w, h);
-	exitButton->setInitialDimension(170, 100);
+	exitButton->setInitialDimension(w, h);
 	exitButton->setAction([this, exitButton](Game* game, bool& exit) {
 		sdlutils().soundEffects().at("cancel").play(0, game->UI);
 
-		tweeny::tween<int> exitButtonTween = tweeny::tween<int>::from(90).to(105).during(600).via(easing::exponentialOut);
+		uiManager->addTween(0.9f, 1.0f, 600.0f).via(easing::exponentialOut).onStep([game, exitButton, &exit](tweeny::tween<float>& t, float) mutable {
+			exitButton->setDimension(t.peek() * exitButton->getInitialWidth(), t.peek() * exitButton->getInitialHeight());
 
-		exitButtonTween.onStep([game, exitButton, &exit](tweeny::tween<int>& t, int) mutable {
-			exitButton->setDimension((t.peek() / 100.0f) * exitButton->getInitialWidth(), (t.peek() / 100.0f) * exitButton->getInitialHeight());
-
-			if (t.progress() > .2f) {
-				//exit game
+			if (t.progress() == 1.0f) {
+				// Exit
 				exit = true;
 				return true;
 			}
 			return false;
 			});
-
-		uiManager->addTween(exitButtonTween);
 		});
 	uiManager->addInterfaz(exitButton);
 }
