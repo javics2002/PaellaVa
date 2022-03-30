@@ -40,7 +40,6 @@ void GrupoClientes::initGrupo(Cola* cola_, vector<Cliente*> clientes_)
 
 void GrupoClientes::update()
 {
-
 	if (estado_ == CAMINANDO) {
 
 		for (auto i : clientes) {
@@ -49,6 +48,7 @@ void GrupoClientes::update()
 	}
 
 	else if (estado_ == ENCOLA) {
+
 		int n = clientes.size() - 1;
 
 		SDL_Rect rect = { clientes[n]->getX() - clientes[n]->getWidth(), clientes[n]->getY() - clientes[n]->getHeight() / 2,
@@ -62,6 +62,7 @@ void GrupoClientes::update()
 	}
 
 	else if (estado_ == PIDIENDO) {
+
 		if (!showPed)
 			orderStart = true;
 
@@ -80,7 +81,9 @@ void GrupoClientes::update()
 		}
 	}
 
-
+	else {
+		bajaTolerancia();
+	}
 }
 
 void GrupoClientes::render(SDL_Rect* cameraRect)
@@ -94,9 +97,6 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 	int bocadilloX = 80;
 	int bocadilloY = 60;
 
-	int toleranciaX = 30;
-	int toleranciaY = 25;
-
 	if (showPed && estado_ == PIDIENDO) {
 		showTol = false;
 
@@ -106,52 +106,42 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 			itemNow = (itemNow + 1) % texPedido.size();
 		}
 
-		int rectDim = 50;
+		int itemDim = 50;
 
 		drawRender(cameraRect, { (int)getX() - bocadilloX / 2, (int)getY() - bocadilloY, bocadilloX, bocadilloY }, texTolerancia);
-		drawRender(cameraRect, { (int)getX() - rectDim / 2, (int)getY() - rectDim - 10, rectDim, rectDim }, &sdlutils().images().at(texPedido[itemNow]));
+		drawRender(cameraRect, { (int)getX() - itemDim / 2, (int)getY() - itemDim - 10, itemDim, itemDim }, &sdlutils().images().at(texPedido[itemNow]));
 
 		showPed = false;
 	}
 
-
 	if (showTol) {
 		if (!isPicked()) {
 
-			SDL_Rect rect = {};		
-			SDL_Rect rect2 = {};		
+			SDL_Rect bocadillo = {};
+			SDL_Rect emoticono = {};
 
-			switch (estado_)
-			{
-			case CAMINANDO:
-			case ENCOLA:
-				rect = { mitadGrupo() - bocadilloX / 2,
+			int emoticonoX = 30;
+			int emoticonoY = 25;
+
+			if (estado_ < PIDIENDO) {
+				bocadillo = { mitadGrupo() - bocadilloX / 2,
 					(int)clientes[0]->getY() - clientes[0]->getHeight() / 2 - bocadilloY, bocadilloX, bocadilloY };
-
-				rect2 = { mitadGrupo() - toleranciaX / 2,
-					(int)clientes[0]->getY() - clientes[0]->getHeight() / 2 - 2*toleranciaY,  toleranciaX , toleranciaY};
-
-				break;
-			case PIDIENDO:
-			case ESPERANDO:
-			case COMIENDO:
-			case CUENTA:
-			default:
-				break;
+				emoticono = { mitadGrupo() - emoticonoX / 2,
+					(int)clientes[0]->getY() - clientes[0]->getHeight() / 2 - bocadilloY + emoticonoY / 2, emoticonoX, emoticonoY };
 			}
+			else {
+				bocadillo = { (int)getX() - bocadilloX / 2, (int)getY() - bocadilloY, bocadilloX, bocadilloY };
+				emoticono = { (int)getX() - emoticonoX / 2, (int)getY() - bocadilloY + emoticonoY / 2, emoticonoX, emoticonoY };
+			}		 
 
-			drawRender(cameraRect, rect, texTolerancia);
-			drawRender(cameraRect, rect2, &sdlutils().images().at(texturaTolerancia[((int)tolerancia / 20)]));			
+			drawRender(cameraRect, bocadillo, texTolerancia);		
+			drawRender(cameraRect, emoticono, &sdlutils().images().at(texturaTolerancia[((int)tolerancia / 20)]));
 		}
 
 		showTol = false;
 	}
-	if (estado_ == CUENTA) {
-
-		SDL_Rect rect = {};
-		rect = { (int)mesa->getX() - bocadilloX / 2, (int)mesa->getY() - bocadilloY, bocadilloX, bocadilloY };
-		//PONER ICONO DE QUE HAN TERMINADO LA COMIDA EN EL BOCADILLO
-		drawRender(cameraRect, rect, texTolerancia);
+	if (estado_ == CUENTA && !isPicked()) {
+		drawRender(cameraRect, { (int)getX() - bocadilloX / 2, (int)getY() - bocadilloY, bocadilloX, bocadilloY }, texTolerancia);
 	}
 }
 
@@ -170,6 +160,7 @@ bool GrupoClientes::colisionClientes()
 {
 	if (estado_ == CAMINANDO) 
 		setState(ENCOLA);
+
 	return true;
 }
 
@@ -217,45 +208,9 @@ vector<Cliente*> GrupoClientes::getIntegrantes()
 
 void GrupoClientes::onObjectDropped()
 {
-	switch (estado_)
-	{
-	case CAMINANDO:
-		break;
-	case ENCOLA:
+	if (estado_ == ENCOLA) {
 		estado_ = PIDIENDO;
 		cola->remove(posCola, clientes.size());
-		break;
-	case PIDIENDO:
-		break;
-	case COMIENDO:
-		break;
-	case ESPERANDO:
-		break;
-	case CUENTA:
-		break;
-	default:
-		break;
-	}
-}
-
-void GrupoClientes::onObjectPicked()
-{
-	switch (estado_)
-	{
-	case CAMINANDO:
-		break;
-	case ENCOLA:
-		break;
-	case PIDIENDO:
-		break;
-	case COMIENDO:
-		break;
-	case ESPERANDO:
-		break;
-	case CUENTA:
-		break;
-	default:
-		break;
 	}
 }
 
@@ -269,17 +224,6 @@ bool GrupoClientes::canDrop() {
 	return  estado_== ENCOLA;
 }
 
-int GrupoClientes::mitadGrupo()
-{
-	int mitad = 0;
-
-	for (auto i : clientes) {
-		mitad += i->getX();
-	}
-
-	return mitad / clientes.size();
-}
-
 void GrupoClientes::onDesactivate()
 {
 	if (estado_ == CUENTA) {
@@ -289,8 +233,19 @@ void GrupoClientes::onDesactivate()
 
 	auto list = game->getObjectManager()->getPoolClientes();
 
-	for (auto i : clientes) 
-		list->remove(i->getIterator());	
+	for (auto i : clientes)
+		list->remove(i->getIterator());
+}
+
+int GrupoClientes::mitadGrupo()
+{
+	int mitad = 0;
+
+	for (auto i : clientes) {
+		mitad += i->getX();
+	}
+
+	return mitad / clientes.size();
 }
 
 void GrupoClientes::hacerPedido(int tamMesa,Mesa* m)
@@ -311,11 +266,8 @@ void GrupoClientes::decirPedidio()
 			orderStart = false;		
 		}
 		showPed = true;
-	}
-		
+	}		
 }
-
-
 
 bool GrupoClientes::paellasPedidas() {
 	if (estado_ == ESPERANDO || estado_ == PIDIENDO) {

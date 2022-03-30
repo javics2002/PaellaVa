@@ -81,7 +81,7 @@ public:
 
 	bool ratonEncima();
 	
-	void onObjectPicked() override;
+	void onObjectPicked() override {};
 	void onObjectDropped() override;
 
 	bool canPick() override;
