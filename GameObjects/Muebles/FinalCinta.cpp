@@ -5,13 +5,15 @@
 
 FinalCinta::FinalCinta(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, "basura")
 {
+	setColliderRect({ (int)getX(), (int)getY(), w, h});
 }
 
 void FinalCinta::update()
 {
-	vector<Collider*> ingredientes = game->getObjectManager()->getPoolIngredientes()->getCollisions(getTexRect());
+	vector<Collider*> ingredientes = game->getObjectManager()->getPoolIngredientes()->getCollisions(getCollider());
 	for (auto i : ingredientes) {
 		auto pair = i->colisionIngrediente();
+		cout << "size: " << ingredientes.size() << endl;
 		if (pair.first)
 			game->getObjectManager()->getPoolIngredientes()->remove(pair.second);
 	}	

@@ -72,8 +72,8 @@ public:
 
 		auto& elem = v[nextElem];
 		activeObjects.push_front(elem);
-		elem->activate(activeObjects.begin());
-		elem->setPosition(pos);		
+		elem->setPosition(pos);
+		elem->activate(activeObjects.begin());	
 
 		return elem;
 	}
