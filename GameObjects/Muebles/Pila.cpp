@@ -1,10 +1,9 @@
 #include "Pila.h"
-#include "../Paella.h"
 #include "../Player.h"
 
-Pila::Pila(Game* game, Vector2D<double> pos):Mueble(game, pos, 1 * TILE_SIZE, 2 * TILE_SIZE, "pila")
+Pila::Pila(Game* game, Vector2D<double> pos, TipoPaella miTipo_):Mueble(game, pos, 1 * TILE_SIZE, 2 * TILE_SIZE, "pila")
 {
-	//miTipo = ;
+	miTipo = miTipo_;
 }
 
 bool Pila::returnObject(Player* p)

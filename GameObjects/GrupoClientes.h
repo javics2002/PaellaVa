@@ -32,6 +32,8 @@ class GrupoClientes : public PoolObject
 	float tolerancia;
 	bool showTol;
 
+	vector<string> texturaTolerancia = {"enfadado", "enfadado_2", "basico", "feliz_2", "feliz", "feliz"};
+
 	Texture* texTolerancia;
 
 	Mesa* mesa;

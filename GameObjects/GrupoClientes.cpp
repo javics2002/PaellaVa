@@ -94,6 +94,9 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 	int bocadilloX = 80;
 	int bocadilloY = 60;
 
+	int toleranciaX = 30;
+	int toleranciaY = 25;
+
 	if (showPed && estado_ == PIDIENDO) {
 		showTol = false;
 
@@ -116,6 +119,7 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 		if (!isPicked()) {
 
 			SDL_Rect rect = {};		
+			SDL_Rect rect2 = {};		
 
 			switch (estado_)
 			{
@@ -123,6 +127,10 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 			case ENCOLA:
 				rect = { mitadGrupo() - bocadilloX / 2,
 					(int)clientes[0]->getY() - clientes[0]->getHeight() / 2 - bocadilloY, bocadilloX, bocadilloY };
+
+				rect2 = { mitadGrupo() - toleranciaX / 2,
+					(int)clientes[0]->getY() - clientes[0]->getHeight() / 2 - 2*toleranciaY,  toleranciaX , toleranciaY};
+
 				break;
 			case PIDIENDO:
 			case ESPERANDO:
@@ -133,6 +141,7 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 			}
 
 			drawRender(cameraRect, rect, texTolerancia);
+			drawRender(cameraRect, rect2, &sdlutils().images().at(texturaTolerancia[((int)tolerancia / 20)]));			
 		}
 
 		showTol = false;
@@ -176,6 +185,7 @@ bool GrupoClientes::ratonEncima()
 void GrupoClientes::bajaTolerancia()
 {
 	if (tolerancia > 0 && SDL_GetTicks() - lastTimeTol >= DIMIN_TIME) {
+
 		tolerancia -= DIMIN_TOLERANCIA;
 
 		if (tolerancia < 0) tolerancia = 0;

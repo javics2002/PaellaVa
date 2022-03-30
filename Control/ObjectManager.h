@@ -32,6 +32,8 @@ class ObjectManager
 	//Para formar el rect del raton
 	int x, y, range = 2;
 
+	SDL_Rect *camera;
+
 public:
 	ObjectManager(Game* game);
 	~ObjectManager();

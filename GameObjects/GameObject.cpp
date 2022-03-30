@@ -102,6 +102,11 @@ void GameObject::drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex)
 	tex->render({ rect.x - cameraRect->x, rect.y - cameraRect->y, rect.w, rect.h });
 }
 
+void GameObject::drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex, SDL_Rect clip)
+{
+	tex->render(clip, { rect.x - cameraRect->x, rect.y - cameraRect->y, rect.w, rect.h }, 0.0);
+}
+
 void GameObject::drawRender(SDL_Rect rect, Texture* tex)
 {
 	tex->render(rect);

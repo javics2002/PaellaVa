@@ -201,6 +201,12 @@
     <Image Include="Assets\Images\Ingredientes\pimientoRojoProcesado.png" />
     <Image Include="Assets\Images\Ingredientes\pimientoVerdeProcesado.png" />
     <Image Include="Assets\Images\Ingredientes\polloProcesado.png" />
+    <Image Include="Assets\Images\basic.png" />
+    <Image Include="Assets\Images\enfadado.png" />
+    <Image Include="Assets\Images\enfadado1.png" />
+    <Image Include="Assets\Images\feliz.png" />
+    <Image Include="Assets\Images\feliz2.png" />
+    <Image Include="Assets\Images\TimeAnimation.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="json\RAEDME.md" />
