@@ -29,6 +29,8 @@ class ObjectManager
 
 	vector<Player*> players;
 
+	vector<GameObject*> renderStatic;
+
 	//Para formar el rect del raton
 	int x, y, range = 2;
 
@@ -71,5 +73,7 @@ public:
 	vector<Collider*> getMueblesCollider();
 	vector<Collider*> getMueblesCollider(SDL_Rect collider);
 	vector<Collider*> getPaellasCollider(SDL_Rect collider);
+
+	void sortRenderStatic();
 };
 

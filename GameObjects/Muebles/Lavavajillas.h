@@ -20,6 +20,10 @@ public:
 	deque<Paella*> pilaPaellas;
 	deque<Paella*> paellasLimpias;
 
+	int i = 0;
+
+	SDL_Rect clip;
+
 public:
 	Lavavajillas(Game* game, Vector2D<double> pos);
 	~Lavavajillas() = default;
@@ -29,6 +33,8 @@ public:
 
 	bool receivePaella(Paella* paella_) override;
 	bool returnObject(Player* p)override; 
+
+	void render(SDL_Rect* camera) override;
 };
 
 

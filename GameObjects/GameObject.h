@@ -21,6 +21,7 @@ protected:
     Vector2D<double> pos, vel;
     int w, h;
     int iniW, iniH;
+    int z; // para el render
 
     Game* game;
     Texture* texture;
@@ -38,9 +39,9 @@ protected:
 public:
 
     GameObject(Game* game) 
-        : game(game), texture(nullptr), w(0), h(0), iniW(0), iniH(0) {}
+        : game(game), texture(nullptr), w(0), h(0), iniW(0), iniH(0), z(0) {}
     GameObject(Game* game, string claveTextura) 
-        : game(game), texture(&sdlutils().images().at(claveTextura)), w(0), h(0), iniW(0), iniH(0) {}
+        : game(game), texture(&sdlutils().images().at(claveTextura)), w(0), h(0), iniW(0), iniH(0), z(0) {}
 
     virtual ~GameObject() {}
 
@@ -66,10 +67,12 @@ public:
     int getWidth() { return w; }
     int getHeight() { return h; }
 
+    void setDepth(int depth) { z = depth; }
+    int getDepth() { return z; }
+
     void setInitialDimension(int width, int height);
     int getInitialWidth() { return iniW; }
     int getInitialHeight() { return iniH; }
-
 
     double getX() { return pos.getX(); }
     double getY() { return pos.getY(); }
