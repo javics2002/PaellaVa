@@ -11,7 +11,7 @@
 
 ObjectManager::ObjectManager(Game* game)
 {
-	ingredientes = new Pool<Ingrediente>(game, 1);
+	ingredientes = new Pool<Ingrediente>(game, 20);
 	clientes = new Pool<Cliente>(game, 50);
 	grupoClientes = new Pool<GrupoClientes>(game, 20);
 }
@@ -106,7 +106,7 @@ void ObjectManager::update()
 	SDL_Rect rect = SDL_Rect{ x, y, range, range };
 
 	for (auto i : grupoClientes->getCollisions(rect)) {
-		i->ratonEncima();
+		dynamic_cast<GrupoClientes*>(i)->ratonEncima();
 	}
 }
 

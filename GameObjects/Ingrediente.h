@@ -30,7 +30,7 @@ public:
 	~Ingrediente() = default;
 
 	void update() override;	
-	pair<bool, std::list<PoolObject*>::const_iterator> colisionIngrediente() override;
+	pair<bool, std::list<PoolObject*>::const_iterator> colisionIngrediente();
 
 	void onActivate() override;
 	void onDesactivate()override;

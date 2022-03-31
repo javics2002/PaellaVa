@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Collider.h"
+#include "../Utils/Collider.h"
 
 #include "../Utils/Texture.h"
 #include "../Utils/Vector2D.h"
@@ -81,8 +81,6 @@ public:
     bool isActive() { return active; }
     void setActive(bool a) { active = a; }
 
-    virtual SDL_Rect getCollider();
+    virtual SDL_Rect getTexCollider();
     virtual SDL_Rect getCenter();
-
-    virtual bool collide(SDL_Rect other);
 };

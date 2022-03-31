@@ -225,6 +225,7 @@
     <ClInclude Include="tmxlite\include\tmxlite\TileLayer.hpp" />
     <ClInclude Include="tmxlite\include\tmxlite\Tileset.hpp" />
     <ClInclude Include="tmxlite\include\tmxlite\Types.hpp" />
+    <ClInclude Include="Utils\Collider.h" />
     <ClInclude Include="Utils\Traza.h" />
     <ClInclude Include="Utils\Singleton.h" />
     <ClInclude Include="Utils\Texture.h" />
@@ -289,6 +290,7 @@
     <ClCompile Include="sdlutils\SDLUtils.cpp" />
     <ClCompile Include="sdlutils\SoundEffect.cpp" />
     <ClCompile Include="GameObjects\UI\Text.cpp" />
+    <ClCompile Include="Utils\Collider.cpp" />
     <ClCompile Include="Utils\Texture.cpp" />
     <ClCompile Include="GameObjects\Muebles\Ventanilla.cpp" />
   </ItemGroup>

@@ -11,7 +11,7 @@ void FinalCinta::update()
 {
 	vector<Collider*> ingredientes = game->getObjectManager()->getPoolIngredientes()->getCollisions(getCollider());
 	for (auto i : ingredientes) {
-		auto pair = i->colisionIngrediente();
+		auto pair = dynamic_cast<Ingrediente*>(i)->colisionIngrediente();
 		if (pair.first)
 			game->getObjectManager()->getPoolIngredientes()->remove(pair.second);
 	}	
