@@ -172,33 +172,72 @@ void Player::handleInput(Vector2D<double> axis)
 
 void Player::update()
 {
-	auto colisionMuebles = game->getObjectManager()->getMueblesCollider(getCollider());
+	//Próxima posición
+	Vector2D<double> newPos = pos + vel;
+	SDL_Rect newRect = { newPos.getX() - getCollider().w / 2, newPos.getY() - getCollider().h / 2, getCollider().w, getCollider().h };
 	
+	auto colisionMuebles = game->getObjectManager()->getMueblesCollider(newRect);
 	for (auto i : colisionMuebles) {
 		//Si colisionamos con un mueble, le avisaremos y alejaremos al jugador
 		i->colisionPlayer(this);
+
+		//Cuanto estoy metido en el mueble?
+		SDL_Rect c = i->getCollider();
+
+		//Comprobamos por la izquierda y la derecha
+		/*La intersección que busco es mas pequeña desde la izquierda y la derecha para
+		que nos reposicione donde acabamos de entrar al mueble*/
+		int interseccionIz = (newPos.getX() + getCollider().w / 2) - c.x;
+		int interseccionDer = (newPos.getX() - getCollider().w / 2) - (c.x + c.w);
+		int interseccionX = abs(interseccionIz) < abs(interseccionDer) ? interseccionIz : interseccionDer;
 		
+		//Lo mismo por arriba y por abajo
+		int interseccionAr = (newPos.getY() + getCollider().h / 2) - c.y;
+		int interseccionAb = (newPos.getY() - getCollider().h / 2) - (c.y + c.h);
+		int interseccionY = abs(interseccionAr) < abs(interseccionAb) ? interseccionAr : interseccionAb;
+		
+		//Aplicamos la menor interseccion, que es la que tiene
+		if (abs(interseccionX) < abs(interseccionY))
+			newPos = newPos - Vector2D<double>(interseccionX, 0);
+		else
+			newPos = newPos - Vector2D<double>(0, interseccionY);
+			
 	}
 
-	Vector2D<double> newPos = pos + vel;
+	//Nos movemos al nuevo sitio
+	pos = newPos;
 
-	SDL_Rect newRect = { newPos.getX() - getCollider().w / 2, newPos.getY() - getCollider().h / 2, getCollider().w, getCollider().h };
-
-	//Nos movemos al nuevo sitio si podemos
-	if (game->getObjectManager()->getMueblesCollider(newRect).empty())
-	{
-		pos = newPos;
-	}
-
-	if (vel.getY() > .1f)
+	if (vel.getY() > .7f)
 		orientation_ = S;
-	else if (vel.getY() < -.1f)
+	else if (vel.getY() < -.7f)
 		orientation_ = N;
 
-	if (vel.getX() > .1f)
+	if (vel.getX() > .7f)
 		orientation_ = E;
-	else if (vel.getX() < -.1f)
+	else if (vel.getX() < -.7f)
 		orientation_ = O;
+
+	switch (orientation_)
+	{
+	case E:
+		overlapPos = Vector2D<double>(getX() + getWidth() / 2,
+			getY() - overlapDim.getY() / 2);
+		break;
+	case O:
+		overlapPos = Vector2D<double>(getX() - getWidth() / 2 - overlapDim.getX(),
+			getY() - overlapDim.getY() / 2);
+		break;
+	case S:
+		overlapPos = Vector2D<double>(getX() - overlapDim.getX() / 2,
+			getY() + getHeight() / 2);
+		break;
+	case N:
+		overlapPos = Vector2D<double>(getX() - overlapDim.getX() / 2,
+			getY() - getHeight() / 2 - overlapDim.getY());
+		break;
+	default:
+		break;
+	}
 
 	if (pickedObject_ != nullptr) {
 		if (pickedObject_->isPicked())
