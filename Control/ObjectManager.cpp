@@ -38,7 +38,10 @@ void ObjectManager::render(SDL_Rect* rect)
 	for (auto i : renderAll)
 		i->render(rect);
 
-	if(arroz_!=nullptr)arroz_->render(rect);
+	for (auto i : paellas)
+		i->render(rect);
+
+	if(arroz_!=nullptr) arroz_->render(rect);
 	
 	
 	ingredientes->render(rect);
@@ -76,11 +79,7 @@ void ObjectManager::handleInput(bool& exit)
 
 void ObjectManager::update()
 {
-
-	for (auto i : muebles)
-		i->update();
-
-	for (auto i : players)
+	for (auto i : renderAll) 
 		i->update();
 
 	for (auto i : paellas)
@@ -122,7 +121,7 @@ void ObjectManager::addPaella(GameObject* paella)
 {
 	paellas.push_back(paella);
 
-	renderAll.push_back(paella);
+	// renderAll.push_back(paella);
 }
 
 void ObjectManager::addArroz(Arroz* arroz) {
