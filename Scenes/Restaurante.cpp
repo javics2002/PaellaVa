@@ -70,8 +70,7 @@ void Restaurante::update()
 {
 	if (!paused) {
 		objectManager->update();
-		uiManager->update();
-
+		
 		if (objectManager->getHost()->getX() > tamRestaurante.getY() + TILE_SIZE) { // tamRestaurante es un rango, no una posición, por eso tengo que hacer getY()
 			camara->Lerp(Vector2D<float>(tamRestaurante.getY(), 16), LERP_INTERPOLATION);
 		}
@@ -79,6 +78,8 @@ void Restaurante::update()
 			camara->Lerp(Vector2D<float>(tamRestaurante.getX(), 16), LERP_INTERPOLATION);
 		}
 	}
+
+	uiManager->update();
 }
 
 void Restaurante::render()

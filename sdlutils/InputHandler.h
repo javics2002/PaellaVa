@@ -22,11 +22,6 @@ class InputHandler : public Singleton<InputHandler> {
 	vector<bool> lastKeyPressed;
 	vector<bool> mousePressed;
 
-	bool leftLibre = true;
-	bool rightLibre = true;
-	bool upLibre = true;
-	bool downLibre = true;
-
 	std::pair<Sint32, Sint32> mousePos_;
 	const Uint8* kbState_;
 	const int CONTROLLER_DEAD_ZONE = 8000;
@@ -184,32 +179,16 @@ public:
 
 			switch (boton) {
 			case botones::LEFT:
-				if (rightLibre)
-				{
-					ejeX = -1; // valor entre -1 y 1
-					leftLibre = false;
-				}
+				ejeX = -1; // valor entre -1 y 1
 				break;
 			case botones::RIGHT:
-				if (leftLibre)
-				{
-					ejeX = 1;
-					rightLibre = false;
-				}
+				ejeX = 1;
 				break;
 			case botones::UP:
-				if (downLibre)
-				{
-					ejeY = -1; // valor entre -1 y 1
-					upLibre = false;
-				}
+				ejeY = -1; // valor entre -1 y 1
 				break;
 			case botones::DOWN:
-				if (upLibre)
-				{
-					ejeY = 1;
-					downLibre = false;
-				}
+				ejeY = 1;
 				break;
 			case botones::INTERACT:
 				break;
@@ -229,39 +208,23 @@ public:
 		switch (key) {
 		case SDL_SCANCODE_A:
 		case SDL_SCANCODE_LEFT:
-			//if (rightLibre)
-			{
-				keyPressed[botones::LEFT] = false;
-				ejeX = keyPressed[botones::RIGHT] ? 1 : 0;
-			}
-			leftLibre = true;
+			keyPressed[botones::LEFT] = false;
+			ejeX = keyPressed[botones::RIGHT] ? 1 : 0;
 			break;
 		case SDL_SCANCODE_D:
 		case SDL_SCANCODE_RIGHT:
-			//if (leftLibre)
-			{
-				keyPressed[botones::RIGHT] = false;
-				ejeX = keyPressed[botones::LEFT] ? -1 : 0;
-			}
-			rightLibre = true;
+			keyPressed[botones::RIGHT] = false;
+			ejeX = keyPressed[botones::LEFT] ? -1 : 0;
 			break;
 		case SDL_SCANCODE_W:
 		case SDL_SCANCODE_UP:
-			//if (downLibre)
-			{
-				keyPressed[botones::UP] = false;
-				ejeY = keyPressed[botones::DOWN] ? 1 : 0;
-			}
-			upLibre = true;
+			keyPressed[botones::UP] = false;
+			ejeY = keyPressed[botones::DOWN] ? 1 : 0;
 			break;
 		case SDL_SCANCODE_S:
 		case SDL_SCANCODE_DOWN:
-			//if (upLibre)
-			{
-				keyPressed[botones::DOWN] = false;
-				ejeY = keyPressed[botones::UP] ? -1 : 0;
-			}
-			downLibre = true;
+			keyPressed[botones::DOWN] = false;
+			ejeY = keyPressed[botones::UP] ? -1 : 0;
 			break;
 		case SDL_SCANCODE_E:
 		case SDL_SCANCODE_SPACE:

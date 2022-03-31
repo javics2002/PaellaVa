@@ -36,7 +36,7 @@ void Ingrediente::onActivate()
 
 void Ingrediente::onDesactivate()
 {
-	cout << "ing desactivado" << endl;
+	// cout << "ing desactivado" << endl;
 }
 
 void Ingrediente::ingredienteRecogido()

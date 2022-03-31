@@ -1,4 +1,4 @@
-#include "Collider.h"
+#include "../Utils/Collider.h"
 #include "../sdlutils/SDLUtils.h"
 
 Collider::Collider()
