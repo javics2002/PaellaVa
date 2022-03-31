@@ -9,6 +9,8 @@ Reloj::Reloj(Game* game) : GameObject(game)
 	setActive(true);
 	lastUpdate_ = 0;
 
+	
+
 	relojTexture = &sdlutils().images().at("reloj");
 
 	hourIni = 9;
@@ -34,7 +36,7 @@ bool Reloj::finDia()
 void Reloj::render(SDL_Rect* cameraRect)
 {
 
-	drawRender(getCollider(), relojTexture);
+	drawRender(getTexCollider(), relojTexture);
 	drawRender(cameraRect);
 
 }

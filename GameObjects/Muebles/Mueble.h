@@ -9,6 +9,9 @@ class Ingrediente;
 class GrupoClientes;
 class Player;
 class Arroz;
+class Mesa;
+class Silla;
+class PoolObject;
 
 class Mueble : public GameObject
 {
@@ -35,6 +38,14 @@ public:
     virtual double getTime() { return time; }
 
     virtual void setOffset(double newOffset) { offsetTime = newOffset; }
+
+    virtual bool colisionPlayer(Player* p) {
+        return false;
+    }
+
+    virtual Silla* initMesa(Mesa* mesa) {
+        return nullptr;
+    }
 };
 
 

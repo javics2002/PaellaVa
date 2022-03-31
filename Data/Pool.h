@@ -5,7 +5,7 @@
 
 #include "../GameObjects/Ingrediente.h"
 #include "../GameObjects/PoolObject.h"
-#include "../GameObjects/Collider.h"
+#include "../Utils/Collider.h"
 
 
 using namespace std;

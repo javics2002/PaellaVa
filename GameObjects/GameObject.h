@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Collider.h"
+#include "../Utils/Collider.h"
 
 #include "../Utils/Texture.h"
 #include "../Utils/Vector2D.h"
@@ -31,7 +31,7 @@ protected:
     void drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex);
     void drawRender(SDL_Rect rect, Texture* tex);
     void drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex, SDL_Rect clip);
-    void drawDebug(SDL_Rect* cameraRect); //Mirar que no se esté usando y quitar
+    void drawDebug(SDL_Rect* cameraRect); //Mirar que no se estï¿½ usando y quitar
     void drawDebug(SDL_Rect* cameraRect, SDL_Rect rect); //overlap collider, pasar a Collider
 
 public:
@@ -76,9 +76,9 @@ public:
     double getY() { return pos.getY(); };
     Vector2D<double> getPosition() { return pos; }
 
-    bool isActive() { return active; };
-    void setActive(bool a) { active = a; };
+    bool isActive() { return active; }
+    void setActive(bool a) { active = a; }
 
-    virtual SDL_Rect getTexRect();
-    virtual SDL_Rect getCenter(); //Implementar en collider (puede q tmb tenga q estar aquí, chequear referencias)
+    virtual SDL_Rect getTexCollider();
+    virtual SDL_Rect getCenter();
 };

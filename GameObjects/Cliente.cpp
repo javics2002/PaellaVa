@@ -12,6 +12,7 @@ void Cliente::update()
 	setPosition(getX() + vel.getX(), getY());
 	setColliderRect({ (int)getX(), (int)getY(), w, h });
 
+	setColliderRect({ (int)getX(), (int)getY(), w, h });
 }
 
 void Cliente::cambiaTextura(string textureN)

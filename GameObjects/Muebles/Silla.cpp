@@ -19,22 +19,29 @@ Silla* Silla::initMesa(Mesa* mesa)
 
 bool Silla::receiveGrupoClientes(GrupoClientes* gc)
 {
-	return mMesa->receiveGrupoClientes(gc);
+	if (mMesa != nullptr) {
+		return mMesa->receiveGrupoClientes(gc);
+	}
 }
 
 bool Silla::receivePaella(Paella* paella)
 {
-	return mMesa->receivePaella(paella);
+	if (mMesa != nullptr) {
+		return mMesa->receivePaella(paella);
+	}	
 }
 
 bool Silla::returnObject(Player* p)
 {
-	return mMesa->returnObject(p);
+	if (mMesa != nullptr) {
+		return mMesa->returnObject(p);
+	}
 }
 
 bool Silla::colisionPlayer(Player* p)
 {
-	if (mMesa != nullptr)
+	if (mMesa != nullptr) {
 		return mMesa->colisionPlayer(p);
+	}
 }
 

@@ -13,6 +13,7 @@
 class Cola;
 class Pedido;
 class Game;
+class Mesa;
 
 enum EstadoClientes { CAMINANDO, ENCOLA, PIDIENDO, ESPERANDO, COMIENDO, CUENTA };
 
@@ -68,7 +69,9 @@ public:
 	void render(SDL_Rect* cameraRect) override;
 
 	bool collide(SDL_Rect rect) override;
-	bool colisionClientes() override;
+	bool colisionClientes();
+
+
 
 	void setState(EstadoClientes est);
 	EstadoClientes getState();
@@ -76,7 +79,7 @@ public:
 	int numIntegrantes();
 	vector<Cliente*> getIntegrantes();
 
-	bool ratonEncima() override;
+	bool ratonEncima();
 	
 	void onObjectPicked() override {};
 	void onObjectDropped() override;
@@ -86,7 +89,7 @@ public:
 
 	void onDesactivate() override;
 
-	void hacerPedido(int tamMesa,Mesa* m);
+	void hacerPedido(int tamMesa, Mesa* m);
 	void decirPedidio();
 
 

@@ -8,7 +8,7 @@ Mesa::Mesa(Game* game, Vector2D<double> pos, Vector2D<int> dim, string texture)
 	mWidth = dim.getX();
 	mHeight = dim.getY();
 
-	setColliderRect({ (int)getX(), (int)getY() + h / 6, w, h / 2 + h / 4 });
+	setColliderRect({ (int)getX(), (int)getY() + h/6, w, h/2 + h/4 });
 
 	mGrupo = nullptr;
 
@@ -25,7 +25,7 @@ void Mesa::init(ObjectManager* objectManager)
 		getWidth() + aum * 2, getHeight() + aum * 2 };
 
 	for (auto i : objectManager->getMueblesCollider(c)) {
-		Silla* s = i->initMesa(this);
+		Silla* s = dynamic_cast<Mueble*>(i)->initMesa(this);
 		if (s != nullptr)
 			sillas.push_back(s);
 	}

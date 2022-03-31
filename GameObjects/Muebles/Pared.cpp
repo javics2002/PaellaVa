@@ -5,8 +5,9 @@
 Pared::Pared(Game* game, Vector2D<double> position) : Mueble(game, position, TILE_SIZE, TILE_SIZE, "cartel")
 {
 	setDimension(50, 50);
-	setColliderRect({ (int)getX(), (int)getY(), w, h });
+	// setTexture("alcachofa"); //Con esto no se rompe
 	//Collider invisible
+	setColliderRect({ (int)getX(), (int)getY(), w, h });
 }
 
 Pared::~Pared()
