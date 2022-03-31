@@ -1,10 +1,8 @@
  #pragma once
 #include "PoolObject.h"
-#include "ObjetoPortable.h"
 #include <vector>
 
 class Game;
-
 
 enum tipoIngrediente {
 	 alcachofa, calamar, cangrejo, gamba, langosta, mejillon, pimientoRojo, pimientoVerde, pollo, LAST
@@ -25,7 +23,6 @@ class Ingrediente : public PoolObject
 	bool procesado = false;
 
 public:
-
 	Ingrediente(Game* game);
 	~Ingrediente() = default;
 
@@ -33,7 +30,7 @@ public:
 	pair<bool, std::list<PoolObject*>::const_iterator> colisionIngrediente();
 
 	void onActivate() override;
-	void onDesactivate()override;
+	void onDeactivate() override;
 
 	void ingredienteRecogido();
 	

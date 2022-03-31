@@ -11,9 +11,10 @@
 
 ObjectManager::ObjectManager(Game* game)
 {
-	ingredientes = new Pool<Ingrediente>(game, 20);
+	ingredientes = new Pool<Ingrediente>(game, 50);
 	clientes = new Pool<Cliente>(game, 50);
 	grupoClientes = new Pool<GrupoClientes>(game, 20);
+	arroces = new Pool<Arroz>(game, 20);
 }
 
 ObjectManager::~ObjectManager()
@@ -40,15 +41,12 @@ void ObjectManager::render(SDL_Rect* rect)
 
 	for (auto i : paellas)
 		i->render(rect);
-
-	if(arroz_!=nullptr) arroz_->render(rect);
-	
 	
 	ingredientes->render(rect);
 
+	arroces->render(rect);
+
 	grupoClientes->render(rect);
-
-
 }
 
 void ObjectManager::debug(SDL_Rect* rect)
@@ -61,8 +59,6 @@ void ObjectManager::debug(SDL_Rect* rect)
 
 	for (auto i : paellas)
 		i->renderDebug(rect);
-
-
 
 	ingredientes->debug(rect);
 
@@ -86,6 +82,8 @@ void ObjectManager::update()
 		i->update();
 
 	ingredientes->update();	
+
+	arroces->update();	
 
 	grupoClientes->update();
 
@@ -112,27 +110,10 @@ void ObjectManager::addPlayer(Player* player)
 	renderAll.push_back(player);
 }
 
-void ObjectManager::addComanda(GameObject* comanda)
-{
-	interfaz.push_back(comanda);
-}
-
 void ObjectManager::addPaella(GameObject* paella)
 {
 	paellas.push_back(paella);
-
-	// renderAll.push_back(paella);
 }
-
-void ObjectManager::addArroz(Arroz* arroz) {
-	arroz_ = arroz;
-}
-
-void ObjectManager::arrozColocado()
-{
-	arroz_ = nullptr;
-}
-
 
 vector<Collider*> ObjectManager::getMueblesCollider()
 {
@@ -173,8 +154,6 @@ void ObjectManager::sortAllGO() {
 		return a->getY() < b->getY();
 		});
 }
-
-
 
 void ObjectManager::initMuebles()
 {

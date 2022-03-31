@@ -1,9 +1,8 @@
 #include "Ingrediente.h"
-#include "../Control/Game.h"
 
 #include <iostream>
 
-Ingrediente::Ingrediente(Game* game) :  PoolObject(game) {
+Ingrediente::Ingrediente(Game* game) : PoolObject(game) {
 	setDimension(DIMENSION, DIMENSION);
 
 	setColliderRect({ (int)getX(), (int)getY(), w / 2, h / 2 });
@@ -34,9 +33,8 @@ void Ingrediente::onActivate()
 	setColliderRect({ (int)getX(), (int)getY(), w / 2, h / 2 });
 }
 
-void Ingrediente::onDesactivate()
+void Ingrediente::onDeactivate()
 {
-	// cout << "ing desactivado" << endl;
 }
 
 void Ingrediente::ingredienteRecogido()

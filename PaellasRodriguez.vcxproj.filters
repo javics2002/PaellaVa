@@ -59,8 +59,9 @@
     <ClCompile Include="Control\NetworkManager.cpp" />
     <ClCompile Include="GameObjects\Muebles\Pila.cpp" />
     <ClCompile Include="Scenes\HostClient.cpp" />
-    <ClCompile Include="GameObjects\Arroz.cpp" />
     <ClCompile Include="Utils\Collider.cpp" />
+    <ClCompile Include="GameObjects\Collider.cpp" />
+    <ClCompile Include="GameObjects\Arroz.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
@@ -146,8 +147,8 @@
     <ClInclude Include="Control\NetworkManager.h" />
     <ClInclude Include="GameObjects\Muebles\Pila.h" />
     <ClInclude Include="Scenes\HostClient.h" />
-    <ClInclude Include="GameObjects\Arroz.h" />
     <ClInclude Include="Utils\Collider.h" />
+    <ClInclude Include="GameObjects\Arroz.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />

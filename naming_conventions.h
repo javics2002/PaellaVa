@@ -1,9 +1,7 @@
 
 class Paella {
-private:
-	int m_PaellaState;
-protected:
-	int p_PaellaState;
+private && protected:
+	int mPaellaState;
 public:
 	int paellaState;
 };

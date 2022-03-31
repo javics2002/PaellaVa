@@ -22,11 +22,8 @@ Player::Player(Game* game) : GameObject(game), objectType_(INGREDIENTE), pickedO
 	aceleracion = 1.2;
 	deceleracion = 0.8;
 	maxVel = 7;
-
 	
 	setTexture("player");
-
-	lastTime_ = SDL_GetTicks();
 }
 
 Player::~Player()
@@ -35,7 +32,6 @@ Player::~Player()
 
 void Player::handleInput()
 {
-
 	setColliderRect({ (int)getX(), (int)getY(), w, h });
 
 	//El jugador se mueve o se para en ambos ejes
@@ -52,9 +48,7 @@ void Player::handleInput()
 	vel.clamp(-maxVel, maxVel);
 
 
-	if (ih().getKey(InputHandler::INTERACT) && SDL_GetTicks() - lastTime_ > 500) {
-		lastTime_ = SDL_GetTicks();
-
+	if (ih().getKey(InputHandler::INTERACT)) {
 		//Si el jugador no lleva nada encima
 		if (pickedObject_ == nullptr) {
 
@@ -209,14 +203,14 @@ void Player::update()
 	//Nos movemos al nuevo sitio
 	pos = newPos;
 
-	if (vel.getY() > .2f)
+	if (vel.getY() > .8f)
 		orientation_ = S;
-	else if (vel.getY() < -.2f)
+	else if (vel.getY() < -.8f)
 		orientation_ = N;
 
-	if (vel.getX() > .2f)
+	if (vel.getX() > .8f)
 		orientation_ = E;
-	else if (vel.getX() < -.2f)
+	else if (vel.getX() < -.8f)
 		orientation_ = O;
 
 	switch (orientation_)

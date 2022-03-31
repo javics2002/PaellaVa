@@ -87,7 +87,7 @@ public:
 	bool canPick() override;
 	bool canDrop() override;
 
-	void onDesactivate() override;
+	void onDeactivate() override;
 
 	void hacerPedido(int tamMesa, Mesa* m);
 	void decirPedidio();

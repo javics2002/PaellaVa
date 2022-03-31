@@ -1,28 +1,18 @@
 #pragma once
-#include "Ingrediente.h"
+#include "PoolObject.h"
 
 class Game;
 
-class Arroz : public Ingrediente
+class Arroz : public PoolObject
 {
-	const unsigned int DIMENSION = 70;
+    const unsigned int DIMENSION = 70;
 
 public:
+    Arroz(Game* game);
+    ~Arroz() = default;
 
-	Arroz(Game* game,string claveTextura);
-	~Arroz() = default;
+    void update() override;
 
-	void update() override;
-
-	void onActivate() override;
-	void onDesactivate()override;
-
-	void arrozRecogido();
-
-	void setEnPaella();
-
-	void onObjectPicked() override;
-	void onObjectDropped() override;
-
+    void onObjectPicked() override {};
+    void onObjectDropped() override {};
 };
-

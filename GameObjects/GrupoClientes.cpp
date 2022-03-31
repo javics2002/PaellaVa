@@ -224,7 +224,7 @@ bool GrupoClientes::canDrop() {
 	return  estado_== ENCOLA;
 }
 
-void GrupoClientes::onDesactivate()
+void GrupoClientes::onDeactivate()
 {
 	if (estado_ == CUENTA) {
 		mesa->clienteSeVa();

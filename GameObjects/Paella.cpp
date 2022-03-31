@@ -1,9 +1,10 @@
 #include "Paella.h"
 #include "../sdlutils/SDLUtils.h"
 #include "Ingrediente.h"
+#include "Arroz.h"
 #include <map>
 
-Paella::Paella(Game* game, TipoPaella tipo): ObjetoPortable(game), miTipo(tipo)
+Paella::Paella(Game* game, TipoPaella tipo) : ObjetoPortable(game), miTipo(tipo)
 {
 	setPosition(1500, 200);
 	setDimension(50, 50);
@@ -12,10 +13,10 @@ Paella::Paella(Game* game, TipoPaella tipo): ObjetoPortable(game), miTipo(tipo)
 	switch (miTipo)
 	{
 	case Mediana:
-		sumaIntervalo = 5000;
+		mSumaIntervalo = 5000;
 		break;
 	case Grande:
-		sumaIntervalo = 10000;
+		mSumaIntervalo = 10000;
 		break;
 	default:
 		break;
@@ -26,28 +27,33 @@ Paella::Paella(Game* game, TipoPaella tipo): ObjetoPortable(game), miTipo(tipo)
 	ingrEnPaella = vector<bool>(tipoIngrediente::LAST, false);
 }
 
-void Paella::anadeIngr(Ingrediente* ingr_,bool arroz)
+void Paella::anadeIngr(Ingrediente* ingr_)
 {
-
-	if (!arroz && arroz_) {
+	//Si ya he echado arroz
+	if (mArroz) {
+		//Añadimos el ingrediente
 		ingredientes.push_back(ingr_->getTipo());
 		ingrEnPaella[ingr_->getTipo()] = true;
-		ingr_->setPosition(getPosition());
+		ingr_->deactivate();
 	}
-	else if(!arroz_ && arroz){
-		arroz_ = true;
-		setContenido(Entera);
-		game->getObjectManager()->arrozColocado();
-		setTexture("paella");
-	}
-
 }
 
+void Paella::anadeArroz(Arroz* arroz)
+{
+	//Si aun no tengo arroz
+	if (!mArroz) {
+		//Añadimos arroz a la paella
+		mArroz = true;
+		setContenido(Entera);
+		setTexture("paella");
+		arroz->deactivate();
+	}
+}
 
 void Paella::setState(EstadoPaellas estado_)
 {
 	estado = estado_;
-	tiempo = sdlutils().currRealTime();
+	mTiempo = sdlutils().currRealTime();
 }
 
 void Paella::paellaRecogida()
@@ -70,11 +76,11 @@ void Paella::update()
 
 		if (i < tiemposDeCoccion.size()) {
 
-			auto t = sdlutils().currRealTime() - tiempo;
+			auto t = sdlutils().currRealTime() - mTiempo;
 
-			if (t > tiemposDeCoccion[i] - tiempoCoccion) {
-				tiempoCoccion = tiemposDeCoccion[i];
-				tiempo = sdlutils().currRealTime();
+			if (t > tiemposDeCoccion[i] - mTiempoCoccion) {
+				mTiempoCoccion = tiemposDeCoccion[i];
+				mTiempo = sdlutils().currRealTime();
 				i++;
 				estadoFinal = Resultado(i);
 			}
@@ -91,7 +97,7 @@ void Paella::update()
 	}
 }
 
-void Paella::setLavado(Contenido contenidoPaella,string texturaPaella)
+void Paella::setLavado(Contenido contenidoPaella, string texturaPaella)
 {
 	contenido = contenidoPaella;
 	setTexture(texturaPaella);
@@ -99,7 +105,7 @@ void Paella::setLavado(Contenido contenidoPaella,string texturaPaella)
 
 void Paella::onObjectPicked()
 {
-	if(estado == Coccion) setState(Preparada);
+	if (estado == Coccion) setState(Preparada);
 }
 
 void Paella::onObjectDropped()
@@ -108,17 +114,17 @@ void Paella::onObjectDropped()
 
 bool Paella::canPick()
 {
-	return contenido==Limpia && !enMesa;
+	return contenido == Limpia && !mEnMesa;
 }
 
 bool Paella::conArroz()
 {
-	return arroz_;
+	return mArroz;
 }
 
 void Paella::enLaMesa(bool estaEnLaMesa)
 {
-	enMesa = estaEnLaMesa;
+	mEnMesa = estaEnLaMesa;
 }
 
 list<tipoIngrediente> Paella::getVIngredientes()

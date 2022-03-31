@@ -4,9 +4,8 @@
 #include <List>
 
 #include "../GameObjects/Ingrediente.h"
-#include "../GameObjects/PoolObject.h"
+#include "../GameObjects/Arroz.h"
 #include "../Utils/Collider.h"
-
 
 using namespace std;
 
@@ -22,9 +21,9 @@ class Pool
 
 	//vector con toda la pool
 	vector<T*> v;
-	//n�mero de objetos en la Pool
+	//numero de objetos en la Pool
 	int numElems;
-	//siguiente objeto a a�adir al juego (o �ltimo en haberse a�adido)
+	//siguiente objeto a añadir al juego (o ultimo en haberse a�adido)
 	int nextElem;
 
 	void findNextElem() {
@@ -66,7 +65,7 @@ public:
 		}
 	};
 
-	//m�todo que busca el siguiente objeto y lo activa
+	//metodo que busca el siguiente objeto y lo activa
 	T* add(Vector2D<double> pos) {
 		findNextElem();
 
@@ -90,7 +89,7 @@ public:
 
 	//borra el objeto de la lista de activos
 	void remove(list<PoolObject*>::const_iterator it) {
-		(*it)->desactivate();
+		(*it)->deactivate();
 		activeObjects.erase(it);
 	}
 
@@ -138,12 +137,20 @@ public:
 	}
 
 	void update() {
-		for (auto it : activeObjects) {
-			it->update();
+		//Sacamos los objetos desactivados
+		auto it = activeObjects.begin();
+		while (it != activeObjects.end()) {
+			if (!(*it)->isActive()) {
+				it = activeObjects.erase(it);
+			}
+			else
+				it++;
+		}
+
+		for (auto object : activeObjects) {
+			object->update();
 		}
 	}
-
-	list<PoolObject*> getActiveObjects() { return activeObjects; }
 };
 
 

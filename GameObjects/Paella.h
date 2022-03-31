@@ -11,10 +11,10 @@ enum Contenido { Limpia, Entera, Mitad, Sucia };
 enum TipoPaella { Minima, Mediana, Grande };
 
 class Game;
+class Arroz;
 
 class Paella : public ObjetoPortable
 {	
-
 public:
 	
 	Paella(Game* game, TipoPaella volumen_);
@@ -22,7 +22,8 @@ public:
 	~Paella() {};
 
 	bool ingrValido(Ingrediente* ingr);
-	void anadeIngr(Ingrediente* ingr_,bool arroz);
+	void anadeIngr(Ingrediente* ingr_);
+	void anadeArroz(Arroz* arroz);
 
 	void setState(EstadoPaellas estado_);
 	void paellaRecogida();
@@ -49,10 +50,10 @@ public:
 
 private:
 	const int MAX_INGR = 3;
-	double tiempoCoccion = 0.0, tiempo = 0.0;
-	int sumaIntervalo = 0, i = 0;
-	bool enMesa = false;
-	bool arroz_ = false;
+	double mTiempoCoccion = 0.0, mTiempo = 0.0;
+	int mSumaIntervalo = 0, i = 0;
+	bool mEnMesa = false;
+	bool mArroz = false;
 
 	EstadoPaellas estado = Preparacion;
 	Resultado estadoFinal = Cruda;
@@ -65,7 +66,5 @@ private:
 	list<tipoIngrediente> ingredientes;
 
 	vector<bool> ingrEnPaella;
-
-	
 };
 

@@ -270,8 +270,8 @@
       "file": "../../../Assets/Images/basura.png"
     },
     {
-      "id": "arroz",
-      "file": "../../../Assets/Images/arroz.png"
+      "id": "bolsaArroz",
+      "file": "../../../Assets/Images/bolsaArroz.png"
     },
     {
       "id": "reloj",
@@ -360,7 +360,8 @@
     {
       "id": "continue",
       "file": "../../../Assets/Images/continue.png"
-    }
+    },
+    { "id": "arroz", "file": "../../../Assets/Images/Ingredientes/arroz.png" }
   ],
 
   "tilesets": [

@@ -7,8 +7,6 @@ class ObjetoPortable : public GameObject
 {
 	bool isPicked_;
 public:
-	
-
 	ObjetoPortable(Game* game);
 	~ObjetoPortable() {};
 
@@ -24,6 +22,5 @@ public:
 protected:
 	virtual void onObjectPicked() = 0;
 	virtual void onObjectDropped() = 0;
-
 };
 

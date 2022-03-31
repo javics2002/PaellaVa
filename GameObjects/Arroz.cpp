@@ -1,32 +1,13 @@
 #include "Arroz.h"
+#include "../Control/Game.h"
 
-Arroz::Arroz(Game* game,string claveTextura) : Ingrediente(game)
+Arroz::Arroz(Game* game) : PoolObject(game)
 {
-	setDimension(DIMENSION, DIMENSION);
-	setTexture(claveTextura);
+    setDimension(DIMENSION, DIMENSION);
+    setTexture("arroz");
 }
 
 void Arroz::update()
 {
-	setPosition(getX(), getY() + vel.getY());
-}
-
-void Arroz::onActivate()
-{
-
-}
-
-void Arroz::onDesactivate()
-{
-}
-
-
-void Arroz::onObjectPicked()
-{
-	setTexture("alcachofa");
-	vel = { 0,0 };
-}
-
-void Arroz::onObjectDropped()
-{
+    setColliderRect({ (int)getX(), (int)getY(), w / 2, h / 2 });
 }

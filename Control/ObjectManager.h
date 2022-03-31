@@ -21,20 +21,16 @@ class ObjectManager
 	Pool<GrupoClientes> *grupoClientes;
 	Pool<Cliente> *clientes;
 	Pool<Ingrediente> *ingredientes;
+	Pool<Arroz> *arroces;
 	vector<GameObject*> muebles;
 	vector<GameObject*> paellas;
-	vector<GameObject*> interfaz;
-	vector<GameObject*> comandas;
-	Arroz* arroz_;
 
 	vector<Player*> players;
 
 	vector<GameObject*> renderAll;
 
 	//Para formar el rect del raton
-	int x, y, range = 2;
-
-	SDL_Rect *camera;
+	int x = 0, y = 0, range = 2;
 
 public:
 	ObjectManager(Game* game);
@@ -48,16 +44,13 @@ public:
 
 	void addMueble(GameObject* mueble);
 	void addPaella(GameObject *paella);
-	void addArroz(Arroz* arroz);
-	void arrozColocado();
-	void addComanda(GameObject* comanda);
-	void addInterfaz(GameObject* interfaz);
 
 	void addPlayer(Player* player);
 
 	Pool<Cliente>* getPoolClientes() { return clientes; }
 	Pool<GrupoClientes>* getPoolGrupoClientes() { return grupoClientes; }
 	Pool<Ingrediente>* getPoolIngredientes() { return ingredientes; }
+	Pool<Arroz>* getPoolArroces() { return arroces; }
 
 	vector<GameObject*> getPaellas() { return paellas; }
 

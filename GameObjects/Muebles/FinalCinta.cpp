@@ -20,7 +20,7 @@ void FinalCinta::update()
 
 bool FinalCinta::receiveIngrediente(Ingrediente* ingr)
 {
-	game->getObjectManager()->getPoolIngredientes()->remove(ingr->getIterator());
+	ingr->deactivate();
 
 	return true;
 }
@@ -35,7 +35,7 @@ bool FinalCinta::receivePaella(Paella* pa)
 
 bool FinalCinta::receiveArroz(Arroz* arr)
 {
-	game->getObjectManager()->arrozColocado();
+	arr->deactivate();
 
 	return true;
 }

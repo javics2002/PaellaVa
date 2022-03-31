@@ -14,8 +14,6 @@ enum objectType { INGREDIENTE, CLIENTES, PAELLA,ARROZ};
 
 class Player : public GameObject
 {
-	float lastTime_;
-
 	ObjetoPortable* pickedObject_;
 	objectType objectType_;
 
