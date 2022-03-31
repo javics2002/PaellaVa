@@ -33,26 +33,14 @@ ObjectManager::~ObjectManager()
 
 void ObjectManager::render(SDL_Rect* rect)
 {
-	//for (auto m : muebles)
-	//	m->render(rect);
-	for (auto i : renderStatic)
-		i->render(rect);
+	sortAllGO();
 
-	for (auto i : paellas)
+	for (auto i : renderAll)
 		i->render(rect);
-
-	for (auto p : players)
-		p->render(rect);
 
 	if(arroz_!=nullptr)arroz_->render(rect);
 	
-
-	/*for (auto c : comandas)
-		c->render(rect);
-
-	for (auto i : interfaz)
-		i->render(rect);*/
-
+	
 	ingredientes->render(rect);
 
 	grupoClientes->render(rect);
@@ -88,6 +76,7 @@ void ObjectManager::handleInput(bool& exit)
 
 void ObjectManager::update()
 {
+
 	for (auto i : muebles)
 		i->update();
 
@@ -114,14 +103,14 @@ void ObjectManager::addMueble(GameObject* mueble)
 {
 	muebles.push_back(mueble);
 	
-	renderStatic.push_back(mueble);
+	renderAll.push_back(mueble);
 }
 
 void ObjectManager::addPlayer(Player* player)
 {
 	players.push_back(player);
 
-	renderStatic.push_back(player);
+	renderAll.push_back(player);
 }
 
 void ObjectManager::addComanda(GameObject* comanda)
@@ -132,6 +121,8 @@ void ObjectManager::addComanda(GameObject* comanda)
 void ObjectManager::addPaella(GameObject* paella)
 {
 	paellas.push_back(paella);
+
+	renderAll.push_back(paella);
 }
 
 void ObjectManager::addArroz(Arroz* arroz) {
@@ -178,12 +169,10 @@ vector<Collider*> ObjectManager::getPaellasCollider(SDL_Rect collider)
 	return c;
 }
 
-void ObjectManager::sortRenderStatic()
-{
-	std::sort(renderStatic.begin(), renderStatic.end(), [](GameObject* a, GameObject* b) {
-		return a->getDepth() > b->getDepth();
+void ObjectManager::sortAllGO() {
+	std::sort(renderAll.begin(), renderAll.end(), [](GameObject* a, GameObject* b) {
+		return a->getY() < b->getY();
 		});
-
 }
 
 

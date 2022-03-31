@@ -380,8 +380,8 @@ void Restaurante::loadMap(string const& path) {
 				}
 			}
 		}
-		// ordenar renderstatic
-		getObjectManager()->sortRenderStatic();
+		// ordenar render
+		getObjectManager()->sortAllGO();
 
 		SDL_SetRenderTarget(renderer, nullptr);
 

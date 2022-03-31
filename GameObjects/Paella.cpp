@@ -7,6 +7,7 @@ Paella::Paella(Game* game, TipoPaella tipo): ObjetoPortable(game), miTipo(tipo)
 {
 	setPosition(1500, 200);
 	setDimension(50, 50);
+	setColliderRect({ (int)getX(), (int)getY(), w, h });
 
 	switch (miTipo)
 	{
@@ -56,6 +57,7 @@ void Paella::paellaRecogida()
 
 void Paella::update()
 {
+	setColliderRect({ (int)getX(), (int)getY(), w, h });
 	switch (estado)
 	{
 	case Preparacion:

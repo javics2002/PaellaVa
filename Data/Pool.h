@@ -142,6 +142,8 @@ public:
 			it->update();
 		}
 	}
+
+	list<PoolObject*> getActiveObjects() { return activeObjects; }
 };
 
 
