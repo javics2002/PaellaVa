@@ -181,7 +181,7 @@ void Player::update()
 	auto colisionMuebles = game->getObjectManager()->getMueblesCollider(newRect);
 	for (auto i : colisionMuebles) {
 		//Si colisionamos con un mueble, le avisaremos y alejaremos al jugador
-		i->colisionPlayer(this);
+		dynamic_cast<Mueble*>(i)->colisionPlayer(this);
 
 		//Cuanto estoy metido en el mueble?
 		SDL_Rect c = i->getCollider();
@@ -209,14 +209,14 @@ void Player::update()
 	//Nos movemos al nuevo sitio
 	pos = newPos;
 
-	if (vel.getY() > .7f)
+	if (vel.getY() > .2f)
 		orientation_ = S;
-	else if (vel.getY() < -.7f)
+	else if (vel.getY() < -.2f)
 		orientation_ = N;
 
-	if (vel.getX() > .7f)
+	if (vel.getX() > .2f)
 		orientation_ = E;
-	else if (vel.getX() < -.7f)
+	else if (vel.getX() < -.2f)
 		orientation_ = O;
 
 	switch (orientation_)
