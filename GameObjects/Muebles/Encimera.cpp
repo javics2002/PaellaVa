@@ -15,7 +15,7 @@ bool Encimera::receiveIngrediente(Ingrediente* ingr)
 	{
 		ingr_ = ingr;
 
-		ingr_->setPosition(getX(), getY());
+		ingr_->setPosition(getX(), getY() - ingr->getHeight()/2);
 
 		return true;
 	}
@@ -42,7 +42,7 @@ bool Encimera::receivePaella(Paella* pa)
 	{
 		paella_ = pa;
 
-		paella_->setPosition(getX(), getY());
+		paella_->setPosition(getX(), getY() - pa->getHeight() / 2);
 
 		return true;
 	}
