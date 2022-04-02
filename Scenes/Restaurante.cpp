@@ -39,6 +39,7 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 	objectManager->addPaella(new Paella(game, TipoPaella::Minima));
 	objectManager->addPaella(new Paella(game, TipoPaella::Minima));
 	objectManager->addPaella(new Paella(game, TipoPaella::Minima));
+
 	uiManager->addInterfaz(new Reloj(game));
 
 	objectManager->initMuebles();
@@ -79,7 +80,7 @@ void Restaurante::update()
 		}
 	}
 
-	uiManager->update();
+	uiManager->update(paused);
 }
 
 void Restaurante::render()
@@ -127,16 +128,36 @@ void Restaurante::togglePause()
 			m->setOffset(offsetM);
 		}
 
+		Reloj* r;
+		double offsetR = 0;
+
+		for (int i = 0u; i < uiManager->getInterfaz().size(); i++) {
+
+			if (dynamic_cast<Reloj*>(uiManager->getInterfaz()[i])) {
+				r = dynamic_cast<Reloj*>(uiManager->getInterfaz()[i]);
+				offsetR = SDL_GetTicks() - r->getTime();
+
+				r->setOffset(offsetR);
+			}
+			
+		}
 		sdlutils().soundEffects().at("cancel").play(0, game->UI);
 	}
 	else {
 		Mueble* m;
 		for (int i = 0u; i < objectManager->getMuebles().size(); i++) {
 			m = dynamic_cast<Mueble*>(objectManager->getMuebles()[i]);
-
 			m->setTime(SDL_GetTicks());
 		}
+		Reloj* r;
+		for (int i = 0u; i < uiManager->getInterfaz().size(); i++) {
 
+			if (dynamic_cast<Reloj*>(uiManager->getInterfaz()[i])) {
+				r = dynamic_cast<Reloj*>(uiManager->getInterfaz()[i]);
+				r->setTime(SDL_GetTicks());
+			}
+
+		}
 		sdlutils().soundEffects().at("select").play(0, game->UI);
 	}
 }

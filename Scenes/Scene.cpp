@@ -28,7 +28,7 @@ void Scene::handleInput(bool& exit)
 void Scene::update()
 {
 	objectManager->update();
-	uiManager->update();
+	uiManager->update(false);
 }
 
 void Scene::render()

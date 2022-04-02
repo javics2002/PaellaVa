@@ -40,7 +40,7 @@ public:
 	void uiEvent(int mx, int my, bool& exit);
 
 	void handleInput(bool& exit);
-	void update();
+	void update(bool paused = false);
 
 	// void render();
 	void render(SDL_Rect* rect);
@@ -61,6 +61,7 @@ public:
 	void togglePause();
 
 	vector<GameObject*> getPauseMenu() { return pauseMenu; }
+	vector<GameObject*> getInterfaz() { return interfaz; }
 
 	tweeny::tween<float>& addTween(float from, float to, float during);
 };

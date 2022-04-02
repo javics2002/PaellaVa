@@ -13,10 +13,15 @@ public:
 	bool finDia();
 	void render(SDL_Rect* cameraRect) override;
 	void update() override;
+	virtual void setOffset(double newOffset) { offsetTime = newOffset; }
+	virtual void setTime(double newTime) { timeR = newTime; }
+	virtual double getTime() { return timeR; }
 
 private:
 	Game* game;
 	Texture* relojTexture;
+	double offsetTime;
+	double timeR;
 
 	Uint32 lastUpdate_;//tiempo desde el último update
 	Uint32 updateTime_ = 5000; // los milisegundos que tarda en actualizarse el reloj

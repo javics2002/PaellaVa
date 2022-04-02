@@ -45,33 +45,34 @@ void Reloj::render(SDL_Rect* cameraRect)
 void Reloj::update()
 {
 
-	if (lastUpdate_ + updateTime_ > sdlutils().currRealTime()) { //si no pasan
-		return;
-	}
-
-	lastUpdate_ = sdlutils().currRealTime();
-
-	if (finDia())
+	if (SDL_GetTicks() - (timeR - offsetTime) >= updateTime_)
 	{
+
+		if (finDia())
+		{
 #ifndef _DEBUG
-		game->changeScene(new GameOver(game, 100));
+			game->changeScene(new GameOver(game, 100));
 #endif // _DEBUG
 
-	}
-	else
-	{
-		//1 minuto en Ticks = 1 hora en el juego
-		currentTime.minutes += addedMinutes;
+		}
+		else
+		{
+			//1 minuto en Ticks = 1 hora en el juego
+			currentTime.minutes += addedMinutes;
 
-		if (currentTime.minutes >= 60) {
-			currentTime.hours += currentTime.minutes / 60;
-			currentTime.minutes = currentTime.minutes % 60;
+			if (currentTime.minutes >= 60) {
+				currentTime.hours += currentTime.minutes / 60;
+				currentTime.minutes = currentTime.minutes % 60;
+			}
+			if (currentTime.hours >= 24) {
+				currentTime.hours = currentTime.hours % 24;
+			}
+			string timeText = parseTimeToString(currentTime.hours, currentTime.minutes);
+			setTexture(timeText, string("paella"), fgColor, bgColor);
 		}
-		if (currentTime.hours >= 24) {
-			currentTime.hours = currentTime.hours % 24;
-		}
-		string timeText = parseTimeToString(currentTime.hours, currentTime.minutes);
-		setTexture(timeText, string("paella"), fgColor, bgColor);
+		offsetTime = 0;
+		timeR = SDL_GetTicks();
+
 	}
 }
 

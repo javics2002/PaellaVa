@@ -10,7 +10,7 @@ using tweeny::easing;
 GameOver::GameOver(Game* game, int puntuation) : Scene(game)
 {
 	points = puntuation;
-	points = 30;
+	points = 100;
 	calculateStarNumber();
 	createRandomReviews();
 
@@ -111,7 +111,7 @@ void GameOver::render()
 void GameOver::update() {
 
 	objectManager->update();
-	uiManager->update();
+	uiManager->update(false);
 
 }
 
