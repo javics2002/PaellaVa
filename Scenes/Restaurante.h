@@ -58,8 +58,6 @@ public:
 
 	void handleInput(bool& exit)  override;
 	void update() override;
-	void render() override;
-	void debug() override;
 
 	void addPuntuaciones(double puntosComanda);
 	void mediaPuntuaciones();

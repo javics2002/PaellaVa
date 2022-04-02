@@ -83,21 +83,6 @@ void Restaurante::update()
 	uiManager->update(paused);
 }
 
-void Restaurante::render()
-{
-
-	fondo->render(camara->renderRect());
-	objectManager->render(camara->renderRect());
-	
-	uiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
-}
-
-void Restaurante::debug()
-{
-	fondo->renderDebug(camara->renderRect());
-	objectManager->debug(camara->renderRect());
-}
-
 void Restaurante::addPuntuaciones(double puntosComanda)
 {
 	puntuacionesComandas.push_back(puntosComanda);

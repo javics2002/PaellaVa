@@ -45,7 +45,7 @@ void Game::start()
 	SDL_Event event;
 
 #ifndef _DEBUG
-	sdlutils().toggleFullScreen();
+	//sdlutils().toggleFullScreen();
 #endif // _DEBUG
 
 

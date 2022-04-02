@@ -10,7 +10,6 @@ using tweeny::easing;
 GameOver::GameOver(Game* game, int puntuation) : Scene(game)
 {
 	points = puntuation;
-	points = 100;
 	calculateStarNumber();
 	createRandomReviews();
 
@@ -23,38 +22,20 @@ GameOver::GameOver(Game* game, int puntuation) : Scene(game)
 	int posPuntX = sdlutils().width() / 2 / 2;
 	int posPuntY = sizePuntH * 2;
 
-
 	starTexture = &sdlutils().images().at("estrella");
 
-	//pos = pos + Vector2D<int>(100 + 80, 0.0f);
-
-	
-	for (int i = 1; i <= starNumber; i++)
-	{
-		GameObject* estrella = new GameObject(game);
-		estrella->setInitialDimension(110, 100);
-		estrella->setDimension(110, 100);
-
-		sdlutils().soundEffects().at(to_string(i) + "star").play(0, game->UI);
-		estrella->setTexture("estrella");
-		estrella->setPosition(Vector2D<double>(sdlutils().width() / 2 / 2 - estrella->getWidth() + i * estrella->getWidth(), 70 * 2));
-
-		uiManager->addTween(0.0f, 1.0f, 1100.0f).via(easing::bounceOut).onStep([game, estrella, i](tweeny::tween<float>& t, float) mutable {
-			estrella->setDimension(t.peek() * estrella->getInitialWidth(), t.peek() * estrella->getInitialHeight());
-			if (t.progress() == 1.0f) {
-				//Start game
-				cout << "estrella se hace" << endl;
-				return true;
-			}
-			return false;
-			});
-		uiManager->addInterfaz(estrella);
-
+	vector<GameObject*> estrellas = vector<GameObject*>(starNumber);
+	for (auto i = 0; i < starNumber; i++) {
+		estrellas[i] = new GameObject(game);
+		estrellas[i]->setInitialDimension(110, 100);
+		estrellas[i]->setDimension(0, 0);
+		estrellas[i]->setTexture("estrella");
+		estrellas[i]->setPosition(sdlutils().width() / 4 - estrellas[i]->getInitialWidth() + i * estrellas[i]->getInitialWidth(), 70 * 2);
+		estrellas[i]->setActive(false);
+		uiManager->addInterfaz(estrellas[i]);
 	}
 
-
-
-
+	tweenEstrellas(estrellas);
 	
 	GameObject* puntos = new GameObject(game);
 	puntos->setTexture(string("Puntuacion: " + to_string(starNumber)), string("paella"), SDL_Color{ 255, 255, 255, 255 }, SDL_Color{ 0, 0, 0, 0 });
@@ -83,7 +64,6 @@ GameOver::GameOver(Game* game, int puntuation) : Scene(game)
 			});
 		});
 	uiManager->addInterfaz(continueButton);
-
 }
 
 void GameOver::calculateStarNumber()
@@ -94,7 +74,6 @@ void GameOver::calculateStarNumber()
 		starNumber = 1;
 	else
 		starNumber = points / pointStarValue;
-
 }
 
 void GameOver::render()
@@ -104,15 +83,6 @@ void GameOver::render()
 	uiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
 
 	renderReviews();
-	
-
-}
-
-void GameOver::update() {
-
-	objectManager->update();
-	uiManager->update(false);
-
 }
 
 void GameOver::createRandomReviews()
@@ -129,8 +99,6 @@ void GameOver::createRandomReviews()
 
 		m_reviews.push_back(&sdlutils().messages().at(reviewId));
 	}
-	
-
 }
 
 void GameOver::renderReviews() {
@@ -154,4 +122,27 @@ void GameOver::renderReviews() {
 		//render del texto
 		m_reviews[i]->render(dest, 0.0f);
 	}
+}
+
+void GameOver::tweenEstrellas(vector<GameObject*> estrellas, int i)
+{
+	estrellas[i]->setActive(true);
+	uiManager->addTween(0.0f, 1.0f, 1100.0f).via(easing::bounceOut).onStep([=](tweeny::tween<float>& t, float) mutable {
+		estrellas[i]->setDimension(t.peek() * estrellas[i]->getInitialWidth(), t.peek() * estrellas[i]->getInitialHeight());
+		if (t.progress() == 1) {
+			cout << "estrella " << i + 1 << endl;
+			return true;
+		}
+		else if (t.progress() > 0.3f) {
+			//Si quedan más estrellas, empezamos su tween
+			if (i + 1 < estrellas.size() && !estrellas[i + 1]->isActive())
+			{
+				tweenEstrellas(estrellas, i + 1);
+			}
+		}
+		return false;
+		});
+
+	//Sonido
+	sdlutils().soundEffects().at(to_string(i + 1) + "star").play(0, -1);
 }

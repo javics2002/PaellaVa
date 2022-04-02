@@ -11,16 +11,19 @@ private:
 	int starNumber = 1;
 	int points = 0;
 	int maxStars = 5; //maximo de estrellas
-	int pointStarValue = 10; //num de puntos que vale una estrella
+	int pointStarValue = 20; //num de puntos que vale una estrella
 	
 	Texture* starTexture;
 		
 	void calculateStarNumber();
+
 	void render() override;
-	void update() override;
+
 	std::vector<Texture*> m_reviews;
 	void createRandomReviews();
 	void renderReviews();
 	int numStarsAdded = 0;
+
+	void tweenEstrellas(vector<GameObject*> estrellas, int i = 0);
 };
 
