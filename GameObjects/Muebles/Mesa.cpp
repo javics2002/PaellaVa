@@ -50,7 +50,9 @@ bool Mesa::receiveGrupoClientes(GrupoClientes* gc)
 
 			vector<Cliente*> clientes = gc->getIntegrantes();
 			for (int i = 0; i < n; i++) {
-				clientes[i]->setPosition(sillas[i]->getPosition());
+				auto p = sillas[i]->getPosition();
+				clientes[i]->setPosition(p);
+				clientes[i]->setColliderRect({ (int)p.getX(), (int)p.getY(), clientes[i]->getWidth(), clientes[i]->getHeight() });
 			}
 			return true;
 		}		
