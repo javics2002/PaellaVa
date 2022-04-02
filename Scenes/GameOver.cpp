@@ -29,15 +29,32 @@ GameOver::GameOver(Game* game, int puntuation) : Scene(game)
 	//pos = pos + Vector2D<int>(100 + 80, 0.0f);
 
 	
-	
-	for (int i = 0; i < starNumber; i++)
+	for (int i = 1; i <= starNumber; i++)
 	{
 		GameObject* estrella = new GameObject(game);
-		estrella->setTexture("estrella");
+		estrella->setInitialDimension(110, 100);
 		estrella->setDimension(110, 100);
-		estrella->setPosition(Vector2D<double>(posPuntX - estrella->getWidth()+i*estrella->getWidth(), posPuntY));
+
+		sdlutils().soundEffects().at(to_string(i) + "star").play(0, game->UI);
+		estrella->setTexture("estrella");
+		estrella->setPosition(Vector2D<double>(sdlutils().width() / 2 / 2 - estrella->getWidth() + i * estrella->getWidth(), 70 * 2));
+
+		uiManager->addTween(0.0f, 1.0f, 1100.0f).via(easing::bounceOut).onStep([game, estrella, i](tweeny::tween<float>& t, float) mutable {
+			estrella->setDimension(t.peek() * estrella->getInitialWidth(), t.peek() * estrella->getInitialHeight());
+			if (t.progress() == 1.0f) {
+				//Start game
+				cout << "estrella se hace" << endl;
+				return true;
+			}
+			return false;
+			});
 		uiManager->addInterfaz(estrella);
+
 	}
+
+
+
+
 	
 	GameObject* puntos = new GameObject(game);
 	puntos->setTexture(string("Puntuacion: " + to_string(starNumber)), string("paella"), SDL_Color{ 255, 255, 255, 255 }, SDL_Color{ 0, 0, 0, 0 });
@@ -88,6 +105,13 @@ void GameOver::render()
 
 	renderReviews();
 	
+
+}
+
+void GameOver::update() {
+
+	objectManager->update();
+	uiManager->update();
 
 }
 
