@@ -17,9 +17,10 @@ private:
 		
 	void calculateStarNumber();
 	void render() override;
+	void update() override;
 	std::vector<Texture*> m_reviews;
 	void createRandomReviews();
 	void renderReviews();
-
+	int numStarsAdded = 0;
 };
 
