@@ -7,7 +7,7 @@
 Silla::Silla(Game* game, Vector2D<double> pos, string texture) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, texture)
 {
 	mMesa = nullptr;
-	setColliderRect({ (int)getX(), (int)getY() + h / 10, w, h / 3 });
+	setColliderRect({ (int)getX(), (int)getY() - h / 6, w, 3*h / 8 });
 }
 
 Silla* Silla::initMesa(Mesa* mesa)

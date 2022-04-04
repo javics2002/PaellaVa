@@ -15,6 +15,8 @@ GrupoClientes::GrupoClientes(Game* game) : PoolObject(game), pedido(nullptr), co
 
 	setTexture("berenjena");
 
+	setColliderRect({ (int)getX(), (int)getY(), w, h});
+
 	texTolerancia = &sdlutils().images().at("barraTolerancia");
 	showTol = false;
 	tolerancia = 100;	
@@ -52,7 +54,7 @@ void GrupoClientes::update()
 		int n = clientes.size() - 1;
 
 		SDL_Rect rect = { clientes[n]->getX() - clientes[n]->getWidth(), clientes[n]->getY() - clientes[n]->getHeight() / 2,
-			clientes[n]->getWidth() / 2, clientes[0]->getWidth() };
+			clientes[n]->getWidth() / 2, clientes[0]->getWidth() / 2};
 
 		for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getCollisions(rect)) {
 			dynamic_cast<GrupoClientes*>(i)->colisionClientes();

@@ -18,14 +18,18 @@ void Puerta::update()
 		if (cola->esValido(integrantes)) {
 			vector<Cliente*> v;
 
+
 			Cliente* c = game->getObjectManager()->getPoolClientes()->add();
+
+			int width = 2* c->getWidth() / 3;
+			int w = c->getPosition().getX();
+
 			c->cambiaTextura(texturasClientes[0 + rand() % texturasClientes.size()]);
 			c->setPosition(Vector2D<double>(w, getY()));
 
 			v.push_back(c);
 
-			int width = c->getWidth();		
-			int w = c->getPosition().getX();
+
 		
 			for (int i = 1; i < integrantes; i++) {
 				w -= width;

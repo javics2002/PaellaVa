@@ -10,7 +10,7 @@ Mesa::Mesa(Game* game, Vector2D<double> pos, Vector2D<int> dim, string texture)
 
 	setPosition((int)getX(), (int)getY() + h / 8);
 
-	setColliderRect({ (int)getX(), (int)getY() - h/20, w, 4* h / 5 });
+	setColliderRect({ (int)getX(), (int)getY() - 3*h/8, w, 4* h / 5 });
 
 	mGrupo = nullptr;
 

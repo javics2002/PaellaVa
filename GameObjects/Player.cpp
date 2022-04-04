@@ -15,8 +15,8 @@ Player::Player(Game* game) : GameObject(game), objectType_(INGREDIENTE), pickedO
 overlapPos(Vector2D<double>(getX() - overlapPos.getX() / 2, getY() - getHeight() / 2 - overlapDim.getY())), overlapDim(Vector2D<int>(50, 50))
 {
 	setPosition(200, 600);
-	setDimension(90, 90);
-	overlapDim.set(35, 35);
+	setDimension(120, 120);
+	overlapDim.set(45, 45);
 
 
 	aceleracion = 1.2;
@@ -24,7 +24,7 @@ overlapPos(Vector2D<double>(getX() - overlapPos.getX() / 2, getY() - getHeight()
 	maxVel = 7;
 
 	setTexture("player");
-	setColliderRect({ (int)getX(), (int)getY() + 3 * h / 4, 2 * w / 3, h / 4});
+	setColliderRect({ (int)getX(), (int)getY() + 2 * h / 3, 2 * w / 3, h / 3});
 }
 
 Player::~Player()
@@ -217,20 +217,20 @@ void Player::update()
 	switch (orientation_)
 	{
 	case E:
-		overlapPos = Vector2D<double>(getX() + getWidth() / 2,
-			getY() - overlapDim.getY() / 2);
+		overlapPos = Vector2D<double>(getX() + getWidth() / 4,
+			getY() - overlapDim.getY() / 4);
 		break;
 	case O:
-		overlapPos = Vector2D<double>(getX() - getWidth() / 2 - overlapDim.getX(),
-			getY() - overlapDim.getY() / 2);
+		overlapPos = Vector2D<double>(getX() - getWidth() / 4 - overlapDim.getX(),
+			getY() - overlapDim.getY() / 4);
 		break;
 	case S:
-		overlapPos = Vector2D<double>(getX() - overlapDim.getX() / 2,
-			getY() + getHeight() / 2);
+		overlapPos = Vector2D<double>(getX() - overlapDim.getX() / 4,
+			getY() + getHeight() / 4);
 		break;
 	case N:
-		overlapPos = Vector2D<double>(getX() - overlapDim.getX() / 2,
-			getY() - getHeight() / 2 - overlapDim.getY());
+		overlapPos = Vector2D<double>(getX() - overlapDim.getX() / 4,
+			getY() - getHeight() / 4 - overlapDim.getY());
 		break;
 	default:
 		break;

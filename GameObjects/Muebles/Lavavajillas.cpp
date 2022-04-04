@@ -5,6 +5,8 @@ Lavavajillas::Lavavajillas(Game* game, Vector2D<double> pos) : Mueble(game, pos,
 	clip.w = timerTexture->width() / 8;
 	clip.h = timerTexture->height();
 	clip.y = 0;
+
+	setColliderRect({ (int)getX(), (int)getY(), w, 4*h/3 });
 }
 
 void Lavavajillas::update()
