@@ -48,6 +48,7 @@ public:
 	UIManager(Game* game);
 	~UIManager();
 	void uiEvent(int mx, int my, bool& exit, bool paused = false);
+	void slideEvent(int mx, int my, bool& exit, bool paused = false);
 
 	void handleInput(bool& exit, bool paused = false);
 	void update(bool paused);

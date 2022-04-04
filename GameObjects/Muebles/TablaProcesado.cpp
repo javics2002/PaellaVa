@@ -83,6 +83,8 @@ bool TablaProcesado::returnObject(Player* p)
 		clip.x = 0;
 		rellenoTimer = 0;
 
+		sdlutils().soundEffects().at("cortar1").haltChannel(canalSonido);
+
 		return true;
 	}
 	else

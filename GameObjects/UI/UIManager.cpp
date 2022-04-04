@@ -123,7 +123,10 @@ void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 			}
 		}
 	}
+}
 
+void UIManager::slideEvent(int mx, int my, bool& exit, bool paused)
+{
 	for (auto i : sliders) {
 
 		SDL_Point mouseP = { ih().getmx(), ih().getmy() };
@@ -142,9 +145,13 @@ void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 
 void UIManager::handleInput(bool& exit, bool paused)
 {
-	if (ih().getMouseButtonState(InputHandler::MOUSE_LEFT) || ih().getMouseButtonHeld())
+	if (ih().getMouseButtonState(InputHandler::MOUSE_LEFT))
 	{
 		uiEvent(ih().getmx(), ih().getmy(), exit);
+	}
+
+	else if (ih().getMouseButtonHeld()) {
+		slideEvent(ih().getmx(), ih().getmy(), exit);
 	}
 }
 
