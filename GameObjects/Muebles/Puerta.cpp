@@ -9,7 +9,7 @@ Puerta::Puerta(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 
 
 void Puerta::update()
 {
-	if (SDL_GetTicks() - (time - offsetTime) >= SPAWN_DELAY) {
+	if (sdlutils().virtualTimer().currTime() - (time - offsetTime) >= SPAWN_DELAY) {
 
 		int integrantes = 1 + rand() % MAX_TAM;
 
@@ -40,7 +40,7 @@ void Puerta::update()
 			cola->add(g, integrantes);
 			g->initGrupo(cola, v);
 		}
-		time = SDL_GetTicks();
+		time = sdlutils().virtualTimer().currTime();
 	}
 }
 

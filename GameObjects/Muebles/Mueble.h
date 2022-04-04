@@ -35,7 +35,6 @@ public:
     virtual bool returnObject(Player* p) { return false; }
 
     virtual void setTime(double newTime) { time = newTime; }
-    virtual double getTime() { return time; }
 
     virtual void setOffset(double newOffset) { offsetTime = newOffset; }
 

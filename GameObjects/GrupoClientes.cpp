@@ -71,11 +71,11 @@ void GrupoClientes::update()
 
 	else if (estado_ == COMIENDO) {
 
-		if (SDL_GetTicks() - lastTimeComido >= TIEMPO_COMIDA/2) {
+		if (sdlutils().virtualTimer().currTime() - lastTimeComido >= TIEMPO_COMIDA/2) {
 			mesa->cambiaTexturaPaellas("paellaMedia",Contenido::Mitad);
 		}
 
-		if (SDL_GetTicks() - lastTimeComido >= TIEMPO_COMIDA) {
+		if (sdlutils().virtualTimer().currTime() - lastTimeComido >= TIEMPO_COMIDA) {
 			mesa->cambiaTexturaPaellas("paellaSucia",Contenido::Sucia);
 			estado_ = CUENTA;
 		}
@@ -100,8 +100,8 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 	if (showPed && estado_ == PIDIENDO) {
 		showTol = false;
 
-		if (SDL_GetTicks() - lastTimePed >= PED_DELAY) {
-			lastTimePed = SDL_GetTicks();
+		if (sdlutils().virtualTimer().currTime() - lastTimePed >= PED_DELAY) {
+			lastTimePed = sdlutils().virtualTimer().currTime();
 
 			itemNow = (itemNow + 1) % texPedido.size();
 		}
@@ -175,24 +175,26 @@ bool GrupoClientes::ratonEncima()
 
 void GrupoClientes::bajaTolerancia()
 {
-	if (tolerancia > 0 && SDL_GetTicks() - lastTimeTol >= DIMIN_TIME) {
+	if (tolerancia > 0 && sdlutils().virtualTimer().currTime() - lastTimeTol >= DIMIN_TIME) {
 
 		tolerancia -= DIMIN_TOLERANCIA;
 
 		if (tolerancia < 0) tolerancia = 0;
 
-		lastTimeTol = SDL_GetTicks();
+		lastTimeTol = sdlutils().virtualTimer().currTime();
 	}
 }
 
 void GrupoClientes::setState(EstadoClientes est)
 {
 	estado_ = est;
-	lastTimeTol = SDL_GetTicks();
+
+	lastTimeTol = sdlutils().virtualTimer().currTime();
 
 	if (estado_ == COMIENDO) {
 		//sdlutils().soundEffects().at("")
 	}
+
 }
 
 EstadoClientes GrupoClientes::getState()
@@ -265,7 +267,7 @@ void GrupoClientes::decirPedidio()
 {
 	if (estado_ == PIDIENDO) {
 		if (orderStart) {
-			lastTimePed = SDL_GetTicks();
+			lastTimePed = sdlutils().virtualTimer().currTime();
 			itemNow = 0;
 			orderStart = false;		
 		}
@@ -280,7 +282,7 @@ bool GrupoClientes::paellasPedidas() {
 			nPaellas++;
 			if (nPaellas == pedido->getPedido().size()) {
 				estado_ = COMIENDO;
-				lastTimeComido = SDL_GetTicks();
+				lastTimeComido = sdlutils().virtualTimer().currTime();
 			}
 			else estado_ = ESPERANDO;
 

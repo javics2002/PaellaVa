@@ -57,6 +57,7 @@ void Restaurante::handleInput(bool& exit)
 	Scene::handleInput(exit);
 
 	if (ih().getKey(InputHandler::CANCEL)) {
+		
 #ifdef _DEBUG
 		// game->changeScene(new GameOver(game, 100));
 		togglePause();
@@ -104,45 +105,15 @@ void Restaurante::togglePause()
 	paused = !paused;
 
 	if (paused) {
-		Mueble* m;
-		double offsetM = 0;
-		for (int i = 0u; i < objectManager->getMuebles().size(); i++) {
-			m = dynamic_cast<Mueble*>(objectManager->getMuebles()[i]);
-			offsetM = SDL_GetTicks() - m->getTime();
 
-			m->setOffset(offsetM);
-		}
-
-		Reloj* r;
-		double offsetR = 0;
-
-		for (int i = 0u; i < uiManager->getInterfaz().size(); i++) {
-
-			if (dynamic_cast<Reloj*>(uiManager->getInterfaz()[i])) {
-				r = dynamic_cast<Reloj*>(uiManager->getInterfaz()[i]);
-				offsetR = SDL_GetTicks() - r->getTime();
-
-				r->setOffset(offsetR);
-			}
-			
-		}
+		sdlutils().virtualTimer().pause();
+		
 		sdlutils().soundEffects().at("cancel").play(0, game->UI);
 	}
 	else {
-		Mueble* m;
-		for (int i = 0u; i < objectManager->getMuebles().size(); i++) {
-			m = dynamic_cast<Mueble*>(objectManager->getMuebles()[i]);
-			m->setTime(SDL_GetTicks());
-		}
-		Reloj* r;
-		for (int i = 0u; i < uiManager->getInterfaz().size(); i++) {
+		sdlutils().virtualTimer().resume();
 
-			if (dynamic_cast<Reloj*>(uiManager->getInterfaz()[i])) {
-				r = dynamic_cast<Reloj*>(uiManager->getInterfaz()[i]);
-				r->setTime(SDL_GetTicks());
-			}
-
-		}
+		
 		sdlutils().soundEffects().at("select").play(0, game->UI);
 	}
 }

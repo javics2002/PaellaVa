@@ -39,38 +39,43 @@ void Reloj::render(SDL_Rect* cameraRect)
 
 void Reloj::update()
 {
-	if (SDL_GetTicks() - (mLastUpdate - offsetTime) >= updateTime_)
+	if (mLastUpdate + updateTime_ > sdlutils().virtualTimer().currTime()) { //si no pasan
+		return;
+	}
+
+	mLastUpdate = sdlutils().virtualTimer().currTime();
+
+	if (finDia())
 	{
-		if (finDia())
-		{
 #ifndef _DEBUG
-			game->changeScene(new GameOver(game, 100));
+		game->changeScene(new GameOver(game, 100));
 #endif // _DEBUG
+
+	}
+	else
+	{
+		//1 minuto en Ticks = 1 hora en el juego
+		currentTime.minutes += addedMinutes;
+
+		if (currentTime.minutes >= 60) {
+			currentTime.hours += currentTime.minutes / 60;
+			currentTime.minutes = currentTime.minutes % 60;
 		}
 		//Si queda justo una hora para cerrar avisamos
 		else if (!ultimaHora && hourFin - 1 == currentTime.hours && minuteFin == currentTime.minutes) {
 			ultimaHora = true;
 			sdlutils().soundEffects().at("ultimaHora").play();
 		}
-		else
-		{
-			//1 minuto en Ticks = 1 hora en el juego
-			currentTime.minutes += addedMinutes;
-
-			if (currentTime.minutes >= 60) {
-				currentTime.hours += currentTime.minutes / 60;
-				currentTime.minutes = currentTime.minutes % 60;
-			}
-			if (currentTime.hours >= 24) {
-				currentTime.hours = currentTime.hours % 24;
-			}
-			string timeText = parseTimeToString(currentTime.hours, currentTime.minutes);
-			setTexture(timeText, string("paella"), fgColor, bgColor);
+		if (currentTime.hours >= 24) {
+			currentTime.hours = currentTime.hours % 24;
 		}
-		offsetTime = 0;
-		mLastUpdate = SDL_GetTicks();
+		string timeText = parseTimeToString(currentTime.hours, currentTime.minutes);
+		setTexture(timeText, string("paella"), fgColor, bgColor);
 
 	}
+
+		
+	
 }
 
 string Reloj::parseTimeToString(int hours, int minutes)

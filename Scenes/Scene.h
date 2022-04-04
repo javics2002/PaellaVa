@@ -22,6 +22,7 @@ protected:
 	UIManager* uiManager;
 
 	Imagen* fondo;
+	bool paused = false;
 
 public:
 	Scene(Game* game);

@@ -22,7 +22,7 @@ Scene::~Scene()
 void Scene::handleInput(bool& exit)
 {
 	objectManager->handleInput(exit);
-	uiManager->handleInput(exit);
+	uiManager->handleInput(exit, paused);
 }
 
 void Scene::update()

@@ -47,10 +47,10 @@ class UIManager
 public:
 	UIManager(Game* game);
 	~UIManager();
-	void uiEvent(int mx, int my, bool& exit);
+	void uiEvent(int mx, int my, bool& exit, bool paused);
 
-	void handleInput(bool& exit);
-	void update(bool paused = false);
+	void handleInput(bool& exit, bool paused);
+	void update(bool paused);
 
 	// void render();
 	void render(SDL_Rect* rect);
