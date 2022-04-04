@@ -6,7 +6,7 @@
 
 Encimera::Encimera(Game* game, Vector2D<double> pos) : Mueble(game, pos, 1 * TILE_SIZE, 2 * TILE_SIZE, "encimera")
 {
-	setColliderRect({ (int)getX(), (int)getY() - h/ 4, w, h / 3 });
+	setColliderRect({ (int)getX(), (int)getY() - h/ 4, w, 2*h / 3 });
 }
 
 bool Encimera::receiveIngrediente(Ingrediente* ingr)
@@ -43,7 +43,7 @@ bool Encimera::receivePaella(Paella* pa)
 	{
 		paella_ = pa;
 
-		paella_->setPosition(getX(), getY() - pa->getHeight() / 2);
+		paella_->setPosition(getX(), getY() - 3 * pa->getHeight() / 4);
 
 		return true;
 	}
@@ -54,11 +54,16 @@ bool Encimera::receivePaella(Paella* pa)
 bool Encimera::receiveArroz(Arroz* arr)
 {
 	//Si ya tiene objeto, no recoge objeto
-	if (paella_ != nullptr)
+	if (paella_ != nullptr && paella_->getContenido() == Limpia)
 	{
 		paella_->anadeArroz(arr);
 
 		return true;
+	}
+	else if (paella_ != nullptr && paella_->getContenido() != Limpia)
+	{
+		//no lo suelta
+		return false;
 	}
 	else if (ingr_ == nullptr && arroz == nullptr) {
 		arroz = arr;

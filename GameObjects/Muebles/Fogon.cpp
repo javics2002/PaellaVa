@@ -6,6 +6,7 @@
 Fogon::Fogon(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, "fogon")
 {
 	paella_ = nullptr;
+	setColliderRect({ (int)getX(), (int)getY() - h / 4, w, 2 * h / 3 });
 }
 
 bool Fogon::receivePaella(Paella* pa)
@@ -15,7 +16,7 @@ bool Fogon::receivePaella(Paella* pa)
 	{
 		paella_ = pa;
 
-		paella_->setPosition(getX(), getY());
+		paella_->setPosition(getX(), getY() - 3 * pa->getHeight() / 4);
 
 		//empezar a cocer la paella
 		paella_->setState(Coccion);

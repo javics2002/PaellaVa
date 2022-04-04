@@ -15,7 +15,7 @@ Player::Player(Game* game) : GameObject(game), objectType_(INGREDIENTE), pickedO
 overlapPos(Vector2D<double>(getX() - overlapPos.getX() / 2, getY() - getHeight() / 2 - overlapDim.getY())), overlapDim(Vector2D<int>(50, 50))
 {
 	setPosition(200, 600);
-	setDimension(64, 64);
+	setDimension(90, 90);
 	overlapDim.set(35, 35);
 
 
@@ -24,7 +24,7 @@ overlapPos(Vector2D<double>(getX() - overlapPos.getX() / 2, getY() - getHeight()
 	maxVel = 7;
 
 	setTexture("player");
-	setColliderRect({ (int)getX(), (int)getY() + h / 2, 2 * w / 3, h / 2 });
+	setColliderRect({ (int)getX(), (int)getY() + 3 * h / 4, 2 * w / 3, h / 4});
 }
 
 Player::~Player()
@@ -33,7 +33,7 @@ Player::~Player()
 
 void Player::handleInput()
 {
-	setColliderRect({ (int)getX(), (int)getY() + h / 3, 2 * w / 3, h / 3 });
+	setColliderRect({ (int)getX(), (int)getY() + 2*h / 5, w / 2, h / 5 });
 
 	//El jugador se mueve o se para en ambos ejes
 	if (abs(ih().getAxisX()) > .1f)

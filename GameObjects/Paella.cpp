@@ -153,9 +153,11 @@ Contenido Paella::getContenido()
 {
 	return contenido;
 }
+
 void Paella::setEnsuciada()
 {
 	ingredientes.clear();
+	mArroz = false;
 	for (int i : ingrEnPaella) {
 		ingrEnPaella[i] = false;
 	}

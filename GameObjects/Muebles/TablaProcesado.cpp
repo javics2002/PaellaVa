@@ -9,6 +9,7 @@ TablaProcesado::TablaProcesado(Game* game_, Vector2D<double> pos) : Mueble(game,
 	clip.w = timerTexture->width() / 8;
 	clip.h = timerTexture->height();
 	clip.y = 0;
+	setColliderRect({ (int)getX(), (int)getY() - h / 4, w, 2 * h / 3 });
 }
 
 void TablaProcesado::update() {
@@ -59,7 +60,7 @@ bool TablaProcesado::receiveIngrediente(Ingrediente* ingr)
 
 		tiempo = sdlutils().currRealTime();
 
-		ingr_->setPosition(getX(), getY());
+		ingr_->setPosition(getX(), getY() - ingr->getHeight() / 2);
 
 		canalSonido = sdlutils().soundEffects().at("cortar" + to_string(sdlutils().rand().nextInt(1, 4))).play(-1);
 

@@ -30,6 +30,7 @@ bool FinalCinta::receivePaella(Paella* pa)
 	//hacer cosas
 	pa->setTexture("paellaSucia");
 	pa->setContenido(Sucia);
+	pa->setEnsuciada();
 	return false;
 }
 
