@@ -11,6 +11,7 @@ Ventanilla::Ventanilla(Game* game, Vector2D<double> pos, SDL_Rect* r) : Mueble(g
 	camerar = r;
 	xnumero = pos.getX()-getWidth();
 	ynumero = pos.getY()+getHeight();
+	setColliderRect({ (int)getX(), (int)getY() - h / 4, w, 2 * h / 3 });
 }
 bool Ventanilla::receivePaella(Paella* pa)
 {

@@ -43,7 +43,7 @@ UIManager::~UIManager()
 	}
 }
 
-void UIManager::uiEvent(int mx, int my, bool& exit)
+void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 {
 	for (int i = 0; i < interfaz.size(); ++i)
 	{
@@ -140,7 +140,7 @@ void UIManager::uiEvent(int mx, int my, bool& exit)
 	}
 }
 
-void UIManager::handleInput(bool& exit)
+void UIManager::handleInput(bool& exit, bool paused)
 {
 	if (ih().getMouseButtonState(InputHandler::MOUSE_LEFT) || ih().getMouseButtonHeld())
 	{
