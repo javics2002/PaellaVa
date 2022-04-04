@@ -7,20 +7,17 @@ Reloj::Reloj(Game* game) : GameObject(game)
 	setDimension(w, h);
 	setPosition(sdlutils().width() - getWidth(), getHeight());
 	setActive(true);
-	lastUpdate_ = 0;
-
-	
+	mLastUpdate = SDL_GetTicks();
 
 	relojTexture = &sdlutils().images().at("reloj");
 
-	hourIni = 9;
-	minuteIni = 0;
-	
 	currentTime.hours = hourIni;
 	currentTime.minutes = minuteIni;
 	string timeText = parseTimeToString(hourIni, minuteIni);
 
 	setTexture(timeText, string("paella"), fgColor, bgColor);
+
+	ultimaHora = false;
 }
 
 Reloj::~Reloj()
@@ -35,25 +32,25 @@ bool Reloj::finDia()
 
 void Reloj::render(SDL_Rect* cameraRect)
 {
-
 	drawRender(getTexCollider(), relojTexture);
 	drawRender(cameraRect);
-
 }
 
 
 void Reloj::update()
 {
-
-	if (SDL_GetTicks() - (timeR - offsetTime) >= updateTime_)
+	if (SDL_GetTicks() - (mLastUpdate - offsetTime) >= updateTime_)
 	{
-
 		if (finDia())
 		{
 #ifndef _DEBUG
 			game->changeScene(new GameOver(game, 100));
 #endif // _DEBUG
-
+		}
+		//Si queda justo una hora para cerrar avisamos
+		else if (!ultimaHora && hourFin - 1 == currentTime.hours && minuteFin == currentTime.minutes) {
+			ultimaHora = true;
+			sdlutils().soundEffects().at("ultimaHora").play();
 		}
 		else
 		{
@@ -71,7 +68,7 @@ void Reloj::update()
 			setTexture(timeText, string("paella"), fgColor, bgColor);
 		}
 		offsetTime = 0;
-		timeR = SDL_GetTicks();
+		mLastUpdate = SDL_GetTicks();
 
 	}
 }

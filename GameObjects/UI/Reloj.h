@@ -14,22 +14,22 @@ public:
 	void render(SDL_Rect* cameraRect) override;
 	void update() override;
 	virtual void setOffset(double newOffset) { offsetTime = newOffset; }
-	virtual void setTime(double newTime) { timeR = newTime; }
-	virtual double getTime() { return timeR; }
+	virtual void setTime(double newTime) { mLastUpdate = newTime; }
+	virtual double getTime() { return mLastUpdate; }
 
 private:
 	Game* game;
 	Texture* relojTexture;
 	double offsetTime;
-	double timeR;
+	double mLastUpdate; //tiempo desde el último update
+	bool ultimaHora;
 
-	Uint32 lastUpdate_;//tiempo desde el último update
 	Uint32 updateTime_ = 5000; // los milisegundos que tarda en actualizarse el reloj
 
-	int hourIni = 9; //la hora del día a la que empieza la jornada
+	int hourIni = 12; //la hora del día a la que empieza la jornada
 	int minuteIni = 0; //los minutos de la hora a la que empieza el juego
-	int hourFin = 17; //la hora del dia a la que termina la jornada
-	int minuteFin = 10; //los minutos de la hora del dia a la que termina la jornada
+	int hourFin = 18; //la hora del dia a la que termina la jornada
+	int minuteFin = 0; //los minutos de la hora del dia a la que termina la jornada
 
 	int addedMinutes = 10; //los minutos añadidos en cada update 
 

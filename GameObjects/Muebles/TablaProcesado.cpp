@@ -6,30 +6,26 @@
 
 TablaProcesado::TablaProcesado(Game* game_, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, "tablaProcesado")
 {
-
 	clip.w = timerTexture->width() / 8;
 	clip.h = timerTexture->height();
 	clip.y = 0;
 }
 
 void TablaProcesado::update() {
-
 	if (ingr_ != nullptr) {
 		procesando();
 	}
 }
 
-void TablaProcesado::procesando()
-{
-
+void TablaProcesado::procesando() {
 	if (sdlutils().currRealTime() - tiempo >= TIEMPO_PROCESADO) {
 		ingr_->setProcesado(true, ingr_);
 		tiempo = sdlutils().currRealTime();
 
 		clip.x = i * clip.w;
+
+		sdlutils().soundEffects().at("cortar1").haltChannel(canalSonido);
 	}
-
-
 	else if (sdlutils().currRealTime() - tiempo >= rellenoTimer + TIEMPO_PROCESADO / 8) {
 
 		clip.x = i * clip.w;
@@ -42,7 +38,6 @@ void TablaProcesado::procesando()
 
 void TablaProcesado::render(SDL_Rect* camera)
 {
-
 	SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, getWidth(),
 		getHeight() };
 
@@ -58,7 +53,6 @@ void TablaProcesado::render(SDL_Rect* camera)
 
 bool TablaProcesado::receiveIngrediente(Ingrediente* ingr)
 {
-
 	if (ingr_ == nullptr && !ingr->getProcesado()) {
 
 		ingr_ = ingr;
@@ -67,13 +61,12 @@ bool TablaProcesado::receiveIngrediente(Ingrediente* ingr)
 
 		ingr_->setPosition(getX(), getY());
 
-		sdlutils().soundEffects().at("cortar" + to_string(sdlutils().rand().nextInt(1, 4))).play(4, game->MUEBLES);
+		canalSonido = sdlutils().soundEffects().at("cortar" + to_string(sdlutils().rand().nextInt(1, 4))).play(-1);
 
 		return true;
 	}
 
 	return false;
-
 }
 
 bool TablaProcesado::returnObject(Player* p)
