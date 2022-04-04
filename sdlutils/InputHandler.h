@@ -29,12 +29,15 @@ class InputHandler : public Singleton<InputHandler> {
 	int mx = -1;
 	int my = -1;
 
+	bool isMouseButtonHeldDown_;
+
 	InputHandler() {
 		kbState_ = SDL_GetKeyboardState(0);
 		initJoystick();
 		keyPressed = vector<bool>(botones::UNKNOWN, false);
 		lastKeyPressed = vector<bool>(botones::UNKNOWN, false);
-		mousePressed = vector<bool>(botones::UNKNOWN, false);
+		mousePressed = vector<bool>(3, false);
+		isMouseButtonHeldDown_ = false;
 	}
 
 	inline void onMouseMotion(const SDL_Event& event) {
@@ -43,6 +46,7 @@ class InputHandler : public Singleton<InputHandler> {
 	}
 
 	inline void onMouseButtonChange(const SDL_Event& event, bool isDown) {
+		isMouseButtonHeldDown_ = isDown;
 		switch (event.button.button) {
 		case SDL_BUTTON_LEFT:
 			mousePressed[LEFT] = isDown;
@@ -66,6 +70,10 @@ public:
 	enum botones { LEFT, RIGHT, UP, DOWN, INTERACT, CANCEL, UNKNOWN };
 
 	virtual ~InputHandler() {
+	}
+
+	inline void resetHeld() {
+		isMouseButtonHeldDown_ = false;
 	}
 
 	// update the state with a new event
@@ -291,6 +299,13 @@ public:
 	{
 		return keyPressed[boton] && !lastKeyPressed[boton];
 	}
+
+	bool getMouseButtonHeld() {
+		SDL_GetMouseState(&mx, &my);
+		return isMouseButtonHeldDown_;
+	}
+
+
 
 	// TODO add support for Joystick, see Chapter 4 of
 	// the book 'SDL Game Development'
