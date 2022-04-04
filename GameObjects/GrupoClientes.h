@@ -71,8 +71,6 @@ public:
 	bool collide(SDL_Rect rect) override;
 	bool colisionClientes();
 
-
-
 	void setState(EstadoClientes est);
 	EstadoClientes getState();
 

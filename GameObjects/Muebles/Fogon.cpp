@@ -20,9 +20,8 @@ bool Fogon::receivePaella(Paella* pa)
 		//empezar a cocer la paella
 		paella_->setState(Coccion);
 
-		sdlutils().soundEffects().at("enciendeFogon").play(0, game->MUEBLES);
-		sdlutils().soundEffects().at("paella").play(-1, game->MUEBLES);
-		sdlutils().soundEffects().at("fogon").play(-1, game->MUEBLES);
+		sdlutils().soundEffects().at("enciendeFogon").play();
+		canalSonido = sdlutils().soundEffects().at("fogon").play(-1);
 
 		return true;
 	}
@@ -37,6 +36,9 @@ bool Fogon::returnObject(Player* p)
 		p->setPickedObject(paella_, PAELLA);
 
 		paella_ = nullptr;
+
+		//Paramos el sonido
+		sdlutils().soundEffects().at("fogon").haltChannel(canalSonido);
 
 		//TOCHECK: Habría que devolver la paella al estado de "Preparación" si no está Preparada?
 		//Y desde donde se llama a que esté ya Preparada?

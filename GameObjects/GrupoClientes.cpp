@@ -189,6 +189,10 @@ void GrupoClientes::setState(EstadoClientes est)
 {
 	estado_ = est;
 	lastTimeTol = SDL_GetTicks();
+
+	if (estado_ == COMIENDO) {
+		//sdlutils().soundEffects().at("")
+	}
 }
 
 EstadoClientes GrupoClientes::getState()

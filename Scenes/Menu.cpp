@@ -10,9 +10,12 @@ using tweeny::easing;
 
 Menu::Menu(Game* game) : Scene(game)
 {
+
 	fondo->setTexture("menufondo");
 	fondo->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
 	fondo->setDimension(sdlutils().width(), sdlutils().height() + 100);
+
+	sdlutils().musics().at("musicaFondo").play();
 
 	int posIni = 260;
 	int aumento = 150;
@@ -47,11 +50,23 @@ Menu::Menu(Game* game) : Scene(game)
 
 			if (t.progress() > .2f) {
 				// Settings
+
+				//Abrir pantalla
+				
+				game->getUIManager()->toggleOpciones();
+
+				game->getUIManager()->desactivaBot();
+				
+
+				// -Poner pantalla completa (sdlutils().toggleFullScreen();)
+				// -Volumen de musica y sonido (slides separados)
+
 				return true;
 			}
 			return false;
 			});
 		});
+
 	uiManager->addInterfaz(settingsButton);
 
 	auto exitButton = new UiButton(game, "exit", 640, posIni + aumento * 2, w, h);
@@ -71,6 +86,9 @@ Menu::Menu(Game* game) : Scene(game)
 			});
 		});
 	uiManager->addInterfaz(exitButton);
+
+
+	uiManager->creaMenuOpciones();
 }
 
 void Menu::handleInput(bool& exit)

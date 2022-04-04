@@ -23,16 +23,26 @@ class UIManager
 
 	float uiscale = 1.1;
 	vector<GameObject*> pauseMenu; // menú de pausa
+	vector<GameObject*> optionsMenu; // menú de opciones
 	vector<UiButton*> pauseButtons; // botones del menú de pausa
+	vector<UiButton*> optionsButtons; // botones del menú de opciones
+	vector<UiButton*> sliders; // sliders del menú de opciones
 
 	list<tweeny::tween<float>> activeTweens;
 
 	int mx;
 	int my;
 	int anchobotones = 25;
+	float volumenMusica;
+	float volumenSonido;
 	Game* game;
 	Comanda* actual;
 	ListaComandas* barra;
+
+	UiButton* slideMusica;
+	UiButton* slideSonido;
+
+	bool clickPrevio = true;
 
 public:
 	UIManager(Game* game);
@@ -58,7 +68,13 @@ public:
 	void addInterfaz(GameObject* comanda);
 
 	void creaMenuPausa();
+	void creaMenuOpciones();
 	void togglePause();
+	void toggleOpciones();
+	void salirOpciones();
+
+	void desactivaBot();
+	void activaBot();
 
 	vector<GameObject*> getPauseMenu() { return pauseMenu; }
 	vector<GameObject*> getInterfaz() { return interfaz; }
