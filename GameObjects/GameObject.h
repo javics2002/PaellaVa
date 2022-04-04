@@ -26,6 +26,7 @@ protected:
     Game* game;
     Texture* texture;
     bool active = true;
+    int canalSonido;
 
     void drawRender(SDL_Rect* cameraRect);   
     void drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex);

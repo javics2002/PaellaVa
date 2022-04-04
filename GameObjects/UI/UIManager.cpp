@@ -68,6 +68,7 @@ void UIManager::uiEvent(int mx, int my, bool& exit)
 			}
 		}
 	}
+
 	for (auto j : uicomandas)
 	{
 		if (j->isActive())
@@ -109,11 +110,39 @@ void UIManager::uiEvent(int mx, int my, bool& exit)
 			}
 		}
 	}
+
+	for (auto i : optionsButtons)
+	{
+		if (i->isActive())
+		{
+			if (i->onClick(mx, my, exit))
+			{
+				mx = -1;
+				my = -1;
+
+			}
+		}
+	}
+
+	for (auto i : sliders) {
+
+		SDL_Point mouseP = { ih().getmx(), ih().getmy() };
+		SDL_Rect sliderColl = i->getCollider();
+
+		if (SDL_PointInRect(&mouseP, &sliderColl) == SDL_TRUE) {
+			i->execute(exit);
+			clickPrevio = true;
+		}
+
+		else if (!clickPrevio) {
+			ih().resetHeld();
+		}
+	}
 }
 
 void UIManager::handleInput(bool& exit)
 {
-	if (ih().getMouseButtonState(InputHandler::MOUSE_LEFT))
+	if (ih().getMouseButtonState(InputHandler::MOUSE_LEFT) || ih().getMouseButtonHeld())
 	{
 		uiEvent(ih().getmx(), ih().getmy(), exit);
 	}
@@ -191,6 +220,10 @@ void UIManager::render(SDL_Rect* rect = nullptr)
 	for (auto i : pauseButtons) {
 		if (i->isActive())
 			i->render(rect);
+	}
+
+	for (auto i : optionsMenu) {
+		if (i->isActive()) i->render(rect);
 	}
 }
 
@@ -315,7 +348,7 @@ void UIManager::setPosTeclado(vector<Point2D<double>> t)
 }
 
 void UIManager::creaMenuPausa() {
-	// crear men�
+	// crear menu
 	Imagen* bg = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2, sdlutils().width(), sdlutils().height(), "pause2");
 	bg->setActive(false);
 	pauseMenu.push_back(bg);
@@ -368,6 +401,105 @@ void UIManager::creaMenuPausa() {
 	pauseButtons.push_back(exitButton);
 }
 
+void UIManager::creaMenuOpciones()
+{
+	Imagen* opcPant = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2, sdlutils().width() - 100, sdlutils().height()-100, "fondoOpc");
+	opcPant->setActive(false);
+
+	optionsMenu.push_back(opcPant);
+
+	UiButton* botonSalir = new UiButton(game, "cerrarOpc", opcPant->getWidth(), 100, 100, 100);
+
+	botonSalir->setActive(false);
+	botonSalir->setAction([this, botonSalir](Game* game, bool& exit) {
+		activaBot();
+		salirOpciones();
+		});
+
+	optionsMenu.push_back(botonSalir);
+	optionsButtons.push_back(botonSalir);
+
+	UiButton* pantCompleta = new UiButton(game, "reloj", sdlutils().width() / 2, opcPant->getHeight() - 100, 100, 100);
+
+	pantCompleta->setActive(false);
+	pantCompleta->setAction([this, pantCompleta](Game* game, bool& exit) {
+		sdlutils().toggleFullScreen();
+		});
+
+	optionsButtons.push_back(pantCompleta);
+	optionsMenu.push_back(pantCompleta);
+
+	Imagen* barraVol_musica = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2 - 100, 700, 30, "barraVol");
+
+	barraVol_musica->setActive(false);
+
+	optionsMenu.push_back(barraVol_musica);
+
+	Imagen* barraVol_sonido = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2, 700, 30, "barraVol");
+
+	barraVol_sonido->setActive(false);
+
+	optionsMenu.push_back(barraVol_sonido);
+
+	slideMusica = new UiButton(game, "paella", barraVol_musica->getX(), barraVol_musica->getY(), 80, 80);
+
+	slideMusica->setActive(false);
+	slideMusica->setAction([this, barraVol_musica](Game* game, bool& exit) {
+
+		int newPos = ih().getmx() - slideMusica->getWidth();
+		int extremoIzq = barraVol_musica->getX() - (barraVol_musica->getWidth() / 2) - slideMusica->getWidth();
+		int extremoDer = barraVol_musica->getX() + (barraVol_musica->getWidth() / 2) - slideMusica->getWidth();
+
+		if (newPos >= extremoIzq && newPos <= extremoDer) {
+
+			slideMusica->setPosition(ih().getmx(), slideMusica->getY());
+			slideMusica->setColliderRect({ (int)slideMusica->getX() , (int)slideMusica->getY() , 80, 80 });
+		}
+
+		volumenMusica = (slideMusica->getX() - slideMusica->getWidth() - extremoIzq) / barraVol_musica->getWidth() * 128;
+
+		if (volumenMusica > 127) volumenMusica = 128;
+		else if (volumenMusica < 1) volumenMusica = 0;
+		
+		sdlutils().musics().at("musicaFondo").setMusicVolume(volumenMusica);
+
+		});
+
+	optionsMenu.push_back(slideMusica);
+	sliders.push_back(slideMusica);
+
+	slideSonido = new UiButton(game, "paella", barraVol_sonido->getX(), barraVol_sonido->getY(), 80, 80);
+
+	slideSonido->setActive(false);
+	slideSonido->setAction([this, barraVol_sonido](Game* game, bool& exit) {
+
+		int newPos = ih().getmx() - slideSonido->getWidth();
+		int extremoIzq = barraVol_sonido->getX() - (barraVol_sonido->getWidth() / 2) - slideSonido->getWidth();
+		int extremoDer = barraVol_sonido->getX() + (barraVol_sonido->getWidth() / 2) - slideSonido->getWidth();
+
+		if (newPos >= extremoIzq && newPos <= extremoDer) {
+
+			slideSonido->setPosition(ih().getmx(), slideSonido->getY());
+			slideSonido->setColliderRect({ (int)slideSonido->getX() , (int)slideSonido->getY() , 80, 80 });
+		}
+
+		volumenSonido = (slideSonido->getX() - slideSonido->getWidth() - extremoIzq) / barraVol_sonido->getWidth() * 128;
+
+		if (volumenSonido > 127) volumenSonido = 128;
+		else if (volumenSonido < 1) volumenSonido = 0;
+
+		std::map<std::string, SoundEffect>::iterator it = sdlutils().soundEffects().begin();
+		while (it != sdlutils().soundEffects().end())
+		{
+			it->second.setChannelVolume(volumenSonido);
+			++it;
+		}
+		});
+
+	optionsMenu.push_back(slideSonido);
+	sliders.push_back(slideSonido);
+}
+
 void UIManager::togglePause() {
 	for (auto i : pauseMenu) {
 		i->setActive(!i->isActive());
@@ -402,6 +534,34 @@ void UIManager::togglePause() {
 				return false;
 				});
 		}
+	}
+}
+
+void UIManager::toggleOpciones()
+{
+	for (auto i : optionsMenu) {
+		i->setActive(true);
+	}
+}
+
+void UIManager::salirOpciones()
+{
+	for (auto i : optionsMenu) {
+		i->setActive(false);
+	}
+}
+
+void UIManager::desactivaBot()
+{
+	for (auto i : interfaz) {
+		i->setActive(false);
+	}
+}
+
+void UIManager::activaBot()
+{
+	for (auto i : interfaz) {
+		i->setActive(true);
 	}
 }
 

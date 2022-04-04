@@ -54,6 +54,12 @@ void Paella::setState(EstadoPaellas estado_)
 {
 	estado = estado_;
 	mTiempo = sdlutils().currRealTime();
+
+	//Sonido
+	if (estado == Coccion)
+		canalSonido = sdlutils().soundEffects().at("paella").play(-1);
+	else
+		sdlutils().soundEffects().at("paella").haltChannel(canalSonido);
 }
 
 void Paella::paellaRecogida()
