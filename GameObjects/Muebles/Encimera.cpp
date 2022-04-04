@@ -6,6 +6,7 @@
 
 Encimera::Encimera(Game* game, Vector2D<double> pos) : Mueble(game, pos, 1 * TILE_SIZE, 2 * TILE_SIZE, "encimera")
 {
+	setColliderRect({ (int)getX(), (int)getY() - h/ 4, w, h / 3 });
 }
 
 bool Encimera::receiveIngrediente(Ingrediente* ingr)

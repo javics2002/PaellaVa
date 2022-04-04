@@ -3,12 +3,14 @@
 #include "../../Control/ObjectManager.h"
 
 Mesa::Mesa(Game* game, Vector2D<double> pos, Vector2D<int> dim, string texture) 
-	: Mueble(game, pos, dim.getX() * TILE_SIZE, dim.getY() * TILE_SIZE, texture) 
+	: Mueble(game, pos, dim.getX() * TILE_SIZE, dim.getY() * TILE_SIZE / 1.15, texture) 
 {
 	mWidth = dim.getX();
 	mHeight = dim.getY();
 
-	setColliderRect({ (int)getX(), (int)getY() + h/6, w, h/2 + h/4 });
+	setPosition((int)getX(), (int)getY() + h / 8);
+
+	setColliderRect({ (int)getX(), (int)getY() - h/20, w, 4* h / 5 });
 
 	mGrupo = nullptr;
 

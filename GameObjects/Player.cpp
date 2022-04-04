@@ -12,18 +12,19 @@
 
 
 Player::Player(Game* game) : GameObject(game), objectType_(INGREDIENTE), pickedObject_(nullptr),
-	overlapPos(Vector2D<double>(getX() - overlapPos.getX() / 2, getY() - getHeight() / 2 - overlapDim.getY())), overlapDim(Vector2D<int>(50, 50))
+overlapPos(Vector2D<double>(getX() - overlapPos.getX() / 2, getY() - getHeight() / 2 - overlapDim.getY())), overlapDim(Vector2D<int>(50, 50))
 {
 	setPosition(200, 600);
 	setDimension(64, 64);
-	overlapDim.set(50, 50); //margen de choque para fluidez
+	overlapDim.set(35, 35);
 
 
 	aceleracion = 1.2;
 	deceleracion = 0.8;
 	maxVel = 7;
-	
+
 	setTexture("player");
+	setColliderRect({ (int)getX(), (int)getY() + h / 2, 2 * w / 3, h / 2 });
 }
 
 Player::~Player()
@@ -32,7 +33,7 @@ Player::~Player()
 
 void Player::handleInput()
 {
-	setColliderRect({ (int)getX(), (int)getY(), w, h });
+	setColliderRect({ (int)getX(), (int)getY() + h / 3, 2 * w / 3, h / 3 });
 
 	//El jugador se mueve o se para en ambos ejes
 	if (abs(ih().getAxisX()) > .1f)
@@ -58,10 +59,10 @@ void Player::handleInput()
 			for (auto i : game->getObjectManager()->getMueblesCollider(getOverlapCollider())) {
 				m = nearestObject(m, dynamic_cast<Mueble*>(i));
 			}
-			
+
 			//Si se ha encontrado un mueble, se intenta interactuar con 
 			//este con returnObject(), para que te devuelva el objeto
-			if (m != nullptr && m->returnObject(this)) 
+			if (m != nullptr && m->returnObject(this))
 			{
 				assert(pickedObject_ != nullptr);
 				pickedObject_->pickObject();
@@ -96,7 +97,7 @@ void Player::handleInput()
 				if (pickedObject_ != nullptr) {
 					pickedObject_->pickObject();
 				}
-			}			
+			}
 		}
 		//Si el jugador lleva algo encima
 		else {
@@ -129,7 +130,7 @@ void Player::handleInput()
 							return;
 						}
 					}
-				}			
+				}
 				break;
 			case PAELLA:
 				if (m != nullptr && m->receivePaella(dynamic_cast<Paella*>(pickedObject_))) {
@@ -171,7 +172,7 @@ void Player::update()
 	//Próxima posición
 	Vector2D<double> newPos = pos + vel;
 	SDL_Rect newRect = { newPos.getX() - getCollider().w / 2, newPos.getY() - getCollider().h / 2, getCollider().w, getCollider().h };
-	
+
 	auto colisionMuebles = game->getObjectManager()->getMueblesCollider(newRect);
 	for (auto i : colisionMuebles) {
 		//Si colisionamos con un mueble, le avisaremos y alejaremos al jugador
@@ -186,18 +187,18 @@ void Player::update()
 		int interseccionIz = (newPos.getX() + getCollider().w / 2) - c.x;
 		int interseccionDer = (newPos.getX() - getCollider().w / 2) - (c.x + c.w);
 		int interseccionX = abs(interseccionIz) < abs(interseccionDer) ? interseccionIz : interseccionDer;
-		
+
 		//Lo mismo por arriba y por abajo
 		int interseccionAr = (newPos.getY() + getCollider().h / 2) - c.y;
 		int interseccionAb = (newPos.getY() - getCollider().h / 2) - (c.y + c.h);
 		int interseccionY = abs(interseccionAr) < abs(interseccionAb) ? interseccionAr : interseccionAb;
-		
+
 		//Aplicamos la menor interseccion, que es la que tiene
 		if (abs(interseccionX) < abs(interseccionY))
 			newPos = newPos - Vector2D<double>(interseccionX, 0);
 		else
 			newPos = newPos - Vector2D<double>(0, interseccionY);
-			
+
 	}
 
 	//Nos movemos al nuevo sitio
@@ -248,7 +249,7 @@ bool Player::nearestObject(ObjetoPortable* go)
 	if (pickedObject_ == nullptr) {
 		pickedObject_ = go;
 		return true;
-	}	
+	}
 	else
 	{
 		Vector2D<double> pos = getPosition();
