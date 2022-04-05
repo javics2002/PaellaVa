@@ -21,7 +21,8 @@ class InputHandler : public Singleton<InputHandler> {
 	vector<bool> keyPressed;
 	vector<bool> lastKeyPressed;
 	vector<bool> mousePressed;
-
+	//char currentKey [1] ;
+	vector<char> currentKey;
 	std::pair<Sint32, Sint32> mousePos_;
 	const Uint8* kbState_;
 	const int CONTROLLER_DEAD_ZONE = 8000;
@@ -34,6 +35,7 @@ class InputHandler : public Singleton<InputHandler> {
 	InputHandler() {
 		kbState_ = SDL_GetKeyboardState(0);
 		initJoystick();
+		
 		keyPressed = vector<bool>(botones::UNKNOWN, false);
 		lastKeyPressed = vector<bool>(botones::UNKNOWN, false);
 		mousePressed = vector<bool>(3, false);
@@ -85,9 +87,14 @@ public:
 			switch (event.type) {
 			case SDL_KEYDOWN:
 				onKeyboardDown(event.key.keysym.scancode);
+				typeKey(event.key.keysym.sym);
+				cout << (char)event.key.keysym.sym;
+				
+				//currentKey = "*";
 				break;
 			case SDL_KEYUP:
 				onKeyboardUp(event.key.keysym.scancode);
+				
 				break;
 			case SDL_MOUSEMOTION:
 				onMouseMotion(event);
@@ -292,14 +299,33 @@ public:
 
 	bool getKey(Uint8 key)
 	{
+		cout<<SDL_GetKeyboardState(NULL)[key];
 		return SDL_GetKeyboardState(NULL)[key];
+
 	}
 
 	bool getKey(botones boton)
 	{
 		return keyPressed[boton] && !lastKeyPressed[boton];
 	}
-
+	void typeKey(SDL_Keycode key)
+	{
+		currentKey.push_back((char)key);
+		//return key;
+	}
+	char getTypedKey()
+	{
+		if (!currentKey.empty())
+		{
+			char c = currentKey[0];
+				currentKey.pop_back();
+			return c;
+		}
+		else
+			return' ';
+		
+	}
+	
 	bool getMouseButtonHeld() {
 		SDL_GetMouseState(&mx, &my);
 		return isMouseButtonHeldDown_;

@@ -62,6 +62,7 @@
     <ClCompile Include="Utils\Collider.cpp" />
     <ClCompile Include="GameObjects\Collider.cpp" />
     <ClCompile Include="GameObjects\Arroz.cpp" />
+    <ClCompile Include="Scenes\IntroduceIP.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
@@ -149,6 +150,7 @@
     <ClInclude Include="Scenes\HostClient.h" />
     <ClInclude Include="Utils\Collider.h" />
     <ClInclude Include="GameObjects\Arroz.h" />
+    <ClInclude Include="Scenes\IntroduceIP.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />
