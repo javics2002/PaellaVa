@@ -199,6 +199,7 @@
     <ClInclude Include="Data\Pool.h" />
     <ClInclude Include="GameObjects\PoolObject.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Scenes\IntroduceIP.h" />
     <ClInclude Include="Scenes\Menu.h" />
     <ClInclude Include="Scenes\Restaurante.h" />
     <ClInclude Include="GameObjects\Muebles\Silla.h" />
@@ -284,6 +285,7 @@
     <ClCompile Include="Scenes\GameOver.cpp" />
     <ClCompile Include="json\JSON.cpp" />
     <ClCompile Include="json\JSONValue.cpp" />
+    <ClCompile Include="Scenes\IntroduceIP.cpp" />
     <ClCompile Include="Scenes\Menu.cpp" />
     <ClCompile Include="Scenes\Restaurante.cpp" />
     <ClCompile Include="Scenes\Scene.cpp" />
