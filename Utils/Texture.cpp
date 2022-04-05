@@ -40,6 +40,7 @@ Texture::Texture(SDL_Renderer* renderer, const std::string& fileName) {
 	height_ = surface->h;
 	renderer_ = renderer;
 
+	SDL_FreeSurface(surface);
 }
 
 Texture::Texture(SDL_Renderer* renderer, const std::string& text,
@@ -82,4 +83,5 @@ void Texture::constructFromText(SDL_Renderer* renderer, const std::string& text,
 	height_ = textSurface->h;
 	renderer_ = renderer;
 
+	SDL_FreeSurface(textSurface);
 }
