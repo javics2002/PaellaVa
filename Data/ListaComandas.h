@@ -33,6 +33,7 @@ public:
 private:
 	int ancho =600;
 	int alto = 50;
+	int anchobotones = 25;
 	int cX = 0;
 	int cY = 0;
 	int desplazamineto = 0;

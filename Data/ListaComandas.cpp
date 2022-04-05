@@ -70,12 +70,15 @@ void ListaComandas::AñadeComanda(Comanda* comanda)
 		c->getPosition().setX(cX);
 		//c->setSitio();
 		c->setSitio(lista.insert(lista.begin(),c));
+		c->setColliderRect({ cX,cY,c->getWidth() / 2,c->getHeight() / 2 });
 		//c->setSitio(inicx/(1.5 * c->getWidth())-1); AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 		//c->setSitio(numcomandas);
 		//UIManager* u,Comanda* c, Game* game, string texturename, int x, int y, int w, int h
 		EliminaComandaButton* e = new EliminaComandaButton(uimt, c, game, "cancela", cX, cY + c->getHeight()/2, 25, 25);
 		//uimt->addInterfaz(e);
 		c->setEliminabutton(e);
+		c->getEliminabutton()->setColliderRect({ cX, cY + c->getHeight() / 2 ,anchobotones / 2,anchobotones / 2 });
+
 		numcomandas++;
 		//cX += 1.5 * c->getWidth();
 		auto ec = lista.end();
@@ -92,7 +95,9 @@ void ListaComandas::AñadeComanda(Comanda* comanda)
 				int dsp = nx - c->getPosition().getX();
 				c->desplazacomandas(dsp);//esta la paella anterior en el mismo  vector 
 				c->setPosition(nx, cY);
+				c->setColliderRect({ nx,cY,c->getWidth() / 2,c->getHeight() / 2 });
 				c->getEliminabutton()->setPosition(nx, cY + c->getHeight() / 2);
+				c->getEliminabutton()->setColliderRect({ nx, cY + c->getHeight() / 2 ,anchobotones / 2,anchobotones / 2 });
 
 			}
 		}
@@ -106,6 +111,7 @@ void ListaComandas::AñadeComanda(Comanda* comanda)
 		EliminaComandaButton* e = new EliminaComandaButton(uimt, c, game, "cancela", -500, cY + c->getHeight() / 2, 25, 25);
 	
 		c->setEliminabutton(e);
+		c->getEliminabutton()->setColliderRect({ -500, cY + c->getHeight() / 2 ,anchobotones / 2,anchobotones / 2 });
 		listanovisibles.push(c);
 	}
 }
@@ -163,6 +169,7 @@ void ListaComandas::finalizacomanda(Comanda* comanda)
 			c->desplazacomandas(dsp);//esta la paella anterior en el mismo  vector 
 			c->setPosition(nx, cY);
 			c->getEliminabutton()->setPosition(nx, cY + c->getHeight() / 2);
+			c->getEliminabutton()->setColliderRect({ nx, cY + c->getHeight() / 2 ,anchobotones / 2,anchobotones / 2 });
 		}
 	}
 	lista.erase( comanda->getSitio());

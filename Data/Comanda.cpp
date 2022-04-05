@@ -128,6 +128,7 @@ void Comanda::randomizaIconos()
 		posdis.erase(posdis.begin() + j);
 		if (posdis.size() > 0)
 			j = rand() % posdis.size();
+		i->setColliderRect({ (int)i->getX(),(int)i->getY(),anchobotones / 2,anchobotones / 2 });
 	}
 
 }
@@ -216,6 +217,7 @@ void Comanda::guardaTeclado()
 	//uimt->setPosTeclado(sangria);
 	postecladoini = sangria;
 	teclado = uiManager->getTeclado();
+	randomizaIconos();
 	//pero al inicial le falta la primera sangria y queda por encima de la primera linea de pedido D:
    // de momento voy a forzar una sangria aqui s tnego tiempo mirare una manera mejor xd
 }
