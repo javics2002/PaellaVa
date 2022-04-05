@@ -33,8 +33,6 @@ void Mesa::init(ObjectManager* objectManager)
 	}
 
 	nSillas = sillas.size();
-
-	cout << nSillas << endl;
 }
 
 bool Mesa::receiveGrupoClientes(GrupoClientes* gc)
@@ -64,7 +62,8 @@ bool Mesa::receiveGrupoClientes(GrupoClientes* gc)
 
 bool Mesa::receivePaella(Paella* paella)
 {
-	if (mGrupo != nullptr && mGrupo->paellasPedidas()) {
+	if (mGrupo != nullptr && paella->conArroz() && mGrupo->paellasPedidas()) {
+		paella->setState(Hecha);
 		paellas.push_back(paella);
 		paella->setPosition(getPosition());
 		paella->enLaMesa(true);
@@ -99,10 +98,6 @@ bool Mesa::colisionPlayer(Player* p)
 	if (mGrupo != nullptr)
 		mGrupo->decirPedidio();
 
-	//p->setPosition(p->getPosition() - Vector2D<double>(p->getOrientation().getX() * 2, p->getOrientation().getY() * 2));
-	//p->setVel(0, 0);
-	//p->setVel(p->getVel() - p->getOrientation());
-
 	return false;
 }
 
@@ -111,16 +106,6 @@ void Mesa::clienteSeVa()
 	mGrupo = nullptr;
 }
 
-
-void Mesa::cambiaTexturaPaellas(string clave,Contenido contenido)
-{
-	for (auto i : paellas) {
-		i->setContenido(contenido);
-		i->setTexture(clave);
-		if (contenido == Sucia)
-			i->setEnsuciada();
-	}
-}
 
 vector<Paella*> Mesa::getPaellasEntregadas()
 {
@@ -131,6 +116,12 @@ vector<Paella*> Mesa::getPaellasEntregadas()
 	}
 
 	return v;
+}
+
+void Mesa::comerPaellas() {
+	for (auto i : paellas) {
+		i->comerPaella();
+	}
 }
 
 

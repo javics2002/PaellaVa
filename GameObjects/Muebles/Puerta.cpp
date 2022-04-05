@@ -13,8 +13,6 @@ void Puerta::update()
 
 		int integrantes = 1 + rand() % MAX_TAM;
 
-		cout << integrantes << endl;
-
 		if (cola->esValido(integrantes)) {
 			vector<Cliente*> v;
 

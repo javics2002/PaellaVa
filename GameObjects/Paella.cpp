@@ -44,8 +44,9 @@ void Paella::anadeArroz(Arroz* arroz)
 	if (!mArroz) {
 		//Añadimos arroz a la paella
 		mArroz = true;
+		estadoCoccion = Cruda;
 		setContenido(Entera);
-		setTexture("paella");
+		setTexture("paellaCruda");
 		arroz->deactivate();
 	}
 }
@@ -56,8 +57,10 @@ void Paella::setState(EstadoPaellas estado_)
 	mTiempo = sdlutils().currRealTime();
 
 	//Sonido
-	if (estado == Coccion)
+	if (estado == Coccion) {
+		initCocTime = sdlutils().virtualTimer().currTime();
 		canalSonido = sdlutils().soundEffects().at("paella").play(-1);
+	}	
 	else
 		sdlutils().soundEffects().at("paella").haltChannel(canalSonido);
 }
@@ -70,35 +73,20 @@ void Paella::paellaRecogida()
 void Paella::update()
 {
 	setColliderRect({ (int)getX(), (int)getY(), w, h });
+
 	switch (estado)
 	{
 	case Preparacion:
-		//Setear textura de preparacion
-		//setState(Coccion);
 		break;
 	case Coccion:
+		if (estadoCoccion < tiemposDeCoccion.size() && sdlutils().virtualTimer().currTime() - initCocTime >= tiemposDeCoccion[estadoCoccion]) {
 
-		//Setear textura dependiendo del estado de la paella
-
-		if (i < tiemposDeCoccion.size()) {
-
-			auto t = sdlutils().currRealTime() - mTiempo;
-
-			if (t > tiemposDeCoccion[i] - mTiempoCoccion) {
-				mTiempoCoccion = tiemposDeCoccion[i];
-				mTiempo = sdlutils().currRealTime();
-				i++;
-				estadoFinal = Resultado(i);
-			}
+			estadoCoccion++;
+			cout << estadoCoccion << endl;
+			setTexture(coccionTex[estadoCoccion]);		
 		}
-
-		else setState(Preparada);
-
 		break;
-	case Preparada:
-
-		//Setear textura de preparada
-		contenido = Entera;
+	case Hecha:
 		break;
 	}
 }
@@ -111,7 +99,7 @@ void Paella::setLavado(Contenido contenidoPaella, string texturaPaella)
 
 void Paella::onObjectPicked()
 {
-	if (estado == Coccion) setState(Preparada);
+	if (estado == Coccion) setState(Hecha);
 }
 
 void Paella::onObjectDropped()
@@ -141,17 +129,19 @@ vector<bool> Paella::getIngrPaella()
 {
 	return ingrEnPaella;
 }
-Resultado Paella::getResultado()
-{
-	return estadoFinal;
-}
+
 TipoPaella Paella::getTipo()
 {
 	return miTipo;
 }
-Contenido Paella::getContenido()
+int Paella::getContenido()
 {
 	return contenido;
+}
+
+int Paella::getCoccoin()
+{
+	return estadoCoccion;
 }
 
 void Paella::setEnsuciada()
@@ -176,4 +166,31 @@ bool Paella::ingrValido(Ingrediente* ingr)
 EstadoPaellas Paella::getState()
 {
 	return estado;
+}
+
+void Paella::comerPaella()
+{
+	contenido++;
+
+	if (contenido == Mitad) 
+		setTexture(coccionTex[estadoCoccion] + "Media");
+	else setTexture("paellaSucia");
+}
+
+void Paella::render(SDL_Rect* cameraRect)
+{
+	drawRender(cameraRect);
+
+
+	if (contenido == Entera) {
+		for (auto i : ingredientes) {
+			drawRender(cameraRect, getTexCollider(), &sdlutils().images().at(texturaIngrediente[i] + "C"));
+		}
+	}
+	else if (contenido == Mitad) {
+		for (auto i : ingredientes) {
+			drawRender(cameraRect, getTexCollider(), &sdlutils().images().at(texturaIngrediente[i] + "M"));
+		}
+	}
+	
 }

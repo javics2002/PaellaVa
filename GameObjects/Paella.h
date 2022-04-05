@@ -5,7 +5,8 @@
 #include <list>
 
 
-enum EstadoPaellas { Preparacion, Coccion, Preparada };
+
+enum EstadoPaellas { Preparacion, Coccion, Hecha };
 enum Resultado { Cruda, PocoHecha, Perfecta, MuyHecha, Quemada, Incomestible };
 enum Contenido { Limpia, Entera, Mitad, Sucia };
 enum TipoPaella { Minima, Mediana, Grande };
@@ -25,13 +26,12 @@ public:
 	void anadeIngr(Ingrediente* ingr_);
 	void anadeArroz(Arroz* arroz);
 
-	void setState(EstadoPaellas estado_);
 	void paellaRecogida();
 	void update() override;
 	void setLavado(Contenido contenidoPaella,string texturaPaella);
 
 	void setEnsuciada();
-	void setContenido(Contenido contenidoP);
+	
 
 	void onObjectPicked() override;
 	void onObjectDropped() override;
@@ -44,11 +44,24 @@ public:
 	vector<bool> getIngrPaella();
 
 	EstadoPaellas getState();
+	void setState(EstadoPaellas estado);
+
+	int getContenido();
+	void setContenido(Contenido contenidoP);
+
+
 	TipoPaella getTipo();
-	Contenido getContenido();
-	Resultado getResultado();
+	
+	int getCoccoin();
+
+	void comerPaella();
+
+	void render(SDL_Rect* cameraRect);
 
 private:
+	vector<string> coccionTex = { "paellaCruda", "paella", "paella", "paella", "paellaQuemada", "paellaQuemada" };
+	vector<int> tiemposDeCoccion = { 3000, 6000, 9000, 12000, 15000 };
+
 	const int MAX_INGR = 3;
 	double mTiempoCoccion = 0.0, mTiempo = 0.0;
 	int mSumaIntervalo = 0, i = 0;
@@ -56,12 +69,13 @@ private:
 	bool mArroz = false;
 
 	EstadoPaellas estado = Preparacion;
-	Resultado estadoFinal = Cruda;
-	Contenido contenido = Limpia;
+	int estadoCoccion = 0;
+	int contenido = Limpia;
 
 	TipoPaella miTipo;
 
-	vector<int> tiemposDeCoccion = { 14000, 20000, 25000, 28000, 33000, 38000 };
+	
+	int initCocTime = 0;
 
 	list<tipoIngrediente> ingredientes;
 

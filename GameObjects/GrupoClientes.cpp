@@ -26,6 +26,9 @@ GrupoClientes::GrupoClientes(Game* game) : PoolObject(game), pedido(nullptr), co
 	orderStart = true;
 	itemNow = 0;
 	lastTimePed = 0;
+
+	comidoMitad = false;
+	lastTimeComido = 0;
 }
 
 void GrupoClientes::initGrupo(Cola* cola_, vector<Cliente*> clientes_)
@@ -73,12 +76,12 @@ void GrupoClientes::update()
 
 	else if (estado_ == COMIENDO) {
 
-		if (sdlutils().virtualTimer().currTime() - lastTimeComido >= TIEMPO_COMIDA/2) {
-			mesa->cambiaTexturaPaellas("paellaMedia",Contenido::Mitad);
+		if (!comidoMitad && sdlutils().virtualTimer().currTime() - lastTimeComido >= TIEMPO_COMIDA / 2) {
+			mesa->comerPaellas();
+			comidoMitad = true;
 		}
-
-		if (sdlutils().virtualTimer().currTime() - lastTimeComido >= TIEMPO_COMIDA) {
-			mesa->cambiaTexturaPaellas("paellaSucia",Contenido::Sucia);
+		else if (sdlutils().virtualTimer().currTime() - lastTimeComido >= TIEMPO_COMIDA) {
+			mesa->comerPaellas();
 			estado_ = CUENTA;
 		}
 	}

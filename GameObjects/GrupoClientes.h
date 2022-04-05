@@ -40,7 +40,7 @@ class GrupoClientes : public PoolObject
 	Mesa* mesa;
 
 	float lastTimePed;
-	float lastTimeComido;
+	
 	int itemNow;
 	bool showPed;
 	bool orderStart;
@@ -48,6 +48,9 @@ class GrupoClientes : public PoolObject
 	vector<string> texPedido;
 	
 	const float PED_DELAY = 2000;
+
+	float lastTimeComido;
+	bool comidoMitad;
 	const float TIEMPO_COMIDA = 5000;
 
 	EstadoClientes estado_;

@@ -12,7 +12,9 @@ Fogon::Fogon(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 2 
 bool Fogon::receivePaella(Paella* pa)
 {
 	//Si ya tiene objeto, no recoge objeto
-	if (paella_ == nullptr && pa->getContenido()==Entera)
+	if (paella_ == nullptr 
+		&& pa->getState() == Preparacion
+			&& pa->conArroz())
 	{
 		paella_ = pa;
 
@@ -34,6 +36,8 @@ bool Fogon::returnObject(Player* p)
 {
 	if (paella_ != nullptr)
 	{
+		paella_->setState(Hecha);
+
 		p->setPickedObject(paella_, PAELLA);
 
 		paella_ = nullptr;

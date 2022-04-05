@@ -355,7 +355,15 @@
     },
     {
       "id": "paellaMedia",
-      "file": "../../../Assets/Images/Paellas/mitadPaella.png"
+      "file": "../../../Assets/Images/Paellas/paellaMitad.png"
+    },
+    {
+      "id": "paellaCruda",
+      "file": "../../../Assets/Images/Paellas/paellaCruda.png"
+    },
+    {
+      "id": "paellaQuemada",
+      "file": "../../../Assets/Images/Paellas/paellaQuemada.png"
     },
     {
       "id": "paellaLimpia",
@@ -366,75 +374,75 @@
       "file": "../../../Assets/Images/Paellas/paellaSucia.png"
     },
     {
-      "id": "completoAlcachofa",
+      "id": "alcachofaC",
       "file": "../../../Assets/Images/Paellas/completoAlcachofa.png"
     },
     {
-      "id": "completoCalamar",
+      "id": "calamarC",
       "file": "../../../Assets/Images/Paellas/completoCalamar.png"
     },
     {
-      "id": "completoCangrejo",
+      "id": "cangrejoC",
       "file": "../../../Assets/Images/Paellas/completoCangrejo.png"
     },
     {
-      "id": "completoGamba",
+      "id": "gambaC",
       "file": "../../../Assets/Images/Paellas/completoGamba.png"
     },
     {
-      "id": "completoLangosta",
+      "id": "langostaL",
       "file": "../../../Assets/Images/Paellas/completoLangosta.png"
     },
     {
-      "id": "completoMejillon",
+      "id": "mejillonC",
       "file": "../../../Assets/Images/Paellas/completoMejillon.png"
     },
     {
-      "id": "completoPimientoRojo",
+      "id": "pimientoRojoC",
       "file": "../../../Assets/Images/Paellas/completoPimientoRojo.png"
     },
     {
-      "id": "completoPimientoVerde",
+      "id": "pimientoVerdeC",
       "file": "../../../Assets/Images/Paellas/completoPimientoVerde.png"
     },
     {
-      "id": "completoPollo",
+      "id": "polloC",
       "file": "../../../Assets/Images/Paellas/completoPollo.png"
     },
     {
-      "id": "mitadAlcachofa",
+      "id": "alcachofaM",
       "file": "../../../Assets/Images/Paellas/mitadAlcachofa.png"
     },
     {
-      "id": "mitadCalamar",
+      "id": "calamarM",
       "file": "../../../Assets/Images/Paellas/mitadCalamar.png"
     },
     {
-      "id": "mitadCangrejo",
+      "id": "cangrejoM",
       "file": "../../../Assets/Images/Paellas/mitadCangrejo.png"
     },
     {
-      "id": "mitadGamba",
+      "id": "gambaM",
       "file": "../../../Assets/Images/Paellas/mitadGamba.png"
     },
     {
-      "id": "mitadLangosta",
+      "id": "langostaM",
       "file": "../../../Assets/Images/Paellas/mitadLangosta.png"
     },
     {
-      "id": "mitadMejillon",
+      "id": "mejillonM",
       "file": "../../../Assets/Images/Paellas/mitadMejillon.png"
     },
     {
-      "id": "mitadPimientoRojo",
+      "id": "pimientoRojoM",
       "file": "../../../Assets/Images/Paellas/mitadPimientoRojo.png"
     },
     {
-      "id": "mitadPimientoVerde",
+      "id": "pimientoVerdeM",
       "file": "../../../Assets/Images/Paellas/mitadPimientoVerde.png"
     },
     {
-      "id": "mitadPollo",
+      "id": "polloM",
       "file": "../../../Assets/Images/Paellas/mitadPollo.png"
     },
     {

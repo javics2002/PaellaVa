@@ -35,7 +35,7 @@ public:
 
 	vector<Paella*> getPaellasEntregadas();
 
-	void cambiaTexturaPaellas(string clave, Contenido contenido);
+	void comerPaellas();
 
 };
 
