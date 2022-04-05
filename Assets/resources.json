@@ -474,6 +474,22 @@
       "file": "../../../Assets/Images/Paellas/paellaBienHecha.png"
     },
     {
+      "id": "paellaPocoHechaMitad",
+      "file": "../../../Assets/Images/Paellas/paellaPocoHechaMitad.png"
+    },
+    {
+      "id": "paellaPocoHecha",
+      "file": "../../../Assets/Images/Paellas/paellaPocoHecha.png"
+    },
+    {
+      "id": "paellaMuyHechaMitad",
+      "file": "../../../Assets/Images/Paellas/paellaMuyHechaMitad.png"
+    },
+    {
+      "id": "paellaMuyHecha",
+      "file": "../../../Assets/Images/Paellas/paellaMuyHecha.png"
+    },
+    {
       "id": "paellaIncomestibleMitad",
       "file": "../../../Assets/Images/Paellas/paellaIncomestibleMitad.png"
     },
@@ -590,7 +606,6 @@
       "font": "abadi",
       "color": "0x000000"
     },
-
     {
       "id": "3stars1",
       "text": "El arroz muy normalito.. Con ese nombre deberian ofrecer un arroz mucho mejor",
