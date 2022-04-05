@@ -456,6 +456,30 @@
     {
       "id": "fondoOpc",
       "file": "../../../Assets/Images/settingsPant.png"
+    },
+    {
+      "id": "paellaCrudaMitad",
+      "file": "../../../Assets/Images/Paellas/paellaCrudaMitad.png"
+    },
+    {
+      "id": "paellaQuemadaMitad",
+      "file": "../../../Assets/Images/Paellas/paellaQuemadaMitad.png"
+    },
+    {
+      "id": "paellaBienHechaMitad",
+      "file": "../../../Assets/Images/Paellas/paellaBienHechaMitad.png"
+    },
+    {
+      "id": "paellaBienHecha",
+      "file": "../../../Assets/Images/Paellas/paellaBienHecha.png"
+    },
+    {
+      "id": "paellaIncomestibleMitad",
+      "file": "../../../Assets/Images/Paellas/paellaIncomestibleMitad.png"
+    },
+    {
+      "id": "paellaIncomestible",
+      "file": "../../../Assets/Images/Paellas/paellaIncomestible.png"
     }
 
   ],
