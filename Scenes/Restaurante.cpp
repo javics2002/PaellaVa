@@ -37,10 +37,6 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 
 	uiManager->creaMenuPausa();
 
-	//objectManager->addPaella(new Paella(game, TipoPaella::Minima));
-	//objectManager->addPaella(new Paella(game, TipoPaella::Minima));
-	//objectManager->addPaella(new Paella(game, TipoPaella::Minima));
-
 	uiManager->addInterfaz(new Reloj(game));
 
 	objectManager->initMuebles();

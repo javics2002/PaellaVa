@@ -59,7 +59,7 @@ public:
 	void render(SDL_Rect* cameraRect);
 
 private:
-	vector<string> coccionTex = { "paellaCruda", "paella", "paella", "paella", "paellaQuemada", "paellaQuemada" };
+	vector<string> coccionTex = { "paellaCruda", "paellaPocoHecha", "paella", "paellaMuyHecha", "paellaQuemada", "paellaIncomestible" };
 	vector<int> tiemposDeCoccion = { 3000, 6000, 9000, 12000, 15000 };
 
 	const int MAX_INGR = 3;

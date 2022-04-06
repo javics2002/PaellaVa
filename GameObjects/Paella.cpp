@@ -173,8 +173,11 @@ void Paella::comerPaella()
 	contenido++;
 
 	if (contenido == Mitad) 
-		setTexture(coccionTex[estadoCoccion] + "Media");
-	else setTexture("paellaSucia");
+		setTexture(coccionTex[estadoCoccion] + "Mitad");
+	else {
+		setTexture("paellaSucia");
+		mArroz = false;
+	}
 }
 
 void Paella::render(SDL_Rect* cameraRect)
