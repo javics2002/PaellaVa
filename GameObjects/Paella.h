@@ -18,7 +18,7 @@ class Paella : public ObjetoPortable
 {	
 public:
 	
-	Paella(Game* game, TipoPaella volumen_);
+	Paella(Game* game, int volumen_);
 	
 	~Paella() {};
 
@@ -50,7 +50,7 @@ public:
 	void setContenido(Contenido contenidoP);
 
 
-	TipoPaella getTipo();
+	int getTipo();
 	
 	int getCoccoin();
 
@@ -72,7 +72,7 @@ private:
 	int estadoCoccion = 0;
 	int contenido = Limpia;
 
-	TipoPaella miTipo;
+	int miTipo;
 
 	
 	int initCocTime = 0;

@@ -237,8 +237,8 @@ void Player::update()
 	}
 
 	if (pickedObject_ != nullptr) {
-		if (pickedObject_->isPicked())
-			pickedObject_->setPosition(getX(), getY() - getHeight() / 2);
+		if (pickedObject_->isPicked()) 
+			pickedObject_->setPosition(getX(), getY() - getHeight() / 2);			
 		else
 			pickedObject_ = nullptr;
 	}

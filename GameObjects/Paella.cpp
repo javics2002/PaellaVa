@@ -4,9 +4,9 @@
 #include "Arroz.h"
 #include <map>
 
-Paella::Paella(Game* game, TipoPaella tipo) : ObjetoPortable(game), miTipo(tipo)
+Paella::Paella(Game* game, int tipo) : ObjetoPortable(game), miTipo(tipo)
 {
-	setPosition(1500, 200);
+	//setPosition(1500, 200);
 	setDimension(50, 50);
 	setColliderRect({ (int)getX(), (int)getY(), w, h });
 
@@ -21,6 +21,8 @@ Paella::Paella(Game* game, TipoPaella tipo) : ObjetoPortable(game), miTipo(tipo)
 	default:
 		break;
 	}
+
+	
 
 	setTexture("paellaLimpia");
 
@@ -80,9 +82,7 @@ void Paella::update()
 		break;
 	case Coccion:
 		if (estadoCoccion < tiemposDeCoccion.size() && sdlutils().virtualTimer().currTime() - initCocTime >= tiemposDeCoccion[estadoCoccion]) {
-
 			estadoCoccion++;
-			cout << estadoCoccion << endl;
 			setTexture(coccionTex[estadoCoccion]);		
 		}
 		break;
@@ -130,7 +130,7 @@ vector<bool> Paella::getIngrPaella()
 	return ingrEnPaella;
 }
 
-TipoPaella Paella::getTipo()
+int Paella::getTipo()
 {
 	return miTipo;
 }

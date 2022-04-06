@@ -9,7 +9,7 @@
 #include "../GameObjects/Ingrediente.h"
 #include "../Scenes/Restaurante.h"
 
-ObjectManager::ObjectManager(Game* game)
+ObjectManager::ObjectManager(Game* game) : game(game)
 {
 	ingredientes = new Pool<Ingrediente>(game, 50);
 	clientes = new Pool<Cliente>(game, 50);
@@ -39,8 +39,10 @@ void ObjectManager::render(SDL_Rect* rect)
 	for (auto i : renderAll)
 		i->render(rect);
 
-	for (auto i : paellas)
+	for (auto i : paellas) {
 		i->render(rect);
+	}
+		
 	
 	ingredientes->render(rect);
 
@@ -78,6 +80,8 @@ void ObjectManager::update()
 	for (auto i : renderAll) 
 		i->update();
 
+	cout << paellas.size() << endl;
+
 	for (auto i : paellas)
 		i->update();
 
@@ -110,9 +114,13 @@ void ObjectManager::addPlayer(Player* player)
 	renderAll.push_back(player);
 }
 
-void ObjectManager::addPaella(GameObject* paella)
+Paella* ObjectManager::addPaella(int n)
 {
-	paellas.push_back(paella);
+	Paella* p = new Paella(game, n);
+
+	paellas.push_back(p);
+
+	return p;
 }
 
 vector<Collider*> ObjectManager::getMueblesCollider()

@@ -88,9 +88,6 @@ public:
 			case SDL_KEYDOWN:
 				onKeyboardDown(event.key.keysym.scancode);
 				typeKey(event.key.keysym.sym);
-				cout << (char)event.key.keysym.sym;
-				
-				//currentKey = "*";
 				break;
 			case SDL_KEYUP:
 				onKeyboardUp(event.key.keysym.scancode);

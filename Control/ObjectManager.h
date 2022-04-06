@@ -32,6 +32,8 @@ class ObjectManager
 	//Para formar el rect del raton
 	int x = 0, y = 0, range = 2;
 
+	Game* game;
+
 public:
 	ObjectManager(Game* game);
 	~ObjectManager();
@@ -43,7 +45,7 @@ public:
 	void debug(SDL_Rect* rect);
 
 	void addMueble(GameObject* mueble);
-	void addPaella(GameObject *paella);
+	Paella* addPaella(int n);
 
 	void addPlayer(Player* player);
 

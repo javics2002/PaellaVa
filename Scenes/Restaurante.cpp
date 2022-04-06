@@ -3,6 +3,7 @@
 #include "../GameObjects/Player.h"
 #include "../GameObjects/Paella.h"
 #include "../GameObjects/Ingrediente.h"
+#include "../GameObjects/Muebles/Pila.h"
 #include "../GameObjects/Muebles/MueblesInclude.h"
 #include  "../GameObjects/UI/RedactaComandabutton.h"
 #include "../sdlutils/SDLUtils.h"
@@ -36,9 +37,9 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 
 	uiManager->creaMenuPausa();
 
-	objectManager->addPaella(new Paella(game, TipoPaella::Minima));
-	objectManager->addPaella(new Paella(game, TipoPaella::Minima));
-	objectManager->addPaella(new Paella(game, TipoPaella::Minima));
+	//objectManager->addPaella(new Paella(game, TipoPaella::Minima));
+	//objectManager->addPaella(new Paella(game, TipoPaella::Minima));
+	//objectManager->addPaella(new Paella(game, TipoPaella::Minima));
 
 	uiManager->addInterfaz(new Reloj(game));
 
@@ -354,6 +355,24 @@ void Restaurante::loadMap(string const& path) {
 					Pared* p = new Pared(game, position);
 					p->setDepth(-5);
 					getObjectManager()->addMueble(p);
+				}
+				else if (name == "pilaS")
+				{
+					Pila* p = new Pila(game, position, TipoPaella::Minima, 4);
+					p->setDepth(1);
+					getObjectManager()->addMueble(p);
+				}
+				else if (name == "pilaM")
+				{
+				Pila* p = new Pila(game, position, TipoPaella::Mediana, 5);
+				p->setDepth(1);
+				getObjectManager()->addMueble(p);
+				}
+				else if (name == "pilaL")
+				{
+				Pila* p = new Pila(game, position, TipoPaella::Grande, 3);
+				p->setDepth(1);
+				getObjectManager()->addMueble(p);
 				}
 			}
 		}
