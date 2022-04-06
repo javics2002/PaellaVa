@@ -6,24 +6,25 @@
 
 Paella::Paella(Game* game, int tipo) : ObjetoPortable(game), miTipo(tipo)
 {
-	//setPosition(1500, 200);
-	setDimension(50, 50);
-	setColliderRect({ (int)getX(), (int)getY(), w, h });
 
 	switch (miTipo)
 	{
+	case Pequena:
+		setDimension(40, 40);
+		break;
 	case Mediana:
+		setDimension(55, 55);
 		mSumaIntervalo = 5000;
 		break;
 	case Grande:
+		setDimension(70, 70);
 		mSumaIntervalo = 10000;
 		break;
 	default:
 		break;
 	}
 
-	
-
+	setColliderRect({ (int)getX(), (int)getY(), w, h });
 	setTexture("paellaLimpia");
 
 	ingrEnPaella = vector<bool>(tipoIngrediente::LAST, false);
@@ -173,8 +174,11 @@ void Paella::comerPaella()
 	contenido++;
 
 	if (contenido == Mitad) 
-		setTexture(coccionTex[estadoCoccion] + "Media");
-	else setTexture("paellaSucia");
+		setTexture(coccionTex[estadoCoccion] + "Mitad");
+	else {
+		setTexture("paellaSucia");
+		mArroz = false;
+	}
 }
 
 void Paella::render(SDL_Rect* cameraRect)

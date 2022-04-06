@@ -357,22 +357,59 @@
       "id": "arroz",
       "file": "../../../Assets/Images/Ingredientes/arroz.png"
     },
-    {
-      "id": "paella",
-      "file": "../../../Assets/Images/Paellas/paellaCompleta.png"
-    },
-    {
-      "id": "paellaMedia",
-      "file": "../../../Assets/Images/Paellas/paellaMitad.png"
-    },
+
+    
+
     {
       "id": "paellaCruda",
       "file": "../../../Assets/Images/Paellas/paellaCruda.png"
     },
     {
+      "id": "paellaPocoHecha",
+      "file": "../../../Assets/Images/Paellas/paellaPocoHecha.png"
+    },
+    {
+      "id": "paella",
+      "file": "../../../Assets/Images/Paellas/paellaCompleta.png"
+    },
+    {
+      "id": "paellaMuyHecha",
+      "file": "../../../Assets/Images/Paellas/paellaMuyHecha.png"
+    },
+    {
       "id": "paellaQuemada",
       "file": "../../../Assets/Images/Paellas/paellaQuemada.png"
     },
+    {
+      "id": "paellaIncomestible",
+      "file": "../../../Assets/Images/Paellas/paellaIncomestible.png"
+    },
+
+    {
+      "id": "paellaCrudaMitad",
+      "file": "../../../Assets/Images/Paellas/paellaCrudaMitad.png"
+    },
+    {
+      "id": "paellaPocoHechaMitad",
+      "file": "../../../Assets/Images/Paellas/paellaPocoHechaMitad.png"
+    },
+    {
+      "id": "paellaMitad",
+      "file": "../../../Assets/Images/Paellas/paellaMitad.png"
+    },
+    {
+      "id": "paellaMuyHechaMitad",
+      "file": "../../../Assets/Images/Paellas/paellaMuyHechaMitad.png"
+    },
+    {
+      "id": "paellaQuemadaMitad",
+      "file": "../../../Assets/Images/Paellas/paellaQuemadaMitad.png"
+    },
+    {
+      "id": "paellaIncomestibleMitad",
+      "file": "../../../Assets/Images/Paellas/paellaIncomestibleMitad.png"
+    },
+
     {
       "id": "paellaLimpia",
       "file": "../../../Assets/Images/Paellas/paellaVacia.png"
@@ -381,6 +418,15 @@
       "id": "paellaSucia",
       "file": "../../../Assets/Images/Paellas/paellaSucia.png"
     },
+    
+    
+    
+    
+    
+
+
+    
+    
     {
       "id": "alcachofaC",
       "file": "../../../Assets/Images/Paellas/completoAlcachofa.png"
@@ -464,47 +510,8 @@
     {
       "id": "fondoOpc",
       "file": "../../../Assets/Images/settingsPant.png"
-    },
-    {
-      "id": "paellaCrudaMitad",
-      "file": "../../../Assets/Images/Paellas/paellaCrudaMitad.png"
-    },
-    {
-      "id": "paellaQuemadaMitad",
-      "file": "../../../Assets/Images/Paellas/paellaQuemadaMitad.png"
-    },
-    {
-      "id": "paellaBienHechaMitad",
-      "file": "../../../Assets/Images/Paellas/paellaBienHechaMitad.png"
-    },
-    {
-      "id": "paellaBienHecha",
-      "file": "../../../Assets/Images/Paellas/paellaBienHecha.png"
-    },
-    {
-      "id": "paellaPocoHechaMitad",
-      "file": "../../../Assets/Images/Paellas/paellaPocoHechaMitad.png"
-    },
-    {
-      "id": "paellaPocoHecha",
-      "file": "../../../Assets/Images/Paellas/paellaPocoHecha.png"
-    },
-    {
-      "id": "paellaMuyHechaMitad",
-      "file": "../../../Assets/Images/Paellas/paellaMuyHechaMitad.png"
-    },
-    {
-      "id": "paellaMuyHecha",
-      "file": "../../../Assets/Images/Paellas/paellaMuyHecha.png"
-    },
-    {
-      "id": "paellaIncomestibleMitad",
-      "file": "../../../Assets/Images/Paellas/paellaIncomestibleMitad.png"
-    },
-    {
-      "id": "paellaIncomestible",
-      "file": "../../../Assets/Images/Paellas/paellaIncomestible.png"
     }
+   
 
   ],
 

@@ -80,8 +80,6 @@ void ObjectManager::update()
 	for (auto i : renderAll) 
 		i->update();
 
-	cout << paellas.size() << endl;
-
 	for (auto i : paellas)
 		i->update();
 
