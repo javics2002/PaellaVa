@@ -24,7 +24,6 @@ overlapPos(Vector2D<double>(getX() - overlapPos.getX() / 2, getY() - getHeight()
 	maxVel = 7;
 
 	setTexture("player");
-	setColliderRect({ (int)getX(), (int)getY() + 2 * h / 3, 2 * w / 3, h / 3});
 }
 
 Player::~Player()
@@ -33,8 +32,6 @@ Player::~Player()
 
 void Player::handleInput()
 {
-	setColliderRect({ (int)getX(), (int)getY() + 2*h / 5, w / 2, h / 5 });
-
 	//El jugador se mueve o se para en ambos ejes
 	if (abs(ih().getAxisX()) > .1f)
 		vel.setX(vel.getX() + ih().getAxisX() * aceleracion);
@@ -344,6 +341,16 @@ void Player::setPickedObject(ObjetoPortable* op, objectType ot)
 {
 	pickedObject_ = op;
 	objectType_ = ot;
+}
+
+SDL_Rect Player::getCollider()
+{
+
+	SDL_Rect rect = getTexBox();
+
+	return { rect.x, rect.y, rect.w / 2, rect.h / 2
+
+	};
 }
 
 

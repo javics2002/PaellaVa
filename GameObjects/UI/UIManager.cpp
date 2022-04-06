@@ -460,7 +460,6 @@ void UIManager::creaMenuOpciones()
 		if (newPos >= extremoIzq && newPos <= extremoDer) {
 
 			slideMusica->setPosition(ih().getmx(), slideMusica->getY());
-			slideMusica->setColliderRect({ (int)slideMusica->getX() , (int)slideMusica->getY() , 80, 80 });
 		}
 
 		volumenMusica = (slideMusica->getX() - slideMusica->getWidth() - extremoIzq) / barraVol_musica->getWidth() * 128;
@@ -487,7 +486,6 @@ void UIManager::creaMenuOpciones()
 		if (newPos >= extremoIzq && newPos <= extremoDer) {
 
 			slideSonido->setPosition(ih().getmx(), slideSonido->getY());
-			slideSonido->setColliderRect({ (int)slideSonido->getX() , (int)slideSonido->getY() , 80, 80 });
 		}
 
 		volumenSonido = (slideSonido->getX() - slideSonido->getWidth() - extremoIzq) / barraVol_sonido->getWidth() * 128;

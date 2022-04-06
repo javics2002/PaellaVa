@@ -10,7 +10,6 @@ Mesa::Mesa(Game* game, Vector2D<double> pos, Vector2D<int> dim, string texture)
 
 	setPosition((int)getX(), (int)getY() + h / 8);
 
-	setColliderRect({ (int)getX(), (int)getY() - 3*h/8, w, 4* h / 5 });
 
 	mGrupo = nullptr;
 
@@ -52,7 +51,6 @@ bool Mesa::receiveGrupoClientes(GrupoClientes* gc)
 			for (int i = 0; i < n; i++) {
 				auto p = sillas[i]->getPosition();
 				clientes[i]->setPosition(p);
-				clientes[i]->setColliderRect({ (int)p.getX(), (int)p.getY(), clientes[i]->getWidth(), clientes[i]->getHeight() });
 			}
 			return true;
 		}		

@@ -16,21 +16,6 @@ void GameObject::setDimension(int width, int height)
 {
 	w = width;
 	h = height;
-	setColliderRect({ (int)getX(), (int)getY(), w, h });
-}
-
-
-void GameObject::setDimension() //pone la dimension al tama�o de la textura
-{
-	if (texture != nullptr) {
-		w = texture->width();
-		h = texture->height();
-
-		setColliderRect({ (int)getX(), (int)getY(), w, h });
-	}
-
-	setColliderRect({ (int)getX(), (int)getY(), w, h });
-	
 }
 
 void GameObject::setInitialDimension(int width, int height)
@@ -52,13 +37,25 @@ void GameObject::setTexture(const string text, const string font, const SDL_Colo
 	texture = &sdlutils().messages().at(text);
 }
 
+void GameObject::setDimension() //pone la dimension al tama�o de la textura
+{
+	if (texture != nullptr) {
+		w = texture->width();
+		h = texture->height();
+	}
+}
 
-SDL_Rect GameObject::getTexCollider()
+SDL_Rect GameObject::getTexBox()
 {
 	return { int(getX() - getWidth() / 2),
 			 int(getY() - getHeight() / 2),
 			  (getWidth()),
 			  (getHeight()) };
+}
+
+SDL_Rect GameObject::getCollider()
+{
+	return getTexBox();
 }
 
 SDL_Rect GameObject::getCenter()
@@ -82,7 +79,7 @@ void GameObject::render(SDL_Rect* cameraRect)
 
 void GameObject::drawRender(SDL_Rect* cameraRect)
 {
-	SDL_Rect c = getTexCollider();
+	SDL_Rect c = getTexBox();
 	SDL_Rect textureBox;
 
 	if (cameraRect != nullptr) {
@@ -111,7 +108,7 @@ void GameObject::drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex, S
 
 void GameObject::drawDebug(SDL_Rect* cameraRect)
 {
-	SDL_Rect collider = getTexCollider();
+	SDL_Rect collider = getTexBox();
 	SDL_Rect center = getCenter();
 	collider = { collider.x - cameraRect->x, collider.y - cameraRect->y, collider.w, collider.h };
 	center = { center.x - cameraRect->x, center.y - cameraRect->y, center.w, center.h };

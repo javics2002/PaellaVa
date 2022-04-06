@@ -24,7 +24,6 @@ Paella::Paella(Game* game, int tipo) : ObjetoPortable(game), miTipo(tipo)
 		break;
 	}
 
-	setColliderRect({ (int)getX(), (int)getY(), w, h });
 	setTexture("paellaLimpia");
 
 	ingrEnPaella = vector<bool>(tipoIngrediente::LAST, false);
@@ -75,8 +74,6 @@ void Paella::paellaRecogida()
 
 void Paella::update()
 {
-	setColliderRect({ (int)getX(), (int)getY(), w, h });
-
 	switch (estado)
 	{
 	case Preparacion:
@@ -188,12 +185,12 @@ void Paella::render(SDL_Rect* cameraRect)
 
 	if (contenido == Entera) {
 		for (auto i : ingredientes) {
-			drawRender(cameraRect, getTexCollider(), &sdlutils().images().at(texturaIngrediente[i] + "C"));
+			drawRender(cameraRect, getTexBox(), &sdlutils().images().at(texturaIngrediente[i] + "C"));
 		}
 	}
 	else if (contenido == Mitad) {
 		for (auto i : ingredientes) {
-			drawRender(cameraRect, getTexCollider(), &sdlutils().images().at(texturaIngrediente[i] + "M"));
+			drawRender(cameraRect, getTexBox(), &sdlutils().images().at(texturaIngrediente[i] + "M"));
 		}
 	}
 	

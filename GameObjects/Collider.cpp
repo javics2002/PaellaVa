@@ -1,22 +1,6 @@
-#include "../Utils/Collider.h"
+#include "Collider.h"
 #include "../sdlutils/SDLUtils.h"
 
-Collider::Collider()
-{
-}
-
-void Collider::setColliderRect(SDL_Rect coll)
-{
-    objectRect = coll;
-}
-
-SDL_Rect Collider::getCollider()
-{
-	return { int(objectRect.x - objectRect.w / 2),
-			 int(objectRect.y - objectRect.h / 2),
-			  (objectRect.w),
-			  (objectRect.h) };
-}
 
 bool Collider::collide(SDL_Rect other)
 {

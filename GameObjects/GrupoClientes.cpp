@@ -15,7 +15,6 @@ GrupoClientes::GrupoClientes(Game* game) : PoolObject(game), pedido(nullptr), co
 
 	setTexture("berenjena");
 
-	setColliderRect({ (int)getX(), (int)getY(), w, h});
 
 	texTolerancia = &sdlutils().images().at("barraTolerancia");
 	showTol = false;
