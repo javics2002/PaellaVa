@@ -212,6 +212,7 @@
     <Image Include="Assets\Images\feliz.png" />
     <Image Include="Assets\Images\feliz2.png" />
     <Image Include="Assets\Images\TimeAnimation.png" />
+    <Image Include="Assets\Images\barraCoccion.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="json\RAEDME.md" />

@@ -218,6 +218,10 @@
       "file": "../../../Assets/Images/inicioCinta.png"
     },
     {
+      "id": "flechaCoccion",
+      "file": "../../../Assets/Images/flechaCoccion.png"
+    },
+    {
       "id": "lavavajillas",
       "file": "../../../Assets/Images/lavavajillas.png"
     },
@@ -228,6 +232,10 @@
     {
       "id": "tablaProcesado",
       "file": "../../../Assets/Images/tabla.png"
+    },
+    {
+      "id": "barraCoccion",
+      "file": "../../../Assets/Images/barraCoccion.png"
     },
     {
       "id": "mesaS",
