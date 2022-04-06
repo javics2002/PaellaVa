@@ -54,7 +54,7 @@ public:
 	Pool<Ingrediente>* getPoolIngredientes() { return ingredientes; }
 	Pool<Arroz>* getPoolArroces() { return arroces; }
 
-	vector<GameObject*> getPaellas() { return paellas; }
+	vector<GameObject*> getPaellas() { return paellas;}
 
 	vector<Player*> getPlayers() { return players; }
 

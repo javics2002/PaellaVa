@@ -83,6 +83,9 @@ void ObjectManager::update()
 	for (auto i : paellas)
 		i->update();
 
+	for (auto i : muebles)
+		i->update();
+
 	ingredientes->update();	
 
 	arroces->update();	

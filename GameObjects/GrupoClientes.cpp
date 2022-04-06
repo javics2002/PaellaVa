@@ -137,7 +137,7 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 			else {
 				bocadillo = { (int)getX() - bocadilloX / 2, (int)getY() - bocadilloY, bocadilloX, bocadilloY };
 				emoticono = { (int)getX() - emoticonoX / 2, (int)getY() - bocadilloY + emoticonoY / 2, emoticonoX, emoticonoY };
-			}		 
+			}
 
 			drawRender(cameraRect, bocadillo, texTolerancia);		
 			drawRender(cameraRect, emoticono, &sdlutils().images().at(texturaTolerancia[((int)tolerancia / 20)]));

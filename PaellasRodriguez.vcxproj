@@ -303,6 +303,7 @@
   <ItemGroup>
     <Image Include="Assets\Images\aceptaboton.png" />
     <Image Include="Assets\Images\arroz.png" />
+    <Image Include="Assets\Images\barraCoccion.png" />
     <Image Include="Assets\Images\barracomandas.png" />
     <Image Include="Assets\Images\barraTolerancia.png" />
     <Image Include="Assets\Images\basic.png" />
