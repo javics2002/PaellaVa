@@ -510,8 +510,73 @@
     {
       "id": "fondoOpc",
       "file": "../../../Assets/Images/settingsPant.png"
+    },
+    {
+      "id": "paellaCrudaMitad",
+      "file": "../../../Assets/Images/Paellas/paellaCrudaMitad.png"
+    },
+    {
+      "id": "paellaQuemadaMitad",
+      "file": "../../../Assets/Images/Paellas/paellaQuemadaMitad.png"
+    },
+    {
+      "id": "paellaBienHechaMitad",
+      "file": "../../../Assets/Images/Paellas/paellaBienHechaMitad.png"
+    },
+    {
+      "id": "paellaBienHecha",
+      "file": "../../../Assets/Images/Paellas/paellaBienHecha.png"
+    },
+    {
+      "id": "paellaPocoHechaMitad",
+      "file": "../../../Assets/Images/Paellas/paellaPocoHechaMitad.png"
+    },
+    {
+      "id": "paellaPocoHecha",
+      "file": "../../../Assets/Images/Paellas/paellaPocoHecha.png"
+    },
+    {
+      "id": "paellaMuyHechaMitad",
+      "file": "../../../Assets/Images/Paellas/paellaMuyHechaMitad.png"
+    },
+    {
+      "id": "paellaMuyHecha",
+      "file": "../../../Assets/Images/Paellas/paellaMuyHecha.png"
+    },
+    {
+      "id": "paellaIncomestibleMitad",
+      "file": "../../../Assets/Images/Paellas/paellaIncomestibleMitad.png"
+    },
+    {
+      "id": "paellaIncomestible",
+      "file": "../../../Assets/Images/Paellas/paellaIncomestible.png"
+    },
+    {
+      "id": "cocineraIdleDown",
+      "file": "../../../Assets/Anims/Cocinera/cocineraIdleDown.png"
+    },
+    {
+      "id": "cocineraIdleSide",
+      "file": "../../../Assets/Anims/Cocinera/cocineraIdleSide.png"
+    },
+    {
+      "id": "cocineraIdleUp",
+      "file": "../../../Assets/Anims/Cocinera/cocineraIdleUp.png"
+    },
+    {
+      "id": "cocineraWalkDown",
+      "file": "../../../Assets/Anims/Cocinera/cocineraWalkDown.png"
+    },
+    {
+      "id": "cocineraWalkSide",
+      "file": "../../../Assets/Anims/Cocinera/cocineraWalkSide.png"
+    },
+    {
+      "id": "cocineraWalkUp",
+      "file": "../../../Assets/Anims/Cocinera/cocineraWalkUp.png"
     }
    
+
 
   ],
 

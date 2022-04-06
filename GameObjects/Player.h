@@ -26,8 +26,16 @@ class Player : public GameObject
 
 	bool nearestObject(ObjetoPortable* go);
 	Mueble* nearestObject(Mueble* m1, Mueble* m2);
+
 	void setAnimResources();
 	void animUpdate();
+
+	vector<Texture*> anims;
+	SDL_Rect clip;
+	int frameCounter;
+	float lastFrameTime;
+	float frameRate;
+	int currAnim;
 
 public:
 	Player(Game* game);
@@ -38,6 +46,7 @@ public:
 
 	void update() override;
 	void renderDebug(SDL_Rect* cameraRect) override;
+	void render(SDL_Rect* cameraRect) override;
 
 	SDL_Rect getOverlapCollider();	
 

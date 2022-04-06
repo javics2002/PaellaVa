@@ -11,8 +11,12 @@
 #include "../Utils/Traza.h"
 
 
-Player::Player(Game* game) : GameObject(game), objectType_(INGREDIENTE), pickedObject_(nullptr),
-overlapPos(Vector2D<double>(getX() - overlapPos.getX() / 2, getY() - getHeight() / 2 - overlapDim.getY())), overlapDim(Vector2D<int>(50, 50))
+Player::Player(Game* game) :
+	GameObject(game),
+	objectType_(INGREDIENTE),
+	pickedObject_(nullptr),
+	overlapPos(Vector2D<double>(getX() - overlapPos.getX() / 2, getY() - getHeight() / 2 - overlapDim.getY())),
+	overlapDim(Vector2D<int>(50, 50))
 {
 	setPosition(200, 600);
 	setDimension(120, 120);
@@ -23,7 +27,22 @@ overlapPos(Vector2D<double>(getX() - overlapPos.getX() / 2, getY() - getHeight()
 	deceleracion = 0.8;
 	maxVel = 7;
 
-	setTexture("player");
+
+	setAnimResources();
+
+	clip.x = 0;
+	clip.y = 0;
+	clip.w = 256;
+	clip.h = 256;
+
+	frameCounter = 0;
+	lastFrameTime = sdlutils().currRealTime();
+	frameRate = 1000 / 60;
+
+	currAnim = 0;
+
+
+	// setTexture("player");
 	setColliderRect({ (int)getX(), (int)getY() + 2 * h / 3, 2 * w / 3, h / 3});
 }
 
@@ -35,16 +54,39 @@ void Player::handleInput()
 {
 	setColliderRect({ (int)getX(), (int)getY() + 2*h / 5, w / 2, h / 5 });
 
-	//El jugador se mueve o se para en ambos ejes
-	if (abs(ih().getAxisX()) > .1f)
+
+	if (ih().getAxisX() > .1f) {
 		vel.setX(vel.getX() + ih().getAxisX() * aceleracion);
+
+		// Mirar der
+		currAnim = 4;
+
+	}
+	else if (ih().getAxisX() < -.1f) {
+		vel.setX(vel.getX() + ih().getAxisX() * aceleracion);
+
+		// Mirar izq
+		currAnim = 4;
+	}
 	else
 		vel.setX(vel.getX() * deceleracion);
 
-	if (abs(ih().getAxisY()) > .1f)
+
+	if (ih().getAxisY() > .1f) {
 		vel.setY(vel.getY() + ih().getAxisY() * aceleracion);
-	else
+
+		currAnim = 3;
+	}
+	else if (ih().getAxisY() < -.1f) {
+		vel.setY(vel.getY() + ih().getAxisY() * aceleracion);
+
+		currAnim = 5;
+
+	}
+	else {
 		vel.setY(vel.getY() * deceleracion);
+	}
+
 
 	vel.clamp(-maxVel, maxVel);
 
@@ -154,13 +196,28 @@ void Player::handleInput()
 void Player::handleInput(Vector2D<double> axis)
 {
 	//El jugador se mueve o se para en ambos ejes
-	if (abs(axis.getX()) > .1f)
+	if (abs(axis.getX()) > .1f) {
 		vel.setX(vel.getX() + axis.getX() * aceleracion);
+
+		currAnim = 4;
+		frameCounter = 0;
+	}
 	else
 		vel.setX(vel.getX() * deceleracion);
 
-	if (abs(axis.getY()) > .1f)
+	if (axis.getY() > .1f) {
 		vel.setY(vel.getY() + axis.getY() * aceleracion);
+
+		currAnim = 5;
+		frameCounter = 0;
+	}
+	else if (axis.getY() < -.1f) {
+		vel.setY(vel.getY() + axis.getY() * aceleracion);
+
+		currAnim = 3;
+		frameCounter = 0;
+	
+	}
 	else
 		vel.setY(vel.getY() * deceleracion);
 
@@ -242,6 +299,9 @@ void Player::update()
 		else
 			pickedObject_ = nullptr;
 	}
+
+	if (sdlutils().currRealTime() - lastFrameTime > frameRate)
+		animUpdate();
 }
 
 bool Player::nearestObject(ObjetoPortable* go)
@@ -277,12 +337,24 @@ Mueble* Player::nearestObject(Mueble* m1, Mueble* m2)
 
 void Player::animUpdate()
 {
+	lastFrameTime = sdlutils().currRealTime();
 
+	clip.x = frameCounter * clip.w;
+	frameCounter++;
+
+	if (frameCounter * clip.w > anims[currAnim]->width() - 10)
+		frameCounter = 0;
 }
 
 void Player::setAnimResources()
 {
+	anims.push_back(&sdlutils().images().at("cocineraIdleDown"));
+	anims.push_back(&sdlutils().images().at("cocineraIdleSide"));
+	anims.push_back(&sdlutils().images().at("cocineraIdleUp"));
 
+	anims.push_back(&sdlutils().images().at("cocineraWalkDown"));
+	anims.push_back(&sdlutils().images().at("cocineraWalkSide"));
+	anims.push_back(&sdlutils().images().at("cocineraWalkUp"));
 }
 
 SDL_Rect Player::getOverlapCollider()
@@ -336,8 +408,16 @@ Vector2D<double> Player::getVel()
 void Player::renderDebug(SDL_Rect* cameraRect)
 {
 	//drawDebug(cameraRect);
-	drawDebugColl(cameraRect);
-	drawDebug(cameraRect, getOverlapCollider());
+	// drawDebugColl(cameraRect);
+	// drawDebug(cameraRect, getOverlapCollider());
+
+	
+}
+
+void Player::render(SDL_Rect* cameraRect)
+{
+	SDL_Rect dest = { getX() - getWidth() / 2, getY() + getHeight() / 2, w, h };
+	drawRender(cameraRect, dest, anims[currAnim], clip);
 }
 
 void Player::setPickedObject(ObjetoPortable* op, objectType ot)
