@@ -9,7 +9,7 @@
 enum EstadoPaellas { Preparacion, Coccion, Hecha };
 enum Resultado { Cruda, PocoHecha, Perfecta, MuyHecha, Quemada, Incomestible };
 enum Contenido { Limpia, Entera, Mitad, Sucia };
-enum TipoPaella { Minima, Mediana, Grande };
+enum TipoPaella { Pequena, Mediana, Grande };
 
 class Game;
 class Arroz;

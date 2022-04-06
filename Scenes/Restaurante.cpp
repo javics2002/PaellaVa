@@ -354,7 +354,7 @@ void Restaurante::loadMap(string const& path) {
 				}
 				else if (name == "pilaS")
 				{
-					Pila* p = new Pila(game, position, TipoPaella::Minima, 4);
+					Pila* p = new Pila(game, position, TipoPaella::Pequena, 4);
 					p->setDepth(1);
 					getObjectManager()->addMueble(p);
 				}
