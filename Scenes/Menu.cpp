@@ -44,7 +44,6 @@ Menu::Menu(Game* game) : Scene(game)
 	settingsButton->setInitialDimension(w, h);
 	settingsButton->setAction([this, settingsButton](Game* game, bool& exit) {
 		sdlutils().soundEffects().at("select").play(0, game->UI);
-
 		uiManager->addTween(0.9f, 1.0f, 600.0f).via(easing::exponentialOut).onStep([game, settingsButton](tweeny::tween<float>& t, float) mutable {
 			settingsButton->setDimension(t.peek() * settingsButton->getInitialWidth(), t.peek() * settingsButton->getInitialHeight());
 

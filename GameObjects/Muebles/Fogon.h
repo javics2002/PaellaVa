@@ -7,21 +7,26 @@ class Paella;
 class Fogon : public Mueble {
 private:
 	Paella* paella_;
-	vector<int> tiemposDeCoccion = { 3000, 6000, 9000, 12000, 15000 };
+	float tiempoDeCoccion = 15000;
 
 
 
-	const double movimientoFlecha=1;
-	const int flechaCoccionX = 20;
+	const int flechaCoccionX = 15;
 	const int flechaCoccionY = 15;
 
-	int barraCoccionX = 65;
-	int barraCoccionY = 10;
+	int barraCoccionX = 120;
+	int barraCoccionY = 15;
 
-	int flechaCoccionPosX = getX() - getWidth() / 2;
+	bool barra = false;
+
+	SDL_Rect dest_1 = { (int)getX() -barraCoccionX/2 + flechaCoccionX/2,(int) getY() - (int) (getHeight()/ 1.5) - (int)(barraCoccionY /1.5),
+	flechaCoccionX, flechaCoccionY };
+
 
 
 public:
+
+
 
 	Fogon(Game* game, Vector2D<double> pos);
 	~Fogon() = default;
