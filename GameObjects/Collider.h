@@ -12,6 +12,5 @@ public:
     Collider() {};
 
     virtual SDL_Rect getCollider() = 0;
-    void drawDebugColl(SDL_Rect* cameraRect);
     virtual bool collide(SDL_Rect other);
 };

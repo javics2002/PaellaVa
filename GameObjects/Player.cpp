@@ -168,38 +168,58 @@ void Player::update()
 {
 	//Próxima posición
 	Vector2D<double> newPos = pos + vel;
-	SDL_Rect newRect = { newPos.getX() - getCollider().w / 2, newPos.getY() - getCollider().h / 2, getCollider().w, getCollider().h };
 
-	auto colisionMuebles = game->getObjectManager()->getMueblesCollider(newRect);
+	setPosition(newPos);
+	SDL_Rect rect = getCollider();
+	vector<Collider*> colisionMuebles = game->getObjectManager()->getMueblesCollider(rect);
+
 	for (auto i : colisionMuebles) {
 		//Si colisionamos con un mueble, le avisaremos y alejaremos al jugador
 		dynamic_cast<Mueble*>(i)->colisionPlayer(this);
 
-		//Cuanto estoy metido en el mueble?
+		//Cuando colisiono con un mueble
 		SDL_Rect c = i->getCollider();
 
-		//Comprobamos por la izquierda y la derecha
-		/*La intersección que busco es mas pequeña desde la izquierda y la derecha para
-		que nos reposicione donde acabamos de entrar al mueble*/
-		int interseccionIz = (newPos.getX() + getCollider().w / 2) - c.x;
-		int interseccionDer = (newPos.getX() - getCollider().w / 2) - (c.x + c.w);
-		int interseccionX = abs(interseccionIz) < abs(interseccionDer) ? interseccionIz : interseccionDer;
+		//Comprobamos Izquierda o Derecha
+		double interseccionIz = abs((rect.x + rect.w) - (c.x));
+		double interseccionDer = abs((rect.x) - (c.x + c.w));
+		bool bIz = interseccionIz < interseccionDer ? 1 : 0;
+		double interseccionX = bIz ? interseccionIz : interseccionDer;
 
-		//Lo mismo por arriba y por abajo
-		int interseccionAr = (newPos.getY() + getCollider().h / 2) - c.y;
-		int interseccionAb = (newPos.getY() - getCollider().h / 2) - (c.y + c.h);
-		int interseccionY = abs(interseccionAr) < abs(interseccionAb) ? interseccionAr : interseccionAb;
+		//Comprobamos Arriba y Abajo
+		double interseccionAr = abs((rect.y + rect.h) - (c.y));
+		double interseccionAb = abs((rect.y) - (c.y + c.h));
+		bool bAr = interseccionAr < interseccionAb ? 1 : 0;
+		double interseccionY = bAr ? interseccionAr : interseccionAb;
 
-		//Aplicamos la menor interseccion, que es la que tiene
-		if (abs(interseccionX) < abs(interseccionY))
-			newPos = newPos - Vector2D<double>(interseccionX, 0);
-		else
-			newPos = newPos - Vector2D<double>(0, interseccionY);
-
+		//Combrobamos Horizontal y Vertical, y aplicamos el cambio
+		if (interseccionX < interseccionY) {
+			//cout << "Horizontal" << endl;
+			if (bIz) {
+				//cout << "Izquierda" << endl;
+				newPos = Vector2D<double>(c.x - rect.w - ((rect.w - getTexBox().w) / 2), newPos.getY());
+			}				
+			else {
+				//cout << "Derecha" << endl;
+				newPos = Vector2D<double>(c.x + c.w - ((rect.w - getTexBox().w) / 2),  newPos.getY());
+			}			
+		}			
+		else {
+			//cout << "Vertical" << endl;
+			if (bAr) {
+				//cout << "Arriba" << endl;
+				newPos = Vector2D<double>(newPos.getX(), c.y - getTexBox().h / 2);
+			}
+			else
+			{
+				//cout << "Abajo" << endl;
+				newPos = Vector2D<double>(newPos.getX(), c.y + c.h + rect.h - getTexBox().h / 2);
+			} 
+		}			 
 	}
 
 	//Nos movemos al nuevo sitio
-	pos = newPos;
+	setPosition(newPos);
 
 	if (vel.getY() > .8f)
 		orientation_ = S;
@@ -332,8 +352,8 @@ Vector2D<double> Player::getVel()
 
 void Player::renderDebug(SDL_Rect* cameraRect)
 {
-	//drawDebug(cameraRect);
-	drawDebugColl(cameraRect);
+	drawDebug(cameraRect);
+	drawDebug(cameraRect, getTexBox());
 	drawDebug(cameraRect, getOverlapCollider());
 }
 
@@ -348,9 +368,10 @@ SDL_Rect Player::getCollider()
 
 	SDL_Rect rect = getTexBox();
 
-	return { rect.x, rect.y, rect.w / 2, rect.h / 2
-
-	};
+	return { rect.x + rect.w / 4, 
+		rect.y + rect.h / 3 * 2, 
+		rect.w / 2, 
+		rect.h / 3};
 }
 
 

@@ -68,8 +68,7 @@ SDL_Rect GameObject::getCenter()
 
 void GameObject::renderDebug(SDL_Rect* cameraRect)
 {
-	// drawDebug(cameraRect);
-	drawDebugColl(cameraRect);
+	drawDebug(cameraRect);
 }
 
 void GameObject::render(SDL_Rect* cameraRect)
@@ -108,7 +107,7 @@ void GameObject::drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex, S
 
 void GameObject::drawDebug(SDL_Rect* cameraRect)
 {
-	SDL_Rect collider = getTexBox();
+	SDL_Rect collider = getCollider();
 	SDL_Rect center = getCenter();
 	collider = { collider.x - cameraRect->x, collider.y - cameraRect->y, collider.w, collider.h };
 	center = { center.x - cameraRect->x, center.y - cameraRect->y, center.w, center.h };
