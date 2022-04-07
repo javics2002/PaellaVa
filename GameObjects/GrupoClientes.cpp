@@ -9,6 +9,8 @@
 
 #include "../GameObjects/Muebles/Mesa.h"
 
+#include "../Scenes/Restaurante.h"
+
 GrupoClientes::GrupoClientes(Game* game) : PoolObject(game), pedido(nullptr), cola(nullptr), estado_(CAMINANDO) , nPaellas(0)
 {
 	setDimension(DIMENSION, DIMENSION);
@@ -239,7 +241,7 @@ void GrupoClientes::onDeactivate()
 {
 	if (estado_ == CUENTA) {
 		mesa->clienteSeVa();
-		pedido->puntuarPedido(mesa->getPaellasEntregadas());
+		dynamic_cast<Restaurante*>(game->getCurrentScene())->addPuntuaciones(pedido->puntuarPedido(mesa->getPaellasEntregadas()));
 	}
 
 	auto list = game->getObjectManager()->getPoolClientes();

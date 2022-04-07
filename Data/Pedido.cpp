@@ -51,7 +51,8 @@ Pedido::Pedido(int numComensales, int numeroTiles)
 	}
 	for (int g = 0; g < paellas.size(); g++) {
 		int c = rand() % LIMITE_INGR + 0;
-		for (int j = 0; j < c; j++) {
+		cout << c << endl;
+		for (int j = 0; j <= c; j++) {
 			int n = rand() % (tipoIngrediente::LAST);
 			ingredienteRand = tipoIngrediente(n);
 			if (paellas[g].ingredientesPedido.size() < LIMITE_INGR && !ingredientesPedidos[ingredienteRand])
@@ -72,9 +73,8 @@ vector<pedidoPaella> Pedido::getPedido()
 	return paellas;
 }
 
-void Pedido::puntuarPedido(vector<Paella*> comanda)
+double Pedido::puntuarPedido(vector<Paella*> comanda)
 {
-
 	//quitar pedido ->
 	penalizacionTamano valorarT;
 	penalizacionIngredientes valorarI;
@@ -89,16 +89,16 @@ void Pedido::puntuarPedido(vector<Paella*> comanda)
 		int diferencia = tamanoPaella1 - tamanoPaella2;
 		switch (diferencia) {
 		case 2:
-			variarPuntuacion(valorarT.pequenaDos);
+			variarPuntuacion(valorarT.pequenaDos, i);
 			break;
 		case 1:
-			variarPuntuacion(valorarT.pequenaUno);
+			variarPuntuacion(valorarT.pequenaUno, i);
 			break;
 		case -2:
-			variarPuntuacion(valorarT.grandeDos);
+			variarPuntuacion(valorarT.grandeDos, i);
 			break;
 		case -1:
-			variarPuntuacion(valorarT.grandeUno);
+			variarPuntuacion(valorarT.grandeUno, i);
 			break;
 		default:
 			break;
@@ -108,22 +108,22 @@ void Pedido::puntuarPedido(vector<Paella*> comanda)
 
 		switch (comanda[i]->getCoccoin()) {
 		case Cruda:
-			variarPuntuacion(valorarC.cruda);
+			variarPuntuacion(valorarC.cruda, i);
 			break;
 		case PocoHecha:
-			variarPuntuacion(valorarC.pocoHecha);
+			variarPuntuacion(valorarC.pocoHecha, i);
 			break;
 		case Perfecta:
-			variarPuntuacion(valorarC.perfecta);
+			variarPuntuacion(valorarC.perfecta, i);
 			break;
 		case MuyHecha:
-			variarPuntuacion(valorarC.muyHecha);
+			variarPuntuacion(valorarC.muyHecha, i);
 			break;
 		case Quemada:
-			variarPuntuacion(valorarC.quemada);
+			variarPuntuacion(valorarC.quemada, i);
 			break;
 		case Incomestible:
-			variarPuntuacion(valorarC.incomestible);
+			variarPuntuacion(valorarC.incomestible, i);
 			break;
 		}
 
@@ -132,28 +132,31 @@ void Pedido::puntuarPedido(vector<Paella*> comanda)
 		int cantidadIngr1 = int(getPedido()[i].ingredientesPedido.size());;
 		int cantidadIngr2 = int(comanda[i]->getVIngredientes().size());
 		int difCantidad = cantidadIngr2 - cantidadIngr1;
-		if (difCantidad >= 0) {
-			variarPuntuacion(valorarI.sobraIngr *difCantidad);
-		}
+		variarPuntuacion(valorarI.sobraIngr *abs(difCantidad), i);
 
 		//Variar puntuaciones en funcion de los ingredientes que no se han cocinado.
 
 		for (int j = 0; j < getPedido()[i].ingredientesPedido.size(); j++) {
 			if (!comanda[i]->getIngrPaella()[getPedido()[i].ingredientesPedido[j]]) {
-				variarPuntuacion(valorarI.faltaIngr);
+				variarPuntuacion(valorarI.faltaIngr, i);
 			}
 		}
-	}	
+		cout << getPedido()[i].puntuacionPaella << endl;
+		sumaMedia += getPedido()[i].puntuacionPaella;
+	}
+	puntuacionPedido = sumaMedia / getPedido().size();
 
-	cout << puntuacion << endl;
+	cout << puntuacionPedido << endl;
+	return puntuacionPedido;
 }
 
 
 
 
-void Pedido::variarPuntuacion(int variacion)
+void Pedido::variarPuntuacion(double variacion, int pos)
 {
-	puntuacion += variacion;
+	double puntos = getPedido()[pos].puntuacionPaella + variacion; 
+	paellas[pos].puntuacionPaella = puntos;
 }
 
 vector<string> Pedido::getPedidoTex()
