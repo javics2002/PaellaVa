@@ -128,7 +128,6 @@ void Comanda::randomizaIconos()
 		posdis.erase(posdis.begin() + j);
 		if (posdis.size() > 0)
 			j = rand() % posdis.size();
-		i->setColliderRect({ (int)i->getX(),(int)i->getY(),anchobotones / 2,anchobotones / 2 });
 	}
 
 }

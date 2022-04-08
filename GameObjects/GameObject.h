@@ -1,9 +1,8 @@
 #pragma once
 
-#include "../Utils/Collider.h"
-
 #include "../Utils/Texture.h"
 #include "../Utils/Vector2D.h"
+#include "../Utils/Collider.h"
 #include "../sdlutils/SDLUtils.h"
 
 #include <string>
@@ -32,8 +31,9 @@ protected:
     void drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex);
     void drawRender(SDL_Rect rect, Texture* tex);
     void drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex, SDL_Rect clip);
-    void drawDebug(SDL_Rect* cameraRect); //Mirar que no se est� usando y quitar
-    void drawDebug(SDL_Rect* cameraRect, SDL_Rect rect); //overlap collider, pasar a Collider
+
+    void drawDebug(SDL_Rect* cameraRect); 
+    void drawDebug(SDL_Rect* cameraRect, SDL_Rect rect); 
 
 public:
 
@@ -51,7 +51,7 @@ public:
     virtual void init(ObjectManager* objectManager) {};
 
     virtual void render(SDL_Rect* cameraRect);
-    virtual void renderDebug(SDL_Rect* cameraRect); //Pasar a collider
+    virtual void renderDebug(SDL_Rect* cameraRect); 
 
     virtual bool onClick(int mx, int my, bool& exit) { return false; };
 
@@ -80,6 +80,8 @@ public:
     bool isActive() { return active; }
     void setActive(bool a) { active = a; }
 
-    virtual SDL_Rect getTexCollider();
+    virtual SDL_Rect getTexBox();
     virtual SDL_Rect getCenter();
+
+    SDL_Rect getCollider() override;
 };

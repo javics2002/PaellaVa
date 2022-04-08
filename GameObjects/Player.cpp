@@ -11,10 +11,7 @@
 #include "../Utils/Traza.h"
 
 
-Player::Player(Game* game) :
-	GameObject(game),
-	objectType_(INGREDIENTE),
-	pickedObject_(nullptr),
+Player::Player(Game* game) : GameObject(game), objectType_(INGREDIENTE), pickedObject_(nullptr),
 	overlapPos(Vector2D<double>(getX() - overlapPos.getX() / 2, getY() - getHeight() / 2 - overlapDim.getY())),
 	overlapDim(Vector2D<int>(50, 50))
 {
@@ -22,11 +19,9 @@ Player::Player(Game* game) :
 	setDimension(120, 120);
 	overlapDim.set(45, 45);
 
-
 	aceleracion = 1.2;
 	deceleracion = 0.8;
 	maxVel = 7;
-
 
 	setAnimResources();
 
@@ -41,9 +36,7 @@ Player::Player(Game* game) :
 
 	currAnim = 0;
 
-
 	// setTexture("player");
-	setColliderRect({ (int)getX(), (int)getY() + 2 * h / 3, 2 * w / 3, h / 3});
 }
 
 Player::~Player()
@@ -52,10 +45,8 @@ Player::~Player()
 
 void Player::handleInput()
 {
-	setColliderRect({ (int)getX(), (int)getY() + 2*h / 5, w / 2, h / 5 });
-
-
-	if (ih().getAxisX() > .1f) {
+	//El jugador se mueve o se para en ambos ejes
+	if (abs(ih().getAxisX()) > .1f) {
 		vel.setX(vel.getX() + ih().getAxisX() * aceleracion);
 
 		// Mirar der
@@ -81,15 +72,12 @@ void Player::handleInput()
 		vel.setY(vel.getY() + ih().getAxisY() * aceleracion);
 
 		currAnim = 5;
-
 	}
 	else {
 		vel.setY(vel.getY() * deceleracion);
 	}
 
-
 	vel.clamp(-maxVel, maxVel);
-
 
 	if (ih().getKey(InputHandler::INTERACT)) {
 		//Si el jugador no lleva nada encima
@@ -227,27 +215,67 @@ void Player::handleInput(Vector2D<double> axis)
 void Player::update()
 {
 	//Próxima posición
-	Vector2D<double> newPos = pos + vel;
-	SDL_Rect newRect = { newPos.getX() - getCollider().w / 2, newPos.getY() - getCollider().h / 2, getCollider().w, getCollider().h };
+	SDL_Rect rect = getCollider();	
 
-	auto colisionMuebles = game->getObjectManager()->getMueblesCollider(newRect);
+	Vector2D<double> newColPos = Vector2D<double>(rect.x + rect.w / 2, rect.y + rect.h / 2);
+	Vector2D<double> newPos = pos + vel;
+
+	vector<Collider*> colisionMuebles = game->getObjectManager()->getMueblesCollider(rect);
+
 	for (auto i : colisionMuebles) {
 		//Si colisionamos con un mueble, le avisaremos y alejaremos al jugador
 		dynamic_cast<Mueble*>(i)->colisionPlayer(this);
 
-		//Cuanto estoy metido en el mueble?
+		//Cuando colisiono con un mueble
 		SDL_Rect c = i->getCollider();
+
+		////Comprobamos Izquierda o Derecha
+		//double interseccionIz = abs((rect.x + rect.w) - (c.x));
+		//double interseccionDer = abs((rect.x) - (c.x + c.w));
+		//bool bIz = interseccionIz < interseccionDer ? 1 : 0;
+		//double interseccionX = bIz ? interseccionIz : interseccionDer;
+
+		////Comprobamos Arriba o Abajo
+		//double interseccionAr = abs((rect.y + rect.h) - (c.y));
+		//double interseccionAb = abs((rect.y) - (c.y + c.h));
+		//bool bAr = interseccionAr < interseccionAb ? 1 : 0;
+		//double interseccionY = bAr ? interseccionAr : interseccionAb;
+
+		////Combrobamos Horizontal o Vertical, y aplicamos el cambio
+		//if (interseccionX < interseccionY) {
+		//	//cout << "Horizontal" << endl;
+		//	if (bIz) {
+		//		//cout << "Izquierda" << endl;
+		//		newPos = Vector2D<double>(c.x - rect.w - ((rect.w - getWidth()) / 2), newPos.getY());
+		//	}				
+		//	else {
+		//		//cout << "Derecha" << endl;
+		//		newPos = Vector2D<double>(c.x + c.w - ((rect.w - getWidth()) / 2),  newPos.getY());
+		//	}			
+		//}			
+		//else {
+		//	//cout << "Vertical" << endl;
+		//	if (bAr) {
+		//		//cout << "Arriba" << endl;
+		//		newPos = Vector2D<double>(newPos.getX(), c.y - getHeight() / 2);
+		//	}
+		//	else
+		//	{
+		//		//cout << "Abajo" << endl;
+		//		newPos = Vector2D<double>(newPos.getX(), c.y + c.h + rect.h - getHeight() / 2);
+		//	} 
+		//}		
 
 		//Comprobamos por la izquierda y la derecha
 		/*La intersección que busco es mas pequeña desde la izquierda y la derecha para
 		que nos reposicione donde acabamos de entrar al mueble*/
-		int interseccionIz = (newPos.getX() + getCollider().w / 2) - c.x;
-		int interseccionDer = (newPos.getX() - getCollider().w / 2) - (c.x + c.w);
+		int interseccionIz = (newColPos.getX() + getCollider().w / 2) - c.x;
+		int interseccionDer = (newColPos.getX() - getCollider().w / 2) - (c.x + c.w);
 		int interseccionX = abs(interseccionIz) < abs(interseccionDer) ? interseccionIz : interseccionDer;
 
 		//Lo mismo por arriba y por abajo
-		int interseccionAr = (newPos.getY() + getCollider().h / 2) - c.y;
-		int interseccionAb = (newPos.getY() - getCollider().h / 2) - (c.y + c.h);
+		int interseccionAr = (newColPos.getY() + getCollider().h / 2) - c.y;
+		int interseccionAb = (newColPos.getY() - getCollider().h / 2) - (c.y + c.h);
 		int interseccionY = abs(interseccionAr) < abs(interseccionAb) ? interseccionAr : interseccionAb;
 
 		//Aplicamos la menor interseccion, que es la que tiene
@@ -255,11 +283,10 @@ void Player::update()
 			newPos = newPos - Vector2D<double>(interseccionX, 0);
 		else
 			newPos = newPos - Vector2D<double>(0, interseccionY);
-
 	}
 
 	//Nos movemos al nuevo sitio
-	pos = newPos;
+	setPosition(newPos);
 
 	if (vel.getY() > .8f)
 		orientation_ = S;
@@ -275,18 +302,18 @@ void Player::update()
 	{
 	case E:
 		overlapPos = Vector2D<double>(getX() + getWidth() / 4,
-			getY() - overlapDim.getY() / 4);
+			getY());
 		break;
 	case O:
 		overlapPos = Vector2D<double>(getX() - getWidth() / 4 - overlapDim.getX(),
-			getY() - overlapDim.getY() / 4);
+			getY());
 		break;
 	case S:
-		overlapPos = Vector2D<double>(getX() - overlapDim.getX() / 4,
-			getY() + getHeight() / 4);
+		overlapPos = Vector2D<double>(getX() - overlapDim.getX() / 2,
+			getY() + getHeight() / 2);
 		break;
 	case N:
-		overlapPos = Vector2D<double>(getX() - overlapDim.getX() / 4,
+		overlapPos = Vector2D<double>(getX() - overlapDim.getX() / 2,
 			getY() - getHeight() / 4 - overlapDim.getY());
 		break;
 	default:
@@ -407,23 +434,31 @@ Vector2D<double> Player::getVel()
 
 void Player::renderDebug(SDL_Rect* cameraRect)
 {
-	//drawDebug(cameraRect);
-	// drawDebugColl(cameraRect);
-	// drawDebug(cameraRect, getOverlapCollider());
-
-	
+	drawDebug(cameraRect);
+	drawDebug(cameraRect, getTexBox());
+	drawDebug(cameraRect, getOverlapCollider());
 }
 
 void Player::render(SDL_Rect* cameraRect)
 {
 	SDL_Rect dest = { getX() - getWidth() / 2, getY() + getHeight() / 2, w, h };
-	drawRender(cameraRect, dest, anims[currAnim], clip);
+	drawRender(cameraRect, dest, anims[currAnim], clip);	
 }
 
 void Player::setPickedObject(ObjetoPortable* op, objectType ot)
 {
 	pickedObject_ = op;
 	objectType_ = ot;
+}
+
+SDL_Rect Player::getCollider()
+{
+	SDL_Rect rect = getTexBox();
+
+	return { rect.x + rect.w / 4, 
+		rect.y + rect.h / 3 * 2, 
+		rect.w / 2, 
+		rect.h / 3};
 }
 
 

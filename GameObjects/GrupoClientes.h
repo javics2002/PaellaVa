@@ -63,7 +63,7 @@ class GrupoClientes : public PoolObject
 
 public:
 	GrupoClientes(Game* game);	
-	~GrupoClientes() = default;
+	~GrupoClientes();
 
 	void initGrupo(Cola* cola_, vector<Cliente*> clientes_);
 
@@ -82,7 +82,7 @@ public:
 
 	bool ratonEncima();
 	
-	void onObjectPicked() override {};
+	void onObjectPicked() override;
 	void onObjectDropped() override;
 
 	bool canPick() override;

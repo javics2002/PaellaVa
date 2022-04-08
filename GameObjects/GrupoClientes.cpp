@@ -9,13 +9,14 @@
 
 #include "../GameObjects/Muebles/Mesa.h"
 
+#include "../Scenes/Restaurante.h"
+
 GrupoClientes::GrupoClientes(Game* game) : PoolObject(game), pedido(nullptr), cola(nullptr), estado_(CAMINANDO) , nPaellas(0)
 {
 	setDimension(DIMENSION, DIMENSION);
 
 	setTexture("berenjena");
 
-	setColliderRect({ (int)getX(), (int)getY(), w, h});
 
 	texTolerancia = &sdlutils().images().at("barraTolerancia");
 	showTol = false;
@@ -29,6 +30,11 @@ GrupoClientes::GrupoClientes(Game* game) : PoolObject(game), pedido(nullptr), co
 
 	comidoMitad = false;
 	lastTimeComido = 0;
+}
+
+GrupoClientes::~GrupoClientes()
+{
+	sdlutils().soundEffects().at("conversacion2").haltChannel(canalSonido);
 }
 
 void GrupoClientes::initGrupo(Cola* cola_, vector<Cliente*> clientes_)
@@ -195,11 +201,6 @@ void GrupoClientes::setState(EstadoClientes est)
 	estado_ = est;
 
 	lastTimeTol = sdlutils().virtualTimer().currTime();
-
-	if (estado_ == COMIENDO) {
-		//sdlutils().soundEffects().at("")
-	}
-
 }
 
 EstadoClientes GrupoClientes::getState()
@@ -217,11 +218,26 @@ vector<Cliente*> GrupoClientes::getIntegrantes()
 	return clientes;
 }
 
+void GrupoClientes::onObjectPicked()
+{
+	sdlutils().soundEffects().at("conversacion2").haltChannel(canalSonido);
+}
+
 void GrupoClientes::onObjectDropped()
 {
 	if (estado_ == ENCOLA) {
 		estado_ = PIDIENDO;
 		cola->remove(posCola, clientes.size());
+
+		if (true /*&& clientes.size() >= 2*/) {
+			string conversacion = "conversacion4";
+
+			//Elegimos la conversacion en funcion del grupo de clientes
+			if (clientes.size() >= 4)
+				conversacion = clientes.size() >= 7 ? "conversacion7" : "conversacion4";
+
+			canalSonido = sdlutils().soundEffects().at(conversacion).play(-1);
+		}
 	}
 }
 
@@ -239,7 +255,7 @@ void GrupoClientes::onDeactivate()
 {
 	if (estado_ == CUENTA) {
 		mesa->clienteSeVa();
-		pedido->puntuarPedido(mesa->getPaellasEntregadas());
+		dynamic_cast<Restaurante*>(game->getCurrentScene())->addPuntuaciones(pedido->puntuarPedido(mesa->getPaellasEntregadas()));
 	}
 
 	auto list = game->getObjectManager()->getPoolClientes();
@@ -287,6 +303,7 @@ bool GrupoClientes::paellasPedidas() {
 			nPaellas++;
 			if (nPaellas == pedido->getPedido().size()) {
 				estado_ = COMIENDO;
+				sdlutils().soundEffects().at("clienteCome").play();
 				lastTimeComido = sdlutils().virtualTimer().currTime();
 			}
 			else estado_ = ESPERANDO;

@@ -9,7 +9,6 @@ TablaProcesado::TablaProcesado(Game* game_, Vector2D<double> pos) : Mueble(game,
 	clip.w = timerTexture->width() / 8;
 	clip.h = timerTexture->height();
 	clip.y = 0;
-	setColliderRect({ (int)getX(), (int)getY() - h / 4, w, h / 2 });
 }
 
 void TablaProcesado::update() {

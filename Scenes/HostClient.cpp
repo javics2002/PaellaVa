@@ -1,6 +1,7 @@
 #include "HostClient.h"
 #include "../Scenes/Lobby.h"
 #include "../Control/NetworkManager.h"
+#include "../Scenes/Restaurante.h"
 #include "IntroduceIP.h"
 
 
@@ -25,7 +26,7 @@ HostClient::HostClient(Game* game, string nombre_) : Scene(game)
 		sdlutils().width() / 2 - offsetX, sdlutils().height() / 2 - offsetY);
 	hostButton->setAction([nombre](Game* game, bool& exit) {
 		//Host
-		game->changeScene(new Lobby(game, nombre));
+		game->changeScene(new Restaurante(game));
 		game->getNetworkManager()->init('h');
 		});
 	uiManager->addInterfaz(hostButton);

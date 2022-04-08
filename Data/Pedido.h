@@ -5,24 +5,25 @@
 struct pedidoPaella {
 	TipoPaella tamanoPaella;
 	vector<tipoIngrediente> ingredientesPedido;
+	double puntuacionPaella = 10;
 };
 
 struct penalizacionTamano {
 	double pequenaUno = -1;
 	double pequenaDos = -2;
-	double grandeUno = -0.5;
-	double grandeDos = -1;
+	double grandeUno = -1;
+	double grandeDos = -2;
 };
 struct penalizacionIngredientes {
-	double sobraIngr = -0.1;
-	double faltaIngr = -0.25;
+	double sobraIngr = -1;
+	double faltaIngr = -1;
 };
 struct penalizacionCoccion {
-	double cruda = -0.5;
+	double cruda = -2;
 	double pocoHecha = 0;
-	double perfecta = 0.5;
+	double perfecta = 1;
 	double muyHecha = 0;
-	double quemada = -0.5;
+	double quemada = -2;
 	double incomestible = -4;
 };
 
@@ -33,8 +34,8 @@ public:
 	~Pedido() {};
 	vector<pedidoPaella> getPedido();
 	vector<string> getPedidoTex();
-	void puntuarPedido(vector<Paella*> comanda);
-	void variarPuntuacion(int variacion);
+	double puntuarPedido(vector<Paella*> comanda);
+	void variarPuntuacion(double variacion, int pos);
 	//No se hasta que punto merece la pena crear otro m�todo que sea ejecutado en la constructora.
 	//void crearPedido(int numCmensales)
 
@@ -53,7 +54,8 @@ private:
 	const int LIMITE_TAMANO = 3;
 	const int LIMITE_INGR = 3;
 	
-	int puntuacion = 10;
+	double sumaMedia = 0;
+	double puntuacionPedido;
 };
 
 /*

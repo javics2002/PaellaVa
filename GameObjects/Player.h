@@ -58,5 +58,7 @@ public:
 	void setVel(Vector2D<double> vel2);
 	Vector2D<double> getVel();
 	Vector2D<double> getOrientation();
+
+	SDL_Rect getCollider() override;
 };
 

@@ -84,6 +84,7 @@ void Restaurante::update()
 void Restaurante::addPuntuaciones(double puntosComanda)
 {
 	puntuacionesComandas.push_back(puntosComanda);
+	cout << puntuacionesComandas.back() << endl;
 }
 
 void Restaurante::mediaPuntuaciones()
