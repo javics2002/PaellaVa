@@ -18,7 +18,9 @@
   ],
 
   "images": [
-    { "id": "barraTolerancia", "file": "../../../Assets/Images/barraTolerancia.png"},
+    {"id": "barraTolerancia", "file": "../../../Assets/Images/barraTolerancia.png"},
+    {"id": "barraCoccion", "file": "../../../Assets/Images/barraCoccion.png"},
+    {"id": "flechaCoccion","file": "../../../Assets/Images/flechaCoccion.png"},
     { "id": "cuadernillo", "file": "../../../Assets/Images/cuadernillo.png"},
     { "id": "cuadernilloseleted", "file": "../../../Assets/Images/cuadernilloselected.png"},
     { "id": "barra", "file": "../../../Assets/Images/barracomandas.png"},
