@@ -93,14 +93,6 @@ bool Mesa::returnObject(Player* p)
 	return false;
 }
 
-bool Mesa::colisionPlayer(Player* p)
-{
-	if (mGrupo != nullptr)
-		mGrupo->decirPedidio();
-
-	return false;
-}
-
 void Mesa::clienteSeVa()
 {
 	mGrupo = nullptr;
@@ -122,6 +114,26 @@ void Mesa::comerPaellas() {
 	for (auto i : paellas) {
 		i->comerPaella();
 	}
+}
+
+SDL_Rect Mesa::getOverlap() {
+
+	SDL_Rect rect = getTexBox();
+
+	int incr = 10;
+
+	return {
+		rect.x - incr,
+		rect.y - incr,
+		rect.w + incr * 2,
+		rect.h + incr * 2
+	};
+}
+
+void Mesa::decirPedido()
+{
+	if (mGrupo != nullptr)
+		mGrupo->decirPedidio();
 }
 
 

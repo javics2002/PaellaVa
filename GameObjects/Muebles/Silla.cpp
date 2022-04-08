@@ -37,10 +37,22 @@ bool Silla::returnObject(Player* p)
 	}
 }
 
-bool Silla::colisionPlayer(Player* p)
+SDL_Rect Silla::getOverlap()
 {
-	if (mMesa != nullptr) {
-		return mMesa->colisionPlayer(p);
-	}
+	SDL_Rect rect = getTexBox();
+
+	int incr = 10;
+
+	return {
+		rect.x - incr,
+		rect.y - incr,
+		rect.w + incr * 2,
+		rect.h + incr * 2
+	};
+}
+
+void Silla::decirPedido()
+{
+	mMesa->decirPedido();
 }
 

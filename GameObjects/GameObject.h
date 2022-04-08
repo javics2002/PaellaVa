@@ -35,6 +35,8 @@ protected:
     void drawDebug(SDL_Rect* cameraRect); 
     void drawDebug(SDL_Rect* cameraRect, SDL_Rect rect); 
 
+    Vector2D<double> getRectCenter(SDL_Rect rect);
+
 public:
 
     GameObject(Game* game) 

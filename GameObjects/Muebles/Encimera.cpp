@@ -26,7 +26,7 @@ bool Encimera::receiveIngrediente(Ingrediente* ingr)
 
 			paella_->anadeIngr(ingr);
 
-			game->getObjectManager()->getPoolIngredientes()->remove(ingr->getIterator());
+			ingr->deactivate();
 
 			return true;
 		}

@@ -1,9 +1,11 @@
 #pragma once
+
 #include "PoolObject.h"
+#include "ObjetoPortable.h"
 
 class Game;
 
-class Arroz : public PoolObject
+class Arroz : public ObjetoPortable, public PoolObject
 {
     const unsigned int DIMENSION = 70;
 

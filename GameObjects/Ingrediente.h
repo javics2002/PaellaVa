@@ -1,5 +1,6 @@
  #pragma once
 #include "PoolObject.h"
+#include "ObjetoPortable.h"
 #include <vector>
 
 class Game;
@@ -15,7 +16,7 @@ const vector<string> texturaIngrProcesado = {  "alcachofaP", "calamarP", "cangre
 	"langostaP", "mejillonP", "pimientoRojoP", "pimientoVerdeP", "polloP" };
 
 
-class Ingrediente : public PoolObject
+class Ingrediente : public ObjetoPortable, public PoolObject
 {
 	const unsigned int DIMENSION = 70;
 
@@ -27,7 +28,6 @@ public:
 	~Ingrediente() = default;
 
 	void update() override;	
-	pair<bool, std::list<PoolObject*>::const_iterator> colisionIngrediente();
 
 	void onActivate() override;
 	void onDeactivate() override;

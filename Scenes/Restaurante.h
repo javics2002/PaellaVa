@@ -57,6 +57,7 @@ public:
 	~Restaurante();
 
 	void handleInput(bool& exit)  override;
+	void refresh() override;
 	void update() override;
 
 	void addPuntuaciones(double puntosComanda);

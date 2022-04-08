@@ -11,7 +11,7 @@
 
 #include "../Scenes/Restaurante.h"
 
-GrupoClientes::GrupoClientes(Game* game) : PoolObject(game), pedido(nullptr), cola(nullptr), estado_(CAMINANDO) , nPaellas(0)
+GrupoClientes::GrupoClientes(Game* game) : ObjetoPortable(game), PoolObject(), pedido(nullptr), cola(nullptr), estado_(CAMINANDO) , nPaellas(0)
 {
 	setDimension(DIMENSION, DIMENSION);
 
@@ -19,7 +19,6 @@ GrupoClientes::GrupoClientes(Game* game) : PoolObject(game), pedido(nullptr), co
 
 
 	texTolerancia = &sdlutils().images().at("barraTolerancia");
-	showTol = false;
 	tolerancia = 100;	
 	lastTimeTol = 0;
 
@@ -109,8 +108,6 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 	int bocadilloY = 60;
 
 	if (showPed && estado_ == PIDIENDO) {
-		showTol = false;
-
 		if (sdlutils().virtualTimer().currTime() - lastTimePed >= PED_DELAY) {
 			lastTimePed = sdlutils().virtualTimer().currTime();
 
@@ -125,7 +122,8 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 		showPed = false;
 	}
 
-	if (showTol) {
+	else if (ratonEncima(cameraRect)) {
+		cout << tolerancia << endl;
 		if (!isPicked()) {
 
 			SDL_Rect bocadillo = {};
@@ -148,9 +146,8 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 			drawRender(cameraRect, bocadillo, texTolerancia);		
 			drawRender(cameraRect, emoticono, &sdlutils().images().at(texturaTolerancia[((int)tolerancia / 20)]));
 		}
-
-		showTol = false;
 	}
+
 	if (estado_ == CUENTA && !isPicked()) {
 		drawRender(cameraRect, { (int)getX() - bocadilloX / 2, (int)getY() - bocadilloY, bocadilloX, bocadilloY }, texTolerancia);
 	}
@@ -186,13 +183,15 @@ bool GrupoClientes::colisionClientes()
 	return true;
 }
 
-bool GrupoClientes::ratonEncima()
+bool GrupoClientes::ratonEncima(SDL_Rect* cameraRect)
 {
-	cout << tolerancia << endl;
+	SDL_Rect rect = SDL_Rect();
 
-	showTol = true;
+	SDL_GetMouseState(&rect.x, &rect.y);
 
-	return true;
+	rect = { rect.x - cameraRect->x,  rect.y - cameraRect->y, 3, 3 };
+
+	return overlap(rect);
 }
 
 void GrupoClientes::bajaTolerancia()
@@ -264,15 +263,15 @@ bool GrupoClientes::canDrop() {
 
 void GrupoClientes::onDeactivate()
 {
+	for (auto i : clientes) {
+		i->deactivate();
+	}
+		
+
 	if (estado_ == CUENTA) {
 		mesa->clienteSeVa();
 		dynamic_cast<Restaurante*>(game->getCurrentScene())->addPuntuaciones(pedido->puntuarPedido(mesa->getPaellasEntregadas()));
-	}
-
-	auto list = game->getObjectManager()->getPoolClientes();
-
-	for (auto i : clientes)
-		list->remove(i->getIterator());
+	}	
 }
 
 int GrupoClientes::mitadGrupo()

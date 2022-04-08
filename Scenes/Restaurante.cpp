@@ -65,6 +65,13 @@ void Restaurante::handleInput(bool& exit)
 	}
 }
 
+void Restaurante::refresh()
+{
+	if (!paused) {
+		objectManager->refresh();
+	}
+}
+
 void Restaurante::update()
 {
 	if (!paused) {

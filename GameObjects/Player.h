@@ -30,6 +30,8 @@ class Player : public GameObject
 	void setAnimResources();
 	void animUpdate();
 
+	Vector2D<double> getRectCenter(SDL_Rect rect);
+
 	vector<Texture*> anims;
 	SDL_Rect clip;
 	int frameCounter;

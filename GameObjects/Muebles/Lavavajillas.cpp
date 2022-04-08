@@ -16,14 +16,14 @@ void Lavavajillas::update()
 void Lavavajillas::lavando()
 {
 
-	if (sdlutils().currRealTime() - time >= TIEMPO_LAVADO) {
+	if (sdlutils().currRealTime() - initTime >= TIEMPO_LAVADO) {
 		pilaPaellas.front()->setLavado(Limpia,"paellaLimpia");
 		paellasLimpias.push_back(pilaPaellas.front());
 		pilaPaellas.pop_front();
-		time = sdlutils().currRealTime();
+		initTime = sdlutils().currRealTime();
 	}
 
-	else if (sdlutils().currRealTime() - time >= rellenoTimer + TIEMPO_LAVADO / 8) {
+	else if (sdlutils().currRealTime() - initTime >= rellenoTimer + TIEMPO_LAVADO / 8) {
 
 		clip.x = i * clip.w;
 
@@ -41,7 +41,7 @@ bool Lavavajillas::receivePaella(Paella* paella_)
 
 		paella_->setPosition(getX(), getY());
 
-		time = sdlutils().currRealTime();
+		initTime = sdlutils().currRealTime();
 
 		return true;
 	}

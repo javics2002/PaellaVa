@@ -10,16 +10,15 @@ Puerta::Puerta(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 
 
 void Puerta::update()
 {
-	if (sdlutils().virtualTimer().currTime() - (time - offsetTime) >= SPAWN_DELAY) {
+	if (sdlutils().virtualTimer().currTime() - initTime >= SPAWN_DELAY) {
 		int integrantes = 1 + rand() % MAX_TAM;
 
 		if (cola->esValido(integrantes)) {
 			vector<Cliente*> v;
 
-
 			Cliente* c = game->getObjectManager()->getPoolClientes()->add();
 
-			int width = 2* c->getWidth() / 3;
+			int width = c->getWidth();
 			int w = c->getPosition().getX();
 
 			c->cambiaTextura(texturasClientes[0 + rand() % texturasClientes.size()]);
@@ -40,7 +39,7 @@ void Puerta::update()
 			cola->add(g, integrantes);
 			g->initGrupo(cola, v);
 		}
-		time = sdlutils().virtualTimer().currTime();
+		initTime = sdlutils().virtualTimer().currTime();
 
 		sdlutils().soundEffects().at("puerta").play();
 	}
@@ -48,7 +47,12 @@ void Puerta::update()
 
 bool Puerta::receiveGrupoClientes(GrupoClientes* gc)
 {
-	game->getObjectManager()->getPoolGrupoClientes()->remove(gc->getIterator());
+	gc->deactivate();
 
 	return true;
+}
+
+SDL_Rect Puerta::getCollider()
+{
+	return getTexBox();
 }

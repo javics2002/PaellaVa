@@ -16,8 +16,6 @@ class PoolObject;
 class Mueble : public GameObject
 {
 protected:
-    double time;
-    double offsetTime;
     double rellenoTimer = 0.0;
 
     int timerDimension = 50;
@@ -32,21 +30,16 @@ public:
     virtual bool receiveGrupoClientes(GrupoClientes* gc) { return false; }
     virtual bool receivePaella(Paella* pa) { return false; }
     virtual bool receiveArroz(Arroz* arr) { return false;}
+
     virtual bool returnObject(Player* p) { return false; }
 
-    virtual void setTime(double newTime) { time = newTime; }
-
-    virtual void setOffset(double newOffset) { offsetTime = newOffset; }
-
-    virtual bool colisionPlayer(Player* p) {
-        return false;
-    }
-
-    virtual Silla* initMesa(Mesa* mesa) {
-        return nullptr;
-    }
+    virtual Silla* initMesa(Mesa* mesa) { return nullptr;}
+    virtual void decirPedido() {};
 
     SDL_Rect getCollider() override;
+    SDL_Rect getOverlap() override;
+
+    
 };
 
 

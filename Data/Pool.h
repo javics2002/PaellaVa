@@ -17,7 +17,7 @@ class Pool
 	Game* game;
 
 	//lista con solo los objetos de la pool que est�n activos
-	list<PoolObject*> activeObjects;
+	list<T*> aliveObjects;
 
 	//vector con toda la pool
 	vector<T*> v;
@@ -32,7 +32,7 @@ class Pool
 
 		//el bucle no itera ninguna vez en la mayor�a de casos, sobre todo en los ingredientes
 		//(es posible que en el caso de los clientes o paellas tarde m�s en encontrar al siguiente)
-		while (cont < numElems && v[nextElem]->isActive())
+		while (cont < numElems && v[nextElem]->isAlive())
 		{
 			cont++;
 			nextElem = (nextElem + 1) % numElems;
@@ -44,7 +44,7 @@ class Pool
 		
 			numElems *= 2;
 
-			while (cont < numElems && v[nextElem]->isActive())
+			while (cont < numElems && v[nextElem]->isAlive())
 			{
 				cont++;
 				nextElem = (nextElem + 1) % numElems;
@@ -70,9 +70,9 @@ public:
 		findNextElem();
 
 		auto& elem = v[nextElem];
-		activeObjects.push_front(elem);
+		aliveObjects.push_front(elem);
 		elem->setPosition(pos);
-		elem->activate(activeObjects.begin());	
+		elem->activate();	
 
 		return elem;
 	}
@@ -81,24 +81,18 @@ public:
 		findNextElem();
 
 		auto& elem = v[nextElem];
-		activeObjects.push_front(elem);
-		elem->activate(activeObjects.begin());
+		aliveObjects.push_front(elem);
+		elem->activate();
 
 		return elem;
-	}
-
-	//borra el objeto de la lista de activos
-	void remove(list<PoolObject*>::const_iterator it) {
-		(*it)->deactivate();
-		activeObjects.erase(it);
 	}
 
 	vector<T*> getOverlaps(SDL_Rect GOcollider) {
 		vector<T*> c;
 
-		for (auto it : activeObjects) {
+		for (auto it : aliveObjects) {
 			if (it->overlap(GOcollider))
-				c.push_back(dynamic_cast<T*>(it));
+				c.push_back(it);
 		}
 
 		return c;
@@ -107,48 +101,52 @@ public:
 	vector<T*> getCollisions(SDL_Rect GOcollider) {
 		vector<T*> c;
 
-		for (auto it : activeObjects) {
+		for (auto it : aliveObjects) {
 			if (it->collide(GOcollider))
-				c.push_back(dynamic_cast<T*>(it));
+				c.push_back(it);
 		}
 
 		return c;
 	}
 
 	void render() {	
-		for (auto it : activeObjects)
+		for (auto it : aliveObjects)
 			it->render();
 	}
 
 	void render(SDL_Rect* rect) {
-		for (auto it : activeObjects)
+		for (auto it : aliveObjects)
 			it->render(rect);
 	}
 
+	void refresh() {
+		//Sacamos los objetos desactivados
+		auto it = aliveObjects.begin();
+		while (it != aliveObjects.end()) {
+			if (!(*it)->isAlive()) {
+				it = aliveObjects.erase(it);
+			}
+			else
+				it++;
+		}
+	}
+
 	void debug() {
-		for (auto it : activeObjects) {
+		for (auto it : aliveObjects) {
 			it->renderDebug();
 		}
 	}
 
 	void debug(SDL_Rect* rect) {
-		for (auto it : activeObjects) {
+		for (auto it : aliveObjects) {
 			it->renderDebug(rect);
 		}
 	}
 
 	void update() {
-		//Sacamos los objetos desactivados
-		auto it = activeObjects.begin();
-		while (it != activeObjects.end()) {
-			if (!(*it)->isActive()) {
-				it = activeObjects.erase(it);
-			}
-			else
-				it++;
-		}
+		refresh();
 
-		for (auto object : activeObjects) {
+		for (auto object : aliveObjects) {
 			object->update();
 		}
 	}

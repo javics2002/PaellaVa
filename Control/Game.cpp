@@ -56,7 +56,7 @@ void Game::start()
 		handleInput(event, exit);
 
 		update();
-		
+		refresh();
 		render();
 		
 		Uint32 frameTime = sdlutils().currRealTime() - startTime;
@@ -86,6 +86,11 @@ void Game::update()
 	// update nm
 	if(nm != nullptr)
 		nm->update();
+}
+
+void Game::refresh()
+{
+	currentScene->refresh();
 }
 
 void Game::render()

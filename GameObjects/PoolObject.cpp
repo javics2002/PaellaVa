@@ -1,27 +1,21 @@
 #include "PoolObject.h"
 
-bool PoolObject::isActive()
+bool PoolObject::isAlive()
 {
-	return active;
+	return alive;
 }
 
-void PoolObject::activate(list<PoolObject*>::const_iterator iterator)
+void PoolObject::activate()
 {
-	it = iterator;
-
-	active = true;
+	alive = true;
 
 	onActivate();
 }
 
 void PoolObject::deactivate()
 {
-	active = false;
+	alive = false;
 
 	onDeactivate();
 }
 
-list<PoolObject*>::const_iterator PoolObject::getIterator()
-{
-	return it;
-}

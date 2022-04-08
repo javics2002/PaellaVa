@@ -80,23 +80,21 @@ void Player::handleInput()
 	vel.clamp(-maxVel, maxVel);
 
 	if (ih().getKey(InputHandler::INTERACT)) {
+
+		//Se prioriza la interaccion con los muebles por encima de otros objetos
+		//Se prioriza el mueble mas cercano al jugador
+		Mueble* m = nullptr;
+		for (auto i : game->getObjectManager()->getMueblesOverlaps(getOverlap())) {
+			m = nearestObject(m, i);
+		}
+
 		//Si el jugador no lleva nada encima
 		if (pickedObject_ == nullptr) {
-
-			//Se prioriza la interaccion con los muebles por encima de otros objetos
-			//Se prioriza el mueble mas cercano al jugador
-			Mueble* m = nullptr;
-			for (auto i : game->getObjectManager()->getMueblesOverlaps(getOverlap())) {
-				m = nearestObject(m, dynamic_cast<Mueble*>(i));
-			}
-
+		
 			//Si se ha encontrado un mueble, se intenta interactuar con 
 			//este con returnObject(), para que te devuelva el objeto
 			if (m != nullptr && m->returnObject(this))
-			{
-				assert(pickedObject_ != nullptr);
 				pickedObject_->pickObject();
-			}
 
 			//En caso contrario se recorre el resto de objetos del juego para ver si el jugador puede cogerlos
 			//Una vez m�s se prioriza el objeto m�s cercano
@@ -104,15 +102,13 @@ void Player::handleInput()
 			{
 				//Ingredientes
 				for (auto i : game->getObjectManager()->getPoolIngredientes()->getOverlaps(getOverlap())) {
-					ObjetoPortable* op = dynamic_cast<ObjetoPortable*>(i);
-					if (op->canPick() && nearestObject(op))
+					if (i->isAlive() && i->canPick() && nearestObject(i))
 						objectType_ = INGREDIENTE;
 				}
 
 				//Grupo de Clientes
 				for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getOverlaps(getOverlap())) {
-					ObjetoPortable* op = dynamic_cast<ObjetoPortable*>(i);
-					if (op->canPick() && nearestObject(op))
+					if (i->isAlive() && i->canPick() && nearestObject(i))
 						objectType_ = CLIENTES;
 				}
 
@@ -124,12 +120,6 @@ void Player::handleInput()
 		}
 		//Si el jugador lleva algo encima
 		else {
-
-			//Se busca el mueble mas cercano de nuevo
-			Mueble* m = nullptr;
-			for (auto i : game->getObjectManager()->getMueblesOverlaps(getOverlap())) {
-				m = nearestObject(m, dynamic_cast<Mueble*>(i));
-			}
 
 			//Dependiendo de lo que lleve el jugador encima, la interacci�n con el mueble ser� distinta
 			switch (objectType_)
@@ -213,14 +203,7 @@ void Player::update()
 	Vector2D<double> newColPos = Vector2D<double>(rect.x + rect.w / 2, rect.y + rect.h / 2);
 	Vector2D<double> newPos = pos + vel;
 
-	vector<Collider*> colisionMuebles = game->getObjectManager()->getMueblesCollisions(rect);
-
-	for (auto i : colisionMuebles) {
-		//Si colisionamos con un mueble, le avisaremos y alejaremos al jugador
-		dynamic_cast<Mueble*>(i)->colisionPlayer(this);
-
-		//Cuando colisiono con un mueble
-		SDL_Rect c = i->getCollider();
+	for (auto i : game->getObjectManager()->getMueblesCollisions(rect)) {
 
 		////Comprobamos Izquierda o Derecha
 		//double interseccionIz = abs((rect.x + rect.w) - (c.x));
@@ -259,6 +242,9 @@ void Player::update()
 		//	} 
 		//}		
 
+		//Cuando colisiono con un mueble
+		SDL_Rect c = i->getCollider();	
+
 		//Comprobamos por la izquierda y la derecha
 		/*La intersección que busco es mas pequeña desde la izquierda y la derecha para
 		que nos reposicione donde acabamos de entrar al mueble*/
@@ -280,6 +266,10 @@ void Player::update()
 
 	//Nos movemos al nuevo sitio
 	setPosition(newPos);
+
+	for (auto i : game->getObjectManager()->getMueblesOverlaps(getCollider())) {
+		i->decirPedido();
+	}
 
 	if (vel.getY() > .8f)
 		orientation_ = S;
@@ -332,8 +322,11 @@ bool Player::nearestObject(ObjetoPortable* go)
 	}
 	else
 	{
-		Vector2D<double> pos = getPosition();
-		if ((pos - go->getPosition()).magnitude() < (pos - pickedObject_->getPosition()).magnitude()) {
+		Vector2D<double> pos = getRectCenter(getOverlap());
+
+		if ((pos - getRectCenter(go->getOverlap())).magnitude() 
+			< (pos - getRectCenter(pickedObject_->getOverlap())).magnitude()) {
+
 			pickedObject_ = go;
 			return true;
 		}
@@ -347,8 +340,11 @@ Mueble* Player::nearestObject(Mueble* m1, Mueble* m2)
 		return m2;
 	else
 	{
-		Vector2D<double> pos = getPosition();
-		if ((pos - m1->getPosition()).magnitude() < (pos - m2->getPosition()).magnitude()) {
+		Vector2D<double> pos = getRectCenter(getOverlap());
+
+		if ((pos - getRectCenter(m1->getOverlap())).magnitude() 
+			< (pos - getRectCenter(m2->getOverlap())).magnitude()) {
+
 			return m1;
 		}
 		else return m2;
@@ -450,6 +446,11 @@ SDL_Rect Player::getCollider()
 		rect.y + rect.h / 3 * 2, 
 		rect.w / 2, 
 		rect.h / 3};
+}
+
+Vector2D<double> Player::getRectCenter(SDL_Rect rect)
+{
+	return Vector2D<double>(rect.x + rect.w / 2, rect.y + rect.h / 2);
 }
 
 

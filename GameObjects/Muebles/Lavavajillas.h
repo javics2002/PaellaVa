@@ -15,7 +15,7 @@ public:
 	const unsigned int DIMENSION_H = 1;
 
 	const double TIEMPO_LAVADO = 3000.0;
-
+	double initTime;
 
 	deque<Paella*> pilaPaellas;
 	deque<Paella*> paellasLimpias;
