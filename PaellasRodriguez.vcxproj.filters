@@ -25,7 +25,6 @@
     <ClCompile Include="GameObjects\Muebles\TablaProcesado.cpp" />
     <ClCompile Include="SDL2-2.0.20\include\SDL_rect.cpp" />
     <ClCompile Include="sdlutils\SDLUtils.cpp" />
-    <ClCompile Include="Scenes\Restaurante.cpp" />
     <ClCompile Include="GameObjects\Imagen.cpp" />
     <ClCompile Include="Utils\Texture.cpp" />
     <ClCompile Include="json\JSON.cpp" />
@@ -63,6 +62,7 @@
     <ClCompile Include="Scenes\IntroduceIP.cpp" />
     <ClCompile Include="Scenes\Lobby.cpp" />
     <ClCompile Include="Utils\Collider.cpp" />
+    <ClCompile Include="Scenes\Jornada.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
@@ -88,7 +88,6 @@
     <ClInclude Include="Data\Pool.h" />
     <ClInclude Include="GameObjects\PoolObject.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="Scenes\Restaurante.h" />
     <ClInclude Include="GameObjects\Muebles\Silla.h" />
     <ClInclude Include="GameObjects\Muebles\TablaProcesado.h" />
     <ClInclude Include="sdlutils\SDLUtils.h" />
@@ -151,6 +150,7 @@
     <ClInclude Include="Scenes\IntroduceIP.h" />
     <ClInclude Include="Scenes\Lobby.h" />
     <ClInclude Include="Utils\Collider.h" />
+    <ClInclude Include="Scenes\Jornada.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />

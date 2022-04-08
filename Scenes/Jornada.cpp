@@ -1,4 +1,4 @@
-﻿#include "Restaurante.h"
+﻿#include "Jornada.h"
 #include "../GameObjects/GrupoClientes.h"
 #include "../GameObjects/Player.h"
 #include "../GameObjects/Paella.h"
@@ -18,31 +18,32 @@
 
 using namespace std;
 
-Restaurante::Restaurante(Game* game) : Scene(game)
+Jornada::Jornada(Game* game,string tilemap,int numeroJornada) : Scene(game)
 {
-	auto startButton = new UiButton(game, "start", 640, 100, 100, 100);
-	startButton->setInitialDimension(100, 100);
-	startButton->setAction([this, startButton](Game* game, bool& exit) {
-		sdlutils().soundEffects().at("select").play(0, game->UI);
-
-		uiManager->addTween(0.9f, 1.0f, 600.0f).via(easing::exponentialOut).onStep([game, startButton](tweeny::tween<float>& t, float) mutable {
-			startButton->setDimension(t.peek() * startButton->getInitialWidth(), t.peek() * startButton->getInitialHeight());
-
-			if (t.progress() > .2f) {
-				//Start game
-				game->changeScene(new GameOver(game,0));
-				return true;
-			}
-			return false;
-			});
-		});
-
-	uiManager->addInterfaz(startButton);
-
-
 	this->game = game;
+	nJornada = numeroJornada;
 
-	mapInfo.ruta = "..\\..\\..\\Assets\\Tilemap\\Restaurante.tmx";
+	//auto startButton = new UiButton(game, "start", 640, 100, 100, 100);
+	//startButton->setInitialDimension(100, 100);
+	//startButton->setAction([this, startButton](Game* game, bool& exit) {
+	//	sdlutils().soundEffects().at("select").play(0, game->UI);
+
+	//	uiManager->addTween(0.9f, 1.0f, 600.0f).via(easing::exponentialOut).onStep([game, startButton,this](tweeny::tween<float>& t, float) mutable {
+	//		startButton->setDimension(t.peek() * startButton->getInitialWidth(), t.peek() * startButton->getInitialHeight());
+
+	//		if (t.progress() > .2f) {
+	//			//Start game
+	//			game->changeScene(new GameOver(game,0,nJornada));
+	//			return true;
+	//		}
+	//		return false;
+	//		});
+	//	});
+
+	//uiManager->addInterfaz(startButton);
+
+
+	mapInfo.ruta = "..\\..\\..\\Assets\\Tilemap\\"+tilemap+".tmx";
 	loadMap(mapInfo.ruta);
 
 	fondo->setTexture(mapInfo.ruta);
@@ -53,7 +54,7 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
 
 	uiManager->addInterfaz(new RedactaComandabutton(game, uiManager, "redactaboton", 10, 10, 30, 30));
-	uiManager->setBarra(new ListaComandas(game,uiManager));
+	uiManager->setBarra(new ListaComandas(game, uiManager));
 
 	uiManager->creaMenuPausa();
 
@@ -62,19 +63,20 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 	objectManager->initMuebles();
 }
 
-Restaurante::~Restaurante()
+Jornada::~Jornada()
 {
 	delete objectManager;
 	delete fondo;
 	delete camara;
 }
 
-void Restaurante::handleInput(bool& exit)
+
+void Jornada::handleInput(bool& exit)
 {
 	Scene::handleInput(exit);
 
 	if (ih().getKey(InputHandler::CANCEL)) {
-		
+
 #ifdef _DEBUG
 		// game->changeScene(new GameOver(game, 100));
 		togglePause();
@@ -85,18 +87,11 @@ void Restaurante::handleInput(bool& exit)
 	}
 }
 
-void Restaurante::refresh()
-{
-	if (!paused) {
-		objectManager->refresh();
-	}
-}
-
-void Restaurante::update()
+void Jornada::update()
 {
 	if (!paused) {
 		objectManager->update();
-		
+
 		if (objectManager->getHost()->getX() > tamRestaurante.getY() + TILE_SIZE) { // tamRestaurante es un rango, no una posición, por eso tengo que hacer getY()
 			camara->Lerp(Vector2D<float>(tamRestaurante.getY(), 16), LERP_INTERPOLATION);
 		}
@@ -108,42 +103,23 @@ void Restaurante::update()
 	uiManager->update(paused);
 }
 
-void Restaurante::addPuntuaciones(double puntosComanda)
+void Jornada::addPuntuaciones(double puntosComanda)
 {
 	puntuacionesComandas.push_back(puntosComanda);
 	cout << puntuacionesComandas.back() << endl;
 }
 
-void Restaurante::mediaPuntuaciones()
+void Jornada::mediaPuntuaciones()
 {
 	int sumaMedia = 0;
 	for (auto i : puntuacionesComandas) {
-		sumaMedia+=i;
+		sumaMedia += i;
 	}
 	puntuaciónTotal = sumaMedia / puntuacionesComandas.size();
 }
 
-void Restaurante::togglePause()
+void Jornada::loadMap(string const& path)
 {
-	uiManager->togglePause();
-
-	paused = !paused;
-
-	if (paused) {
-
-		sdlutils().virtualTimer().pause();
-		
-		sdlutils().soundEffects().at("cancel").play(0, game->UI);
-	}
-	else {
-		sdlutils().virtualTimer().resume();
-
-		
-		sdlutils().soundEffects().at("select").play(0, game->UI);
-	}
-}
-
-void Restaurante::loadMap(string const& path) {
 	//Cargamos el mapa .tmx del archivo indicado
 	mapInfo.tilemap = new tmx::Map();
 	mapInfo.tilemap->load(path);
@@ -284,7 +260,7 @@ void Restaurante::loadMap(string const& path) {
 				/// Puerta = 1
 				/// 
 				/// </Z coords>
-				
+
 				if (name == "mesaS") { // 1 tile
 					Mesa* m = new Mesa(game, position, { 1, 2 }, name);
 					m->setDepth(1);
@@ -388,15 +364,15 @@ void Restaurante::loadMap(string const& path) {
 				}
 				else if (name == "pilaM")
 				{
-				Pila* p = new Pila(game, position, TipoPaella::Mediana, 5);
-				p->setDepth(1);
-				getObjectManager()->addMueble(p);
+					Pila* p = new Pila(game, position, TipoPaella::Mediana, 5);
+					p->setDepth(1);
+					getObjectManager()->addMueble(p);
 				}
 				else if (name == "pilaL")
 				{
-				Pila* p = new Pila(game, position, TipoPaella::Grande, 3);
-				p->setDepth(1);
-				getObjectManager()->addMueble(p);
+					Pila* p = new Pila(game, position, TipoPaella::Grande, 3);
+					p->setDepth(1);
+					getObjectManager()->addMueble(p);
 				}
 			}
 		}
@@ -405,7 +381,27 @@ void Restaurante::loadMap(string const& path) {
 
 		SDL_SetRenderTarget(renderer, nullptr);
 
-		if (!sdlutils().images().count(path)) 
+		if (!sdlutils().images().count(path))
 			sdlutils().images().emplace(path, Texture(renderer, fondo, mapInfo.anchoFondo, mapInfo.altoFondo));
+	}
+}
+
+void Jornada::togglePause()
+{
+	uiManager->togglePause();
+
+	paused = !paused;
+
+	if (paused) {
+
+		sdlutils().virtualTimer().pause();
+
+		sdlutils().soundEffects().at("cancel").play(0, game->UI);
+	}
+	else {
+		sdlutils().virtualTimer().resume();
+
+
+		sdlutils().soundEffects().at("select").play(0, game->UI);
 	}
 }

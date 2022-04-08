@@ -2,13 +2,17 @@
 
 #include "../Scenes/Scene.h"
 
+const vector<string> nombreTilemaps = { "jornada2", "restaurante", "restaurante", "restaurante",
+	"restaurante", "restaurante" };
+
 class GameOver : public Scene
 {
 public:
-	GameOver(Game* game, int puntuacion);
+	GameOver(Game* game, int puntuacion,int numeroJornada);
 
 private:
 	int starNumber = 1;
+	int nJornada = 0;
 	int points = 0;
 	int maxStars = 5; //maximo de estrellas
 	int pointStarValue = 20; //num de puntos que vale una estrella

@@ -9,7 +9,7 @@
 
 #include "../GameObjects/Muebles/Mesa.h"
 
-#include "../Scenes/Restaurante.h"
+#include "../Scenes/Jornada.h"
 
 GrupoClientes::GrupoClientes(Game* game) : ObjetoPortable(game), PoolObject(), pedido(nullptr), cola(nullptr), estado_(CAMINANDO) , nPaellas(0)
 {
@@ -270,7 +270,7 @@ void GrupoClientes::onDeactivate()
 
 	if (estado_ == CUENTA) {
 		mesa->clienteSeVa();
-		dynamic_cast<Restaurante*>(game->getCurrentScene())->addPuntuaciones(pedido->puntuarPedido(mesa->getPaellasEntregadas()));
+		dynamic_cast<Jornada*>(game->getCurrentScene())->addPuntuaciones(pedido->puntuarPedido(mesa->getPaellasEntregadas()));
 	}	
 }
 

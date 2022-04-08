@@ -12,7 +12,7 @@
 #include "EliminaComandaButton.h"
 #include "../../Data/ListaComandas.h"
 
-#include "../../Scenes/Restaurante.h"
+#include "../../Scenes/Jornada.h"
 #include "../../Scenes/Menu.h"
 
 #include "../../Utils/Texture.h"
@@ -390,7 +390,7 @@ void UIManager::creaMenuPausa() {
 
 	resumeButton->setAction([this, resumeButton](Game* game, bool& exit) {
 		// Pausa
-		Restaurante* currentScene = dynamic_cast<Restaurante*>(game->getCurrentScene());
+		Jornada* currentScene = dynamic_cast<Jornada*>(game->getCurrentScene());
 
 		addTween(0.9f, 1.0f, 600.0f).via(easing::exponentialOut).onStep([resumeButton, currentScene](tweeny::tween<float>& t, float) mutable {
 			resumeButton->setDimension(t.peek() * resumeButton->getInitialWidth(), t.peek() * resumeButton->getInitialHeight());

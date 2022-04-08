@@ -1,5 +1,5 @@
 #include "Lobby.h"
-#include "../Scenes/Restaurante.h"
+#include "../Scenes/Jornada.h"
 #include "../GameObjects/UI/ShowText.h"
 
 Lobby::Lobby(Game* game, string nombre):Scene(game)

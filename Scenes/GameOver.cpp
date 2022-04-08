@@ -1,13 +1,14 @@
 #include "GameOver.h"
 #include "../Scenes/Menu.h"
-#include "../Scenes/Restaurante.h"
+#include "../Scenes/Jornada.h"
 #include "../Control/NetworkManager.h"
 #include "../sdlutils/SDLUtils.h"
 
 using tweeny::easing;
 
-GameOver::GameOver(Game* game, int puntuation) : Scene(game)
+GameOver::GameOver(Game* game, int puntuation, int numeroJornada) : Scene(game)
 {
+	nJornada = numeroJornada;
 	points = puntuation;
 	calculateStarNumber();
 	createRandomReviews();
@@ -43,6 +44,7 @@ GameOver::GameOver(Game* game, int puntuation) : Scene(game)
 	uiManager->addInterfaz(puntos);
 
 
+
 	auto continueButton = new UiButton(game, "continue",
 		sdlutils().width() / 2 + 300, sdlutils().height() / 2 + 200, 300, 120);
 	continueButton->setInitialDimension(300, 120);
@@ -50,15 +52,23 @@ GameOver::GameOver(Game* game, int puntuation) : Scene(game)
 	continueButton->setAction([this, continueButton](Game* game, bool& exit) {
 		sdlutils().soundEffects().at("select").play(0, game->UI);
 
+
 		uiManager->addTween(0.9f, 1.0f, 600.0f).via(easing::exponentialOut).onStep(
-			[game, continueButton](tweeny::tween<float>& t, float) mutable {
+			[game, continueButton,this](tweeny::tween<float>& t, float) mutable {
 			continueButton->setDimension(t.peek() * continueButton->getInitialWidth(), 
 				t.peek() * continueButton->getInitialHeight());
 			
 			if (t.progress() > .2f) {
 				//Start game
-				game->getNetworkManager()->close();
-				game->changeScene(new Menu(game));
+				if (nombreTilemaps.size() > nJornada) {
+					game->changeScene(new Jornada(game, nombreTilemaps[nJornada], nJornada+1));
+					game->getNetworkManager()->close();
+					game->getNetworkManager()->init('h');
+				}
+				else {
+					game->getNetworkManager()->close();
+					game->changeScene(new Menu(game));
+				}
 				return true;
 			}
 			return false;
