@@ -167,10 +167,11 @@ void Player::handleInput(Vector2D<double> axis)
 void Player::update()
 {
 	//Próxima posición
+	SDL_Rect rect = getCollider();	
+
+	Vector2D<double> newColPos = Vector2D<double>(rect.x + rect.w / 2, rect.y + rect.h / 2);
 	Vector2D<double> newPos = pos + vel;
 
-	setPosition(newPos);
-	SDL_Rect rect = getCollider();
 	vector<Collider*> colisionMuebles = game->getObjectManager()->getMueblesCollider(rect);
 
 	for (auto i : colisionMuebles) {
@@ -180,42 +181,60 @@ void Player::update()
 		//Cuando colisiono con un mueble
 		SDL_Rect c = i->getCollider();
 
-		//Comprobamos Izquierda o Derecha
-		double interseccionIz = abs((rect.x + rect.w) - (c.x));
-		double interseccionDer = abs((rect.x) - (c.x + c.w));
-		bool bIz = interseccionIz < interseccionDer ? 1 : 0;
-		double interseccionX = bIz ? interseccionIz : interseccionDer;
+		////Comprobamos Izquierda o Derecha
+		//double interseccionIz = abs((rect.x + rect.w) - (c.x));
+		//double interseccionDer = abs((rect.x) - (c.x + c.w));
+		//bool bIz = interseccionIz < interseccionDer ? 1 : 0;
+		//double interseccionX = bIz ? interseccionIz : interseccionDer;
 
-		//Comprobamos Arriba y Abajo
-		double interseccionAr = abs((rect.y + rect.h) - (c.y));
-		double interseccionAb = abs((rect.y) - (c.y + c.h));
-		bool bAr = interseccionAr < interseccionAb ? 1 : 0;
-		double interseccionY = bAr ? interseccionAr : interseccionAb;
+		////Comprobamos Arriba o Abajo
+		//double interseccionAr = abs((rect.y + rect.h) - (c.y));
+		//double interseccionAb = abs((rect.y) - (c.y + c.h));
+		//bool bAr = interseccionAr < interseccionAb ? 1 : 0;
+		//double interseccionY = bAr ? interseccionAr : interseccionAb;
 
-		//Combrobamos Horizontal y Vertical, y aplicamos el cambio
-		if (interseccionX < interseccionY) {
-			//cout << "Horizontal" << endl;
-			if (bIz) {
-				//cout << "Izquierda" << endl;
-				newPos = Vector2D<double>(c.x - rect.w - ((rect.w - getTexBox().w) / 2), newPos.getY());
-			}				
-			else {
-				//cout << "Derecha" << endl;
-				newPos = Vector2D<double>(c.x + c.w - ((rect.w - getTexBox().w) / 2),  newPos.getY());
-			}			
-		}			
-		else {
-			//cout << "Vertical" << endl;
-			if (bAr) {
-				//cout << "Arriba" << endl;
-				newPos = Vector2D<double>(newPos.getX(), c.y - getTexBox().h / 2);
-			}
-			else
-			{
-				//cout << "Abajo" << endl;
-				newPos = Vector2D<double>(newPos.getX(), c.y + c.h + rect.h - getTexBox().h / 2);
-			} 
-		}			 
+		////Combrobamos Horizontal o Vertical, y aplicamos el cambio
+		//if (interseccionX < interseccionY) {
+		//	//cout << "Horizontal" << endl;
+		//	if (bIz) {
+		//		//cout << "Izquierda" << endl;
+		//		newPos = Vector2D<double>(c.x - rect.w - ((rect.w - getWidth()) / 2), newPos.getY());
+		//	}				
+		//	else {
+		//		//cout << "Derecha" << endl;
+		//		newPos = Vector2D<double>(c.x + c.w - ((rect.w - getWidth()) / 2),  newPos.getY());
+		//	}			
+		//}			
+		//else {
+		//	//cout << "Vertical" << endl;
+		//	if (bAr) {
+		//		//cout << "Arriba" << endl;
+		//		newPos = Vector2D<double>(newPos.getX(), c.y - getHeight() / 2);
+		//	}
+		//	else
+		//	{
+		//		//cout << "Abajo" << endl;
+		//		newPos = Vector2D<double>(newPos.getX(), c.y + c.h + rect.h - getHeight() / 2);
+		//	} 
+		//}		
+
+		//Comprobamos por la izquierda y la derecha
+		/*La intersección que busco es mas pequeña desde la izquierda y la derecha para
+		que nos reposicione donde acabamos de entrar al mueble*/
+		int interseccionIz = (newColPos.getX() + getCollider().w / 2) - c.x;
+		int interseccionDer = (newColPos.getX() - getCollider().w / 2) - (c.x + c.w);
+		int interseccionX = abs(interseccionIz) < abs(interseccionDer) ? interseccionIz : interseccionDer;
+
+		//Lo mismo por arriba y por abajo
+		int interseccionAr = (newColPos.getY() + getCollider().h / 2) - c.y;
+		int interseccionAb = (newColPos.getY() - getCollider().h / 2) - (c.y + c.h);
+		int interseccionY = abs(interseccionAr) < abs(interseccionAb) ? interseccionAr : interseccionAb;
+
+		//Aplicamos la menor interseccion, que es la que tiene
+		if (abs(interseccionX) < abs(interseccionY))
+			newPos = newPos - Vector2D<double>(interseccionX, 0);
+		else
+			newPos = newPos - Vector2D<double>(0, interseccionY);
 	}
 
 	//Nos movemos al nuevo sitio
@@ -235,18 +254,18 @@ void Player::update()
 	{
 	case E:
 		overlapPos = Vector2D<double>(getX() + getWidth() / 4,
-			getY() - overlapDim.getY() / 4);
+			getY());
 		break;
 	case O:
 		overlapPos = Vector2D<double>(getX() - getWidth() / 4 - overlapDim.getX(),
-			getY() - overlapDim.getY() / 4);
+			getY());
 		break;
 	case S:
-		overlapPos = Vector2D<double>(getX() - overlapDim.getX() / 4,
-			getY() + getHeight() / 4);
+		overlapPos = Vector2D<double>(getX() - overlapDim.getX() / 2,
+			getY() + getHeight() / 2);
 		break;
 	case N:
-		overlapPos = Vector2D<double>(getX() - overlapDim.getX() / 4,
+		overlapPos = Vector2D<double>(getX() - overlapDim.getX() / 2,
 			getY() - getHeight() / 4 - overlapDim.getY());
 		break;
 	default:
@@ -365,7 +384,6 @@ void Player::setPickedObject(ObjetoPortable* op, objectType ot)
 
 SDL_Rect Player::getCollider()
 {
-
 	SDL_Rect rect = getTexBox();
 
 	return { rect.x + rect.w / 4, 

@@ -9,3 +9,15 @@ Mueble::Mueble(Game* game, Vector2D<double> position, int width, int height, str
 
 	timerTexture = &sdlutils().images().at("timer");
 }
+
+SDL_Rect Mueble::getCollider()
+{
+	SDL_Rect rect = getTexBox();
+
+	return {
+		rect.x,
+		rect.y + rect.h / 2,
+		rect.w,
+		rect.h / 2
+	};
+}
