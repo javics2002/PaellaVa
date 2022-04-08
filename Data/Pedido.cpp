@@ -50,9 +50,9 @@ Pedido::Pedido(int numComensales, int numeroTiles)
 		}
 	}
 	for (int g = 0; g < paellas.size(); g++) {
-		int c = rand() % LIMITE_INGR + 0;
+		int c = rand() % (LIMITE_INGR + 1);
 		cout << c << endl;
-		for (int j = 0; j <= c; j++) {
+		for (int j = 0; j < c; j++) {
 			int n = rand() % (tipoIngrediente::LAST);
 			ingredienteRand = tipoIngrediente(n);
 			if (paellas[g].ingredientesPedido.size() < LIMITE_INGR && !ingredientesPedidos[ingredienteRand])
