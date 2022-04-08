@@ -5,8 +5,6 @@
 Pared::Pared(Game* game, Vector2D<double> position) : Mueble(game, position, TILE_SIZE, TILE_SIZE, "cartel")
 {
 	setDimension(64, 64);
-	//Collider invisible
-	setColliderRect({ (int)getX(), (int)getY(), w, h });
 }
 
 Pared::~Pared()
@@ -14,20 +12,7 @@ Pared::~Pared()
 }
 
 
-
-void Pared::update()
+SDL_Rect Pared::getCollider()
 {
-	//for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getCollisions(getCollider())) {
-	//	i->colisionClientes();
-	//}
+	return getTexBox();
 }
-
-void Pared::render(SDL_Rect* cameraRect)
-{
-}
-
-//bool Pared::colisionPlayer(Player* p)
-//{
-//	p->setVel(0, 0);
-//	return false;
-//}

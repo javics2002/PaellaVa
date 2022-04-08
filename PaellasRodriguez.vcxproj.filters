@@ -59,14 +59,12 @@
     <ClCompile Include="Control\NetworkManager.cpp" />
     <ClCompile Include="GameObjects\Muebles\Pila.cpp" />
     <ClCompile Include="Scenes\HostClient.cpp" />
-    <ClCompile Include="Utils\Collider.cpp" />
     <ClCompile Include="GameObjects\Collider.cpp" />
     <ClCompile Include="GameObjects\Arroz.cpp" />
     <ClCompile Include="Scenes\IntroduceIP.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
-    <ClInclude Include="GameObjects\Collider.h" />
     <ClInclude Include="Data\Comanda.h" />
     <ClInclude Include="GameObjects\Cliente.h" />
     <ClInclude Include="GameObjects\Muebles\Cinta.h" />
@@ -148,7 +146,6 @@
     <ClInclude Include="Control\NetworkManager.h" />
     <ClInclude Include="GameObjects\Muebles\Pila.h" />
     <ClInclude Include="Scenes\HostClient.h" />
-    <ClInclude Include="Utils\Collider.h" />
     <ClInclude Include="GameObjects\Arroz.h" />
     <ClInclude Include="Scenes\IntroduceIP.h" />
   </ItemGroup>

@@ -4,16 +4,13 @@
 #include "../Utils/Texture.h"
 
 class Collider {
-    SDL_Rect objectRect;
-   
+
+protected:
     bool hasCollision(SDL_Rect rect1, SDL_Rect rect2);
 
 public:
-    Collider();
+    Collider() {};
 
-    void setColliderRect(SDL_Rect coll);
-    SDL_Rect getCollider();
-
-    void drawDebugColl(SDL_Rect* cameraRect);
+    virtual SDL_Rect getCollider() = 0;
     virtual bool collide(SDL_Rect other);
 };

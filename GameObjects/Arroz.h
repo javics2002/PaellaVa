@@ -11,8 +11,6 @@ public:
     Arroz(Game* game);
     ~Arroz() = default;
 
-    void update() override;
-
     void onObjectPicked() override {};
     void onObjectDropped() override {};
 };

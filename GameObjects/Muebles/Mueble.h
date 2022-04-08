@@ -45,6 +45,8 @@ public:
     virtual Silla* initMesa(Mesa* mesa) {
         return nullptr;
     }
+
+    SDL_Rect getCollider() override;
 };
 
 

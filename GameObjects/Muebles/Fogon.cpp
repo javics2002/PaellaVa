@@ -10,7 +10,6 @@ using tweeny::easing;
 Fogon::Fogon(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, "fogon")
 {
 	paella_ = nullptr;
-	setColliderRect({ (int)getX(), (int)getY() - h / 4, w, h / 2 });
 }
 
 
@@ -91,8 +90,8 @@ bool Fogon::returnObject(Player* p)
 		//Paramos el sonido
 		sdlutils().soundEffects().at("fogon").haltChannel(canalSonido);
 
-		//TOCHECK: Habría que devolver la paella al estado de "Preparación" si no está Preparada?
-		//Y desde donde se llama a que esté ya Preparada?
+		//TOCHECK: Habrï¿½a que devolver la paella al estado de "Preparaciï¿½n" si no estï¿½ Preparada?
+		//Y desde donde se llama a que estï¿½ ya Preparada?
 
 		return true;
 	}

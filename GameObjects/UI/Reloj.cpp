@@ -32,7 +32,7 @@ bool Reloj::finDia()
 
 void Reloj::render(SDL_Rect* cameraRect)
 {
-	drawRender(getTexCollider(), relojTexture);
+	drawRender(getTexBox(), relojTexture);
 	drawRender(cameraRect);
 }
 
