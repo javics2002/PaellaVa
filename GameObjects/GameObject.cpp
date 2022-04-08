@@ -45,14 +45,6 @@ void GameObject::setTexture(const string text, const string font, const SDL_Colo
 	texture = &sdlutils().messages().at(text);
 }
 
-void GameObject::setDimension() //pone la dimension al tama�o de la textura
-{
-	if (texture != nullptr) {
-		w = texture->width();
-		h = texture->height();
-	}
-}
-
 SDL_Rect GameObject::getTexBox()
 {
 	return { int(getX() - getWidth() / 2),

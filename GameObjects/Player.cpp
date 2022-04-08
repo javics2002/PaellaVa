@@ -329,8 +329,6 @@ void Player::update()
 
 	if (sdlutils().currRealTime() - lastFrameTime > frameRate)
 		animUpdate();
-
-	setColliderRect({ (int)getX(), (int)getY() + 2 * h / 5, w / 2, h / 5 });
 }
 
 bool Player::nearestObject(ObjetoPortable* go)

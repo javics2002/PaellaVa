@@ -1,9 +1,8 @@
 #pragma once
 
-#include "Collider.h"
-
 #include "../Utils/Texture.h"
 #include "../Utils/Vector2D.h"
+#include "../Utils/Collider.h"
 #include "../sdlutils/SDLUtils.h"
 
 #include <string>
