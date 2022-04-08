@@ -11,10 +11,16 @@
 
 ObjectManager::ObjectManager(Game* game) : game(game)
 {
-	pools.emplace_back(new Pool<Ingrediente>(game, 50));
-	pools.emplace_back(new Pool<Arroz>(game, 20));
-	pools.emplace_back(new Pool<GrupoClientes>(game, 20));	
-	pools.emplace_back(new Pool<Cliente>(game, 50));
+	auto ingredinetes = new Pool<Ingrediente>(game, 50);
+	auto arrozes = new Pool<Arroz>(game, 20);
+	auto grupos = new Pool<GrupoClientes>(game, 20);
+	auto clientes = new Pool<Cliente>(game, 50);
+
+
+	pools.emplace_back((Pool<GameObject>*) ingredinetes);
+	pools.emplace_back((Pool<GameObject>*) arrozes);
+	pools.emplace_back((Pool<GameObject>*) grupos);
+	pools.emplace_back((Pool<GameObject>*) clientes);
 }
 
 ObjectManager::~ObjectManager()
@@ -66,9 +72,9 @@ void ObjectManager::debug(SDL_Rect* rect)
 }
 
 template<typename T>
-inline Pool<T>* ObjectManager::getPool(int i)
+T* ObjectManager::add(int i)
 {
-	return static_cast<T*>(pools[i]);
+	return dynamic_cast<T*>(pools[i]->add());
 }
 
 void ObjectManager::handleInput(bool& exit)

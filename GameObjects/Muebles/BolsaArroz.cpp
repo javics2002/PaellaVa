@@ -1,9 +1,11 @@
 #include "BolsaArroz.h"
+
 #include "../Arroz.h"
 #include "../Player.h"
-#include "../Paella.h"
+
 #include "../../Control/Game.h"
 #include "../../Control/ObjectManager.h"
+
 
 BolsaArroz::BolsaArroz(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, "bolsaArroz")
 {
@@ -11,7 +13,7 @@ BolsaArroz::BolsaArroz(Game* game, Vector2D<double> pos) : Mueble(game, pos, TIL
 
 bool BolsaArroz::returnObject(Player* p)
 {
-	p->setPickedObject(game->getObjectManager()->getPool<Arroz>( _p_ARROZ)->add(), ARROZ);
+	p->setPickedObject(game->getObjectManager()->add<Arroz>(_p_ARROZ), ARROZ);
 
 	return true;
 }

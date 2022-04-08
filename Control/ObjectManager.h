@@ -15,7 +15,7 @@ class Game;
 
 using namespace std;
 
-enum  pool : uint8_t { _p_INGREDIENTE, _p_ARROZ, _p_GRUPO, _p_CLIENTE, _p_LAST };
+enum poolType { _p_INGREDIENTE, _p_ARROZ, _p_GRUPO, _p_CLIENTE};
 
 
 class ObjectManager
@@ -49,7 +49,7 @@ public:
 	void addPlayer(Player* player);
 
 	template<typename T>
-	inline Pool<T>* getPool(int i);
+	T* add(int i);
 
 	vector<Mueble*> getMueblesCollisions(SDL_Rect collider);
 	vector<Mueble*> getMueblesOverlaps(SDL_Rect collider);
