@@ -43,7 +43,6 @@ Player::Player(Game* game) :
 
 
 	// setTexture("player");
-	setColliderRect({ (int)getX(), (int)getY() + 2 * h / 3, 2 * w / 3, h / 3});
 }
 
 Player::~Player()
@@ -53,7 +52,7 @@ Player::~Player()
 void Player::handleInput()
 {
 	//El jugador se mueve o se para en ambos ejes
-	if (abs(ih().getAxisX()) > .1f)
+	if (abs(ih().getAxisX()) > .1f) {
 		vel.setX(vel.getX() + ih().getAxisX() * aceleracion);
 
 		// Mirar der
