@@ -19,6 +19,8 @@ public:
 	bool receivePaella(Paella* paella) override;
 	virtual bool returnObject(Player* p) override;
 
-	bool colisionPlayer(Player* p) override;
+	SDL_Rect getOverlap() override;
+
+	void decirPedido() override;
 };
 

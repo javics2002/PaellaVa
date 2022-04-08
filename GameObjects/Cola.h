@@ -5,7 +5,7 @@
 
 class Cola
 {
-	const int T_Max = 10;
+	const int T_Max = 8;
 	list<GrupoClientes*> cola;
 	int capacidadActual;
 

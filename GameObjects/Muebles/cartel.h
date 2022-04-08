@@ -10,5 +10,7 @@ public:
 	~Cartel() = default;
 
 	void update() override;
+
+	SDL_Rect getCollider() override;
 };
 

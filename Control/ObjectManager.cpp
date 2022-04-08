@@ -87,21 +87,23 @@ void ObjectManager::update()
 		i->update();
 
 	ingredientes->update();	
-
 	arroces->update();	
-
 	grupoClientes->update();
 
-	SDL_GetMouseState(&x, &y);
+	
 
-	SDL_Rect rect = SDL_Rect{ x, y, range, range };
 
-	for (auto i : grupoClientes->getCollisions(rect)) {
-		dynamic_cast<GrupoClientes*>(i)->ratonEncima();
-	}
 }
 
-void ObjectManager::addMueble(GameObject* mueble)
+void ObjectManager::refresh()
+{
+	ingredientes->refresh();
+	arroces->refresh();
+	grupoClientes->refresh();
+	clientes->refresh();
+}
+
+void ObjectManager::addMueble(Mueble* mueble)
 {
 	muebles.push_back(mueble);
 	
@@ -124,9 +126,9 @@ Paella* ObjectManager::addPaella(int n)
 	return p;
 }
 
-vector<Collider*> ObjectManager::getMueblesCollisions(SDL_Rect collider)
+vector<Mueble*> ObjectManager::getMueblesCollisions(SDL_Rect collider)
 {
-	vector<Collider*> c;
+	vector<Mueble*> c;
 
 	for (auto i : muebles) {
 		if (i->collide(collider))
@@ -136,9 +138,9 @@ vector<Collider*> ObjectManager::getMueblesCollisions(SDL_Rect collider)
 	return c;
 }
 
-vector<Collider*> ObjectManager::getMueblesOverlaps(SDL_Rect collider)
+vector<Mueble*> ObjectManager::getMueblesOverlaps(SDL_Rect collider)
 {
-	vector<Collider*> c;
+	vector<Mueble*> c;
 
 	for (auto i : muebles) {
 		if (i->overlap(collider))

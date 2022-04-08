@@ -11,3 +11,8 @@ Cinta::~Cinta()
 {
 	sdlutils().soundEffects().at("cinta").haltChannel(canalSonido);
 }
+
+SDL_Rect Cinta::getCollider()
+{
+	return getTexBox();
+}

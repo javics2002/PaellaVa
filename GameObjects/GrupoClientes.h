@@ -17,7 +17,7 @@ class Mesa;
 
 enum EstadoClientes { CAMINANDO, ENCOLA, PIDIENDO, ESPERANDO, COMIENDO, CUENTA };
 
-class GrupoClientes : public PoolObject
+class GrupoClientes : public ObjetoPortable, public PoolObject
 {
 	const unsigned int DIMENSION = 60;
 
@@ -31,7 +31,6 @@ class GrupoClientes : public PoolObject
 		
 	float lastTimeTol;
 	float tolerancia;
-	bool showTol;
 
 	vector<string> texturaTolerancia = {"enfadado", "enfadado_2", "basico", "feliz_2", "feliz", "feliz"};
 
@@ -58,8 +57,9 @@ class GrupoClientes : public PoolObject
 	int nPaellas;
 
 	int mitadGrupo();
-
 	void bajaTolerancia();
+
+	bool ratonEncima(SDL_Rect* cameraRect);
 
 public:
 	GrupoClientes(Game* game);	
@@ -81,7 +81,7 @@ public:
 	int numIntegrantes();
 	vector<Cliente*> getIntegrantes();
 
-	bool ratonEncima();
+	
 	
 	void onObjectPicked() override;
 	void onObjectDropped() override;
@@ -93,8 +93,6 @@ public:
 
 	void hacerPedido(int tamMesa, Mesa* m);
 	void decirPedidio();
-
-
 
 	bool paellasPedidas();
 };

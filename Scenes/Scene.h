@@ -30,6 +30,7 @@ public:
 
 	virtual void handleInput(bool& exit);
 	virtual void update();
+	virtual void refresh() {};
 	virtual void render();
 	virtual void debug();
 

@@ -31,6 +31,7 @@ public:
 
     void handleInput(SDL_Event& event, bool& exit);
     void update();
+    void refresh();
     void render();
 
     ObjectManager* getObjectManager();

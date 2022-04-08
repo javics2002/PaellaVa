@@ -2,18 +2,13 @@
 
 #include <iostream>
 
-Ingrediente::Ingrediente(Game* game) : PoolObject(game) {
+Ingrediente::Ingrediente(Game* game) : ObjetoPortable(game), PoolObject() {
 	setDimension(DIMENSION, DIMENSION);
 }
 
 void Ingrediente::update()
 {
 	setPosition(getX(), getY() + vel.getY());
-}
-
-pair<bool, std::list<PoolObject*>::const_iterator> Ingrediente::colisionIngrediente()
-{
-	return { !isPicked(), getIterator() };
 }
 
 void Ingrediente::onActivate()

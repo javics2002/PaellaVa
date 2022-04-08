@@ -29,13 +29,16 @@ public:
 	bool receivePaella(Paella* paella) override;
 	bool returnObject(Player* p) override;
 
-	bool colisionPlayer(Player* p) override;
 
 	void clienteSeVa();
 
 	vector<Paella*> getPaellasEntregadas();
 
 	void comerPaellas();
+
+	SDL_Rect getOverlap() override;
+
+	void decirPedido() override;
 
 };
 

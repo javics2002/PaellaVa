@@ -1,4 +1,5 @@
 #pragma once
+
 #include "../Data/Pool.h"
 #include "../GameObjects/Ingrediente.h"
 #include "../GameObjects/Cliente.h"
@@ -16,21 +17,18 @@ using namespace std;
 
 class ObjectManager
 {
-	//esto va a ser nuestra version de capas
-	//en el orden en el que lo renderizamos nos aseguramos que la UI esta por encima de todo
 	Pool<GrupoClientes> *grupoClientes;
 	Pool<Cliente> *clientes;
 	Pool<Ingrediente> *ingredientes;
 	Pool<Arroz> *arroces;
-	vector<GameObject*> muebles;
-	vector<GameObject*> paellas;
 
+	vector<Paella*> paellas;
+
+	vector<Mueble*> muebles;
+	
 	vector<Player*> players;
 
 	vector<GameObject*> renderAll;
-
-	//Para formar el rect del raton
-	int x = 0, y = 0, range = 2;
 
 	Game* game;
 
@@ -39,12 +37,13 @@ public:
 	~ObjectManager();
 
 	void handleInput(bool& exit);
-	void update();
 
+	void update();
+	void refresh();
 	void render(SDL_Rect* rect);
 	void debug(SDL_Rect* rect);
 
-	void addMueble(GameObject* mueble);
+	void addMueble(Mueble* mueble);
 	Paella* addPaella(int n);
 
 	void addPlayer(Player* player);
@@ -54,6 +53,9 @@ public:
 	Pool<Ingrediente>* getPoolIngredientes() { return ingredientes; }
 	Pool<Arroz>* getPoolArroces() { return arroces; }
 
+	vector<Mueble*> getMueblesCollisions(SDL_Rect collider);
+	vector<Mueble*> getMueblesOverlaps(SDL_Rect collider);
+
 	vector<Player*> getPlayers() { return players; }
 
 	Player* getHost() { 
@@ -62,9 +64,6 @@ public:
 	}
 
 	void initMuebles();
-
-	vector<Collider*> getMueblesCollisions(SDL_Rect collider);
-	vector<Collider*> getMueblesOverlaps(SDL_Rect collider);
 
 	void sortAllGO();
 };

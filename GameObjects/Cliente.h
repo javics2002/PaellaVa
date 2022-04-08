@@ -1,12 +1,11 @@
 #pragma once
 
-#include "../GameObjects/PoolObject.h"
-
-using namespace std;
+#include "PoolObject.h"
+#include "GameObject.h"
 
 class Game;
 
-class Cliente : public PoolObject
+class Cliente : public GameObject, public PoolObject
 {
 	const unsigned int DIMENSION = 70;
 
@@ -18,12 +17,6 @@ public:
 	void update() override;
 
 	void cambiaTextura(string textureN);
-
-	void clienteRecogido();
-
-protected:
-	void onObjectPicked() override {};
-	void onObjectDropped() override {};
 };
 
 

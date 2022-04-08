@@ -11,9 +11,8 @@ void FinalCinta::update()
 {
 	vector<Ingrediente*> ingredientes = game->getObjectManager()->getPoolIngredientes()->getCollisions(getCollider());
 	for (auto i : ingredientes) {
-		auto pair = i->colisionIngrediente();
-		if (pair.first)
-			game->getObjectManager()->getPoolIngredientes()->remove(pair.second);
+		if (!i->isPicked())
+			i->deactivate();
 	}	
 }
 

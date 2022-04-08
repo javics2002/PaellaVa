@@ -21,3 +21,15 @@ SDL_Rect Mueble::getCollider()
 		rect.h / 2
 	};
 }
+
+SDL_Rect Mueble::getOverlap()
+{
+	SDL_Rect rect = getTexBox();
+
+	return {
+		rect.x,
+		rect.y,
+		rect.w,
+		rect.h / 2
+	};
+}

@@ -12,3 +12,8 @@ void Cartel::update()
 		dynamic_cast<GrupoClientes*>(i)->colisionClientes();
 	}
 }
+
+SDL_Rect Cartel::getCollider()
+{
+	return getTexBox();
+}
