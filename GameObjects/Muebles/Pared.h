@@ -10,6 +10,9 @@ public:
 	~Pared();
 
 	void render(SDL_Rect* cameraRect) override {};
+
 	SDL_Rect getCollider() override;
+	SDL_Rect getOverlap() override;
+
 };
 

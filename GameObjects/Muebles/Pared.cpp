@@ -16,3 +16,8 @@ SDL_Rect Pared::getCollider()
 {
 	return getTexBox();
 }
+
+SDL_Rect Pared::getOverlap()
+{
+	return SDL_Rect();
+}

@@ -26,7 +26,7 @@ void Mesa::init(ObjectManager* objectManager)
 		getWidth() + aum * 2, getHeight() + aum * 2 };
 
 	for (auto i : objectManager->getMueblesOverlaps(c)) {
-		Silla* s = dynamic_cast<Mueble*>(i)->initMesa(this);
+		Silla* s = i->initMesa(this);
 		if (s != nullptr)
 			sillas.push_back(s);
 	}

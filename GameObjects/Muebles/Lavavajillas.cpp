@@ -83,3 +83,13 @@ void Lavavajillas::render(SDL_Rect* camera)
 	}
 }
 
+SDL_Rect Lavavajillas::getOverlap()
+{
+	return getTexBox();
+}
+
+SDL_Rect Lavavajillas::getCollider()
+{
+	return getTexBox();
+}
+

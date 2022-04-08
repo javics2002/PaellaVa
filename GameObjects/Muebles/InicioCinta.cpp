@@ -15,3 +15,13 @@ void InicioCinta::update()
 		initTime = sdlutils().virtualTimer().currTime();
 	}
 }
+
+SDL_Rect InicioCinta::getCollider()
+{
+	return getTexBox();
+}
+
+SDL_Rect InicioCinta::getOverlap()
+{
+	return SDL_Rect();
+}

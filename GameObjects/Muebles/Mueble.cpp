@@ -16,9 +16,9 @@ SDL_Rect Mueble::getCollider()
 
 	return {
 		rect.x,
-		rect.y + rect.h / 2,
+		rect.y + rect.h / 3,
 		rect.w,
-		rect.h / 2
+		rect.h / 3 * 2
 	};
 }
 

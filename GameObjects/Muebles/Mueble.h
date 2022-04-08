@@ -37,9 +37,7 @@ public:
     virtual void decirPedido() {};
 
     SDL_Rect getCollider() override;
-    SDL_Rect getOverlap() override;
-
-    
+    SDL_Rect getOverlap() override;   
 };
 
 

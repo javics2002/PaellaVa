@@ -35,6 +35,9 @@ public:
 	bool returnObject(Player* p)override; 
 
 	void render(SDL_Rect* camera) override;
+
+	SDL_Rect getOverlap() override;
+	SDL_Rect getCollider() override;
 };
 
 

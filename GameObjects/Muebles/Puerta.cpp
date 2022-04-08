@@ -56,3 +56,8 @@ SDL_Rect Puerta::getCollider()
 {
 	return getTexBox();
 }
+
+SDL_Rect Puerta::getOverlap()
+{
+	return getTexBox();
+}

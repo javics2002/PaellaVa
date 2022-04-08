@@ -11,6 +11,7 @@ public:
 
 	void update() override;
 
+	SDL_Rect getOverlap() override;
 	SDL_Rect getCollider() override;
 };
 

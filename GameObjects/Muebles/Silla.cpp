@@ -56,3 +56,15 @@ void Silla::decirPedido()
 	mMesa->decirPedido();
 }
 
+SDL_Rect Silla::getCollider()
+{
+	SDL_Rect rect = getTexBox();
+
+	return {
+		rect.x,
+		rect.y + rect.h / 2,
+		rect.w,
+		rect.h / 2
+	};
+}
+

@@ -16,3 +16,8 @@ SDL_Rect Cinta::getCollider()
 {
 	return getTexBox();
 }
+
+SDL_Rect Cinta::getOverlap()
+{
+	return SDL_Rect();
+}

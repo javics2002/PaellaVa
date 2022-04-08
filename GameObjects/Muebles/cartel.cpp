@@ -9,8 +9,13 @@ Cartel::Cartel(Game* game, Vector2D<double> position) : Mueble(game, position, T
 void Cartel::update()
 {
 	for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getCollisions(getCollider())) {
-		dynamic_cast<GrupoClientes*>(i)->colisionClientes();
+		i->colisionClientes();
 	}
+}
+
+SDL_Rect Cartel::getOverlap()
+{
+	return SDL_Rect();
 }
 
 SDL_Rect Cartel::getCollider()

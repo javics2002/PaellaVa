@@ -65,7 +65,7 @@ void GrupoClientes::update()
 			clientes[n]->getWidth() / 2, clientes[0]->getWidth() / 2};
 
 		for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getCollisions(rect)) {
-			dynamic_cast<GrupoClientes*>(i)->colisionClientes();
+			i->colisionClientes();
 		}
 
 		bajaTolerancia();

@@ -26,6 +26,7 @@ public:
 	virtual bool receiveGrupoClientes(GrupoClientes* gc);
 
 	SDL_Rect getCollider() override;
+	SDL_Rect getOverlap() override;
 };
 
 
