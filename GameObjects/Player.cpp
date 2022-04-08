@@ -37,7 +37,6 @@ Player::Player(Game* game) : GameObject(game), objectType_(INGREDIENTE), pickedO
 	currAnim = 0;
 
 	// setTexture("player");
-	setColliderRect({ (int)getX(), (int)getY() + 2 * h / 5, w / 2, h / 5 });
 }
 
 Player::~Player()
