@@ -64,7 +64,7 @@ void GrupoClientes::update()
 		SDL_Rect rect = { clientes[n]->getX() - clientes[n]->getWidth(), clientes[n]->getY() - clientes[n]->getHeight() / 2,
 			clientes[n]->getWidth() / 2, clientes[0]->getWidth() / 2};
 
-		for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getCollisions(rect)) {
+		for (auto i : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getCollisions(rect)) {
 			dynamic_cast<GrupoClientes*>(i)->colisionClientes();
 		}
 

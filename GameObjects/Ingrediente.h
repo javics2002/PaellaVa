@@ -24,6 +24,8 @@ class Ingrediente : public ObjetoPortable, public PoolObject
 	bool procesado = false;
 
 public:
+
+
 	Ingrediente(Game* game);
 	~Ingrediente() = default;
 

@@ -27,6 +27,8 @@ protected:
     bool active = true;
     int canalSonido;
 
+    bool alive;
+
     void drawRender(SDL_Rect* cameraRect);   
     void drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex);
     void drawRender(SDL_Rect rect, Texture* tex);
@@ -35,7 +37,7 @@ protected:
     void drawDebug(SDL_Rect* cameraRect); 
     void drawDebug(SDL_Rect* cameraRect, SDL_Rect rect); 
 
-    Vector2D<double> getRectCenter(SDL_Rect rect);
+    
 
 public:
 
@@ -87,4 +89,12 @@ public:
 
     SDL_Rect getCollider() override;
     SDL_Rect getOverlap() override;
+
+    bool isAlive();
+
+    void activate();
+    void deactivate();
+
+    virtual void onActivate() {}
+    virtual void onDeactivate() {}
 };

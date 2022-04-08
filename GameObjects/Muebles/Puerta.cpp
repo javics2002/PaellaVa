@@ -16,7 +16,7 @@ void Puerta::update()
 		if (cola->esValido(integrantes)) {
 			vector<Cliente*> v;
 
-			Cliente* c = game->getObjectManager()->getPoolClientes()->add();
+			Cliente* c = game->getObjectManager()->getPool<Cliente>(_p_CLIENTE)->add();
 
 			int width = c->getWidth();
 			int w = c->getPosition().getX();
@@ -29,13 +29,13 @@ void Puerta::update()
 			for (int i = 1; i < integrantes; i++) {
 				w -= width;
 
-				c = game->getObjectManager()->getPoolClientes()->add(Vector2D<double>(w, getY()));
+				c = game->getObjectManager()->getPool<Cliente>(_p_CLIENTE)->add(Vector2D<double>(w, getY()));
 				c->cambiaTextura(texturasClientes[0 + rand() % texturasClientes.size()]);
 
 				v.push_back(c);
 			}
 
-			GrupoClientes* g = game->getObjectManager()->getPoolGrupoClientes()->add();
+			GrupoClientes* g = game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->add();
 			cola->add(g, integrantes);
 			g->initGrupo(cola, v);
 		}

@@ -11,7 +11,7 @@ BolsaArroz::BolsaArroz(Game* game, Vector2D<double> pos) : Mueble(game, pos, TIL
 
 bool BolsaArroz::returnObject(Player* p)
 {
-	p->setPickedObject(game->getObjectManager()->getPoolArroces()->add(), ARROZ);
+	p->setPickedObject(game->getObjectManager()->getPool<Arroz>( _p_ARROZ)->add(), ARROZ);
 
 	return true;
 }

@@ -15,12 +15,12 @@ class Game;
 
 using namespace std;
 
+enum  pool : uint8_t { _p_INGREDIENTE, _p_ARROZ, _p_GRUPO, _p_CLIENTE, _p_LAST };
+
+
 class ObjectManager
 {
-	Pool<GrupoClientes> *grupoClientes;
-	Pool<Cliente> *clientes;
-	Pool<Ingrediente> *ingredientes;
-	Pool<Arroz> *arroces;
+	vector<Pool<GameObject>*> pools;
 
 	vector<Paella*> paellas;
 
@@ -48,10 +48,8 @@ public:
 
 	void addPlayer(Player* player);
 
-	Pool<Cliente>* getPoolClientes() { return clientes; }
-	Pool<GrupoClientes>* getPoolGrupoClientes() { return grupoClientes; }
-	Pool<Ingrediente>* getPoolIngredientes() { return ingredientes; }
-	Pool<Arroz>* getPoolArroces() { return arroces; }
+	template<typename T>
+	inline Pool<T>* getPool(int i);
 
 	vector<Mueble*> getMueblesCollisions(SDL_Rect collider);
 	vector<Mueble*> getMueblesOverlaps(SDL_Rect collider);

@@ -7,6 +7,7 @@ class Collider {
 
 protected:
     bool hasCollision(SDL_Rect rect1, SDL_Rect rect2);
+    Vector2D<double> getRectCenter(SDL_Rect rect);
 
 public:
     Collider() {};
