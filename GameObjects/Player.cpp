@@ -433,9 +433,6 @@ void Player::renderDebug(SDL_Rect* cameraRect)
 
 void Player::render(SDL_Rect* cameraRect)
 {
-	/*SDL_Rect dest = { getX() - getWidth() / 2, getY() + getHeight() / 2, w, h };
-	drawRender(cameraRect, dest, anims[currAnim], clip);	*/
-
 	drawRender(cameraRect);
 }
 

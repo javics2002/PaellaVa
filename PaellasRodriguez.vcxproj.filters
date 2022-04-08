@@ -50,7 +50,7 @@
     <ClCompile Include="GameObjects\UI\TamanoButton.cpp" />
     <ClCompile Include="Scenes\GameOver.cpp" />
     <ClCompile Include="GameObjects\Muebles\Ventanilla.cpp" />
-    <ClCompile Include="GameObjects\UI\Text.cpp" />
+    <ClCompile Include="GameObjects\UI\ShowText.cpp" />
     <ClCompile Include="GameObjects\Muebles\Pared.cpp" />
     <ClCompile Include="GameObjects\Muebles\BolsaArroz.cpp" />
     <ClCompile Include="Data\Pedido.cpp" />
@@ -61,6 +61,7 @@
     <ClCompile Include="Scenes\HostClient.cpp" />
     <ClCompile Include="GameObjects\Arroz.cpp" />
     <ClCompile Include="Scenes\IntroduceIP.cpp" />
+    <ClCompile Include="Scenes\Lobby.cpp" />
     <ClCompile Include="Utils\Collider.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -137,7 +138,7 @@
     <ClInclude Include="GameObjects\UI\TamanoButton.h" />
     <ClInclude Include="Scenes\GameOver.h" />
     <ClInclude Include="GameObjects\Muebles\Ventanilla.h" />
-    <ClInclude Include="GameObjects\UI\Text.h" />
+    <ClInclude Include="GameObjects\UI\ShowText.h" />
     <ClInclude Include="GameObjects\Muebles\Pared.h" />
     <ClInclude Include="GameObjects\Muebles\BolsaArroz.h" />
     <ClInclude Include="Data\Pedido.h" />
@@ -148,6 +149,7 @@
     <ClInclude Include="Scenes\HostClient.h" />
     <ClInclude Include="GameObjects\Arroz.h" />
     <ClInclude Include="Scenes\IntroduceIP.h" />
+    <ClInclude Include="Scenes\Lobby.h" />
     <ClInclude Include="Utils\Collider.h" />
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +213,10 @@
     <Image Include="Assets\Images\feliz2.png" />
     <Image Include="Assets\Images\TimeAnimation.png" />
     <Image Include="Assets\Images\barraCoccion.png" />
+    <Image Include="Assets\Images\textoMusica.png" />
+    <Image Include="Assets\Images\textoSonido.png" />
+    <Image Include="Assets\Images\textoFullScreen.png" />
+    <Image Include="Assets\Images\textoNombre.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="json\RAEDME.md" />

@@ -322,6 +322,10 @@ public:
 			return' ';
 		
 	}
+
+	void clearInputBuffer() {
+		currentKey.clear();
+	}
 	
 	bool getMouseButtonHeld() {
 		SDL_GetMouseState(&mx, &my);

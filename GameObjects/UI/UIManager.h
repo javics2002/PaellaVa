@@ -3,6 +3,7 @@
 class Game;
 class IngredienteButton;
 class Comanda;
+class Texture;
 class ListaComandas;
 using namespace std;
 using tweeny::easing;
@@ -44,6 +45,11 @@ class UIManager
 
 	bool clickPrevio = true;
 
+	UiButton* nombre;
+	string nombrePlayer = "elbaginon";
+	const int maxCaracteres = 15;
+	bool escribiendoNombre = false;
+
 public:
 	UIManager(Game* game);
 	~UIManager();
@@ -79,6 +85,8 @@ public:
 
 	vector<GameObject*> getPauseMenu() { return pauseMenu; }
 	vector<GameObject*> getInterfaz() { return interfaz; }
+
+	string getNombre() { return nombrePlayer; };
 
 	tweeny::tween<float>& addTween(float from, float to, float during);
 };

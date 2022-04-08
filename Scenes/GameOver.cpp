@@ -1,5 +1,4 @@
 #include "GameOver.h"
-#include "../GameObjects/UI/Text.h"
 #include "../Scenes/Menu.h"
 #include "../Scenes/Restaurante.h"
 #include "../Control/NetworkManager.h"

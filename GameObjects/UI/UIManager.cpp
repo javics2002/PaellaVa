@@ -15,6 +15,8 @@
 #include "../../Scenes/Restaurante.h"
 #include "../../Scenes/Menu.h"
 
+#include "../../Utils/Texture.h"
+
 #include <iostream>
 
 UIManager::UIManager(Game* game)
@@ -123,6 +125,19 @@ void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 			}
 		}
 	}
+
+	if (nombre != nullptr) {
+		if (nombre->isActive()) {
+
+			SDL_Point mouseP = { ih().getmx(), ih().getmy() };
+			SDL_Rect sliderColl = nombre->getCollider();
+
+			if (SDL_PointInRect(&mouseP, &sliderColl) == SDL_TRUE) {
+				escribiendoNombre = !escribiendoNombre;
+				ih().clearInputBuffer();
+			}
+		}
+	}
 }
 
 void UIManager::slideEvent(int mx, int my, bool& exit, bool paused)
@@ -147,7 +162,12 @@ void UIManager::handleInput(bool& exit, bool paused)
 {
 	if (ih().getMouseButtonState(InputHandler::MOUSE_LEFT))
 	{
+		//cout << nombrePlayer << endl;
 		uiEvent(ih().getmx(), ih().getmy(), exit);
+	}
+
+	else if (escribiendoNombre) {
+		nombre->execute(exit);
 	}
 
 	else if (ih().getMouseButtonHeld()) {
@@ -410,11 +430,14 @@ void UIManager::creaMenuPausa() {
 
 void UIManager::creaMenuOpciones()
 {
+	//Fonde De las opciones
 	Imagen* opcPant = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2, sdlutils().width() - 100, sdlutils().height()-100, "fondoOpc");
+	
 	opcPant->setActive(false);
 
 	optionsMenu.push_back(opcPant);
 
+	//Boton salir
 	UiButton* botonSalir = new UiButton(game, "cerrarOpc", opcPant->getWidth(), 100, 100, 100);
 
 	botonSalir->setActive(false);
@@ -426,9 +449,11 @@ void UIManager::creaMenuOpciones()
 	optionsMenu.push_back(botonSalir);
 	optionsButtons.push_back(botonSalir);
 
-	UiButton* pantCompleta = new UiButton(game, "reloj", sdlutils().width() / 2, opcPant->getHeight() - 100, 100, 100);
+	//Boton pantalla completa
+	UiButton* pantCompleta = new UiButton(game, "reloj", sdlutils().width() / 2 + sdlutils().width()/5, opcPant->getHeight() - 100, 100, 100);
 
 	pantCompleta->setActive(false);
+
 	pantCompleta->setAction([this, pantCompleta](Game* game, bool& exit) {
 		sdlutils().toggleFullScreen();
 		});
@@ -436,18 +461,42 @@ void UIManager::creaMenuOpciones()
 	optionsButtons.push_back(pantCompleta);
 	optionsMenu.push_back(pantCompleta);
 
-	Imagen* barraVol_musica = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2 - 100, 700, 30, "barraVol");
+	//Texto pantalla completa
+	Imagen* textoPCompleta = new Imagen(game, pantCompleta->getX() - pantCompleta->getWidth() / 2 - 75, pantCompleta->getY(), 125, 50, "PCompleta");
+
+	textoPCompleta->setActive(false);
+
+	optionsMenu.push_back(textoPCompleta);
+
+	//Barra Musica
+	Imagen* barraVol_musica = new Imagen(game, sdlutils().width() / 2 + 75, sdlutils().height() / 2 - 100, 700, 30, "barraVol");
 
 	barraVol_musica->setActive(false);
 
 	optionsMenu.push_back(barraVol_musica);
 
-	Imagen* barraVol_sonido = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2, 700, 30, "barraVol");
+	//Texto barra musica
+	Imagen* textoMusica = new Imagen(game, barraVol_musica->getX() - barraVol_musica->getWidth()/2 - 75, barraVol_musica->getY(), 125, 50, "musica");
+
+	textoMusica->setActive(false);
+
+	optionsMenu.push_back(textoMusica);
+
+	//Barra sonido
+	Imagen* barraVol_sonido = new Imagen(game, sdlutils().width() / 2 + 75, sdlutils().height() / 2, 700, 30, "barraVol");
 
 	barraVol_sonido->setActive(false);
 
 	optionsMenu.push_back(barraVol_sonido);
 
+	//Texto barra sonido
+	Imagen* textoSonido = new Imagen(game, barraVol_sonido->getX() - barraVol_sonido->getWidth() / 2 - 75, barraVol_sonido->getY(), 125, 50, "sonido");
+
+	textoSonido->setActive(false);
+
+	optionsMenu.push_back(textoSonido);
+
+	//Slide musica
 	slideMusica = new UiButton(game, "paella", barraVol_musica->getX(), barraVol_musica->getY(), 80, 80);
 
 	slideMusica->setActive(false);
@@ -474,6 +523,7 @@ void UIManager::creaMenuOpciones()
 	optionsMenu.push_back(slideMusica);
 	sliders.push_back(slideMusica);
 
+	//Slide sonido
 	slideSonido = new UiButton(game, "paella", barraVol_sonido->getX(), barraVol_sonido->getY(), 80, 80);
 
 	slideSonido->setActive(false);
@@ -503,6 +553,54 @@ void UIManager::creaMenuOpciones()
 
 	optionsMenu.push_back(slideSonido);
 	sliders.push_back(slideSonido);
+
+	//Caja de texto del nombre
+	Imagen* fondoNombre = new Imagen(game, sdlutils().width() / 2 - 100, opcPant->getHeight() - 100, 210, 50, "reloj");
+
+	fondoNombre->setActive(false);
+
+	optionsMenu.push_back(fondoNombre);
+
+	//Boton para escribir el nombre
+	nombre = new UiButton(game, nombrePlayer, "abadiNombre", { 255, 255, 255, 255 }, { 0, 0, 0, 0 }, sdlutils().width() / 2 - 100, opcPant->getHeight() - 100);
+
+	nombre->setActive(false);
+	
+	nombre->setAction([this](Game* game, bool& exit) {
+
+		char c = ih().getTypedKey();
+		if (c != ' ')
+		{
+			if (c == '\b')
+			{
+
+				if (!nombrePlayer.empty())
+					nombrePlayer.pop_back();
+				else
+					nombrePlayer = ' ';
+			}
+
+			else if (nombrePlayer.size() < maxCaracteres) {
+				nombrePlayer += c;
+			}
+
+			if (nombrePlayer.empty())
+				nombrePlayer = ' ';
+
+			nombre->setTexture(nombrePlayer, string("abadiNombre"), { 255, 255, 255, 255 }, { 0, 0, 0, 0 });
+			nombre->setDimension();
+		}
+		nombre->render(nullptr);
+		});
+
+	optionsMenu.push_back(nombre);
+
+	//Texto nombre
+	Imagen* textoNombre = new Imagen(game, fondoNombre->getX() - fondoNombre->getWidth() / 2 - 75, fondoNombre->getY(), 125, 50, "nombre");
+
+	textoNombre->setActive(false);
+
+	optionsMenu.push_back(textoNombre);
 }
 
 void UIManager::togglePause() {
@@ -554,6 +652,8 @@ void UIManager::salirOpciones()
 	for (auto i : optionsMenu) {
 		i->setActive(false);
 	}
+
+	escribiendoNombre = false;
 }
 
 void UIManager::desactivaBot()
