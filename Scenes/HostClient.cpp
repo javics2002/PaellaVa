@@ -1,10 +1,10 @@
 #include "HostClient.h"
-#include "../Scenes/Restaurante.h"
+#include "../Scenes/Lobby.h"
 #include "../Control/NetworkManager.h"
 #include "IntroduceIP.h"
 
 
-HostClient::HostClient(Game* game) : Scene(game)
+HostClient::HostClient(Game* game, string nombre_) : Scene(game)
 {
 	int offsetX = 300, offsetY = 150;
 
@@ -19,11 +19,13 @@ HostClient::HostClient(Game* game) : Scene(game)
 	uiManager->addInterfaz(cocineraSprite);
 	uiManager->addInterfaz(camareroSprite);
 
+	string nombre = nombre_;
+
 	auto hostButton = new UiButton(game, "Abrir restaurante", "paella", { 255, 255, 255, 255 }, { 0, 0, 0, 0 },
 		sdlutils().width() / 2 - offsetX, sdlutils().height() / 2 - offsetY);
-	hostButton->setAction([](Game* game, bool& exit) {
+	hostButton->setAction([nombre](Game* game, bool& exit) {
 		//Host
-		game->changeScene(new Restaurante(game));
+		game->changeScene(new Lobby(game, nombre));
 		game->getNetworkManager()->init('h');
 		});
 	uiManager->addInterfaz(hostButton);

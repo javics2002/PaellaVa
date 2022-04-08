@@ -3,6 +3,7 @@
 #include "../sdlutils/SDLUtils.h"
 #include "../Control/Game.h"
 #include "HostClient.h"
+#include "GameOver.h"
 
 #include <iostream>
 
@@ -31,7 +32,7 @@ Menu::Menu(Game* game) : Scene(game)
 
 			if (t.progress() > .2f) {
 				//Start game
-				game->changeScene(new HostClient(game));
+				game->changeScene(new HostClient(game, game->getUIManager()->getNombre()));
 				return true;
 			}
 			return false;

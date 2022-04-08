@@ -1,6 +1,5 @@
 #pragma once
 #include "../GameObject.h"
-#include "../UI/Text.h"
 #include "../../Utils/Texture.h"
 
 class Reloj : public GameObject

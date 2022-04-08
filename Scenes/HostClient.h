@@ -3,6 +3,6 @@
 class HostClient : public Scene
 {
 public:
-	HostClient(Game* game);
+	HostClient(Game* game, string nombre_);
 };
 
