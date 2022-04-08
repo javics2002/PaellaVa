@@ -19,11 +19,11 @@ struct penalizacionIngredientes {
 	double faltaIngr = -1;
 };
 struct penalizacionCoccion {
-	double cruda = -2;
+	double cruda = -3;
 	double pocoHecha = 0;
 	double perfecta = 1;
 	double muyHecha = 0;
-	double quemada = -2;
+	double quemada = -3;
 	double incomestible = -4;
 };
 

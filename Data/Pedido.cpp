@@ -142,6 +142,9 @@ double Pedido::puntuarPedido(vector<Paella*> comanda)
 			}
 		}
 		cout << getPedido()[i].puntuacionPaella << endl;
+		if (getPedido()[i].puntuacionPaella > 10) {
+			getPedido()[i].puntuacionPaella = 10;
+		}
 		sumaMedia += getPedido()[i].puntuacionPaella;
 	}
 	puntuacionPedido = sumaMedia / getPedido().size();
