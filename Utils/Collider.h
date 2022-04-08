@@ -13,4 +13,7 @@ public:
 
     virtual SDL_Rect getCollider() = 0;
     virtual bool collide(SDL_Rect other);
+
+    virtual SDL_Rect getOverlap() = 0;
+    virtual bool overlap(SDL_Rect other);
 };

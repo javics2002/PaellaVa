@@ -58,6 +58,11 @@ SDL_Rect GameObject::getCollider()
 	return getTexBox();
 }
 
+SDL_Rect GameObject::getOverlap()
+{
+	return getTexBox();
+}
+
 SDL_Rect GameObject::getCenter()
 {
 	return { int(getX() - CENTER_TAM / 2),
@@ -107,13 +112,18 @@ void GameObject::drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex, S
 
 void GameObject::drawDebug(SDL_Rect* cameraRect)
 {
-	SDL_Rect collider = getCollider();
-	SDL_Rect center = getCenter();
+	SDL_Rect overlap = getOverlap();
+	SDL_Rect collider = getCollider();	
+	SDL_Rect center = getCenter();	
+
+	overlap = { overlap.x - cameraRect->x, overlap.y - cameraRect->y, overlap.w, overlap.h };
 	collider = { collider.x - cameraRect->x, collider.y - cameraRect->y, collider.w, collider.h };
 	center = { center.x - cameraRect->x, center.y - cameraRect->y, center.w, center.h };
 
+	SDL_SetRenderDrawColor(sdlutils().renderer(), 0, 255, 0, 0);
+	SDL_RenderDrawRect(sdlutils().renderer(), &overlap);
 	SDL_SetRenderDrawColor(sdlutils().renderer(), 255, 0, 0, 0);
-	SDL_RenderDrawRect(sdlutils().renderer(), &collider);
+	SDL_RenderDrawRect(sdlutils().renderer(), &collider);	
 	SDL_SetRenderDrawColor(sdlutils().renderer(), 0, 0, 255, 0);
 	SDL_RenderFillRect(sdlutils().renderer(), &center);
 	SDL_SetRenderDrawColor(sdlutils().renderer(), 255, 255, 255, 0);

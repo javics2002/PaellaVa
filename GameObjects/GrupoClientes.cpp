@@ -156,6 +156,17 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 	}
 }
 
+bool GrupoClientes::overlap(SDL_Rect rect)
+{
+	for (auto i : clientes) {
+		if (i->overlap(rect)) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
 bool GrupoClientes::collide(SDL_Rect rect)
 {
 	for (auto i : clientes) {

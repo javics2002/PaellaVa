@@ -48,8 +48,6 @@ public:
 	void renderDebug(SDL_Rect* cameraRect) override;
 	void render(SDL_Rect* cameraRect) override;
 
-	SDL_Rect getOverlapCollider();	
-
 	void setPickedObject(ObjetoPortable* op, objectType ot);
 
 	Vector2D<double> getAxis() { return ih().getAxis(); }
@@ -60,5 +58,6 @@ public:
 	Vector2D<double> getOrientation();
 
 	SDL_Rect getCollider() override;
+	SDL_Rect getOverlap() override;
 };
 

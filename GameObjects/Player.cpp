@@ -36,7 +36,7 @@ Player::Player(Game* game) : GameObject(game), objectType_(INGREDIENTE), pickedO
 
 	currAnim = 0;
 
-	// setTexture("player");
+	setTexture("player");
 }
 
 Player::~Player()
@@ -86,7 +86,7 @@ void Player::handleInput()
 			//Se prioriza la interaccion con los muebles por encima de otros objetos
 			//Se prioriza el mueble mas cercano al jugador
 			Mueble* m = nullptr;
-			for (auto i : game->getObjectManager()->getMueblesCollider(getOverlapCollider())) {
+			for (auto i : game->getObjectManager()->getMueblesOverlaps(getOverlap())) {
 				m = nearestObject(m, dynamic_cast<Mueble*>(i));
 			}
 
@@ -103,24 +103,17 @@ void Player::handleInput()
 			else
 			{
 				//Ingredientes
-				for (auto i : game->getObjectManager()->getPoolIngredientes()->getCollisions(getOverlapCollider())) {
+				for (auto i : game->getObjectManager()->getPoolIngredientes()->getOverlaps(getOverlap())) {
 					ObjetoPortable* op = dynamic_cast<ObjetoPortable*>(i);
 					if (op->canPick() && nearestObject(op))
 						objectType_ = INGREDIENTE;
 				}
 
 				//Grupo de Clientes
-				for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getCollisions(getOverlapCollider())) {
+				for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getOverlaps(getOverlap())) {
 					ObjetoPortable* op = dynamic_cast<ObjetoPortable*>(i);
 					if (op->canPick() && nearestObject(op))
 						objectType_ = CLIENTES;
-				}
-
-				//Paellas
-				for (auto i : game->getObjectManager()->getPaellasCollider(getOverlapCollider())) {
-					ObjetoPortable* op = dynamic_cast<ObjetoPortable*>(i);
-					if (op->canPick() && nearestObject(op))
-						objectType_ = PAELLA;
 				}
 
 				//Una vez encontrado el m�s cercano, se interact�a con �l
@@ -134,7 +127,7 @@ void Player::handleInput()
 
 			//Se busca el mueble mas cercano de nuevo
 			Mueble* m = nullptr;
-			for (auto i : game->getObjectManager()->getMueblesCollider(getOverlapCollider())) {
+			for (auto i : game->getObjectManager()->getMueblesOverlaps(getOverlap())) {
 				m = nearestObject(m, dynamic_cast<Mueble*>(i));
 			}
 
@@ -153,7 +146,7 @@ void Player::handleInput()
 					pickedObject_ = nullptr;
 				}
 				else {
-					for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getCollisions(getOverlapCollider())) {
+					for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getOverlaps(getOverlap())) {
 						if (i == pickedObject_) {
 							pickedObject_->setPicked(false);
 							pickedObject_ = nullptr;
@@ -220,7 +213,7 @@ void Player::update()
 	Vector2D<double> newColPos = Vector2D<double>(rect.x + rect.w / 2, rect.y + rect.h / 2);
 	Vector2D<double> newPos = pos + vel;
 
-	vector<Collider*> colisionMuebles = game->getObjectManager()->getMueblesCollider(rect);
+	vector<Collider*> colisionMuebles = game->getObjectManager()->getMueblesCollisions(rect);
 
 	for (auto i : colisionMuebles) {
 		//Si colisionamos con un mueble, le avisaremos y alejaremos al jugador
@@ -384,7 +377,7 @@ void Player::setAnimResources()
 	anims.push_back(&sdlutils().images().at("cocineraWalkUp"));
 }
 
-SDL_Rect Player::getOverlapCollider()
+SDL_Rect Player::getOverlap()
 {
 	return { int(overlapPos.getX()),
 		 int(overlapPos.getY()),
@@ -436,13 +429,14 @@ void Player::renderDebug(SDL_Rect* cameraRect)
 {
 	drawDebug(cameraRect);
 	drawDebug(cameraRect, getTexBox());
-	drawDebug(cameraRect, getOverlapCollider());
 }
 
 void Player::render(SDL_Rect* cameraRect)
 {
-	SDL_Rect dest = { getX() - getWidth() / 2, getY() + getHeight() / 2, w, h };
-	drawRender(cameraRect, dest, anims[currAnim], clip);	
+	/*SDL_Rect dest = { getX() - getWidth() / 2, getY() + getHeight() / 2, w, h };
+	drawRender(cameraRect, dest, anims[currAnim], clip);	*/
+
+	drawRender(cameraRect);
 }
 
 void Player::setPickedObject(ObjetoPortable* op, objectType ot)

@@ -71,6 +71,7 @@ public:
 
 	void render(SDL_Rect* cameraRect) override;
 
+	bool overlap(SDL_Rect rect) override;
 	bool collide(SDL_Rect rect) override;
 	bool colisionClientes();
 

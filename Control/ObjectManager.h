@@ -54,8 +54,6 @@ public:
 	Pool<Ingrediente>* getPoolIngredientes() { return ingredientes; }
 	Pool<Arroz>* getPoolArroces() { return arroces; }
 
-	vector<GameObject*> getPaellas() { return paellas;}
-
 	vector<Player*> getPlayers() { return players; }
 
 	Player* getHost() { 
@@ -64,10 +62,9 @@ public:
 	}
 
 	void initMuebles();
-	vector<GameObject*> getMuebles() { return muebles; }
-	vector<Collider*> getMueblesCollider();
-	vector<Collider*> getMueblesCollider(SDL_Rect collider);
-	vector<Collider*> getPaellasCollider(SDL_Rect collider);
+
+	vector<Collider*> getMueblesCollisions(SDL_Rect collider);
+	vector<Collider*> getMueblesOverlaps(SDL_Rect collider);
 
 	void sortAllGO();
 };

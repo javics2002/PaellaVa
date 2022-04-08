@@ -93,22 +93,23 @@ public:
 		activeObjects.erase(it);
 	}
 
-	vector<Collider*> getColliders() {
-		vector<Collider*> c;
+	vector<T*> getOverlaps(SDL_Rect GOcollider) {
+		vector<T*> c;
 
 		for (auto it : activeObjects) {
-			c.push_back(it);
+			if (it->overlap(GOcollider))
+				c.push_back(dynamic_cast<T*>(it));
 		}
 
 		return c;
 	}
 
-	vector<Collider*> getCollisions(SDL_Rect GOcollider) {
-		vector<Collider*> c;
+	vector<T*> getCollisions(SDL_Rect GOcollider) {
+		vector<T*> c;
 
 		for (auto it : activeObjects) {
 			if (it->collide(GOcollider))
-				c.push_back(it);
+				c.push_back(dynamic_cast<T*>(it));
 		}
 
 		return c;

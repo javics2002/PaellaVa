@@ -84,4 +84,5 @@ public:
     virtual SDL_Rect getCenter();
 
     SDL_Rect getCollider() override;
+    SDL_Rect getOverlap() override;
 };

@@ -124,17 +124,7 @@ Paella* ObjectManager::addPaella(int n)
 	return p;
 }
 
-vector<Collider*> ObjectManager::getMueblesCollider()
-{
-	vector<Collider*> c;
-
-	for (auto i : muebles)
-		c.push_back(i);
-
-	return c;
-}
-
-vector<Collider*> ObjectManager::getMueblesCollider(SDL_Rect collider)
+vector<Collider*> ObjectManager::getMueblesCollisions(SDL_Rect collider)
 {
 	vector<Collider*> c;
 
@@ -146,12 +136,12 @@ vector<Collider*> ObjectManager::getMueblesCollider(SDL_Rect collider)
 	return c;
 }
 
-vector<Collider*> ObjectManager::getPaellasCollider(SDL_Rect collider)
+vector<Collider*> ObjectManager::getMueblesOverlaps(SDL_Rect collider)
 {
 	vector<Collider*> c;
 
-	for (auto i : paellas) {
-		if (i->collide(collider))
+	for (auto i : muebles) {
+		if (i->overlap(collider))
 			c.push_back(i);
 	}
 
