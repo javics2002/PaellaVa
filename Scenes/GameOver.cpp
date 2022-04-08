@@ -51,9 +51,11 @@ GameOver::GameOver(Game* game, int puntuation) : Scene(game)
 	continueButton->setAction([this, continueButton](Game* game, bool& exit) {
 		sdlutils().soundEffects().at("select").play(0, game->UI);
 
-		uiManager->addTween(0.9f, 1.0f, 600.0f).via(easing::exponentialOut).onStep([game, continueButton](tweeny::tween<float>& t, float) mutable {
-			continueButton->setDimension(t.peek() * continueButton->getInitialWidth(), t.peek() * continueButton->getInitialHeight());
-
+		uiManager->addTween(0.9f, 1.0f, 600.0f).via(easing::exponentialOut).onStep(
+			[game, continueButton](tweeny::tween<float>& t, float) mutable {
+			continueButton->setDimension(t.peek() * continueButton->getInitialWidth(), 
+				t.peek() * continueButton->getInitialHeight());
+			
 			if (t.progress() > .2f) {
 				//Start game
 				game->getNetworkManager()->close();

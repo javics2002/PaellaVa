@@ -31,6 +31,8 @@ bool FinalCinta::receivePaella(Paella* pa)
 		pa->setTexture("paellaSucia");
 		pa->setContenido(Sucia);
 		pa->setEnsuciada();
+
+		sdlutils().soundEffects().at("tirarPaella").play();
 	}
 	
 	return false;

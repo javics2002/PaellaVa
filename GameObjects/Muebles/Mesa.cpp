@@ -65,6 +65,8 @@ bool Mesa::receivePaella(Paella* paella)
 		paellas.push_back(paella);
 		paella->setPosition(getPosition());
 		paella->enLaMesa(true);
+
+		sdlutils().soundEffects().at("cubiertos").play();
 		return true;
 	}
 	return false;

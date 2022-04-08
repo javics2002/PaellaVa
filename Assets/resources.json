@@ -1,922 +1,216 @@
 {
   "fonts": [
-    {
-      "id": "abadi",
-      "file": "../../../Assets/Fonts/Abadi.otf",
-      "size": 16
-    },
-    {
-      "id": "paella",
-      "file": "../../../Assets/Fonts/Paella.ttf",
-      "size": 64
-    }
+    { "id": "abadi", "file": "../../../Assets/Fonts/Abadi.otf", "size": 16 },
+    { "id": "paella", "file": "../../../Assets/Fonts/Paella.ttf", "size": 64 }
   ],
 
   "images": [
-    {
-      "id": "barraTolerancia",
-      "file": "../../../Assets/Images/barraTolerancia.png"
-    },
-    {
-      "id": "cuadernillo",
-      "file": "../../../Assets/Images/cuadernillo.png"
-    },
-    {
-      "id": "cuadernilloseleted",
-      "file": "../../../Assets/Images/cuadernilloselected.png"
-    },
-    {
-      "id": "barra",
-      "file": "../../../Assets/Images/barracomandas.png"
-    },
-    {
-      "id": "redactaboton",
-      "file": "../../../Assets/Images/redactaboton.png"
-    },
-    {
-      "id": "uno",
-      "file": "../../../Assets/Images/uno.png"
-    },
-    {
-      "id": "dos",
-      "file": "../../../Assets/Images/dos.png"
-    },
-    {
-      "id": "tres",
-      "file": "../../../Assets/Images/tres.png"
-    },
-    {
-      "id": "cuatro",
-      "file": "../../../Assets/Images/cuatro.png"
-    },
-    {
-      "id": "cinco",
-      "file": "../../../Assets/Images/cinco.png"
-    },
-    {
-      "id": "seis",
-      "file": "../../../Assets/Images/seis.png"
-    },
-    {
-      "id": "siete",
-      "file": "../../../Assets/Images/siete.png"
-    },
-    {
-      "id": "ocho",
-      "file": "../../../Assets/Images/ocho.png"
-    },
-    {
-      "id": "nueve",
-      "file": "../../../Assets/Images/nueve.png"
-    },
-    {
-      "id": "small",
-      "file": "../../../Assets/Images/small.png"
-    },
-    {
-      "id": "medium",
-      "file": "../../../Assets/Images/medium.png"
-    },
-    {
-      "id": "large",
-      "file": "../../../Assets/Images/large.png"
-    },
-    {
-      "id": "alcachofa",
-      "file": "../../../Assets/Images/Ingredientes/alcachofa.png"
-    },
-    {
-      "id": "berenjena",
-      "file": "../../../Assets/Images/berenjena.png"
-    },
-    {
-      "id": "calamar",
-      "file": "../../../Assets/Images/Ingredientes/calamar.png"
-    },
-    {
-      "id": "cangrejo",
-      "file": "../../../Assets/Images/Ingredientes/cangrejo.png"
-    },
-    {
-      "id": "gamba",
-      "file": "../../../Assets/Images/Ingredientes/gamba.png"
-    },
-    {
-      "id": "langosta",
-      "file": "../../../Assets/Images/Ingredientes/langosta.png"
-    },
-    {
-      "id": "mejillon",
-      "file": "../../../Assets/Images/Ingredientes/mejillon.png"
-    },
-    {
-      "id": "pimientoRojo",
-      "file": "../../../Assets/Images/Ingredientes/pimientoRojo.png"
-    },
-    {
-      "id": "pimientoVerde",
-      "file": "../../../Assets/Images/Ingredientes/pimientoVerde.png"
-    },
-    {
-      "id": "pollo",
-      "file": "../../../Assets/Images/Ingredientes/pollo.png"
-    },
-    {
-      "id": "alcachofaP",
-      "file": "../../../Assets/Images/Ingredientes/alcachofaProcesada.png"
-    },
-    {
-      "id": "calamarP",
-      "file": "../../../Assets/Images/Ingredientes/calamarProcesado.png"
-    },
-    {
-      "id": "cangrejoP",
-      "file": "../../../Assets/Images/Ingredientes/cangrejoProcesado.png"
-    },
-    {
-      "id": "gambaP",
-      "file": "../../../Assets/Images/Ingredientes/gambaProcesada.png"
-    },
-    {
-      "id": "langostaP",
-      "file": "../../../Assets/Images/Ingredientes/langostaProcesada.png"
-    },
-    {
-      "id": "mejillonP",
-      "file": "../../../Assets/Images/Ingredientes/mejillonProcesado.png"
-    },
-    {
-      "id": "pimientoRojoP",
-      "file": "../../../Assets/Images/Ingredientes/pimientoRojoProcesado.png"
-    },
-    {
-      "id": "pimientoVerdeP",
-      "file": "../../../Assets/Images/Ingredientes/pimientoVerdeProcesado.png"
-    },
-    {
-      "id": "polloP",
-      "file": "../../../Assets/Images/Ingredientes/polloProcesado.png"
-    },
-    {
-      "id": "player",
-      "file": "../../../Assets/Images/player.png"
-    },
-    {
-      "id": "envia",
-      "file": "../../../Assets/Images/enviaboton.png"
-    },
-    {
-      "id": "cancela",
-      "file": "../../../Assets/Images/cancelaboton.png"
-    },
-    {
-      "id": "acepta",
-      "file": "../../../Assets/Images/aceptaboton.png"
-    },
-    {
-      "id": "borra",
-      "file": "../../../Assets/Images/borraboton.png"
-    },
-    {
-      "id": "start",
-      "file": "../../../Assets/Images/start.png"
-    },
-    {
-      "id": "exit",
-      "file": "../../../Assets/Images/exit.png"
-    },
-    {
-      "id": "customization",
-      "file": "../../../Assets/Images/customization.png"
-    },
-    {
-      "id": "settings",
-      "file": "../../../Assets/Images/settings.png"
-    },
-    {
-      "id": "menufondo",
-      "file": "../../../Assets/Images/menufondo.png"
-    },
-    {
-      "id": "cartel",
-      "file": "../../../Assets/Images/mesa.png"
-    },
-    {
-      "id": "cinta",
-      "file": "../../../Assets/Images/berenjena.png"
-    },
-    {
-      "id": "finalCinta",
-      "file": "../../../Assets/Images/finalCinta.png"
-    },
-    {
-      "id": "fogon",
-      "file": "../../../Assets/Images/fogon.png"
-    },
-    {
-      "id": "inicioCinta",
-      "file": "../../../Assets/Images/inicioCinta.png"
-    },
-    {
-      "id": "flechaCoccion",
-      "file": "../../../Assets/Images/flechaCoccion.png"
-    },
-    {
-      "id": "lavavajillas",
-      "file": "../../../Assets/Images/lavavajillas.png"
-    },
-    {
-      "id": "puerta",
-      "file": "../../../Assets/Images/inicioCinta.png"
-    },
-    {
-      "id": "tablaProcesado",
-      "file": "../../../Assets/Images/tabla.png"
-    },
-    {
-      "id": "barraCoccion",
-      "file": "../../../Assets/Images/barraCoccion.png"
-    },
-    {
-      "id": "mesaS",
-      "file": "../../../Assets/Images/mesaS.png"
-    },
-    {
-      "id": "mesaMH",
-      "file": "../../../Assets/Images/mesaS.png"
-    },
-    {
-      "id": "mesaMV",
-      "file": "../../../Assets/Images/mesaS.png"
-    },
-    {
-      "id": "mesaL",
-      "file": "../../../Assets/Images/mesaS.png"
-    },
-    {
-      "id": "sillaIz",
-      "file": "../../../Assets/Images/sillaIz.png"
-    },
-    {
-      "id": "sillaDer",
-      "file": "../../../Assets/Images/sillaDer.png"
-    },
-    {
-      "id": "sillaAr",
-      "file": "../../../Assets/Images/sillaAr.png"
-    },
-    {
-      "id": "sillaAb",
-      "file": "../../../Assets/Images/sillaAb.png"
-    },
-    {
-      "id": "encimera",
-      "file": "../../../Assets/Images/encimera.png"
-    },
-    {
-      "id": "basura",
-      "file": "../../../Assets/Images/basura.png"
-    },
-    {
-      "id": "bolsaArroz",
-      "file": "../../../Assets/Images/bolsaArroz.png"
-    },
-    {
-      "id": "reloj",
-      "file": "../../../Assets/Images/reloj.png"
-    },
-    {
-      "id": "periodico",
-      "file": "../../../Assets/Images/periodico.png"
-    },
-    {
-      "id": "estrella",
-      "file": "../../../Assets/Images/estrella.png"
-    },
-    {
-      "id": "clienteBase",
-      "file": "../../../Assets/Images/clienteBase.png"
-    },
-    {
-      "id": "cocinera",
-      "file": "../../../Assets/Images/cocinera.png"
-    },
-    {
-      "id": "camarero",
-      "file": "../../../Assets/Images/camarero.png"
-    },
-    {
-      "id": "pause1",
-      "file": "../../../Assets/Images/pause1.png"
-    },
-    {
-      "id": "resumeBoton",
-      "file": "../../../Assets/Images/resumeBoton.png"
-    },
-    {
-      "id": "pause2",
-      "file": "../../../Assets/Images/pause2.png"
-    },
-    {
-      "id": "exitBoton",
-      "file": "../../../Assets/Images/exitBoton.png"
-    },
-    {
-      "id": "review",
-      "file": "../../../Assets/Images/review.png"
-    },
-    {
-      "id": "enfadado",
-      "file": "../../../Assets/Images/enfadado.png"
-    },
-    {
-      "id": "enfadado_2",
-      "file": "../../../Assets/Images/enfadado1.png"
-    },
-    {
-      "id": "basico",
-      "file": "../../../Assets/Images/basic.png"
-    },
-    {
-      "id": "feliz_2",
-      "file": "../../../Assets/Images/feliz2.png"
-    },
-    {
-      "id": "feliz",
-      "file": "../../../Assets/Images/feliz.png"
-    },
-    {
-      "id": "timer",
-      "file": "../../../Assets/Images/TimeAnimation.png"
-    },
-    {
-      "id": "continue",
-      "file": "../../../Assets/Images/continue.png"
-    },
-    {
-      "id": "arroz",
-      "file": "../../../Assets/Images/Ingredientes/arroz.png"
-    },
-
-    
-
-    {
-      "id": "paellaCruda",
-      "file": "../../../Assets/Images/Paellas/paellaCruda.png"
-    },
-    {
-      "id": "paellaPocoHecha",
-      "file": "../../../Assets/Images/Paellas/paellaPocoHecha.png"
-    },
-    {
-      "id": "paella",
-      "file": "../../../Assets/Images/Paellas/paellaCompleta.png"
-    },
-    {
-      "id": "paellaMuyHecha",
-      "file": "../../../Assets/Images/Paellas/paellaMuyHecha.png"
-    },
-    {
-      "id": "paellaQuemada",
-      "file": "../../../Assets/Images/Paellas/paellaQuemada.png"
-    },
-    {
-      "id": "paellaIncomestible",
-      "file": "../../../Assets/Images/Paellas/paellaIncomestible.png"
-    },
-
-    {
-      "id": "paellaCrudaMitad",
-      "file": "../../../Assets/Images/Paellas/paellaCrudaMitad.png"
-    },
-    {
-      "id": "paellaPocoHechaMitad",
-      "file": "../../../Assets/Images/Paellas/paellaPocoHechaMitad.png"
-    },
-    {
-      "id": "paellaMitad",
-      "file": "../../../Assets/Images/Paellas/paellaMitad.png"
-    },
-    {
-      "id": "paellaMuyHechaMitad",
-      "file": "../../../Assets/Images/Paellas/paellaMuyHechaMitad.png"
-    },
-    {
-      "id": "paellaQuemadaMitad",
-      "file": "../../../Assets/Images/Paellas/paellaQuemadaMitad.png"
-    },
-    {
-      "id": "paellaIncomestibleMitad",
-      "file": "../../../Assets/Images/Paellas/paellaIncomestibleMitad.png"
-    },
-
-    {
-      "id": "paellaLimpia",
-      "file": "../../../Assets/Images/Paellas/paellaVacia.png"
-    },
-    {
-      "id": "paellaSucia",
-      "file": "../../../Assets/Images/Paellas/paellaSucia.png"
-    },
-    
-    
-    
-    
-    
-
-
-    
-    
-    {
-      "id": "alcachofaC",
-      "file": "../../../Assets/Images/Paellas/completoAlcachofa.png"
-    },
-    {
-      "id": "calamarC",
-      "file": "../../../Assets/Images/Paellas/completoCalamar.png"
-    },
-    {
-      "id": "cangrejoC",
-      "file": "../../../Assets/Images/Paellas/completoCangrejo.png"
-    },
-    {
-      "id": "gambaC",
-      "file": "../../../Assets/Images/Paellas/completoGamba.png"
-    },
-    {
-      "id": "langostaC",
-      "file": "../../../Assets/Images/Paellas/completoLangosta.png"
-    },
-    {
-      "id": "mejillonC",
-      "file": "../../../Assets/Images/Paellas/completoMejillon.png"
-    },
-    {
-      "id": "pimientoRojoC",
-      "file": "../../../Assets/Images/Paellas/completoPimientoRojo.png"
-    },
-    {
-      "id": "pimientoVerdeC",
-      "file": "../../../Assets/Images/Paellas/completoPimientoVerde.png"
-    },
-    {
-      "id": "polloC",
-      "file": "../../../Assets/Images/Paellas/completoPollo.png"
-    },
-    {
-      "id": "alcachofaM",
-      "file": "../../../Assets/Images/Paellas/mitadAlcachofa.png"
-    },
-    {
-      "id": "calamarM",
-      "file": "../../../Assets/Images/Paellas/mitadCalamar.png"
-    },
-    {
-      "id": "cangrejoM",
-      "file": "../../../Assets/Images/Paellas/mitadCangrejo.png"
-    },
-    {
-      "id": "gambaM",
-      "file": "../../../Assets/Images/Paellas/mitadGamba.png"
-    },
-    {
-      "id": "langostaM",
-      "file": "../../../Assets/Images/Paellas/mitadLangosta.png"
-    },
-    {
-      "id": "mejillonM",
-      "file": "../../../Assets/Images/Paellas/mitadMejillon.png"
-    },
-    {
-      "id": "pimientoRojoM",
-      "file": "../../../Assets/Images/Paellas/mitadPimientoRojo.png"
-    },
-    {
-      "id": "pimientoVerdeM",
-      "file": "../../../Assets/Images/Paellas/mitadPimientoVerde.png"
-    },
-    {
-      "id": "polloM",
-      "file": "../../../Assets/Images/Paellas/mitadPollo.png"
-    },
-    {
-      "id": "cerrarOpc",
-      "file": "../../../Assets/Images/closeOptionsBut.png"
-    },
-    {
-      "id": "barraVol",
-      "file": "../../../Assets/Images/barraVolumen.png"
-    },
-    {
-      "id": "fondoOpc",
-      "file": "../../../Assets/Images/settingsPant.png"
-    },
-    {
-      "id": "paellaCrudaMitad",
-      "file": "../../../Assets/Images/Paellas/paellaCrudaMitad.png"
-    },
-    {
-      "id": "paellaQuemadaMitad",
-      "file": "../../../Assets/Images/Paellas/paellaQuemadaMitad.png"
-    },
-    {
-      "id": "paellaPocoHechaMitad",
-      "file": "../../../Assets/Images/Paellas/paellaPocoHechaMitad.png"
-    },
-    {
-      "id": "paellaPocoHecha",
-      "file": "../../../Assets/Images/Paellas/paellaPocoHecha.png"
-    },
-    {
-      "id": "paellaMuyHechaMitad",
-      "file": "../../../Assets/Images/Paellas/paellaMuyHechaMitad.png"
-    },
-    {
-      "id": "paellaMuyHecha",
-      "file": "../../../Assets/Images/Paellas/paellaMuyHecha.png"
-    },
-    {
-      "id": "paellaIncomestibleMitad",
-      "file": "../../../Assets/Images/Paellas/paellaIncomestibleMitad.png"
-    },
-    {
-      "id": "paellaIncomestible",
-      "file": "../../../Assets/Images/Paellas/paellaIncomestible.png"
-    },
-    {
-      "id": "cocineraIdleDown",
-      "file": "../../../Assets/Anims/Cocinera/cocineraIdleDown.png"
-    },
-    {
-      "id": "cocineraIdleSide",
-      "file": "../../../Assets/Anims/Cocinera/cocineraIdleSide.png"
-    },
-    {
-      "id": "cocineraIdleUp",
-      "file": "../../../Assets/Anims/Cocinera/cocineraIdleUp.png"
-    },
-    {
-      "id": "cocineraWalkDown",
-      "file": "../../../Assets/Anims/Cocinera/cocineraWalkDown.png"
-    },
-    {
-      "id": "cocineraWalkSide",
-      "file": "../../../Assets/Anims/Cocinera/cocineraWalkSide.png"
-    },
-    {
-      "id": "cocineraWalkUp",
-      "file": "../../../Assets/Anims/Cocinera/cocineraWalkUp.png"
-    }
-   
-
-
+    { "id": "barraTolerancia", "file": "../../../Assets/Images/barraTolerancia.png"},
+    { "id": "cuadernillo", "file": "../../../Assets/Images/cuadernillo.png"},
+    { "id": "cuadernilloseleted", "file": "../../../Assets/Images/cuadernilloselected.png"},
+    { "id": "barra", "file": "../../../Assets/Images/barracomandas.png"},
+    { "id": "redactaboton", "file": "../../../Assets/Images/redactaboton.png"},
+    { "id": "uno", "file": "../../../Assets/Images/uno.png"},
+    { "id": "dos", "file": "../../../Assets/Images/dos.png"},
+    { "id": "tres", "file": "../../../Assets/Images/tres.png"},
+    { "id": "cuatro", "file": "../../../Assets/Images/cuatro.png"},
+    { "id": "cinco", "file": "../../../Assets/Images/cinco.png"},
+    { "id": "seis", "file": "../../../Assets/Images/seis.png"},
+    { "id": "siete", "file": "../../../Assets/Images/siete.png"},
+    { "id": "ocho", "file": "../../../Assets/Images/ocho.png"},
+    { "id": "nueve", "file": "../../../Assets/Images/nueve.png"},
+    { "id": "small", "file": "../../../Assets/Images/small.png"},
+    { "id": "medium", "file": "../../../Assets/Images/medium.png"},
+    { "id": "large", "file": "../../../Assets/Images/large.png"},
+    { "id": "alcachofa","file": "../../../Assets/Images/Ingredientes/alcachofa.png"},
+    { "id": "berenjena", "file": "../../../Assets/Images/berenjena.png"},
+    { "id": "calamar", "file": "../../../Assets/Images/Ingredientes/calamar.png"},
+    { "id": "cangrejo", "file": "../../../Assets/Images/Ingredientes/cangrejo.png" },
+    { "id": "gamba", "file": "../../../Assets/Images/Ingredientes/gamba.png" },
+    { "id": "langosta", "file": "../../../Assets/Images/Ingredientes/langosta.png" },
+    { "id": "mejillon", "file": "../../../Assets/Images/Ingredientes/mejillon.png" },
+    { "id": "pimientoRojo", "file": "../../../Assets/Images/Ingredientes/pimientoRojo.png" },
+    { "id": "pimientoVerde", "file": "../../../Assets/Images/Ingredientes/pimientoVerde.png" },
+    { "id": "pollo", "file": "../../../Assets/Images/Ingredientes/pollo.png" },
+    { "id": "alcachofaP", "file": "../../../Assets/Images/Ingredientes/alcachofaProcesada.png" },
+    { "id": "calamarP", "file": "../../../Assets/Images/Ingredientes/calamarProcesado.png" },
+    { "id": "cangrejoP", "file": "../../../Assets/Images/Ingredientes/cangrejoProcesado.png" },
+    { "id": "gambaP", "file": "../../../Assets/Images/Ingredientes/gambaProcesada.png" },
+    { "id": "langostaP", "file": "../../../Assets/Images/Ingredientes/langostaProcesada.png" },
+    { "id": "mejillonP", "file": "../../../Assets/Images/Ingredientes/mejillonProcesado.png" },
+    { "id": "pimientoRojoP", "file": "../../../Assets/Images/Ingredientes/pimientoRojoProcesado.png" },
+    { "id": "pimientoVerdeP", "file": "../../../Assets/Images/Ingredientes/pimientoVerdeProcesado.png" },
+    { "id": "polloP", "file": "../../../Assets/Images/Ingredientes/polloProcesado.png" },
+    { "id": "cerrarOpc", "file": "../../../Assets/Images/closeOptionsBut.png" },
+    { "id": "barraVol", "file": "../../../Assets/Images/barraVolumen.png" },
+    { "id": "fondoOpc", "file": "../../../Assets/Images/settingsPant.png" },
+    { "id": "player", "file": "../../../Assets/Images/player.png" },
+    { "id": "envia", "file": "../../../Assets/Images/enviaboton.png" },
+    { "id": "cancela", "file": "../../../Assets/Images/cancelaboton.png" },
+    { "id": "acepta", "file": "../../../Assets/Images/aceptaboton.png" },
+    { "id": "borra", "file": "../../../Assets/Images/borraboton.png" },
+    { "id": "start", "file": "../../../Assets/Images/start.png" },
+    { "id": "exit", "file": "../../../Assets/Images/exit.png" },
+    { "id": "customization", "file": "../../../Assets/Images/customization.png" },
+    { "id": "settings", "file": "../../../Assets/Images/settings.png" },
+    { "id": "menufondo", "file": "../../../Assets/Images/menufondo.png" },
+    { "id": "cartel", "file": "../../../Assets/Images/mesa.png" },
+    { "id": "cinta", "file": "../../../Assets/Images/berenjena.png" },
+    { "id": "finalCinta", "file": "../../../Assets/Images/finalCinta.png" },
+    { "id": "fogon", "file": "../../../Assets/Images/fogon.png" },
+    { "id": "inicioCinta", "file": "../../../Assets/Images/inicioCinta.png" },
+    { "id": "lavavajillas", "file": "../../../Assets/Images/lavavajillas.png" },
+    { "id": "puerta", "file": "../../../Assets/Images/inicioCinta.png" },
+    { "id": "tablaProcesado", "file": "../../../Assets/Images/tabla.png" },
+    { "id": "mesaS", "file": "../../../Assets/Images/mesaS.png" },
+    { "id": "mesaMH", "file": "../../../Assets/Images/mesaS.png" },
+    { "id": "mesaMV", "file": "../../../Assets/Images/mesaS.png" },
+    { "id": "mesaL", "file": "../../../Assets/Images/mesaS.png" },
+    { "id": "sillaIz", "file": "../../../Assets/Images/sillaIz.png" },
+    { "id": "sillaDer", "file": "../../../Assets/Images/sillaDer.png" },
+    { "id": "sillaAr", "file": "../../../Assets/Images/sillaAr.png" },
+    { "id": "sillaAb", "file": "../../../Assets/Images/sillaAb.png" },
+    { "id": "encimera", "file": "../../../Assets/Images/encimera.png" },
+    { "id": "basura", "file": "../../../Assets/Images/basura.png" },
+    { "id": "bolsaArroz", "file": "../../../Assets/Images/bolsaArroz.png" },
+    { "id": "reloj", "file": "../../../Assets/Images/reloj.png" },
+    { "id": "periodico", "file": "../../../Assets/Images/periodico.png" },
+    { "id": "estrella", "file": "../../../Assets/Images/estrella.png" },
+    { "id": "clienteBase", "file": "../../../Assets/Images/clienteBase.png" },
+    { "id": "cocinera", "file": "../../../Assets/Images/cocinera.png" },
+    { "id": "camarero", "file": "../../../Assets/Images/camarero.png" },
+    { "id": "pause1", "file": "../../../Assets/Images/pause1.png" },
+    { "id": "resumeBoton", "file": "../../../Assets/Images/resumeBoton.png" },
+    { "id": "pause2", "file": "../../../Assets/Images/pause2.png" },
+    { "id": "exitBoton", "file": "../../../Assets/Images/exitBoton.png" },
+    { "id": "review", "file": "../../../Assets/Images/review.png" },
+    { "id": "enfadado", "file": "../../../Assets/Images/enfadado.png" },
+    { "id": "enfadado_2", "file": "../../../Assets/Images/enfadado1.png" },
+    { "id": "basico", "file": "../../../Assets/Images/basic.png" },
+    { "id": "feliz_2", "file": "../../../Assets/Images/feliz2.png" },
+    { "id": "feliz", "file": "../../../Assets/Images/feliz.png" },
+    { "id": "timer", "file": "../../../Assets/Images/TimeAnimation.png" },
+    { "id": "continue", "file": "../../../Assets/Images/continue.png" },
+    { "id": "arroz", "file": "../../../Assets/Images/Ingredientes/arroz.png" },
+    { "id": "paellaCruda", "file": "../../../Assets/Images/Paellas/paellaCruda.png" },
+    { "id": "paellaPocoHecha", "file": "../../../Assets/Images/Paellas/paellaPocoHecha.png" },
+    { "id": "paella", "file": "../../../Assets/Images/Paellas/paellaCompleta.png" },
+    { "id": "paellaMuyHecha", "file": "../../../Assets/Images/Paellas/paellaMuyHecha.png" },
+    { "id": "paellaQuemada", "file": "../../../Assets/Images/Paellas/paellaQuemada.png" },
+    { "id": "paellaIncomestible", "file": "../../../Assets/Images/Paellas/paellaIncomestible.png" },
+    { "id": "paellaCrudaMitad", "file": "../../../Assets/Images/Paellas/paellaCrudaMitad.png" },
+    { "id": "paellaPocoHechaMitad", "file": "../../../Assets/Images/Paellas/paellaPocoHechaMitad.png" },
+    { "id": "paellaMitad", "file": "../../../Assets/Images/Paellas/paellaMitad.png" },
+    { "id": "paellaMuyHechaMitad", "file": "../../../Assets/Images/Paellas/paellaMuyHechaMitad.png" },
+    { "id": "paellaQuemadaMitad", "file": "../../../Assets/Images/Paellas/paellaQuemadaMitad.png" },
+    { "id": "paellaIncomestibleMitad", "file": "../../../Assets/Images/Paellas/paellaIncomestibleMitad.png" },
+    { "id": "paellaLimpia", "file": "../../../Assets/Images/Paellas/paellaVacia.png" },
+    { "id": "paellaSucia", "file": "../../../Assets/Images/Paellas/paellaSucia.png" },
+    { "id": "alcachofaC", "file": "../../../Assets/Images/Paellas/completoAlcachofa.png" },
+    { "id": "calamarC", "file": "../../../Assets/Images/Paellas/completoCalamar.png" },
+    { "id": "cangrejoC", "file": "../../../Assets/Images/Paellas/completoCangrejo.png" },
+    { "id": "gambaC", "file": "../../../Assets/Images/Paellas/completoGamba.png" },
+    { "id": "langostaC", "file": "../../../Assets/Images/Paellas/completoLangosta.png" },
+    { "id": "mejillonC", "file": "../../../Assets/Images/Paellas/completoMejillon.png" },
+    { "id": "pimientoRojoC", "file": "../../../Assets/Images/Paellas/completoPimientoRojo.png" },
+    { "id": "pimientoVerdeC", "file": "../../../Assets/Images/Paellas/completoPimientoVerde.png" },
+    { "id": "polloC", "file": "../../../Assets/Images/Paellas/completoPollo.png" },
+    { "id": "AlcachofaM", "file": "../../../Assets/Images/Paellas/mitadAlcachofa.png" },
+    { "id": "CalamarM", "file": "../../../Assets/Images/Paellas/mitadCalamar.png" },
+    { "id": "CangrejoM", "file": "../../../Assets/Images/Paellas/mitadCangrejo.png" },
+    { "id": "GambaM", "file": "../../../Assets/Images/Paellas/mitadGamba.png" },
+    { "id": "LangostaM", "file": "../../../Assets/Images/Paellas/mitadLangosta.png" },
+    { "id": "MejillonM", "file": "../../../Assets/Images/Paellas/mitadMejillon.png" },
+    { "id": "PimientoRojoM", "file": "../../../Assets/Images/Paellas/mitadPimientoRojo.png" },
+    { "id": "PimientoVerdeM", "file": "../../../Assets/Images/Paellas/mitadPimientoVerde.png" },
+    { "id": "PolloM", "file": "../../../Assets/Images/Paellas/mitadPollo.png" },
+    { "id": "cocineraIdleDown", "file": "../../../Assets/Anims/Cocinera/cocineraIdleDown.png" },
+    { "id": "cocineraIdleSide", "file": "../../../Assets/Anims/Cocinera/cocineraIdleSide.png" },
+    { "id": "cocineraIdleUp", "file": "../../../Assets/Anims/Cocinera/cocineraIdleUp.png" },
+    { "id": "cocineraWalkDown", "file": "../../../Assets/Anims/Cocinera/cocineraWalkDown.png" },
+    { "id": "cocineraWalkSide", "file": "../../../Assets/Anims/Cocinera/cocineraWalkSide.png" },
+    { "id": "cocineraWalkUp", "file": "../../../Assets/Anims/Cocinera/cocineraWalkUp.png" }
   ],
 
   "tilesets": [
-    {
-      "id": "Tileset",
-      "file": "../../../Assets/Tilemap/Tileset.png"
-    }
+    { "id": "Tileset", "file": "../../../Assets/Tilemap/Tileset.png" }
   ],
 
   "messages": [
+    {"id": "5stars1","text": "El personal es majisimo y las paellas excelentes", "font": "abadi", "color": "0x000000"},
+    {"id": "5stars2","text": "Esta muy bueno/a... el camarero/a", "font": "abadi", "color": "0x000000"},
+    {"id": "5stars3","text": "MUY BUENA EXPERIENCIA", "font": "abadi", "color": "0x000000"},
+    {"id": "5stars4","text": "Tneis k probar sta mrda lkos", "font": "abadi", "color": "0x000000"},
+    {"id": "5stars5","text": "Oh la la...", "font": "abadi", "color": "0x000000"},
+    {"id": "5stars6","text": "@Chicote prueba esto", "font": "abadi", "color": "0x000000"},
+    {"id": "5stars7","text": "ARROZ CON MAYUSCULAS", "font": "abadi", "color": "0x000000"},
+    {"id": "5stars8","text": "Para mi de los mejores sitios de comer arroz, riquisimo y distintas variedades.", "font": "abadi", "color": "0x000000"},
+    {"id": "5stars9","text": "No llegue a entrar pero la fachada es preciosa", "font": "abadi", "color": "0x000000"},
+    {"id": "5stars10","text": "Me gusto tanto que llore por abajo del pantalon", "font": "abadi", "color": "0x000000"},
 
-    {
-      "id": "5stars1",
-      "text": "El personal es majisimo y las paellas excelentes",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "5stars2",
-      "text": "Esta muy bueno/a... el camarero/a",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "5stars3",
-      "text": "MUY BUENA EXPERIENCIA",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "5stars4",
-      "text": "Tneis k probar sta mrda lkos",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "5stars5",
-      "text": "Oh la la...",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "5stars6",
-      "text": "@Chicote prueba esto",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "5stars7",
-      "text": "ARROZ CON MAYUSCULAS",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "5stars8",
-      "text": "Para mi de los mejores sitios de comer arroz, riquisimo y distintas variedades.",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "5stars9",
-      "text": "No llegue a entrar pero la fachada es preciosa",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "5stars10",
-      "text": "Me gusto tanto que llore por abajo del pantalon",
-      "font": "abadi",
-      "color": "0x000000"
-    },
+    {"id": "4stars1","text": "La cocina no esta nada mal y el servicio es muy amable.", "font": "abadi", "color": "0x000000"},
+    {"id": "4stars2","text": "Trato genial por el personal. La paella exquisita y con cantidad. Bien de precio", "font": "abadi", "color": "0x000000"},
+    {"id": "4stars3","text": "Muy rico el arroz en sus variedades", "font": "abadi", "color": "0x000000"},
+    {"id": "4stars4","text": "Excelente. el arroz con bogavante buenas medidas anticovid bueno para colectivo lgtbi", "font": "abadi", "color": "0x000000"},
+    {"id": "4stars5","text": "Muy buenos arroces es un local sin pretensiones ni decoracion.", "font": "abadi", "color": "0x000000"},
+    {"id": "4stars6","text": "Excelente paella con el toque Valenciano y muy buena atencion!!!", "font": "abadi", "color": "0x000000"},
 
-    {
-      "id": "4stars1",
-      "text": "La cocina no esta nada mal y el servicio es muy amable.",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "4stars2",
-      "text": "Trato genial por el personal. La paella exquisita y con cantidad. Bien de precio",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "4stars3",
-      "text": "Muy rico el arroz en sus variedades",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "4stars4",
-      "text": "Excelente. el arroz con bogavante buenas medidas anticovid bueno para colectivo lgtbi",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "4stars5",
-      "text": "Muy buenos arroces es un local sin pretensiones ni decoracion.",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "4stars6",
-      "text": "Excelente paella con el toque Valenciano y muy buena atencion!!!",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "3stars1",
-      "text": "El arroz muy normalito.. Con ese nombre deberian ofrecer un arroz mucho mejor",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "3stars2",
-      "text": "Muy agradable servicio aunque tardan un poco al servir la mesa. Platos sabrosos.",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "3stars3",
-      "text": "Precios excesivos, excelente atencion.",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "3stars4",
-      "text": "Buen sabor pero muy pocos ingredientes.",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "3stars5",
-      "text": "Buena comida pero no habia sitio lol",
-      "font": "abadi",
-      "color": "0x000000"
-    },
+    {"id": "3stars1","text": "El arroz muy normalito.. Con ese nombre deberian ofrecer un arroz mucho mejor", "font": "abadi", "color": "0x000000"},
+    {"id": "3stars2","text": "Muy agradable servicio aunque tardan un poco al servir la mesa. Platos sabrosos.", "font": "abadi", "color": "0x000000"},
+    {"id": "3stars3","text": "Precios excesivos, excelente atencion.", "font": "abadi", "color": "0x000000"},
+    {"id": "3stars4","text": "Buen sabor pero muy pocos ingredientes.", "font": "abadi", "color": "0x000000"},
+    {"id": "3stars5","text": "Buena comida pero no habia sitio lol", "font": "abadi", "color": "0x000000"},
 
-    {
-      "id": "2stars1",
-      "text": "Bastante decepcionante. No trajeron lo que queria y los precios son bastante elevados.",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "2stars2",
-      "text": "Arroz demasiado quemado.",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "2stars3",
-      "text": "La comida floja. Ha decaido.",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "2stars4",
-      "text": "Arroz bastante duro y salado , la verdad que soy bastante de comer paellas y es de los peores sitios donde me he comido una.",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "2stars5",
-      "text": "Servicio muy lento. Arroz, normal.",
-      "font": "abadi",
-      "color": "0x000000"
-    },
+    {"id": "2stars1","text": "Bastante decepcionante. No trajeron lo que queria y los precios son bastante elevados.", "font": "abadi", "color": "0x000000"},
+    {"id": "2stars2","text": "Arroz demasiado quemado.", "font": "abadi", "color": "0x000000"},
+    {"id": "2stars3","text": "La comida floja. Ha decaido.", "font": "abadi", "color": "0x000000"},
+    {"id": "2stars4","text": "Arroz bastante duro y salado , la verdad que soy bastante de comer paellas y es de los peores sitios donde me he comido una.", "font": "abadi", "color": "0x000000"},
+    {"id": "2stars5","text": "Servicio muy lento. Arroz, normal.", "font": "abadi", "color": "0x000000"},
 
-    {
-      "id": "1stars1",
-      "text": "QUE ASCO!! Llevo vomitando 3 dias seguidos",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "1stars2",
-      "text": "Que aburrimiento! 2 horas para servirme y luego otras 2 para traerme la cuenta! No volvere jamas.",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "1stars3",
-      "text": "Mal muy mal no se le puede decir a un cliente un sabado a las 10.45 que ya no les pueden servir.",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "1stars4",
-      "text": "El arroz pasado, muy flojo. Igual fuimos un mal dia... muy amables de trato, eso si",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "1stars5",
-      "text": "Ojala tuvieran hoja de reclamaciones >:T.",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "1stars6",
-      "text": "El pollo sabia como a la abuela que me comi ayer",
-      "font": "abadi",
-      "color": "0x000000"
-    },
-    {
-      "id": "1stars7",
-      "text": "La atencion al cliente era mas lenta que la sanidad publica",
-      "font": "abadi",
-      "color": "0x000000"
-    }
+    {"id": "1stars1","text": "QUE ASCO!! Llevo vomitando 3 dias seguidos", "font": "abadi", "color": "0x000000"},
+    {"id": "1stars2","text": "Que aburrimiento! 2 horas para servirme y luego otras 2 para traerme la cuenta! No volvere jamas.", "font": "abadi", "color": "0x000000"},
+    {"id": "1stars3","text": "Mal muy mal no se le puede decir a un cliente un sabado a las 10.45 que ya no les pueden servir.", "font": "abadi", "color": "0x000000"},
+    {"id": "1stars4","text": "El arroz pasado, muy flojo. Igual fuimos un mal dia... muy amables de trato, eso si", "font": "abadi", "color": "0x000000"},
+    {"id": "1stars5","text": "Ojala tuvieran hoja de reclamaciones >:T.", "font": "abadi", "color": "0x000000"},
+    {"id": "1stars6","text": "El pollo sabia como a la abuela que me comi ayer", "font": "abadi", "color": "0x000000"},
+    {"id": "1stars7","text": "La atencion al cliente era mas lenta que la sanidad publica", "font": "abadi", "color": "0x000000"}
   ],
 
   "sounds": [
-    {
-      "id": "1star",
-      "file": "../../../Assets/Sounds/1star.mp3"
-    },
-    {
-      "id": "2star",
-      "file": "../../../Assets/Sounds/2star.mp3"
-    },
-    {
-      "id": "3star",
-      "file": "../../../Assets/Sounds/3star.mp3"
-    },
-    {
-      "id": "4star",
-      "file": "../../../Assets/Sounds/4star.mp3"
-    },
-    {
-      "id": "5star",
-      "file": "../../../Assets/Sounds/5star.mp3"
-    },
-    {
-      "id": "cancel",
-      "file": "../../../Assets/Sounds/Cancel.mp3"
-    },
-    {
-      "id": "cinta",
-      "file": "../../../Assets/Sounds/Cinta.mp3"
-    },
-    {
-      "id": "clienteCome",
-      "file": "../../../Assets/Sounds/ClienteCome.mp3"
-    },
-    {
-      "id": "comandaDescartada",
-      "file": "../../../Assets/Sounds/ComandaDescartada.mp3"
-    },
-    {
-      "id": "comandaEnviada",
-      "file": "../../../Assets/Sounds/comandaEnviada.mp3"
-    },
-    {
-      "id": "connected",
-      "file": "../../../Assets/Sounds/Connected.mp3"
-    },
-    {
-      "id": "conversacion2",
-      "file": "../../../Assets/Sounds/Conversacion2.mp3"
-    },
-    {
-      "id": "conversacion4",
-      "file": "../../../Assets/Sounds/Conversacion4.mp3"
-    },
-    {
-      "id": "cortar1",
-      "file": "../../../Assets/Sounds/Cortar1.mp3"
-    },
-    {
-      "id": "cortar2",
-      "file": "../../../Assets/Sounds/Cortar2.mp3"
-    },
-    {
-      "id": "cortar3",
-      "file": "../../../Assets/Sounds/Cortar3.mp3"
-    },
-    {
-      "id": "cubiertos",
-      "file": "../../../Assets/Sounds/Cubiertos.mp3"
-    },
-    {
-      "id": "disconnected",
-      "file": "../../../Assets/Sounds/Disconnected.mp3"
-    },
-    {
-      "id": "enciendeFogon",
-      "file": "../../../Assets/Sounds/EnciendeFogon.mp3"
-    },
-    {
-      "id": "escribir1",
-      "file": "../../../Assets/Sounds/Escribir1.mp3"
-    },
-    {
-      "id": "escribir2",
-      "file": "../../../Assets/Sounds/Escribir2.mp3"
-    },
-    {
-      "id": "escribir3",
-      "file": "../../../Assets/Sounds/Escribir3.mp3"
-    },
-    {
-      "id": "escribir4",
-      "file": "../../../Assets/Sounds/Escribir4.mp3"
-    },
-    {
-      "id": "escribir5",
-      "file": "../../../Assets/Sounds/Escribir5.mp3"
-    },
-    {
-      "id": "fogon",
-      "file": "../../../Assets/Sounds/Fogon.mp3"
-    },
-    {
-      "id": "inicioCinta",
-      "file": "../../../Assets/Sounds/InicioCinta.mp3"
-    },
-    {
-      "id": "paella",
-      "file": "../../../Assets/Sounds/Paella.mp3"
-    },
-    {
-      "id": "puerta",
-      "file": "../../../Assets/Sounds/Puerta.mp3"
-    },
-    {
-      "id": "select",
-      "file": "../../../Assets/Sounds/Select.mp3"
-    },
-    {
-      "id": "tirarPaella",
-      "file": "../../../Assets/Sounds/tirarPaella.mp3"
-    },
-    {
-      "id": "ultimaHora",
-      "file": "../../../Assets/Sounds/UltimaHora.mp3"
-    }
+    { "id": "1star", "file": "../../../Assets/Sounds/1star.mp3" },
+    { "id": "2star", "file": "../../../Assets/Sounds/2star.mp3" },
+    { "id": "3star", "file": "../../../Assets/Sounds/3star.mp3" },
+    { "id": "4star", "file": "../../../Assets/Sounds/4star.mp3" },
+    { "id": "5star", "file": "../../../Assets/Sounds/5star.mp3" },
+    { "id": "cancel", "file": "../../../Assets/Sounds/Cancel.mp3" },
+    { "id": "cinta", "file": "../../../Assets/Sounds/Cinta.mp3" },
+    { "id": "clienteCome", "file": "../../../Assets/Sounds/ClienteCome.mp3" },
+    { "id": "comandaDescartada", "file": "../../../Assets/Sounds/ComandaDescartada.mp3" },
+    { "id": "comandaEnviada", "file": "../../../Assets/Sounds/comandaEnviada.mp3" },
+    { "id": "connected", "file": "../../../Assets/Sounds/Connected.mp3" },
+    { "id": "conversacion2", "file": "../../../Assets/Sounds/Conversacion2.mp3" },
+    { "id": "conversacion4", "file": "../../../Assets/Sounds/Conversacion4.mp3" },
+    { "id": "cortar1", "file": "../../../Assets/Sounds/Cortar1.mp3" },
+    { "id": "cortar2", "file": "../../../Assets/Sounds/Cortar2.mp3" },
+    { "id": "cortar3", "file": "../../../Assets/Sounds/Cortar3.mp3" },
+    { "id": "cubiertos", "file": "../../../Assets/Sounds/Cubiertos.mp3" },
+    { "id": "disconnected", "file": "../../../Assets/Sounds/Disconnected.mp3" },
+    { "id": "enciendeFogon", "file": "../../../Assets/Sounds/EnciendeFogon.mp3" },
+    { "id": "escribir1", "file": "../../../Assets/Sounds/Escribir1.mp3" },
+    { "id": "escribir2", "file": "../../../Assets/Sounds/Escribir2.mp3" },
+    { "id": "escribir3", "file": "../../../Assets/Sounds/Escribir3.mp3" },
+    { "id": "escribir4", "file": "../../../Assets/Sounds/Escribir4.mp3" },
+    { "id": "escribir5", "file": "../../../Assets/Sounds/Escribir5.mp3" },
+    { "id": "fogon", "file": "../../../Assets/Sounds/Fogon.mp3" },
+    { "id": "inicioCinta", "file": "../../../Assets/Sounds/InicioCinta.mp3" },
+    { "id": "paella", "file": "../../../Assets/Sounds/Paella.mp3" },
+    { "id": "puerta", "file": "../../../Assets/Sounds/Puerta.mp3" },
+    { "id": "select", "file": "../../../Assets/Sounds/Select.mp3" },
+    { "id": "tirarPaella", "file": "../../../Assets/Sounds/tirarPaella.mp3" },
+    { "id": "ultimaHora", "file": "../../../Assets/Sounds/UltimaHora.mp3" }
   ],
 
   "musics": [
-
-    {
-      "id": "musicaFondo",
-      "file": "../../../Assets/Sounds/changes.mp3"
-    }
-
+    { "id": "musicaFondo", "file": "../../../Assets/Music/changes.mp3" }
   ]
 }

@@ -1,6 +1,7 @@
 #include "Puerta.h"
 #include "../../Control/Game.h"
 #include "../../Control/ObjectManager.h"
+#include "../../GameObjects/UI/UIManager.h"
 
 Puerta::Puerta(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, "puerta")
 {
@@ -10,7 +11,6 @@ Puerta::Puerta(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 
 void Puerta::update()
 {
 	if (sdlutils().virtualTimer().currTime() - (time - offsetTime) >= SPAWN_DELAY) {
-
 		int integrantes = 1 + rand() % MAX_TAM;
 
 		if (cola->esValido(integrantes)) {
@@ -26,8 +26,6 @@ void Puerta::update()
 			c->setPosition(Vector2D<double>(w, getY()));
 
 			v.push_back(c);
-
-
 		
 			for (int i = 1; i < integrantes; i++) {
 				w -= width;
@@ -43,6 +41,8 @@ void Puerta::update()
 			g->initGrupo(cola, v);
 		}
 		time = sdlutils().virtualTimer().currTime();
+
+		sdlutils().soundEffects().at("puerta").play();
 	}
 }
 

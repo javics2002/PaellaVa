@@ -18,6 +18,14 @@ void GameObject::setDimension(int width, int height)
 	h = height;
 }
 
+void GameObject::setDimension() //pone la dimension al tama�o de la textura
+{
+	if (texture != nullptr) {
+		w = texture->width();
+		h = texture->height();
+	}
+}
+
 void GameObject::setInitialDimension(int width, int height)
 {
 	iniW = width;

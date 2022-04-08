@@ -11,10 +11,7 @@
 #include "../Utils/Traza.h"
 
 
-Player::Player(Game* game) :
-	GameObject(game),
-	objectType_(INGREDIENTE),
-	pickedObject_(nullptr),
+Player::Player(Game* game) : GameObject(game), objectType_(INGREDIENTE), pickedObject_(nullptr),
 	overlapPos(Vector2D<double>(getX() - overlapPos.getX() / 2, getY() - getHeight() / 2 - overlapDim.getY())),
 	overlapDim(Vector2D<int>(50, 50))
 {
@@ -22,11 +19,9 @@ Player::Player(Game* game) :
 	setDimension(120, 120);
 	overlapDim.set(45, 45);
 
-
 	aceleracion = 1.2;
 	deceleracion = 0.8;
 	maxVel = 7;
-
 
 	setAnimResources();
 
@@ -41,9 +36,8 @@ Player::Player(Game* game) :
 
 	currAnim = 0;
 
-
 	// setTexture("player");
-	setColliderRect({ (int)getX(), (int)getY() + 2 * h / 3, 2 * w / 3, h / 3});
+	setColliderRect({ (int)getX(), (int)getY() + 2 * h / 5, w / 2, h / 5 });
 }
 
 Player::~Player()
@@ -53,7 +47,7 @@ Player::~Player()
 void Player::handleInput()
 {
 	//El jugador se mueve o se para en ambos ejes
-	if (abs(ih().getAxisX()) > .1f)
+	if (abs(ih().getAxisX()) > .1f) {
 		vel.setX(vel.getX() + ih().getAxisX() * aceleracion);
 
 		// Mirar der
@@ -79,15 +73,12 @@ void Player::handleInput()
 		vel.setY(vel.getY() + ih().getAxisY() * aceleracion);
 
 		currAnim = 5;
-
 	}
 	else {
 		vel.setY(vel.getY() * deceleracion);
 	}
 
-
 	vel.clamp(-maxVel, maxVel);
-
 
 	if (ih().getKey(InputHandler::INTERACT)) {
 		//Si el jugador no lleva nada encima
@@ -339,6 +330,8 @@ void Player::update()
 
 	if (sdlutils().currRealTime() - lastFrameTime > frameRate)
 		animUpdate();
+
+	setColliderRect({ (int)getX(), (int)getY() + 2 * h / 5, w / 2, h / 5 });
 }
 
 bool Player::nearestObject(ObjetoPortable* go)
