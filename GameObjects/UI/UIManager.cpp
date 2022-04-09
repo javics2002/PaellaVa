@@ -252,6 +252,10 @@ void UIManager::render(SDL_Rect* rect = nullptr)
 	for (auto i : optionsMenu) {
 		if (i->isActive()) i->render(rect);
 	}
+
+	for (auto i : creditsScreen) {
+		if (i->isActive()) i->render(rect);
+	}
 }
 
 void UIManager::creaComanda(Game* game)
@@ -430,7 +434,7 @@ void UIManager::creaMenuPausa() {
 
 void UIManager::creaMenuOpciones()
 {
-	//Fonde De las opciones
+	//Fondo De las opciones
 	Imagen* opcPant = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2, sdlutils().width() - 100, sdlutils().height()-100, "fondoOpc");
 	
 	opcPant->setActive(false);
@@ -603,6 +607,26 @@ void UIManager::creaMenuOpciones()
 	optionsMenu.push_back(textoNombre);
 }
 
+void UIManager::creaPantallaCreditos()
+{
+	//Fondo De las opciones
+	Imagen* opcPant = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2, sdlutils().width() - 100, sdlutils().height() - 100, "fondoOpc");
+
+	opcPant->setActive(false);
+
+	creditsScreen.push_back(opcPant);
+
+	//Boton para escribir el nombre
+	ShowText* NombreCocinera = new ShowText(game, "Puta Somalí", "abadiNombre",
+		100, 100,
+		200, 50);
+
+	NombreCocinera->setActive(false);
+
+	creditsScreen.push_back(NombreCocinera);
+
+}
+
 void UIManager::togglePause() {
 	for (auto i : pauseMenu) {
 		i->setActive(!i->isActive());
@@ -643,6 +667,13 @@ void UIManager::togglePause() {
 void UIManager::toggleOpciones()
 {
 	for (auto i : optionsMenu) {
+		i->setActive(true);
+	}
+}
+
+void UIManager::toggleCreditos()
+{
+	for (auto i : creditsScreen) {
 		i->setActive(true);
 	}
 }

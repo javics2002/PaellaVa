@@ -1,5 +1,6 @@
 #pragma once
 #include "../UI/UiButton.h"
+#include "ShowText.h"
 class Game;
 class IngredienteButton;
 class Comanda;
@@ -25,6 +26,7 @@ class UIManager
 	float uiscale = 1.1;
 	vector<GameObject*> pauseMenu; // menú de pausa
 	vector<GameObject*> optionsMenu; // menú de opciones
+	vector<GameObject*> creditsScreen; // pantalla de créditos
 	vector<UiButton*> pauseButtons; // botones del menú de pausa
 	vector<UiButton*> optionsButtons; // botones del menú de opciones
 	vector<UiButton*> sliders; // sliders del menú de opciones
@@ -76,8 +78,10 @@ public:
 
 	void creaMenuPausa();
 	void creaMenuOpciones();
+	void creaPantallaCreditos();
 	void togglePause();
 	void toggleOpciones();
+	void toggleCreditos();
 	void salirOpciones();
 
 	void desactivaBot();
