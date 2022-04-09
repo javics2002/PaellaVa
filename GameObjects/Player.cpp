@@ -49,15 +49,10 @@ void Player::handleInput()
 	if (ih().getAxisX() > .1f) {
 		vel.setX(vel.getX() + ih().getAxisX() * aceleracion);
 
-		// Mirar der
-		currAnim = 4;
-
 	}
 	else if (ih().getAxisX() < -.1f) {
 		vel.setX(vel.getX() + ih().getAxisX() * aceleracion);
 
-		// Mirar izq
-		currAnim = 4;
 	}
 	else
 		vel.setX(vel.getX() * deceleracion);
@@ -66,12 +61,10 @@ void Player::handleInput()
 	if (ih().getAxisY() > .1f) {
 		vel.setY(vel.getY() + ih().getAxisY() * aceleracion);
 
-		currAnim = 3;
 	}
 	else if (ih().getAxisY() < -.1f) {
 		vel.setY(vel.getY() + ih().getAxisY() * aceleracion);
 
-		currAnim = 5;
 	}
 	else {
 		vel.setY(vel.getY() * deceleracion);
@@ -360,6 +353,45 @@ void Player::animUpdate()
 
 	if (frameCounter * clip.w > anims[currAnim]->width() - 10)
 		frameCounter = 0;
+
+
+	switch (orientation_)
+	{
+	case N:
+		currAnim = 2;
+		break;
+	case S:
+		currAnim = 0;
+		break;
+	case E:
+		currAnim = 1;
+		break;
+	case O:
+		currAnim = 1;
+		break;
+	default:
+		break;
+	}
+
+
+	if (ih().getAxisY() > .1f) {
+		// Andar Abajo
+		currAnim = 3;
+	}
+	else if (ih().getAxisY() < -.1f) {
+		// Andar Arriba
+		currAnim = 5;
+	}
+
+	// Horizontal va segundo para tener prioridad
+	if (ih().getAxisX() > .1f) {
+		// Andar der
+		currAnim = 4;
+	}
+	else if (ih().getAxisX() < -.1f) {
+		// Andar izq
+		currAnim = 4;
+	}
 }
 
 void Player::setAnimResources()
