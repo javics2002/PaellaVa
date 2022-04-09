@@ -14,8 +14,14 @@ Cinta::~Cinta()
 
 SDL_Rect Cinta::getCollider()
 {
-	return getTexBox();
+	return cintaCollider;
 }
+
+void Cinta::setCollider(SDL_Rect r)
+{
+	cintaCollider = r;
+}
+
 
 SDL_Rect Cinta::getOverlap()
 {

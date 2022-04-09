@@ -38,6 +38,8 @@ public:
 
     SDL_Rect getCollider() override;
     SDL_Rect getOverlap() override;   
+    virtual void setOverlap(SDL_Rect r) {};
+    virtual void setCollider(SDL_Rect r) {};
 };
 
 

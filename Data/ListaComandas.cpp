@@ -222,9 +222,5 @@ void ListaComandas::seleccionaComanda(Comanda* comanda)
 }
 Comanda* ListaComandas::getComandaSeleccionada()
 {
-	if (selected == nullptr)
-	{
-	}
-	else
 	return selected;
 }

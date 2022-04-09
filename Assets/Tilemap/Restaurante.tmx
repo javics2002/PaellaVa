@@ -26,12 +26,16 @@
   </object>
   <object id="6" name="inicioCinta" x="2242" y="66.6667">
    <properties>
+    <property name="Horizontal" type="bool" value="false"/>
     <property name="VelocidadX" type="float" value="0"/>
     <property name="VelocidadY" type="float" value="1.3"/>
    </properties>
    <point/>
   </object>
   <object id="7" name="cinta" x="2240.67" y="129.333">
+   <properties>
+    <property name="Horizontal" type="bool" value="false"/>
+   </properties>
    <point/>
   </object>
   <object id="8" name="finalCinta" x="2240.67" y="585.334">

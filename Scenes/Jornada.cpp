@@ -316,12 +316,17 @@ void Jornada::loadMap(string const& path)
 				}
 				else if (name == "cinta") {
 					Cinta* c = new Cinta(game, position);
+					SDL_Rect aux = c->getTexBox();
+					if (p[0].getBoolValue()) {
+						c->setCollider({ aux.x, aux.y + aux.h / 2 , aux.w, aux.h / 2 });
+					}
+					else c->setCollider(aux);
 					c->setDepth(1);
 					getObjectManager()->addMueble(c);
 				}
 				else if (name == "inicioCinta") {
 					InicioCinta* c = new InicioCinta(game, position);
-					c->setVel(Vector2D<double>((double)p[0].getFloatValue(), (double)p[1].getFloatValue()));
+					c->setVel(Vector2D<double>((double)p[1].getFloatValue(), (double)p[2].getFloatValue()));
 					c->setDepth(1);
 					getObjectManager()->addMueble(c);
 				}

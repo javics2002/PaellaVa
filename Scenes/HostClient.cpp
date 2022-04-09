@@ -24,10 +24,9 @@ HostClient::HostClient(Game* game, string nombre_) : Scene(game)
 
 	auto hostButton = new UiButton(game, "Abrir restaurante", "paella", { 255, 255, 255, 255 }, { 0, 0, 0, 0 },
 		sdlutils().width() / 2 - offsetX, sdlutils().height() / 2 - offsetY);
-	hostButton->setAction([nombre](Game* game, bool& exit) {
+	hostButton->setAction([this, nombre](Game* game, bool& exit) {
 		//Host
-		game->changeScene(new Jornada(game,"restaurante",0));
-		game->getNetworkManager()->init('h');
+		game->changeScene(new Lobby(game, nombre, this));
 		});
 	uiManager->addInterfaz(hostButton);
 
