@@ -38,8 +38,9 @@ void ObjectManager::render(SDL_Rect* rect)
 {
 	sortAllGO();
 
-	for (auto i : renderAll)
+	for (auto i : renderAll) {
 		i->render(rect);
+	}
 
 	for (auto i : paellas) {
 		i->render(rect);

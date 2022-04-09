@@ -18,21 +18,30 @@ bool Ventanilla::receivePaella(Paella* pa)
 	if (pa != nullptr)
 	{
 		cout << "TENGO UNA PAELLA";
-		if (uimt->getBarra()->getComandaSeleccionada()->getNumeromesa() != nullptr)
+
+		mpaella = pa;
+		mpaella->setPosition(getX(), getY() - getHeight()/2 + mpaella->getHeight()/2);
+
+		if (uimt->getBarra()->getComandaSeleccionada() != nullptr)
 		{
 			//UiButton* u = uimt->getBarra()->getComandaSeleccionada()->getNumeromesa();
 			//numeroactual = new UiButton(game, u->getTextura(), xnumero, ynumero, 80, 80);
-			mpaella = pa;
-			mpaella->setPosition(getPosition());
-			string s= uimt->getBarra()->getComandaSeleccionada()->getNumeromesa()->getTextura();
-			numactex = &sdlutils().images().at(s);
-			lastnumact = sdlutils().currRealTime();
+			if (uimt->getBarra()->getComandaSeleccionada()->getNumeromesa() != nullptr) {
+				string s = uimt->getBarra()->getComandaSeleccionada()->getNumeromesa()->getTextura();
+				numactex = &sdlutils().images().at(s);
+				lastnumact = sdlutils().currRealTime();
+			}
+
+			else//la comanda no tiene numero de mesa que salga una interrogacion
+			{
+				
+			}
+			
 		}
-		else//la comanda no tiene numero de mesa que salga una interrogacion
-		{
-		}
+
+		return true;
 	}
-	else
+
 	return false;
 }
 void Ventanilla::muestraNumeroMesa()
