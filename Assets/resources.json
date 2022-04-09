@@ -149,7 +149,9 @@
     {"id": "musica", "file": "../../../Assets/Images/textoMusica.png"},
     {"id": "sonido", "file": "../../../Assets/Images/textoSonido.png"},
     {"id": "nombre", "file": "../../../Assets/Images/textoNombre.png"},
-    {"id": "PCompleta", "file": "../../../Assets/Images/textoFullScreen.png"}
+    {"id": "PCompleta", "file": "../../../Assets/Images/textoFullScreen.png"},
+    { "id": "sinIngredientes", "file": "../../../Assets/Images/Ingredientes/sinIngredientes.png" }
+
   ],
 
   "tilesets": [
