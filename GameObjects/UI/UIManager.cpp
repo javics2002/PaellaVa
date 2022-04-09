@@ -187,6 +187,32 @@ void UIManager::update(bool paused)
 		}
 	}
 
+	if (enLobby && sdlutils().virtualTimer().currTime() - initTime >= tiempoCreacion) {
+
+		double x = cos(toRadians(alfa));
+		double y = sin(toRadians(alfa));
+
+		Imagen* circulo = new Imagen(game, sdlutils().width()/2 + x*50, sdlutils().height() - 75 + y*50, 16, 16, "circulo");
+
+		circulo->setInitialDimension(16,16);
+
+		addTween(1.0f, 0.75f, 800.0f).via(easing::exponentialOut).onStep([circulo, this](tweeny::tween<float>& t, float) mutable {
+			circulo->setDimension(t.peek() * circulo->getInitialWidth(), t.peek() * circulo->getInitialHeight());
+
+			if (t.progress() == 1.0f) {
+				cargarAnimacion.pop_front();
+				return true;
+			}
+			return false;
+			});
+
+		cargarAnimacion.push_back(circulo);
+
+		alfa += 360 / 8;
+
+		initTime = sdlutils().currRealTime();
+	}
+
 	auto i = activeTweens.begin();
 	while (i != activeTweens.end()) {
 		i->step(20);
@@ -255,6 +281,12 @@ void UIManager::render(SDL_Rect* rect = nullptr)
 
 	for (auto i : creditsScreen) {
 		if (i->isActive()) i->render(rect);
+	}
+
+	
+	for (auto it = cargarAnimacion.begin(); it != cargarAnimacion.end(); it++) {
+		auto i = *it;
+		i->render(rect);
 	}
 }
 
@@ -706,4 +738,14 @@ tweeny::tween<float>& UIManager::addTween(float from, float to, float during) {
 	activeTweens.push_front(tween);
 
 	return activeTweens.front();
+}
+
+void UIManager::setEnLobby(bool enLobby_)
+{
+	enLobby = enLobby_;
+}
+
+double UIManager::toRadians(double grados)
+{
+	return (grados * MATH_PI) / 180;
 }

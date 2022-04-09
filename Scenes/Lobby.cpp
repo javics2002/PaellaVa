@@ -10,16 +10,10 @@ Lobby::Lobby(Game* game, string nombre, Scene* hostClient):Scene(game)
 
 	uiManager->addInterfaz(cocinera);
 
-	//Imagen con la info del ip
-	Imagen* bocadillo = new Imagen(game, cocinera->getX() - 200, sdlutils().height() / 2 - 100, 200, 200, "bocadillo");
-
-	uiManager->addInterfaz(bocadillo);
-
 	//IP ??
-	ShowText* ip = new ShowText(game, "ss", "abadiNombre",
-		(int)bocadillo->getX(), bocadillo->getY());
+	ShowText* buscando = new ShowText(game, "BUSCANDO JUGADORES", "abadiNombre", sdlutils().width()/2, sdlutils().height() - 165);
 
-	uiManager->addInterfaz(ip);
+	uiManager->addInterfaz(buscando);
 
 	//Nombre cocinera
 	ShowText* NombreCocinera = new ShowText(game, nombre, "abadiNombre",
@@ -56,6 +50,8 @@ Lobby::Lobby(Game* game, string nombre, Scene* hostClient):Scene(game)
 		});
 
 	uiManager->addInterfaz(regresar);
+
+	uiManager->setEnLobby(true);
 }
 
 void Lobby::clienteUnido()

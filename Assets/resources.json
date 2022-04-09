@@ -155,7 +155,8 @@
     {"id": "bocadillo", "file": "../../../Assets/Images/bocata.png"},
     {"id": "start2", "file": "../../../Assets/Images/comenzarNoConex.png"},
     {"id": "back", "file": "../../../Assets/Images/backButton.png"},
-    { "id": "sinIngredientes", "file": "../../../Assets/Images/Ingredientes/sinIngredientes.png" }
+    { "id": "sinIngredientes", "file": "../../../Assets/Images/Ingredientes/sinIngredientes.png" },
+    { "id": "circulo", "file": "../../../Assets/Images/loading.png" }
   ],
 
   "tilesets": [

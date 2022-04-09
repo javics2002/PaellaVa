@@ -16,7 +16,7 @@ Menu::Menu(Game* game) : Scene(game)
 	fondo->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
 	fondo->setDimension(sdlutils().width(), sdlutils().height() + 100);
 
-	sdlutils().musics().at("musicaFondo").play();
+	//sdlutils().musics().at("musicaFondo").play();
 
 	int posIni = 260;
 	int aumento = 100;

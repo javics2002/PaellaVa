@@ -1,13 +1,17 @@
 #pragma once
 #include "../UI/UiButton.h"
 #include "ShowText.h"
+
 class Game;
 class IngredienteButton;
 class Comanda;
 class Texture;
 class ListaComandas;
+class Imagen;
 using namespace std;
 using tweeny::easing;
+
+#define MATH_PI 3.14159265359
 
 class UIManager
 {
@@ -33,6 +37,8 @@ class UIManager
 
 	list<tweeny::tween<float>> activeTweens;
 
+	list<Imagen*> cargarAnimacion;
+
 	int mx;
 	int my;
 	int anchobotones = 25;
@@ -51,6 +57,14 @@ class UIManager
 	string nombrePlayer = "elbaginon";
 	const int maxCaracteres = 15;
 	bool escribiendoNombre = false;
+
+	bool enLobby = false;
+	uint8_t tiempoCreacion = 2000;
+	uint32_t initTime = 0;
+
+	double alfa = 270;
+
+	double toRadians(double grados);
 
 public:
 	UIManager(Game* game);
@@ -93,5 +107,7 @@ public:
 	string getNombre() { return nombrePlayer; };
 
 	tweeny::tween<float>& addTween(float from, float to, float during);
+
+	void setEnLobby(bool enLobby_);
 };
 
