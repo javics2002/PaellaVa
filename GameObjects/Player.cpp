@@ -101,14 +101,14 @@ void Player::handleInput()
 			else
 			{
 				//Ingredientes
-				for (auto i : game->getObjectManager()->getPoolIngredientes()->getOverlaps(getOverlap())) {
-					if (i->isAlive() && i->canPick() && nearestObject(i))
+				for (auto i : game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->getOverlaps(getOverlap())) {
+					if (i->isActive() && i->canPick() && nearestObject(i))
 						objectType_ = INGREDIENTE;
 				}
 
 				//Grupo de Clientes
-				for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getOverlaps(getOverlap())) {
-					if (i->isAlive() && i->canPick() && nearestObject(i))
+				for (auto i : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getOverlaps(getOverlap())) {
+					if (i->isActive() && i->canPick() && nearestObject(i))
 						objectType_ = CLIENTES;
 				}
 
@@ -136,7 +136,7 @@ void Player::handleInput()
 					pickedObject_ = nullptr;
 				}
 				else {
-					for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getOverlaps(getOverlap())) {
+					for (auto i : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getOverlaps(getOverlap())) {
 						if (i == pickedObject_) {
 							pickedObject_->setPicked(false);
 							pickedObject_ = nullptr;
@@ -448,10 +448,7 @@ SDL_Rect Player::getCollider()
 		rect.h / 3};
 }
 
-Vector2D<double> Player::getRectCenter(SDL_Rect rect)
-{
-	return Vector2D<double>(rect.x + rect.w / 2, rect.y + rect.h / 2);
-}
+
 
 
 

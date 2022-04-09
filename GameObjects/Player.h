@@ -10,7 +10,7 @@ class Arroz;
 class Mueble;
 
 enum orientation { N, S, E, O };
-enum objectType { INGREDIENTE, CLIENTES, PAELLA,ARROZ};
+enum objectType { INGREDIENTE, CLIENTES, PAELLA, ARROZ};
 
 class Player : public GameObject
 {
@@ -30,7 +30,7 @@ class Player : public GameObject
 	void setAnimResources();
 	void animUpdate();
 
-	Vector2D<double> getRectCenter(SDL_Rect rect);
+	
 
 	vector<Texture*> anims;
 	SDL_Rect clip;

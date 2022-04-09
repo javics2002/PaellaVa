@@ -26,7 +26,7 @@ bool Encimera::receiveIngrediente(Ingrediente* ingr)
 
 			paella_->anadeIngr(ingr);
 
-			ingr->deactivate();
+			ingr->setActive(false);
 
 			return true;
 		}

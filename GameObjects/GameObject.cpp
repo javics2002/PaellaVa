@@ -138,3 +138,4 @@ void GameObject::drawDebug(SDL_Rect* cameraRect, SDL_Rect rect)
 	SDL_SetRenderDrawColor(sdlutils().renderer(), 255, 255, 255, 0);
 }
 
+

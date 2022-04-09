@@ -11,7 +11,7 @@
 
 #include "../Scenes/Jornada.h"
 
-GrupoClientes::GrupoClientes(Game* game) : ObjetoPortable(game), PoolObject(), pedido(nullptr), cola(nullptr), estado_(CAMINANDO) , nPaellas(0)
+GrupoClientes::GrupoClientes(Game* game) : ObjetoPortable(game), pedido(nullptr), cola(nullptr), estado_(CAMINANDO) , nPaellas(0)
 {
 	setDimension(DIMENSION, DIMENSION);
 
@@ -64,10 +64,9 @@ void GrupoClientes::update()
 		SDL_Rect rect = { clientes[n]->getX() - clientes[n]->getWidth(), clientes[n]->getY() - clientes[n]->getHeight() / 2,
 			clientes[n]->getWidth() / 2, clientes[0]->getWidth() / 2};
 
-		for (auto i : game->getObjectManager()->getPoolGrupoClientes()->getCollisions(rect)) {
+		for (auto i : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getCollisions(rect)) 
 			i->colisionClientes();
-		}
-
+		
 		bajaTolerancia();
 	}
 
@@ -189,7 +188,7 @@ bool GrupoClientes::ratonEncima(SDL_Rect* cameraRect)
 
 	SDL_GetMouseState(&rect.x, &rect.y);
 
-	rect = { rect.x - cameraRect->x,  rect.y - cameraRect->y, 3, 3 };
+	rect = { rect.x - cameraRect->x,  rect.y - cameraRect->y, 5, 5 };
 
 	return overlap(rect);
 }
@@ -264,7 +263,7 @@ bool GrupoClientes::canDrop() {
 void GrupoClientes::onDeactivate()
 {
 	for (auto i : clientes) {
-		i->deactivate();
+		i->setActive(false);
 	}
 		
 

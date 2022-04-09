@@ -11,10 +11,16 @@
 
 ObjectManager::ObjectManager(Game* game) : game(game)
 {
-	ingredientes = new Pool<Ingrediente>(game, 50);
-	clientes = new Pool<Cliente>(game, 50);
-	grupoClientes = new Pool<GrupoClientes>(game, 20);
-	arroces = new Pool<Arroz>(game, 20);
+	auto ingredinetes = new Pool<Ingrediente>(game, 50);
+	auto arrozes = new Pool<Arroz>(game, 20);
+	auto grupos = new Pool<GrupoClientes>(game, 20);
+	auto clientes = new Pool<Cliente>(game, 50);
+
+
+	pools.emplace_back((Pool<GameObject>*) ingredinetes);
+	pools.emplace_back((Pool<GameObject>*) arrozes);
+	pools.emplace_back((Pool<GameObject>*) grupos);
+	pools.emplace_back((Pool<GameObject>*) clientes);
 }
 
 ObjectManager::~ObjectManager()
@@ -29,7 +35,9 @@ ObjectManager::~ObjectManager()
 		i = nullptr;
 	}
 
-	delete ingredientes;
+	for (auto i : pools) {
+		delete i;
+	}
 }
 
 void ObjectManager::render(SDL_Rect* rect)
@@ -43,10 +51,9 @@ void ObjectManager::render(SDL_Rect* rect)
 		i->render(rect);
 	}
 		
-	
-	ingredientes->render(rect);
-	arroces->render(rect);
-	grupoClientes->render(rect);
+	for (auto i : pools) {
+		i->render(rect);
+	}
 }
 
 void ObjectManager::debug(SDL_Rect* rect)
@@ -60,10 +67,11 @@ void ObjectManager::debug(SDL_Rect* rect)
 	for (auto i : paellas)
 		i->renderDebug(rect);
 
-	ingredientes->debug(rect);
-
-	clientes->debug(rect);
+	for (auto i : pools)
+		i->debug(rect);
 }
+
+
 
 void ObjectManager::handleInput(bool& exit)
 {
@@ -84,21 +92,14 @@ void ObjectManager::update()
 	for (auto i : muebles)
 		i->update();
 
-	ingredientes->update();	
-	arroces->update();	
-	grupoClientes->update();
-
-	
-
-
+	for (int i = 0; i < pools.size() - 1; i++)
+		pools[i]->update();
 }
 
 void ObjectManager::refresh()
 {
-	ingredientes->refresh();
-	arroces->refresh();
-	grupoClientes->refresh();
-	clientes->refresh();
+	for (auto i : pools)
+		i->refresh();
 }
 
 void ObjectManager::addMueble(Mueble* mueble)

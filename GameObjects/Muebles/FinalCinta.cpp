@@ -9,16 +9,16 @@ FinalCinta::FinalCinta(Game* game, Vector2D<double> pos) : Mueble(game, pos, TIL
 
 void FinalCinta::update()
 {
-	vector<Ingrediente*> ingredientes = game->getObjectManager()->getPoolIngredientes()->getCollisions(getCollider());
+	vector<Ingrediente*> ingredientes = game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->getCollisions(getCollider());
 	for (auto i : ingredientes) {
 		if (!i->isPicked())
-			i->deactivate();
+			i->setActive(false);
 	}	
 }
 
 bool FinalCinta::receiveIngrediente(Ingrediente* ingr)
 {
-	ingr->deactivate();
+	ingr->setActive(false);
 
 	return true;
 }
@@ -39,7 +39,7 @@ bool FinalCinta::receivePaella(Paella* pa)
 
 bool FinalCinta::receiveArroz(Arroz* arr)
 {
-	arr->deactivate();
+	arr->setActive(false);
 
 	return true;
 }

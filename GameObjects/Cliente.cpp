@@ -1,7 +1,7 @@
 #include "Cliente.h"
 #include "../../Control/game.h"
 
-Cliente::Cliente(Game* game) : GameObject(game), PoolObject()
+Cliente::Cliente(Game* game) : GameObject(game)
 {
 	setDimension(DIMENSION, DIMENSION);
 	vel.setX(2.0f);

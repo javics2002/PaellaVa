@@ -16,6 +16,8 @@ class GameObject : public Collider
 {
     const int CENTER_TAM = 4;
 
+    bool active = true;
+
 protected:
     Vector2D<double> pos, vel;
     int w, h;
@@ -24,7 +26,7 @@ protected:
 
     Game* game;
     Texture* texture;
-    bool active = true;
+   
     int canalSonido;
 
     void drawRender(SDL_Rect* cameraRect);   
@@ -33,9 +35,7 @@ protected:
     void drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex, SDL_Rect clip);
 
     void drawDebug(SDL_Rect* cameraRect); 
-    void drawDebug(SDL_Rect* cameraRect, SDL_Rect rect); 
-
-    Vector2D<double> getRectCenter(SDL_Rect rect);
+    void drawDebug(SDL_Rect* cameraRect, SDL_Rect rect);    
 
 public:
 
@@ -81,6 +81,9 @@ public:
 
     bool isActive() { return active; }
     void setActive(bool a) { active = a; }
+
+    virtual void onActivate() {}
+    virtual void onDeactivate() {}
 
     virtual SDL_Rect getTexBox();
     virtual SDL_Rect getCenter();

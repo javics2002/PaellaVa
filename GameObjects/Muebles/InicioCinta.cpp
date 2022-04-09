@@ -11,7 +11,7 @@ void InicioCinta::update()
 {
 	if (sdlutils().virtualTimer().currTime() - initTime >= SPAWN_DELAY)
 	{
-		game->getObjectManager()->getPoolIngredientes()->add(getPosition());
+		game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->add(getPosition());
 		initTime = sdlutils().virtualTimer().currTime();
 	}
 }

@@ -4,8 +4,6 @@
 #include <List>;
 
 #include "Cliente.h"
-
-#include "PoolObject.h"
 #include "ObjetoPortable.h"
 
 #include "../Data/Comanda.h"
@@ -17,7 +15,7 @@ class Mesa;
 
 enum EstadoClientes { CAMINANDO, ENCOLA, PIDIENDO, ESPERANDO, COMIENDO, CUENTA };
 
-class GrupoClientes : public ObjetoPortable, public PoolObject
+class GrupoClientes : public ObjetoPortable
 {
 	const unsigned int DIMENSION = 60;
 
@@ -70,6 +68,7 @@ public:
 	void update() override;
 
 	void render(SDL_Rect* cameraRect) override;
+	void renderDebug(SDL_Rect* cameraRect) override {};
 
 	bool overlap(SDL_Rect rect) override;
 	bool collide(SDL_Rect rect) override;
@@ -80,8 +79,6 @@ public:
 
 	int numIntegrantes();
 	vector<Cliente*> getIntegrantes();
-
-	
 	
 	void onObjectPicked() override;
 	void onObjectDropped() override;

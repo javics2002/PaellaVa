@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-Ingrediente::Ingrediente(Game* game) : ObjetoPortable(game), PoolObject() {
+Ingrediente::Ingrediente(Game* game) : ObjetoPortable(game) {
 	setDimension(DIMENSION, DIMENSION);
 }
 

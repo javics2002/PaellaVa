@@ -20,7 +20,6 @@
     <ClCompile Include="Control\ObjectManager.cpp" />
     <ClCompile Include="GameObjects\Ingrediente.cpp" />
     <ClCompile Include="GameObjects\Muebles\InicioCinta.cpp" />
-    <ClCompile Include="GameObjects\PoolObject.cpp" />
     <ClCompile Include="GameObjects\Muebles\Silla.cpp" />
     <ClCompile Include="GameObjects\Muebles\TablaProcesado.cpp" />
     <ClCompile Include="SDL2-2.0.20\include\SDL_rect.cpp" />
@@ -86,7 +85,6 @@
     <ClInclude Include="PaellasRodriguez.h" />
     <ClInclude Include="GameObjects\Player.h" />
     <ClInclude Include="Data\Pool.h" />
-    <ClInclude Include="GameObjects\PoolObject.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="GameObjects\Muebles\Silla.h" />
     <ClInclude Include="GameObjects\Muebles\TablaProcesado.h" />
