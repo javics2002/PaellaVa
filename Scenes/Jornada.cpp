@@ -103,6 +103,13 @@ void Jornada::update()
 	uiManager->update(paused);
 }
 
+void Jornada::refresh()
+{
+	if (!paused) {
+		objectManager->refresh();
+	}
+}
+
 void Jornada::addPuntuaciones(double puntosComanda)
 {
 	puntuacionesComandas.push_back(puntosComanda);

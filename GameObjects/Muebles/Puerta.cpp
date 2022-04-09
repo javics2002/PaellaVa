@@ -47,6 +47,8 @@ void Puerta::update()
 
 bool Puerta::receiveGrupoClientes(GrupoClientes* gc)
 {
+	
+
 	gc->setActive(false);
 
 	return true;
