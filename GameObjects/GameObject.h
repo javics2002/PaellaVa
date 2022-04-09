@@ -47,8 +47,10 @@ public:
     virtual ~GameObject() {};
 
     virtual void update() {
-        pos = pos + vel;
+        //pos = pos + vel;
     };
+
+    void setVel(Vector2D<double> vel_) { vel = vel_; };
 
     virtual void init(ObjectManager* objectManager) {};
 

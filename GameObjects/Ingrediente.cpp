@@ -8,7 +8,7 @@ Ingrediente::Ingrediente(Game* game) : ObjetoPortable(game) {
 
 void Ingrediente::update()
 {
-	setPosition(getX(), getY() + vel.getY());
+	setPosition(pos+vel);
 }
 
 void Ingrediente::onActivate()
@@ -16,7 +16,6 @@ void Ingrediente::onActivate()
 	int n = rand() % (tipoIngrediente::LAST) ; // Se le resta uno a LAST porque el arroz no debe salir en la
 													  // cinta (siendo arroz = 0).
 
-	vel = { 0, 1.3 };
 	
 	miTipo = tipoIngrediente(n);
 
