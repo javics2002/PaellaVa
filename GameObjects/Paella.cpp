@@ -36,7 +36,7 @@ void Paella::anadeIngr(Ingrediente* ingr_)
 		//Añadimos el ingrediente
 		ingredientes.push_back(ingr_->getTipo());
 		ingrEnPaella[ingr_->getTipo()] = true;
-		ingr_->deactivate();
+		ingr_->setActive(false);
 	}
 }
 
@@ -49,7 +49,7 @@ void Paella::anadeArroz(Arroz* arroz)
 		estadoCoccion = Cruda;
 		setContenido(Entera);
 		setTexture("paellaCruda");
-		arroz->deactivate();
+		arroz->setActive(false);
 	}
 }
 

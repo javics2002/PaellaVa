@@ -32,19 +32,22 @@ class Pool
 
 		//el bucle no itera ninguna vez en la mayor�a de casos, sobre todo en los ingredientes
 		//(es posible que en el caso de los clientes o paellas tarde m�s en encontrar al siguiente)
-		while (cont < numElems && v[nextElem]->isAlive())
+		while (cont < numElems && v[nextElem]->isActive())
 		{
 			cont++;
 			nextElem = (nextElem + 1) % numElems;
 		}
 		//si no encuentra ninguno, se duplica el tama�o de la pool
 		if (cont == numElems) {
-			for (int i = 0; i < numElems; i++)
-				v.push_back(new T(game));
+			for (int i = 0; i < numElems; i++) {
+				T* o = new T(game);
+				o->setActive(false);
+				v.push_back(o);
+			}			
 		
 			numElems *= 2;
 
-			while (cont < numElems && v[nextElem]->isAlive())
+			while (cont < numElems && v[nextElem]->isActive())
 			{
 				cont++;
 				nextElem = (nextElem + 1) % numElems;
@@ -54,8 +57,12 @@ class Pool
 
 public:
 	Pool(Game* game, int n) : game(game), numElems(n), nextElem(-1) {
-		for (int i = 0; i < n; i++)
-			v.push_back(new T(game));
+		for (int i = 0; i < n; i++) {
+			T* o = new T(game);
+			o->setActive(false);
+			v.push_back(o);
+		}
+			
 	}
 
 	~Pool() {
@@ -72,7 +79,8 @@ public:
 		auto& elem = v[nextElem];
 		aliveObjects.push_front(elem);
 		elem->setPosition(pos);
-		elem->activate();	
+		elem->setActive(true);
+		elem->onActivate();
 
 		return elem;
 	}
@@ -82,7 +90,8 @@ public:
 
 		auto& elem = v[nextElem];
 		aliveObjects.push_front(elem);
-		elem->activate();
+		elem->setActive(true);
+		elem->onActivate();
 
 		return elem;
 	}
@@ -123,7 +132,8 @@ public:
 		//Sacamos los objetos desactivados
 		auto it = aliveObjects.begin();
 		while (it != aliveObjects.end()) {
-			if (!(*it)->isAlive()) {
+			if (!(*it)->isActive()) {
+				(*it)->onDeactivate();
 				it = aliveObjects.erase(it);
 			}
 			else

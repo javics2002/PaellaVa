@@ -11,7 +11,7 @@
 
 #include "../Scenes/Restaurante.h"
 
-GrupoClientes::GrupoClientes(Game* game) : ObjetoPortable(game), PoolObject(), pedido(nullptr), cola(nullptr), estado_(CAMINANDO) , nPaellas(0)
+GrupoClientes::GrupoClientes(Game* game) : ObjetoPortable(game), pedido(nullptr), cola(nullptr), estado_(CAMINANDO) , nPaellas(0)
 {
 	setDimension(DIMENSION, DIMENSION);
 
@@ -189,7 +189,7 @@ bool GrupoClientes::ratonEncima(SDL_Rect* cameraRect)
 
 	SDL_GetMouseState(&rect.x, &rect.y);
 
-	rect = { rect.x - cameraRect->x,  rect.y - cameraRect->y, 3, 3 };
+	rect = { rect.x - cameraRect->x,  rect.y - cameraRect->y, 5, 5 };
 
 	return overlap(rect);
 }
@@ -264,7 +264,7 @@ bool GrupoClientes::canDrop() {
 void GrupoClientes::onDeactivate()
 {
 	for (auto i : clientes) {
-		i->deactivate();
+		i->setActive(false);
 	}
 		
 

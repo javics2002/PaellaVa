@@ -71,11 +71,7 @@ void ObjectManager::debug(SDL_Rect* rect)
 		i->debug(rect);
 }
 
-template<typename T>
-T* ObjectManager::add(int i)
-{
-	return dynamic_cast<T*>(pools[i]->add());
-}
+
 
 void ObjectManager::handleInput(bool& exit)
 {

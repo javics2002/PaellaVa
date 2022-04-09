@@ -49,7 +49,9 @@ public:
 	void addPlayer(Player* player);
 
 	template<typename T>
-	T* add(int i);
+	inline Pool<T>* getPool(int i) {
+		return (Pool<T>*) pools[i];
+	}
 
 	vector<Mueble*> getMueblesCollisions(SDL_Rect collider);
 	vector<Mueble*> getMueblesOverlaps(SDL_Rect collider);

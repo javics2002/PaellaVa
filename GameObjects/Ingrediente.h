@@ -1,5 +1,5 @@
  #pragma once
-#include "PoolObject.h"
+
 #include "ObjetoPortable.h"
 #include <vector>
 
@@ -16,7 +16,7 @@ const vector<string> texturaIngrProcesado = {  "alcachofaP", "calamarP", "cangre
 	"langostaP", "mejillonP", "pimientoRojoP", "pimientoVerdeP", "polloP" };
 
 
-class Ingrediente : public ObjetoPortable, public PoolObject
+class Ingrediente : public ObjetoPortable
 {
 	const unsigned int DIMENSION = 70;
 
