@@ -60,10 +60,9 @@ public:
 
 	void handleInput(bool& exit)  override;
 	void update() override;
+	void addPuntuaciones(double puntosComanda) override;
 
 	void refresh() override;
-
-	void addPuntuaciones(double puntosComanda);
 	void mediaPuntuaciones();
 
 	void loadMap(string const& path);

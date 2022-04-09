@@ -103,6 +103,7 @@ void Jornada::update()
 	uiManager->update(paused);
 }
 
+
 void Jornada::refresh()
 {
 	if (!paused) {
@@ -113,7 +114,7 @@ void Jornada::refresh()
 void Jornada::addPuntuaciones(double puntosComanda)
 {
 	puntuacionesComandas.push_back(puntosComanda);
-	cout << puntuacionesComandas.back() << endl;
+	cout << "puntos paella" << puntuacionesComandas.back() << endl;
 }
 
 void Jornada::mediaPuntuaciones()

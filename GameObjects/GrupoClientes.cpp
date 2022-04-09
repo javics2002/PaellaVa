@@ -269,7 +269,7 @@ void GrupoClientes::onDeactivate()
 
 	if (estado_ == CUENTA) {
 		mesa->clienteSeVa();
-		dynamic_cast<Jornada*>(game->getCurrentScene())->addPuntuaciones(pedido->puntuarPedido(mesa->getPaellasEntregadas()));
+		game->getCurrentScene()->addPuntuaciones(pedido->puntuarPedido(mesa->getPaellasEntregadas()));
 	}	
 }
 

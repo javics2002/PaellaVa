@@ -33,6 +33,7 @@ public:
 	virtual void refresh() {};
 	virtual void render();
 	virtual void debug();
+	virtual void addPuntuaciones(double puntosComanda) {};
 
 	ObjectManager* getObjectManager();
 	UIManager* getUIManager();
