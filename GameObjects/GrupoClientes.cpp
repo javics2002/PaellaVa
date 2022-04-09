@@ -262,10 +262,7 @@ bool GrupoClientes::canDrop() {
 
 void GrupoClientes::onDeactivate()
 {
-	
-
 	for (auto i : clientes) {
-		cout << "hola" << endl;
 		i->setActive(false);
 	}
 		
