@@ -46,7 +46,7 @@ Player::~Player()
 void Player::handleInput()
 {
 	//El jugador se mueve o se para en ambos ejes
-	if (abs(ih().getAxisX()) > .1f) {
+	if (ih().getAxisX() > .1f) {
 		vel.setX(vel.getX() + ih().getAxisX() * aceleracion);
 
 		// Mirar der
@@ -429,7 +429,8 @@ void Player::renderDebug(SDL_Rect* cameraRect)
 
 void Player::render(SDL_Rect* cameraRect)
 {
-	drawRender(cameraRect);
+	SDL_Rect dest = { getX() - getWidth() / 2, getY() + getHeight() / 2, w, h };
+	drawRender(cameraRect, dest, anims[currAnim], clip);
 }
 
 void Player::setPickedObject(ObjetoPortable* op, objectType ot)
