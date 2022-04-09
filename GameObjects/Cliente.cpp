@@ -4,12 +4,11 @@
 Cliente::Cliente(Game* game) : GameObject(game)
 {
 	setDimension(DIMENSION, DIMENSION);
-	vel.setX(2.0f);
 }
 
 void Cliente::update()
 {
-	setPosition(getX() + vel.getX(), getY());
+	setPosition(pos+vel);
 }
 
 void Cliente::cambiaTextura(string textureN)

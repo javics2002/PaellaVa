@@ -2,7 +2,7 @@
 
 bool Cola::esValido(int tamGrupo)
 {
-    return capacidadActual + tamGrupo <= T_Max;
+    return capacidadActual + tamGrupo <= t_Max;
 }
 
 void Cola::add(GrupoClientes* grupo, int tam)

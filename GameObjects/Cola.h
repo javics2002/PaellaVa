@@ -5,7 +5,7 @@
 
 class Cola
 {
-	const int T_Max = 8;
+	int t_Max = 0;
 	list<GrupoClientes*> cola;
 	int capacidadActual;
 
@@ -13,7 +13,7 @@ class Cola
 
 public:
 
-	Cola(): capacidadActual(0) {};
+	Cola(int tMax_): t_Max(tMax_), capacidadActual(0) {};
 	~Cola() = default;
 
 	list<GrupoClientes*>::const_iterator getPos();

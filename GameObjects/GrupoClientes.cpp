@@ -44,6 +44,8 @@ void GrupoClientes::initGrupo(Cola* cola_, vector<Cliente*> clientes_)
 	cola = cola_;
 
 	clientes = clientes_;
+	for (auto i : clientes)
+		i->setVel(vel);
 
 	setState(CAMINANDO);
 }
@@ -54,6 +56,7 @@ void GrupoClientes::update()
 
 		for (auto i : clientes) {
 			i->update();
+			
 		}		
 	}
 
@@ -61,8 +64,8 @@ void GrupoClientes::update()
 
 		int n = clientes.size() - 1;
 
-		SDL_Rect rect = { clientes[n]->getX() - clientes[n]->getWidth(), clientes[n]->getY() - clientes[n]->getHeight() / 2,
-			clientes[n]->getWidth() / 2, clientes[0]->getWidth() / 2};
+		SDL_Rect rect = { clientes[n]->getX() - clientes[n]->getWidth(), clientes[n]->getY() - clientes[n]->getHeight(),
+			clientes[0]->getWidth()*2, clientes[0]->getHeight() * 2 };
 
 		for (auto i : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getCollisions(rect)) 
 			i->colisionClientes();
@@ -303,6 +306,11 @@ void GrupoClientes::decirPedidio()
 		}
 		showPed = true;
 	}		
+}
+
+void GrupoClientes::setOrientacion(bool vertical_)
+{
+	vertical = vertical_;
 }
 
 bool GrupoClientes::paellasPedidas() {

@@ -41,6 +41,7 @@ class GrupoClientes : public ObjetoPortable
 	int itemNow;
 	bool showPed;
 	bool orderStart;
+	bool vertical;
 	Pedido* pedido;
 	vector<string> texPedido;
 	
@@ -90,6 +91,8 @@ public:
 
 	void hacerPedido(int tamMesa, Mesa* m);
 	void decirPedidio();
+
+	void setOrientacion(bool vertical_);
 
 	bool paellasPedidas();
 };
