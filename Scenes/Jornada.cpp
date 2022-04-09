@@ -23,24 +23,24 @@ Jornada::Jornada(Game* game,string tilemap,int numeroJornada) : Scene(game)
 	this->game = game;
 	nJornada = numeroJornada;
 
-	//auto startButton = new UiButton(game, "start", 640, 100, 100, 100);
-	//startButton->setInitialDimension(100, 100);
-	//startButton->setAction([this, startButton](Game* game, bool& exit) {
-	//	sdlutils().soundEffects().at("select").play(0, game->UI);
+	auto startButton = new UiButton(game, "start", 640, 100, 100, 100);
+	startButton->setInitialDimension(100, 100);
+	startButton->setAction([this, startButton](Game* game, bool& exit) {
+		sdlutils().soundEffects().at("select").play(0, game->UI);
 
-	//	uiManager->addTween(0.9f, 1.0f, 600.0f).via(easing::exponentialOut).onStep([game, startButton,this](tweeny::tween<float>& t, float) mutable {
-	//		startButton->setDimension(t.peek() * startButton->getInitialWidth(), t.peek() * startButton->getInitialHeight());
+		uiManager->addTween(0.9f, 1.0f, 600.0f).via(easing::exponentialOut).onStep([game, startButton,this](tweeny::tween<float>& t, float) mutable {
+			startButton->setDimension(t.peek() * startButton->getInitialWidth(), t.peek() * startButton->getInitialHeight());
 
-	//		if (t.progress() > .2f) {
-	//			//Start game
-	//			game->changeScene(new GameOver(game,0,nJornada));
-	//			return true;
-	//		}
-	//		return false;
-	//		});
-	//	});
+			if (t.progress() > .2f) {
+				//Start game
+				game->changeScene(new GameOver(game,0,nJornada));
+				return true;
+			}
+			return false;
+			});
+		});
 
-	//uiManager->addInterfaz(startButton);
+	uiManager->addInterfaz(startButton);
 
 
 	mapInfo.ruta = "..\\..\\..\\Assets\\Tilemap\\"+tilemap+".tmx";
@@ -255,6 +255,7 @@ void Jornada::loadMap(string const& path)
 				auto position = Vector2D<double>(aabb.left, aabb.top);
 				auto dimension = Vector2D<int>(mapInfo.anchoTile, mapInfo.altoTile);
 				string name = obj.getName();
+				vector<tmx::Property> p = obj.getProperties();
 
 				/// <Z coords>
 				/// Fondo: -1
@@ -320,6 +321,7 @@ void Jornada::loadMap(string const& path)
 				}
 				else if (name == "inicioCinta") {
 					InicioCinta* c = new InicioCinta(game, position);
+					c->setVel(Vector2D<double>((double)p[0].getFloatValue(), (double)p[1].getFloatValue()));
 					c->setDepth(1);
 					getObjectManager()->addMueble(c);
 				}
