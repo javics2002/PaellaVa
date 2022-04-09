@@ -33,6 +33,7 @@ class UIManager
 	vector<GameObject*> creditsScreen; // pantalla de créditos
 	vector<UiButton*> pauseButtons; // botones del menú de pausa
 	vector<UiButton*> optionsButtons; // botones del menú de opciones
+	vector<UiButton*> creditsButtons; // botones de la pantalla de créditos
 	vector<UiButton*> sliders; // sliders del menú de opciones
 
 	list<tweeny::tween<float>> activeTweens;
@@ -97,6 +98,7 @@ public:
 	void toggleOpciones();
 	void toggleCreditos();
 	void salirOpciones();
+	void salirCreditos();
 
 	void desactivaBot();
 	void activaBot();

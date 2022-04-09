@@ -126,6 +126,19 @@ void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 		}
 	}
 
+	for (auto i : creditsButtons)
+	{
+		if (i->isActive())
+		{
+			if (i->onClick(mx, my, exit))
+			{
+				mx = -1;
+				my = -1;
+
+			}
+		}
+	}
+
 	if (nombre != nullptr) {
 		if (nombre->isActive()) {
 
@@ -283,6 +296,9 @@ void UIManager::render(SDL_Rect* rect = nullptr)
 		if (i->isActive()) i->render(rect);
 	}
 
+	for (auto i : creditsButtons) {
+		if (i->isActive()) i->render(rect);
+	}
 	
 	for (auto it = cargarAnimacion.begin(); it != cargarAnimacion.end(); it++) {
 		auto i = *it;
@@ -648,8 +664,20 @@ void UIManager::creaPantallaCreditos()
 
 	creditsScreen.push_back(opcPant);
 
+	//Boton salir
+	UiButton* botonSalir = new UiButton(game, "cerrarOpc", opcPant->getWidth(), 100, 100, 100);
+
+	botonSalir->setActive(false);
+	botonSalir->setAction([this, botonSalir](Game* game, bool& exit) {
+		activaBot();
+		salirCreditos();
+		});
+
+	creditsScreen.push_back(botonSalir);
+	creditsButtons.push_back(botonSalir);
+
 	//Boton para escribir el nombre
-	ShowText* NombreCocinera = new ShowText(game, "Puta Somalí", "abadiNombre",
+	ShowText* NombreCocinera = new ShowText(game, "Puta Somalï¿½", "abadiNombre",
 		100, 100,
 		200, 50);
 
@@ -717,6 +745,13 @@ void UIManager::salirOpciones()
 	}
 
 	escribiendoNombre = false;
+}
+
+void UIManager::salirCreditos()
+{
+	for (auto i : creditsScreen) {
+		i->setActive(false);
+	}
 }
 
 void UIManager::desactivaBot()
