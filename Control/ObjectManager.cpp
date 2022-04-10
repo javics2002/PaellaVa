@@ -36,19 +36,21 @@ ObjectManager::~ObjectManager()
 
 void ObjectManager::render(SDL_Rect* rect)
 {
+	vector<GameObject*> aux = renderAll;
+	
+	for (auto i : pools) {
+		for (auto o : i->getActiveObjects()) {
+			renderAll.emplace_back(o);
+		}
+	}
+
 	sortAllGO();
 
 	for (auto i : renderAll) {
 		i->render(rect);
 	}
 
-	for (auto i : paellas) {
-		i->render(rect);
-	}
-		
-	for (auto i : pools) {
-		i->render(rect);
-	}
+	renderAll = aux;	
 }
 
 void ObjectManager::debug(SDL_Rect* rect)
@@ -78,13 +80,13 @@ void ObjectManager::handleInput(bool& exit)
 
 void ObjectManager::update()
 {
-	for (auto i : renderAll) 
-		i->update();
-
-	for (auto i : paellas)
+	for (auto i : players)
 		i->update();
 
 	for (auto i : muebles)
+		i->update();
+
+	for (auto i : paellas)
 		i->update();
 
 	for (int i = 0; i < pools.size() - 1; i++)
@@ -117,6 +119,8 @@ Paella* ObjectManager::addPaella(int n)
 
 	paellas.push_back(p);
 
+	renderAll.push_back(p);
+
 	return p;
 }
 
@@ -146,7 +150,7 @@ vector<Mueble*> ObjectManager::getMueblesOverlaps(SDL_Rect collider)
 
 void ObjectManager::sortAllGO() {
 	std::sort(renderAll.begin(), renderAll.end(), [](GameObject* a, GameObject* b) {
-		return a->getY() < b->getY();
+		return a->getDepth() < b->getDepth() || (a->getDepth() == b->getDepth() && a->getY() < b->getY());
 		});
 }
 

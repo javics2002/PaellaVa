@@ -4,6 +4,8 @@
 Cliente::Cliente(Game* game) : GameObject(game)
 {
 	setDimension(DIMENSION, DIMENSION);
+
+	setDepth(1);
 }
 
 void Cliente::update()
