@@ -346,6 +346,10 @@ Mueble* Player::nearestObject(Mueble* m1, Mueble* m2)
 
 void Player::animUpdate()
 {
+	//bool para saber si hay que cambiar el flip
+	bool flipH = false;
+	if (flip == SDL_FLIP_HORIZONTAL) flipH = true;
+
 	lastFrameTime = sdlutils().currRealTime();
 
 	clip.x = frameCounter * clip.w;
@@ -365,9 +369,11 @@ void Player::animUpdate()
 		break;
 	case E:
 		currAnim = 1;
+		if(flipH) flip = SDL_FLIP_NONE;
 		break;
 	case O:
 		currAnim = 1;
+		if (!flipH)flip = SDL_FLIP_HORIZONTAL;
 		break;
 	default:
 		break;
@@ -462,7 +468,7 @@ void Player::renderDebug(SDL_Rect* cameraRect)
 void Player::render(SDL_Rect* cameraRect)
 {
 	SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, w, h };
-	drawRender(cameraRect, dest, anims[currAnim], clip);
+	drawRender(cameraRect, dest, anims[currAnim], clip, flip);
 }
 
 void Player::setPickedObject(ObjetoPortable* op, objectType ot)

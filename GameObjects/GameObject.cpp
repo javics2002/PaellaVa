@@ -110,6 +110,12 @@ void GameObject::drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex, S
 	tex->render(clip, { rect.x - cameraRect->x, rect.y - cameraRect->y, rect.w, rect.h }, 0.0);
 }
 
+void GameObject::drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex, SDL_Rect clip, SDL_RendererFlip flip)
+{
+	const SDL_Point* p = (const SDL_Point*)nullptr;
+	tex->render(clip, { rect.x - cameraRect->x, rect.y - cameraRect->y, rect.w, rect.h }, 0.0, p, flip);
+}
+
 void GameObject::drawDebug(SDL_Rect* cameraRect)
 {
 	SDL_Rect overlap = getOverlap();

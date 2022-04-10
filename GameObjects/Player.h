@@ -33,6 +33,7 @@ class Player : public GameObject
 	
 
 	vector<Texture*> anims;
+	SDL_RendererFlip flip;
 	SDL_Rect clip;
 	int frameCounter;
 	float lastFrameTime;
