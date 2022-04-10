@@ -33,7 +33,7 @@ bool Pila::receivePaella(Paella* pa)
 	if (miTipo == pa->getTipo() && pa->getContenido() == Limpia) {
 
 		paellas.push_back(pa);
-		pa->setPosition(getPosition());
+		pa->setPosition(getRectCenter(getOverlap()));
 
 		return true;
 	}
@@ -45,7 +45,7 @@ void Pila::init(ObjectManager* objectManager)
 {
 	for (int i = 0; i < numPaellas; i++) {
 		Paella* pa = objectManager->addPaella(miTipo);
-		pa->setPosition(getPosition());
+		pa->setPosition(getRectCenter(getOverlap()));
 		paellas.push_back(pa);
 	}		
 }

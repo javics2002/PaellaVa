@@ -271,22 +271,22 @@ void Jornada::loadMap(string const& path)
 				/// </Z coords>
 
 				if (name == "mesaS") { // 1 tile
-					Mesa* m = new Mesa(game, position, { 1, 2 }, name);
+					Mesa* m = new Mesa(game, position, { 1, 2 }, { 1 , 1 }, name);
 					m->setDepth(1);
 					getObjectManager()->addMueble(m);
 				}
 				else if (name == "mesaMH") { // 2 tiles horizontal
-					Mesa* m = new Mesa(game, position, { 2, 2 }, name);
+					Mesa* m = new Mesa(game, position, { 2, 2 }, { 2 , 1 }, name);
 					m->setDepth(1);
 					getObjectManager()->addMueble(m);
 				}
 				else if (name == "mesaMV") { // 2 tiles vertical
-					Mesa* m = new Mesa(game, position, { 1, 3 }, name);
+					Mesa* m = new Mesa(game, position, { 1, 3 }, { 1 , 2 }, name);
 					m->setDepth(1);
 					getObjectManager()->addMueble(m);
 				}
 				else if (name == "mesaL") { // 4 tiles
-					Mesa* m = new Mesa(game, position, { 2, 4 }, name);
+					Mesa* m = new Mesa(game, position, { 2, 4 }, { 2 , 2 }, name);
 					m->setDepth(1);
 					getObjectManager()->addMueble(m);
 				}

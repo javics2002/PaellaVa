@@ -15,7 +15,7 @@ bool Encimera::receiveIngrediente(Ingrediente* ingr)
 	{
 		ingr_ = ingr;
 
-		ingr_->setPosition(getX(), getY() - ingr->getHeight()/2);
+		ingr_->setPosition(getRectCenter(getOverlap()));
 
 		return true;
 	}
@@ -42,7 +42,7 @@ bool Encimera::receivePaella(Paella* pa)
 	{
 		paella_ = pa;
 
-		paella_->setPosition(getX(), getY() - 3 * pa->getHeight() / 4);
+		paella_->setPosition(getRectCenter(getOverlap()));
 
 		return true;
 	}
@@ -55,23 +55,27 @@ bool Encimera::receiveArroz(Arroz* arr)
 	//Si ya tiene objeto, no recoge objeto
 	if (paella_ != nullptr && paella_->getContenido() == Limpia)
 	{
-		paella_->anadeArroz(arr);
+		if (paella_->getContenido() == Limpia) {
 
-		return true;
+			paella_->anadeArroz(arr);
+
+			return true;
+		}
+		else
+		{
+			return false;
+		}		
 	}
-	else if (paella_ != nullptr && paella_->getContenido() != Limpia)
-	{
-		//no lo suelta
-		return false;
-	}
+	
 	else if (ingr_ == nullptr && arroz == nullptr) {
-		arroz = arr;
 
-		arroz->setPosition(getX(), getY() - arroz->getHeight() / 2);
+		arroz = arr;
+		arroz->setPosition(getRectCenter(getOverlap()));
+
 		return true;
 	}
-	else
-		return false;
+
+	return false;
 }
 
 bool Encimera::returnObject(Player* p)

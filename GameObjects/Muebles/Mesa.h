@@ -19,8 +19,14 @@ class Mesa : public Mueble
 	deque<Paella*> paellas;
 	int nSillas;
 
+	pair<Vector2D<double>, bool> tiles[2][2];
+
+
+	void setTiles();
+	Vector2D<double> getProxPos(Vector2D<double> pos);
+
 public:
-	Mesa(Game* game, Vector2D<double> pos, Vector2D<int> dim, string texture);
+	Mesa(Game* game, Vector2D<double> pos, Vector2D<int> dim, Vector2D<int> tiles, string texture);
 	~Mesa() = default;
 
 	void init(ObjectManager* objectManager) override;

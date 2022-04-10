@@ -39,7 +39,7 @@ bool Lavavajillas::receivePaella(Paella* paella_)
 
 		pilaPaellas.push_back(paella_);
 
-		paella_->setPosition(getX(), getY());
+		paella_->setPosition(getRectCenter(getOverlap()));
 
 		initTime = sdlutils().currRealTime();
 

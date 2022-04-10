@@ -46,7 +46,7 @@ bool Fogon::receivePaella(Paella* pa)
 	{
 		paella_ = pa;
 
-		paella_->setPosition(getX(), getY() - 3 * pa->getHeight() / 4);
+		paella_->setPosition(getRectCenter(getOverlap()));
 
 		//empezar a cocer la paella
 		paella_->setState(Coccion);

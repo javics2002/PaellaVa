@@ -26,10 +26,12 @@ SDL_Rect Mueble::getOverlap()
 {
 	SDL_Rect rect = getTexBox();
 
+	int incr = 9;
+
 	return {
 		rect.x,
 		rect.y,
 		rect.w,
-		rect.h / 2
+		rect.h / 2 - incr
 	};
 }

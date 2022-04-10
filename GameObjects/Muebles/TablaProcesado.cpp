@@ -59,7 +59,7 @@ bool TablaProcesado::receiveIngrediente(Ingrediente* ingr)
 
 		tiempo = sdlutils().currRealTime();
 
-		ingr_->setPosition(getX(), getY() - ingr->getHeight() / 2);
+		ingr_->setPosition(getRectCenter(getOverlap()));
 
 		canalSonido = sdlutils().soundEffects().at("cortar" + to_string(sdlutils().rand().nextInt(1, 4))).play(-1);
 

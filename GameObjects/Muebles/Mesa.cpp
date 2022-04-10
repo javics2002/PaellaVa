@@ -2,18 +2,53 @@
 #include "../../Control/Game.h"
 #include "../../Control/ObjectManager.h"
 
-Mesa::Mesa(Game* game, Vector2D<double> pos, Vector2D<int> dim, string texture) 
-	: Mueble(game, pos, dim.getX() * TILE_SIZE, dim.getY() * TILE_SIZE / 1.15, texture) 
+Mesa::Mesa(Game* game, Vector2D<double> pos, Vector2D<int> dim, Vector2D<int> tiles, string texture)
+	: Mueble(game, pos, dim.getX() * TILE_SIZE, dim.getY() * TILE_SIZE, texture) 
 {
-	mWidth = dim.getX();
-	mHeight = dim.getY();
+	mWidth = tiles.getX();
+	mHeight = tiles.getY();
 
-	setPosition((int)getX(), (int)getY() + h / 8);
+	setTiles();
 
 
 	mGrupo = nullptr;
 
 	nSillas = 0;
+}
+
+void Mesa::setTiles() {
+	Vector2D<double> supIzq = Vector2D<double>(getTexBox().x, getTexBox().y);
+
+	int dist = getTexBox().w / (2 * mWidth);
+
+	cout << dist << endl;
+
+	for (int i = 0; i < mWidth; i++) {
+		for (int j = 0; j < mHeight; j++) {
+			tiles[i][j].first = Vector2D<double>(supIzq.getX() + dist + dist * 2 * i, supIzq.getY() + dist + dist * 2 *j);
+			tiles[i][j].second = true;
+		}
+	}
+}
+
+Vector2D<double> Mesa::getProxPos(Vector2D<double> pos) {
+	double minPos = INT_MAX;
+	int I = 0, J = 0;
+	
+	for (int i = 0; i < mWidth; i++) {
+		for (int j = 0; j < mHeight; j++) {
+			double dist = (tiles[i][j].first - pos).magnitude();
+			if (dist < minPos && tiles[i][j].second) {
+				minPos = dist;
+				I = i;
+				J = j;
+			}
+		}
+	}
+
+	tiles[I][J].second = false;
+
+	return tiles[I][J].first;
 }
 
 void Mesa::init(ObjectManager* objectManager)
@@ -30,6 +65,7 @@ void Mesa::init(ObjectManager* objectManager)
 		if (s != nullptr)
 			sillas.push_back(s);
 	}
+
 
 	nSillas = sillas.size();
 }
@@ -63,7 +99,7 @@ bool Mesa::receivePaella(Paella* paella)
 	if (mGrupo != nullptr && paella->conArroz() && mGrupo->paellasPedidas()) {
 		paella->setState(Hecha);
 		paellas.push_back(paella);
-		paella->setPosition(getPosition());
+		paella->setPosition(getProxPos(paella->getPosition()));
 		paella->enLaMesa(true);
 
 		sdlutils().soundEffects().at("cubiertos").play();
@@ -86,6 +122,14 @@ bool Mesa::returnObject(Player* p)
 		paellas.back()->enLaMesa(false);
 		paellas.back()->setContenido(Sucia);
 		paellas.pop_back();
+
+		if (paellas.empty()) {
+			for (int i = 0; i < mWidth; i++) {
+				for (int j = 0; j < mHeight; j++) {
+					tiles[i][j].second = true;
+				}
+			}
+		}
 
 		return true;
 	}
