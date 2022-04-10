@@ -37,6 +37,8 @@ Player::Player(Game* game) : GameObject(game), objectType_(INGREDIENTE), pickedO
 	currAnim = 0;
 
 	setTexture("player");
+
+	setDepth(1);
 }
 
 Player::~Player()

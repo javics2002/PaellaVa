@@ -6,6 +6,7 @@
 
 Paella::Paella(Game* game, int tipo) : ObjetoPortable(game), miTipo(tipo)
 {
+	setDepth(2);
 
 	switch (miTipo)
 	{

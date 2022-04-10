@@ -78,15 +78,13 @@ bool Mesa::receiveGrupoClientes(GrupoClientes* gc)
 		if (n <= sillas.size()) {
 			mGrupo = gc;
 
-			gc->setPosition(getPosition());
+			gc->setPosition(getCenterMesa());
 
-			gc->hacerPedido(mWidth * mHeight,this);
-
+			gc->hacerPedido(mWidth * mHeight, this);
 
 			vector<Cliente*> clientes = gc->getIntegrantes();
 			for (int i = 0; i < n; i++) {
-				auto p = sillas[i]->getPosition();
-				clientes[i]->setPosition(p);
+				clientes[i]->setPosition(sillas[i]->setClientPos());
 			}
 			return true;
 		}		
@@ -178,6 +176,13 @@ void Mesa::decirPedido()
 {
 	if (mGrupo != nullptr)
 		mGrupo->decirPedidio();
+}
+
+Vector2D<double> Mesa::getCenterMesa()
+{
+	double tileSize = getWidth() / mWidth;
+
+	return Vector2D<double>(getTexBox().x + (tileSize * mWidth) / 2, getTexBox().y + (tileSize * mHeight) / 2);
 }
 
 

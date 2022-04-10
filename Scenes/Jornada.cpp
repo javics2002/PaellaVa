@@ -272,47 +272,38 @@ void Jornada::loadMap(string const& path)
 
 				if (name == "mesaS") { // 1 tile
 					Mesa* m = new Mesa(game, position, { 1, 2 }, { 1 , 1 }, name);
-					m->setDepth(1);
 					getObjectManager()->addMueble(m);
 				}
 				else if (name == "mesaMH") { // 2 tiles horizontal
 					Mesa* m = new Mesa(game, position, { 2, 2 }, { 2 , 1 }, name);
-					m->setDepth(1);
 					getObjectManager()->addMueble(m);
 				}
 				else if (name == "mesaMV") { // 2 tiles vertical
 					Mesa* m = new Mesa(game, position, { 1, 3 }, { 1 , 2 }, name);
-					m->setDepth(1);
 					getObjectManager()->addMueble(m);
 				}
 				else if (name == "mesaL") { // 4 tiles
 					Mesa* m = new Mesa(game, position, { 2, 4 }, { 2 , 2 }, name);
-					m->setDepth(1);
 					getObjectManager()->addMueble(m);
 				}
 				else if (name == "sillaIz" || name == "sillaDer") {
-					Silla* s = new Silla(game, position, name);
-					s->setDepth(1);
+					Silla* s = new Silla(game, position, name, +1);
 					getObjectManager()->addMueble(s);
 				}
 				else if (name == "sillaAr") {
-					Silla* s = new Silla(game, position, name);
-					s->setDepth(0);
+					Silla* s = new Silla(game, position, name, -1);;
 					getObjectManager()->addMueble(s);
 				}
 				else if (name == "sillaAb") {
-					Silla* s = new Silla(game, position, name);
-					s->setDepth(2);
+					Silla* s = new Silla(game, position, name, +1);
 					getObjectManager()->addMueble(s);
 				}
 				else if (name == "fogon") {
 					Fogon* f = new Fogon(game, position);
-					f->setDepth(1);
 					getObjectManager()->addMueble(f);
 				}
 				else if (name == "lavavajillas") {
 					Lavavajillas* l = new Lavavajillas(game, position);
-					l->setDepth(1);
 					getObjectManager()->addMueble(l);
 				}
 				else if (name == "cinta") {
@@ -322,49 +313,40 @@ void Jornada::loadMap(string const& path)
 						c->setCollider({ aux.x, aux.y + aux.h / 2 , aux.w, aux.h / 2 });
 					}
 					else c->setCollider(aux);
-					c->setDepth(1);
 					getObjectManager()->addMueble(c);
 				}
 				else if (name == "inicioCinta") {
 					InicioCinta* c = new InicioCinta(game, position);
 					c->setVel(Vector2D<double>((double)p[1].getFloatValue(), (double)p[2].getFloatValue()));
-					c->setDepth(1);
 					getObjectManager()->addMueble(c);
 				}
 				else if (name == "finalCinta") {
 					FinalCinta* c = new FinalCinta(game, position);
-					c->setDepth(1);
 					getObjectManager()->addMueble(c);
 				}
 				else if (name == "puerta") {
 					Puerta* puerta = new Puerta(game, position,p[3].getBoolValue(),p[2].getIntValue());
 					puerta->setVel(Vector2D<double>((double)p[0].getFloatValue(), (double)p[1].getFloatValue()));
-					puerta->setDepth(1);
 					getObjectManager()->addMueble(puerta);
 				}
 				else if (name == "cartel") {
 					Cartel* c = new Cartel(game, position);
-					c->setDepth(1);
 					getObjectManager()->addMueble(c);
 				}
 				else if (name == "tabla") {
 					TablaProcesado* t = new TablaProcesado(game, position);
-					t->setDepth(1);
 					getObjectManager()->addMueble(t);
 				}
 				else if (name == "encimera") {
 					Encimera* e = new Encimera(game, position);
-					e->setDepth(1);
 					getObjectManager()->addMueble(e);
 				}
 				else if (name == "ventanilla") {
 					Ventanilla* v = new Ventanilla(game, position, camara->renderRect());
-					v->setDepth(1);
 					getObjectManager()->addMueble(v);
 				}
 				else if (name == "arroz") {
 					BolsaArroz* b = new BolsaArroz(game, position);
-					b->setDepth(1);
 					getObjectManager()->addMueble(b);
 				}
 				else if (name == "pared") {
@@ -375,19 +357,16 @@ void Jornada::loadMap(string const& path)
 				else if (name == "pilaS")
 				{
 					Pila* p = new Pila(game, position, TipoPaella::Pequena, 4);
-					p->setDepth(1);
 					getObjectManager()->addMueble(p);
 				}
 				else if (name == "pilaM")
 				{
 					Pila* p = new Pila(game, position, TipoPaella::Mediana, 5);
-					p->setDepth(1);
 					getObjectManager()->addMueble(p);
 				}
 				else if (name == "pilaL")
 				{
 					Pila* p = new Pila(game, position, TipoPaella::Grande, 3);
-					p->setDepth(1);
 					getObjectManager()->addMueble(p);
 				}
 			}

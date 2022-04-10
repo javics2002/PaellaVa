@@ -117,6 +117,17 @@ public:
 
 		return c;
 	}
+	
+	vector<T*> getActiveObjects() {
+		vector<T*> c;
+
+		for (auto it : aliveObjects) {
+				c.push_back(it);
+		}
+
+		return c;
+	}
+
 
 	void render() {	
 		for (auto it : aliveObjects)
@@ -154,8 +165,6 @@ public:
 	}
 
 	void update() {
-		refresh();
-
 		for (auto object : aliveObjects) {
 			object->update();
 		}

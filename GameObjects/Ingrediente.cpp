@@ -4,6 +4,8 @@
 
 Ingrediente::Ingrediente(Game* game) : ObjetoPortable(game) {
 	setDimension(DIMENSION, DIMENSION);
+
+	setDepth(2);
 }
 
 void Ingrediente::update()

@@ -29,6 +29,8 @@ GrupoClientes::GrupoClientes(Game* game) : ObjetoPortable(game), pedido(nullptr)
 
 	comidoMitad = false;
 	lastTimeComido = 0;
+
+	setDepth(3);
 }
 
 GrupoClientes::~GrupoClientes()
@@ -106,9 +108,6 @@ void GrupoClientes::update()
 
 void GrupoClientes::render(SDL_Rect* cameraRect)
 {
-	for (auto i : clientes)
-		i->render(cameraRect);
-
 	if (isPicked())
 		drawRender(cameraRect);
 
@@ -293,7 +292,7 @@ int GrupoClientes::mitadGrupo()
 	return mitad / clientes.size();
 }
 
-void GrupoClientes::hacerPedido(int tamMesa,Mesa* m)
+void GrupoClientes::hacerPedido(int tamMesa, Mesa* m)
 {
 	mesa = m;
 
