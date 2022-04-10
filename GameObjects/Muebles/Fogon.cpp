@@ -72,7 +72,6 @@ bool Fogon::receivePaella(Paella* pa)
 
 	return true;
 }
-	else
 	return false;
 
 }
@@ -86,6 +85,10 @@ bool Fogon::returnObject(Player* p)
 		p->setPickedObject(paella_, PAELLA);
 
 		paella_ = nullptr;
+
+		barra = false;
+		dest_1= { (int)getX() - barraCoccionX / 2 + flechaCoccionX / 2,(int)getY() - (int)(getHeight() / 1.5) - (int)(barraCoccionY / 1.5),
+	flechaCoccionX, flechaCoccionY };
 
 		//Paramos el sonido
 		sdlutils().soundEffects().at("fogon").haltChannel(canalSonido);

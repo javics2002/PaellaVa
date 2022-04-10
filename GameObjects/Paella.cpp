@@ -92,6 +92,7 @@ void Paella::update()
 void Paella::setLavado(Contenido contenidoPaella, string texturaPaella)
 {
 	contenido = contenidoPaella;
+	estado = Preparacion;
 	setTexture(texturaPaella);
 }
 
