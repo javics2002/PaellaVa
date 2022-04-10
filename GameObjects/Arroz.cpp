@@ -5,4 +5,6 @@ Arroz::Arroz(Game* game) : ObjetoPortable(game)
 {
     setDimension(DIMENSION, DIMENSION);
     setTexture("arroz");
+
+    setDepth(2);
 }
