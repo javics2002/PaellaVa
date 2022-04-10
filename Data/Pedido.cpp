@@ -51,7 +51,6 @@ Pedido::Pedido(int numComensales, int numeroTiles)
 	}
 	for (int g = 0; g < paellas.size(); g++) {
 		int c = rand() % (LIMITE_INGR + 1);
-		cout << c << endl;
 		for (int j = 0; j < c; j++) {
 			int n = rand() % (tipoIngrediente::LAST);
 			ingredienteRand = tipoIngrediente(n);
@@ -168,10 +167,14 @@ vector<string> Pedido::getPedidoTex()
 
 	for (auto i : paellas) {
 		v.push_back(paellasTamTex[i.tamanoPaella]);
-		for (auto j : i.ingredientesPedido) {
-			v.push_back(paellasTex[j]);
+		if (!i.ingredientesPedido.empty()) {
+			for (auto j : i.ingredientesPedido) {
+				v.push_back(texturaIngrediente[j]);
+			}
 		}
+		else v.push_back("sinIngredientes");
 	}
+	v.push_back("finPedido");
 
 	return v;
 }

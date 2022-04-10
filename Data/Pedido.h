@@ -27,6 +27,8 @@ struct penalizacionCoccion {
 	double incomestible = -4;
 };
 
+const vector<string> paellasTamTex{ "small", "medium", "large" };
+
 class Pedido 
 {
 public:
@@ -42,10 +44,6 @@ public:
 private:
 	vector<pedidoPaella> paellas;
 	vector<bool> ingredientesPedidos;
-
-	vector<string> paellasTex { "alcachofa", "calamar", "cangrejo", "gamba",
-	"langosta", "mejillon", "pimientoRojo", "pimientoVerde", "pollo" };
-	vector<string> paellasTamTex { "small", "medium", "large" };
 
 	int comensales, tilesMesa, max_rand;
 

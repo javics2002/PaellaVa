@@ -20,7 +20,7 @@ bool Ventanilla::receivePaella(Paella* pa)
 		cout << "TENGO UNA PAELLA";
 
 		mpaella = pa;
-		mpaella->setPosition(getX(), getY() - getHeight()/2 + mpaella->getHeight()/2);
+		mpaella->setPosition(getRectCenter(getOverlap()));
 
 		if (uimt->getBarra()->getComandaSeleccionada() != nullptr)
 		{
