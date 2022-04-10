@@ -40,9 +40,9 @@ protected:
 public:
 
     GameObject(Game* game) 
-        : game(game), texture(nullptr), w(0), h(0) {};
+        : game(game), texture(nullptr), w(0), h(0), z(1) {};
     GameObject(Game* game, string claveTextura) 
-        : game(game), texture(&sdlutils().images().at(claveTextura)), w(0), h(0) {};
+        : game(game), texture(&sdlutils().images().at(claveTextura)), w(0), h(0), z(1) {};
 
     virtual ~GameObject() {};
 

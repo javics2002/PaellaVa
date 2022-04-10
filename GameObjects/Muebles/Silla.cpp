@@ -4,8 +4,10 @@
 
 #include "Mesa.h"
 
-Silla::Silla(Game* game, Vector2D<double> pos, string texture) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, texture)
+Silla::Silla(Game* game, Vector2D<double> pos, string texture, int d) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, texture)
 {
+	clientDepth = d;
+
 	mMesa = nullptr;
 }
 
@@ -66,5 +68,10 @@ SDL_Rect Silla::getCollider()
 		rect.w,
 		rect.h / 2
 	};
+}
+
+Vector2D<double> Silla::setClientPos()
+{
+	return Vector2D<double>(getX(), getY() + clientDepth);
 }
 
