@@ -63,9 +63,15 @@ void GrupoClientes::update()
 	else if (estado_ == ENCOLA) {
 
 		int n = clientes.size() - 1;
+		SDL_Rect rect = {0,0,0,0};
 
-		SDL_Rect rect = { clientes[n]->getX() - clientes[n]->getWidth(), clientes[n]->getY() - clientes[n]->getHeight(),
-			clientes[0]->getWidth()*2, clientes[0]->getHeight() * 2 };
+		if(vel.getX()<0 || vel.getY()<0)
+			rect = {(int) clientes[0]->getX() - clientes[0]->getWidth(), (int)clientes[0]->getY() - clientes[0]->getHeight(),
+				clientes[0]->getWidth()*2, clientes[0]->getHeight() * 2 };
+
+		else if (vel.getX() > 0 || vel.getY() > 0)
+			rect = { (int)clientes[n]->getX() - clientes[n]->getWidth(), (int)clientes[n]->getY() - clientes[0]->getHeight(),
+				clientes[0]->getWidth() * 2, clientes[0]->getHeight() * 2 };
 
 		for (auto i : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getCollisions(rect)) 
 			i->colisionClientes();

@@ -36,7 +36,7 @@ Lobby::Lobby(Game* game, string nombre, Scene* hostClient):Scene(game)
 	comenzar = new UiButton(game, "start2", sdlutils().width()/2, sdlutils().height()/2, 200, 70);
 
 	comenzar->setAction([this](Game* game, bool& exit) {
-		game->changeScene(new Jornada(game, "restaurante", 0));
+		game->changeScene(new Jornada(game, "Jornada1", 0));
 		game->getNetworkManager()->init('h');
 		//clienteUnido();
 		});

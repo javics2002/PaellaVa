@@ -3,6 +3,7 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 
+
 #include "../Scenes/Menu.h"
 #ifdef _DEBUG
 #include "../Scenes/Restaurante.h"
@@ -16,7 +17,9 @@
 #include "../GameObjects/UI/UIManager.h"
 #include "../Control/NetworkManager.h"
 
-Game::Game() {
+
+
+Game::Game() {	
 	srand(time(NULL));
 }
 
@@ -26,6 +29,8 @@ Game::~Game() {
 
 void Game::init()
 {
+
+
 	SDLUtils::init("Paellas", 1280, 720, "../../../Assets/resources.json");
 	SDLUtils::instance()->showCursor();
 
