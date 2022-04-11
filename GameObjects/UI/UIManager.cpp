@@ -51,7 +51,7 @@ void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 	
 	for (int i = 0; i < interfaz.size(); ++i)
 	{
-		if (interfaz[i]->isActive())
+		if (interfaz[i]->isActive() && !paused)
 		{
 			if (interfaz[i]->onClick(mx, my, exit))
 			{
@@ -74,7 +74,7 @@ void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 
 	for (auto j : uicomandas)
 	{
-		if (j->isActive())
+		if (j->isActive() && !paused)
 		{
 			if (j->onClick(mx, my, exit) && !paused)
 			{
@@ -84,11 +84,11 @@ void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 		}
 	}
 
-	if (barra != nullptr)
+	if (barra != nullptr && !paused)
 	{
 		for (auto c : barra->getlista())
 		{
-
+			
 			if (c->getEliminabutton()->onClick(mx, my, exit))
 			{
 				mx = -1;
