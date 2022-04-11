@@ -47,6 +47,8 @@ UIManager::~UIManager()
 
 void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 {
+
+	
 	for (int i = 0; i < interfaz.size(); ++i)
 	{
 		if (interfaz[i]->isActive())
@@ -58,10 +60,9 @@ void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 			}
 		}
 	}
-
 	for (auto j : teclado)
 	{
-		if (j->isActive())
+		if (j->isActive() && !paused)
 		{
 			if (j->onClick(mx, my, exit))
 			{
@@ -75,7 +76,7 @@ void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 	{
 		if (j->isActive())
 		{
-			if (j->onClick(mx, my, exit))
+			if (j->onClick(mx, my, exit) && !paused)
 			{
 				mx = -1;
 				my = -1;
@@ -173,10 +174,11 @@ void UIManager::slideEvent(int mx, int my, bool& exit, bool paused)
 
 void UIManager::handleInput(bool& exit, bool paused)
 {
+	
 	if (ih().getMouseButtonState(InputHandler::MOUSE_LEFT))
 	{
 		//cout << nombrePlayer << endl;
-		uiEvent(ih().getmx(), ih().getmy(), exit);
+		uiEvent(ih().getmx(), ih().getmy(), exit, paused);
 	}
 
 	else if (escribiendoNombre) {
@@ -193,6 +195,7 @@ void UIManager::update(bool paused)
 	if (!paused) {
 		for (auto i : interfaz)
 		{
+
 			if (i->isActive())
 			{
 				i->update();

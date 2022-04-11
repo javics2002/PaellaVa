@@ -50,8 +50,6 @@ class Jornada : public Scene
 
 	Vector2D<int> tamRestaurante = Vector2D<int>(0, 1216);
 
-	bool paused = false;
-
 	int nJornada = 0;
 
 public:
