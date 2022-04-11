@@ -157,7 +157,9 @@
     {"id": "back", "file": "../../../Assets/Images/backButton.png"},
     { "id": "sinIngredientes", "file": "../../../Assets/Images/Ingredientes/sinIngredientes.png" },
     { "id": "finPedido", "file": "../../../Assets/Images/Ingredientes/finPedido.png" },
-    { "id": "circulo", "file": "../../../Assets/Images/loading.png" }
+    { "id": "circulo", "file": "../../../Assets/Images/loading.png" },
+    { "id": "pedirPlato", "file": "../../../Assets/Images/pedirPlato.png" }
+
   ],
 
   "tilesets": [
