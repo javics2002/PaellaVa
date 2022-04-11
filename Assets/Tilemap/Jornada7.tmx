@@ -85,6 +85,7 @@
   </object>
   <object id="27" name="puerta" x="128" y="678">
    <properties>
+    <property name="MaxTamGrupo" type="int" value="4"/>
     <property name="VelocidadX" type="float" value="0"/>
     <property name="VelocidadY" type="float" value="-2.3"/>
     <property name="t_Max" type="int" value="5"/>
