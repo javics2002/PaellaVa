@@ -54,6 +54,9 @@ class UIManager
 
 	bool clickPrevio = true;
 
+	const int posInicialCreditos = 260;
+	const int avanceCreditos = 70;
+
 	UiButton* nombre;
 	string nombrePlayer = "elbaginon";
 	const int maxCaracteres = 15;

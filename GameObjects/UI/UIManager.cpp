@@ -676,14 +676,105 @@ void UIManager::creaPantallaCreditos()
 	creditsScreen.push_back(botonSalir);
 	creditsButtons.push_back(botonSalir);
 
-	//Boton para escribir el nombre
-	ShowText* NombreCocinera = new ShowText(game, "Puta Somal�", "abadiNombre",
-		100, 100,
-		200, 50);
+	//Título de desarrolladores
 
-	NombreCocinera->setActive(false);
+	Imagen* fondoTituloDevs = new Imagen(game, sdlutils().width() / 2, 180, 260, 60, "reloj");
 
-	creditsScreen.push_back(NombreCocinera);
+	fondoTituloDevs->setActive(false);
+
+	creditsScreen.push_back(fondoTituloDevs);
+
+	ShowText* TituloDev = new ShowText(game, "Desarrolladores", "paella",
+		sdlutils().width() / 2, 190);
+
+	TituloDev->setActive(false);
+
+	creditsScreen.push_back(TituloDev);
+
+	//Nombres de los desarrolladores
+
+	Imagen* fondoDevs1 = new Imagen(game, sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 2, 360, 360, "reloj");
+
+	fondoDevs1->setActive(false);
+
+	creditsScreen.push_back(fondoDevs1);
+
+	Imagen* fondoDevs2 = new Imagen(game, 2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 2, 360, 360, "reloj");
+
+	fondoDevs2->setActive(false);
+
+	creditsScreen.push_back(fondoDevs2);
+
+	ShowText* Dev1 = new ShowText(game, "Javier Cano", "abadiNombre",
+		sdlutils().width() / 3, posInicialCreditos);
+
+	Dev1->setActive(false);
+
+	creditsScreen.push_back(Dev1);
+
+	ShowText* Dev2 = new ShowText(game, "José Miguel Villacañas", "abadiNombre",
+		2*(sdlutils().width()) / 3, posInicialCreditos);
+
+	Dev2->setActive(false);
+
+	creditsScreen.push_back(Dev2);
+
+	ShowText* Dev3 = new ShowText(game, "Víctor Manuel Estremera", "abadiNombre",
+		sdlutils().width() / 3, posInicialCreditos + avanceCreditos);
+
+	Dev3->setActive(false);
+
+	creditsScreen.push_back(Dev3);
+
+	ShowText* Dev4 = new ShowText(game, "Diego Rol", "abadiNombre",
+		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos);
+
+	Dev4->setActive(false);
+
+	creditsScreen.push_back(Dev4);
+
+	ShowText* Dev5 = new ShowText(game, "Rodrigo Cabello", "abadiNombre",
+		sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 2);
+
+	Dev5->setActive(false);
+
+	creditsScreen.push_back(Dev5);
+
+	ShowText* Dev6 = new ShowText(game, "Rocío Sanchez-Horcajuelo", "abadiNombre",
+		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 2);
+
+	Dev6->setActive(false);
+
+	creditsScreen.push_back(Dev6);
+
+	ShowText* Dev7 = new ShowText(game, "Marta Croche", "abadiNombre",
+		sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 3);
+
+	Dev7->setActive(false);
+
+	creditsScreen.push_back(Dev7);
+
+	ShowText* Dev8 = new ShowText(game, "Pablo Arredondo", "abadiNombre",
+		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 3);
+
+	Dev8->setActive(false);
+
+	creditsScreen.push_back(Dev8);
+
+	ShowText* Dev9 = new ShowText(game, "Elena Robert", "abadiNombre",
+		sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 4);
+
+	Dev9->setActive(false);
+
+	creditsScreen.push_back(Dev9);
+
+	ShowText* Dev10 = new ShowText(game, "Alfonso Rodulfo", "abadiNombre",
+		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 4);
+
+	Dev10->setActive(false);
+
+	creditsScreen.push_back(Dev10);
+
 
 }
 
