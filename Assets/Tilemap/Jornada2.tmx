@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.4" orientation="orthogonal" renderorder="right-down" width="39" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="257">
+<map version="1.8" tiledversion="1.8.4" orientation="orthogonal" renderorder="right-down" width="39" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="261">
  <tileset firstgid="1" source="Tileset.tsx"/>
  <layer id="1" name="Capa de patrones 1" width="39" height="12">
   <data encoding="csv">
 10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
-10,10,10,10,10,10,10,10,10,9,10,10,10,10,10,10,10,10,10,10,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
-15,11,11,11,11,11,11,11,11,9,11,11,11,11,11,11,11,11,11,14,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,6,
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+15,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,14,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,6,
 13,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,12,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,4,
 13,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,12,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,4,
 13,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,12,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,4,
@@ -18,10 +18,13 @@
 </data>
  </layer>
  <objectgroup id="2" name="Capa de Objetos 1">
-  <object id="1" name="mesaS" x="157.999" y="551">
+  <object id="1" name="mesaS" x="669.999" y="615">
    <point/>
   </object>
-  <object id="5" name="cartel" x="576" y="640">
+  <object id="260" name="mesaS" x="349.999" y="103">
+   <point/>
+  </object>
+  <object id="5" name="cartel" x="128" y="640">
    <point/>
   </object>
   <object id="6" name="inicioCinta" x="1792" y="102">
@@ -47,13 +50,13 @@
   <object id="11" name="lavavajillas" x="1215.83" y="486.417">
    <point/>
   </object>
-  <object id="12" name="mesaMV" x="831.667" y="193.833">
+  <object id="12" name="mesaS" x="1023.67" y="129.833">
    <point/>
   </object>
-  <object id="13" name="mesaL" x="192" y="192">
+  <object id="13" name="mesaL" x="640" y="192">
    <point/>
   </object>
-  <object id="14" name="mesaMH" x="960" y="548">
+  <object id="14" name="mesaMH" x="960" y="484">
    <point/>
   </object>
   <object id="16" name="fogon" x="1472" y="682">
@@ -65,20 +68,21 @@
   <object id="18" name="tabla" x="1856" y="682">
    <point/>
   </object>
-  <object id="19" name="sillaDer" x="94" y="551">
+  <object id="19" name="sillaDer" x="606" y="615">
    <point/>
   </object>
-  <object id="21" name="sillaIz" x="896" y="194.166">
+  <object id="259" name="sillaDer" x="286" y="103">
    <point/>
   </object>
-  <object id="22" name="sillaAb" x="192" y="128">
+  <object id="21" name="sillaIz" x="1088" y="130.166">
    <point/>
   </object>
-  <object id="23" name="sillaAr" x="960" y="639.5">
+  <object id="23" name="sillaAr" x="959" y="558.5">
    <point/>
   </object>
-  <object id="27" name="puerta" x="576" y="38">
+  <object id="27" name="puerta" x="128" y="38">
    <properties>
+    <property name="MaxTamGrupo" type="int" value="4"/>
     <property name="VelocidadX" type="float" value="0"/>
     <property name="VelocidadY" type="float" value="2.3"/>
     <property name="t_Max" type="int" value="5"/>
@@ -86,49 +90,31 @@
    </properties>
    <point/>
   </object>
-  <object id="30" name="mesaS" x="409.855" y="551">
+  <object id="30" name="mesaS" x="345.855" y="423">
    <point/>
   </object>
-  <object id="31" name="sillaDer" x="346" y="551">
+  <object id="31" name="sillaDer" x="282" y="412">
    <point/>
   </object>
-  <object id="32" name="sillaIz" x="473.833" y="551">
+  <object id="32" name="sillaIz" x="409.833" y="412">
    <point/>
   </object>
-  <object id="33" name="sillaAb" x="256" y="128">
+  <object id="34" name="sillaDer" x="576" y="232">
    <point/>
   </object>
-  <object id="34" name="sillaDer" x="128" y="192">
+  <object id="35" name="sillaDer" x="576" y="296">
    <point/>
   </object>
-  <object id="35" name="sillaDer" x="128" y="256">
+  <object id="38" name="sillaIz" x="768" y="232">
    <point/>
   </object>
-  <object id="36" name="sillaAr" x="256" y="320">
+  <object id="39" name="sillaIz" x="768" y="296">
    <point/>
   </object>
-  <object id="37" name="sillaAr" x="192" y="320">
+  <object id="40" name="sillaIz" x="1088" y="484.333">
    <point/>
   </object>
-  <object id="38" name="sillaIz" x="320" y="192">
-   <point/>
-  </object>
-  <object id="39" name="sillaIz" x="320" y="256">
-   <point/>
-  </object>
-  <object id="40" name="sillaAr" x="1024" y="640.333">
-   <point/>
-  </object>
-  <object id="41" name="sillaIz" x="1088" y="548">
-   <point/>
-  </object>
-  <object id="42" name="sillaDer" x="896" y="548">
-   <point/>
-  </object>
-  <object id="43" name="sillaAb" x="960" y="486">
-   <point/>
-  </object>
-  <object id="44" name="sillaAb" x="1024" y="486">
+  <object id="43" name="sillaAb" x="959" y="405">
    <point/>
   </object>
   <object id="46" name="arroz" x="1472" y="102">
@@ -137,19 +123,19 @@
   <object id="47" name="tabla" x="1792" y="682">
    <point/>
   </object>
-  <object id="50" name="sillaDer" x="767.667" y="193.333">
+  <object id="50" name="sillaDer" x="959.667" y="129.333">
    <point/>
   </object>
-  <object id="51" name="sillaAr" x="410" y="645.5">
+  <object id="51" name="sillaAr" x="346" y="506.5">
    <point/>
   </object>
-  <object id="52" name="sillaIz" x="222" y="551">
+  <object id="52" name="sillaIz" x="734" y="615">
    <point/>
   </object>
-  <object id="53" name="sillaIz" x="896" y="257.333">
+  <object id="258" name="sillaIz" x="414" y="103">
    <point/>
   </object>
-  <object id="54" name="sillaDer" x="769" y="256.666">
+  <object id="54" name="sillaAr" x="1025" y="192.666">
    <point/>
   </object>
   <object id="60" name="encimera" x="2368" y="424">
@@ -313,6 +299,9 @@
    <point/>
   </object>
   <object id="87" name="pared" x="640" y="102">
+   <point/>
+  </object>
+  <object id="257" name="pared" x="576" y="102">
    <point/>
   </object>
   <object id="89" name="pared" x="448" y="102">

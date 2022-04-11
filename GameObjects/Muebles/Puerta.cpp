@@ -3,16 +3,17 @@
 #include "../../Control/ObjectManager.h"
 #include "../../GameObjects/UI/UIManager.h"
 
-Puerta::Puerta(Game* game, Vector2D<double> pos,bool vertical_,int t_Max) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, "puerta")
+Puerta::Puerta(Game* game, Vector2D<double> pos,bool vertical_,int t_Max,int tamMaxGrupo_) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, "puerta")
 {
 	cola = new Cola(t_Max);
 	vertical = vertical_;
+	maxTamGrupo = tamMaxGrupo_;
 }
 
 void Puerta::update()
 {
 	if (sdlutils().virtualTimer().currTime() - initTime >= SPAWN_DELAY) {
-		int integrantes = 1 + rand() % MAX_TAM;
+		int integrantes = 1 + rand() % maxTamGrupo;
 
 		if (cola->esValido(integrantes)) {
 			vector<Cliente*> v;

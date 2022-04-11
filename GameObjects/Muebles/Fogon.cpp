@@ -57,7 +57,7 @@ bool Fogon::receivePaella(Paella* pa)
 		.onStep(
 		[this](tweeny::tween<float>& t, float) mutable{
 		dest_1.x = t.peek();
-		if (t.progress() == 1) {
+		if (t.progress() == 1 || paella_==nullptr) {
 
 			barra = false;
 			
