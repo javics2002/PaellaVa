@@ -7,6 +7,10 @@
 
 HostClient::HostClient(Game* game, string nombre_) : Scene(game)
 {
+	fondo->setTexture("hostClientBg");
+	fondo->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
+	fondo->setDimension(sdlutils().width(), sdlutils().height() + 100);
+
 	int offsetX = 300, offsetY = 150;
 
 	auto cocineraSprite = new GameObject(game), camareroSprite = new GameObject(game);

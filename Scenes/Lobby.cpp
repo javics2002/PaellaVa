@@ -5,6 +5,11 @@
 
 Lobby::Lobby(Game* game, string nombre, Scene* hostClient):Scene(game)
 {
+	//fondo
+	fondo->setTexture("lobbyBg");
+	fondo->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
+	fondo->setDimension(sdlutils().width(), sdlutils().height() + 100);
+
 	//Cocinera
 	Imagen* cocinera = new Imagen(game, sdlutils().width() / 2 - 300, sdlutils().height() / 2, 450, 450, "cocinera");
 

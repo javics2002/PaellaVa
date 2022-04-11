@@ -158,7 +158,11 @@
     { "id": "sinIngredientes", "file": "../../../Assets/Images/Ingredientes/sinIngredientes.png" },
     { "id": "finPedido", "file": "../../../Assets/Images/Ingredientes/finPedido.png" },
     { "id": "circulo", "file": "../../../Assets/Images/loading.png" },
-    { "id": "pedirPlato", "file": "../../../Assets/Images/pedirPlato.png" }
+    { "id": "pedirPlato", "file": "../../../Assets/Images/pedirPlato.png" },
+    { "id": "hostClientBg", "file": "../../../Assets/Images/hostClientBg.png" },
+    { "id": "lobbyBg", "file": "../../../Assets/Images/lobbyBg.png" }
+
+
 
   ],
 
