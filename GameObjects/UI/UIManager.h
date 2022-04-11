@@ -30,11 +30,14 @@ class UIManager
 	float uiscale = 1.1;
 	vector<GameObject*> pauseMenu; // menú de pausa
 	vector<GameObject*> optionsMenu; // menú de opciones
-	vector<GameObject*> creditsScreen; // pantalla de créditos
+	vector<GameObject*> creditsBase; //partes de los créditos que no cambian al cambiar de página
+	vector<vector<GameObject*>> creditsScreen; // pantalla de créditos
 	vector<UiButton*> pauseButtons; // botones del menú de pausa
 	vector<UiButton*> optionsButtons; // botones del menú de opciones
-	vector<UiButton*> creditsButtons; // botones de la pantalla de créditos
+	vector<vector<UiButton*>> creditsButtons; // botones de la pantalla de créditos
 	vector<UiButton*> sliders; // sliders del menú de opciones
+	//vector<vector<GameObject*>>
+
 
 	list<tweeny::tween<float>> activeTweens;
 
@@ -56,6 +59,7 @@ class UIManager
 
 	const int posInicialCreditos = 260;
 	const int avanceCreditos = 70;
+	int paginaCreditos = 0;
 
 	UiButton* nombre;
 	string nombrePlayer = "elbaginon";
@@ -99,7 +103,7 @@ public:
 	void creaPantallaCreditos();
 	void togglePause();
 	void toggleOpciones();
-	void toggleCreditos();
+	void toggleCreditos(int pagina);
 	void salirOpciones();
 	void salirCreditos();
 
