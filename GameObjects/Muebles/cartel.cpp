@@ -2,7 +2,7 @@
 #include "../../Control/game.h"
 #include "../../Control/ObjectManager.h"
 
-Cartel::Cartel(Game* game, Vector2D<double> position) : Mueble(game, position, TILE_SIZE, TILE_SIZE, "cartel")
+Cartel::Cartel(Game* game, Vector2D<double> position) : Mueble(game, position, TILE_SIZE, TILE_SIZE * 1.8, "cartel")
 {
 }
 
