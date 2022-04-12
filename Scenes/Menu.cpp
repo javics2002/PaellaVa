@@ -81,7 +81,7 @@ Menu::Menu(Game* game) : Scene(game)
 
 				//Abrir pantalla
 
-				game->getUIManager()->toggleCreditos();
+				game->getUIManager()->toggleCreditos(0);
 
 				game->getUIManager()->desactivaBot();
 

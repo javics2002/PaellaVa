@@ -129,13 +129,15 @@ void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 
 	for (auto i : creditsButtons)
 	{
-		if (i->isActive())
-		{
-			if (i->onClick(mx, my, exit))
+		for (auto j : i) {
+			if (j->isActive())
 			{
-				mx = -1;
-				my = -1;
+				if (j->onClick(mx, my, exit))
+				{
+					mx = -1;
+					my = -1;
 
+				}
 			}
 		}
 	}
@@ -295,12 +297,14 @@ void UIManager::render(SDL_Rect* rect = nullptr)
 		if (i->isActive()) i->render(rect);
 	}
 
-	for (auto i : creditsScreen) {
+	for (auto i : creditsBase) {
 		if (i->isActive()) i->render(rect);
 	}
 
-	for (auto i : creditsButtons) {
-		if (i->isActive()) i->render(rect);
+	for (auto i : creditsScreen) {
+		for (auto j : i) {
+			if (j->isActive()) j->render(rect);
+		}
 	}
 	
 	for (auto it = cargarAnimacion.begin(); it != cargarAnimacion.end(); it++) {
@@ -660,12 +664,15 @@ void UIManager::creaMenuOpciones()
 
 void UIManager::creaPantallaCreditos()
 {
+	creditsScreen.push_back({});
+	creditsButtons.push_back({});
+
 	//Fondo De las opciones
 	Imagen* opcPant = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2, sdlutils().width() - 100, sdlutils().height() - 100, "fondoOpc");
 
 	opcPant->setActive(false);
 
-	creditsScreen.push_back(opcPant);
+	creditsBase.push_back(opcPant);
 
 	//Boton salir
 	UiButton* botonSalir = new UiButton(game, "cerrarOpc", opcPant->getWidth(), 100, 100, 100);
@@ -676,108 +683,178 @@ void UIManager::creaPantallaCreditos()
 		salirCreditos();
 		});
 
-	creditsScreen.push_back(botonSalir);
-	creditsButtons.push_back(botonSalir);
+	creditsBase.push_back(botonSalir);
+	creditsButtons[0].push_back(botonSalir);
+
+	//Boton siguiente página
+	UiButton* botonNext = new UiButton(game, "nextCredits", opcPant->getWidth(), sdlutils().height() / 2, 100, 100);
+
+	botonNext->setActive(false);
+	botonNext->setAction([this, botonNext](Game* game, bool& exit) {
+		toggleCreditos(paginaCreditos + 1);
+		});
+
+	creditsScreen[0].push_back(botonNext);
+	creditsButtons[0].push_back(botonNext);
 
 	//Título de desarrolladores
 
-	Imagen* fondoTituloDevs = new Imagen(game, sdlutils().width() / 2, 180, 260, 60, "reloj");
+	Imagen* fondoTitulo = new Imagen(game, sdlutils().width() / 2, 180, 260, 60, "reloj");
 
-	fondoTituloDevs->setActive(false);
+	fondoTitulo->setActive(false);
 
-	creditsScreen.push_back(fondoTituloDevs);
+	creditsBase.push_back(fondoTitulo);
 
 	ShowText* TituloDev = new ShowText(game, "Desarrolladores", "paella",
 		sdlutils().width() / 2, 190);
 
 	TituloDev->setActive(false);
 
-	creditsScreen.push_back(TituloDev);
+	creditsScreen[0].push_back(TituloDev);
 
 	//Nombres de los desarrolladores
 
-	Imagen* fondoDevs1 = new Imagen(game, sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 2, 360, 360, "reloj");
+	Imagen* fondoColumna1 = new Imagen(game, sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 2, 360, 360, "reloj");
 
-	fondoDevs1->setActive(false);
+	fondoColumna1->setActive(false);
 
-	creditsScreen.push_back(fondoDevs1);
+	creditsBase.push_back(fondoColumna1);
 
-	Imagen* fondoDevs2 = new Imagen(game, 2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 2, 360, 360, "reloj");
+	Imagen* fondoColumna2 = new Imagen(game, 2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 2, 360, 360, "reloj");
 
-	fondoDevs2->setActive(false);
+	fondoColumna2->setActive(false);
 
-	creditsScreen.push_back(fondoDevs2);
+	creditsBase.push_back(fondoColumna2);
 
 	ShowText* Dev1 = new ShowText(game, "Javier Cano", "abadiNombre",
 		sdlutils().width() / 3, posInicialCreditos);
 
 	Dev1->setActive(false);
 
-	creditsScreen.push_back(Dev1);
+	creditsScreen[0].push_back(Dev1);
 
 	ShowText* Dev2 = new ShowText(game, "José Miguel Villacañas", "abadiNombre",
 		2*(sdlutils().width()) / 3, posInicialCreditos);
 
 	Dev2->setActive(false);
 
-	creditsScreen.push_back(Dev2);
+	creditsScreen[0].push_back(Dev2);
 
 	ShowText* Dev3 = new ShowText(game, "Víctor Manuel Estremera", "abadiNombre",
 		sdlutils().width() / 3, posInicialCreditos + avanceCreditos);
 
 	Dev3->setActive(false);
 
-	creditsScreen.push_back(Dev3);
+	creditsScreen[0].push_back(Dev3);
 
 	ShowText* Dev4 = new ShowText(game, "Diego Rol", "abadiNombre",
 		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos);
 
 	Dev4->setActive(false);
 
-	creditsScreen.push_back(Dev4);
+	creditsScreen[0].push_back(Dev4);
 
 	ShowText* Dev5 = new ShowText(game, "Rodrigo Cabello", "abadiNombre",
 		sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 2);
 
 	Dev5->setActive(false);
 
-	creditsScreen.push_back(Dev5);
+	creditsScreen[0].push_back(Dev5);
 
 	ShowText* Dev6 = new ShowText(game, "Rocío Sanchez-Horcajuelo", "abadiNombre",
 		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 2);
 
 	Dev6->setActive(false);
 
-	creditsScreen.push_back(Dev6);
+	creditsScreen[0].push_back(Dev6);
 
 	ShowText* Dev7 = new ShowText(game, "Marta Croche", "abadiNombre",
 		sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 3);
 
 	Dev7->setActive(false);
 
-	creditsScreen.push_back(Dev7);
+	creditsScreen[0].push_back(Dev7);
 
 	ShowText* Dev8 = new ShowText(game, "Pablo Arredondo", "abadiNombre",
 		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 3);
 
 	Dev8->setActive(false);
 
-	creditsScreen.push_back(Dev8);
+	creditsScreen[0].push_back(Dev8);
 
 	ShowText* Dev9 = new ShowText(game, "Elena Robert", "abadiNombre",
 		sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 4);
 
 	Dev9->setActive(false);
 
-	creditsScreen.push_back(Dev9);
+	creditsScreen[0].push_back(Dev9);
 
 	ShowText* Dev10 = new ShowText(game, "Alfonso Rodulfo", "abadiNombre",
 		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 4);
 
 	Dev10->setActive(false);
 
-	creditsScreen.push_back(Dev10);
+	creditsScreen[0].push_back(Dev10);
 
+	//Página 1 de créditos
+
+	creditsScreen.push_back({});
+	creditsButtons.push_back({});
+	//Boton página anterior
+	UiButton* botonNext2 = new UiButton(game, "nextCredits", opcPant->getWidth(), sdlutils().height() / 2, 100, 100);
+
+	botonNext2->setActive(false);
+	botonNext2->setAction([this, botonNext2](Game* game, bool& exit) {
+		toggleCreditos(paginaCreditos + 1);
+		});
+
+	creditsScreen[1].push_back(botonNext2);
+	creditsButtons[1].push_back(botonNext2);
+
+	//Boton página anterior
+	UiButton* botonPrevious = new UiButton(game, "previousCredits", sdlutils().width() - opcPant->getWidth(), sdlutils().height() / 2, 100, 100);
+
+	botonPrevious->setActive(false);
+	botonPrevious->setAction([this, botonPrevious](Game* game, bool& exit) {
+		toggleCreditos(paginaCreditos - 1);
+		});
+
+	creditsScreen[1].push_back(botonPrevious);
+	creditsButtons[1].push_back(botonPrevious);
+
+	//Título de prueba
+
+	ShowText* TituloPrueba = new ShowText(game, "Prueba_1", "paella",
+		sdlutils().width() / 2, 190);
+
+	TituloPrueba->setActive(false);
+
+	creditsScreen[1].push_back(TituloPrueba);
+
+	//Página final de créditos.
+
+	creditsScreen.push_back({});
+	creditsButtons.push_back({});
+
+	//Boton página anterior
+	UiButton* botonPrevious2 = new UiButton(game, "previousCredits", sdlutils().width() - opcPant->getWidth(), sdlutils().height() / 2, 100, 100);
+
+	botonPrevious2->setActive(false);
+	botonPrevious2->setAction([this, botonPrevious2](Game* game, bool& exit) {
+		toggleCreditos(paginaCreditos - 1);
+		});
+
+	creditsScreen[2].push_back(botonPrevious2);
+	creditsButtons[2].push_back(botonPrevious2);
+
+	//Título de prueba 2
+
+	ShowText* TituloPrueba2 = new ShowText(game, "Prueba_2", "paella",
+		sdlutils().width() / 2, 190);
+
+	TituloPrueba2->setActive(false);
+
+	creditsScreen[2].push_back(TituloPrueba2);
 
 }
 
@@ -824,12 +901,18 @@ void UIManager::toggleOpciones()
 		i->setActive(true);
 	}
 }
-
-void UIManager::toggleCreditos()
+void UIManager::toggleCreditos(int pagina)
 {
-	for (auto i : creditsScreen) {
+	for (auto i : creditsScreen[paginaCreditos]) {
+		i->setActive(false);
+	}
+	for (auto i : creditsScreen[pagina]) {
 		i->setActive(true);
 	}
+	for (auto i : creditsBase) {
+		i->setActive(true);
+	}
+	paginaCreditos = pagina;
 }
 
 void UIManager::salirOpciones()
@@ -840,10 +923,14 @@ void UIManager::salirOpciones()
 
 	escribiendoNombre = false;
 }
-
 void UIManager::salirCreditos()
 {
 	for (auto i : creditsScreen) {
+		for (auto j : i) {
+			j->setActive(false);
+		}
+	}
+	for (auto i : creditsBase) {
 		i->setActive(false);
 	}
 }
