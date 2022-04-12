@@ -44,6 +44,10 @@ bool Ingrediente::getProcesado()
 {
 	return procesado;
 }
+bool Ingrediente::esLetal()
+{
+	return letal;
+}
 
 tipoIngrediente Ingrediente::getTipo()
 {

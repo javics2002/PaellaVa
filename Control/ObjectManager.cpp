@@ -7,11 +7,14 @@
 #include "../GameObjects/Muebles/cartel.h"
 #include "../Utils/Vector2D.h"
 #include "../GameObjects/Ingrediente.h"
+#include "../GameObjects/Ingredienteletal.h"
 #include "../Scenes/Restaurante.h"
 
 ObjectManager::ObjectManager(Game* game) : game(game)
 {
+	pools.emplace_back((Pool<GameObject>*) new Pool<Ingredienteletal>(game, 10));
 	pools.emplace_back((Pool<GameObject>*) new Pool<Ingrediente>(game, 50));
+	
 	pools.emplace_back((Pool<GameObject>*) new Pool<Arroz>(game, 20));
 	pools.emplace_back((Pool<GameObject>*) new Pool<GrupoClientes>(game, 20));
 	pools.emplace_back((Pool<GameObject>*) new Pool<Cliente>(game, 50));

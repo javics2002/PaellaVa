@@ -1,6 +1,7 @@
 #include "Paella.h"
 #include "../sdlutils/SDLUtils.h"
 #include "Ingrediente.h"
+#include "Ingredienteletal.h"
 #include "Arroz.h"
 #include <map>
 
@@ -35,6 +36,8 @@ void Paella::anadeIngr(Ingrediente* ingr_)
 	//Si ya he echado arroz
 	if (mArroz) {
 		//Añadimos el ingrediente
+		if (ingr_->esLetal())
+			contaminada = true;
 		ingredientes.push_back(ingr_->getTipo());
 		ingrEnPaella[ingr_->getTipo()] = true;
 		ingr_->setActive(false);
@@ -94,6 +97,7 @@ void Paella::setLavado(Contenido contenidoPaella, string texturaPaella)
 {
 	contenido = contenidoPaella;
 	estado = Preparacion;
+	contaminada = false;
 	setTexture(texturaPaella);
 }
 
@@ -178,6 +182,14 @@ void Paella::comerPaella()
 		setTexture("paellaSucia");
 		mArroz = false;
 	}
+}
+void Paella::contaminaPaella()
+{
+	contaminada = true;
+}
+bool Paella::estaContaminada()
+{
+	return contaminada;
 }
 
 void Paella::render(SDL_Rect* cameraRect)

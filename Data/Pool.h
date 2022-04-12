@@ -4,6 +4,7 @@
 #include <List>
 
 #include "../GameObjects/Ingrediente.h"
+#include "../GameObjects/Ingredienteletal.h"
 #include "../GameObjects/Arroz.h"
 #include "../Utils/Collider.h"
 

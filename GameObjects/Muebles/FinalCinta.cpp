@@ -10,10 +10,15 @@ FinalCinta::FinalCinta(Game* game, Vector2D<double> pos) : Mueble(game, pos, TIL
 void FinalCinta::update()
 {
 	vector<Ingrediente*> ingredientes = game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->getCollisions(getCollider());
+	vector<Ingrediente*> ingredientesletales= game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTELETAL)->getCollisions(getCollider());
 	for (auto i : ingredientes) {
 		if (!i->isPicked())
 			i->setActive(false);
-	}	
+	}
+	for (auto i : ingredientesletales) {
+		if (!i->isPicked())
+			i->setActive(false);
+	}
 }
 
 bool FinalCinta::receiveIngrediente(Ingrediente* ingr)

@@ -146,6 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GameObjects\Ingredienteletal.h" />
     <ClInclude Include="Scenes\Jornada.h" />
     <ClInclude Include="GameObjects\Arroz.h" />
     <ClInclude Include="Control\NetworkManager.h" />
@@ -233,6 +234,7 @@
     <ClInclude Include="GameObjects\Muebles\Ventanilla.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameObjects\Ingredienteletal.cpp" />
     <ClCompile Include="Scenes\Jornada.cpp" />
     <ClCompile Include="GameObjects\Arroz.cpp" />
     <ClCompile Include="Control\NetworkManager.cpp" />

@@ -18,10 +18,12 @@ const vector<string> texturaIngrProcesado = {  "alcachofaP", "calamarP", "cangre
 
 class Ingrediente : public ObjetoPortable
 {
+protected:
 	const unsigned int DIMENSION = 70;
 
 	tipoIngrediente miTipo;
 	bool procesado = false;
+	bool letal = false;
 
 public:
 
@@ -38,6 +40,7 @@ public:
 	
 	void setProcesado(bool estadoIngr, Ingrediente *ingr);
 	bool getProcesado();
+	bool esLetal();
 
 	tipoIngrediente getTipo();
 

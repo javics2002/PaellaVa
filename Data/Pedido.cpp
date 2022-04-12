@@ -82,57 +82,62 @@ double Pedido::puntuarPedido(vector<Paella*> comanda)
 	for (int i = 0; i < getPedido().size(); i++) {
 
 		//Variar puntuacion en funcion de la diferencia de tamaños
-
+		
 		int tamanoPaella1 = int(getPedido()[i].tamanoPaella +1);
 		int tamanoPaella2 = int(comanda[i]->getTipo() + 1);
 		int diferencia = tamanoPaella1 - tamanoPaella2;
-		switch (diferencia) {
-		case 2:
-			variarPuntuacion(valorarT.pequenaDos, i);
-			break;
-		case 1:
-			variarPuntuacion(valorarT.pequenaUno, i);
-			break;
-		case -2:
-			variarPuntuacion(valorarT.grandeDos, i);
-			break;
-		case -1:
-			variarPuntuacion(valorarT.grandeUno, i);
-			break;
-		default:
-			break;
+		if (comanda[i]->estaContaminada())
+		{
+			getPedido()[i].puntuacionPaella = 0;
 		}
+		else {
+			switch (diferencia) {
+			case 2:
+				variarPuntuacion(valorarT.pequenaDos, i);
+				break;
+			case 1:
+				variarPuntuacion(valorarT.pequenaUno, i);
+				break;
+			case -2:
+				variarPuntuacion(valorarT.grandeDos, i);
+				break;
+			case -1:
+				variarPuntuacion(valorarT.grandeUno, i);
+				break;
+			default:
+				break;
+			}
 
-		//Variar puntuacion en funcion de la coccion de la paella.
+			//Variar puntuacion en funcion de la coccion de la paella.
 
-		switch (comanda[i]->getCoccoin()) {
-		case Cruda:
-			variarPuntuacion(valorarC.cruda, i);
-			break;
-		case PocoHecha:
-			variarPuntuacion(valorarC.pocoHecha, i);
-			break;
-		case Perfecta:
-			variarPuntuacion(valorarC.perfecta, i);
-			break;
-		case MuyHecha:
-			variarPuntuacion(valorarC.muyHecha, i);
-			break;
-		case Quemada:
-			variarPuntuacion(valorarC.quemada, i);
-			break;
-		case Incomestible:
-			variarPuntuacion(valorarC.incomestible, i);
-			break;
+			switch (comanda[i]->getCoccoin()) {
+			case Cruda:
+				variarPuntuacion(valorarC.cruda, i);
+				break;
+			case PocoHecha:
+				variarPuntuacion(valorarC.pocoHecha, i);
+				break;
+			case Perfecta:
+				variarPuntuacion(valorarC.perfecta, i);
+				break;
+			case MuyHecha:
+				variarPuntuacion(valorarC.muyHecha, i);
+				break;
+			case Quemada:
+				variarPuntuacion(valorarC.quemada, i);
+				break;
+			case Incomestible:
+				variarPuntuacion(valorarC.incomestible, i);
+				break;
+			}
+
+			//Variar puntuaciones en funcion de la diferencia de ingredientes.
+
+			int cantidadIngr1 = int(getPedido()[i].ingredientesPedido.size());;
+			int cantidadIngr2 = int(comanda[i]->getVIngredientes().size());
+			int difCantidad = cantidadIngr2 - cantidadIngr1;
+			variarPuntuacion(valorarI.sobraIngr * abs(difCantidad), i);
 		}
-
-		//Variar puntuaciones en funcion de la diferencia de ingredientes.
-
-		int cantidadIngr1 = int(getPedido()[i].ingredientesPedido.size());;
-		int cantidadIngr2 = int(comanda[i]->getVIngredientes().size());
-		int difCantidad = cantidadIngr2 - cantidadIngr1;
-		variarPuntuacion(valorarI.sobraIngr *abs(difCantidad), i);
-
 		//Variar puntuaciones en funcion de los ingredientes que no se han cocinado.
 
 		for (int j = 0; j < getPedido()[i].ingredientesPedido.size(); j++) {

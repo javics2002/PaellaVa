@@ -100,7 +100,11 @@ void Player::handleInput()
 					if (i->isActive() && i->canPick() && nearestObject(i))
 						objectType_ = INGREDIENTE;
 				}
-
+				//Ingredientes letales
+				for (auto i : game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTELETAL)->getOverlaps(getOverlap())) {
+					if (i->isActive() && i->canPick() && nearestObject(i))
+						objectType_ = INGREDIENTE;
+				}
 				//Grupo de Clientes
 				for (auto i : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getOverlaps(getOverlap())) {
 					if (i->isActive() && i->canPick() && nearestObject(i))

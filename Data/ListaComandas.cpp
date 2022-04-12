@@ -59,7 +59,7 @@ void ListaComandas::AñadeComanda(Comanda* comanda)
 				}
 				
 			}
-			else 
+			else s
 				cX = inicx + (numcomandas * 1.5 * c->getWidth());
 		}*/
 		//cX = inicx + (numcomandas * 1.5 * c->getWidth());//al llenar y vaciar de locos pero añadir si ya hay 3 , en la posicion 0 ....
@@ -166,43 +166,56 @@ void ListaComandas::finalizacomanda(Comanda* comanda)
 			c->getEliminabutton()->setPosition(nx, cY + c->getHeight() / 2);
 		}
 	}
+	if (lista.size() == 1)
+	{
+		lista.erase(lista.begin());
+	}
+	else
 	lista.erase( comanda->getSitio());
 	numcomandas--;
 	if (!listanovisibles.empty())
 	{
 
 	
-	
-	
+		Comanda* c = listanovisibles.front();
+		cX = inicx + 1.5*c->getWidth();
 		//traer comanda del buffer 
-		Comanda* c = listanovisibles.back();
-		//AñadeComanda(c);
-		int x = c->getX();
 		
+		//Comanda* c = new Comanda(*d);
+		//c->desplazacomandas(+500);
+		//AñadeComanda(c);// noquieres otra copia mas de la comanda solo queires mover esta
+		int x =-cX - c->getX();
+		x += 3 * c->getWidth();
+		c->setPosition(cX, cY);
+		c->desplazacomandas(x);
+		c->getEliminabutton()->setPosition(cX, cY + c->getHeight() / 2);
+	    c->setSitio(lista.insert(lista.begin(), c));
+		listanovisibles.pop();
+
+		numcomandas++;
 		
 			
 		
-		
-		
+		/*
 			auto ic = lista.begin();
 
 			Comanda* d = *ic;
 			cX = d->getPosition().getX() - 1.5 * c->getWidth();
-		
-		
-		
-		desplazamineto = cX - x;
 
-		c->desplazacomandas(desplazamineto -  c->getWidth());//esta la paella anterior en el mismo  vector 
-		c->setPosition(cX, cY);
-		c->getPosition().setX(cX);
+
+
+			desplazamineto = cX - x;
+
+			c->desplazacomandas(desplazamineto - c->getWidth());//esta la paella anterior en el mismo  vector 
+			c->setPosition(cX, cY);
+			c->getPosition().setX(cX);
+
+			c->setSitio(lista.insert(lista.begin(), c));
+			c->getEliminabutton()->setPosition(cX, cY + c->getHeight() / 2);
+
+			numcomandas++;*/
 		
-		c->setSitio(lista.insert(lista.begin(), c));
-		c->getEliminabutton()->setPosition(cX, cY + c->getHeight() / 2);
 		
-		numcomandas++;
-			
-		listanovisibles.pop();
 
 	}
 

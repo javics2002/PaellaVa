@@ -9,11 +9,22 @@ InicioCinta::InicioCinta(Game* game, Vector2D<double> pos) : Mueble(game, pos, T
 
 void InicioCinta::update()
 {
+	int i= rand() % 1000;
 	if (sdlutils().virtualTimer().currTime() - initTime >= SPAWN_DELAY)
 	{
-		Ingrediente* i = game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->add(getPosition());
-		i->setVel(vel);
-		initTime = sdlutils().virtualTimer().currTime();
+		if (true)
+		{ 
+
+			Ingredienteletal* i= game->getObjectManager()->getPool<Ingredienteletal>(_p_INGREDIENTELETAL)->add(getPosition());
+			i->setVel(vel);
+			initTime = sdlutils().virtualTimer().currTime();
+		
+		}
+		else {
+		/*	Ingrediente* i = game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->add(getPosition());
+			i->setVel(vel);
+			initTime = sdlutils().virtualTimer().currTime();*/
+		}
 	}
 }
 

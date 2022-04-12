@@ -108,7 +108,7 @@
     { "id": "timer", "file": "../../../Assets/Images/TimeAnimation.png" },
     { "id": "continue", "file": "../../../Assets/Images/continue.png" },
     { "id": "arroz", "file": "../../../Assets/Images/Ingredientes/arroz.png" },
-    
+    {"id": "rata","file":  "../../../Assets/Images/Ingredientes/rata.png"},
     { "id": "paellaCruda", "file": "../../../Assets/Images/Paellas/paellaCruda.png" },
     { "id": "paellaPocoHecha", "file": "../../../Assets/Images/Paellas/paellaPocoHecha.png" },
     { "id": "paella", "file": "../../../Assets/Images/Paellas/paellaCompleta.png" },

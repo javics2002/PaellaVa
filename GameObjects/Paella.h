@@ -56,6 +56,9 @@ public:
 
 	void comerPaella();
 
+	void contaminaPaella();
+	bool estaContaminada();
+
 	void render(SDL_Rect* cameraRect);
 
 private:
@@ -80,5 +83,6 @@ private:
 	list<tipoIngrediente> ingredientes;
 
 	vector<bool> ingrEnPaella;
+	bool contaminada = false;
 };
 
