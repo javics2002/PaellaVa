@@ -55,12 +55,14 @@ SDL_Rect GameObject::getTexBox()
 
 SDL_Rect GameObject::getCollider()
 {
-	return getTexBox();
+	if(active)return getTexBox();
+	return { 0,0,0,0 };
 }
 
 SDL_Rect GameObject::getOverlap()
 {
-	return getTexBox();
+	if(active)return getTexBox();
+	return { 0,0,0,0 };
 }
 
 SDL_Rect GameObject::getCenter()
@@ -78,21 +80,24 @@ void GameObject::renderDebug(SDL_Rect* cameraRect)
 
 void GameObject::render(SDL_Rect* cameraRect)
 {
-	drawRender(cameraRect);
+	if(isActive()) drawRender(cameraRect);
 }
 
 void GameObject::drawRender(SDL_Rect* cameraRect)
 {
-	SDL_Rect c = getTexBox();
-	SDL_Rect textureBox;
+	if (isActive()) {
+		SDL_Rect c = getTexBox();
+		SDL_Rect textureBox;
 
-	if (cameraRect != nullptr) {
-		textureBox = { c.x - cameraRect->x, c.y - cameraRect->y, c.w, c.h };
+		if (cameraRect != nullptr) {
+			textureBox = { c.x - cameraRect->x, c.y - cameraRect->y, c.w, c.h };
+		}
+		else {
+			textureBox = { c.x, c.y, c.w, c.h };
+		}
+		texture->render(textureBox);
 	}
-	else {
-		textureBox = { c.x, c.y, c.w, c.h };
-	}
-	texture->render(textureBox);
+
 }
 
 void GameObject::drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex)

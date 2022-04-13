@@ -18,7 +18,7 @@ void Puerta::update()
 		return;
 
 
-	if (sdlutils().virtualTimer().currTime() - initTime >= SPAWN_DELAY) {
+	if (sdlutils().virtualTimer().currTime() - initTime >= SPAWN_DELAY && isActive()) {
 		int integrantes = 1 + rand() % maxTamGrupo;
 
 		if (cola->esValido(integrantes)) {
@@ -71,10 +71,12 @@ bool Puerta::receiveGrupoClientes(GrupoClientes* gc)
 
 SDL_Rect Puerta::getCollider()
 {
-	return getTexBox();
+	if(isActive())return getTexBox();
+	return { 0,0,0,0 };
 }
 
 SDL_Rect Puerta::getOverlap()
 {
-	return getTexBox();
+	if (isActive())return getTexBox();
+	return { 0,0,0,0 };
 }

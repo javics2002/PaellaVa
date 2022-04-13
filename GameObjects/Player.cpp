@@ -2,6 +2,7 @@
 
 #include "../sdlutils/InputHandler.h"
 #include "../Control/Game.h"
+#include "../Scenes/Scene.h"
 #include "../Control/ObjectManager.h"
 
 #include "Ingrediente.h"
@@ -107,8 +108,10 @@ void Player::handleInput()
 				}
 				//Grupo de Clientes
 				for (auto i : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getOverlaps(getOverlap())) {
-					if (i->isActive() && i->canPick() && nearestObject(i))
+					if (i->isActive() && i->canPick() && nearestObject(i)) {
 						objectType_ = CLIENTES;
+						game->getCurrentScene()->changeState(States::dejarClientesMesa);
+					}
 				}
 
 				//Una vez encontrado el m�s cercano, se interact�a con �l

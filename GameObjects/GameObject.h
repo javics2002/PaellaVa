@@ -15,7 +15,6 @@ using namespace std;
 class GameObject : public Collider
 {
     const int CENTER_TAM = 4;
-
     bool active = true;
 
 protected:
@@ -82,14 +81,14 @@ public:
     double getY() { return pos.getY(); };
     Vector2D<double> getPosition() { return pos; }
 
-    bool isActive() { return active; }
-    void setActive(bool a) { active = a; }
-
     virtual void onActivate() {}
     virtual void onDeactivate() {}
 
     virtual SDL_Rect getTexBox();
     virtual SDL_Rect getCenter();
+
+    bool isActive() { return active; }
+    void setActive(bool a) { active = a; }
 
     SDL_Rect getCollider() override;
     SDL_Rect getOverlap() override;
