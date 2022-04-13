@@ -2,14 +2,20 @@
 #include "../../Control/Game.h"
 #include "../../Control/ObjectManager.h"
 
-InicioCinta::InicioCinta(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, TILE_SIZE, "inicioCinta")
+InicioCinta::InicioCinta(Game* game, Vector2D<double> pos, bool host_) : Mueble(game, pos, TILE_SIZE, TILE_SIZE, "inicioCinta")
 {
 	initTime = sdlutils().virtualTimer().currTime();
+	host = host_;
 }
 
 void InicioCinta::update()
 {
-	int i= rand() % 1000;
+	if (!host)
+		return;
+
+
+	int i = rand() % 1000;
+
 	if (sdlutils().virtualTimer().currTime() - initTime >= SPAWN_DELAY)
 	{
 		if (true)

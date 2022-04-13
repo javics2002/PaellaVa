@@ -47,8 +47,6 @@ UIManager::~UIManager()
 
 void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 {
-
-	
 	for (int i = 0; i < interfaz.size(); ++i)
 	{
 		if (interfaz[i]->isActive() && !paused)

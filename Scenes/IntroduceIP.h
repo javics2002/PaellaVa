@@ -4,9 +4,10 @@ class UiButton;
 class  IntroduceIP :public Scene
 {
 public:
-	IntroduceIP(Game* game);
+	IntroduceIP(Game* game, string nombre);
 	void handleInput(bool& exit) override;
 private:
-	string hIP=" ";
+	string textIP=" ";
+
 	UiButton* IP;
 };

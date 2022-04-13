@@ -10,11 +10,13 @@ class Game;
 class Player;
 
 enum EPacketType {
-	EPT_UPDATE,
-	EPT_QUIT,
+	EPT_START,
 	EPT_ACCEPT,
+	EPT_DENY,
+	EPT_NAME,
+	EPT_UPDATE,
 	EPT_SYNCPLAYER,
-	EPT_DENY
+	EPT_QUIT
 };
 
 enum EInputType {
@@ -52,7 +54,20 @@ struct PacketRecv {
 struct PacketAccept {
 	Uint8 packet_type;
 	Uint8 player_id;
+	char player_name[15];
 };
+
+// Paquete para mandar nombres
+struct PacketName {
+	Uint8 packet_type;
+	char player_name[15];
+};
+
+struct PacketStartGame {
+	Uint8 packet_type;
+	Uint8 num_jornada;
+};
+
 
 class NetworkManager
 {
@@ -97,6 +112,9 @@ private:
 
 	bool exitThread;
 
+	std::string myName;
+	std::string otherName;
+
 	// For clients ip=server_address, for host ip=local_address
 	IPaddress ip;
 
@@ -117,11 +135,17 @@ public:
 	NetworkManager(Game* game);
 	~NetworkManager();
 
-	bool init(char type, const char* ip_addr = NULL);
+	bool init(char type, const char* ip_addr = nullptr, std::string name = "");
 	void update();
 
 	void close();
 
 	Player* addPlayerHost();
 	Player* addPlayerClient(int id);
+
+	std::string getOtherName() { return otherName;}
+	std::string getMyName() { return myName; }
+
+
+	void sendStartGame(int numJornada);
 };

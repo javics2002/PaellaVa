@@ -10,6 +10,8 @@ class Lobby:public Scene
 public:
 	Lobby(Game *game, string nombre, Scene *hostClient);
 
-	void clienteUnido();
+	Lobby(Game* game, string nombre, string nombreClient);
+
+	void clienteUnido(std::string nombreCliente);
 };
 

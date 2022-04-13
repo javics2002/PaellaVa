@@ -9,7 +9,7 @@ class Game;
 
 class Puerta : public Mueble
 {
-	 int maxTamGrupo = 0;
+	int maxTamGrupo = 0;
 
 	const double SPAWN_DELAY = 8000;
 	double initTime;
@@ -19,8 +19,10 @@ class Puerta : public Mueble
 
 	vector<string> texturasClientes = { "clienteBase"};
 
+	bool host;
+
 public:
-	Puerta(Game* game, Vector2D<double> pos,bool vertical_,int t_Max,int maxTamGrupo_);
+	Puerta(Game* game, Vector2D<double> pos,bool vertical_,int t_Max,int maxTamGrupo_, bool host_);
 	~Puerta() = default;
 
 	void update() override;

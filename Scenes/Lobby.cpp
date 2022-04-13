@@ -3,7 +3,7 @@
 #include "../Control/NetworkManager.h"
 #include "../GameObjects/UI/ShowText.h"
 
-Lobby::Lobby(Game* game, string nombre, Scene* hostClient):Scene(game)
+Lobby::Lobby(Game* game, string nombre, Scene* hostClient) : Scene(game)
 {
 	//fondo
 	fondo->setTexture("lobbyBg");
@@ -16,7 +16,7 @@ Lobby::Lobby(Game* game, string nombre, Scene* hostClient):Scene(game)
 	uiManager->addInterfaz(cocinera);
 
 	//IP ??
-	ShowText* buscando = new ShowText(game, "BUSCANDO JUGADORES", "abadiNombre", sdlutils().width()/2, sdlutils().height() - 165);
+	ShowText* buscando = new ShowText(game, "ESPERANDO JUGADORES...", "abadiNombre", sdlutils().width()/2, sdlutils().height() - 165);
 
 	uiManager->addInterfaz(buscando);
 
@@ -31,19 +31,23 @@ Lobby::Lobby(Game* game, string nombre, Scene* hostClient):Scene(game)
 
 	uiManager->addInterfaz(camarero);
 
-	//Nombre del camarero
-	ShowText* NombreCamarero = new ShowText(game, "elvergalarga", "abadiNombre",
-		(int)camarero->getX(), 100);
+	////Nombre del camarero
+	//ShowText* NombreCamarero = new ShowText(game, "elvergalarga", "abadiNombre",
+	//	(int)camarero->getX(), 100);
 
-	uiManager->addInterfaz(NombreCamarero);
+	//uiManager->addInterfaz(NombreCamarero);
 
 	//Boton comenzar
 	comenzar = new UiButton(game, "start2", sdlutils().width()/2, sdlutils().height()/2, 200, 70);
 
 	comenzar->setAction([this](Game* game, bool& exit) {
-		game->changeScene(new Jornada(game, "Jornada1", 0));
-		game->getNetworkManager()->init('h');
-		//clienteUnido();
+		// crear player
+		
+		game->changeScene(new Jornada(game, "Jornada1", 0, true));
+		
+		// send info 
+		game->getNetworkManager()->sendStartGame(0);
+
 		});
 
 	uiManager->addInterfaz(comenzar);
@@ -59,8 +63,51 @@ Lobby::Lobby(Game* game, string nombre, Scene* hostClient):Scene(game)
 	uiManager->setEnLobby(true);
 }
 
-void Lobby::clienteUnido()
+Lobby::Lobby(Game* game, string nombre, string nombreHost) : Scene(game)
+{
+	//fondo
+	fondo->setTexture("lobbyBg");
+	fondo->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
+	fondo->setDimension(sdlutils().width(), sdlutils().height() + 100);
+
+	//Cocinera
+	Imagen* cocinera = new Imagen(game, sdlutils().width() / 2 - 300, sdlutils().height() / 2, 450, 450, "cocinera");
+
+	uiManager->addInterfaz(cocinera);
+
+	//IP ??
+	ShowText* listo = new ShowText(game, "LISTO PARA COMENZAR", "abadiNombre", sdlutils().width() / 2, sdlutils().height() - 165);
+
+	uiManager->addInterfaz(listo);
+
+	//Nombre cocinera ? recibido de paquete
+	ShowText* NombreCocinera = new ShowText(game, nombre, "abadiNombre",
+		(int)cocinera->getX(), 100);
+
+	uiManager->addInterfaz(NombreCocinera);
+
+	// Imagen del camarero conectandose 
+	camarero = new Imagen(game, sdlutils().width() / 2 + 300, sdlutils().height() / 2, 450, 450, "camarero");
+
+	uiManager->addInterfaz(camarero);
+
+	//Nombre del camarero ? tu propio nombre
+	ShowText* NombreCamarero = new ShowText(game, nombreHost, "abadiNombre",
+		(int)camarero->getX(), 100);
+
+	uiManager->addInterfaz(NombreCamarero);
+}
+
+void Lobby::clienteUnido(std::string nombreCliente)
 {
 	comenzar->setTexture("start");
 	camarero->setTexture("camarero");
+
+	uiManager->setEnLobby(false);
+
+	//Nombre del camarero
+	ShowText* NombreCamarero = new ShowText(game, nombreCliente, "abadiNombre",
+		(int)camarero->getX(), 100);
+
+	uiManager->addInterfaz(NombreCamarero);
 }

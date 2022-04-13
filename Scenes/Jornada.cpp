@@ -18,10 +18,12 @@
 
 using namespace std;
 
-Jornada::Jornada(Game* game,string tilemap,int numeroJornada) : Scene(game)
+Jornada::Jornada(Game* game, string tilemap, int numeroJornada, bool host_) : Scene(game)
 {
 	this->game = game;
 	nJornada = numeroJornada;
+
+	host = host_;
 
 	auto startButton = new UiButton(game, "start", 640, 100, 100, 100);
 	startButton->setInitialDimension(100, 100);
@@ -33,7 +35,7 @@ Jornada::Jornada(Game* game,string tilemap,int numeroJornada) : Scene(game)
 
 			if (t.progress() > .2f) {
 				//Start game
-				game->changeScene(new GameOver(game,0,nJornada));
+				game->changeScene(new GameOver(game, 0, nJornada));
 				return true;
 			}
 			return false;
@@ -42,6 +44,16 @@ Jornada::Jornada(Game* game,string tilemap,int numeroJornada) : Scene(game)
 
 	uiManager->addInterfaz(startButton);
 
+	// crear player dependiendo si es cocinera o no
+	if (host) {
+		Player* p = new Player(game);
+		objectManager->addPlayer(p);
+	}
+	else {
+		Player* p = new Player(game);
+		objectManager->addPlayer(p);
+	}
+	
 
 	mapInfo.ruta = "..\\..\\..\\Assets\\Tilemap\\"+tilemap+".tmx";
 	loadMap(mapInfo.ruta);
@@ -316,7 +328,7 @@ void Jornada::loadMap(string const& path)
 					getObjectManager()->addMueble(c);
 				}
 				else if (name == "inicioCinta") {
-					InicioCinta* c = new InicioCinta(game, position);
+					InicioCinta* c = new InicioCinta(game, position, host);
 					c->setVel(Vector2D<double>((double)p[1].getFloatValue(), (double)p[2].getFloatValue()));
 					getObjectManager()->addMueble(c);
 				}
@@ -325,7 +337,7 @@ void Jornada::loadMap(string const& path)
 					getObjectManager()->addMueble(c);
 				}
 				else if (name == "puerta") {
-					Puerta* puerta = new Puerta(game, position,p[4].getBoolValue(),p[3].getIntValue(),p[0].getIntValue());
+					Puerta* puerta = new Puerta(game, position,p[4].getBoolValue(),p[3].getIntValue(),p[0].getIntValue(), host);
 					puerta->setVel(Vector2D<double>((double)p[1].getFloatValue(), (double)p[2].getFloatValue()));
 					getObjectManager()->addMueble(puerta);
 				}

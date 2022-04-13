@@ -52,8 +52,10 @@ class Jornada : public Scene
 
 	int nJornada = 0;
 
+	bool host;
+
 public:
-	Jornada(Game* game, string tilemap,int numeroJornada);
+	Jornada(Game* game, string tilemap, int numeroJornada, bool cocinera = true);
 	~Jornada();
 
 	void handleInput(bool& exit)  override;

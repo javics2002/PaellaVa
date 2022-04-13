@@ -30,16 +30,20 @@ HostClient::HostClient(Game* game, string nombre_) : Scene(game)
 		sdlutils().width() / 2 - offsetX, sdlutils().height() / 2 - offsetY);
 	hostButton->setAction([this, nombre](Game* game, bool& exit) {
 		//Host
+		game->getNetworkManager()->init('h', nullptr, nombre);
+
 		game->changeScene(new Lobby(game, nombre, this));
 		});
 	uiManager->addInterfaz(hostButton);
 
 	auto clientButton = new UiButton(game, "Buscar restaurante", "paella", { 255, 255, 255, 255 }, { 0, 0, 0, 0 },
 		sdlutils().width() / 2 + offsetX, sdlutils().height() / 2 - offsetY);
-	clientButton->setAction([](Game* game, bool& exit) {
+	
+
+	clientButton->setAction([this, nombre](Game* game, bool& exit) {
 		//Client
-		game->changeScene(new IntroduceIP(game));
-		game->getNetworkManager()->init('c', "localhost");
+		game->changeScene(new IntroduceIP(game, nombre));
+		
 		});
 	uiManager->addInterfaz(clientButton);
 }

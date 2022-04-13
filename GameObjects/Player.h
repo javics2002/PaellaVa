@@ -30,8 +30,6 @@ class Player : public GameObject
 	void setAnimResources();
 	void animUpdate();
 
-	
-
 	vector<Texture*> anims;
 	SDL_RendererFlip flip;
 	SDL_Rect clip;

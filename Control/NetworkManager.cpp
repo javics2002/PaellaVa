@@ -4,6 +4,9 @@
 #include "../GameObjects/Player.h"
 #include "../Control/ObjectManager.h"
 
+#include "../Scenes/Lobby.h"
+#include "../Scenes/Jornada.h"
+
 #include <vector>
 
 // SERVIDOR
@@ -14,6 +17,7 @@ void NetworkManager::acceptPlayers()
 {
 	while (!exitThread) {
 		TCPsocket csd;
+
 		if ((csd = SDLNet_TCP_Accept(socket)))
 		{
 			IPaddress* remoteIP;
@@ -28,6 +32,8 @@ void NetworkManager::acceptPlayers()
 			PacketAccept pkt;
 			pkt.packet_type = EPT_ACCEPT;
 
+			strcpy_s(pkt.player_name, myName.c_str());
+
 			if (player_sockets.size() > MAX_PLAYERS) { // TODO: CHECK IF A PLAYER IS DISCONNECTED
 				pkt.packet_type = EPT_DENY;
 			}
@@ -35,9 +41,9 @@ void NetworkManager::acceptPlayers()
 				if (id == -1) {
 					id = id_count;
 
-					Player* p = addPlayerHost();
+					/*Player* p = addPlayerHost();
 
-					game_->getObjectManager()->addPlayer(p);
+					game_->getObjectManager()->addPlayer(p);*/
 
 					player_ips.push_back(*remoteIP); // Como eres nuevo, se mete tu IP en el vector
 				}
@@ -62,15 +68,26 @@ void NetworkManager::acceptPlayers()
 // Problemas que da: ---
 void NetworkManager::receivePlayers()
 {
-	while (!exitThread) {
-		PacketRecv packet;
+	PacketName pkt;
+	Lobby* lobby;
 
-		for (int i = 1u; i < game_->getObjectManager()->getPlayers().size(); i++) { // Comenzamos en uno porque el 0 somos nosotros mismos
-			if (SDLNet_TCP_Recv(player_sockets[i], &packet, sizeof(PacketRecv)) > 0)
+	while (!exitThread) {
+		for (int i = 1u; i < player_sockets.size(); i++) { // Comenzamos en uno porque el 0 somos nosotros mismos
+			if (SDLNet_TCP_Recv(player_sockets[i], &pkt, sizeof(PacketName)) > 0)
 			{
-				switch (packet.packet_type) {
+				switch (pkt.packet_type) {
 				case EPT_UPDATE:
-					game_->getObjectManager()->getPlayers()[i]->handleInput(Vector2D<double>(packet.player_horizontal, packet.player_vertical));
+					// game_->getObjectManager()->getPlayers()[i]->handleInput(Vector2D<double>(packet.player_horizontal, packet.player_vertical));
+					break;
+				case EPT_NAME:
+					/*pkt = *(PacketName*)(void*)&packet;*/
+					// name
+					otherName = pkt.player_name;
+
+					// actualizar lobby
+					lobby = dynamic_cast<Lobby*>(game_->getCurrentScene());
+
+					lobby->clienteUnido(otherName);
 					break;
 				case EPT_QUIT:
 					std::cout << ("Client disconnected: ID(%d)\n", i) << std::endl;
@@ -144,43 +161,54 @@ void NetworkManager::updateClient()
 		if (SDLNet_TCP_Recv(socket, &server_pkt, sizeof(PacketSend)) > 0) {
 			Player* p = nullptr;
 
-			// recorrer el vector de players hasta que pkt.player_id == player_ids[i]
-			for (int i = 0u; i < player_ids.size(); i++) {
-				if (server_pkt.player_id == player_ids[i]) {
-					p = game_->getObjectManager()->getPlayers()[i];
-				}
-			}
+			switch (server_pkt.packet_type)
+			{
+			case EPT_START:
+				// Start game
+				game_->changeScene(new Jornada(game_, "Jornada1", 0, false));
 
-			if (p == nullptr) {
-				p = addPlayerClient(server_pkt.player_id);
-				game_->getObjectManager()->addPlayer(p);
-			}
-
-			switch (server_pkt.packet_type) {
-			case EPT_UPDATE:
-				p->handleInput(Vector2D<double>(server_pkt.player_horizontal, server_pkt.player_vertical));
 				break;
+			default:
+				break;
+			}
+
+			//// recorrer el vector de players hasta que pkt.player_id == player_ids[i]
+			//for (int i = 0u; i < player_ids.size(); i++) {
+			//	if (server_pkt.player_id == player_ids[i]) {
+			//		p = game_->getObjectManager()->getPlayers()[i];
+			//	}
+			//}
+
+			//if (p == nullptr) {
+			//	p = addPlayerClient(server_pkt.player_id);
+			//	game_->getObjectManager()->addPlayer(p);
+			//}
+
+			//switch (server_pkt.packet_type) {
+			//case EPT_UPDATE:
+			//	p->handleInput(Vector2D<double>(server_pkt.player_horizontal, server_pkt.player_vertical));
+			//	break;
 			//case EPT_SYNCPLAYER:
 			//	// parsear pkt
 			//	PacketSyncPlayer newPkt = *(PacketSyncPlayer*)(void*)&server_pkt;
 			//	p->setPosition(newPkt.posX, newPkt.posY);
 
 			//	break;
-			}
+			//}
 		}
 
 		// Send info
-		PacketRecv client_pkt;
-		client_pkt.packet_type = EPT_UPDATE;
-		
-		client_pkt.player_horizontal = game_->getObjectManager()->getHost()->getAxis().getX(); // Nosotros mismos
-		client_pkt.player_vertical = game_->getObjectManager()->getHost()->getAxis().getY();
+		//PacketRecv client_pkt;
+		//client_pkt.packet_type = EPT_UPDATE;
+		//
+		//client_pkt.player_horizontal = game_->getObjectManager()->getHost()->getAxis().getX(); // Nosotros mismos
+		//client_pkt.player_vertical = game_->getObjectManager()->getHost()->getAxis().getY();
 
-		if (SDLNet_TCP_Send(socket, &client_pkt, sizeof(PacketRecv)) < sizeof(PacketRecv))
-		{
-			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
-			exit(EXIT_FAILURE);
-		}
+		//if (SDLNet_TCP_Send(socket, &client_pkt, sizeof(PacketRecv)) < sizeof(PacketRecv))
+		//{
+		//	std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+		//	exit(EXIT_FAILURE);
+		//}
 
 		SDL_Delay(client_frequency);
 	}
@@ -235,7 +263,7 @@ NetworkManager::~NetworkManager()
 // Función que inicializa SDL_Net y tu función (servidor o cliente)
 // Problemas que da: ---
 
-bool NetworkManager::init(char type, const char* ip_addr)
+bool NetworkManager::init(char type, const char* ip_addr, std::string name)
 {
 	if (SDLNet_Init() < 0)
 	{
@@ -244,10 +272,11 @@ bool NetworkManager::init(char type, const char* ip_addr)
 	}
 
 	nType = type;
+	
 
 	if (SDLNet_ResolveHost(&ip, ip_addr, 2000) < 0)
 	{
-		std::cout << ("SDLNet_ResolveHost: %s\n", SDLNet_GetError()) << std::endl;
+		std::cout << "SDLNet_ResolveHost: " <<  SDLNet_GetError() << std::endl;
 		exit(EXIT_FAILURE);
 	}
 
@@ -257,17 +286,36 @@ bool NetworkManager::init(char type, const char* ip_addr)
 		exit(EXIT_FAILURE);
 	}
 	
+	myName = name;
+	
 	PacketAccept pkt;
 
 	if (type == 'c') { // Si somos un cliente
 		while (SDLNet_TCP_Recv(socket, &pkt, sizeof(PacketAccept)) == 0); // Esperamos a que el servidor nos acepte
 
 		if (pkt.packet_type == EPT_ACCEPT) { // Cuando nos acepte, se crea el personaje, etc.
-			game_->getObjectManager()->addPlayer(addPlayerClient(pkt.player_id));
-			
-			client_id = pkt.player_id;
+			// recv info
+			otherName = pkt.player_name;
 
-			id_count = MAX_PLAYERS;
+			// Mandarle el nombre
+			// Send info
+			PacketName namePkt;
+			namePkt.packet_type = EPT_NAME;
+
+			// namePkt.player_name = myName;
+			strcpy_s(namePkt.player_name, myName.c_str());
+
+			if (SDLNet_TCP_Send(socket, &namePkt, sizeof(PacketName)) < sizeof(PacketName))
+			{
+				std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+				exit(EXIT_FAILURE);
+			}
+
+			//game_->getObjectManager()->addPlayer(addPlayerClient(pkt.player_id));
+			//
+			//client_id = pkt.player_id;
+
+			//id_count = MAX_PLAYERS;
 
 			updateclient_t = new std::thread(&NetworkManager::updateClient, this);
 		}
@@ -276,12 +324,14 @@ bool NetworkManager::init(char type, const char* ip_addr)
 		}
 	}
 	else { // Si somos un host
-		game_->getObjectManager()->addPlayer(addPlayerHost());
+		// game_->getObjectManager()->addPlayer(addPlayerHost());
 
 		// Hilos
+
 		accept_t = new std::thread(&NetworkManager::acceptPlayers, this);
 		receiveplayers_t = new std::thread(&NetworkManager::receivePlayers, this);
-		sendplayers_t = new std::thread(&NetworkManager::sendPlayers, this);
+
+		// sendplayers_t = new std::thread(&NetworkManager::sendPlayers, this);
 
 		player_sockets.push_back(socket);
 		player_ips.push_back(ip);
@@ -392,4 +442,21 @@ Player* NetworkManager::addPlayerClient(int id)
 	player_ids.push_back(id);
 
 	return p;
+}
+
+void NetworkManager::sendStartGame(int numJornada) {
+	// Lo manda el servidor al cliente para que empiece la partida
+
+	PacketStartGame pkt;
+	pkt.packet_type = EPT_START;
+	pkt.num_jornada = numJornada;
+
+	for (int i = 0u; i < player_sockets.size(); i++) {
+		if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(PacketSend)) < sizeof(PacketSend))
+		{
+			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+			exit(EXIT_FAILURE);
+		}
+	}
+
 }
