@@ -1,6 +1,7 @@
 #include "Mesa.h"
 #include "../../Control/Game.h"
 #include "../../Control/ObjectManager.h"
+#include "../../Scenes/Tutorial.h"
 
 Mesa::Mesa(Game* game, Vector2D<double> pos, Vector2D<int> dim, Vector2D<int> tiles, string texture)
 	: Mueble(game, pos, dim.getX() * TILE_SIZE, dim.getY() * TILE_SIZE, texture) 
@@ -74,6 +75,9 @@ bool Mesa::receiveGrupoClientes(GrupoClientes* gc)
 {
 	if (mGrupo == nullptr && paellas.empty() && gc->canDrop()) {
 		int n = gc->numIntegrantes();
+
+
+		game->getCurrentScene()->changeState(States::dejarClientesMesa);
 
 		if (n <= sillas.size()) {
 			mGrupo = gc;
@@ -170,6 +174,7 @@ SDL_Rect Mesa::getOverlap() {
 		rect.w + incr * 2,
 		rect.h + incr * 2
 	};
+
 }
 
 void Mesa::decirPedido()

@@ -23,17 +23,18 @@ void Fogon::render(SDL_Rect* cameraRect)
 	SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, getWidth(),
 	getHeight() };
 
+	if (isActive()) {
+		drawRender(cameraRect, dest, &sdlutils().images().at("fogon"));
 
-	drawRender(cameraRect, dest, &sdlutils().images().at("fogon"));
+		if (paella_ != nullptr && barra) {
 
-	if (paella_ != nullptr && barra) {
+			SDL_Rect dest_ = { getX() - barraCoccionX / 2 , getY() - getHeight() / 1.5, barraCoccionX, barraCoccionY };
 
-		SDL_Rect dest_ = { getX() -barraCoccionX/2 , getY()-getHeight()/1.5, barraCoccionX, barraCoccionY };
-
-		drawRender(cameraRect, dest_, &sdlutils().images().at("barraCoccion"));
+			drawRender(cameraRect, dest_, &sdlutils().images().at("barraCoccion"));
 
 
-		drawRender(cameraRect, dest_1, &sdlutils().images().at("flechaCoccion"));
+			drawRender(cameraRect, dest_1, &sdlutils().images().at("flechaCoccion"));
+		}
 	}
 }
 

@@ -1,5 +1,6 @@
 #include "Lobby.h"
 #include "../Scenes/Jornada.h"
+#include "../Scenes/Tutorial.h"
 #include "../Control/NetworkManager.h"
 #include "../GameObjects/UI/ShowText.h"
 
@@ -43,7 +44,7 @@ Lobby::Lobby(Game* game, string nombre, Scene* hostClient) : Scene(game)
 	comenzar->setAction([this](Game* game, bool& exit) {
 		// crear player
 		
-		game->changeScene(new Jornada(game, "Jornada1", 0, true));
+		game->changeScene(new Jornada(game, "Jornada1",0,true));
 		
 		// send info 
 		game->getNetworkManager()->sendStartGame(0);

@@ -63,6 +63,7 @@
     <ClCompile Include="Utils\Collider.cpp" />
     <ClCompile Include="Scenes\Jornada.cpp" />
     <ClCompile Include="GameObjects\Ingredienteletal.cpp" />
+    <ClCompile Include="Scenes\Tutorial.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
@@ -151,6 +152,7 @@
     <ClInclude Include="Utils\Collider.h" />
     <ClInclude Include="Scenes\Jornada.h" />
     <ClInclude Include="GameObjects\Ingredienteletal.h" />
+    <ClInclude Include="Scenes\Tutorial.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />

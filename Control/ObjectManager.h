@@ -7,6 +7,15 @@
 #include "../GameObjects/Paella.h"
 #include "../GameObjects/Player.h"
 #include "../GameObjects/Arroz.h"
+#include "../GameObjects/Muebles/InicioCinta.h"
+#include "../GameObjects/Muebles/FinalCinta.h"
+#include "../GameObjects/Muebles/Puerta.h"
+#include "../GameObjects/Ingredienteletal.h"
+#include "../GameObjects/Muebles/Encimera.h"
+#include "../GameObjects/Muebles/Ventanilla.h"
+#include "../GameObjects/Muebles/Cinta.h"
+#include "../GameObjects/Muebles/Cartel.h"
+#include "../GameObjects/Muebles/Puerta.h"
 
 #include <queue>
 #include <vector>
@@ -32,6 +41,15 @@ class ObjectManager
 
 	Game* game;
 
+	vector<Silla*> sillas;
+	vector<Mesa*> mesas;
+	vector<Encimera*> encimeras;
+	vector<Ventanilla*> ventanillas;
+	vector<Cinta*> cintas;
+	Cartel* cartel;
+	Puerta* puerta;
+
+
 public:
 	ObjectManager(Game* game);
 	~ObjectManager();
@@ -44,6 +62,23 @@ public:
 	void debug(SDL_Rect* rect);
 
 	void addMueble(Mueble* mueble);
+
+	void addSilla(Silla* s);
+	void addMesa(Mesa* m);
+	void addVentanilla(Ventanilla* v);
+	void addEncimera(Encimera* e);
+	void addCinta(Cinta* c);
+	void addCartel(Cartel* c);
+	void addPuerta(Puerta* p);
+
+	vector<Silla*> getSillas();
+	vector<Mesa*> getMesas();
+	vector<Encimera*> getEncimeras();
+	vector<Ventanilla*> getVentanilla();
+	vector<Cinta*> getCintas();
+	Cartel* getCartel();
+	Puerta* getPuerta();
+
 	Paella* addPaella(int n);
 
 	void addPlayer(Player* player);

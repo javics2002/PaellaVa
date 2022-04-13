@@ -16,9 +16,9 @@ void InicioCinta::update()
 
 	int i = rand() % 1000;
 
-	if (sdlutils().virtualTimer().currTime() - initTime >= SPAWN_DELAY)
+	if (sdlutils().virtualTimer().currTime() - initTime >= SPAWN_DELAY && isActive())
 	{
-		if (true)
+		if (i<porcentaeletal)
 		{ 
 
 			Ingredienteletal* i= game->getObjectManager()->getPool<Ingredienteletal>(_p_INGREDIENTELETAL)->add(getPosition());
@@ -27,16 +27,17 @@ void InicioCinta::update()
 		
 		}
 		else {
-		/*	Ingrediente* i = game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->add(getPosition());
+			Ingrediente* i = game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->add(getPosition());
 			i->setVel(vel);
-			initTime = sdlutils().virtualTimer().currTime();*/
+			initTime = sdlutils().virtualTimer().currTime();
 		}
 	}
 }
 
 SDL_Rect InicioCinta::getCollider()
 {
-	return getTexBox();
+	if(isActive())return getTexBox();
+	return { 0,0,0,0 };
 }
 
 SDL_Rect InicioCinta::getOverlap()

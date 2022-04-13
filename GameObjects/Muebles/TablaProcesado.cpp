@@ -38,17 +38,20 @@ void TablaProcesado::procesando() {
 
 void TablaProcesado::render(SDL_Rect* camera)
 {
-	SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, getWidth(),
-		getHeight() };
+	if (isActive()) {
+		SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, getWidth(),
+			getHeight() };
 
-	drawRender(camera, dest, &sdlutils().images().at("tablaProcesado"));
+		drawRender(camera, dest, &sdlutils().images().at("tablaProcesado"));
 
-	if (ingr_ != nullptr && !ingr_->getProcesado() && i != 0) {
+		if (ingr_ != nullptr && !ingr_->getProcesado() && i != 0) {
 
-		SDL_Rect dest_ = { getX() - getWidth() / 2, getY() + getHeight() / 2, timerDimension, timerDimension };
+			SDL_Rect dest_ = { getX() - getWidth() / 2, getY() + getHeight() / 2, timerDimension, timerDimension };
 
-		drawRender(camera, dest_, &sdlutils().images().at("timer"), clip);
+			drawRender(camera, dest_, &sdlutils().images().at("timer"), clip);
+		}
 	}
+
 }
 
 bool TablaProcesado::receiveIngrediente(Ingrediente* ingr)

@@ -14,12 +14,13 @@ SDL_Rect Mueble::getCollider()
 {
 	SDL_Rect rect = getTexBox();
 
-	return {
+	if(isActive())return {
 		rect.x,
 		rect.y + rect.h / 3,
 		rect.w,
 		rect.h / 3 * 2
 	};
+	return { 0,0,0,0 };
 }
 
 SDL_Rect Mueble::getOverlap()
@@ -28,10 +29,11 @@ SDL_Rect Mueble::getOverlap()
 
 	int incr = 9;
 
-	return {
+	if(isActive())return {
 		rect.x,
 		rect.y,
 		rect.w,
 		rect.h / 2 - incr
 	};
+	return { 0,0,0,0 };
 }
