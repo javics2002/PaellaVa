@@ -179,7 +179,7 @@ void Player::handleInput(Vector2D<double> axis)
 		vel.setY(vel.getY() + axis.getY() * aceleracion);
 
 		currAnim = 5;
-		frameCounter = 0;
+		frameCounter = 0; 
 	}
 	else if (axis.getY() < -.1f) {
 		vel.setY(vel.getY() + axis.getY() * aceleracion);
@@ -197,70 +197,37 @@ void Player::handleInput(Vector2D<double> axis)
 void Player::update()
 {
 	//Próxima posición
-	SDL_Rect rect = getCollider();	
+	SDL_Rect newCol = getCollider();
+	newCol.x += vel.getX();
+	newCol.y += vel.getY();
 
-	Vector2D<double> newColPos = Vector2D<double>(rect.x + rect.w / 2, rect.y + rect.h / 2);
 	Vector2D<double> newPos = pos + vel;
 
-	for (auto i : game->getObjectManager()->getMueblesCollisions(rect)) {
-
-		////Comprobamos Izquierda o Derecha
-		//double interseccionIz = abs((rect.x + rect.w) - (c.x));
-		//double interseccionDer = abs((rect.x) - (c.x + c.w));
-		//bool bIz = interseccionIz < interseccionDer ? 1 : 0;
-		//double interseccionX = bIz ? interseccionIz : interseccionDer;
-
-		////Comprobamos Arriba o Abajo
-		//double interseccionAr = abs((rect.y + rect.h) - (c.y));
-		//double interseccionAb = abs((rect.y) - (c.y + c.h));
-		//bool bAr = interseccionAr < interseccionAb ? 1 : 0;
-		//double interseccionY = bAr ? interseccionAr : interseccionAb;
-
-		////Combrobamos Horizontal o Vertical, y aplicamos el cambio
-		//if (interseccionX < interseccionY) {
-		//	//cout << "Horizontal" << endl;
-		//	if (bIz) {
-		//		//cout << "Izquierda" << endl;
-		//		newPos = Vector2D<double>(c.x - rect.w - ((rect.w - getWidth()) / 2), newPos.getY());
-		//	}				
-		//	else {
-		//		//cout << "Derecha" << endl;
-		//		newPos = Vector2D<double>(c.x + c.w - ((rect.w - getWidth()) / 2),  newPos.getY());
-		//	}			
-		//}			
-		//else {
-		//	//cout << "Vertical" << endl;
-		//	if (bAr) {
-		//		//cout << "Arriba" << endl;
-		//		newPos = Vector2D<double>(newPos.getX(), c.y - getHeight() / 2);
-		//	}
-		//	else
-		//	{
-		//		//cout << "Abajo" << endl;
-		//		newPos = Vector2D<double>(newPos.getX(), c.y + c.h + rect.h - getHeight() / 2);
-		//	} 
-		//}		
-
+	for (auto i : game->getObjectManager()->getMueblesCollisions(newCol)) {
 		//Cuando colisiono con un mueble
 		SDL_Rect c = i->getCollider();	
 
 		//Comprobamos por la izquierda y la derecha
 		/*La intersección que busco es mas pequeña desde la izquierda y la derecha para
 		que nos reposicione donde acabamos de entrar al mueble*/
-		int interseccionIz = (newColPos.getX() + getCollider().w / 2) - c.x;
-		int interseccionDer = (newColPos.getX() - getCollider().w / 2) - (c.x + c.w);
-		int interseccionX = abs(interseccionIz) < abs(interseccionDer) ? interseccionIz : interseccionDer;
+		double interseccionIz = (newCol.x + newCol.w) - c.x;
+		double interseccionDer = newCol.x - (c.x + c.w);
+		double interseccionX = abs(interseccionIz) < abs(interseccionDer) ? interseccionIz : interseccionDer;
 
 		//Lo mismo por arriba y por abajo
-		int interseccionAr = (newColPos.getY() + getCollider().h / 2) - c.y;
-		int interseccionAb = (newColPos.getY() - getCollider().h / 2) - (c.y + c.h);
-		int interseccionY = abs(interseccionAr) < abs(interseccionAb) ? interseccionAr : interseccionAb;
+		double interseccionAr = (newCol.y + newCol.h) - c.y;
+		double interseccionAb = newCol.y - (c.y + c.h);
+		double interseccionY = abs(interseccionAr) < abs(interseccionAb) ? interseccionAr : interseccionAb;
 
 		//Aplicamos la menor interseccion, que es la que tiene
-		if (abs(interseccionX) < abs(interseccionY))
-			newPos = newPos - Vector2D<double>(interseccionX, 0);
-		else
-			newPos = newPos - Vector2D<double>(0, interseccionY);
+		if (abs(interseccionX) < abs(interseccionY)) {
+			newPos.setX(newPos.getX() - interseccionX);
+			newCol.x -= interseccionX;
+		}
+		else {
+			newPos.setY(newPos.getY() - interseccionY);
+			newCol.y -= interseccionY;
+		}
 	}
 
 	//Nos movemos al nuevo sitio
@@ -486,7 +453,7 @@ void Player::setPickedObject(ObjetoPortable* op, objectType ot)
 SDL_Rect Player::getCollider()
 {
 	SDL_Rect rect = getTexBox();
-
+	
 	return { rect.x + rect.w / 4, 
 		rect.y + rect.h / 3 * 2, 
 		rect.w / 2, 

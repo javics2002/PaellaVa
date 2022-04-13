@@ -52,10 +52,11 @@ void Puerta::update()
 			g->setVel(vel);
 			cola->add(g, integrantes);
 			g->initGrupo(cola, v);
-		}
-		initTime = sdlutils().virtualTimer().currTime();
 
-		sdlutils().soundEffects().at("puerta").play();
+			sdlutils().soundEffects().at("puerta").play();
+		}
+
+		initTime = sdlutils().virtualTimer().currTime();
 	}
 }
 

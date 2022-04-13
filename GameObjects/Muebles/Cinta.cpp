@@ -3,7 +3,7 @@
 Cinta::Cinta(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE,  TILE_SIZE, "cinta")
 {
 	//Este sonido es m�s bajo
-	sdlutils().soundEffects().at("cinta").setVolume(32);
+	sdlutils().soundEffects().at("cinta").setVolume(2);
 	canalSonido = sdlutils().soundEffects().at("cinta").play(-1);
 
 	clip.x = 0;

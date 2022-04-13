@@ -34,6 +34,7 @@ ObjectManager::~ObjectManager()
 
 	for (auto i : pools) {
 		delete i;
+		i = nullptr;
 	}
 }
 

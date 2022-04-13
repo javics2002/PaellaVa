@@ -71,7 +71,7 @@ void Game::start()
 
 void Game::changeScene(Scene* scene) {
 	//Cambio de escena 
-	currentScene = nullptr;
+	delete currentScene;
 	currentScene = scene;
 }
 
