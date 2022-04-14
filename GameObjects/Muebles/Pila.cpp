@@ -6,7 +6,7 @@
 #include "../../Control/ObjectManager.h"
 
 Pila::Pila(Game* game, Vector2D<double> pos, int miTipo_, int nPaellas) 
-	: Mueble(game, pos, 1 * TILE_SIZE, 2 * TILE_SIZE, "berenjena")
+	: Mueble(game, pos, 1 * TILE_SIZE, 2 * TILE_SIZE, "pilaPaellas")
 {
 	miTipo = miTipo_;
 	numPaellas = nPaellas;
