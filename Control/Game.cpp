@@ -59,6 +59,9 @@ void Game::start()
 		update();
 		refresh();
 		render();
+
+		// Se procesan los mensajes en la cola
+		recvMessageScene();
 		
 		Uint32 frameTime = sdlutils().currRealTime() - startTime;
 
@@ -67,12 +70,6 @@ void Game::start()
 	}
 
 	nm->close();
-}
-
-void Game::changeScene(Scene* scene) {
-	//Cambio de escena 
-	delete currentScene;
-	currentScene = scene;
 }
 
 void Game::handleInput(SDL_Event& event, bool& exit) {
@@ -117,4 +114,21 @@ UIManager* Game::getUIManager()
 
 NetworkManager* Game::getNetworkManager() {
 	return nm;
+}
+
+void Game::sendMessageScene(Scene* newScene)
+{
+	MessageChangeScene msg;
+	msg.newScene = newScene;
+
+	qScene.push(msg);
+}
+
+void Game::recvMessageScene()
+{
+	while (!qScene.empty()) {
+		delete currentScene;
+		currentScene = qScene.front().newScene;
+		qScene.pop();
+	}
 }

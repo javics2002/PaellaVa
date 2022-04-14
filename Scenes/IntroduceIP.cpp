@@ -6,7 +6,7 @@
 
 IntroduceIP::IntroduceIP(Game* game, string nombre) : Scene(game)
 {
-	IP= new UiButton(game,textIP, "paella", { 255, 255, 255, 255 }, { 0, 0, 0, 0 },sdlutils().width() / 2 , sdlutils().height() / 2 );
+	IP = new UiButton(game,textIP, "paella", { 255, 255, 255, 255 }, { 0, 0, 0, 0 },sdlutils().width() / 2 , sdlutils().height() / 2 );
 	uiManager->addInterfaz(IP);
 
 	auto hostButton = new UiButton(game, "Introduce IP", "paella", { 255, 255, 255, 255 }, { 0, 0, 0, 0 },
@@ -16,9 +16,10 @@ IntroduceIP::IntroduceIP(Game* game, string nombre) : Scene(game)
 	hostButton->setAction([game, this, nombre](Game* game, bool& exit) {
 		//Host
 		textIP.erase(remove(textIP.begin(), textIP.end(), ' '), textIP.end());
+
 		if (game->getNetworkManager()->init('c', textIP.c_str(), nombre)) {
 			// crear el lobby
-			game->changeScene(new Lobby(game, game->getNetworkManager()->getOtherName(), nombre));
+			game->sendMessageScene(new Lobby(game, game->getNetworkManager()->getOtherName(), nombre));
 		}
 
 		});

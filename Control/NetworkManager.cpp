@@ -169,7 +169,7 @@ void NetworkManager::updateClient()
 			{
 			case EPT_START:
 				// Start game
-				game_->changeScene(new Jornada(game_, "Jornada1", 0, false));
+				game_->sendMessageScene(new Jornada(game_, "Jornada1", 0, false));
 
 				break;
 			case EPT_CREATEING:

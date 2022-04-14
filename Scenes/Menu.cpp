@@ -32,7 +32,7 @@ Menu::Menu(Game* game) : Scene(game)
 
 			if (t.progress() > .2f) {
 				//Start game
-				game->changeScene(new HostClient(game, game->getUIManager()->getNombre()));
+				game->sendMessageScene(new HostClient(game, game->getUIManager()->getNombre()));
 				return true;
 			}
 			return false;

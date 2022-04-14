@@ -44,7 +44,7 @@ Lobby::Lobby(Game* game, string nombre, Scene* hostClient) : Scene(game)
 	comenzar->setAction([this](Game* game, bool& exit) {
 		// crear player
 		
-		game->changeScene(new Jornada(game, "Jornada1",0,true));
+		game->sendMessageScene(new Jornada(game, "Jornada1",0,true));
 		
 		// send info 
 		game->getNetworkManager()->sendStartGame(0);
@@ -56,7 +56,7 @@ Lobby::Lobby(Game* game, string nombre, Scene* hostClient) : Scene(game)
 	UiButton *regresar = new UiButton(game, "back", 100, 50, 125, 60);
 
 	regresar->setAction([hostClient](Game* game, bool& exit) {
-		game->changeScene(hostClient);
+		game->sendMessageScene(hostClient);
 		});
 
 	uiManager->addInterfaz(regresar);
