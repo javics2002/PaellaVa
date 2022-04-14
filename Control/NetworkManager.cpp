@@ -9,8 +9,6 @@
 
 #include "../Utils/Vector2D.h"
 
-#include <vector>
-
 // SERVIDOR
 
 // Función que acepta a los jugadores (se encuentra en un hilo)
@@ -159,6 +157,8 @@ void NetworkManager::updateClient()
 	Packet server_pkt;
 
 	Ingrediente* i;
+	IngredienteLetal* iLetal;
+	
 
 	while (!exitThread) {
 		// Receive info from server
@@ -176,6 +176,39 @@ void NetworkManager::updateClient()
 				i = game_->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->add(Vector2D<double>(server_pkt.ingrediente.posX, server_pkt.ingrediente.posY));
 				i->setVel(Vector2D<double>(server_pkt.ingrediente.velX, server_pkt.ingrediente.velY));
 				i->cambiaTipo(server_pkt.ingrediente.tipo_ingrediente);
+
+				break;
+			case EPT_CREATEINGLET:
+				iLetal = game_->getObjectManager()->getPool<IngredienteLetal>(_p_INGREDIENTELETAL)->add(Vector2D<double>(server_pkt.ingrediente.posX, server_pkt.ingrediente.posY));
+				iLetal->setVel(Vector2D<double>(server_pkt.ingrediente.velX, server_pkt.ingrediente.velY));
+				iLetal->cambiaTipo(server_pkt.ingrediente.tipo_ingrediente);
+
+				break;
+
+			case EPT_CREATECLIENTGROUP:
+				{
+				vector<Cliente*> v;
+
+				Vector2D<double> distancia = Vector2D<double>(server_pkt.grupoCliente.dirX, server_pkt.grupoCliente.dirY);
+				Vector2D<double> pos = Vector2D<double>(server_pkt.grupoCliente.posPuertaX, server_pkt.grupoCliente.posPuertaY);
+
+				for (int i = 0; i < server_pkt.grupoCliente.tamGrupo; i++) {
+					Cliente* c = game_->getObjectManager()->getPool<Cliente>(_p_CLIENTE)->add();
+					c->setPosition(pos);
+					c->cambiaTextura(texturasClientes[server_pkt.grupoCliente.textCliente[i]]);
+
+					pos = pos + distancia;
+
+					v.push_back(c);
+				}
+
+				GrupoClientes* g = game_->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->add();
+				g->setVel(Vector2D<double>(server_pkt.grupoCliente.velX, server_pkt.grupoCliente.velY));
+
+				g->initGrupo(nullptr, v);
+
+				sdlutils().soundEffects().at("puerta").play();
+				}
 
 				break;
 			default:
@@ -482,6 +515,57 @@ void NetworkManager::sendCreateIngrediente(int tipoIngrediente, Vector2D<double>
 
 	pkt.ingrediente.velX = vel.getX();
 	pkt.ingrediente.velY = vel.getY();
+
+	for (int i = 1u; i < player_sockets.size(); i++) {
+		if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+		{
+			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+			exit(EXIT_FAILURE);
+		}
+	}
+}
+
+void NetworkManager::sendCreateIngredienteLetal(int tipoIngrediente, Vector2D<double> pos, Vector2D<double> vel) {
+
+	Packet pkt;
+	pkt.packet_type = EPT_CREATEINGLET;
+	pkt.ingrediente.tipo_ingrediente = tipoIngrediente;
+
+	pkt.ingrediente.posX = pos.getX();
+	pkt.ingrediente.posY = pos.getY();
+
+	pkt.ingrediente.velX = vel.getX();
+	pkt.ingrediente.velY = vel.getY();
+
+	for (int i = 1u; i < player_sockets.size(); i++) {
+		if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+		{
+			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+			exit(EXIT_FAILURE);
+		}
+	}
+}
+
+void NetworkManager::sendGrupoCliente(int tamGrupo, Vector2D<double> puertaPos, Vector2D<double> vel, Vector2D<int> distancia, vector<int> textureNumber, float tolerancia)
+{
+	Packet pkt;
+
+	pkt.packet_type = EPT_CREATECLIENTGROUP;
+	pkt.grupoCliente.tamGrupo = tamGrupo;
+	pkt.grupoCliente.posPuertaX = puertaPos.getX();
+	pkt.grupoCliente.posPuertaY = puertaPos.getY();
+
+	pkt.grupoCliente.velX = vel.getX();
+	pkt.grupoCliente.velY = vel.getY();
+
+	pkt.grupoCliente.dirX = distancia.getX();
+	pkt.grupoCliente.dirY = distancia.getY();
+
+	for (int i = 0u; i < tamGrupo; i++) {
+		pkt.grupoCliente.textCliente[i] = textureNumber[i];
+	}
+
+	pkt.grupoCliente.tolerancia = tolerancia;
 
 	for (int i = 1u; i < player_sockets.size(); i++) {
 		if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))

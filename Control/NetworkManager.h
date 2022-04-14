@@ -19,6 +19,8 @@ enum EPacketType {
 	EPT_NAME,
 	EPT_UPDATE,
 	EPT_CREATEING,
+	EPT_CREATEINGLET,
+	EPT_CREATECLIENTGROUP,
 	EPT_SYNCPLAYER,
 	EPT_QUIT
 };
@@ -77,6 +79,21 @@ struct PacketIngrediente {
 	Uint8 velY;
 };
 
+// Paquete para un grupo de clientes
+struct PacketGrupoCliente {
+	Uint8 textCliente[8];
+	Uint8 tamGrupo;
+	Sint16 posPuertaX;
+	Sint16 posPuertaY;
+	Uint8 velX;
+	Uint8 velY;
+
+	Sint16 dirX;
+	Sint16 dirY;
+
+	float tolerancia;
+};
+
 struct Packet {
 	Uint8 packet_type;
 
@@ -89,6 +106,7 @@ struct Packet {
 		PacketName name;
 		PacketStartGame startGame;
 		PacketIngrediente ingrediente;
+		PacketGrupoCliente grupoCliente;
 	};
 
 };
@@ -173,4 +191,7 @@ public:
 
 	void sendStartGame(int numJornada);
 	void sendCreateIngrediente(int tipoIngrediente, Vector2D<double> pos, Vector2D<double> vel);
+	void sendCreateIngredienteLetal(int tipoIngrediente, Vector2D<double> pos, Vector2D<double> vel);
+
+	void sendGrupoCliente(int tamGrupo, Vector2D<double> puertaPos, Vector2D<double> vel, Vector2D<int> distancia, std::vector<int>textureNumber, float tolerancia);
 };

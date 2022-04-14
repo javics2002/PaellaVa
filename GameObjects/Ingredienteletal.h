@@ -1,16 +1,17 @@
 #pragma once
 #include "Ingrediente.h";
 class Game;
-const vector<string> texturaIngredienteletal = { "rata" };
-enum tipoIngredienteletal {rata, LEST};
-class Ingredienteletal :public Ingrediente
+const vector<string> texturaIngredienteLetal = { "rata" };
+enum tipoIngredienteLetal {rata, LEST};
+
+class IngredienteLetal : public Ingrediente
 {
-	tipoIngredienteletal miTipoL;
+	tipoIngredienteLetal miTipoL;
 public:
-	
-	Ingredienteletal(Game* game);
-	~Ingredienteletal();
+	IngredienteLetal(Game* game);
+	~IngredienteLetal();
 	void onActivate() override;
 
+	void cambiaTipo (int n);
 };
 

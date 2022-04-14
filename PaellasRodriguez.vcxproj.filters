@@ -62,7 +62,7 @@
     <ClCompile Include="Scenes\Lobby.cpp" />
     <ClCompile Include="Utils\Collider.cpp" />
     <ClCompile Include="Scenes\Jornada.cpp" />
-    <ClCompile Include="GameObjects\Ingredienteletal.cpp" />
+    <ClCompile Include="GameObjects\IngredienteLetal.cpp" />
     <ClCompile Include="Scenes\Tutorial.cpp" />
     <ClCompile Include="Utils\ParticleExample.cpp" />
     <ClCompile Include="Utils\ParticleSystem.cpp" />
@@ -153,7 +153,7 @@
     <ClInclude Include="Scenes\Lobby.h" />
     <ClInclude Include="Utils\Collider.h" />
     <ClInclude Include="Scenes\Jornada.h" />
-    <ClInclude Include="GameObjects\Ingredienteletal.h" />
+    <ClInclude Include="GameObjects\IngredienteLetal.h" />
     <ClInclude Include="Scenes\Tutorial.h" />
     <ClInclude Include="Utils\ParticleSystem.h" />
     <ClInclude Include="Utils\ParticleExample.h" />

@@ -42,9 +42,11 @@ void GrupoClientes::initGrupo(Cola* cola_, vector<Cliente*> clientes_)
 {
 	tolerancia = 100;
 
-	posCola = cola_->getPos();
-	cola = cola_;
-
+	if (cola_ != nullptr) {
+		posCola = cola_->getPos();
+		cola = cola_;
+	}
+	
 	clientes = clientes_;
 	for (auto i : clientes)
 		i->setVel(vel);
@@ -244,7 +246,9 @@ void GrupoClientes::onObjectDropped()
 {
 	if (estado_ == ENCOLA) {
 		estado_ = PIDIENDO;
-		cola->remove(posCola, clientes.size());
+
+		if(cola != nullptr)
+			cola->remove(posCola, clientes.size());
 
 		if (true /*&& clientes.size() >= 2*/) {
 			string conversacion = "conversacion4";

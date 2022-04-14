@@ -7,7 +7,7 @@
 
 ObjectManager::ObjectManager(Game* game) : game(game)
 {
-	pools.emplace_back((Pool<GameObject>*) new Pool<Ingredienteletal>(game, 10));
+	pools.emplace_back((Pool<GameObject>*) new Pool<IngredienteLetal>(game, 10));
 	pools.emplace_back((Pool<GameObject>*) new Pool<Ingrediente>(game, 50));
 	
 	pools.emplace_back((Pool<GameObject>*) new Pool<Arroz>(game, 20));
