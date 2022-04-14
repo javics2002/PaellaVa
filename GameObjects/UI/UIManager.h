@@ -28,6 +28,7 @@ class UIManager
 	//vector <GameObject*> pedido;//pedido que se est� redactando lo lleva la comanda
 
 	float uiscale = 1.1;
+	GameObject* burnEffect; //Efecto cuando te quemas con una paella caliente
 	vector<GameObject*> pauseMenu; // menú de pausa
 	vector<GameObject*> optionsMenu; // menú de opciones
 	vector<GameObject*> creditsBase; //partes de los créditos que no cambian al cambiar de página
@@ -118,5 +119,7 @@ public:
 	tweeny::tween<float>& addTween(float from, float to, float during);
 
 	void setEnLobby(bool enLobby_);
+
+	void quemarse();
 };
 

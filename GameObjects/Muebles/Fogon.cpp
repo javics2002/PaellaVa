@@ -12,12 +12,6 @@ Fogon::Fogon(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 2 
 	paella_ = nullptr;
 }
 
-
-void Fogon::update()
-{
-	
-}
-
 void Fogon::render(SDL_Rect* cameraRect)
 {
 	SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, getWidth(),
@@ -51,28 +45,28 @@ bool Fogon::receivePaella(Paella* pa)
 
 		//empezar a cocer la paella
 		paella_->setState(Coccion);
-	
+
 		barra = true;
 
-	game->getUIManager()->addTween((float)(getX() - barraCoccionX/2 - flechaCoccionX / 2), (float)(getX() + barraCoccionX/2 - flechaCoccionX / 2), tiempoDeCoccion)
-		.onStep(
-		[this](tweeny::tween<float>& t, float) mutable{
-		dest_1.x = t.peek();
-		if (t.progress() == 1 || paella_==nullptr) {
+		game->getUIManager()->addTween((float)(getX() - barraCoccionX / 2 - flechaCoccionX / 2), (float)(getX() + barraCoccionX / 2 - flechaCoccionX / 2), tiempoDeCoccion)
+			.onStep(
+				[this](tweeny::tween<float>& t, float) mutable {
+					dest_1.x = t.peek();
+					if (t.progress() == 1 || paella_ == nullptr) {
 
-			barra = false;
-			
-			return true;
-		}
-		return false;
-	});
+						barra = false;
+
+						return true;
+					}
+					return false;
+				});
 
 
-	sdlutils().soundEffects().at("enciendeFogon").play();
-	canalSonido = sdlutils().soundEffects().at("fogon").play(-1);
+		sdlutils().soundEffects().at("enciendeFogon").play();
+		canalSonido = sdlutils().soundEffects().at("fogon").play(-1);
 
-	return true;
-}
+		return true;
+	}
 	return false;
 
 }
@@ -81,18 +75,23 @@ bool Fogon::returnObject(Player* p)
 {
 	if (paella_ != nullptr)
 	{
+		//Paramos el sonido
+		sdlutils().soundEffects().at("fogon").haltChannel(canalSonido);
+
 		paella_->setState(Hecha);
+
+		//Si nos hemos pasado, nos quemamos
+		if (paella_->getCoccion() >= Quemada) {
+			game->getUIManager()->quemarse();
+		}
 
 		p->setPickedObject(paella_, PAELLA);
 
 		paella_ = nullptr;
 
 		barra = false;
-		dest_1= { (int)getX() - barraCoccionX / 2 + flechaCoccionX / 2,(int)getY() - (int)(getHeight() / 1.5) - (int)(barraCoccionY / 1.5),
+		dest_1 = { (int)getX() - barraCoccionX / 2 + flechaCoccionX / 2,(int)getY() - (int)(getHeight() / 1.5) - (int)(barraCoccionY / 1.5),
 	flechaCoccionX, flechaCoccionY };
-
-		//Paramos el sonido
-		sdlutils().soundEffects().at("fogon").haltChannel(canalSonido);
 
 		//TOCHECK: Habr�a que devolver la paella al estado de "Preparaci�n" si no est� Preparada?
 		//Y desde donde se llama a que est� ya Preparada?

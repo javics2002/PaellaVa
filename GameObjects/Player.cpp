@@ -212,28 +212,6 @@ void Player::update()
 		//Cuando colisiono con un mueble
 		SDL_Rect c = i->getCollider();	
 
-		////Comprobamos por la izquierda y la derecha
-		///*La intersección que busco es mas pequeña desde la izquierda y la derecha para
-		//que nos reposicione donde acabamos de entrar al mueble*/
-		//double interseccionIz = (newCol.x + newCol.w) - c.x;
-		//double interseccionDer = newCol.x - (c.x + c.w);
-		//double interseccionX = abs(interseccionIz) < abs(interseccionDer) ? interseccionIz : interseccionDer;
-
-		////Lo mismo por arriba y por abajo
-		//double interseccionAr = (newCol.y + newCol.h) - c.y;
-		//double interseccionAb = newCol.y - (c.y + c.h);
-		//double interseccionY = abs(interseccionAr) < abs(interseccionAb) ? interseccionAr : interseccionAb;
-
-		////Aplicamos la menor interseccion, que es la que tiene
-		//if (abs(interseccionX) < abs(interseccionY)) {
-		//	newPos.setX(newPos.getX() - interseccionX);
-		//	newCol.x -= interseccionX;
-		//}
-		//else {
-		//	newPos.setY(newPos.getY() - interseccionY);
-		//	newCol.y -= interseccionY;
-		//}
-
 		//Comprobamos Izquierda o Derecha
 		double interseccionIz = abs((rect.x + rect.w) - (c.x));
 		double interseccionDer = abs((rect.x) - (c.x + c.w));

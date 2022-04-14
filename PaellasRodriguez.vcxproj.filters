@@ -64,6 +64,8 @@
     <ClCompile Include="Scenes\Jornada.cpp" />
     <ClCompile Include="GameObjects\Ingredienteletal.cpp" />
     <ClCompile Include="Scenes\Tutorial.cpp" />
+    <ClCompile Include="Utils\ParticleExample.cpp" />
+    <ClCompile Include="Utils\ParticleSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
@@ -153,6 +155,8 @@
     <ClInclude Include="Scenes\Jornada.h" />
     <ClInclude Include="GameObjects\Ingredienteletal.h" />
     <ClInclude Include="Scenes\Tutorial.h" />
+    <ClInclude Include="Utils\ParticleSystem.h" />
+    <ClInclude Include="Utils\ParticleExample.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />

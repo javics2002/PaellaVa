@@ -9,8 +9,6 @@ private:
 	Paella* paella_;
 	float tiempoDeCoccion = 15000;
 
-
-
 	const int flechaCoccionX = 15;
 	const int flechaCoccionY = 15;
 
@@ -22,15 +20,9 @@ private:
 	SDL_Rect dest_1 = { (int)getX() -barraCoccionX/2 + flechaCoccionX/2,(int) getY() - (int) (getHeight()/ 1.5) - (int)(barraCoccionY /1.5),
 	flechaCoccionX, flechaCoccionY };
 
-
-
 public:
-
-
-
 	Fogon(Game* game, Vector2D<double> pos);
 	~Fogon() = default;
-	void update() override;
 	void render(SDL_Rect* cameraRect)override;
 	virtual bool receivePaella(Paella* pa) override;
 	virtual bool returnObject(Player* p) override;

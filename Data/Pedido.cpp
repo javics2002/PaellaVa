@@ -110,7 +110,7 @@ double Pedido::puntuarPedido(vector<Paella*> comanda)
 
 			//Variar puntuacion en funcion de la coccion de la paella.
 
-			switch (comanda[i]->getCoccoin()) {
+			switch (comanda[i]->getCoccion()) {
 			case Cruda:
 				variarPuntuacion(valorarC.cruda, i);
 				break;
