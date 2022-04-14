@@ -20,7 +20,7 @@ void InicioCinta::update()
 
 	if (sdlutils().virtualTimer().currTime() - initTime >= SPAWN_DELAY && isActive())
 	{
-		if (i < porcentajeletal)
+		if (i < porcentajeLetal)
 		{ 
 
 			Ingredienteletal* i= game->getObjectManager()->getPool<Ingredienteletal>(_p_INGREDIENTELETAL)->add(getPosition());

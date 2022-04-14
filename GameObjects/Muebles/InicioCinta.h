@@ -11,7 +11,7 @@ class InicioCinta : public Mueble
 	const double SPAWN_DELAY = 2000;
 	double initTime;
 
-	int porcentajeletal = 120; //numeros aleatorios entre 1 y 100 el x% que quieras sonn menores qeu esto
+	int porcentajeLetal = 120; //numeros aleatorios entre 1 y 100 el x% que quieras sonn menores qeu esto
 
 	bool host = true;
 
