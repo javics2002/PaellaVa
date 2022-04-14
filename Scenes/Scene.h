@@ -12,6 +12,12 @@
 
 class Player;
 
+
+enum States {
+	cogerClientes, dejarClientesMesa, cogePaellera, dejaPaellera, cogerIngrediente,
+	procesarIngrediente, dejarIngredientePaella, cocinarPaella, darDeComerPaella
+};
+
 class Scene {
 
 protected:
@@ -19,6 +25,7 @@ protected:
 	ObjectManager* objectManager;
 	Camera* camara;
 
+	States currentState = cogerClientes;
 	UIManager* uiManager;
 
 	Imagen* fondo;
@@ -34,6 +41,9 @@ public:
 	virtual void render();
 	virtual void debug();
 	virtual void addPuntuaciones(double puntosComanda) {};
+	virtual void changeState(States state) {};
+	virtual States getState() { return currentState; };
+
 
 	ObjectManager* getObjectManager();
 	UIManager* getUIManager();

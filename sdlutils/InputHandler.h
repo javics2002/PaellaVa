@@ -91,7 +91,6 @@ public:
 				break;
 			case SDL_KEYUP:
 				onKeyboardUp(event.key.keysym.scancode);
-				
 				break;
 			case SDL_MOUSEMOTION:
 				onMouseMotion(event);
@@ -105,6 +104,9 @@ public:
 			case SDL_JOYAXISMOTION:
 				onJoystickMotion(event);
 				break;
+			/*case SDL_WINDOWEVENT:
+				keyPressed[CANCEL] = true;
+				break;*/
 			case SDL_QUIT:
 				exit = true;
 				break;

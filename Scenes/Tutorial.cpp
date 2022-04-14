@@ -1,4 +1,4 @@
-﻿#include "Jornada.h"
+﻿#include "Tutorial.h"
 #include "../GameObjects/GrupoClientes.h"
 #include "../GameObjects/Player.h"
 #include "../GameObjects/Paella.h"
@@ -18,44 +18,35 @@
 
 using namespace std;
 
-Jornada::Jornada(Game* game, string tilemap, int numeroJornada, bool host_) : Scene(game)
+
+Tutorial::Tutorial(Game* game, string tilemap) : Scene(game)
 {
 	this->game = game;
-	nJornada = numeroJornada;
 
-	host = host_;
+	//auto startButton = new UiButton(game, "start", 640, 100, 100, 100);
+	//startButton->setInitialDimension(100, 100);
+	//startButton->setAction([this, startButton](Game* game, bool& exit) {
+	//	sdlutils().soundEffects().at("select").play(0, game->UI);
 
-	auto startButton = new UiButton(game, "start", 640, 100, 100, 100);
-	startButton->setInitialDimension(100, 100);
-	startButton->setAction([this, startButton](Game* game, bool& exit) {
-		sdlutils().soundEffects().at("select").play(0, game->UI);
+	//	uiManager->addTween(0.9f, 1.0f, 600.0f).via(easing::exponentialOut).onStep([game, startButton, this](tweeny::tween<float>& t, float) mutable {
+	//		startButton->setDimension(t.peek() * startButton->getInitialWidth(), t.peek() * startButton->getInitialHeight());
 
-		uiManager->addTween(0.9f, 1.0f, 600.0f).via(easing::exponentialOut).onStep([game, startButton,this](tweeny::tween<float>& t, float) mutable {
-			startButton->setDimension(t.peek() * startButton->getInitialWidth(), t.peek() * startButton->getInitialHeight());
+	//		if (t.progress() > .2f) {
+	//			//Start game
+	//			game->changeScene(new Tutorial(game, 0));
+	//			return true;
+	//		}
+	//		return false;
+	//		});
+	//	});
 
-			if (t.progress() > .2f) {
-				//Start game
-				game->changeScene(new GameOver(game, 0, nJornada));
-				return true;
-			}
-			return false;
-			});
-		});
+	//uiManager->addInterfaz(startButton);
 
-	uiManager->addInterfaz(startButton);
+	Player* p = new Player(game, false);
+	objectManager->addPlayer(p);
 
-	// crear player dependiendo si es cocinera o no
-	if (host) {
-		Player* p = new Player(game, true);
-		objectManager->addPlayer(p);
-	}
-	else {
-		Player* p = new Player(game, false);
-		objectManager->addPlayer(p);
-	}
-	
 
-	mapInfo.ruta = "..\\..\\..\\Assets\\Tilemap\\"+tilemap+".tmx";
+	mapInfo.ruta = "..\\..\\..\\Assets\\Tilemap\\" + tilemap + ".tmx";
 	loadMap(mapInfo.ruta);
 
 	fondo->setTexture(mapInfo.ruta);
@@ -73,13 +64,19 @@ Jornada::Jornada(Game* game, string tilemap, int numeroJornada, bool host_) : Sc
 	uiManager->addInterfaz(new Reloj(game));
 
 	objectManager->initMuebles();
+
+	changeState(cogerClientes);
 }
 
-Jornada::~Jornada()
+Tutorial::~Tutorial()
 {
+	delete objectManager;
+	delete fondo;
+	delete camara;
 }
 
-void Jornada::handleInput(bool& exit)
+
+void Tutorial::handleInput(bool& exit)
 {
 	Scene::handleInput(exit);
 
@@ -95,49 +92,70 @@ void Jornada::handleInput(bool& exit)
 	}
 }
 
-void Jornada::update()
+void Tutorial::update()
 {
 	if (!paused) {
 		objectManager->update();
 
-		Player* player = objectManager->getHost();
-		if (player != nullptr) {
-			if (player->getX() > tamRestaurante.getY() + TILE_SIZE) { // tamRestaurante es un rango, no una posición, por eso tengo que hacer getY()
-				camara->Lerp(Vector2D<float>(tamRestaurante.getY(), 16), LERP_INTERPOLATION);
-			}
-			else if (player->getX() < tamRestaurante.getY()) {
-				camara->Lerp(Vector2D<float>(tamRestaurante.getX(), 16), LERP_INTERPOLATION);
-			}
+		if (objectManager->getHost()->getX() > tamRestaurante.getY() + TILE_SIZE) { // tamRestaurante es un rango, no una posición, por eso tengo que hacer getY()
+			camara->Lerp(Vector2D<float>(tamRestaurante.getY(), 16), LERP_INTERPOLATION);
+		}
+		else if (objectManager->getHost()->getX() < tamRestaurante.getY()) {
+			camara->Lerp(Vector2D<float>(tamRestaurante.getX(), 16), LERP_INTERPOLATION);
 		}
 	}
-
 	uiManager->update(paused);
 }
 
+void Tutorial::changeState(States state_)
+{
+	currentState = state_;
+	switch (currentState)
+	{
+	case cogerClientes: 
+	{
+		objectManager->getPuerta()->setActive(true);
+		objectManager->getCartel()->setActive(true);
+		break;
+	}
+	case dejarClientesMesa:
+	{
+		objectManager->getPuerta()->setActive(false);
+		objectManager->getCartel()->setActive(false);
+		for (auto i : objectManager->getMesas())
+			i->setActive(true);
+		for (auto i : objectManager->getSillas())
+			i->setActive(true);
+		break;
+	}
+	case 2:
+	{
 
-void Jornada::refresh()
+	}
+	case 3:
+	{
+
+	}
+	default:
+		break;
+	}
+}
+
+States Tutorial::getState()
+{
+	return currentState;
+}
+
+
+void Tutorial::refresh()
 {
 	if (!paused) {
 		objectManager->refresh();
 	}
 }
 
-void Jornada::addPuntuaciones(double puntosComanda)
-{
-	puntuacionesComandas.push_back(puntosComanda);
-	cout << "puntos paella" << puntuacionesComandas.back() << endl;
-}
 
-void Jornada::mediaPuntuaciones()
-{
-	int sumaMedia = 0;
-	for (auto i : puntuacionesComandas) {
-		sumaMedia += i;
-	}
-	puntuaciónTotal = sumaMedia / puntuacionesComandas.size();
-}
-
-void Jornada::loadMap(string const& path)
+void Tutorial::loadMap(string const& path)
 {
 	//Cargamos el mapa .tmx del archivo indicado
 	mapInfo.tilemap = new tmx::Map();
@@ -284,38 +302,56 @@ void Jornada::loadMap(string const& path)
 				if (name == "mesaS") { // 1 tile
 					Mesa* m = new Mesa(game, position, { 1, 2 }, { 1 , 1 }, name);
 					getObjectManager()->addMueble(m);
+					getObjectManager()->addMesa(m);
+					m->setActive(false);
 				}
 				else if (name == "mesaMH") { // 2 tiles horizontal
 					Mesa* m = new Mesa(game, position, { 2, 2 }, { 2 , 1 }, name);
 					getObjectManager()->addMueble(m);
+					getObjectManager()->addMesa(m);
+					m->setActive(false);
 				}
 				else if (name == "mesaMV") { // 2 tiles vertical
 					Mesa* m = new Mesa(game, position, { 1, 3 }, { 1 , 2 }, name);
 					getObjectManager()->addMueble(m);
+					getObjectManager()->addMesa(m);
+					m->setActive(false);
 				}
 				else if (name == "mesaL") { // 4 tiles
 					Mesa* m = new Mesa(game, position, { 2, 4 }, { 2 , 2 }, name);
 					getObjectManager()->addMueble(m);
+					getObjectManager()->addMesa(m);
+					m->setActive(false);
 				}
 				else if (name == "sillaIz" || name == "sillaDer") {
 					Silla* s = new Silla(game, position, name, +1);
 					getObjectManager()->addMueble(s);
+					getObjectManager()->addSilla(s);
+					s->setActive(false);
 				}
 				else if (name == "sillaAr") {
 					Silla* s = new Silla(game, position, name, -1);;
 					getObjectManager()->addMueble(s);
+					getObjectManager()->addSilla(s);
+					s->setActive(false);
 				}
 				else if (name == "sillaAb") {
 					Silla* s = new Silla(game, position, name, +1);
 					getObjectManager()->addMueble(s);
+					getObjectManager()->addSilla(s);
+					s->setActive(false);
 				}
 				else if (name == "fogon") {
 					Fogon* f = new Fogon(game, position);
 					getObjectManager()->addMueble(f);
+					f->setActive(false);
+
 				}
 				else if (name == "lavavajillas") {
 					Lavavajillas* l = new Lavavajillas(game, position);
 					getObjectManager()->addMueble(l);
+					l->setActive(false);
+
 				}
 				else if (name == "cinta") {
 					Cinta* c = new Cinta(game, position);
@@ -325,40 +361,54 @@ void Jornada::loadMap(string const& path)
 					}
 					else c->setCollider(aux);
 					getObjectManager()->addMueble(c);
+					getObjectManager()->addCinta(c);
+					c->setActive(false);
 				}
 				else if (name == "inicioCinta") {
-					InicioCinta* c = new InicioCinta(game, position, host);
+					InicioCinta* c = new InicioCinta(game, position,true);
 					c->setVel(Vector2D<double>((double)p[1].getFloatValue(), (double)p[2].getFloatValue()));
 					getObjectManager()->addMueble(c);
+					c->setActive(false);
 				}
 				else if (name == "finalCinta") {
 					FinalCinta* c = new FinalCinta(game, position);
 					getObjectManager()->addMueble(c);
+					c->setActive(false);
 				}
 				else if (name == "puerta") {
-					Puerta* puerta = new Puerta(game, position,p[4].getBoolValue(),p[3].getIntValue(),p[0].getIntValue(), host);
+					Puerta* puerta = new Puerta(game, position, p[4].getBoolValue(), p[3].getIntValue(), p[0].getIntValue(),true);
 					puerta->setVel(Vector2D<double>((double)p[1].getFloatValue(), (double)p[2].getFloatValue()));
 					getObjectManager()->addMueble(puerta);
+					getObjectManager()->addPuerta(puerta);
+					puerta->setActive(false);
 				}
 				else if (name == "cartel") {
 					Cartel* c = new Cartel(game, position);
 					getObjectManager()->addMueble(c);
+					getObjectManager()->addCartel(c);
+					c->setActive(false);
 				}
 				else if (name == "tabla") {
 					TablaProcesado* t = new TablaProcesado(game, position);
 					getObjectManager()->addMueble(t);
+					t->setActive(false);
 				}
 				else if (name == "encimera") {
 					Encimera* e = new Encimera(game, position);
 					getObjectManager()->addMueble(e);
+					getObjectManager()->addEncimera(e);
+					e->setActive(false);
 				}
 				else if (name == "ventanilla") {
 					Ventanilla* v = new Ventanilla(game, position, camara->renderRect());
 					getObjectManager()->addMueble(v);
+					getObjectManager()->addVentanilla(v);
+					v->setActive(false);
 				}
 				else if (name == "arroz") {
 					BolsaArroz* b = new BolsaArroz(game, position);
 					getObjectManager()->addMueble(b);
+					b->setActive(false);
 				}
 				else if (name == "pared") {
 					Pared* p = new Pared(game, position);
@@ -369,16 +419,19 @@ void Jornada::loadMap(string const& path)
 				{
 					Pila* p = new Pila(game, position, TipoPaella::Pequena, 4);
 					getObjectManager()->addMueble(p);
+					p->setActive(false);
 				}
 				else if (name == "pilaM")
 				{
 					Pila* p = new Pila(game, position, TipoPaella::Mediana, 5);
 					getObjectManager()->addMueble(p);
+					p->setActive(false);
 				}
 				else if (name == "pilaL")
 				{
 					Pila* p = new Pila(game, position, TipoPaella::Grande, 3);
 					getObjectManager()->addMueble(p);
+					p->setActive(false);
 				}
 			}
 		}
@@ -392,7 +445,7 @@ void Jornada::loadMap(string const& path)
 	}
 }
 
-void Jornada::togglePause()
+void Tutorial::togglePause()
 {
 	uiManager->togglePause();
 

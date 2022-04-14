@@ -14,10 +14,12 @@ void Cartel::update()
 
 SDL_Rect Cartel::getOverlap()
 {
-	return SDL_Rect();
+	if (isActive())return getTexBox();
+	return { 0,0,0,0 };
 }
 
 SDL_Rect Cartel::getCollider()
 {
-	return getTexBox();
+	if(isActive())return getTexBox();
+	return { 0,0,0,0 };
 }

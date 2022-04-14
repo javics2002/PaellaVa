@@ -62,12 +62,13 @@ SDL_Rect Silla::getCollider()
 {
 	SDL_Rect rect = getTexBox();
 
-	return {
+	if (isActive())return {
 		rect.x,
 		rect.y + rect.h / 2,
 		rect.w,
 		rect.h / 2
 	};
+	return { 0,0,0,0 };
 }
 
 Vector2D<double> Silla::setClientPos()

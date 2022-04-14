@@ -18,7 +18,7 @@ void InicioCinta::update()
 
 	int i = rand() % 1000;
 
-	if (sdlutils().virtualTimer().currTime() - initTime >= SPAWN_DELAY)
+	if (sdlutils().virtualTimer().currTime() - initTime >= SPAWN_DELAY && isActive())
 	{
 		if (i < porcentajeletal)
 		{ 
@@ -40,7 +40,8 @@ void InicioCinta::update()
 
 SDL_Rect InicioCinta::getCollider()
 {
-	return getTexBox();
+	if(isActive())return getTexBox();
+	return { 0,0,0,0 };
 }
 
 SDL_Rect InicioCinta::getOverlap()

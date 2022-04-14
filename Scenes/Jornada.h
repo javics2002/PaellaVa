@@ -25,6 +25,7 @@ struct MapInfo {
 	int filas, columnas;
 	int anchoTile, altoTile;
 	int anchoFondo, altoFondo;
+	bool tutorial = false;
 	unordered_map<uint, Texture*> tilesets;
 
 	MapInfo() {

@@ -24,6 +24,7 @@ UIManager::UIManager(Game* game)
 	this->game = game;
 	anchobotones *= uiscale;
 
+	barra = nullptr;
 }
 
 UIManager::~UIManager()
@@ -43,21 +44,15 @@ UIManager::~UIManager()
 		delete i;
 		i = nullptr;
 	}
+	
+	delete barra;
+	barra = nullptr;
+
+	activeTweens.clear();
 }
 
 void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 {
-	for (int i = 0; i < interfaz.size(); ++i)
-	{
-		if (interfaz[i]->isActive() && !paused)
-		{
-			if (interfaz[i]->onClick(mx, my, exit))
-			{
-				mx = -1;
-				my = -1;
-			}
-		}
-	}
 	for (auto j : teclado)
 	{
 		if (j->isActive() && !paused)
@@ -86,7 +81,6 @@ void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 	{
 		for (auto c : barra->getlista())
 		{
-			
 			if (c->getEliminabutton()->onClick(mx, my, exit))
 			{
 				mx = -1;
@@ -100,7 +94,7 @@ void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 		}
 	}
 
-	for (auto i : pauseButtons)
+ 	for (auto i : pauseButtons)
 	{
 		if (i->isActive())
 		{
@@ -149,6 +143,18 @@ void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 			if (SDL_PointInRect(&mouseP, &sliderColl) == SDL_TRUE) {
 				escribiendoNombre = !escribiendoNombre;
 				ih().clearInputBuffer();
+			}
+		}
+	}
+
+	for (int i = 0; i < interfaz.size(); ++i)
+	{
+		if (interfaz[i]->isActive() && !paused)
+		{
+			if (interfaz[i]->onClick(mx, my, exit))
+			{
+				mx = -1;
+				my = -1;
 			}
 		}
 	}
@@ -229,17 +235,23 @@ void UIManager::update(bool paused)
 		initTime = sdlutils().currRealTime();
 	}
 
-	auto i = activeTweens.begin();
-	while (i != activeTweens.end()) {
-		i->step(20);
+	try {
+		auto i = activeTweens.begin();
+		while (i != activeTweens.end()) {
+			i->step(20);
 
-		//Si el tween ha acabado, lo saco de la lista de tweens
-		if (i->progress() == 1) {
-			//Erase devuelve el iterador al siguiente tween
-			i = activeTweens.erase(i);
+			//Si el tween ha acabado, lo saco de la lista de tweens
+			if (i->progress() == 1) {
+				//Erase devuelve el iterador al siguiente tween
+				i = activeTweens.erase(i);
+			}
+			else
+				i++;
 		}
-		else 
-			i++;
+	}
+	catch (...) {
+		/*Un tween puede cambiar de escena, y este UI manager se borraría.
+		No tiene sentido continuar estas instrucciones*/
 	}
 }
 

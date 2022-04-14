@@ -1,14 +1,9 @@
 #include "ObjectManager.h"
-#include "../GameObjects/Muebles/InicioCinta.h"
-#include "../GameObjects/Muebles/FinalCinta.h"
-#include "../GameObjects/Muebles/Puerta.h"
 #include  "../GameObjects/UI/RedactaComandabutton.h"
 #include "../Data/Comanda.h"
 #include "../GameObjects/Muebles/cartel.h"
 #include "../Utils/Vector2D.h"
-#include "../GameObjects/Ingrediente.h"
-#include "../GameObjects/Ingredienteletal.h"
-#include "../Scenes/Restaurante.h"
+
 
 ObjectManager::ObjectManager(Game* game) : game(game)
 {
@@ -34,6 +29,7 @@ ObjectManager::~ObjectManager()
 
 	for (auto i : pools) {
 		delete i;
+		i = nullptr;
 	}
 }
 
@@ -163,3 +159,75 @@ void ObjectManager::initMuebles()
 		i->init(this);
 }
 
+void ObjectManager::addSilla(Silla* s)
+{
+	sillas.push_back(s);
+}
+
+void ObjectManager::addMesa(Mesa* m)
+{
+	mesas.push_back(m);
+}
+
+void ObjectManager::addVentanilla(Ventanilla* v)
+{
+	ventanillas.push_back(v);
+}
+
+void ObjectManager::addEncimera(Encimera* e)
+{
+	encimeras.push_back(e);
+}
+
+
+void ObjectManager::addCinta(Cinta* c)
+{
+	cintas.push_back(c);
+}
+
+void ObjectManager::addCartel(Cartel* c)
+{
+	cartel = c;
+}
+
+void ObjectManager::addPuerta(Puerta* p)
+{
+	puerta = p;
+}
+
+vector<Silla*> ObjectManager::getSillas()
+{
+	return sillas;
+}
+
+vector<Mesa*> ObjectManager::getMesas()
+{
+	return mesas;
+}
+
+vector<Encimera*> ObjectManager::getEncimeras()
+{
+	return encimeras;
+}
+
+vector<Ventanilla*> ObjectManager::getVentanilla()
+{
+	return ventanillas;
+}
+
+
+
+vector<Cinta*> ObjectManager::getCintas()
+{
+	return cintas;
+}
+
+Cartel* ObjectManager::getCartel()
+{
+	return cartel;
+}
+
+Puerta* ObjectManager::getPuerta()
+{
+	return puerta;
+}

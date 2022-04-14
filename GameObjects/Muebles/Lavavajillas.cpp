@@ -9,7 +9,7 @@ Lavavajillas::Lavavajillas(Game* game, Vector2D<double> pos) : Mueble(game, pos,
 
 void Lavavajillas::update()
 {
-	if (!pilaPaellas.empty())
+	if (!pilaPaellas.empty() && isActive())
 		lavando();
 }
 
@@ -70,26 +70,30 @@ bool Lavavajillas::returnObject(Player* p)
 
 void Lavavajillas::render(SDL_Rect* camera)
 {
-	SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, getWidth(),
-		getHeight() };
+	if (isActive()) {
+		SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, getWidth(),
+			getHeight() };
 
-	drawRender(camera, dest, &sdlutils().images().at("lavavajillas"));
+		drawRender(camera, dest, &sdlutils().images().at("lavavajillas"));
 
-	if (!pilaPaellas.empty() && pilaPaellas.front()->getContenido() == Sucia && i != 0) {
+		if (!pilaPaellas.empty() && pilaPaellas.front()->getContenido() == Sucia && i != 0) {
 
-		SDL_Rect dest_ = { getX() + getWidth() / 2, getY() - getHeight() / 2, timerDimension, timerDimension };
+			SDL_Rect dest_ = { getX() + getWidth() / 2, getY() - getHeight() / 2, timerDimension, timerDimension };
 
-		drawRender(camera, dest_, &sdlutils().images().at("timer"), clip);
+			drawRender(camera, dest_, &sdlutils().images().at("timer"), clip);
+		}
 	}
 }
 
 SDL_Rect Lavavajillas::getOverlap()
 {
-	return getTexBox();
+	if(isActive())return getTexBox();
+	return { 0,0,0,0 };
 }
 
 SDL_Rect Lavavajillas::getCollider()
 {
-	return getTexBox();
+	if (isActive())return getTexBox();
+	return { 0,0,0,0 };
 }
 

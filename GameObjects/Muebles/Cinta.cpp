@@ -3,7 +3,7 @@
 Cinta::Cinta(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE,  TILE_SIZE, "cinta")
 {
 	//Este sonido es m�s bajo
-	sdlutils().soundEffects().at("cinta").setVolume(32);
+	sdlutils().soundEffects().at("cinta").setVolume(2);
 	canalSonido = sdlutils().soundEffects().at("cinta").play(-1);
 
 	clip.x = 0;
@@ -26,7 +26,8 @@ Cinta::~Cinta()
 
 SDL_Rect Cinta::getCollider()
 {
-	return cintaCollider;
+	if(isActive())return cintaCollider;
+	return { 0,0,0,0 };
 }
 
 void Cinta::setCollider(SDL_Rect r)
@@ -42,14 +43,16 @@ SDL_Rect Cinta::getOverlap()
 
 void Cinta::update()
 {
-	if (sdlutils().currRealTime() - lastFrameTime > frameRate)
+	if (sdlutils().currRealTime() - lastFrameTime > frameRate && isActive())
 		animUpdate();
 }
 
 void Cinta::render(SDL_Rect* cameraRect)
 {
-	SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, w, h };
-	drawRender(cameraRect, dest, texture, clip);
+	if (isActive()) {
+		SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, w, h };
+		drawRender(cameraRect, dest, texture, clip);
+	}
 }
 
 void Cinta::animUpdate()

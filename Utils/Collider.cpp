@@ -2,6 +2,7 @@
 
 bool Collider::hasCollision(SDL_Rect rect1, SDL_Rect rect2)
 {
+
 	return SDL_HasIntersection(&rect1, &rect2);
 }
 

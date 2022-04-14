@@ -2,6 +2,7 @@
 
 #include "../sdlutils/InputHandler.h"
 #include "../Control/Game.h"
+#include "../Scenes/Scene.h"
 #include "../Control/ObjectManager.h"
 
 #include "Ingrediente.h"
@@ -11,7 +12,7 @@
 #include "../Utils/Traza.h"
 
 
-Player::Player(Game* game) : GameObject(game), objectType_(INGREDIENTE), pickedObject_(nullptr),
+Player::Player(Game* game, bool chef) : GameObject(game), objectType_(INGREDIENTE), pickedObject_(nullptr), chef_(chef),
 	overlapPos(Vector2D<double>(getX() - overlapPos.getX() / 2, getY() - getHeight() / 2 - overlapDim.getY())),
 	overlapDim(Vector2D<int>(50, 50))
 {
@@ -107,8 +108,10 @@ void Player::handleInput()
 				}
 				//Grupo de Clientes
 				for (auto i : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getOverlaps(getOverlap())) {
-					if (i->isActive() && i->canPick() && nearestObject(i))
+					if (i->isActive() && i->canPick() && nearestObject(i)) {
 						objectType_ = CLIENTES;
+						game->getCurrentScene()->changeState(States::dejarClientesMesa);
+					}
 				}
 
 				//Una vez encontrado el m�s cercano, se interact�a con �l
@@ -179,7 +182,7 @@ void Player::handleInput(Vector2D<double> axis)
 		vel.setY(vel.getY() + axis.getY() * aceleracion);
 
 		currAnim = 5;
-		frameCounter = 0;
+		frameCounter = 0; 
 	}
 	else if (axis.getY() < -.1f) {
 		vel.setY(vel.getY() + axis.getY() * aceleracion);
@@ -197,70 +200,57 @@ void Player::handleInput(Vector2D<double> axis)
 void Player::update()
 {
 	//Próxima posición
-	SDL_Rect rect = getCollider();	
+	SDL_Rect newCol = getCollider();
+	newCol.x += vel.getX();
+	newCol.y += vel.getY();
 
-	Vector2D<double> newColPos = Vector2D<double>(rect.x + rect.w / 2, rect.y + rect.h / 2);
+	SDL_Rect rect = getCollider();
+
 	Vector2D<double> newPos = pos + vel;
 
-	for (auto i : game->getObjectManager()->getMueblesCollisions(rect)) {
-
-		////Comprobamos Izquierda o Derecha
-		//double interseccionIz = abs((rect.x + rect.w) - (c.x));
-		//double interseccionDer = abs((rect.x) - (c.x + c.w));
-		//bool bIz = interseccionIz < interseccionDer ? 1 : 0;
-		//double interseccionX = bIz ? interseccionIz : interseccionDer;
-
-		////Comprobamos Arriba o Abajo
-		//double interseccionAr = abs((rect.y + rect.h) - (c.y));
-		//double interseccionAb = abs((rect.y) - (c.y + c.h));
-		//bool bAr = interseccionAr < interseccionAb ? 1 : 0;
-		//double interseccionY = bAr ? interseccionAr : interseccionAb;
-
-		////Combrobamos Horizontal o Vertical, y aplicamos el cambio
-		//if (interseccionX < interseccionY) {
-		//	//cout << "Horizontal" << endl;
-		//	if (bIz) {
-		//		//cout << "Izquierda" << endl;
-		//		newPos = Vector2D<double>(c.x - rect.w - ((rect.w - getWidth()) / 2), newPos.getY());
-		//	}				
-		//	else {
-		//		//cout << "Derecha" << endl;
-		//		newPos = Vector2D<double>(c.x + c.w - ((rect.w - getWidth()) / 2),  newPos.getY());
-		//	}			
-		//}			
-		//else {
-		//	//cout << "Vertical" << endl;
-		//	if (bAr) {
-		//		//cout << "Arriba" << endl;
-		//		newPos = Vector2D<double>(newPos.getX(), c.y - getHeight() / 2);
-		//	}
-		//	else
-		//	{
-		//		//cout << "Abajo" << endl;
-		//		newPos = Vector2D<double>(newPos.getX(), c.y + c.h + rect.h - getHeight() / 2);
-		//	} 
-		//}		
-
+	for (auto i : game->getObjectManager()->getMueblesCollisions(newCol)) {
 		//Cuando colisiono con un mueble
 		SDL_Rect c = i->getCollider();	
 
-		//Comprobamos por la izquierda y la derecha
-		/*La intersección que busco es mas pequeña desde la izquierda y la derecha para
-		que nos reposicione donde acabamos de entrar al mueble*/
-		int interseccionIz = (newColPos.getX() + getCollider().w / 2) - c.x;
-		int interseccionDer = (newColPos.getX() - getCollider().w / 2) - (c.x + c.w);
-		int interseccionX = abs(interseccionIz) < abs(interseccionDer) ? interseccionIz : interseccionDer;
+		////Comprobamos por la izquierda y la derecha
+		///*La intersección que busco es mas pequeña desde la izquierda y la derecha para
+		//que nos reposicione donde acabamos de entrar al mueble*/
+		//double interseccionIz = (newCol.x + newCol.w) - c.x;
+		//double interseccionDer = newCol.x - (c.x + c.w);
+		//double interseccionX = abs(interseccionIz) < abs(interseccionDer) ? interseccionIz : interseccionDer;
 
-		//Lo mismo por arriba y por abajo
-		int interseccionAr = (newColPos.getY() + getCollider().h / 2) - c.y;
-		int interseccionAb = (newColPos.getY() - getCollider().h / 2) - (c.y + c.h);
-		int interseccionY = abs(interseccionAr) < abs(interseccionAb) ? interseccionAr : interseccionAb;
+		////Lo mismo por arriba y por abajo
+		//double interseccionAr = (newCol.y + newCol.h) - c.y;
+		//double interseccionAb = newCol.y - (c.y + c.h);
+		//double interseccionY = abs(interseccionAr) < abs(interseccionAb) ? interseccionAr : interseccionAb;
 
-		//Aplicamos la menor interseccion, que es la que tiene
-		if (abs(interseccionX) < abs(interseccionY))
-			newPos = newPos - Vector2D<double>(interseccionX, 0);
+		////Aplicamos la menor interseccion, que es la que tiene
+		//if (abs(interseccionX) < abs(interseccionY)) {
+		//	newPos.setX(newPos.getX() - interseccionX);
+		//	newCol.x -= interseccionX;
+		//}
+		//else {
+		//	newPos.setY(newPos.getY() - interseccionY);
+		//	newCol.y -= interseccionY;
+		//}
+
+		//Comprobamos Izquierda o Derecha
+		double interseccionIz = abs((rect.x + rect.w) - (c.x));
+		double interseccionDer = abs((rect.x) - (c.x + c.w));
+		bool bIz = interseccionIz < interseccionDer;
+		double interseccionX = bIz ? interseccionIz : interseccionDer;
+
+		//Comprobamos Arriba o Abajo
+		double interseccionAr = abs((rect.y + rect.h) - (c.y));
+		double interseccionAb = abs((rect.y) - (c.y + c.h));
+		bool bAr = interseccionAr < interseccionAb;
+		double interseccionY = bAr ? interseccionAr : interseccionAb;
+
+		//Combrobamos Horizontal o Vertical, y aplicamos el cambio
+		if (interseccionX < interseccionY)
+			newPos.setX(bIz ? c.x - rect.w / 2 : c.x + c.w + rect.w / 2);
 		else
-			newPos = newPos - Vector2D<double>(0, interseccionY);
+			newPos.setY(bAr ? c.y - getHeight() / 2 : c.y + c.h - rect.h / 2);
 	}
 
 	//Nos movemos al nuevo sitio
@@ -408,13 +398,29 @@ void Player::animUpdate()
 
 void Player::setAnimResources()
 {
-	anims.push_back(&sdlutils().images().at("cocineraIdleDown"));
-	anims.push_back(&sdlutils().images().at("cocineraIdleSide"));
-	anims.push_back(&sdlutils().images().at("cocineraIdleUp"));
+	if (chef_) {
 
-	anims.push_back(&sdlutils().images().at("cocineraWalkDown"));
-	anims.push_back(&sdlutils().images().at("cocineraWalkSide"));
-	anims.push_back(&sdlutils().images().at("cocineraWalkUp"));
+		anims.push_back(&sdlutils().images().at("cocineraIdleDown"));
+		anims.push_back(&sdlutils().images().at("cocineraIdleSide"));
+		anims.push_back(&sdlutils().images().at("cocineraIdleUp"));
+
+		anims.push_back(&sdlutils().images().at("cocineraWalkDown"));
+		anims.push_back(&sdlutils().images().at("cocineraWalkSide"));
+		anims.push_back(&sdlutils().images().at("cocineraWalkUp"));
+	
+	}
+
+	else {
+
+		anims.push_back(&sdlutils().images().at("camareroIdleDown"));
+		anims.push_back(&sdlutils().images().at("camareroIdleSide"));
+		anims.push_back(&sdlutils().images().at("camareroIdleUp"));
+												 
+		anims.push_back(&sdlutils().images().at("camareroWalkDown"));
+		anims.push_back(&sdlutils().images().at("camareroWalkSide"));
+		anims.push_back(&sdlutils().images().at("camareroWalkUp"));
+
+	}
 }
 
 SDL_Rect Player::getOverlap()
@@ -486,7 +492,7 @@ void Player::setPickedObject(ObjetoPortable* op, objectType ot)
 SDL_Rect Player::getCollider()
 {
 	SDL_Rect rect = getTexBox();
-
+	
 	return { rect.x + rect.w / 4, 
 		rect.y + rect.h / 3 * 2, 
 		rect.w / 2, 
