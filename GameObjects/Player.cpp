@@ -3,6 +3,7 @@
 #include "../sdlutils/InputHandler.h"
 #include "../Control/Game.h"
 #include "../Scenes/Scene.h"
+#include "../Scenes/Tutorial.h"
 #include "../Control/ObjectManager.h"
 
 #include "Ingrediente.h"
@@ -110,7 +111,9 @@ void Player::handleInput()
 				for (auto i : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getOverlaps(getOverlap())) {
 					if (i->isActive() && i->canPick() && nearestObject(i)) {
 						objectType_ = CLIENTES;
-						game->getCurrentScene()->changeState(States::dejarClientesMesa);
+						if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState()==States::cogerClientes) {
+							game->getCurrentScene()->changeState(States::pausaClientes);
+						}
 					}
 				}
 

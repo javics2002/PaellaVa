@@ -3,7 +3,7 @@
 #include "../GameObjects/UI/Numerobutton.h"
 #include "../GameObjects/UI/Tamanobutton.h"
 #include  "../GameObjects/UI/EliminaComandaButton.h"
-
+#include "../Scenes/Tutorial.h"
 #include "../Control/Game.h"
 #include "../Control/ObjectManager.h"
 #include "../GameObjects/UI/UIManager.h"
@@ -314,6 +314,9 @@ void Comanda::aceptaPaella()
 void Comanda::enviaComanda()
 {
 	uiManager->getBarra()->AñadeComanda(this);
+	if (dynamic_cast<Tutorial*>(game->getCurrentScene())) {
+		game->getCurrentScene()->changeState(States::pausaPedido);
+	}
 	cancelaPedido();
 	toggleTecaldotam(false);
 	toggleTeclado(false);

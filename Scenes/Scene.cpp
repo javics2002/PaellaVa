@@ -23,6 +23,7 @@ void Scene::handleInput(bool& exit)
 {
 	objectManager->handleInput(exit);
 	uiManager->handleInput(exit, paused);
+
 }
 
 void Scene::update()
@@ -37,6 +38,7 @@ void Scene::render()
 	objectManager->render(camara->renderRect());
 	uiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
 }
+
 
 void Scene::debug()
 {

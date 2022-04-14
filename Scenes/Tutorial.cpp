@@ -5,10 +5,8 @@
 #include "../GameObjects/Ingrediente.h"
 #include "../GameObjects/Muebles/Pila.h"
 #include "../GameObjects/Muebles/MueblesInclude.h"
-#include  "../GameObjects/UI/RedactaComandabutton.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../Control/Game.h"
-#include "../Data/ListaComandas.h"
 #include "../GameObjects/UI/Reloj.h"
 #ifdef _DEBUG
 #include "../Scenes/GameOver.h"
@@ -56,16 +54,21 @@ Tutorial::Tutorial(Game* game, string tilemap) : Scene(game)
 	// camara init
 	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
 
-	uiManager->addInterfaz(new RedactaComandabutton(game, uiManager, "redactaboton", 10, 10, 30, 30));
-	uiManager->setBarra(new ListaComandas(game, uiManager));
 
 	uiManager->creaMenuPausa();
 
 	uiManager->addInterfaz(new Reloj(game, -1));
+	uiManager->addInterfaz(cuadroTexto);
+	cuadroTexto->setActive(false);
 
 	objectManager->initMuebles();
 
 	changeState(cogerClientes);
+
+	uiManager->addInterfaz(rC);
+	uiManager->setBarra(lC);
+	rC->setActive(false);
+	lC->setActive(false);
 }
 
 Tutorial::~Tutorial()
@@ -90,6 +93,16 @@ void Tutorial::handleInput(bool& exit)
 		togglePause();
 #endif // _DEBUG
 	}
+
+	if (ih().getKey(InputHandler::J) && paused) {
+
+#ifdef _DEBUG
+		pauseTutorial();
+#else
+		//Abrir menú de pausa
+		pauseTutorial();
+#endif // _DEBUG
+	}
 }
 
 void Tutorial::update()
@@ -112,13 +125,18 @@ void Tutorial::changeState(States state_)
 	currentState = state_;
 	switch (currentState)
 	{
-	case cogerClientes: 
+	case 0: 
 	{
 		objectManager->getPuerta()->setActive(true);
 		objectManager->getCartel()->setActive(true);
 		break;
 	}
-	case dejarClientesMesa:
+	case 1:
+	{
+		pauseTutorial();
+		break;
+	}
+	case 2:
 	{
 		objectManager->getPuerta()->setActive(false);
 		objectManager->getCartel()->setActive(false);
@@ -128,14 +146,52 @@ void Tutorial::changeState(States state_)
 			i->setActive(true);
 		break;
 	}
-	case 2:
-	{
-
-	}
 	case 3:
 	{
-
+		pauseTutorial();
+		break;
 	}
+	case 4:
+	{		
+		rC->setActive(true);
+		lC->setActive(true);
+		break;
+	}
+	case 5:
+	{
+		pauseTutorial();
+		break;
+	}
+	case 6:
+	{
+		for (auto i : objectManager->getEncimeras())
+			i->setActive(true);
+		for (auto i : objectManager->getPilas())
+			i->setActive(true);
+		break;
+	}
+	case 7:
+	{
+		pauseTutorial();
+		break;
+	}
+	case 8:
+	{
+		for (auto i : objectManager->getPilas())
+			i->setActive(false);
+		break;
+	}
+	case 9:
+	{
+		pauseTutorial();
+		break;
+	}
+	case 10:
+	{
+		getObjectManager()->getBolsa()->setActive(true);
+		break;
+	}
+
 	default:
 		break;
 	}
@@ -151,6 +207,65 @@ void Tutorial::refresh()
 {
 	if (!paused) {
 		objectManager->refresh();
+	}
+}
+
+void Tutorial::render()
+{
+ 	fondo->render(camara->renderRect());
+	objectManager->render(camara->renderRect());
+	uiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
+	switch (currentState)
+	{
+	case 1:
+	{
+		cuadroTexto->setActive(true);
+		break;
+	}
+	case 2:
+	{
+		cuadroTexto->setActive(false);
+		break;
+	}
+	case 3: {
+		cuadroTexto->setActive(true);
+		break;
+	}
+	case 4:
+	{
+		cuadroTexto->setActive(false);
+		break;
+	}
+	case 5:
+	{
+		cuadroTexto->setActive(true);
+		break;
+	}
+	case 6: 
+	{
+		cuadroTexto->setActive(false);
+		break;
+	}
+	case 7: 
+	{
+		cuadroTexto->setActive(true);
+		break;
+	}
+	case 8:
+	{
+		cuadroTexto->setActive(false);
+		break;
+	}
+	case 9:
+	{
+		cuadroTexto->setActive(true);
+	}
+	case 10:
+	{
+		cuadroTexto->setActive(false);
+	}
+	default:
+		break;
 	}
 }
 
@@ -408,6 +523,7 @@ void Tutorial::loadMap(string const& path)
 				else if (name == "arroz") {
 					BolsaArroz* b = new BolsaArroz(game, position);
 					getObjectManager()->addMueble(b);
+					getObjectManager()->addBolsa(b);
 					b->setActive(false);
 				}
 				else if (name == "pared") {
@@ -419,18 +535,21 @@ void Tutorial::loadMap(string const& path)
 				{
 					Pila* p = new Pila(game, position, TipoPaella::Pequena, 4);
 					getObjectManager()->addMueble(p);
+					getObjectManager()->addPilas(p);
 					p->setActive(false);
 				}
 				else if (name == "pilaM")
 				{
 					Pila* p = new Pila(game, position, TipoPaella::Mediana, 5);
 					getObjectManager()->addMueble(p);
+					getObjectManager()->addPilas(p);
 					p->setActive(false);
 				}
 				else if (name == "pilaL")
 				{
 					Pila* p = new Pila(game, position, TipoPaella::Grande, 3);
 					getObjectManager()->addMueble(p);
+					getObjectManager()->addPilas(p);
 					p->setActive(false);
 				}
 			}
@@ -460,7 +579,30 @@ void Tutorial::togglePause()
 	else {
 		sdlutils().virtualTimer().resume();
 
-
 		sdlutils().soundEffects().at("select").play(0, game->UI);
 	}
+}
+
+void Tutorial::pauseTutorial()
+{
+
+	paused = !paused;
+
+	if (paused) {
+
+		sdlutils().virtualTimer().pause();
+
+		sdlutils().soundEffects().at("cancel").play(0, game->UI);
+	}
+	else {
+		sdlutils().virtualTimer().resume();
+		currentState = (States)(currentState + 1);
+		changeState(currentState);
+		sdlutils().soundEffects().at("select").play(0, game->UI);
+	}
+}
+
+void Tutorial::nextStates()
+{
+	currentState =(States) (currentState + 1);
 }

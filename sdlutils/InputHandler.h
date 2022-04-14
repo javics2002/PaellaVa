@@ -69,7 +69,7 @@ public:
 	enum MOUSEBUTTON : uint8_t { MOUSE_LEFT, MOUSE_MIDDLE, MOUSE_RIGHT };
 
 	//Unknown debe ser el último botón para marcar el número de botones
-	enum botones { LEFT, RIGHT, UP, DOWN, INTERACT, CANCEL, UNKNOWN };
+	enum botones { LEFT, RIGHT, UP, DOWN, INTERACT, CANCEL,J, UNKNOWN };
 
 	virtual ~InputHandler() {
 	}
@@ -180,6 +180,8 @@ public:
 		case SDL_SCANCODE_ESCAPE:
 			keyJustDown(botones::CANCEL);
 			break;
+		case SDL_SCANCODE_J:
+			keyJustDown(botones::J);
 		default:
 			break;
 		}
@@ -209,8 +211,8 @@ public:
 			case botones::CANCEL:
 				// pausa
 				// lastKeyPressed
-
-
+				break;
+			case botones::J:
 				break;
 			default:
 				break;
@@ -247,6 +249,9 @@ public:
 			break;
 		case SDL_SCANCODE_ESCAPE:
 			keyPressed[botones::CANCEL] = false;
+			break;
+		case SDL_SCANCODE_J:
+			keyPressed[botones::J] = false;
 			break;
 		default:
 			break;

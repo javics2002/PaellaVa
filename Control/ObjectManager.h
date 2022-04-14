@@ -16,7 +16,8 @@
 #include "../GameObjects/Muebles/Cinta.h"
 #include "../GameObjects/Muebles/Cartel.h"
 #include "../GameObjects/Muebles/Puerta.h"
-
+#include "../GameObjects/Muebles/Pila.h"
+#include "../GameObjects/Muebles/BolsaArroz.h"
 #include <queue>
 #include <vector>
 
@@ -46,8 +47,10 @@ class ObjectManager
 	vector<Encimera*> encimeras;
 	vector<Ventanilla*> ventanillas;
 	vector<Cinta*> cintas;
+	vector<Pila*> pilas;
 	Cartel* cartel;
 	Puerta* puerta;
+	BolsaArroz* bolsaDeArroz;
 
 
 public:
@@ -70,14 +73,19 @@ public:
 	void addCinta(Cinta* c);
 	void addCartel(Cartel* c);
 	void addPuerta(Puerta* p);
+	void addPilas(Pila* p);
+	void addBolsa(BolsaArroz* b);
 
 	vector<Silla*> getSillas();
 	vector<Mesa*> getMesas();
 	vector<Encimera*> getEncimeras();
 	vector<Ventanilla*> getVentanilla();
 	vector<Cinta*> getCintas();
+	vector<Pila*> getPilas();
 	Cartel* getCartel();
 	Puerta* getPuerta();
+	BolsaArroz* getBolsa();
+
 
 	Paella* addPaella(int n);
 

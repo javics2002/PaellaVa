@@ -195,6 +195,16 @@ void ObjectManager::addPuerta(Puerta* p)
 	puerta = p;
 }
 
+void ObjectManager::addPilas(Pila* p)
+{
+	pilas.push_back(p);
+}
+
+void ObjectManager::addBolsa(BolsaArroz* b)
+{
+	bolsaDeArroz = b;
+}
+
 vector<Silla*> ObjectManager::getSillas()
 {
 	return sillas;
@@ -222,6 +232,11 @@ vector<Cinta*> ObjectManager::getCintas()
 	return cintas;
 }
 
+vector<Pila*> ObjectManager::getPilas()
+{
+	return pilas;
+}
+
 Cartel* ObjectManager::getCartel()
 {
 	return cartel;
@@ -230,4 +245,9 @@ Cartel* ObjectManager::getCartel()
 Puerta* ObjectManager::getPuerta()
 {
 	return puerta;
+}
+
+BolsaArroz* ObjectManager::getBolsa()
+{
+	return bolsaDeArroz;
 }

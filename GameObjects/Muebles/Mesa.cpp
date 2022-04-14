@@ -76,8 +76,9 @@ bool Mesa::receiveGrupoClientes(GrupoClientes* gc)
 	if (mGrupo == nullptr && paellas.empty() && gc->canDrop()) {
 		int n = gc->numIntegrantes();
 
-
-		game->getCurrentScene()->changeState(States::dejarClientesMesa);
+		if (dynamic_cast<Tutorial*>(game->getCurrentScene())) {
+			game->getCurrentScene()->changeState(States::pausaPaellas);
+		}
 
 		if (n <= sillas.size()) {
 			mGrupo = gc;

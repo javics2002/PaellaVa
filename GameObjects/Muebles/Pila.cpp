@@ -4,6 +4,7 @@
 #include "../../GameObjects/Paella.h"
 #include "../../Control/Game.h"
 #include "../../Control/ObjectManager.h"
+#include "../../Scenes/Tutorial.h"
 
 Pila::Pila(Game* game, Vector2D<double> pos, int miTipo_, int nPaellas) 
 	: Mueble(game, pos, 1 * TILE_SIZE, 2 * TILE_SIZE, "pilaPaellas")
@@ -18,6 +19,8 @@ bool Pila::returnObject(Player* p)
 {
 	if (!paellas.empty())
 	{
+		if (dynamic_cast<Tutorial*>(game->getCurrentScene()))
+			game->getCurrentScene()->changeState(States::pausaCogePaellera);
 		Paella* pa = paellas.front();
 		p->setPickedObject(pa, PAELLA);
 		paellas.pop_front();

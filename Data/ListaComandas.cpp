@@ -24,6 +24,7 @@ ListaComandas::~ListaComandas()
 void ListaComandas::AñadeComanda(Comanda* comanda)
 {
 	Comanda* c = new Comanda(*comanda);
+
 	limit = inicx + maxvisibles * 1.5 * c->getWidth();
 	if (numcomandas < maxvisibles)
 	{

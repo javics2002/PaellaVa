@@ -3,6 +3,7 @@
 #include "../Player.h"
 #include "../Paella.h"
 #include "../../Control/Game.h"
+#include "../../Scenes/Tutorial.h"
 
 Encimera::Encimera(Game* game, Vector2D<double> pos) : Mueble(game, pos, 1 * TILE_SIZE, 2 * TILE_SIZE, "encimera")
 {
@@ -40,6 +41,10 @@ bool Encimera::receivePaella(Paella* pa)
 	//Si ya tiene objeto, no recoge objeto
 	if (ingr_ == nullptr && paella_ == nullptr)
 	{
+		if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::dejaPaellera)
+			game->getCurrentScene()->changeState(States::pausaDejaPaella);
+
+
 		paella_ = pa;
 
 		paella_->setPosition(getRectCenter(getOverlap()));

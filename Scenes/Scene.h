@@ -14,9 +14,11 @@ class Player;
 
 
 enum States {
-	cogerClientes, dejarClientesMesa, cogePaellera, dejaPaellera, cogerIngrediente,
+	cogerClientes,pausaClientes, dejarClientesMesa,pausaPaellas,apuntaPedido,pausaPedido, cogePaellera,pausaCogePaellera, dejaPaellera,pausaDejaPaella,cogerDejarArroz, cogerIngrediente,
 	procesarIngrediente, dejarIngredientePaella, cocinarPaella, darDeComerPaella
 };
+
+
 
 class Scene {
 
@@ -38,6 +40,7 @@ public:
 	virtual void handleInput(bool& exit);
 	virtual void update();
 	virtual void refresh() {};
+	virtual void pauseTutorial() {};
 	virtual void render();
 	virtual void debug();
 	virtual void addPuntuaciones(double puntosComanda) {};

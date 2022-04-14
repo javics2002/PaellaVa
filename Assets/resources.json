@@ -6,7 +6,8 @@
   ],
 
   "images": [
-    {"id": "barraTolerancia", "file": "../../../Assets/Images/barraTolerancia.png"},
+    {"id": "barraTolerancia","file": "../../../Assets/Images/barraTolerancia.png"},
+    {"id":  "texto1","file": "../../../Assets/Images/Tutorial/texto1.png"},
     {"id": "barraCoccion", "file": "../../../Assets/Images/barraCoccion.png"},
     {"id": "flechaCoccion","file": "../../../Assets/Images/flechaCoccion.png"},
     { "id": "cuadernillo", "file": "../../../Assets/Images/cuadernillo.png"},
