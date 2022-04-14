@@ -25,6 +25,10 @@ UIManager::UIManager(Game* game)
 	anchobotones *= uiscale;
 
 	barra = nullptr;
+
+	burnEffect = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2, 
+		sdlutils().width() * 2, sdlutils().height() * 2, "quemadura");
+	burnEffect->setInitialDimension(sdlutils().width(), sdlutils().height());
 }
 
 UIManager::~UIManager()
@@ -47,6 +51,9 @@ UIManager::~UIManager()
 	
 	delete barra;
 	barra = nullptr;
+
+	delete burnEffect;
+	burnEffect = nullptr;
 
 	activeTweens.clear();
 }
@@ -180,7 +187,6 @@ void UIManager::slideEvent(int mx, int my, bool& exit, bool paused)
 
 void UIManager::handleInput(bool& exit, bool paused)
 {
-	
 	if (ih().getMouseButtonState(InputHandler::MOUSE_LEFT))
 	{
 		//cout << nombrePlayer << endl;
@@ -257,6 +263,8 @@ void UIManager::update(bool paused)
 
 void UIManager::render(SDL_Rect* rect = nullptr)
 {
+	burnEffect->render(rect);
+
 	if (barra != nullptr) {
 		barra->render(rect);
 		barra->renderComandas();
@@ -969,6 +977,27 @@ tweeny::tween<float>& UIManager::addTween(float from, float to, float during) {
 void UIManager::setEnLobby(bool enLobby_)
 {
 	enLobby = enLobby_;
+}
+
+void UIManager::quemarse()
+{
+	//Aparece el efecto de quemarse en la interfaz y suena un sonido
+	addTween(2, 1, 300).via(easing::cubicOut).onStep([this](tweeny::tween<float>& t, float) mutable {
+		burnEffect->setDimension(t.peek() * burnEffect->getInitialWidth(), t.peek() * burnEffect->getInitialHeight());
+
+		if (t.progress() == 1.0f) {
+			addTween(1, 2, 5000).via(easing::sinusoidalIn).onStep([this](tweeny::tween<float>& t, float) mutable {
+				burnEffect->setDimension(t.peek() * burnEffect->getInitialWidth(), t.peek() * burnEffect->getInitialHeight());
+				
+				return t.progress() == 1.0f;
+				});
+
+			return true;
+		}
+		return false;
+		});
+
+	sdlutils().soundEffects().at("quemadura").play();
 }
 
 double UIManager::toRadians(double grados)

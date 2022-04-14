@@ -13,6 +13,7 @@ enum TipoPaella { Pequena, Mediana, Grande };
 
 class Game;
 class Arroz;
+class ParticleExample;
 
 class Paella : public ObjetoPortable
 {	
@@ -20,7 +21,9 @@ public:
 	
 	Paella(Game* game, int volumen_);
 	
-	~Paella() {};
+	~Paella() {
+		delete humo;
+	};
 
 	bool ingrValido(Ingrediente* ingr);
 	void anadeIngr(Ingrediente* ingr_);
@@ -52,7 +55,7 @@ public:
 
 	int getTipo();
 	
-	int getCoccoin();
+	int getCoccion();
 
 	void comerPaella();
 
@@ -84,5 +87,7 @@ private:
 
 	vector<bool> ingrEnPaella;
 	bool contaminada = false;
+
+	ParticleExample* humo;
 };
 

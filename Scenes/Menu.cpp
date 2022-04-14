@@ -26,7 +26,7 @@ Menu::Menu(Game* game) : Scene(game)
 	startButton->setInitialDimension(w, h);
 	startButton->setAction([this, startButton](Game* game, bool& exit) {
 		sdlutils().soundEffects().at("select").play(0, game->UI);
-
+		
 		uiManager->addTween(0.9f, 1.0f, 600.0f).via(easing::exponentialOut).onStep([game, startButton](tweeny::tween<float>& t, float) mutable {
 			startButton->setDimension(t.peek() * startButton->getInitialWidth(), t.peek() * startButton->getInitialHeight());
 
@@ -52,11 +52,9 @@ Menu::Menu(Game* game) : Scene(game)
 				// Settings
 
 				//Abrir pantalla
-				
-				game->getUIManager()->toggleOpciones();
 
+				game->getUIManager()->toggleOpciones();
 				game->getUIManager()->desactivaBot();
-				
 
 				// -Poner pantalla completa (sdlutils().toggleFullScreen();)
 				// -Volumen de musica y sonido (slides separados)

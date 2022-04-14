@@ -162,10 +162,9 @@
     { "id": "circulo", "file": "../../../Assets/Images/loading.png" },
     { "id": "pedirPlato", "file": "../../../Assets/Images/pedirPlato.png" },
     { "id": "hostClientBg", "file": "../../../Assets/Images/hostClientBg.png" },
-    { "id": "lobbyBg", "file": "../../../Assets/Images/lobbyBg.png" }
-
-
-
+    { "id": "lobbyBg", "file": "../../../Assets/Images/lobbyBg.png" },
+    { "id": "quemadura", "file": "../../../Assets/Images/quemadura.png" },
+    { "id": "particle", "file": "../../../Assets/Images/particle.png" }
   ],
 
   "tilesets": [
@@ -243,7 +242,8 @@
     { "id": "puerta", "file": "../../../Assets/Sounds/Puerta.mp3" },
     { "id": "select", "file": "../../../Assets/Sounds/Select.mp3" },
     { "id": "tirarPaella", "file": "../../../Assets/Sounds/tirarPaella.mp3" },
-    { "id": "ultimaHora", "file": "../../../Assets/Sounds/UltimaHora.mp3" }
+    { "id": "ultimaHora", "file": "../../../Assets/Sounds/UltimaHora.mp3" },
+    { "id": "quemadura", "file": "../../../Assets/Sounds/Quemadura.mp3" }
   ],
 
   "musics": [

@@ -3,6 +3,7 @@
 #include "Ingrediente.h"
 #include "Ingredienteletal.h"
 #include "Arroz.h"
+#include "../Utils/ParticleExample.h"
 #include <map>
 
 Paella::Paella(Game* game, int tipo) : ObjetoPortable(game), miTipo(tipo)
@@ -29,6 +30,10 @@ Paella::Paella(Game* game, int tipo) : ObjetoPortable(game), miTipo(tipo)
 	setTexture("paellaLimpia");
 
 	ingrEnPaella = vector<bool>(tipoIngrediente::LAST, false);
+
+	humo = new ParticleExample();
+	humo->setRenderer(sdlutils().renderer());
+	humo->setStyle(ParticleExample::NONE);
 }
 
 void Paella::anadeIngr(Ingrediente* ingr_)
@@ -85,12 +90,21 @@ void Paella::update()
 	case Coccion:
 		if (estadoCoccion < tiemposDeCoccion.size() && sdlutils().virtualTimer().currTime() - initCocTime >= tiemposDeCoccion[estadoCoccion]) {
 			estadoCoccion++;
-			setTexture(coccionTex[estadoCoccion]);		
+			setTexture(coccionTex[estadoCoccion]);
+
+			if (estadoCoccion == Quemada) {
+				humo->setStyle(ParticleExample::FIRE);
+			}
+			if (estadoCoccion == Incomestible) {
+				humo->setStyle(ParticleExample::SMOKE);
+			}
 		}
 		break;
 	case Hecha:
 		break;
 	}
+
+	humo->setPosition(getX(), getY());
 }
 
 void Paella::setLavado(Contenido contenidoPaella, string texturaPaella)
@@ -143,7 +157,7 @@ int Paella::getContenido()
 	return contenido;
 }
 
-int Paella::getCoccoin()
+int Paella::getCoccion()
 {
 	return estadoCoccion;
 }
@@ -160,6 +174,7 @@ void Paella::setEnsuciada()
 void Paella::setContenido(Contenido contenidoP)
 {
 	contenido = contenidoP;
+	humo->setStyle(ParticleExample::NONE);
 }
 
 bool Paella::ingrValido(Ingrediente* ingr)
@@ -196,7 +211,6 @@ void Paella::render(SDL_Rect* cameraRect)
 {
 	drawRender(cameraRect);
 
-
 	if (contenido == Entera) {
 		for (auto i : ingredientes) {
 			drawRender(cameraRect, getTexBox(), &sdlutils().images().at(texturaIngrediente[i] + "C"));
@@ -208,4 +222,5 @@ void Paella::render(SDL_Rect* cameraRect)
 		}
 	}
 	
+	humo->draw(cameraRect);
 }
