@@ -197,7 +197,7 @@ void NetworkManager::updateClient()
 					c->setPosition(pos);
 					c->cambiaTextura(texturasClientes[server_pkt.grupoCliente.textCliente[i]]);
 
-					pos = pos + distancia;
+					pos = pos - distancia;
 
 					v.push_back(c);
 				}
@@ -546,7 +546,7 @@ void NetworkManager::sendCreateIngredienteLetal(int tipoIngrediente, Vector2D<do
 	}
 }
 
-void NetworkManager::sendGrupoCliente(int tamGrupo, Vector2D<double> puertaPos, Vector2D<double> vel, Vector2D<int> distancia, vector<int> textureNumber, float tolerancia)
+void NetworkManager::sendGrupoCliente(int tamGrupo, Vector2D<double> puertaPos, Vector2D<double> vel, Vector2D<double> distancia, vector<int> textureNumber, float tolerancia)
 {
 	Packet pkt;
 

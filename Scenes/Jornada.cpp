@@ -338,7 +338,7 @@ void Jornada::loadMap(string const& path)
 					getObjectManager()->addMueble(c);
 				}
 				else if (name == "puerta") {
-					Puerta* puerta = new Puerta(game, position,p[4].getBoolValue(),p[3].getIntValue(),p[0].getIntValue(), host);
+					Puerta* puerta = new Puerta(game, position, p[3].getIntValue(), p[0].getIntValue(), host);
 					puerta->setVel(Vector2D<double>((double)p[1].getFloatValue(), (double)p[2].getFloatValue()));
 					getObjectManager()->addMueble(puerta);
 				}

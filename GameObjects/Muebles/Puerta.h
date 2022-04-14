@@ -20,7 +20,7 @@ class Puerta : public Mueble
 	bool host;
 
 public:
-	Puerta(Game* game, Vector2D<double> pos,bool vertical_,int t_Max,int maxTamGrupo_, bool host_);
+	Puerta(Game* game, Vector2D<double> pos, int t_Max, int maxTamGrupo_, bool host_);
 	~Puerta() = default;
 
 	void update() override;
