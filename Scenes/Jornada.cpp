@@ -35,7 +35,7 @@ Jornada::Jornada(Game* game, string tilemap, int numeroJornada, bool host_) : Sc
 
 			if (t.progress() > .2f) {
 				//Start game
-				game->changeScene(new GameOver(game, 0, nJornada));
+				game->sendMessageScene(new GameOver(game, 0, nJornada));
 				return true;
 			}
 			return false;

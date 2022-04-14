@@ -235,23 +235,17 @@ void UIManager::update(bool paused)
 		initTime = sdlutils().currRealTime();
 	}
 
-	try {
-		auto i = activeTweens.begin();
-		while (i != activeTweens.end()) {
-			i->step(20);
+	auto i = activeTweens.begin();
+	while (i != activeTweens.end()) {
+		i->step(20);
 
-			//Si el tween ha acabado, lo saco de la lista de tweens
-			if (i->progress() == 1) {
-				//Erase devuelve el iterador al siguiente tween
-				i = activeTweens.erase(i);
-			}
-			else
-				i++;
+		//Si el tween ha acabado, lo saco de la lista de tweens
+		if (i->progress() == 1) {
+			//Erase devuelve el iterador al siguiente tween
+			i = activeTweens.erase(i);
 		}
-	}
-	catch (...) {
-		/*Un tween puede cambiar de escena, y este UI manager se borraría.
-		No tiene sentido continuar estas instrucciones*/
+		else
+			i++;
 	}
 }
 
@@ -487,7 +481,7 @@ void UIManager::creaMenuPausa() {
 
 			if (t.progress() == 1.0f) {
 				// Exit
-				game->changeScene(new Menu(game));
+				game->sendMessageScene(new Menu(game));
 				return true;
 			}
 			return false;

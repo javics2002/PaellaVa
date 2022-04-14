@@ -32,7 +32,7 @@ HostClient::HostClient(Game* game, string nombre_) : Scene(game)
 		//Host
 		game->getNetworkManager()->init('h', nullptr, nombre);
 
-		game->changeScene(new Lobby(game, nombre, this));
+		game->sendMessageScene(new Lobby(game, nombre, this));
 		});
 	uiManager->addInterfaz(hostButton);
 
@@ -42,7 +42,7 @@ HostClient::HostClient(Game* game, string nombre_) : Scene(game)
 
 	clientButton->setAction([this, nombre](Game* game, bool& exit) {
 		//Client
-		game->changeScene(new IntroduceIP(game, nombre));
+		game->sendMessageScene(new IntroduceIP(game, nombre));
 		
 		});
 	uiManager->addInterfaz(clientButton);

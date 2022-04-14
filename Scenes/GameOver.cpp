@@ -61,11 +61,11 @@ GameOver::GameOver(Game* game, int puntuation, int numeroJornada) : Scene(game)
 			if (t.progress() > .2f) {
 				//Start game
 				if (nombreTilemaps.size() > nJornada) {
-					game->changeScene(new Jornada(game, nombreTilemaps[nJornada], nJornada+1));
+					game->sendMessageScene(new Jornada(game, nombreTilemaps[nJornada], nJornada+1));
 				}
 				else {
 					game->getNetworkManager()->close();
-					game->changeScene(new Menu(game));
+					game->sendMessageScene(new Menu(game));
 				}
 				return true;
 			}
