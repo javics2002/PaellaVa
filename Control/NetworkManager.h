@@ -1,6 +1,8 @@
 #pragma once
 #include "../SDL2_net-2.0.1/include/SDL_net.h"
 
+#include "../Utils/Vector2D.h"
+
 #include <vector>
 #include <thread>
 #include <iostream>
@@ -9,12 +11,14 @@
 class Game;
 class Player;
 
+
 enum EPacketType {
 	EPT_START,
 	EPT_ACCEPT,
 	EPT_DENY,
 	EPT_NAME,
 	EPT_UPDATE,
+	EPT_CREATEING,
 	EPT_SYNCPLAYER,
 	EPT_QUIT
 };
@@ -27,9 +31,9 @@ enum EInputType {
 	EIT_NONE
 };
 
+
 // Currently testing
 struct PacketSyncPlayer {
-	Uint8 packet_type;
 	Uint8 player_id;
 	Sint16 posX;
 	Sint16 posY;
@@ -37,7 +41,6 @@ struct PacketSyncPlayer {
 
 
 struct PacketSend {
-	Uint8 packet_type;
 	Uint8 player_id;
 	Sint8 player_horizontal;
 	Sint8 player_vertical;
@@ -45,27 +48,49 @@ struct PacketSend {
 
 // Paquete que recibe el servidor, lo mandan los clientes
 struct PacketRecv {
-	Uint8 packet_type;
 	Sint8 player_horizontal;
 	Sint8 player_vertical;
 };
 
-// Paquete que manda el servidor cuando acepta a un juegador
+// Paquete que manda el servidor cuando acepta a un jugador
 struct PacketAccept {
-	Uint8 packet_type;
 	Uint8 player_id;
 	char player_name[15];
 };
 
 // Paquete para mandar nombres
 struct PacketName {
-	Uint8 packet_type;
 	char player_name[15];
 };
 
+// Paquete para comenzar juego
 struct PacketStartGame {
-	Uint8 packet_type;
 	Uint8 num_jornada;
+};
+
+// Paquete para ingrediente
+struct PacketIngrediente {
+	Uint8 tipo_ingrediente;
+	Sint16 posX;
+	Sint16 posY;
+	Uint8 velX;
+	Uint8 velY;
+};
+
+struct Packet {
+	Uint8 packet_type;
+
+	union
+	{
+		PacketSyncPlayer syncPlayer;
+		PacketSend send;
+		PacketRecv recieve;
+		PacketAccept accept;
+		PacketName name;
+		PacketStartGame startGame;
+		PacketIngrediente ingrediente;
+	};
+
 };
 
 
@@ -146,6 +171,6 @@ public:
 	std::string getOtherName() { return otherName;}
 	std::string getMyName() { return myName; }
 
-
 	void sendStartGame(int numJornada);
+	void sendCreateIngrediente(int tipoIngrediente, Vector2D<double> pos, Vector2D<double> vel);
 };

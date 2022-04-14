@@ -46,11 +46,11 @@ Jornada::Jornada(Game* game, string tilemap, int numeroJornada, bool host_) : Sc
 
 	// crear player dependiendo si es cocinera o no
 	if (host) {
-		Player* p = new Player(game);
+		Player* p = new Player(game, true);
 		objectManager->addPlayer(p);
 	}
 	else {
-		Player* p = new Player(game);
+		Player* p = new Player(game, false);
 		objectManager->addPlayer(p);
 	}
 	

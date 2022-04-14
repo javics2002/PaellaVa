@@ -11,7 +11,8 @@
 
 #include "../Utils/Traza.h"
 
-Player::Player(Game* game) : GameObject(game), objectType_(INGREDIENTE), pickedObject_(nullptr),
+
+Player::Player(Game* game, bool chef) : GameObject(game), objectType_(INGREDIENTE), pickedObject_(nullptr), chef_(chef),
 	overlapPos(Vector2D<double>(getX() - overlapPos.getX() / 2, getY() - getHeight() / 2 - overlapDim.getY())),
 	overlapDim(Vector2D<int>(50, 50))
 {
@@ -375,13 +376,29 @@ void Player::animUpdate()
 
 void Player::setAnimResources()
 {
-	anims.push_back(&sdlutils().images().at("cocineraIdleDown"));
-	anims.push_back(&sdlutils().images().at("cocineraIdleSide"));
-	anims.push_back(&sdlutils().images().at("cocineraIdleUp"));
+	if (chef_) {
 
-	anims.push_back(&sdlutils().images().at("cocineraWalkDown"));
-	anims.push_back(&sdlutils().images().at("cocineraWalkSide"));
-	anims.push_back(&sdlutils().images().at("cocineraWalkUp"));
+		anims.push_back(&sdlutils().images().at("cocineraIdleDown"));
+		anims.push_back(&sdlutils().images().at("cocineraIdleSide"));
+		anims.push_back(&sdlutils().images().at("cocineraIdleUp"));
+
+		anims.push_back(&sdlutils().images().at("cocineraWalkDown"));
+		anims.push_back(&sdlutils().images().at("cocineraWalkSide"));
+		anims.push_back(&sdlutils().images().at("cocineraWalkUp"));
+	
+	}
+
+	else {
+
+		anims.push_back(&sdlutils().images().at("camareroIdleDown"));
+		anims.push_back(&sdlutils().images().at("camareroIdleSide"));
+		anims.push_back(&sdlutils().images().at("camareroIdleUp"));
+												 
+		anims.push_back(&sdlutils().images().at("camareroWalkDown"));
+		anims.push_back(&sdlutils().images().at("camareroWalkSide"));
+		anims.push_back(&sdlutils().images().at("camareroWalkUp"));
+
+	}
 }
 
 SDL_Rect Player::getOverlap()
