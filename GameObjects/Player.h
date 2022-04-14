@@ -17,6 +17,8 @@ class Player : public GameObject
 	ObjetoPortable* pickedObject_;
 	objectType objectType_;
 
+	bool chef_;		// False is waiter
+
 	orientation orientation_;
 	
 	float aceleracion, deceleracion, maxVel;
@@ -39,7 +41,7 @@ class Player : public GameObject
 	int currAnim;
 
 public:
-	Player(Game* game);
+	Player(Game* game, bool chef);
 	~Player();
 
 	void handleInput();

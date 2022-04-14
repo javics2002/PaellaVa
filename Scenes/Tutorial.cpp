@@ -42,7 +42,7 @@ Tutorial::Tutorial(Game* game, string tilemap) : Scene(game)
 
 	//uiManager->addInterfaz(startButton);
 
-	Player* p = new Player(game);
+	Player* p = new Player(game, false);
 	objectManager->addPlayer(p);
 
 
