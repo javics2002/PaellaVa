@@ -2,6 +2,7 @@
 #include "../../Control/Game.h"
 #include "../../Control/ObjectManager.h"
 #include "../../GameObjects/UI/UIManager.h"
+#include "../../Control/NetworkManager.h"
 
 Puerta::Puerta(Game* game, Vector2D<double> pos,bool vertical_,int t_Max,int tamMaxGrupo_, bool host_) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, "puerta")
 {
@@ -27,9 +28,12 @@ void Puerta::update()
 			Cliente* c = game->getObjectManager()->getPool<Cliente>(_p_CLIENTE)->add();
 			c->setPosition(getX(), getY());
 			int width = c->getWidth();
-			int heigh = c->getHeight();
+			int height = c->getHeight();
 			int w = c->getPosition().getX();
 			int h = c->getPosition().getY();
+
+			vector<int> texturas = vector<int>(integrantes, 0);
+
 
 			c->cambiaTextura(texturasClientes[0 + rand() % texturasClientes.size()]);
 			if(!vertical)c->setPosition(Vector2D<double>(w + 10, getY()));
@@ -39,10 +43,10 @@ void Puerta::update()
 		
 			for (int i = 1; i < integrantes; i++) {
 				w -= width;
-				h -= heigh;
+				h -= height;
 
-				if(!vertical)c = game->getObjectManager()->getPool<Cliente>(_p_CLIENTE)->add(Vector2D<double>(w + 10, getY()));
-				else if(vertical)c = game->getObjectManager()->getPool<Cliente>(_p_CLIENTE)->add(Vector2D<double>(getX(),h + 10));
+				if(!vertical) c = game->getObjectManager()->getPool<Cliente>(_p_CLIENTE)->add(Vector2D<double>(w + 10, getY()));
+				else if(vertical) c = game->getObjectManager()->getPool<Cliente>(_p_CLIENTE)->add(Vector2D<double>(getX(),h + 10));
 				c->cambiaTextura(texturasClientes[0 + rand() % texturasClientes.size()]);
 
 				v.push_back(c);
@@ -53,7 +57,10 @@ void Puerta::update()
 			cola->add(g, integrantes);
 			g->initGrupo(cola, v);
 
+
 			sdlutils().soundEffects().at("puerta").play();
+
+			game->getNetworkManager()->sendGrupoCliente(integrantes, getPosition(), vel, Vector2D<int>(-c->getWidth(), 0), texturas, 100);
 		}
 
 		initTime = sdlutils().virtualTimer().currTime();

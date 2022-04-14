@@ -1,21 +1,26 @@
-#include "Ingredienteletal.h"
-Ingredienteletal::Ingredienteletal(Game* game):Ingrediente(game)
+#include "IngredienteLetal.h"
+IngredienteLetal::IngredienteLetal(Game* game) : Ingrediente(game)
 {
 	setDimension(DIMENSION, DIMENSION);
 	setDepth(2);
 	letal = true;
 }
-Ingredienteletal::~Ingredienteletal()
+IngredienteLetal::~IngredienteLetal()
 {
 }
-void Ingredienteletal::onActivate()
+
+void IngredienteLetal::onActivate()
 {
-	int n = rand() % (tipoIngredienteletal::LEST); // Se le resta uno a LAST porque el arroz no debe salir en la
-													  // cinta (siendo arroz = 0).
+	int n = rand() % (tipoIngredienteLetal::LEST); 
 
+	miTipoL = tipoIngredienteLetal(n);
 
-	miTipoL = tipoIngredienteletal(n);
+	setTexture(texturaIngredienteLetal[n]);
+}
 
+void IngredienteLetal::cambiaTipo(int n) {
 
-	setTexture(texturaIngredienteletal[n]);
+	miTipoL = tipoIngredienteLetal(n);
+
+	setTexture(texturaIngredienteLetal[n]);
 }

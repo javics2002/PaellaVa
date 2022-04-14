@@ -17,8 +17,6 @@ class Puerta : public Mueble
 
 	Cola* cola;
 
-	vector<string> texturasClientes = { "clienteBase"};
-
 	bool host;
 
 public:

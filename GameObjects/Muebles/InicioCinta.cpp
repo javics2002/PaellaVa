@@ -22,18 +22,18 @@ void InicioCinta::update()
 	{
 		if (i < porcentajeLetal)
 		{ 
-
-			Ingredienteletal* i= game->getObjectManager()->getPool<Ingredienteletal>(_p_INGREDIENTELETAL)->add(getPosition());
-			i->setVel(vel);
+			IngredienteLetal* ingLetal = game->getObjectManager()->getPool<IngredienteLetal>(_p_INGREDIENTELETAL)->add(getPosition());
+			ingLetal->setVel(vel);
 			initTime = sdlutils().virtualTimer().currTime();
-		
+
+			game->getNetworkManager()->sendCreateIngredienteLetal(ingLetal->getTipo(), getPosition(), vel);
 		}
 		else {
-			Ingrediente* i = game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->add(getPosition());
-			i->setVel(vel);
+			Ingrediente* ing = game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->add(getPosition());
+			ing->setVel(vel);
 			initTime = sdlutils().virtualTimer().currTime();
 
-			game->getNetworkManager()->sendCreateIngrediente(i->getTipo(), getPosition(), vel);
+			game->getNetworkManager()->sendCreateIngrediente(ing->getTipo(), getPosition(), vel);
 		}
 	}
 }
