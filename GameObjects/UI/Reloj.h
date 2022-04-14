@@ -7,7 +7,7 @@ class Reloj : public GameObject
 	//Funcionamiento del reloj: tiene que actualizarse cada X segundos de la vida real con un 
 	//equivalente de Y minutos del juego
 public:
-	Reloj(Game* game);
+	Reloj(Game* game, int numeroJornada);
 	~Reloj();
 	bool finDia();
 	void render(SDL_Rect* cameraRect) override;
@@ -47,5 +47,7 @@ private:
 
 	const SDL_Color& fgColor = { 255, 255, 255, 255 };
 	const SDL_Color& bgColor = { 0, 0, 0, 0 };
+
+	int mNumeroJornada;
 };
 

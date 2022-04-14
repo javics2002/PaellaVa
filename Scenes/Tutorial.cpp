@@ -61,7 +61,7 @@ Tutorial::Tutorial(Game* game, string tilemap) : Scene(game)
 
 	uiManager->creaMenuPausa();
 
-	uiManager->addInterfaz(new Reloj(game));
+	uiManager->addInterfaz(new Reloj(game, -1));
 
 	objectManager->initMuebles();
 

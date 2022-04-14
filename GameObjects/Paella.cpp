@@ -94,6 +94,7 @@ void Paella::update()
 
 			if (estadoCoccion == Quemada) {
 				humo->setStyle(ParticleExample::FIRE);
+				sdlutils().soundEffects().at("fuego").play();
 			}
 			if (estadoCoccion == Incomestible) {
 				humo->setStyle(ParticleExample::SMOKE);
@@ -101,10 +102,14 @@ void Paella::update()
 		}
 		break;
 	case Hecha:
+		if (sdlutils().virtualTimer().currTime() - initHumoTime >= mTiempoHumo) {
+			humo->setStyle(ParticleExample::NONE);
+		}
 		break;
 	}
 
 	humo->setPosition(getX(), getY());
+	humo->update();
 }
 
 void Paella::setLavado(Contenido contenidoPaella, string texturaPaella)
@@ -117,7 +122,14 @@ void Paella::setLavado(Contenido contenidoPaella, string texturaPaella)
 
 void Paella::onObjectPicked()
 {
-	if (estado == Coccion) setState(Hecha);
+	if (estado == Coccion) {
+		setState(Hecha);
+	}
+	else if(estado == Hecha)
+		if (estadoCoccion >= Quemada) {
+			//humo->setStyle(ParticleExample::SMOKE);
+			initHumoTime = sdlutils().virtualTimer().currTime();
+		}
 }
 
 void Paella::onObjectDropped()

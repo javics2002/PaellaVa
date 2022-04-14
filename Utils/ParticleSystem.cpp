@@ -467,7 +467,6 @@ void ParticleSystem::draw(SDL_Rect* cameraRect)
         SDL_SetTextureBlendMode(_texture, SDL_BLENDMODE_BLEND);
         SDL_RenderCopyEx(_renderer, _texture, nullptr, &r, p.rotation, nullptr, SDL_FLIP_NONE);
     }
-    update();
 }
 
 SDL_Texture* ParticleSystem::getTexture()

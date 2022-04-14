@@ -888,7 +888,11 @@ void UIManager::togglePause() {
 			}
 			return false;
 			});
+
+		sdlutils().soundEffects().at("paella").pauseChannel();
 	}
+	else
+		sdlutils().soundEffects().at("paella").resumeChannel();
 
 	for (auto i : pauseButtons) {
 		i->setDimension(0, 0);

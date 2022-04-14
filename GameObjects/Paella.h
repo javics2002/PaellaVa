@@ -34,7 +34,6 @@ public:
 	void setLavado(Contenido contenidoPaella,string texturaPaella);
 
 	void setEnsuciada();
-	
 
 	void onObjectPicked() override;
 	void onObjectDropped() override;
@@ -52,7 +51,6 @@ public:
 	int getContenido();
 	void setContenido(Contenido contenidoP);
 
-
 	int getTipo();
 	
 	int getCoccion();
@@ -69,7 +67,7 @@ private:
 	vector<int> tiemposDeCoccion = { 3000, 6000, 9000, 12000, 15000 };
 
 	const int MAX_INGR = 3;
-	double mTiempoCoccion = 0.0, mTiempo = 0.0;
+	double mTiempoCoccion = 0.0, mTiempo = 0.0, mTiempoHumo = 2000.0;
 	int mSumaIntervalo = 0, i = 0;
 	bool mEnMesa = false;
 	bool mArroz = false;
@@ -79,9 +77,9 @@ private:
 	int contenido = Limpia;
 
 	int miTipo;
-
 	
 	int initCocTime = 0;
+	int initHumoTime = 0;
 
 	list<tipoIngrediente> ingredientes;
 

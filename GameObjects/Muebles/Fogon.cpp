@@ -25,8 +25,6 @@ void Fogon::render(SDL_Rect* cameraRect)
 			SDL_Rect dest_ = { getX() - barraCoccionX / 2 , getY() - getHeight() / 1.5, barraCoccionX, barraCoccionY };
 
 			drawRender(cameraRect, dest_, &sdlutils().images().at("barraCoccion"));
-
-
 			drawRender(cameraRect, dest_1, &sdlutils().images().at("flechaCoccion"));
 		}
 	}
@@ -75,9 +73,6 @@ bool Fogon::returnObject(Player* p)
 {
 	if (paella_ != nullptr)
 	{
-		//Paramos el sonido
-		sdlutils().soundEffects().at("fogon").haltChannel(canalSonido);
-
 		paella_->setState(Hecha);
 
 		//Si nos hemos pasado, nos quemamos

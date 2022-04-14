@@ -1,7 +1,7 @@
 #include "Reloj.h"
 #include "../../Scenes/GameOver.h"
 
-Reloj::Reloj(Game* game) : GameObject(game)
+Reloj::Reloj(Game* game, int numeroJornada) : GameObject(game)
 {
 	this->game = game;
 	setDimension(w, h);
@@ -18,6 +18,8 @@ Reloj::Reloj(Game* game) : GameObject(game)
 	setTexture(timeText, string("paella"), fgColor, bgColor);
 
 	ultimaHora = false;
+
+	mNumeroJornada = numeroJornada;
 }
 
 Reloj::~Reloj()
@@ -48,9 +50,8 @@ void Reloj::update()
 	if (finDia())
 	{
 #ifndef _DEBUG
-		game->changeScene(new GameOver(game, 100));
+		game->sendMessageScene(new GameOver(game, 100, mNumeroJornada));
 #endif // _DEBUG
-
 	}
 	else
 	{

@@ -47,7 +47,7 @@ void ParticleExample::setStyle(PatticleStyle style)
         _lifeVar = 0.25f;
 
         // size, in pixels
-        _startSize = 54.0f;
+        _startSize = 44.0f;
         _startSizeVar = 10.0f;
         _endSize = START_SIZE_EQUAL_TO_END_SIZE;
 
@@ -72,7 +72,7 @@ void ParticleExample::setStyle(PatticleStyle style)
         _endColorVar.b = 0.0f;
         _endColorVar.a = 0.0f;
 
-        _posVar = { 40.0f, 20.0f };
+        _posVar = { 10.0f, 15.0f };
         break;
     }
     case ParticleExample::FIRE_WORK:
@@ -532,7 +532,7 @@ void ParticleExample::setStyle(PatticleStyle style)
         _lifeVar = 1;
 
         // size, in pixels
-        _startSize = 60.0f;
+        _startSize = 50.0f;
         _startSizeVar = 10.0f;
         _endSize = START_SIZE_EQUAL_TO_END_SIZE;
 
@@ -557,7 +557,7 @@ void ParticleExample::setStyle(PatticleStyle style)
         _endColorVar.b = 0.0f;
         _endColorVar.a = 0.0f;
 
-        _posVar = { 20.0f, 0.0f };
+        _posVar = { 5.0f, 15.0f };
         break;
     }
     case ParticleExample::SNOW:

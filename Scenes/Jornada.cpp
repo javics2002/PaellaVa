@@ -25,12 +25,13 @@ Jornada::Jornada(Game* game, string tilemap, int numeroJornada, bool host_) : Sc
 
 	host = host_;
 
+#ifdef _DEBUG
 	auto startButton = new UiButton(game, "start", 640, 100, 100, 100);
 	startButton->setInitialDimension(100, 100);
 	startButton->setAction([this, startButton](Game* game, bool& exit) {
 		sdlutils().soundEffects().at("select").play(0, game->UI);
 
-		uiManager->addTween(0.9f, 1.0f, 600.0f).via(easing::exponentialOut).onStep([game, startButton,this](tweeny::tween<float>& t, float) mutable {
+		uiManager->addTween(0.9f, 1.0f, 600.0f).via(easing::exponentialOut).onStep([game, startButton, this](tweeny::tween<float>& t, float) mutable {
 			startButton->setDimension(t.peek() * startButton->getInitialWidth(), t.peek() * startButton->getInitialHeight());
 
 			if (t.progress() > .2f) {
@@ -43,6 +44,7 @@ Jornada::Jornada(Game* game, string tilemap, int numeroJornada, bool host_) : Sc
 		});
 
 	uiManager->addInterfaz(startButton);
+#endif // _DEBUG
 
 	// crear player dependiendo si es cocinera o no
 	if (host) {
@@ -70,7 +72,7 @@ Jornada::Jornada(Game* game, string tilemap, int numeroJornada, bool host_) : Sc
 
 	uiManager->creaMenuPausa();
 
-	uiManager->addInterfaz(new Reloj(game));
+	uiManager->addInterfaz(new Reloj(game, nJornada));
 
 	objectManager->initMuebles();
 }
