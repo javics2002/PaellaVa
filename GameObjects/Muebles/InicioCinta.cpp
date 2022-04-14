@@ -2,6 +2,8 @@
 #include "../../Control/Game.h"
 #include "../../Control/ObjectManager.h"
 
+#include "../../Control/NetworkManager.h"
+
 InicioCinta::InicioCinta(Game* game, Vector2D<double> pos, bool host_) : Mueble(game, pos, TILE_SIZE, TILE_SIZE, "inicioCinta")
 {
 	initTime = sdlutils().virtualTimer().currTime();
@@ -18,7 +20,7 @@ void InicioCinta::update()
 
 	if (sdlutils().virtualTimer().currTime() - initTime >= SPAWN_DELAY)
 	{
-		if (true)
+		if (i < porcentajeletal)
 		{ 
 
 			Ingredienteletal* i= game->getObjectManager()->getPool<Ingredienteletal>(_p_INGREDIENTELETAL)->add(getPosition());
@@ -27,9 +29,11 @@ void InicioCinta::update()
 		
 		}
 		else {
-		/*	Ingrediente* i = game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->add(getPosition());
+			Ingrediente* i = game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->add(getPosition());
 			i->setVel(vel);
-			initTime = sdlutils().virtualTimer().currTime();*/
+			initTime = sdlutils().virtualTimer().currTime();
+
+			game->getNetworkManager()->sendCreateIngrediente(i->getTipo(), getPosition(), vel);
 		}
 	}
 }

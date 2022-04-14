@@ -15,17 +15,23 @@ void Ingrediente::update()
 
 void Ingrediente::onActivate()
 {
-	int n = rand() % (tipoIngrediente::LAST) ; // Se le resta uno a LAST porque el arroz no debe salir en la
-													  // cinta (siendo arroz = 0).
+	int n = rand() % (tipoIngrediente::LAST) ;
 
-	
 	miTipo = tipoIngrediente(n);
 
 	setTexture(texturaIngrediente[n]);
 }
 
+
 void Ingrediente::onDeactivate()
 {
+}
+
+void Ingrediente::cambiaTipo(int n) {
+
+	miTipo = tipoIngrediente(n);
+
+	setTexture(texturaIngrediente[n]);
 }
 
 void Ingrediente::ingredienteRecogido()

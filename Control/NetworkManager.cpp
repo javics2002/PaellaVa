@@ -7,6 +7,8 @@
 #include "../Scenes/Lobby.h"
 #include "../Scenes/Jornada.h"
 
+#include "../Utils/Vector2D.h"
+
 #include <vector>
 
 // SERVIDOR
@@ -29,10 +31,10 @@ void NetworkManager::acceptPlayers()
 
 			int id = getClientID(*remoteIP);
 
-			PacketAccept pkt;
+			Packet pkt;
 			pkt.packet_type = EPT_ACCEPT;
 
-			strcpy_s(pkt.player_name, myName.c_str());
+			strcpy_s(pkt.accept.player_name, myName.c_str());
 
 			if (player_sockets.size() > MAX_PLAYERS) { // TODO: CHECK IF A PLAYER IS DISCONNECTED
 				pkt.packet_type = EPT_DENY;
@@ -51,9 +53,9 @@ void NetworkManager::acceptPlayers()
 				player_sockets.push_back(csd); // Se mete tu socket en el vector
 			}
 
-			pkt.player_id = id;
+			pkt.accept.player_id = id;
 
-			if (SDLNet_TCP_Send(csd, &pkt, sizeof(PacketAccept)) < sizeof(PacketAccept))
+			if (SDLNet_TCP_Send(csd, &pkt, sizeof(Packet)) < sizeof(Packet))
 			{
 				std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 				exit(EXIT_FAILURE);
@@ -68,12 +70,12 @@ void NetworkManager::acceptPlayers()
 // Problemas que da: ---
 void NetworkManager::receivePlayers()
 {
-	PacketName pkt;
+	Packet pkt;
 	Lobby* lobby;
 
 	while (!exitThread) {
 		for (int i = 1u; i < player_sockets.size(); i++) { // Comenzamos en uno porque el 0 somos nosotros mismos
-			if (SDLNet_TCP_Recv(player_sockets[i], &pkt, sizeof(PacketName)) > 0)
+			if (SDLNet_TCP_Recv(player_sockets[i], &pkt, sizeof(Packet)) > 0)
 			{
 				switch (pkt.packet_type) {
 				case EPT_UPDATE:
@@ -82,7 +84,7 @@ void NetworkManager::receivePlayers()
 				case EPT_NAME:
 					/*pkt = *(PacketName*)(void*)&packet;*/
 					// name
-					otherName = pkt.player_name;
+					otherName = pkt.name.player_name;
 
 					// actualizar lobby
 					lobby = dynamic_cast<Lobby*>(game_->getCurrentScene());
@@ -112,41 +114,41 @@ void NetworkManager::receivePlayers()
 // Problemas que da: ---
 void NetworkManager::sendPlayers()
 {
-	while (!exitThread) {
-		// UPDATE CLIENTS
-		Player* p;
-		PacketSend packet;
-		packet.packet_type = EPT_UPDATE;
+	//while (!exitThread) {
+	//	// UPDATE CLIENTS
+	//	Player* p;
+	//	Packet packet;
+	//	packet.packet_type = EPT_UPDATE;
 
-		// Send each player to the other players
-		for (int i = 0u; i < game_->getObjectManager()->getPlayers().size(); i++) {
-			p = game_->getObjectManager()->getPlayers()[i];
+	//	// Send each player to the other players
+	//	for (int i = 0u; i < game_->getObjectManager()->getPlayers().size(); i++) {
+	//		p = game_->getObjectManager()->getPlayers()[i];
 
-			int currentId = 0;
+	//		int currentId = 0;
 
-			// recorrer vector de ids hasta que i == player_ids[j]
-			for (int j = 0u; j < player_ids.size(); j++) {
-				if (i == player_ids[j]) currentId = player_ids[j];
-			}
+	//		// recorrer vector de ids hasta que i == player_ids[j]
+	//		for (int j = 0u; j < player_ids.size(); j++) {
+	//			if (i == player_ids[j]) currentId = player_ids[j];
+	//		}
 
-			packet.player_id = currentId;
-			packet.player_horizontal = p->getAxis().getX();
-			packet.player_vertical = p->getAxis().getY();
+	//		packet.player_id = currentId;
+	//		packet.player_horizontal = p->getAxis().getX();
+	//		packet.player_vertical = p->getAxis().getY();
 
-			for (int j = 1u; j < game_->getObjectManager()->getPlayers().size(); j++) { // Empezamos en uno porque el servidor ya tiene su propio hilo
-																						// que recibe los datos de los clientes, por tanto no hace falta mandar nada.
-				if (i != j) {
-					if (SDLNet_TCP_Send(player_sockets[j], &packet, sizeof(PacketSend)) < sizeof(PacketSend))
-					{
-						std::cout << (stderr, "SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
-						exit(EXIT_FAILURE);
-					}
-				}
-			}
-		}
+	//		for (int j = 1u; j < game_->getObjectManager()->getPlayers().size(); j++) { // Empezamos en uno porque el servidor ya tiene su propio hilo
+	//																					// que recibe los datos de los clientes, por tanto no hace falta mandar nada.
+	//			if (i != j) {
+	//				if (SDLNet_TCP_Send(player_sockets[j], &packet, sizeof(PacketSend)) < sizeof(PacketSend))
+	//				{
+	//					std::cout << (stderr, "SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+	//					exit(EXIT_FAILURE);
+	//				}
+	//			}
+	//		}
+	//	}
 
-		SDL_Delay(send_frequency);
-	}
+	//	SDL_Delay(send_frequency);
+	//}
 }
 
 
@@ -154,11 +156,13 @@ void NetworkManager::sendPlayers()
 // Problemas que da: ---
 void NetworkManager::updateClient()
 {
+	Packet server_pkt;
+
+	Ingrediente* i;
+
 	while (!exitThread) {
-		PacketSend server_pkt;
-		
 		// Receive info from server
-		if (SDLNet_TCP_Recv(socket, &server_pkt, sizeof(PacketSend)) > 0) {
+		if (SDLNet_TCP_Recv(socket, &server_pkt, sizeof(Packet)) > 0) {
 			Player* p = nullptr;
 
 			switch (server_pkt.packet_type)
@@ -166,6 +170,12 @@ void NetworkManager::updateClient()
 			case EPT_START:
 				// Start game
 				game_->changeScene(new Jornada(game_, "Jornada1", 0, false));
+
+				break;
+			case EPT_CREATEING:
+				i = game_->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->add(Vector2D<double>(server_pkt.ingrediente.posX, server_pkt.ingrediente.posY));
+				i->setVel(Vector2D<double>(server_pkt.ingrediente.velX, server_pkt.ingrediente.velY));
+				i->cambiaTipo(server_pkt.ingrediente.tipo_ingrediente);
 
 				break;
 			default:
@@ -288,24 +298,24 @@ bool NetworkManager::init(char type, const char* ip_addr, std::string name)
 	
 	myName = name;
 	
-	PacketAccept pkt;
+	Packet pkt;
 
 	if (type == 'c') { // Si somos un cliente
-		while (SDLNet_TCP_Recv(socket, &pkt, sizeof(PacketAccept)) == 0); // Esperamos a que el servidor nos acepte
+		while (SDLNet_TCP_Recv(socket, &pkt, sizeof(Packet)) == 0); // Esperamos a que el servidor nos acepte
 
 		if (pkt.packet_type == EPT_ACCEPT) { // Cuando nos acepte, se crea el personaje, etc.
 			// recv info
-			otherName = pkt.player_name;
+			otherName = pkt.accept.player_name;
 
 			// Mandarle el nombre
 			// Send info
-			PacketName namePkt;
+			Packet namePkt;
 			namePkt.packet_type = EPT_NAME;
 
 			// namePkt.player_name = myName;
-			strcpy_s(namePkt.player_name, myName.c_str());
+			strcpy_s(namePkt.name.player_name, myName.c_str());
 
-			if (SDLNet_TCP_Send(socket, &namePkt, sizeof(PacketName)) < sizeof(PacketName))
+			if (SDLNet_TCP_Send(socket, &namePkt, sizeof(Packet)) < sizeof(Packet))
 			{
 				std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 				exit(EXIT_FAILURE);
@@ -380,13 +390,13 @@ void NetworkManager::close()
 	exitThread = true;
 
 	if (nType == 'h') { // si se es host, tienes que mandar a todo el mundo que te has desconectado
-		PacketSend pkt;
+		Packet pkt;
 
 		pkt.packet_type = EPT_QUIT;
-		pkt.player_id = 0;
+		pkt.send.player_id = 0;
 
 		for (int i = 1u; i < player_sockets.size(); i++) { // empezamos en 1 porque el 0 eres tú mismo
-			if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(PacketSend)) < sizeof(PacketSend))
+			if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
 			{
 				std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 				exit(EXIT_FAILURE);
@@ -403,12 +413,12 @@ void NetworkManager::close()
 
 	}
 	else if (nType == 'c') {
-		PacketSend pkt;
+		Packet pkt;
 
 		pkt.packet_type = EPT_QUIT;
-		pkt.player_id = client_id;
+		pkt.send.player_id = client_id;
 
-		if (SDLNet_TCP_Send(socket, &pkt, sizeof(PacketSend)) < sizeof(PacketSend))
+		if (SDLNet_TCP_Send(socket, &pkt, sizeof(Packet)) < sizeof(Packet))
 		{
 			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 			exit(EXIT_FAILURE);
@@ -447,16 +457,37 @@ Player* NetworkManager::addPlayerClient(int id)
 void NetworkManager::sendStartGame(int numJornada) {
 	// Lo manda el servidor al cliente para que empiece la partida
 
-	PacketStartGame pkt;
+	Packet pkt;
 	pkt.packet_type = EPT_START;
-	pkt.num_jornada = numJornada;
+	pkt.startGame.num_jornada = numJornada;
 
 	for (int i = 0u; i < player_sockets.size(); i++) {
-		if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(PacketSend)) < sizeof(PacketSend))
+		if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
 		{
 			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 			exit(EXIT_FAILURE);
 		}
 	}
 
+}
+
+void NetworkManager::sendCreateIngrediente(int tipoIngrediente, Vector2D<double> pos, Vector2D<double> vel) {
+
+	Packet pkt;
+	pkt.packet_type = EPT_CREATEING;
+	pkt.ingrediente.tipo_ingrediente = tipoIngrediente;
+
+	pkt.ingrediente.posX = pos.getX();
+	pkt.ingrediente.posY = pos.getY();
+
+	pkt.ingrediente.velX = vel.getX();
+	pkt.ingrediente.velY = vel.getY();
+
+	for (int i = 1u; i < player_sockets.size(); i++) {
+		if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+		{
+			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+			exit(EXIT_FAILURE);
+		}
+	}
 }

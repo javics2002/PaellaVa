@@ -36,6 +36,7 @@ public:
 	void onActivate() override;
 	void onDeactivate() override;
 
+	void cambiaTipo(int n);
 	void ingredienteRecogido();
 	
 	void setProcesado(bool estadoIngr, Ingrediente *ingr);
