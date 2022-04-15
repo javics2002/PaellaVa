@@ -170,7 +170,6 @@ void NetworkManager::updateClient()
 			case EPT_START:
 				// Start game
 				game_->sendMessageScene(new Jornada(game_, "Jornada1", 0, false));
-
 				break;
 			case EPT_CREATEING:
 				i = game_->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->add(Vector2D<double>(server_pkt.ingrediente.posX, server_pkt.ingrediente.posY));
@@ -208,6 +207,21 @@ void NetworkManager::updateClient()
 				g->initGrupo(nullptr, v);
 
 				sdlutils().soundEffects().at("puerta").play();
+				}
+
+				break;
+			case EPT_BUTTONBUFFER:
+				{
+				// Transformar array a vector
+				vector<bool> buffer(8, false);
+				for (int i = 0u; i < ih().getOtherKeyPressed().size(); i++) {
+					buffer[i] = server_pkt.buttonBuffer.buttonBuffer[i];
+				}
+
+				// Procesar buffer
+				ih().setOtherKeyPressed(buffer);
+				ih().updateOtherAxis();
+
 				}
 
 				break;
@@ -566,6 +580,24 @@ void NetworkManager::sendGrupoCliente(int tamGrupo, Vector2D<double> puertaPos, 
 	}
 
 	pkt.grupoCliente.tolerancia = tolerancia;
+
+	for (int i = 1u; i < player_sockets.size(); i++) {
+		if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+		{
+			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+			exit(EXIT_FAILURE);
+		}
+	}
+}
+
+void NetworkManager::sendButtonsBuffer(vector<bool> keyPressed)
+{
+	Packet pkt;
+	pkt.packet_type = EPT_BUTTONBUFFER;
+	
+	for (int i = 0u; i < keyPressed.size(); i++) {
+		pkt.buttonBuffer.buttonBuffer[i] = keyPressed[i];
+	}
 
 	for (int i = 1u; i < player_sockets.size(); i++) {
 		if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))

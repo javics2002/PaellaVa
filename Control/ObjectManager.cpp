@@ -72,9 +72,14 @@ void ObjectManager::debug(SDL_Rect* rect)
 void ObjectManager::handleInput(bool& exit)
 {
 	// solo se handlea tu propio input
-	Player* p = getHost();
+	Player* p = getPlayerOne();
 	if (p != nullptr)
-		p->handleInput();
+		p->handleInput(); // Handle input del primer jugador
+
+	Player* p2 = getPlayerTwo();
+	if (p2 != nullptr)
+		p2->handleInput(Vector2D<double>(ih().getOtherAxisX(), ih().getOtherAxisY())); // Handle input del segundo jugador
+
 }
 
 void ObjectManager::update()

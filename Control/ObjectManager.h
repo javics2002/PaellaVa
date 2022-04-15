@@ -101,8 +101,13 @@ public:
 
 	vector<Player*> getPlayers() { return players; }
 
-	Player* getHost() { 
+	Player* getPlayerOne() { 
 		if (players.size() > 0) return players[0];
+		return nullptr;
+	}
+
+	Player* getPlayerTwo() {
+		if (players.size() > 1) return players[1];
 		return nullptr;
 	}
 

@@ -21,6 +21,7 @@ enum EPacketType {
 	EPT_CREATEING,
 	EPT_CREATEINGLET,
 	EPT_CREATECLIENTGROUP,
+	EPT_BUTTONBUFFER,
 	EPT_SYNCPLAYER,
 	EPT_QUIT
 };
@@ -94,6 +95,10 @@ struct PacketGrupoCliente {
 	float tolerancia;
 };
 
+struct PacketButtonBuffer {
+	bool buttonBuffer[8];
+};
+
 struct Packet {
 	Uint8 packet_type;
 
@@ -107,6 +112,7 @@ struct Packet {
 		PacketStartGame startGame;
 		PacketIngrediente ingrediente;
 		PacketGrupoCliente grupoCliente;
+		PacketButtonBuffer buttonBuffer;
 	};
 
 };
@@ -194,4 +200,6 @@ public:
 	void sendCreateIngredienteLetal(int tipoIngrediente, Vector2D<double> pos, Vector2D<double> vel);
 
 	void sendGrupoCliente(int tamGrupo, Vector2D<double> puertaPos, Vector2D<double> vel, Vector2D<double> distancia, std::vector<int>textureNumber, float tolerancia);
+	
+	void sendButtonsBuffer(std::vector<bool> keyPressed);
 };

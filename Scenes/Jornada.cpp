@@ -50,10 +50,18 @@ Jornada::Jornada(Game* game, string tilemap, int numeroJornada, bool host_) : Sc
 	if (host) {
 		Player* p = new Player(game, true);
 		objectManager->addPlayer(p);
+
+		// Jugador 2
+		Player* p2 = new Player(game, false);
+		getObjectManager()->addPlayer(p2);
 	}
 	else {
 		Player* p = new Player(game, false);
 		objectManager->addPlayer(p);
+
+		// Jugador 2
+		Player* p2 = new Player(game, true);
+		getObjectManager()->addPlayer(p2);
 	}
 	
 
@@ -102,7 +110,7 @@ void Jornada::update()
 	if (!paused) {
 		objectManager->update();
 
-		Player* player = objectManager->getHost();
+		Player* player = objectManager->getPlayerOne();
 		if (player != nullptr) {
 			if (player->getX() > tamRestaurante.getY() + TILE_SIZE) { // tamRestaurante es un rango, no una posición, por eso tengo que hacer getY()
 				camara->Lerp(Vector2D<float>(tamRestaurante.getY(), 16), LERP_INTERPOLATION);

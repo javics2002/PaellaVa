@@ -7,6 +7,8 @@
 #include <array>
 
 #include "../utils/Singleton.h"
+#include "../Control/Game.h"
+#include "../Control/NetworkManager.h"
 
 
 // Instead of a Singleton class, we could make it part of
@@ -16,21 +18,27 @@ class InputHandler : public Singleton<InputHandler> {
 
 	friend Singleton<InputHandler>;
 
+	Game* game;
 	SDL_Joystick* joystick_;
 
 	vector<bool> keyPressed;
 	vector<bool> lastKeyPressed;
 	vector<bool> mousePressed;
+
 	//char currentKey [1] ;
 	vector<char> currentKey;
 	std::pair<Sint32, Sint32> mousePos_;
 	const Uint8* kbState_;
 	const int CONTROLLER_DEAD_ZONE = 8000;
 	float ejeX, ejeY;
+
 	int mx = -1;
 	int my = -1;
 
 	bool isMouseButtonHeldDown_;
+
+	vector<bool> otherKeyPressed; // Hecho para el otro personaje
+	float otherEjeX, otherEjeY; // Hecho para el otro personaje
 
 	InputHandler() {
 		kbState_ = SDL_GetKeyboardState(0);
@@ -69,7 +77,7 @@ public:
 	enum MOUSEBUTTON : uint8_t { MOUSE_LEFT, MOUSE_MIDDLE, MOUSE_RIGHT };
 
 	//Unknown debe ser el último botón para marcar el número de botones
-	enum botones { LEFT, RIGHT, UP, DOWN, INTERACT, CANCEL,J, UNKNOWN };
+	enum botones { LEFT, RIGHT, UP, DOWN, INTERACT, CANCEL, J, UNKNOWN };
 
 	virtual ~InputHandler() {
 	}
@@ -134,6 +142,34 @@ public:
 				printf("Warning: Unable to open game controller! SDL Error: %s\n", SDL_GetError());
 			}
 		}
+	}
+
+	inline void setOtherKeyPressed(vector<bool> otherKeyPressed_) {
+		otherKeyPressed = otherKeyPressed_;
+	}
+
+	inline vector<bool> getOtherKeyPressed() {
+		return otherKeyPressed;
+	}
+
+	inline void setOtherAxisX(float ejeX)
+	{
+		otherEjeX = ejeX;
+	}
+
+	inline void setOtherAxisY(float ejeY)
+	{
+		otherEjeY = ejeY;
+	}
+
+	inline int getOtherAxisX()
+	{
+		return otherEjeX;
+	}
+
+	inline int getOtherAxisY()
+	{
+		return otherEjeY;
 	}
 
 	inline int getAxisX()
@@ -217,6 +253,9 @@ public:
 			default:
 				break;
 			}
+
+			game->getNetworkManager()->sendButtonsBuffer(keyPressed);
+			
 		}
 	}
 
@@ -256,6 +295,28 @@ public:
 		default:
 			break;
 		}
+
+		game->getNetworkManager()->sendButtonsBuffer(keyPressed);
+	}
+
+	inline void updateOtherAxis() {
+		if (otherKeyPressed[botones::RIGHT]) {
+			otherEjeX = 1;
+		}
+		else if (otherKeyPressed[botones::LEFT]) {
+			otherEjeX = -1;
+		}
+		else
+			otherEjeX = 0;
+
+		if (otherKeyPressed[botones::UP]) {
+			otherEjeY = -1;
+		}
+		else if (otherKeyPressed[botones::DOWN]) {
+			otherEjeY = 1;
+		}
+		else
+			otherEjeY = 0;
 	}
 
 	inline void onJoystickMotion(const SDL_Event& e) {
@@ -345,6 +406,8 @@ public:
 	// the book 'SDL Game Development'
 	int getmx() { return mx; };
 	int getmy() { return my; };
+
+	void setGame(Game* game_) { game = game_; }
 };
 
 // This macro defines a compact way for using the singleton InputHandler, instead of
@@ -353,3 +416,4 @@ public:
 inline InputHandler& ih() {
 	return *InputHandler::instance();
 }
+
