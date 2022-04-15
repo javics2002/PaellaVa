@@ -8,6 +8,7 @@
 
 #include "Ingrediente.h"
 #include "Muebles/Mueble.h"
+#include "Muebles/Mesa.h"
 #include "Arroz.h"
 
 #include "../Utils/Traza.h"
@@ -101,11 +102,15 @@ void Player::handleInput()
 				for (auto i : game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->getOverlaps(getOverlap())) {
 					if (i->isActive() && i->canPick() && nearestObject(i))
 						objectType_ = INGREDIENTE;
+					if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::cogerIngrediente) {
+						game->getCurrentScene()->changeState(States::pausaCogerIngrediente);
+					}
 				}
 				//Ingredientes letales
 				for (auto i : game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTELETAL)->getOverlaps(getOverlap())) {
-					if (i->isActive() && i->canPick() && nearestObject(i))
+					if (i->isActive() && i->canPick() && nearestObject(i)) {
 						objectType_ = INGREDIENTE;
+					}
 				}
 				//Grupo de Clientes
 				for (auto i : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getOverlaps(getOverlap())) {
@@ -152,8 +157,23 @@ void Player::handleInput()
 				break;
 			case PAELLA:
 				if (m != nullptr && m->receivePaella(dynamic_cast<Paella*>(pickedObject_))) {
-					pickedObject_->dropObject();
-					pickedObject_ = nullptr;
+					if (dynamic_cast<Tutorial*>(game->getCurrentScene())) {
+						if (dynamic_cast<Mesa*>(m))
+						{
+							if (game->getCurrentScene()->getState() == States::darDeComer) {
+								pickedObject_->dropObject();
+								pickedObject_ = nullptr;
+							}
+						}
+						else {
+							pickedObject_->dropObject();
+							pickedObject_ = nullptr;
+						}
+					}
+					else {
+						pickedObject_->dropObject();
+						pickedObject_ = nullptr;
+					}
 				}
 				break;
 			case ARROZ:

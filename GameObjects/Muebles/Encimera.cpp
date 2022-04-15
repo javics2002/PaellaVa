@@ -26,7 +26,10 @@ bool Encimera::receiveIngrediente(Ingrediente* ingr)
 		if (paella_->ingrValido(ingr) && paella_->conArroz() && ingr->getProcesado()) {
 
 			paella_->anadeIngr(ingr);
-
+			if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState()==States::dejarIngredientePaella) {
+				if (paella_->ingredientesEnPaella() == 3)
+					game->getCurrentScene()->changeState(States::pausaDejarIngredientes);
+			}
 			ingr->setActive(false);
 
 			return true;
@@ -63,6 +66,8 @@ bool Encimera::receiveArroz(Arroz* arr)
 		if (paella_->getContenido() == Limpia) {
 
 			paella_->anadeArroz(arr);
+			if (dynamic_cast<Tutorial*>(game->getCurrentScene()))
+				game->getCurrentScene()->changeState(States::pausaCogerDejarArroz);
 
 			return true;
 		}

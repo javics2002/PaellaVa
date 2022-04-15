@@ -1,15 +1,20 @@
 #include "ObjectManager.h"
 #include  "../GameObjects/UI/RedactaComandabutton.h"
 #include "../Data/Comanda.h"
-#include "../GameObjects/Muebles/cartel.h"
+#include "../GameObjects/Muebles/MueblesInclude.h"
 #include "../Utils/Vector2D.h"
+#include "../Scenes/Tutorial.h"
 
 
 ObjectManager::ObjectManager(Game* game) : game(game)
 {
-	pools.emplace_back((Pool<GameObject>*) new Pool<IngredienteLetal>(game, 10));
-	pools.emplace_back((Pool<GameObject>*) new Pool<Ingrediente>(game, 50));
-	
+	if (dynamic_cast<Tutorial*>(game->getCurrentScene())) {
+		pools.emplace_back((Pool<GameObject>*) new Pool<Ingrediente>(game, 3));
+	}
+	else {
+		pools.emplace_back((Pool<GameObject>*) new Pool<IngredienteLetal>(game, 10));
+		pools.emplace_back((Pool<GameObject>*) new Pool<Ingrediente>(game, 50));
+	}
 	pools.emplace_back((Pool<GameObject>*) new Pool<Arroz>(game, 20));
 	pools.emplace_back((Pool<GameObject>*) new Pool<GrupoClientes>(game, 20));
 	pools.emplace_back((Pool<GameObject>*) new Pool<Cliente>(game, 50));
@@ -164,6 +169,16 @@ void ObjectManager::initMuebles()
 		i->init(this);
 }
 
+void ObjectManager::addIniCinta(InicioCinta* i)
+{
+	iniCinta = i;
+}
+
+void ObjectManager::addFinCinta(FinalCinta* f)
+{
+	finCinta = f;
+}
+
 void ObjectManager::addSilla(Silla* s)
 {
 	sillas.push_back(s);
@@ -210,6 +225,16 @@ void ObjectManager::addBolsa(BolsaArroz* b)
 	bolsaDeArroz = b;
 }
 
+void ObjectManager::addFogon(Fogon* f)
+{
+	fogones.push_back(f);
+}
+
+void ObjectManager::addTabla(TablaProcesado* t)
+{
+	tablasProcesados.push_back(t);
+}
+
 vector<Silla*> ObjectManager::getSillas()
 {
 	return sillas;
@@ -242,6 +267,16 @@ vector<Pila*> ObjectManager::getPilas()
 	return pilas;
 }
 
+vector<Fogon*> ObjectManager::getFogones()
+{
+	return fogones;
+}
+
+vector<TablaProcesado*> ObjectManager::getTablas()
+{
+	return tablasProcesados;
+}
+
 Cartel* ObjectManager::getCartel()
 {
 	return cartel;
@@ -255,4 +290,14 @@ Puerta* ObjectManager::getPuerta()
 BolsaArroz* ObjectManager::getBolsa()
 {
 	return bolsaDeArroz;
+}
+
+InicioCinta* ObjectManager::getIniCinta()
+{
+	return iniCinta;
+}
+
+FinalCinta* ObjectManager::getFinCinta()
+{
+	return finCinta;
 }

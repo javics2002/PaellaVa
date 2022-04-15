@@ -60,6 +60,8 @@ public:
 	void contaminaPaella();
 	bool estaContaminada();
 
+	int ingredientesEnPaella();
+
 	void render(SDL_Rect* cameraRect);
 
 private:

@@ -2,9 +2,10 @@
 
 #include "../../GameObjects/Player.h"
 #include "../../Control/Game.h"
+#include "../../Scenes/Tutorial.h"
 
 
-TablaProcesado::TablaProcesado(Game* game_, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, "tablaProcesado")
+TablaProcesado::TablaProcesado(Game* game_, Vector2D<double> pos) : Mueble(game_, pos, TILE_SIZE, 2 * TILE_SIZE, "tablaProcesado")
 {
 	clip.w = timerTexture->width() / 8;
 	clip.h = timerTexture->height();
@@ -78,6 +79,8 @@ bool TablaProcesado::returnObject(Player* p)
 	{
 		//TOCHECK: Podríamos hacer un return del objeto y que el player se lo guarde a sí mismo
 		p->setPickedObject(ingr_, INGREDIENTE);
+		if (ingr_->getProcesado() && dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::procesarIngrediente)
+			game->getCurrentScene()->changeState(States::pausaProcesarIngrediente);
 
 		ingr_ = nullptr;
 

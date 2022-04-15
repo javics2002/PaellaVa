@@ -14,8 +14,9 @@ class Player;
 
 
 enum States {
-	cogerClientes,pausaClientes, dejarClientesMesa,pausaPaellas,apuntaPedido,pausaPedido, cogePaellera,pausaCogePaellera, dejaPaellera,pausaDejaPaella,cogerDejarArroz, cogerIngrediente,
-	procesarIngrediente, dejarIngredientePaella, cocinarPaella, darDeComerPaella
+	cogerClientes,pausaClientes, dejarClientesMesa,pausaPaellas,apuntaPedido,pausaPedido, cogePaellera,pausaCogePaellera, dejaPaellera,pausaDejaPaella,cogerDejarArroz,pausaCogerDejarArroz, cogerIngrediente,pausaCogerIngrediente,
+	procesarIngrediente,pausaProcesarIngrediente, dejarIngredientePaella,pausaDejarIngredientes, cocinarPaella,pausaCocinarPaella, recogerPaellaCocinada,pausaRecogerPaellaCocinada,
+	dejarPaellaVentanilla,pausaDejarPaellVentanilla,cogerPaellaVentanilla,pausaCogerPaellaVentanilla,darDeComer,pausaDarDeComer
 };
 
 

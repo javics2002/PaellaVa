@@ -399,6 +399,7 @@ void Jornada::loadMap(string const& path)
 
 		if (!sdlutils().images().count(path))
 			sdlutils().images().emplace(path, Texture(renderer, fondo, mapInfo.anchoFondo, mapInfo.altoFondo));
+
 	}
 }
 

@@ -29,10 +29,12 @@ struct penalizacionCoccion {
 
 const vector<string> paellasTamTex{ "small", "medium", "large" };
 
+class Game;
+
 class Pedido 
 {
 public:
-	Pedido(int numComensales, int numeroTiles);
+	Pedido(Game* game,int numComensales, int numeroTiles);
 	~Pedido() {};
 	vector<pedidoPaella> getPedido();
 	vector<string> getPedidoTex();
@@ -44,6 +46,8 @@ public:
 private:
 	vector<pedidoPaella> paellas;
 	vector<bool> ingredientesPedidos;
+
+	Game* game;
 
 	int comensales, tilesMesa, max_rand;
 
