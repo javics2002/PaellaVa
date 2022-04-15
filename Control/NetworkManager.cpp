@@ -89,6 +89,35 @@ void NetworkManager::receivePlayers()
 
 					lobby->clienteUnido(otherName);
 					break;
+				case EPT_BUTTONBUFFER:
+					{
+					// Transformar array a vector
+					vector<bool> buffer(8, false);
+					for (int i = 0u; i < ih().getOtherKeyPressed().size(); i++) {
+						buffer[i] = pkt.buttonBuffer.buttonBuffer[i];
+					}
+
+					// Procesar buffer
+					ih().setOtherKeyPressed(buffer);
+					ih().updateOtherAxis();
+
+					}
+					break;
+				case EPT_SYNCPLAYER:
+					game_->getUIManager()->addTween(game_->getObjectManager()->getPlayerTwo()->getPosition().getX(), pkt.syncPlayers.posX, 300).via(easing::linear).onStep([this](tweeny::tween<float>& t, float) mutable {
+						game_->getObjectManager()->getPlayerTwo()->setPosition(t.peek(), game_->getObjectManager()->getPlayerTwo()->getPosition().getY());
+
+						return t.progress() == 1.0f;
+					});
+
+					game_->getUIManager()->addTween(game_->getObjectManager()->getPlayerTwo()->getPosition().getY(), pkt.syncPlayers.posY, 300).via(easing::linear).onStep([this](tweeny::tween<float>& t, float) mutable {
+						game_->getObjectManager()->getPlayerTwo()->setPosition(game_->getObjectManager()->getPlayerTwo()->getPosition().getX(), t.peek());
+
+						return t.progress() == 1.0f;
+					});
+
+					// game_->getObjectManager()->getPlayerTwo()->setPosition(Vector2D<double>(pkt.syncPlayers.posX, pkt.syncPlayers.posY));
+					break;
 				case EPT_QUIT:
 					std::cout << ("Client disconnected: ID(%d)\n", i) << std::endl;
 
@@ -170,6 +199,8 @@ void NetworkManager::updateClient()
 			case EPT_START:
 				// Start game
 				game_->sendMessageScene(new Jornada(game_, "Jornada1", 0, false));
+				startGameTimer();
+
 				break;
 			case EPT_CREATEING:
 				i = game_->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->add(Vector2D<double>(server_pkt.ingrediente.posX, server_pkt.ingrediente.posY));
@@ -224,6 +255,19 @@ void NetworkManager::updateClient()
 
 				}
 
+				break;
+			case EPT_SYNCPLAYER:
+				game_->getUIManager()->addTween(game_->getObjectManager()->getPlayerTwo()->getPosition().getX(), server_pkt.syncPlayers.posX, 300).via(easing::linear).onStep([this](tweeny::tween<float>& t, float) mutable {
+					game_->getObjectManager()->getPlayerTwo()->setPosition(t.peek(), game_->getObjectManager()->getPlayerTwo()->getPosition().getY());
+
+					return t.progress() == 1.0f;
+					});
+
+				game_->getUIManager()->addTween(game_->getObjectManager()->getPlayerTwo()->getPosition().getY(), server_pkt.syncPlayers.posY, 300).via(easing::linear).onStep([this](tweeny::tween<float>& t, float) mutable {
+					game_->getObjectManager()->getPlayerTwo()->setPosition(game_->getObjectManager()->getPlayerTwo()->getPosition().getX(), t.peek());
+
+					return t.progress() == 1.0f;
+					});
 				break;
 			default:
 				break;
@@ -294,6 +338,7 @@ bool NetworkManager::compareAddress(const IPaddress& addr1, const IPaddress& add
 NetworkManager::NetworkManager(Game* game)
 {
 	exitThread = false;
+	gameStarted = false;
 
 	nType = '0';
 	id_count = 0;
@@ -401,14 +446,20 @@ bool NetworkManager::init(char type, const char* ip_addr, std::string name)
 }
 
 
-// Duda: Aquí es donde se sincronizarían las cosas?
-void NetworkManager::update() // SINCRONIZAR ESTADO DE JUEGO CADA 0.5 SEGS
+// Currently testing
+void NetworkManager::update() // SINCRONIZAR ESTADO DE JUEGO CADA 1 SEGS
 {
-	if (lastUpdate_ + updateTime_ > sdlutils().currRealTime()) { //si no pasan
-		return;
-	}
+	if (gameStarted) {
+		if (lastUpdate_ + updateTime_ > sdlutils().currRealTime()) { // si no pasan
+			return;
+		}
 
-	lastUpdate_ = sdlutils().currRealTime();
+		lastUpdate_ = sdlutils().currRealTime();
+
+		// Sync Players
+		syncPlayers();
+	}
+	
 	
 	//PacketSyncPlayer pkt_send;
 	// Send status
@@ -503,6 +554,7 @@ Player* NetworkManager::addPlayerClient(int id)
 
 void NetworkManager::sendStartGame(int numJornada) {
 	// Lo manda el servidor al cliente para que empiece la partida
+	startGameTimer();
 
 	Packet pkt;
 	pkt.packet_type = EPT_START;
@@ -516,6 +568,11 @@ void NetworkManager::sendStartGame(int numJornada) {
 		}
 	}
 
+}
+
+void NetworkManager::startGameTimer() {
+	gameStarted = true; // test
+	lastUpdate_ = SDL_GetTicks();
 }
 
 void NetworkManager::sendCreateIngrediente(int tipoIngrediente, Vector2D<double> pos, Vector2D<double> vel) {
@@ -599,8 +656,43 @@ void NetworkManager::sendButtonsBuffer(vector<bool> keyPressed)
 		pkt.buttonBuffer.buttonBuffer[i] = keyPressed[i];
 	}
 
-	for (int i = 1u; i < player_sockets.size(); i++) {
-		if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+	if (nType == 'h') {
+		for (int i = 1u; i < player_sockets.size(); i++) {
+			if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+			{
+				std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+				exit(EXIT_FAILURE);
+			}
+		}
+	}
+	else {
+		if (SDLNet_TCP_Send(socket, &pkt, sizeof(Packet)) < sizeof(Packet))
+		{
+			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+			exit(EXIT_FAILURE);
+		}
+	}
+}
+
+void NetworkManager::syncPlayers()
+{
+	Packet pkt;
+	pkt.packet_type = EPT_SYNCPLAYER;
+
+	pkt.syncPlayers.posX = game_->getObjectManager()->getPlayerOne()->getPosition().getX();
+	pkt.syncPlayers.posY = game_->getObjectManager()->getPlayerOne()->getPosition().getY();
+
+	if (nType == 'h') {
+		for (int i = 1u; i < player_sockets.size(); i++) {
+			if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+			{
+				std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+				exit(EXIT_FAILURE);
+			}
+		}
+	}
+	else {
+		if (SDLNet_TCP_Send(socket, &pkt, sizeof(Packet)) < sizeof(Packet))
 		{
 			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 			exit(EXIT_FAILURE);
