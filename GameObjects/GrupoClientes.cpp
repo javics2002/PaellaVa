@@ -300,7 +300,7 @@ void GrupoClientes::hacerPedido(int tamMesa, Mesa* m)
 {
 	mesa = m;
 
-	pedido = new Pedido(clientes.size(), tamMesa);
+	pedido = new Pedido(game,clientes.size(), tamMesa);
 
 	texPedido = pedido->getPedidoTex();
 }

@@ -34,15 +34,6 @@ enum EInputType {
 	EIT_NONE
 };
 
-
-// Currently testing
-struct PacketSyncPlayer {
-	Uint8 player_id;
-	Sint16 posX;
-	Sint16 posY;
-};
-
-
 struct PacketSend {
 	Uint8 player_id;
 	Sint8 player_horizontal;
@@ -99,12 +90,16 @@ struct PacketButtonBuffer {
 	bool buttonBuffer[8];
 };
 
+struct PacketSyncPlayers {
+	Sint16 posX;
+	Sint16 posY;
+};
+
 struct Packet {
 	Uint8 packet_type;
 
 	union
 	{
-		PacketSyncPlayer syncPlayer;
 		PacketSend send;
 		PacketRecv recieve;
 		PacketAccept accept;
@@ -113,6 +108,7 @@ struct Packet {
 		PacketIngrediente ingrediente;
 		PacketGrupoCliente grupoCliente;
 		PacketButtonBuffer buttonBuffer;
+		PacketSyncPlayers syncPlayers;
 	};
 
 };
@@ -160,6 +156,7 @@ private:
 	Game* game_;
 
 	bool exitThread;
+	bool gameStarted;
 
 	std::string myName;
 	std::string otherName;
@@ -178,7 +175,7 @@ private:
 
 	// Timer
 	Uint32 lastUpdate_; //tiempo desde el último update
-	Uint32 updateTime_ = 500; //los segundos que tarda en actualizarse el reloj
+	Uint32 updateTime_ = 2500; //los segundos que tarda en actualizarse el reloj
 
 public:
 	NetworkManager(Game* game);
@@ -195,6 +192,8 @@ public:
 	std::string getOtherName() { return otherName;}
 	std::string getMyName() { return myName; }
 
+	void startGameTimer();
+
 	void sendStartGame(int numJornada);
 	void sendCreateIngrediente(int tipoIngrediente, Vector2D<double> pos, Vector2D<double> vel);
 	void sendCreateIngredienteLetal(int tipoIngrediente, Vector2D<double> pos, Vector2D<double> vel);
@@ -202,4 +201,6 @@ public:
 	void sendGrupoCliente(int tamGrupo, Vector2D<double> puertaPos, Vector2D<double> vel, Vector2D<double> distancia, std::vector<int>textureNumber, float tolerancia);
 	
 	void sendButtonsBuffer(std::vector<bool> keyPressed);
+
+	void syncPlayers();
 };

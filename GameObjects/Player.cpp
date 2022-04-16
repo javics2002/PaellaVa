@@ -8,6 +8,7 @@
 
 #include "Ingrediente.h"
 #include "Muebles/Mueble.h"
+#include "Muebles/Mesa.h"
 #include "Arroz.h"
 
 #include "../Utils/Traza.h"
@@ -51,23 +52,25 @@ void Player::handleInput()
 {
 
 	//El jugador se mueve o se para en ambos ejes
-	if (ih().getAxisX() > .1f) {
-		vel.setX(vel.getX() + ih().getAxisX() * aceleracion);
+	Vector2D<double> axis = ih().getAxis();
+
+	if (axis.getX() > .1f) {
+		vel.setX(vel.getX() + axis.getX() * aceleracion);
 	}
-	else if (ih().getAxisX() < -.1f) {
-		vel.setX(vel.getX() + ih().getAxisX() * aceleracion);
+	else if (axis.getX() < -.1f) {
+		vel.setX(vel.getX() + axis.getX() * aceleracion);
 
 	}
 	else
 		vel.setX(vel.getX() * deceleracion);
 
 
-	if (ih().getAxisY() > .1f) {
-		vel.setY(vel.getY() + ih().getAxisY() * aceleracion);
+	if (axis.getY() > .1f) {
+		vel.setY(vel.getY() + axis.getY() * aceleracion);
 
 	}
-	else if (ih().getAxisY() < -.1f) {
-		vel.setY(vel.getY() + ih().getAxisY() * aceleracion);
+	else if (axis.getY() < -.1f) {
+		vel.setY(vel.getY() + axis.getY() * aceleracion);
 
 	}
 	else {
@@ -101,11 +104,15 @@ void Player::handleInput()
 				for (auto i : game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->getOverlaps(getOverlap())) {
 					if (i->isActive() && i->canPick() && nearestObject(i))
 						objectType_ = INGREDIENTE;
+					if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::cogerIngrediente) {
+						game->getCurrentScene()->changeState(States::pausaCogerIngrediente);
+					}
 				}
 				//Ingredientes letales
 				for (auto i : game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTELETAL)->getOverlaps(getOverlap())) {
-					if (i->isActive() && i->canPick() && nearestObject(i))
+					if (i->isActive() && i->canPick() && nearestObject(i)) {
 						objectType_ = INGREDIENTE;
+					}
 				}
 				//Grupo de Clientes
 				for (auto i : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getOverlaps(getOverlap())) {
@@ -152,8 +159,23 @@ void Player::handleInput()
 				break;
 			case PAELLA:
 				if (m != nullptr && m->receivePaella(dynamic_cast<Paella*>(pickedObject_))) {
-					pickedObject_->dropObject();
-					pickedObject_ = nullptr;
+					if (dynamic_cast<Tutorial*>(game->getCurrentScene())) {
+						if (dynamic_cast<Mesa*>(m))
+						{
+							if (game->getCurrentScene()->getState() == States::darDeComer) {
+								pickedObject_->dropObject();
+								pickedObject_ = nullptr;
+							}
+						}
+						else {
+							pickedObject_->dropObject();
+							pickedObject_ = nullptr;
+						}
+					}
+					else {
+						pickedObject_->dropObject();
+						pickedObject_ = nullptr;
+					}
 				}
 				break;
 			case ARROZ:
@@ -193,7 +215,6 @@ void Player::handleInput(Vector2D<double> axis)
 
 		currAnim = 3;
 		frameCounter = 0;
-	
 	}
 	else
 		vel.setY(vel.getY() * deceleracion);
@@ -264,7 +285,7 @@ void Player::update()
 		break;
 	case S:
 		overlapPos = Vector2D<double>(getX() - overlapDim.getX() / 2,
-			getY() + getHeight() / 2);
+			getY());
 		break;
 	case N:
 		overlapPos = Vector2D<double>(getX() - overlapDim.getX() / 2,
@@ -379,7 +400,6 @@ void Player::animUpdate()
 void Player::setAnimResources()
 {
 	if (chef_) {
-
 		anims.push_back(&sdlutils().images().at("cocineraIdleDown"));
 		anims.push_back(&sdlutils().images().at("cocineraIdleSide"));
 		anims.push_back(&sdlutils().images().at("cocineraIdleUp"));
@@ -387,11 +407,9 @@ void Player::setAnimResources()
 		anims.push_back(&sdlutils().images().at("cocineraWalkDown"));
 		anims.push_back(&sdlutils().images().at("cocineraWalkSide"));
 		anims.push_back(&sdlutils().images().at("cocineraWalkUp"));
-	
 	}
 
 	else {
-
 		anims.push_back(&sdlutils().images().at("camareroIdleDown"));
 		anims.push_back(&sdlutils().images().at("camareroIdleSide"));
 		anims.push_back(&sdlutils().images().at("camareroIdleUp"));
@@ -399,7 +417,6 @@ void Player::setAnimResources()
 		anims.push_back(&sdlutils().images().at("camareroWalkDown"));
 		anims.push_back(&sdlutils().images().at("camareroWalkSide"));
 		anims.push_back(&sdlutils().images().at("camareroWalkUp"));
-
 	}
 }
 

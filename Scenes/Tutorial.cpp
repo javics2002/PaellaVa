@@ -60,6 +60,9 @@ Tutorial::Tutorial(Game* game, string tilemap) : Scene(game)
 	uiManager->addInterfaz(new Reloj(game, -1));
 	uiManager->addInterfaz(cuadroTexto);
 	cuadroTexto->setActive(false);
+	uiManager->addInterfaz(text);
+	text->setActive(false);
+
 
 	objectManager->initMuebles();
 
@@ -123,7 +126,10 @@ void Tutorial::update()
 void Tutorial::changeState(States state_)
 {
 	currentState = state_;
-	switch (currentState)
+	if (currentState % 2 != 0) {
+		pauseTutorial();
+	}
+	else switch (currentState)
 	{
 	case 0: 
 	{
@@ -131,35 +137,18 @@ void Tutorial::changeState(States state_)
 		objectManager->getCartel()->setActive(true);
 		break;
 	}
-	case 1:
-	{
-		pauseTutorial();
-		break;
-	}
 	case 2:
 	{
-		objectManager->getPuerta()->setActive(false);
-		objectManager->getCartel()->setActive(false);
 		for (auto i : objectManager->getMesas())
 			i->setActive(true);
 		for (auto i : objectManager->getSillas())
 			i->setActive(true);
 		break;
 	}
-	case 3:
-	{
-		pauseTutorial();
-		break;
-	}
 	case 4:
 	{		
 		rC->setActive(true);
 		lC->setActive(true);
-		break;
-	}
-	case 5:
-	{
-		pauseTutorial();
 		break;
 	}
 	case 6:
@@ -170,20 +159,8 @@ void Tutorial::changeState(States state_)
 			i->setActive(true);
 		break;
 	}
-	case 7:
-	{
-		pauseTutorial();
-		break;
-	}
 	case 8:
 	{
-		for (auto i : objectManager->getPilas())
-			i->setActive(false);
-		break;
-	}
-	case 9:
-	{
-		pauseTutorial();
 		break;
 	}
 	case 10:
@@ -191,7 +168,36 @@ void Tutorial::changeState(States state_)
 		getObjectManager()->getBolsa()->setActive(true);
 		break;
 	}
-
+	case 12:
+	{
+		for (auto i : objectManager->getCintas())
+			i->setActive(true);
+		getObjectManager()->getIniCinta()->setActive(true);
+		getObjectManager()->getFinCinta()->setActive(true);
+		break;
+	}
+	case 14:
+	{
+		for (auto i : objectManager->getTablas())
+			i->setActive(true);
+		break;
+	}
+	case 16:
+	{
+		break;
+	}
+	case 18:
+	{
+		for (auto i : objectManager->getFogones())
+			i->setActive(true);
+		break;
+	}
+	case 20:
+	{
+		for (auto i : objectManager->getVentanilla())
+			i->setActive(true);
+		break;
+	}
 	default:
 		break;
 	}
@@ -215,57 +221,15 @@ void Tutorial::render()
  	fondo->render(camara->renderRect());
 	objectManager->render(camara->renderRect());
 	uiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
-	switch (currentState)
-	{
-	case 1:
-	{
+	if (currentState % 2 != 0) {
 		cuadroTexto->setActive(true);
-		break;
+		text->setActive(true);
+		text->setText(textos[currentState/2]);
+
 	}
-	case 2:
-	{
+	else if (currentState % 2 == 0) {
 		cuadroTexto->setActive(false);
-		break;
-	}
-	case 3: {
-		cuadroTexto->setActive(true);
-		break;
-	}
-	case 4:
-	{
-		cuadroTexto->setActive(false);
-		break;
-	}
-	case 5:
-	{
-		cuadroTexto->setActive(true);
-		break;
-	}
-	case 6: 
-	{
-		cuadroTexto->setActive(false);
-		break;
-	}
-	case 7: 
-	{
-		cuadroTexto->setActive(true);
-		break;
-	}
-	case 8:
-	{
-		cuadroTexto->setActive(false);
-		break;
-	}
-	case 9:
-	{
-		cuadroTexto->setActive(true);
-	}
-	case 10:
-	{
-		cuadroTexto->setActive(false);
-	}
-	default:
-		break;
+		text->setActive(false);
 	}
 }
 
@@ -459,6 +423,7 @@ void Tutorial::loadMap(string const& path)
 				else if (name == "fogon") {
 					Fogon* f = new Fogon(game, position);
 					getObjectManager()->addMueble(f);
+					getObjectManager()->addFogon(f);
 					f->setActive(false);
 
 				}
@@ -483,11 +448,13 @@ void Tutorial::loadMap(string const& path)
 					InicioCinta* c = new InicioCinta(game, position,true);
 					c->setVel(Vector2D<double>((double)p[1].getFloatValue(), (double)p[2].getFloatValue()));
 					getObjectManager()->addMueble(c);
+					getObjectManager()->addIniCinta(c);
 					c->setActive(false);
 				}
 				else if (name == "finalCinta") {
 					FinalCinta* c = new FinalCinta(game, position);
 					getObjectManager()->addMueble(c);
+					getObjectManager()->addFinCinta(c);
 					c->setActive(false);
 				}
 				else if (name == "puerta") {
@@ -506,6 +473,7 @@ void Tutorial::loadMap(string const& path)
 				else if (name == "tabla") {
 					TablaProcesado* t = new TablaProcesado(game, position);
 					getObjectManager()->addMueble(t);
+					getObjectManager()->addTabla(t);
 					t->setActive(false);
 				}
 				else if (name == "encimera") {
@@ -533,21 +501,21 @@ void Tutorial::loadMap(string const& path)
 				}
 				else if (name == "pilaS")
 				{
-					Pila* p = new Pila(game, position, TipoPaella::Pequena, 4);
+					Pila* p = new Pila(game, position, TipoPaella::Pequena, 1);
 					getObjectManager()->addMueble(p);
 					getObjectManager()->addPilas(p);
 					p->setActive(false);
 				}
 				else if (name == "pilaM")
 				{
-					Pila* p = new Pila(game, position, TipoPaella::Mediana, 5);
+					Pila* p = new Pila(game, position, TipoPaella::Mediana, 1);
 					getObjectManager()->addMueble(p);
 					getObjectManager()->addPilas(p);
 					p->setActive(false);
 				}
 				else if (name == "pilaL")
 				{
-					Pila* p = new Pila(game, position, TipoPaella::Grande, 3);
+					Pila* p = new Pila(game, position, TipoPaella::Grande, 1);
 					getObjectManager()->addMueble(p);
 					getObjectManager()->addPilas(p);
 					p->setActive(false);

@@ -1,7 +1,7 @@
 #include "InicioCinta.h"
 #include "../../Control/Game.h"
 #include "../../Control/ObjectManager.h"
-
+#include "../../Scenes/Tutorial.h"
 #include "../../Control/NetworkManager.h"
 
 InicioCinta::InicioCinta(Game* game, Vector2D<double> pos, bool host_) : Mueble(game, pos, TILE_SIZE, TILE_SIZE, "inicioCinta")
@@ -20,7 +20,7 @@ void InicioCinta::update()
 
 	if (sdlutils().virtualTimer().currTime() - initTime >= SPAWN_DELAY && isActive())
 	{
-		if (i < porcentajeLetal)
+		if (i < porcentajeLetal && !dynamic_cast<Tutorial*>(game->getCurrentScene()))
 		{ 
 			IngredienteLetal* ingLetal = game->getObjectManager()->getPool<IngredienteLetal>(_p_INGREDIENTELETAL)->add(getPosition());
 			ingLetal->setVel(vel);

@@ -1,4 +1,5 @@
 #include "Ingrediente.h"
+#include "../Scenes/Tutorial.h"
 
 #include <iostream>
 
@@ -15,7 +16,11 @@ void Ingrediente::update()
 
 void Ingrediente::onActivate()
 {
-	int n = rand() % (tipoIngrediente::LAST) ;
+	int n = 0;
+	if(dynamic_cast<Tutorial*>(game->getCurrentScene()))
+		n= rand() % (tipoIngrediente::gamba);
+	else n = rand() % (tipoIngrediente::LAST) ;
+
 
 	miTipo = tipoIngrediente(n);
 

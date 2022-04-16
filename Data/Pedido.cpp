@@ -1,6 +1,10 @@
 #include "Pedido.h"
-Pedido::Pedido(int numComensales, int numeroTiles)
+#include "../Scenes/Tutorial.h"
+#include "../Control/Game.h"
+
+Pedido::Pedido(Game* game_,int numComensales, int numeroTiles)
 {
+	game = game_;
 	comensales = numComensales;
 	tilesMesa = numeroTiles;
 
@@ -170,16 +174,26 @@ vector<string> Pedido::getPedidoTex()
 {
 	vector<string> v;
 
-	for (auto i : paellas) {
-		v.push_back(paellasTamTex[i.tamanoPaella]);
-		if (!i.ingredientesPedido.empty()) {
-			for (auto j : i.ingredientesPedido) {
-				v.push_back(texturaIngrediente[j]);
-			}
-		}
-		else v.push_back("sinIngredientes");
+	if(dynamic_cast<Tutorial*>(game->getCurrentScene())){
+		v.push_back(paellasTamTex[0]);
+		v.push_back(texturaIngrediente[0]);
+		v.push_back(texturaIngrediente[1]);
+		v.push_back(texturaIngrediente[2]);
+		v.push_back("finPedido");
 	}
-	v.push_back("finPedido");
+	else {
+		for (auto i : paellas) {
+			v.push_back(paellasTamTex[i.tamanoPaella]);
+			if (!i.ingredientesPedido.empty()) {
+				for (auto j : i.ingredientesPedido) {
+					v.push_back(texturaIngrediente[j]);
+				}
+			}
+			else v.push_back("sinIngredientes");
+		}
+		v.push_back("finPedido");
+	}
+
 
 	return v;
 }

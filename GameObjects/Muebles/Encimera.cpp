@@ -12,7 +12,7 @@ Encimera::Encimera(Game* game, Vector2D<double> pos) : Mueble(game, pos, 1 * TIL
 bool Encimera::receiveIngrediente(Ingrediente* ingr)
 {
 	//Si ya tiene objeto, no recoge objeto
-	if (ingr_ == nullptr && paella_ == nullptr)
+	if (ingr_ == nullptr && paella_ == nullptr && arroz_ == nullptr)
 	{
 		ingr_ = ingr;
 
@@ -26,7 +26,10 @@ bool Encimera::receiveIngrediente(Ingrediente* ingr)
 		if (paella_->ingrValido(ingr) && paella_->conArroz() && ingr->getProcesado()) {
 
 			paella_->anadeIngr(ingr);
-
+			if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState()==States::dejarIngredientePaella) {
+				if (paella_->ingredientesEnPaella() == 3)
+					game->getCurrentScene()->changeState(States::pausaDejarIngredientes);
+			}
 			ingr->setActive(false);
 
 			return true;
@@ -39,7 +42,7 @@ bool Encimera::receiveIngrediente(Ingrediente* ingr)
 bool Encimera::receivePaella(Paella* pa)
 {
 	//Si ya tiene objeto, no recoge objeto
-	if (ingr_ == nullptr && paella_ == nullptr)
+	if (ingr_ == nullptr && paella_ == nullptr && arroz_ == nullptr)
 	{
 		if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::dejaPaellera)
 			game->getCurrentScene()->changeState(States::pausaDejaPaella);
@@ -63,6 +66,8 @@ bool Encimera::receiveArroz(Arroz* arr)
 		if (paella_->getContenido() == Limpia) {
 
 			paella_->anadeArroz(arr);
+			if (dynamic_cast<Tutorial*>(game->getCurrentScene()))
+				game->getCurrentScene()->changeState(States::pausaCogerDejarArroz);
 
 			return true;
 		}
@@ -72,10 +77,10 @@ bool Encimera::receiveArroz(Arroz* arr)
 		}		
 	}
 	
-	else if (ingr_ == nullptr && arroz == nullptr) {
+	else if (ingr_ == nullptr && arroz_ == nullptr) {
 
-		arroz = arr;
-		arroz->setPosition(getRectCenter(getOverlap()));
+		arroz_ = arr;
+		arroz_->setPosition(getRectCenter(getOverlap()));
 
 		return true;
 	}
@@ -102,11 +107,11 @@ bool Encimera::returnObject(Player* p)
 
 		return true;
 	}
-	else if (arroz != nullptr)
+	else if (arroz_ != nullptr)
 	{
-		p->setPickedObject(arroz, ARROZ);
+		p->setPickedObject(arroz_, ARROZ);
 
-		arroz = nullptr;
+		arroz_ = nullptr;
 
 		return true;
 	}

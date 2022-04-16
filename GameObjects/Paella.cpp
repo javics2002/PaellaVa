@@ -219,6 +219,11 @@ bool Paella::estaContaminada()
 	return contaminada;
 }
 
+int Paella::ingredientesEnPaella()
+{
+	return ingredientes.size();
+}
+
 void Paella::render(SDL_Rect* cameraRect)
 {
 	drawRender(cameraRect);

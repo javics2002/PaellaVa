@@ -4,8 +4,6 @@
 #include "../Control/ObjectManager.h"
 #include <list>
 
-
-
 enum EstadoPaellas { Preparacion, Coccion, Hecha };
 enum Resultado { Cruda, PocoHecha, Perfecta, MuyHecha, Quemada, Incomestible };
 enum Contenido { Limpia, Entera, Mitad, Sucia };
@@ -59,6 +57,8 @@ public:
 
 	void contaminaPaella();
 	bool estaContaminada();
+
+	int ingredientesEnPaella();
 
 	void render(SDL_Rect* cameraRect);
 

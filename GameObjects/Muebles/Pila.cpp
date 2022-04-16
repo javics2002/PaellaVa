@@ -19,7 +19,7 @@ bool Pila::returnObject(Player* p)
 {
 	if (!paellas.empty())
 	{
-		if (dynamic_cast<Tutorial*>(game->getCurrentScene()))
+		if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState()==States::cogePaellera)
 			game->getCurrentScene()->changeState(States::pausaCogePaellera);
 		Paella* pa = paellas.front();
 		p->setPickedObject(pa, PAELLA);
@@ -33,7 +33,7 @@ bool Pila::returnObject(Player* p)
 
 bool Pila::receivePaella(Paella* pa)
 {
-	if (miTipo == pa->getTipo() && pa->getContenido() == Limpia) {
+	if (miTipo == pa->getTipo() && pa->getContenido() == Limpia && !dynamic_cast<Tutorial*>(game->getCurrentScene())) {
 
 		paellas.push_back(pa);
 		pa->setPosition(getRectCenter(getOverlap()));

@@ -30,6 +30,8 @@ class Tutorial : public Scene
 
 	const float LERP_INTERPOLATION = 0.2f;
 
+	vector<string> textos = { "HOLA DSANDKSAJBDABDKASBKDADJAKSDBAKSBD" ," sdfdsdfsdfsdfsdfsfsd ", "ipkpkopkpookpkopok","ppppppppppp"," "," "," "," "," "," "," "," "," "," ","",""};
+
 	MapInfo mapInfo;
 
 	Vector2D<int> tamRestaurante = Vector2D<int>(0, 1216);
@@ -38,6 +40,8 @@ class Tutorial : public Scene
 
 	RedactaComandabutton* rC = new RedactaComandabutton(game, uiManager, "redactaboton", 10, 10, 30, 30);
 	ListaComandas* lC = new ListaComandas(game, uiManager);
+
+	ShowText* text = new ShowText(game, " ", "abadiNombre", sdlutils().width() / 2, sdlutils().height() - 100);
 
 public:
 	Tutorial(Game* game, string tilemap);

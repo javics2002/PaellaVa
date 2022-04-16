@@ -29,6 +29,8 @@ UIManager::UIManager(Game* game)
 	burnEffect = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2, 
 		sdlutils().width() * 2, sdlutils().height() * 2, "quemadura");
 	burnEffect->setInitialDimension(sdlutils().width(), sdlutils().height());
+
+	foco = nullptr;
 }
 
 UIManager::~UIManager()
@@ -725,7 +727,7 @@ void UIManager::creaPantallaCreditos()
 	creditsBase.push_back(fondoTitulo);
 
 	ShowText* TituloDev = new ShowText(game, "Desarrolladores", "paella",
-		sdlutils().width() / 2, 190);
+		sdlutils().width() / 2, 190, 0, 0);
 
 	TituloDev->setActive(false);
 
@@ -746,70 +748,70 @@ void UIManager::creaPantallaCreditos()
 	creditsBase.push_back(fondoColumna2);
 
 	ShowText* Dev1 = new ShowText(game, "Javier Cano", "abadiNombre",
-		sdlutils().width() / 3, posInicialCreditos);
+		sdlutils().width() / 3, posInicialCreditos,0,0);
 
 	Dev1->setActive(false);
 
 	creditsScreen[0].push_back(Dev1);
 
 	ShowText* Dev2 = new ShowText(game, "José Miguel Villacañas", "abadiNombre",
-		2*(sdlutils().width()) / 3, posInicialCreditos);
+		2*(sdlutils().width()) / 3, posInicialCreditos, 0, 0);
 
 	Dev2->setActive(false);
 
 	creditsScreen[0].push_back(Dev2);
 
 	ShowText* Dev3 = new ShowText(game, "Víctor Manuel Estremera", "abadiNombre",
-		sdlutils().width() / 3, posInicialCreditos + avanceCreditos);
+		sdlutils().width() / 3, posInicialCreditos + avanceCreditos, 0, 0);
 
 	Dev3->setActive(false);
 
 	creditsScreen[0].push_back(Dev3);
 
 	ShowText* Dev4 = new ShowText(game, "Diego Rol", "abadiNombre",
-		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos);
+		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos, 0, 0);
 
 	Dev4->setActive(false);
 
 	creditsScreen[0].push_back(Dev4);
 
 	ShowText* Dev5 = new ShowText(game, "Rodrigo Cabello", "abadiNombre",
-		sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 2);
+		sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 2, 0, 0);
 
 	Dev5->setActive(false);
 
 	creditsScreen[0].push_back(Dev5);
 
 	ShowText* Dev6 = new ShowText(game, "Rocío Sanchez-Horcajuelo", "abadiNombre",
-		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 2);
+		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 2, 0, 0);
 
 	Dev6->setActive(false);
 
 	creditsScreen[0].push_back(Dev6);
 
 	ShowText* Dev7 = new ShowText(game, "Marta Croche", "abadiNombre",
-		sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 3);
+		sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 3, 0, 0);
 
 	Dev7->setActive(false);
 
 	creditsScreen[0].push_back(Dev7);
 
 	ShowText* Dev8 = new ShowText(game, "Pablo Arredondo", "abadiNombre",
-		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 3);
+		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 3, 0, 0);
 
 	Dev8->setActive(false);
 
 	creditsScreen[0].push_back(Dev8);
 
 	ShowText* Dev9 = new ShowText(game, "Elena Robert", "abadiNombre",
-		sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 4);
+		sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 4, 0, 0);
 
 	Dev9->setActive(false);
 
 	creditsScreen[0].push_back(Dev9);
 
 	ShowText* Dev10 = new ShowText(game, "Alfonso Rodulfo", "abadiNombre",
-		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 4);
+		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 4, 0, 0);
 
 	Dev10->setActive(false);
 
@@ -844,7 +846,7 @@ void UIManager::creaPantallaCreditos()
 	//Título de prueba
 
 	ShowText* TituloPrueba = new ShowText(game, "Prueba_1", "paella",
-		sdlutils().width() / 2, 190);
+		sdlutils().width() / 2, 190, 0, 0);
 
 	TituloPrueba->setActive(false);
 
@@ -869,7 +871,7 @@ void UIManager::creaPantallaCreditos()
 	//Título de prueba 2
 
 	ShowText* TituloPrueba2 = new ShowText(game, "Prueba_2", "paella",
-		sdlutils().width() / 2, 190);
+		sdlutils().width() / 2, 190, 0, 0);
 
 	TituloPrueba2->setActive(false);
 

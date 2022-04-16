@@ -7,17 +7,23 @@
 #include "../GameObjects/Paella.h"
 #include "../GameObjects/Player.h"
 #include "../GameObjects/Arroz.h"
-#include "../GameObjects/Muebles/InicioCinta.h"
-#include "../GameObjects/Muebles/FinalCinta.h"
-#include "../GameObjects/Muebles/Puerta.h"
+
+class InicioCinta;
+class FinalCinta;
+class Puerta;
+class Encimera;
+class Ventanilla;
+class Cinta;
+class Pila;
+class BolsaArroz;
+class Cartel;
+class Fogon;
+class Silla;
+class Mesa;
+class TablaProcesado;
+
 #include "../GameObjects/Ingredienteletal.h"
-#include "../GameObjects/Muebles/Encimera.h"
-#include "../GameObjects/Muebles/Ventanilla.h"
-#include "../GameObjects/Muebles/Cinta.h"
-#include "../GameObjects/Muebles/Cartel.h"
-#include "../GameObjects/Muebles/Puerta.h"
-#include "../GameObjects/Muebles/Pila.h"
-#include "../GameObjects/Muebles/BolsaArroz.h"
+
 #include <queue>
 #include <vector>
 
@@ -48,9 +54,13 @@ class ObjectManager
 	vector<Ventanilla*> ventanillas;
 	vector<Cinta*> cintas;
 	vector<Pila*> pilas;
+	vector<Fogon*> fogones;
+	vector<TablaProcesado*> tablasProcesados;
 	Cartel* cartel;
 	Puerta* puerta;
 	BolsaArroz* bolsaDeArroz;
+	InicioCinta* iniCinta;
+	FinalCinta* finCinta;
 
 
 public:
@@ -66,6 +76,8 @@ public:
 
 	void addMueble(Mueble* mueble);
 
+	void addIniCinta(InicioCinta* i);
+	void addFinCinta(FinalCinta* f);
 	void addSilla(Silla* s);
 	void addMesa(Mesa* m);
 	void addVentanilla(Ventanilla* v);
@@ -75,6 +87,8 @@ public:
 	void addPuerta(Puerta* p);
 	void addPilas(Pila* p);
 	void addBolsa(BolsaArroz* b);
+	void addFogon(Fogon* f);
+	void addTabla(TablaProcesado* t);
 
 	vector<Silla*> getSillas();
 	vector<Mesa*> getMesas();
@@ -82,9 +96,14 @@ public:
 	vector<Ventanilla*> getVentanilla();
 	vector<Cinta*> getCintas();
 	vector<Pila*> getPilas();
+	vector<Fogon*> getFogones();
+	vector<TablaProcesado*> getTablas();
 	Cartel* getCartel();
 	Puerta* getPuerta();
 	BolsaArroz* getBolsa();
+	InicioCinta* getIniCinta();
+	FinalCinta* getFinCinta();
+
 
 
 	Paella* addPaella(int n);

@@ -537,7 +537,7 @@ void ParticleExample::setStyle(PatticleStyle style)
         _endSize = START_SIZE_EQUAL_TO_END_SIZE;
 
         // emits per frame
-        _emissionRate = _totalParticles / _life;
+        _emissionRate = 20.0f;
 
         // color of particles
         _startColor.r = 0.8f;

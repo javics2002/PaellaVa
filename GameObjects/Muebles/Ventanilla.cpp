@@ -5,6 +5,8 @@
 #include "../../Data/Comanda.h"
 #include "../../sdlutils/SDLUtils.h"
 #include "../Paella.h"
+#include "../../Scenes/Tutorial.h"
+
 Ventanilla::Ventanilla(Game* game, Vector2D<double> pos, SDL_Rect* r) : Mueble(game, pos, 1 * TILE_SIZE, 2 * TILE_SIZE, "encimera")
 {
 	//uimt = game->getUIManager(); lpm aqui da null
@@ -17,13 +19,16 @@ bool Ventanilla::receivePaella(Paella* pa)
 	uimt = game->getUIManager();
 	if (pa != nullptr)
 	{
-		cout << "TENGO UNA PAELLA";
-
 		mpaella = pa;
 		mpaella->setPosition(getRectCenter(getOverlap()));
 
 		if (uimt->getBarra()->getComandaSeleccionada() != nullptr)
 		{
+
+			if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::dejarPaellaVentanilla)
+				game->getCurrentScene()->changeState(States::pausaDejarPaellVentanilla);
+
+
 			//UiButton* u = uimt->getBarra()->getComandaSeleccionada()->getNumeromesa();
 			//numeroactual = new UiButton(game, u->getTextura(), xnumero, ynumero, 80, 80);
 			if (uimt->getBarra()->getComandaSeleccionada()->getNumeromesa() != nullptr) {
@@ -66,6 +71,9 @@ bool Ventanilla::returnObject(Player* p)
 	if (mpaella != nullptr)
 	{
 		p->setPickedObject(mpaella, PAELLA);
+
+		if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::cogerPaellaVentanilla)
+			game->getCurrentScene()->changeState(States::pausaCogerPaellaVentanilla);
 
 		mpaella = nullptr;
 

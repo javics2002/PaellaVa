@@ -4,6 +4,7 @@
 #include "../../Control/ObjectManager.h"
 #include "../Paella.h"
 #include "../../sdlutils/SDLUtils.h"
+#include "../../Scenes/Tutorial.h"
 
 using tweeny::easing;
 
@@ -18,7 +19,9 @@ void Fogon::render(SDL_Rect* cameraRect)
 	getHeight() };
 
 	if (isActive()) {
+
 		drawRender(cameraRect, dest, &sdlutils().images().at("fogon"));
+
 
 		if (paella_ != nullptr && barra) {
 
@@ -38,6 +41,9 @@ bool Fogon::receivePaella(Paella* pa)
 		&& pa->conArroz())
 	{
 		paella_ = pa;
+
+		if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::cocinarPaella)
+			game->getCurrentScene()->changeState(States::pausaCocinarPaella);
 
 		paella_->setPosition(getRectCenter(getOverlap()));
 
@@ -60,6 +66,9 @@ bool Fogon::receivePaella(Paella* pa)
 				});
 
 
+		
+
+
 		sdlutils().soundEffects().at("enciendeFogon").play();
 		canalSonido = sdlutils().soundEffects().at("fogon").play(-1);
 
@@ -79,6 +88,9 @@ bool Fogon::returnObject(Player* p)
 		if (paella_->getCoccion() >= Quemada) {
 			game->getUIManager()->quemarse();
 		}
+
+		if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::recogerPaellaCocinada)
+			game->getCurrentScene()->changeState(States::pausaRecogerPaellaCocinada);
 
 		p->setPickedObject(paella_, PAELLA);
 
