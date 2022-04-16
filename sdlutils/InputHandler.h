@@ -424,6 +424,12 @@ public:
 		otherEjeY = ejeY;
 	}
 
+	inline Vector2D<double> getOtherAxis() {
+		Vector2D<double> otherAxis(otherEjeX, otherEjeY);
+		otherAxis.normalize();
+		return otherAxis;
+	}
+
 	inline int getOtherAxisX()
 	{
 		return otherEjeX;

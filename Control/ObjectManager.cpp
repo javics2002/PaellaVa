@@ -83,7 +83,7 @@ void ObjectManager::handleInput(bool& exit)
 
 	Player* p2 = getPlayerTwo();
 	if (p2 != nullptr)
-		p2->handleInput(Vector2D<double>(ih().getOtherAxisX(), ih().getOtherAxisY())); // Handle input del segundo jugador
+		p2->handleInput(ih().getOtherAxis()); // Handle input del segundo jugador
 
 }
 

@@ -30,7 +30,7 @@ class Player : public GameObject
 	Mueble* nearestObject(Mueble* m1, Mueble* m2);
 
 	void setAnimResources();
-	void animUpdate();
+	void animUpdate(Vector2D<double> axis);
 
 	vector<Texture*> anims;
 	SDL_RendererFlip flip;
@@ -44,7 +44,6 @@ public:
 	Player(Game* game, bool chef);
 	~Player();
 
-	void handleInput();
 	void handleInput(Vector2D<double> axis);
 
 	void update() override;

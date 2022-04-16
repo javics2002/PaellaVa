@@ -48,11 +48,10 @@ Player::~Player()
 {
 }
 
-void Player::handleInput()
+void Player::handleInput(Vector2D<double> axis)
 {
 
 	//El jugador se mueve o se para en ambos ejes
-	Vector2D<double> axis = ih().getAxis();
 
 	if (axis.getX() > .1f) {
 		vel.setX(vel.getX() + axis.getX() * aceleracion);
@@ -189,37 +188,9 @@ void Player::handleInput()
 			}
 		}
 	}
-}
 
-void Player::handleInput(Vector2D<double> axis)
-{
-
-	//El jugador se mueve o se para en ambos ejes
-	if (abs(axis.getX()) > .1f) {
-		vel.setX(vel.getX() + axis.getX() * aceleracion);
-
-		currAnim = 4;
-		frameCounter = 0;
-	}
-	else
-		vel.setX(vel.getX() * deceleracion);
-
-	if (axis.getY() > .1f) {
-		vel.setY(vel.getY() + axis.getY() * aceleracion);
-
-		currAnim = 5;
-		frameCounter = 0; 
-	}
-	else if (axis.getY() < -.1f) {
-		vel.setY(vel.getY() + axis.getY() * aceleracion);
-
-		currAnim = 3;
-		frameCounter = 0;
-	}
-	else
-		vel.setY(vel.getY() * deceleracion);
-
-	vel.clamp(-maxVel, maxVel);
+	if (sdlutils().currRealTime() - lastFrameTime > frameRate)
+		animUpdate(axis);
 }
 
 void Player::update()
@@ -301,9 +272,6 @@ void Player::update()
 		else
 			pickedObject_ = nullptr;
 	}
-
-	if (sdlutils().currRealTime() - lastFrameTime > frameRate)
-		animUpdate();
 }
 
 bool Player::nearestObject(ObjetoPortable* go)
@@ -343,7 +311,7 @@ Mueble* Player::nearestObject(Mueble* m1, Mueble* m2)
 	}
 }
 
-void Player::animUpdate()
+void Player::animUpdate(Vector2D<double> axis)
 {
 	//bool para saber si hay que cambiar el flip
 	bool flipH = false;
@@ -377,21 +345,21 @@ void Player::animUpdate()
 		break;
 	}
 
-	if (vel.getY() > .1f) {
+	if (axis.getY() > .1f) {
 		// Andar Abajo
 		currAnim = 3;
 	}
-	else if (vel.getY() < -.1f) {
+	else if (axis.getY() < -.1f) {
 		// Andar Arriba
 		currAnim = 5;
 	}
 
 	// Horizontal va segundo para tener prioridad
-	if (vel.getX() > .1f) {
+	if (axis.getX() > .1f) {
 		// Andar der
 		currAnim = 4;
 	}
-	else if (vel.getX() < -.1f) {
+	else if (axis.getX() < -.1f) {
 		// Andar izq
 		currAnim = 4;
 	}
