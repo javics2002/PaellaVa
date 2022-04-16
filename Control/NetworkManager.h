@@ -65,6 +65,7 @@ struct PacketStartGame {
 // Paquete para ingrediente
 struct PacketIngrediente {
 	Uint8 tipo_ingrediente;
+	Uint16 ing_id;
 	Sint16 posX;
 	Sint16 posY;
 	Uint8 velX;
@@ -94,6 +95,10 @@ struct PacketSyncPlayers {
 	Sint16 posX;
 	Sint16 posY;
 };
+
+//struct PacketInteract {
+//
+//};
 
 struct Packet {
 	Uint8 packet_type;
@@ -153,7 +158,7 @@ private:
 	const int MAX_PLAYERS = 15;
 
 	int id_count;
-	Game* game_;
+	Game* game;
 
 	bool exitThread;
 	bool gameStarted;
@@ -178,7 +183,7 @@ private:
 	Uint32 updateTime_ = 4000; //los segundos que tarda en actualizarse el reloj
 
 public:
-	NetworkManager(Game* game);
+	NetworkManager(Game* game_);
 	~NetworkManager();
 
 	bool init(char type, const char* ip_addr = nullptr, std::string name = "");
@@ -195,12 +200,14 @@ public:
 	void startGameTimer();
 
 	void sendStartGame(int numJornada);
-	void sendCreateIngrediente(int tipoIngrediente, Vector2D<double> pos, Vector2D<double> vel);
+	void sendCreateIngrediente(int tipoIngrediente, int ingId, Vector2D<double> pos, Vector2D<double> vel);
 	void sendCreateIngredienteLetal(int tipoIngrediente, Vector2D<double> pos, Vector2D<double> vel);
-
 	void sendGrupoCliente(int tamGrupo, Vector2D<double> puertaPos, Vector2D<double> vel, Vector2D<double> distancia, std::vector<int>textureNumber, float tolerancia);
-	
 	void sendButtonsBuffer(std::vector<bool> keyPressed);
 
 	void syncPlayers();
+
+	void sendInteract();
+
+	void setGameStarted(bool gameStarted_) { gameStarted = gameStarted_; }
 };

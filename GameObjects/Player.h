@@ -44,7 +44,7 @@ public:
 	Player(Game* game, bool chef);
 	~Player();
 
-	void handleInput(Vector2D<double> axis);
+	void handleInput(Vector2D<double> axis, bool playerOne);
 
 	void update() override;
 	void renderDebug(SDL_Rect* cameraRect) override;

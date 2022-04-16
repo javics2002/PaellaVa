@@ -40,7 +40,10 @@ Jornada::Jornada(Game* game, string tilemap, int numeroJornada, bool host_) : Sc
 
 			if (t.progress() > .2f) {
 				//Start game
+				game->getNetworkManager()->setGameStarted(false);
+
 				game->sendMessageScene(new GameOver(game, 0, nJornada));
+				
 				return true;
 			}
 			return false;
@@ -57,7 +60,7 @@ Jornada::Jornada(Game* game, string tilemap, int numeroJornada, bool host_) : Sc
 
 		// Jugador 2
 		Player* p2 = new Player(game, false);
-		getObjectManager()->addPlayer(p2);
+		objectManager->addPlayer(p2);
 	}
 	else {
 		Player* p = new Player(game, false);
@@ -65,10 +68,9 @@ Jornada::Jornada(Game* game, string tilemap, int numeroJornada, bool host_) : Sc
 
 		// Jugador 2
 		Player* p2 = new Player(game, true);
-		getObjectManager()->addPlayer(p2);
+		objectManager->addPlayer(p2);
 	}
 	
-
 	mapInfo.ruta = "..\\..\\..\\Assets\\Tilemap\\"+tilemap+".tmx";
 	loadMap(mapInfo.ruta);
 

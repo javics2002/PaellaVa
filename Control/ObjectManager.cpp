@@ -79,11 +79,11 @@ void ObjectManager::handleInput(bool& exit)
 	// solo se handlea tu propio input
 	Player* p = getPlayerOne();
 	if (p != nullptr)
-		p->handleInput(ih().getAxis()); // Handle input del primer jugador
+		p->handleInput(ih().getAxis(), true); // Handle input del primer jugador
 
 	Player* p2 = getPlayerTwo();
 	if (p2 != nullptr)
-		p2->handleInput(ih().getOtherAxis()); // Handle input del segundo jugador
+		p2->handleInput(ih().getOtherAxis(), false); // Handle input del segundo jugador
 }
 
 void ObjectManager::update()
