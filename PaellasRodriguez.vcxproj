@@ -370,6 +370,7 @@
     <Image Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="cpp.hint" />
     <None Include="json\RAEDME.md" />
     <None Include="tmxlite\include\tmxlite\Types.inl" />
   </ItemGroup>

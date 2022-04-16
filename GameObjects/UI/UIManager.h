@@ -23,8 +23,8 @@ class UIManager
 	vector<Point2D<double> >posicionesBotones;
 	vector<GameObject*> interfaz;//el resto de iconos 
 	vector<Comanda*> comandas;//comandas de la lista de comandas
-	vector<	IngredienteButton*> teclado;//iconos que se usan en la comanda qeu esta redactando
-	vector<	UiButton*> uicomandas;
+	vector<IngredienteButton*> teclado;//iconos que se usan en la comanda qeu esta redactando
+	vector<UiButton*> uicomandas;
 	//vector <GameObject*> pedido;//pedido que se est� redactando lo lleva la comanda
 
 	float uiscale = 1.1;
@@ -37,8 +37,6 @@ class UIManager
 	vector<UiButton*> optionsButtons; // botones del menú de opciones
 	vector<vector<UiButton*>> creditsButtons; // botones de la pantalla de créditos
 	vector<UiButton*> sliders; // sliders del menú de opciones
-	//vector<vector<GameObject*>>
-
 
 	list<tweeny::tween<float>> activeTweens;
 
@@ -74,6 +72,8 @@ class UIManager
 	double alfa = 270;
 
 	double toRadians(double grados);
+
+	UiButton* foco;
 
 public:
 	UIManager(Game* game);

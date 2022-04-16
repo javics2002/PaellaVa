@@ -29,6 +29,8 @@ UIManager::UIManager(Game* game)
 	burnEffect = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2, 
 		sdlutils().width() * 2, sdlutils().height() * 2, "quemadura");
 	burnEffect->setInitialDimension(sdlutils().width(), sdlutils().height());
+
+	foco = nullptr;
 }
 
 UIManager::~UIManager()

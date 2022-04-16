@@ -8,7 +8,7 @@ class Encimera : public Mueble
 private:
 	Ingrediente* ingr_ = nullptr;
 	Paella* paella_ = nullptr;
-	Arroz* arroz = nullptr;
+	Arroz* arroz_ = nullptr;
 
 public:
 	Encimera(Game* game, Vector2D<double> pos);

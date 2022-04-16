@@ -227,6 +227,7 @@
   <ItemGroup>
     <None Include="json\RAEDME.md" />
     <None Include="tmxlite\include\tmxlite\Types.inl" />
+    <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include=".cpp">
