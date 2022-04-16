@@ -51,6 +51,7 @@ class UIManager
 	Comanda* actual;
 	ListaComandas* barra;
 
+	string musica;
 	UiButton* slideMusica;
 	UiButton* slideSonido;
 
@@ -62,7 +63,7 @@ class UIManager
 
 	UiButton* nombre;
 	GameObject* cursor_;
-	string nombrePlayer = "elbaginon", cursor = "|";
+	string cursor = "|";
 	const int maxCaracteres = 15;
 	bool escribiendoNombre = false;
 
@@ -115,7 +116,7 @@ public:
 	vector<GameObject*> getPauseMenu() { return pauseMenu; }
 	vector<GameObject*> getInterfaz() { return interfaz; }
 
-	string getNombre() { return nombrePlayer; };
+	//string getNombre() { return nombrePlayer; };
 
 	tweeny::tween<float>& addTween(float from, float to, float during);
 

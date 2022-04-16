@@ -4,7 +4,7 @@
 #include "../Control/NetworkManager.h"
 #include "../Scenes/Lobby.h"
 
-IntroduceIP::IntroduceIP(Game* game, string nombre) : Scene(game)
+IntroduceIP::IntroduceIP(Game* game) : Scene(game)
 {
 	IP = new UiButton(game,textIP, "paella", { 255, 255, 255, 255 }, { 0, 0, 0, 0 },sdlutils().width() / 2 , sdlutils().height() / 2 );
 	uiManager->addInterfaz(IP);
@@ -13,13 +13,13 @@ IntroduceIP::IntroduceIP(Game* game, string nombre) : Scene(game)
 		sdlutils().width() / 2, sdlutils().height() / 2 - 100);
 	
 
-	hostButton->setAction([game, this, nombre](Game* game, bool& exit) {
+	hostButton->setAction([game, this](Game* game, bool& exit) {
 		//Host
 		textIP.erase(remove(textIP.begin(), textIP.end(), ' '), textIP.end());
 
-		if (game->getNetworkManager()->init('c', textIP.c_str(), nombre)) {
+		if (game->getNetworkManager()->init('c', textIP.c_str(), game->getNombre())) {
 			// crear el lobby
-			game->sendMessageScene(new Lobby(game, game->getNetworkManager()->getOtherName(), nombre));
+			game->sendMessageScene(new Lobby(game, game->getNetworkManager()->getOtherName()));
 		}
 
 		});

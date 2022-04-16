@@ -5,8 +5,9 @@
 #include "../GameObjects/UI/ShowText.h"
 #include "../Scenes/HostClient.h"
 
-Lobby::Lobby(Game* game, string nombre, Scene* hostClient) : Scene(game)
+Lobby::Lobby(Game* game) : Scene(game)
 {
+
 	//fondo
 	fondo->setTexture("lobbyBg");
 	fondo->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
@@ -23,7 +24,8 @@ Lobby::Lobby(Game* game, string nombre, Scene* hostClient) : Scene(game)
 	uiManager->addInterfaz(buscando);
 
 	//Nombre cocinera
-	ShowText* NombreCocinera = new ShowText(game, nombre, "abadiNombre",
+	
+	ShowText* NombreCocinera = new ShowText(game, game->getNombre(), "abadiNombre",
 		(int)cocinera->getX(), 100);
 
 	uiManager->addInterfaz(NombreCocinera);
@@ -57,8 +59,8 @@ Lobby::Lobby(Game* game, string nombre, Scene* hostClient) : Scene(game)
 
 	UiButton *regresar = new UiButton(game, "back", 100, 50, 125, 60);
 
-	regresar->setAction([nombre](Game* game, bool& exit) {
-		game->sendMessageScene(new HostClient(game, nombre));
+	regresar->setAction([](Game* game, bool& exit) {
+		game->sendMessageScene(new HostClient(game));
 		game->getNetworkManager()->close();
 	});
 
@@ -67,7 +69,7 @@ Lobby::Lobby(Game* game, string nombre, Scene* hostClient) : Scene(game)
 	uiManager->setEnLobby(true);
 }
 
-Lobby::Lobby(Game* game, string nombre, string nombreHost) : Scene(game)
+Lobby::Lobby(Game* game, string nombreHost) : Scene(game)
 {
 	//fondo
 	fondo->setTexture("lobbyBg");
@@ -85,7 +87,7 @@ Lobby::Lobby(Game* game, string nombre, string nombreHost) : Scene(game)
 	uiManager->addInterfaz(listo);
 
 	//Nombre cocinera ? recibido de paquete
-	ShowText* NombreCocinera = new ShowText(game, nombre, "abadiNombre",
+	ShowText* NombreCocinera = new ShowText(game, nombreHost, "abadiNombre",
 		(int)cocinera->getX(), 100);
 
 	uiManager->addInterfaz(NombreCocinera);
@@ -96,7 +98,7 @@ Lobby::Lobby(Game* game, string nombre, string nombreHost) : Scene(game)
 	uiManager->addInterfaz(camarero);
 
 	//Nombre del camarero ? tu propio nombre
-	ShowText* NombreCamarero = new ShowText(game, nombreHost, "abadiNombre",
+	ShowText* NombreCamarero = new ShowText(game, game->getNombre(), "abadiNombre",
 		(int)camarero->getX(), 100);
 
 	uiManager->addInterfaz(NombreCamarero);

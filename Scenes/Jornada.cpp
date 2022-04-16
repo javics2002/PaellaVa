@@ -20,6 +20,10 @@ using namespace std;
 
 Jornada::Jornada(Game* game, string tilemap, int numeroJornada, bool host_) : Scene(game)
 {
+	sdlutils().musics().at("musicaMenuInicio").haltMusic();
+
+	sdlutils().musics().at("musicaJugando").play();
+
 	this->game = game;
 	nJornada = numeroJornada;
 

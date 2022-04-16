@@ -16,7 +16,7 @@ Menu::Menu(Game* game) : Scene(game)
 	fondo->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
 	fondo->setDimension(sdlutils().width(), sdlutils().height() + 100);
 
-	//sdlutils().musics().at("musicaFondo").play();
+	sdlutils().musics().at("musicaMenuInicio").play();
 
 	int posIni = 260;
 	int aumento = 100;
@@ -32,7 +32,7 @@ Menu::Menu(Game* game) : Scene(game)
 
 			if (t.progress() > .2f) {
 				//Start game
-				game->sendMessageScene(new HostClient(game, game->getUIManager()->getNombre()));
+				game->sendMessageScene(new HostClient(game));
 				return true;
 			}
 			return false;

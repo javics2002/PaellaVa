@@ -381,6 +381,10 @@
     <Font Include="Assets\fonts\Capture_it.ttf" />
     <Font Include="Assets\fonts\NES-Chimera.ttf" />
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="Assets\Music\InGameMusic.mp3" />
+    <Media Include="Assets\Music\TitleScreen.mp3" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

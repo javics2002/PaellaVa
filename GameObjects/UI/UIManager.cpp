@@ -588,8 +588,12 @@ void UIManager::creaMenuOpciones()
 		if (volumenMusica > 127) volumenMusica = 128;
 		else if (volumenMusica < 1) volumenMusica = 0;
 		
-		sdlutils().musics().at("musicaFondo").setMusicVolume(volumenMusica);
-
+		std::map<std::string, Music>::iterator it = sdlutils().musics().begin();
+		while (it != sdlutils().musics().end())
+		{
+			it->second.setMusicVolume(volumenMusica);
+			++it;
+		}
 		});
 
 	optionsMenu.push_back(slideMusica);
@@ -634,7 +638,7 @@ void UIManager::creaMenuOpciones()
 	optionsMenu.push_back(fondoNombre);
 
 	//Boton para escribir el nombre
-	nombre = new UiButton(game, nombrePlayer, "abadiNombre", { 255, 255, 255, 255 }, { 0, 0, 0, 0 }, sdlutils().width() / 2 - 100, opcPant->getHeight() - 100);
+	nombre = new UiButton(game, game->getNombre(), "abadiNombre", { 255, 255, 255, 255 }, { 0, 0, 0, 0 }, sdlutils().width() / 2 - 100, opcPant->getHeight() - 100);
 	cursor_ = new GameObject(game);
 
 	nombre->setActive(false);
@@ -642,6 +646,8 @@ void UIManager::creaMenuOpciones()
 	nombre->setAction([this](Game* game, bool& exit) {
 
 		char c = ih().getTypedKey();
+		string nombrePlayer = game->getNombre();
+
 		if (c != ' ')
 		{
 			if (c == '\b')
@@ -660,16 +666,18 @@ void UIManager::creaMenuOpciones()
 			if (nombrePlayer.empty())
 				nombrePlayer = ' ';
 
+			game->setNombre(nombrePlayer);
+
 			nombre->setTexture(nombrePlayer, string("abadiNombre"), { 255, 255, 255, 255 }, { 0, 0, 0, 0 });
 			nombre->setDimension();
 
-			cursor_->setPosition(nombre->getX() + nombre->getWidth(), nombre->getY());
+			//cursor_->setPosition(nombre->getX() + nombre->getWidth(), nombre->getY());
 
-			cursor_->setTexture(cursor, string("abadiNombre"), { 255, 255, 255, 255 }, { 0, 0, 0, 0 });
-			cursor_->setDimension();
+			//cursor_->setTexture(cursor, string("abadiNombre"), { 255, 255, 255, 255 }, { 0, 0, 0, 0 });
+			//cursor_->setDimension();
 		}
 		nombre->render(nullptr);
-		cursor_->render(nullptr);
+		//cursor_->render(nullptr);
 		});
 
 	optionsMenu.push_back(nombre);

@@ -28,6 +28,8 @@ class Game {
 
     queue<MessageChangeScene> qScene;
 
+    string nombre = "elbaginon";
+
 public:
     Game();
     ~Game();
@@ -50,4 +52,7 @@ public:
 
     void sendMessageScene(Scene* newScene);
     void recvMessageScene();
+
+    void setNombre(string nombre_);
+    string getNombre();
 };

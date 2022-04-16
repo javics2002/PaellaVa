@@ -247,8 +247,9 @@
   ],
 
   "musics": [
-    {  "id": "musicaFondo",  "file": "../../../Assets/Music/changes.mp3"  }
-],
+    {"id": "musicaMenuInicio","file": "../../../Assets/Music/TitleScreen.mp3"},
+    {"id": "musicaJugando","file": "../../../Assets/Music/InGameMusic.mp3"}
+  ],
 
   "dialogs": [
     {"id" :  "texto1", "file" :  "La puta maricona de Diego es muy tonto y es muy tonto y es muy tonto y es muy tonto y es muy tonton ksbadibasidas daasdsadsada sjhbsyudfguys sajodhasoidoa               asdasd asdasd asdasdasd adasdasS dsadas dsadsada dsadasdsad asdasdsads adasdassdads."}

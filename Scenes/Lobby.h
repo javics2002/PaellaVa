@@ -8,9 +8,9 @@ class Lobby:public Scene
 	Imagen* camarero;
 
 public:
-	Lobby(Game *game, string nombre, Scene *hostClient);
+	Lobby(Game *game);
 
-	Lobby(Game* game, string nombre, string nombreClient);
+	Lobby(Game* game, string nombreHost);
 
 	void clienteUnido(std::string nombreCliente);
 };

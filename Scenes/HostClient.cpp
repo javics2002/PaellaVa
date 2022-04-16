@@ -5,7 +5,7 @@
 #include "IntroduceIP.h"
 
 
-HostClient::HostClient(Game* game, string nombre_) : Scene(game)
+HostClient::HostClient(Game* game) : Scene(game)
 {
 	fondo->setTexture("hostClientBg");
 	fondo->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
@@ -24,25 +24,22 @@ HostClient::HostClient(Game* game, string nombre_) : Scene(game)
 	uiManager->addInterfaz(cocineraSprite);
 	uiManager->addInterfaz(camareroSprite);
 
-	string nombre = nombre_;
-
 	auto hostButton = new UiButton(game, "Abrir restaurante", "paella", { 255, 255, 255, 255 }, { 0, 0, 0, 0 },
 		sdlutils().width() / 2 - offsetX, sdlutils().height() / 2 - offsetY);
-	hostButton->setAction([this, nombre](Game* game, bool& exit) {
+	hostButton->setAction([](Game* game, bool& exit) {
 		//Host
-		game->getNetworkManager()->init('h', nullptr, nombre);
+		game->getNetworkManager()->init('h', nullptr, game->getNombre());
 
-		game->sendMessageScene(new Lobby(game, nombre, this));
+		game->sendMessageScene(new Lobby(game));
 		});
 	uiManager->addInterfaz(hostButton);
 
 	auto clientButton = new UiButton(game, "Buscar restaurante", "paella", { 255, 255, 255, 255 }, { 0, 0, 0, 0 },
 		sdlutils().width() / 2 + offsetX, sdlutils().height() / 2 - offsetY);
-	
 
-	clientButton->setAction([this, nombre](Game* game, bool& exit) {
+	clientButton->setAction([](Game* game, bool& exit) {
 		//Client
-		game->sendMessageScene(new IntroduceIP(game, nombre));
+		game->sendMessageScene(new IntroduceIP(game));
 		
 		});
 	uiManager->addInterfaz(clientButton);

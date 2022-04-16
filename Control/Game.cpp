@@ -135,3 +135,12 @@ void Game::recvMessageScene()
 		qScene.pop();
 	}
 }
+
+void Game::setNombre(string nombre_) {
+	nombre = nombre_;
+}
+
+string Game::getNombre()
+{
+	return nombre;
+}
