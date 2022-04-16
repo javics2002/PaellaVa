@@ -206,10 +206,9 @@ void UIManager::handleInput(bool& exit, bool paused)
 
 void UIManager::update(bool paused)
 {
-	if (!paused) {
+	if (!paused ) {
 		for (auto i : interfaz)
 		{
-
 			if (i->isActive())
 			{
 				i->update();

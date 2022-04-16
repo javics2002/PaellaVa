@@ -164,6 +164,7 @@
     <ClInclude Include="GameObjects\Muebles\Cartel.h" />
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
     <ClInclude Include="Scenes\Tutorial.h" />
+    <ClInclude Include="Control\TextManager.h" />
     <ClInclude Include="Utils\Collider.h" />
     <ClInclude Include="Data\Comanda.h" />
     <ClInclude Include="GameObjects\Cliente.h" />
@@ -297,6 +298,7 @@
     <ClCompile Include="sdlutils\SoundEffect.cpp" />
     <ClCompile Include="GameObjects\UI\ShowText.cpp" />
     <ClCompile Include="Scenes\Tutorial.cpp" />
+    <ClCompile Include="Control\TextManager.cpp" />
     <ClCompile Include="Utils\Collider.cpp" />
     <ClCompile Include="Utils\ParticleExample.cpp" />
     <ClCompile Include="Utils\ParticleSystem.cpp" />

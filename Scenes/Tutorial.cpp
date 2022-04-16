@@ -40,6 +40,7 @@ Tutorial::Tutorial(Game* game, string tilemap) : Scene(game)
 
 	//uiManager->addInterfaz(startButton);
 
+
 	Player* p = new Player(game, false);
 	objectManager->addPlayer(p);
 
@@ -97,13 +98,20 @@ void Tutorial::handleInput(bool& exit)
 #endif // _DEBUG
 	}
 
-	if (ih().getKey(InputHandler::J) && paused) {
+	if (ih().getKey(InputHandler::J) && paused && textMngr->TerminadoEscribir()) {
 
 #ifdef _DEBUG
 		pauseTutorial();
 #else
-		//Abrir menú de pausa
-		pauseTutorial();
+
+#endif // _DEBUG
+	}
+	if (ih().getKey(InputHandler::J) && paused && textMngr->terminadoParrado()) {
+
+#ifdef _DEBUG
+		continua = true;
+#else
+
 #endif // _DEBUG
 	}
 }
@@ -120,6 +128,7 @@ void Tutorial::update()
 			camara->Lerp(Vector2D<float>(tamRestaurante.getX(), 16), LERP_INTERPOLATION);
 		}
 	}
+	textMngr->update();
 	uiManager->update(paused);
 }
 
@@ -129,77 +138,61 @@ void Tutorial::changeState(States state_)
 	if (currentState % 2 != 0) {
 		pauseTutorial();
 	}
-	else switch (currentState)
-	{
-	case 0: 
-	{
-		objectManager->getPuerta()->setActive(true);
-		objectManager->getCartel()->setActive(true);
-		break;
-	}
-	case 2:
-	{
-		for (auto i : objectManager->getMesas())
-			i->setActive(true);
-		for (auto i : objectManager->getSillas())
-			i->setActive(true);
-		break;
-	}
-	case 4:
-	{		
-		rC->setActive(true);
-		lC->setActive(true);
-		break;
-	}
-	case 6:
-	{
-		for (auto i : objectManager->getEncimeras())
-			i->setActive(true);
-		for (auto i : objectManager->getPilas())
-			i->setActive(true);
-		break;
-	}
-	case 8:
-	{
-		break;
-	}
-	case 10:
-	{
-		getObjectManager()->getBolsa()->setActive(true);
-		break;
-	}
-	case 12:
-	{
-		for (auto i : objectManager->getCintas())
-			i->setActive(true);
-		getObjectManager()->getIniCinta()->setActive(true);
-		getObjectManager()->getFinCinta()->setActive(true);
-		break;
-	}
-	case 14:
-	{
-		for (auto i : objectManager->getTablas())
-			i->setActive(true);
-		break;
-	}
-	case 16:
-	{
-		break;
-	}
-	case 18:
-	{
-		for (auto i : objectManager->getFogones())
-			i->setActive(true);
-		break;
-	}
-	case 20:
-	{
-		for (auto i : objectManager->getVentanilla())
-			i->setActive(true);
-		break;
-	}
-	default:
-		break;
+	else switch (currentState){
+		case 0: {
+			objectManager->getPuerta()->setActive(true);
+			objectManager->getCartel()->setActive(true);
+			break;
+		}
+		case 2:{
+			for (auto i : objectManager->getMesas())
+				i->setActive(true);
+			for (auto i : objectManager->getSillas())
+				i->setActive(true);
+			break;
+		}
+		case 4:{		
+			rC->setActive(true);
+			lC->setActive(true);
+			break;
+		}
+		case 6:{
+			for (auto i : objectManager->getEncimeras())
+				i->setActive(true);
+			for (auto i : objectManager->getPilas())
+				i->setActive(true);
+			break;
+		}
+		case 8:{ break; }
+		case 10:{
+			getObjectManager()->getBolsa()->setActive(true);
+			break;
+		}
+		case 12:{
+			for (auto i : objectManager->getCintas())
+				i->setActive(true);
+			getObjectManager()->getIniCinta()->setActive(true);
+			getObjectManager()->getFinCinta()->setActive(true);
+			break;
+		}
+		case 14:{
+			for (auto i : objectManager->getTablas())
+				i->setActive(true);
+			break;
+		}
+		case 16: { break; }
+		case 18: {
+			for (auto i : objectManager->getFogones())
+				i->setActive(true);
+			break;
+		}
+		case 20: {
+			for (auto i : objectManager->getVentanilla())
+				i->setActive(true);
+			break;
+		}
+		default:
+			break;
 	}
 }
 
@@ -211,9 +204,7 @@ States Tutorial::getState()
 
 void Tutorial::refresh()
 {
-	if (!paused) {
-		objectManager->refresh();
-	}
+	objectManager->refresh();
 }
 
 void Tutorial::render()
@@ -223,14 +214,18 @@ void Tutorial::render()
 	uiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
 	if (currentState % 2 != 0) {
 		cuadroTexto->setActive(true);
-		text->setActive(true);
-		text->setText(textos[currentState/2]);
-
+		if(textMngr->desactivado())textMngr->activaTexto(sdlutils().dialogs().at("texto1"));
+		else if (textMngr->terminadoParrado() && !textMngr->esUltimoParrafo() && continua) {
+			textMngr->reiniciaParrafo();
+			continua = false;
+		}
 	}
 	else if (currentState % 2 == 0) {
+		textMngr->desactivaTexto();
 		cuadroTexto->setActive(false);
 		text->setActive(false);
 	}
+	textMngr->render();
 }
 
 

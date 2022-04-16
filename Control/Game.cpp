@@ -16,6 +16,7 @@
 #include "../Control/ObjectManager.h"
 #include "../GameObjects/UI/UIManager.h"
 #include "../Control/NetworkManager.h"
+#include "../Control/TextManager.h"
 
 
 Game::Game() {	

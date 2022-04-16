@@ -282,6 +282,30 @@ void SDLUtils::loadReasources(std::string filename) {
 		}
 	}
 
+	jValue = root["dialogs"];
+	if (jValue != nullptr) {
+		if (jValue->IsArray()) {
+			for (auto& v : jValue->AsArray()) {
+				if (v->IsObject()) {
+					JSONObject vObj = v->AsObject();
+					std::string key = vObj["id"]->AsString();
+					std::string file = vObj["file"]->AsString();
+#ifdef _DEBUG
+					std::cout << "Loading dialog with id: " << key << std::endl;
+#endif
+					dialogos.emplace(key, file);
+				}
+				else {
+					throw "'dialogs' array in '" + filename
+						+ "' includes and invalid value";
+				}
+			}
+		}
+		else {
+			throw "'dialogs' is not an array in '" + filename + "'";
+		}
+	}
+
 	/*
 	// load anims
 	jValue = root["anims"];

@@ -34,6 +34,8 @@ class Tutorial : public Scene
 
 	MapInfo mapInfo;
 
+	bool continua = false;
+
 	Vector2D<int> tamRestaurante = Vector2D<int>(0, 1216);
 
 	Imagen* cuadroTexto = new Imagen(game, sdlutils().width() / 2, sdlutils().height() - 100, sdlutils().width()/1.5, 250, "texto1");
@@ -42,6 +44,7 @@ class Tutorial : public Scene
 	ListaComandas* lC = new ListaComandas(game, uiManager);
 
 	ShowText* text = new ShowText(game, " ", "abadiNombre", sdlutils().width() / 2, sdlutils().height() - 100);
+
 
 public:
 	Tutorial(Game* game, string tilemap);

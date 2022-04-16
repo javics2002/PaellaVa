@@ -7,6 +7,7 @@
 #include "../GameObjects/Imagen.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../Control/Game.h"
+#include "../Control/TextManager.h"
 #include "../Control/Camera.h"
 #include "SDL.h"
 
@@ -32,7 +33,8 @@ protected:
 	UIManager* uiManager;
 
 	Imagen* fondo;
-	bool paused = false;
+	bool paused = false,pausedTutorial=false;
+	TextManager* textMngr;
 
 public:
 	Scene(Game* game);

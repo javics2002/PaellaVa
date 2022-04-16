@@ -66,6 +66,7 @@
     <ClCompile Include="Scenes\Tutorial.cpp" />
     <ClCompile Include="Utils\ParticleExample.cpp" />
     <ClCompile Include="Utils\ParticleSystem.cpp" />
+    <ClCompile Include="Control\TextManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
@@ -157,6 +158,7 @@
     <ClInclude Include="Scenes\Tutorial.h" />
     <ClInclude Include="Utils\ParticleSystem.h" />
     <ClInclude Include="Utils\ParticleExample.h" />
+    <ClInclude Include="Control\TextManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />

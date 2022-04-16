@@ -6,6 +6,7 @@ Scene::Scene(Game* game)
 
 	objectManager = new ObjectManager(game);
 	uiManager = new UIManager(game);
+	textMngr = new TextManager(game, "abadiT");
 	fondo = new Imagen(game);
 	fondo->setTexture("menufondo");
 	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
@@ -30,6 +31,7 @@ void Scene::update()
 {
 	objectManager->update();
 	uiManager->update(paused);
+	textMngr->update();
 }
 
 void Scene::render()
@@ -37,6 +39,7 @@ void Scene::render()
 	fondo->render(camara->renderRect());
 	objectManager->render(camara->renderRect());
 	uiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
+	textMngr->render();
 }
 
 
