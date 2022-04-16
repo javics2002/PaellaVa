@@ -256,7 +256,7 @@ void Player::update()
 		break;
 	case S:
 		overlapPos = Vector2D<double>(getX() - overlapDim.getX() / 2,
-			getY());
+			getY() + getHeight() / 3);
 		break;
 	case N:
 		overlapPos = Vector2D<double>(getX() - overlapDim.getX() / 2,

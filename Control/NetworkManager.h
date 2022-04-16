@@ -175,7 +175,7 @@ private:
 
 	// Timer
 	Uint32 lastUpdate_; //tiempo desde el último update
-	Uint32 updateTime_ = 2500; //los segundos que tarda en actualizarse el reloj
+	Uint32 updateTime_ = 4000; //los segundos que tarda en actualizarse el reloj
 
 public:
 	NetworkManager(Game* game);

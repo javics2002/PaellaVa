@@ -503,11 +503,11 @@ void NetworkManager::close()
 
 		accept_t->join();
 		receiveplayers_t->join();
-		sendplayers_t->join();
+		// sendplayers_t->join();
 
 		delete accept_t;
 		delete receiveplayers_t;
-		delete sendplayers_t;
+		// delete sendplayers_t;
 
 	}
 	else if (nType == 'c') {
@@ -649,27 +649,29 @@ void NetworkManager::sendGrupoCliente(int tamGrupo, Vector2D<double> puertaPos, 
 
 void NetworkManager::sendButtonsBuffer(vector<bool> keyPressed)
 {
-	Packet pkt;
-	pkt.packet_type = EPT_BUTTONBUFFER;
-	
-	for (int i = 0u; i < keyPressed.size(); i++) {
-		pkt.buttonBuffer.buttonBuffer[i] = keyPressed[i];
-	}
+	if (gameStarted) {
+		Packet pkt;
+		pkt.packet_type = EPT_BUTTONBUFFER;
 
-	if (nType == 'h') {
-		for (int i = 1u; i < player_sockets.size(); i++) {
-			if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+		for (int i = 0u; i < keyPressed.size(); i++) {
+			pkt.buttonBuffer.buttonBuffer[i] = keyPressed[i];
+		}
+
+		if (nType == 'h') {
+			for (int i = 1u; i < player_sockets.size(); i++) {
+				if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+				{
+					std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+					exit(EXIT_FAILURE);
+				}
+			}
+		}
+		else {
+			if (SDLNet_TCP_Send(socket, &pkt, sizeof(Packet)) < sizeof(Packet))
 			{
 				std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 				exit(EXIT_FAILURE);
 			}
-		}
-	}
-	else {
-		if (SDLNet_TCP_Send(socket, &pkt, sizeof(Packet)) < sizeof(Packet))
-		{
-			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
-			exit(EXIT_FAILURE);
 		}
 	}
 }

@@ -3,6 +3,7 @@
 #include "../Scenes/Tutorial.h"
 #include "../Control/NetworkManager.h"
 #include "../GameObjects/UI/ShowText.h"
+#include "../Scenes/HostClient.h"
 
 Lobby::Lobby(Game* game, string nombre, Scene* hostClient) : Scene(game)
 {
@@ -56,9 +57,10 @@ Lobby::Lobby(Game* game, string nombre, Scene* hostClient) : Scene(game)
 
 	UiButton *regresar = new UiButton(game, "back", 100, 50, 125, 60);
 
-	regresar->setAction([hostClient](Game* game, bool& exit) {
-		game->sendMessageScene(hostClient);
-		});
+	regresar->setAction([nombre](Game* game, bool& exit) {
+		game->sendMessageScene(new HostClient(game, nombre));
+		game->getNetworkManager()->close();
+	});
 
 	uiManager->addInterfaz(regresar);
 
