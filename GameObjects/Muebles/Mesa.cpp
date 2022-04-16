@@ -22,7 +22,7 @@ void Mesa::setTiles() {
 
 	int dist = getTexBox().w / (2 * mWidth);
 
-	cout << dist << endl;
+	//cout << dist << endl;
 
 	for (int i = 0; i < mWidth; i++) {
 		for (int j = 0; j < mHeight; j++) {

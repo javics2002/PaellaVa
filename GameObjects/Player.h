@@ -53,7 +53,7 @@ public:
 
 	void setPickedObject(ObjetoPortable* op, objectType ot);
 
-	Vector2D<double> getAxis() { return ih().getAxis(); }
+	//Vector2D<double> getAxis() { return ih().getAxis(); }
 
 	void setVel(double x, double y);
 	void setVel(Vector2D<double> vel2);

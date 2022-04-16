@@ -132,7 +132,7 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 	}
 
 	else if (ratonEncima(cameraRect)) {
-		cout << tolerancia << endl;
+		//cout << tolerancia << endl;
 		if (!isPicked()) {
 
 			SDL_Rect bocadillo = {};

@@ -634,6 +634,7 @@ void UIManager::creaMenuOpciones()
 
 	//Boton para escribir el nombre
 	nombre = new UiButton(game, nombrePlayer, "abadiNombre", { 255, 255, 255, 255 }, { 0, 0, 0, 0 }, sdlutils().width() / 2 - 100, opcPant->getHeight() - 100);
+	cursor_ = new GameObject(game);
 
 	nombre->setActive(false);
 	
@@ -660,8 +661,14 @@ void UIManager::creaMenuOpciones()
 
 			nombre->setTexture(nombrePlayer, string("abadiNombre"), { 255, 255, 255, 255 }, { 0, 0, 0, 0 });
 			nombre->setDimension();
+
+			cursor_->setPosition(nombre->getX() + nombre->getWidth(), nombre->getY());
+
+			cursor_->setTexture(cursor, string("abadiNombre"), { 255, 255, 255, 255 }, { 0, 0, 0, 0 });
+			cursor_->setDimension();
 		}
 		nombre->render(nullptr);
+		cursor_->render(nullptr);
 		});
 
 	optionsMenu.push_back(nombre);

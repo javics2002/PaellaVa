@@ -63,7 +63,8 @@ class UIManager
 	int paginaCreditos = 0;
 
 	UiButton* nombre;
-	string nombrePlayer = "elbaginon";
+	GameObject* cursor_;
+	string nombrePlayer = "elbaginon", cursor = "|";
 	const int maxCaracteres = 15;
 	bool escribiendoNombre = false;
 
