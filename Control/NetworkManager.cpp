@@ -85,7 +85,7 @@ void NetworkManager::receivePlayers()
 					otherName = pkt.name.player_name;
 
 					// actualizar lobby
-					lobby = dynamic_cast<Lobby*>(game_->getCurrentScene());
+					lobby = dynamic_cast<Lobby*>(game->getCurrentScene());
 
 					lobby->clienteUnido(otherName);
 					break;
@@ -104,14 +104,14 @@ void NetworkManager::receivePlayers()
 					}
 					break;
 				case EPT_SYNCPLAYER:
-					game_->getUIManager()->addTween(game_->getObjectManager()->getPlayerTwo()->getPosition().getX(), pkt.syncPlayers.posX, 300).via(easing::linear).onStep([this](tweeny::tween<float>& t, float) mutable {
-						game_->getObjectManager()->getPlayerTwo()->setPosition(t.peek(), game_->getObjectManager()->getPlayerTwo()->getPosition().getY());
+					game->getUIManager()->addTween(game->getObjectManager()->getPlayerTwo()->getPosition().getX(), pkt.syncPlayers.posX, 300).via(easing::linear).onStep([this](tweeny::tween<float>& t, float) mutable {
+						game->getObjectManager()->getPlayerTwo()->setPosition(t.peek(), game->getObjectManager()->getPlayerTwo()->getPosition().getY());
 
 						return t.progress() == 1.0f;
 					});
 
-					game_->getUIManager()->addTween(game_->getObjectManager()->getPlayerTwo()->getPosition().getY(), pkt.syncPlayers.posY, 300).via(easing::linear).onStep([this](tweeny::tween<float>& t, float) mutable {
-						game_->getObjectManager()->getPlayerTwo()->setPosition(game_->getObjectManager()->getPlayerTwo()->getPosition().getX(), t.peek());
+					game->getUIManager()->addTween(game->getObjectManager()->getPlayerTwo()->getPosition().getY(), pkt.syncPlayers.posY, 300).via(easing::linear).onStep([this](tweeny::tween<float>& t, float) mutable {
+						game->getObjectManager()->getPlayerTwo()->setPosition(game->getObjectManager()->getPlayerTwo()->getPosition().getX(), t.peek());
 
 						return t.progress() == 1.0f;
 					});
@@ -198,18 +198,19 @@ void NetworkManager::updateClient()
 			{
 			case EPT_START:
 				// Start game
-				game_->sendMessageScene(new Jornada(game_, "Jornada1", 0, false));
+				game->sendMessageScene(new Jornada(game, "Jornada1", 0, false));
 				startGameTimer();
 
 				break;
 			case EPT_CREATEING:
-				i = game_->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->add(Vector2D<double>(server_pkt.ingrediente.posX, server_pkt.ingrediente.posY));
+				i = game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->add(Vector2D<double>(server_pkt.ingrediente.posX, server_pkt.ingrediente.posY));
 				i->setVel(Vector2D<double>(server_pkt.ingrediente.velX, server_pkt.ingrediente.velY));
 				i->cambiaTipo(server_pkt.ingrediente.tipo_ingrediente);
+				i->setId(server_pkt.ingrediente.ing_id);
 
 				break;
 			case EPT_CREATEINGLET:
-				iLetal = game_->getObjectManager()->getPool<IngredienteLetal>(_p_INGREDIENTELETAL)->add(Vector2D<double>(server_pkt.ingrediente.posX, server_pkt.ingrediente.posY));
+				iLetal = game->getObjectManager()->getPool<IngredienteLetal>(_p_INGREDIENTELETAL)->add(Vector2D<double>(server_pkt.ingrediente.posX, server_pkt.ingrediente.posY));
 				iLetal->setVel(Vector2D<double>(server_pkt.ingrediente.velX, server_pkt.ingrediente.velY));
 				iLetal->cambiaTipo(server_pkt.ingrediente.tipo_ingrediente);
 
@@ -223,7 +224,7 @@ void NetworkManager::updateClient()
 				Vector2D<double> pos = Vector2D<double>(server_pkt.grupoCliente.posPuertaX, server_pkt.grupoCliente.posPuertaY);
 
 				for (int i = 0; i < server_pkt.grupoCliente.tamGrupo; i++) {
-					Cliente* c = game_->getObjectManager()->getPool<Cliente>(_p_CLIENTE)->add();
+					Cliente* c = game->getObjectManager()->getPool<Cliente>(_p_CLIENTE)->add();
 					c->setPosition(pos);
 					c->cambiaTextura(texturasClientes[server_pkt.grupoCliente.textCliente[i]]);
 
@@ -232,7 +233,7 @@ void NetworkManager::updateClient()
 					v.push_back(c);
 				}
 
-				GrupoClientes* g = game_->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->add();
+				GrupoClientes* g = game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->add();
 				g->setVel(Vector2D<double>(server_pkt.grupoCliente.velX, server_pkt.grupoCliente.velY));
 
 				g->initGrupo(nullptr, v);
@@ -244,7 +245,7 @@ void NetworkManager::updateClient()
 			case EPT_BUTTONBUFFER:
 				{
 				// Transformar array a vector
-				vector<bool> buffer(8, false);
+				vector<bool> buffer(4, false);
 				for (int i = 0u; i < ih().getOtherKeyPressed().size(); i++) {
 					buffer[i] = server_pkt.buttonBuffer.buttonBuffer[i];
 				}
@@ -257,14 +258,14 @@ void NetworkManager::updateClient()
 
 				break;
 			case EPT_SYNCPLAYER:
-				game_->getUIManager()->addTween(game_->getObjectManager()->getPlayerTwo()->getPosition().getX(), server_pkt.syncPlayers.posX, 300).via(easing::linear).onStep([this](tweeny::tween<float>& t, float) mutable {
-					game_->getObjectManager()->getPlayerTwo()->setPosition(t.peek(), game_->getObjectManager()->getPlayerTwo()->getPosition().getY());
+				game->getUIManager()->addTween(game->getObjectManager()->getPlayerTwo()->getPosition().getX(), server_pkt.syncPlayers.posX, 300).via(easing::linear).onStep([this](tweeny::tween<float>& t, float) mutable {
+					game->getObjectManager()->getPlayerTwo()->setPosition(t.peek(), game->getObjectManager()->getPlayerTwo()->getPosition().getY());
 
 					return t.progress() == 1.0f;
 					});
 
-				game_->getUIManager()->addTween(game_->getObjectManager()->getPlayerTwo()->getPosition().getY(), server_pkt.syncPlayers.posY, 300).via(easing::linear).onStep([this](tweeny::tween<float>& t, float) mutable {
-					game_->getObjectManager()->getPlayerTwo()->setPosition(game_->getObjectManager()->getPlayerTwo()->getPosition().getX(), t.peek());
+				game->getUIManager()->addTween(game->getObjectManager()->getPlayerTwo()->getPosition().getY(), server_pkt.syncPlayers.posY, 300).via(easing::linear).onStep([this](tweeny::tween<float>& t, float) mutable {
+					game->getObjectManager()->getPlayerTwo()->setPosition(game->getObjectManager()->getPlayerTwo()->getPosition().getX(), t.peek());
 
 					return t.progress() == 1.0f;
 					});
@@ -335,7 +336,7 @@ bool NetworkManager::compareAddress(const IPaddress& addr1, const IPaddress& add
 	return addr1.host == addr2.host && addr1.port == addr2.port;
 }
 
-NetworkManager::NetworkManager(Game* game)
+NetworkManager::NetworkManager(Game* game_)
 {
 	exitThread = false;
 	gameStarted = false;
@@ -343,7 +344,7 @@ NetworkManager::NetworkManager(Game* game)
 	nType = '0';
 	id_count = 0;
 
-	game_ = game;
+	game = game_;
 
 	//player_sockets = vector<TCPsocket>(MAX_PLAYERS);
 	//player_ips = vector<IPaddress>(MAX_PLAYERS);
@@ -535,7 +536,7 @@ void NetworkManager::close()
 
 Player* NetworkManager::addPlayerHost()
 {
-	Player* p = new Player(game_, true);
+	Player* p = new Player(game, true);
 	
 	player_ids.push_back(id_count);
 	id_count++;
@@ -545,7 +546,7 @@ Player* NetworkManager::addPlayerHost()
 
 Player* NetworkManager::addPlayerClient(int id)
 {
-	Player* p = new Player(game_, false);
+	Player* p = new Player(game, false);
 	
 	player_ids.push_back(id);
 
@@ -575,11 +576,12 @@ void NetworkManager::startGameTimer() {
 	lastUpdate_ = SDL_GetTicks();
 }
 
-void NetworkManager::sendCreateIngrediente(int tipoIngrediente, Vector2D<double> pos, Vector2D<double> vel) {
+void NetworkManager::sendCreateIngrediente(int tipoIngrediente, int ingId, Vector2D<double> pos, Vector2D<double> vel) {
 
 	Packet pkt;
 	pkt.packet_type = EPT_CREATEING;
 	pkt.ingrediente.tipo_ingrediente = tipoIngrediente;
+	pkt.ingrediente.ing_id = ingId;
 
 	pkt.ingrediente.posX = pos.getX();
 	pkt.ingrediente.posY = pos.getY();
@@ -653,7 +655,7 @@ void NetworkManager::sendButtonsBuffer(vector<bool> keyPressed)
 		Packet pkt;
 		pkt.packet_type = EPT_BUTTONBUFFER;
 
-		for (int i = 0u; i < keyPressed.size(); i++) {
+		for (int i = 0u; i < 4; i++) { // left up down right
 			pkt.buttonBuffer.buttonBuffer[i] = keyPressed[i];
 		}
 
@@ -681,8 +683,8 @@ void NetworkManager::syncPlayers()
 	Packet pkt;
 	pkt.packet_type = EPT_SYNCPLAYER;
 
-	pkt.syncPlayers.posX = game_->getObjectManager()->getPlayerOne()->getPosition().getX();
-	pkt.syncPlayers.posY = game_->getObjectManager()->getPlayerOne()->getPosition().getY();
+	pkt.syncPlayers.posX = game->getObjectManager()->getPlayerOne()->getPosition().getX();
+	pkt.syncPlayers.posY = game->getObjectManager()->getPlayerOne()->getPosition().getY();
 
 	if (nType == 'h') {
 		for (int i = 1u; i < player_sockets.size(); i++) {
@@ -700,4 +702,9 @@ void NetworkManager::syncPlayers()
 			exit(EXIT_FAILURE);
 		}
 	}
+}
+
+void NetworkManager::sendInteract()
+{
+	
 }

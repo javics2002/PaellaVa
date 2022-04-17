@@ -33,7 +33,10 @@ void InicioCinta::update()
 			ing->setVel(vel);
 			initTime = sdlutils().virtualTimer().currTime();
 
-			game->getNetworkManager()->sendCreateIngrediente(ing->getTipo(), getPosition(), vel);
+			ing->setId(idCont);
+			idCont++;
+
+			game->getNetworkManager()->sendCreateIngrediente(ing->getTipo(), ing->getId(), getPosition(), vel);
 		}
 	}
 }

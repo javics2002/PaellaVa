@@ -36,12 +36,16 @@ class InputHandler : public Singleton<InputHandler> {
 	bool isMouseButtonHeldDown_;
 
 	vector<bool> otherKeyPressed; // Hecho para el otro personaje
+	vector<bool> otherLastKeyPressed; // Hecho para el otro personaje
 	float otherEjeX, otherEjeY; // Hecho para el otro personaje
 
 	InputHandler() {
 		mKeyboardState = SDL_GetKeyboardState(0);
 		mKeyPressed = vector<bool>(botones::UNKNOWN, false);
 		mLastKeyPressed = vector<bool>(botones::UNKNOWN, false);
+
+		otherKeyPressed = vector<bool>(4, false);
+		otherLastKeyPressed = vector<bool>(4, false);
 
 		mMousePressed = vector<bool>(3, false);
 		isMouseButtonHeldDown_ = false;
@@ -302,6 +306,9 @@ public:
 	}
 
 	inline void updateOtherAxis() {
+		// sincronizar
+		// otherLastKeyPressed = otherKeyPressed;
+
 		if (otherKeyPressed[botones::RIGHT]) {
 			otherEjeX = 1;
 		}

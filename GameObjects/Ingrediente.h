@@ -25,6 +25,8 @@ protected:
 	bool procesado = false;
 	bool letal = false;
 
+	int mId;
+
 public:
 
 
@@ -47,5 +49,8 @@ public:
 
 	void onObjectPicked() override;
 	void onObjectDropped() override;
+
+	void setId(int newId) { mId = newId; }
+	int getId() { return mId; }
 };
 

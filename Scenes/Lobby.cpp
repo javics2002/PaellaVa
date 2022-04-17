@@ -46,7 +46,7 @@ Lobby::Lobby(Game* game) : Scene(game)
 	comenzar->setAction([this](Game* game, bool& exit) {
 		// crear player
 		
-		game->sendMessageScene(new Jornada(game, "Jornada1",0,true));
+		game->sendMessageScene(new Jornada(game, "Jornada1", 0 , true));
 		//game->sendMessageScene(new Tutorial(game, "Tutorial"));
 		
 		// send info 

@@ -48,9 +48,8 @@ Player::~Player()
 {
 }
 
-void Player::handleInput(Vector2D<double> axis)
+void Player::handleInput(Vector2D<double> axis, bool playerOne)
 {
-
 	//El jugador se mueve o se para en ambos ejes
 
 	if (axis.getX() > .1f) {
@@ -78,8 +77,7 @@ void Player::handleInput(Vector2D<double> axis)
 
 	vel.clamp(-maxVel, maxVel);
 
-	if (ih().getKey(InputHandler::INTERACT)) {
-
+	if (ih().getKey(InputHandler::INTERACT) && playerOne) {
 		//Se prioriza la interaccion con los muebles por encima de otros objetos
 		//Se prioriza el mueble mas cercano al jugador
 		Mueble* m = nullptr;
@@ -92,8 +90,13 @@ void Player::handleInput(Vector2D<double> axis)
 		
 			//Si se ha encontrado un mueble, se intenta interactuar con 
 			//este con returnObject(), para que te devuelva el objeto
-			if (m != nullptr && m->returnObject(this))
+			if (m != nullptr && m->returnObject(this)) {
 				pickedObject_->pickObject();
+
+				// Mandar mensaje de que he pillado un objeto
+
+			}
+				
 
 			//En caso contrario se recorre el resto de objetos del juego para ver si el jugador puede cogerlos
 			//Una vez m�s se prioriza el objeto m�s cercano
@@ -126,6 +129,9 @@ void Player::handleInput(Vector2D<double> axis)
 				//Una vez encontrado el m�s cercano, se interact�a con �l
 				if (pickedObject_ != nullptr) {
 					pickedObject_->pickObject();
+
+					// Mandar mensaje de que he pillado un objeto
+
 				}
 			}
 		}

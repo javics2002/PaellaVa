@@ -13,6 +13,8 @@ class InicioCinta : public Mueble
 
 	int porcentajeLetal = 120; //numeros aleatorios entre 1 y 100 el x% que quieras sonn menores qeu esto
 
+	int idCont = 0; // Asigna las IDs
+
 	bool host = true;
 
 public:
