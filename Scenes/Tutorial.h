@@ -30,7 +30,7 @@ class Tutorial : public Scene
 
 	const float LERP_INTERPOLATION = 0.2f;
 
-	vector<string> textos = { "HOLA DSANDKSAJBDABDKASBKDADJAKSDBAKSBD" ," sdfdsdfsdfsdfsdfsfsd ", "ipkpkopkpookpkopok","ppppppppppp"," "," "," "," "," "," "," "," "," "," ","",""};
+	vector<string> textos = { "texto1" ,"texto2", "texto3","texto4","texto5","texto6","texto7","texto8","texto9","texto10","texto11","texto12","texto13","textoComandaEquivocada"};
 
 	MapInfo mapInfo;
 

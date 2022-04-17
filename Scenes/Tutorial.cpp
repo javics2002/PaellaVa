@@ -21,31 +21,11 @@ Tutorial::Tutorial(Game* game, string tilemap) : Scene(game)
 {
 	this->game = game;
 
-	//auto startButton = new UiButton(game, "start", 640, 100, 100, 100);
-	//startButton->setInitialDimension(100, 100);
-	//startButton->setAction([this, startButton](Game* game, bool& exit) {
-	//	sdlutils().soundEffects().at("select").play(0, game->UI);
-
-	//	uiManager->addTween(0.9f, 1.0f, 600.0f).via(easing::exponentialOut).onStep([game, startButton, this](tweeny::tween<float>& t, float) mutable {
-	//		startButton->setDimension(t.peek() * startButton->getInitialWidth(), t.peek() * startButton->getInitialHeight());
-
-	//		if (t.progress() > .2f) {
-	//			//Start game
-	//			game->changeScene(new Tutorial(game, 0));
-	//			return true;
-	//		}
-	//		return false;
-	//		});
-	//	});
-
-	//uiManager->addInterfaz(startButton);
-
-
 	Player* p = new Player(game, false);
 	objectManager->addPlayer(p);
 
 
-	mapInfo.ruta = "..\\..\\..\\Assets\\Tilemap\\" + tilemap + ".tmx";
+	mapInfo.ruta = "Assets\\Tilemap\\" + tilemap + ".tmx";
 	loadMap(mapInfo.ruta);
 
 	fondo->setTexture(mapInfo.ruta);
@@ -98,6 +78,8 @@ void Tutorial::handleInput(bool& exit)
 #endif // _DEBUG
 	}
 
+
+
 	if (ih().getKey(InputHandler::J) && paused && textMngr->TerminadoEscribir()) {
 
 #ifdef _DEBUG
@@ -106,10 +88,19 @@ void Tutorial::handleInput(bool& exit)
 
 #endif // _DEBUG
 	}
+
 	if (ih().getKey(InputHandler::J) && paused && textMngr->terminadoParrado()) {
 
 #ifdef _DEBUG
 		continua = true;
+#else
+
+#endif // _DEBUG
+	}
+	else if (ih().getKey(InputHandler::J) && paused && !textMngr->terminadoParrado() && !textMngr->vaRapido()) {
+
+#ifdef _DEBUG
+		textMngr->cambiaVelocidad(true);
 #else
 
 #endif // _DEBUG
@@ -135,7 +126,11 @@ void Tutorial::update()
 void Tutorial::changeState(States state_)
 {
 	currentState = state_;
-	if (currentState % 2 != 0) {
+	if (currentState == pausaComandaEquivocada)
+	{
+		pauseTutorial();
+	}
+	else if (currentState % 2 != 0) {
 		pauseTutorial();
 	}
 	else switch (currentState){
@@ -156,14 +151,13 @@ void Tutorial::changeState(States state_)
 			lC->setActive(true);
 			break;
 		}
-		case 6:{
+		case 8:{
 			for (auto i : objectManager->getEncimeras())
 				i->setActive(true);
 			for (auto i : objectManager->getPilas())
 				i->setActive(true);
 			break;
 		}
-		case 8:{ break; }
 		case 10:{
 			getObjectManager()->getBolsa()->setActive(true);
 			break;
@@ -212,16 +206,27 @@ void Tutorial::render()
  	fondo->render(camara->renderRect());
 	objectManager->render(camara->renderRect());
 	uiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
-	if (currentState % 2 != 0) {
+	if (currentState == pausaComandaEquivocada) {
 		cuadroTexto->setActive(true);
-		if(textMngr->desactivado())textMngr->activaTexto(sdlutils().dialogs().at("texto1"));
+		if (textMngr->desactivado())textMngr->activaTexto(sdlutils().dialogs().at("textoComandaEquivocada"));
 		else if (textMngr->terminadoParrado() && !textMngr->esUltimoParrafo() && continua) {
+			textMngr->cambiaVelocidad(false);
+			textMngr->reiniciaParrafo();
+			continua = false;
+		}
+	}
+	else if (currentState % 2 != 0) {
+		cuadroTexto->setActive(true);
+		if(textMngr->desactivado())textMngr->activaTexto(sdlutils().dialogs().at(textos[currentState/2]));
+		else if (textMngr->terminadoParrado() && !textMngr->esUltimoParrafo() && continua) {
+			textMngr->cambiaVelocidad(false);
 			textMngr->reiniciaParrafo();
 			continua = false;
 		}
 	}
 	else if (currentState % 2 == 0) {
 		textMngr->desactivaTexto();
+		textMngr->cambiaVelocidad(false);
 		cuadroTexto->setActive(false);
 		text->setActive(false);
 	}
@@ -554,12 +559,13 @@ void Tutorial::pauseTutorial()
 	if (paused) {
 
 		sdlutils().virtualTimer().pause();
-
 		sdlutils().soundEffects().at("cancel").play(0, game->UI);
 	}
 	else {
 		sdlutils().virtualTimer().resume();
-		currentState = (States)(currentState + 1);
+		if (currentState == pausaComandaEquivocada)
+			currentState = apuntaPedido;
+		else currentState = (States)(currentState + 1);
 		changeState(currentState);
 		sdlutils().soundEffects().at("select").play(0, game->UI);
 	}

@@ -38,6 +38,8 @@ public:
     void aceptaPaella();
     void enviaComanda();
 
+    void eC();
+
     void guardaTeclado();
     void guardaBoton(UiButton* b);
     void guardaTecladonum(vector <NumeroButton*> n);

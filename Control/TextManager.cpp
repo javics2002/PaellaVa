@@ -3,21 +3,25 @@
 #include "../sdlutils/VirtualTimer.h"
 #include "../GameObjects/UI/ShowText.h"
 
-TextManager::TextManager(Game* game_, string font) : anchoTexto(800),anchoLetra(14), alturaLetra(28),
-offsetYLinea(2), tiempoCreaccionLetra(50), ultimoCaracter(""), terminado(true), numeroLinea(0)
+TextManager::TextManager(Game* game_, string font) : anchoTexto(1000),anchoLetra(14), alturaLetra(28),
+offsetYLinea(2), tiempoCreaccionLetra(1), ultimoCaracter(""), terminado(true), numeroLinea(0)
 {
 	game = game_;
 	fuenteLetra = font;
+	vt = new VirtualTimer();
 }
 
 
 void TextManager::update()
 {
-
-	if (!terminado &&  sdlutils().virtualTimer().currTime() > tiempoCreaccionLetra) {
+	if (rapido) {
+		while (!terminado)
+			anadeLetra();
+	}
+	else if (!terminado && vt->currTime() > tiempoCreaccionLetra) {
 
 		anadeLetra();
-		sdlutils().virtualTimer().reset();
+		vt->reset();
 	}
 }
 
@@ -25,7 +29,7 @@ void TextManager::render()
 {	
 	for (int i = 0; i < lineas.size(); i++) {
 		Texture text(sdlutils().renderer(), lineas[i], sdlutils().fonts().at(fuenteLetra), build_sdlcolor(0x444444ff));
-		SDL_Rect dest = build_sdlrect(300,sdlutils().height()-135 + ((alturaLetra + offsetYLinea) * i), text.width(), text.height());
+		SDL_Rect dest = build_sdlrect(270,sdlutils().height()-135 + ((alturaLetra + offsetYLinea) * i), text.width(), text.height());
 		text.render(dest);
 	}
 }
@@ -86,4 +90,9 @@ void TextManager::anadeLetra()
 		ultimoCaracter = lineas[numeroLinea].back();
 	}
 }
+
+void TextManager::cambiaVelocidad(bool r)
+{
+	rapido = r;
+;}
 

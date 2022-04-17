@@ -13,6 +13,7 @@
 #include "../../Data/ListaComandas.h"
 
 #include "../../Scenes/Jornada.h"
+#include "../../Scenes/Tutorial.h"
 #include "../../Scenes/Menu.h"
 
 #include "../../Utils/Texture.h"
@@ -356,6 +357,10 @@ void UIManager::creaComanda(Game* game)
 	EnviaComandaButton* enviaComandaButton = new EnviaComandaButton(game, "envia", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() + actual->getHeight() / 4 + anchobotones, uiscale * anchobotones, uiscale * anchobotones);
 	interfaz.push_back(enviaComandaButton);
 	actual->guardaBoton(enviaComandaButton);
+
+	if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::abreLibreta)
+		game->getCurrentScene()->changeState(States::pauasAbreLibreta);
+
 }
 
 Comanda* UIManager::getComanda()

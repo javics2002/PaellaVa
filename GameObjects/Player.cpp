@@ -153,7 +153,7 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 					if (dynamic_cast<Tutorial*>(game->getCurrentScene())) {
 						if (dynamic_cast<Mesa*>(m))
 						{
-							if (game->getCurrentScene()->getState() == States::darDeComer) {
+							if (game->getCurrentScene()->getState() == States::pausaDarDeComer) {
 								pickedObject_->dropObject();
 								pickedObject_ = nullptr;
 							}
@@ -180,7 +180,6 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 			}
 		}
 	}
-
 	if (sdlutils().currRealTime() - lastFrameTime > frameRate)
 		animUpdate(axis);
 }

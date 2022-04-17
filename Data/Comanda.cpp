@@ -313,15 +313,66 @@ void Comanda::aceptaPaella()
 
 void Comanda::enviaComanda()
 {
-	uiManager->getBarra()->AñadeComanda(this);
 	if (dynamic_cast<Tutorial*>(game->getCurrentScene())) {
-		game->getCurrentScene()->changeState(States::pausaPedido);
+
+		if (Pedido.size() == 4 && Pedido[0]->getTextura() == "small") {
+			if (Pedido[1]->getTextura() == "alcachofa") {
+				if (Pedido[2]->getTextura() == "calamar") {
+					if (Pedido[3]->getTextura() == "cangrejo") {
+						eC();
+						game->getCurrentScene()->changeState(States::pausaPedido);
+					}
+				}
+				else if (Pedido[2]->getTextura() == "cangrejo") {
+					if (Pedido[3]->getTextura() == "calamar") {
+						eC();
+						game->getCurrentScene()->changeState(States::pausaPedido);
+					}
+				}
+			}
+			else if (Pedido[1]->getTextura() == "calamar") {
+				if (Pedido[2]->getTextura() == "alcachofa") {
+					if (Pedido[3]->getTextura() == "cangrejo") {
+						eC();
+						game->getCurrentScene()->changeState(States::pausaPedido);
+					}
+				}
+				else if (Pedido[2]->getTextura() == "cangrejo") {
+					if (Pedido[3]->getTextura() == "alcachofa") {
+						eC();
+						game->getCurrentScene()->changeState(States::pausaPedido);
+					}
+				}
+			}
+			else if (Pedido[1]->getTextura() == "cangrejo") {
+				if (Pedido[2]->getTextura() == "calamar") {
+					if (Pedido[3]->getTextura() == "alcachofa") {
+						eC();
+						game->getCurrentScene()->changeState(States::pausaPedido);
+					}
+				}
+				else if (Pedido[2]->getTextura() == "alcachofa") {
+					if (Pedido[3]->getTextura() == "calamar") {
+						eC();
+						game->getCurrentScene()->changeState(States::pausaPedido);
+					}
+				}
+			}
+			else game->getCurrentScene()->changeState(States::pausaComandaEquivocada);
+		}
+		else game->getCurrentScene()->changeState(States::pausaComandaEquivocada);
 	}
+	else {
+		eC();
+	}
+}
+void Comanda::eC()
+{
+	uiManager->getBarra()->AñadeComanda(this);
 	cancelaPedido();
 	toggleTecaldotam(false);
 	toggleTeclado(false);
 	toggleTecladonum(true);
-
 }
 void Comanda::renderizaPaellas()
 {

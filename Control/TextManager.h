@@ -28,18 +28,22 @@ public:
 	bool desactivado() { return desactivado_; }
 
 	bool esUltimoParrafo() { return ultimoParrafo; }
-	void reiniciaParrafo() { terminado = false; lineas.clear(); numeroLinea = 0; };
+	void reiniciaParrafo() { terminado = false; lineas.clear(); numeroLinea = 0; rapido = false; };
 	bool TerminadoEscribir() { return dialogoTerminado; }
 	bool terminadoParrado() { return terminado; }
 	void anadeLetra();
+	void cambiaVelocidad(bool r);
+	bool vaRapido() { return rapido; };
 
 private:
+
+	VirtualTimer* vt;
 
 	Game* game;
 	string fuenteLetra, dialogo_, ultimoCaracter;
 	vector<string> lineas;
 
-	bool terminado=true, dialogoTerminado=true,ultimoParrafo,desactivado_=true;
+	bool terminado=true, dialogoTerminado=true,ultimoParrafo,desactivado_=true, rapido=false;
 	int offsetYLinea,tiempoCreaccionLetra, numeroLinea,anchoLetra, alturaLetra, anchoTexto;;
 
 };

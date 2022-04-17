@@ -9,7 +9,7 @@
 ObjectManager::ObjectManager(Game* game) : game(game)
 {
 	if (dynamic_cast<Tutorial*>(game->getCurrentScene())) {
-		pools.emplace_back((Pool<GameObject>*) new Pool<Ingrediente>(game, 3));
+		pools.emplace_back((Pool<GameObject>*) new Pool<Ingrediente>(game, 50));
 	}
 	else {
 		pools.emplace_back((Pool<GameObject>*) new Pool<IngredienteLetal>(game, 10));
