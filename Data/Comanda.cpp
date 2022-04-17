@@ -434,6 +434,7 @@ void Comanda::toggleactive()
 	}
 
 	cancelaPedido();
+	cout << "togleando active";//se esta invocando en algun sitio qeu no deberia 
 }
 bool Comanda::onClick(int mx, int my, bool& exit)
 {

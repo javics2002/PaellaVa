@@ -71,16 +71,16 @@ void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 		{
 			if (j->onClick(mx, my, exit))
 			{
-				mx = -1;
-				my = -1;
+				mx = -100;
+				my = -100;
 			}
 		}
 	}
 
 	for(auto i : botones)
 		if (i->isActive() && i->onClick(mx, my, exit)) {
-			mx = -1;
-			my = -1;
+			mx = -100;
+			my = -100;
 		}
 
 	for (auto j : uicomandas)
@@ -89,8 +89,8 @@ void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 		{
 			if (j->onClick(mx, my, exit) && !paused)
 			{
-				mx = -1;
-				my = -1;
+				mx = -100;
+				my = -100;
 			}
 		}
 	}
@@ -101,13 +101,13 @@ void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 		{
 			if (c->getEliminabutton()->onClick(mx, my, exit))
 			{
-				mx = -1;
-				my = -1;
+				mx = -100;
+				my = -100;
 			}
 			if (c->onClick(mx, my, exit))
 			{
-				mx = -1;
-				my = -1;
+				mx = -100;
+				my = -100;
 			}
 		}
 	}
@@ -118,8 +118,8 @@ void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 		{
 			if (i->onClick(mx, my, exit))
 			{
-				mx = -1;
-				my = -1;
+				mx = -100;
+				my = -100;
 			}
 		}
 	}
@@ -130,8 +130,8 @@ void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 		{
 			if (i->onClick(mx, my, exit))
 			{
-				mx = -1;
-				my = -1;
+				mx = -100;
+				my = -100;
 			}
 		}
 	}
@@ -143,8 +143,8 @@ void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 			{
 				if (j->onClick(mx, my, exit))
 				{
-					mx = -1;
-					my = -1;
+					mx = -100;
+					my = -100;
 
 				}
 			}
@@ -170,8 +170,8 @@ void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 		{
 			if (interfaz[i]->onClick(mx, my, exit))
 			{
-				mx = -1;
-				my = -1;
+				mx = -100;
+				my = -100;
 			}
 		}
 	}
