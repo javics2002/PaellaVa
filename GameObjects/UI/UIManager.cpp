@@ -29,8 +29,6 @@ UIManager::UIManager(Game* game)
 	burnEffect = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2, 
 		sdlutils().width() * 2, sdlutils().height() * 2, "quemadura");
 	burnEffect->setInitialDimension(sdlutils().width(), sdlutils().height());
-
-	foco = botones.end();
 }
 
 UIManager::~UIManager()
@@ -450,8 +448,7 @@ void UIManager::addButton(UiButton* button)
 {
 	botones.push_back(button);
 
-	if (foco == botones.end())
-		foco = botones.begin();
+	foco = botones.begin();
 }
 
 vector<Point2D<double>> UIManager::getPosTeclado()
@@ -1034,20 +1031,53 @@ void UIManager::quemarse()
 
 void UIManager::focoExecute(bool& exit)
 {
-	if (foco == botones.end())
+	if (!botones.empty())
 		(*foco)->execute(exit);
 }
 
 void UIManager::avanzaFoco()
 {
-	if(foco + 1 != botones.end())
+	if (!botones.empty()) {
+		auto anteriorFoco = *foco;
+		addTween(1.1f, 1.0f, 600.0f).via(easing::exponentialOut).onStep([anteriorFoco](tweeny::tween<float>& t, float) mutable {
+			anteriorFoco->setDimension(t.peek() * anteriorFoco->getInitialWidth(), t.peek() * anteriorFoco->getInitialHeight());
+
+			return t.progress() == 1.0f;
+			});
+
 		foco++;
+		if (foco == botones.end())
+			foco = botones.begin();
+
+		addTween(1.0f, 1.1f, 600.0f).via(easing::exponentialOut).onStep([this](tweeny::tween<float>& t, float) mutable {
+			(*foco)->setDimension(t.peek() * (*foco)->getInitialWidth(), t.peek() * (*foco)->getInitialHeight());
+
+			return t.progress() == 1.0f;
+			});
+	}
 }
 
 void UIManager::retrocedeFoco()
 {
-	if (foco != botones.begin())
-		foco--;
+	if (!botones.empty()) {
+		auto anteriorFoco = *foco;
+		addTween(1.1f, 1.0f, 600.0f).via(easing::exponentialOut).onStep([anteriorFoco](tweeny::tween<float>& t, float) mutable {
+			anteriorFoco->setDimension(t.peek() * anteriorFoco->getInitialWidth(), t.peek() * anteriorFoco->getInitialHeight());
+
+			return t.progress() == 1.0f;
+			});
+
+		if (foco == botones.begin())
+			foco = botones.end() - 1;
+		else 
+			foco--;
+
+		addTween(1.0f, 1.1f, 600.0f).via(easing::exponentialOut).onStep([this](tweeny::tween<float>& t, float) mutable {
+			(*foco)->setDimension(t.peek() * (*foco)->getInitialWidth(), t.peek() * (*foco)->getInitialHeight());
+
+			return t.progress() == 1.0f;
+			});
+	}
 }
 
 double UIManager::toRadians(double grados)

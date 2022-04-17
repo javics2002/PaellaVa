@@ -42,7 +42,7 @@ Lobby::Lobby(Game* game) : Scene(game)
 
 	//Boton comenzar
 	comenzar = new UiButton(game, "start2", sdlutils().width()/2, sdlutils().height()/2, 200, 70);
-
+	comenzar->setInitialDimension(comenzar->getWidth(), comenzar->getHeight());
 	comenzar->setAction([this](Game* game, bool& exit) {
 		// crear player
 		
@@ -57,7 +57,7 @@ Lobby::Lobby(Game* game) : Scene(game)
 	uiManager->addButton(comenzar);
 
 	UiButton *regresar = new UiButton(game, "back", 100, 50, 125, 60);
-
+	regresar->setInitialDimension(regresar->getWidth(), regresar->getHeight());
 	regresar->setAction([](Game* game, bool& exit) {
 		game->sendMessageScene(new HostClient(game));
 		game->getNetworkManager()->close();

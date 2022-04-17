@@ -26,6 +26,7 @@ HostClient::HostClient(Game* game) : Scene(game)
 
 	auto hostButton = new UiButton(game, "Abrir restaurante", "paella", { 255, 255, 255, 255 }, { 0, 0, 0, 0 },
 		sdlutils().width() / 2 - offsetX, sdlutils().height() / 2 - offsetY);
+	hostButton->setInitialDimension(hostButton->getWidth(), hostButton->getHeight());
 	hostButton->setAction([](Game* game, bool& exit) {
 		//Host
 		game->getNetworkManager()->init('h', nullptr, game->getNombre());
@@ -36,6 +37,7 @@ HostClient::HostClient(Game* game) : Scene(game)
 
 	auto clientButton = new UiButton(game, "Buscar restaurante", "paella", { 255, 255, 255, 255 }, { 0, 0, 0, 0 },
 		sdlutils().width() / 2 + offsetX, sdlutils().height() / 2 - offsetY);
+	clientButton->setInitialDimension(clientButton->getWidth(), clientButton->getHeight());
 
 	clientButton->setAction([](Game* game, bool& exit) {
 		//Client

@@ -51,29 +51,15 @@ Player::~Player()
 void Player::handleInput(Vector2D<double> axis, bool playerOne)
 {
 	//El jugador se mueve o se para en ambos ejes
-
-	if (axis.getX() > .1f) {
+	if (axis.getX() > .1f || axis.getX() < -.1f)
 		vel.setX(vel.getX() + axis.getX() * aceleracion);
-	}
-	else if (axis.getX() < -.1f) {
-		vel.setX(vel.getX() + axis.getX() * aceleracion);
-
-	}
 	else
 		vel.setX(vel.getX() * deceleracion);
 
-
-	if (axis.getY() > .1f) {
+	if (axis.getY() > .1f || axis.getY() < -.1f)
 		vel.setY(vel.getY() + axis.getY() * aceleracion);
-
-	}
-	else if (axis.getY() < -.1f) {
-		vel.setY(vel.getY() + axis.getY() * aceleracion);
-
-	}
-	else {
+	else
 		vel.setY(vel.getY() * deceleracion);
-	}
 
 	vel.clamp(-maxVel, maxVel);
 

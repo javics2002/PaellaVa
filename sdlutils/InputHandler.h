@@ -41,8 +41,8 @@ class InputHandler : public Singleton<InputHandler> {
 
 	InputHandler() {
 		mKeyboardState = SDL_GetKeyboardState(0);
-		mKeyPressed = vector<bool>(botones::UNKNOWN, false);
-		mLastKeyPressed = vector<bool>(botones::UNKNOWN, false);
+		mKeyPressed = vector<bool>(UNKNOWN, false);
+		mLastKeyPressed = vector<bool>(UNKNOWN, false);
 
 		otherKeyPressed = vector<bool>(4, false);
 		otherLastKeyPressed = vector<bool>(4, false);
@@ -118,34 +118,10 @@ public:
 				onJoystickMotion(event);
 				break;
 			case SDL_CONTROLLERBUTTONDOWN:
-				switch (event.cbutton.button)
-				{
-				case SDL_CONTROLLER_BUTTON_A:
-					keyJustDown(botones::INTERACT);
-					break;
-				case SDL_CONTROLLER_BUTTON_B:
-				case SDL_CONTROLLER_BUTTON_START:
-					keyJustDown(botones::CANCEL);
-					break;
-				case SDL_CONTROLLER_BUTTON_Y:
-					keyJustDown(botones::J);
-					break;
-				}
+				onControllerDown(event);
 				break;
 			case SDL_CONTROLLERBUTTONUP:
-				switch (event.cbutton.button)
-				{
-				case SDL_CONTROLLER_BUTTON_A:
-					mKeyPressed[botones::INTERACT] = false;
-					break;
-				case SDL_CONTROLLER_BUTTON_B:
-				case SDL_CONTROLLER_BUTTON_START:
-					mKeyPressed[botones::CANCEL] = false;
-					break;
-				case SDL_CONTROLLER_BUTTON_Y:
-					mKeyPressed[botones::J] = false;
-					break;
-				}
+				onControllerUp(event);
 				break;
 
 			case SDL_CONTROLLERDEVICEADDED:
@@ -171,6 +147,69 @@ public:
 			default:
 				break;
 			}
+		}
+	}
+
+	void onControllerDown(SDL_Event& event)
+	{
+		switch (event.cbutton.button)
+		{
+		case SDL_CONTROLLER_BUTTON_A:
+			keyJustDown(INTERACT);
+			break;
+		case SDL_CONTROLLER_BUTTON_B:
+		case SDL_CONTROLLER_BUTTON_START:
+			keyJustDown(CANCEL);
+			break;
+		case SDL_CONTROLLER_BUTTON_Y:
+			keyJustDown(J);
+
+		case SDL_CONTROLLER_BUTTON_DPAD_UP:
+			keyJustDown(UP);
+			break;
+		case SDL_CONTROLLER_BUTTON_DPAD_DOWN:
+			keyJustDown(DOWN);
+			break;
+		case SDL_CONTROLLER_BUTTON_DPAD_LEFT:
+			keyJustDown(LEFT);
+			break;
+		case SDL_CONTROLLER_BUTTON_DPAD_RIGHT:
+			keyJustDown(RIGHT);
+			break;
+		}
+	}
+
+	void onControllerUp(SDL_Event& event)
+	{
+		switch (event.cbutton.button)
+		{
+		case SDL_CONTROLLER_BUTTON_A:
+			mKeyPressed[INTERACT] = false;
+			break;
+		case SDL_CONTROLLER_BUTTON_B:
+		case SDL_CONTROLLER_BUTTON_START:
+			mKeyPressed[CANCEL] = false;
+			break;
+		case SDL_CONTROLLER_BUTTON_Y:
+			mKeyPressed[J] = false;
+			break;
+
+		case SDL_CONTROLLER_BUTTON_DPAD_LEFT:
+			mKeyPressed[LEFT] = false;
+			ejeX = mKeyPressed[RIGHT] ? 1 : 0;
+			break;
+		case SDL_CONTROLLER_BUTTON_DPAD_RIGHT:
+			mKeyPressed[RIGHT] = false;
+			ejeX = mKeyPressed[LEFT] ? -1 : 0;
+			break;
+		case SDL_CONTROLLER_BUTTON_DPAD_UP:
+			mKeyPressed[UP] = false;
+			ejeY = mKeyPressed[DOWN] ? 1 : 0;
+			break;
+		case SDL_CONTROLLER_BUTTON_DPAD_DOWN:
+			mKeyPressed[DOWN] = false;
+			ejeY = mKeyPressed[UP] ? -1 : 0;
+			break;
 		}
 	}
 
@@ -203,30 +242,30 @@ public:
 		switch (key) {
 		case SDL_SCANCODE_A:
 		case SDL_SCANCODE_LEFT:
-			keyJustDown(botones::LEFT);
+			keyJustDown(LEFT);
 		break;
 		case SDL_SCANCODE_D:
 		case SDL_SCANCODE_RIGHT:
-			keyJustDown(botones::RIGHT);
+			keyJustDown(RIGHT);
 		break;
 		case SDL_SCANCODE_W:
 		case SDL_SCANCODE_UP:
-			keyJustDown(botones::UP);
+			keyJustDown(UP);
 		break;
 		case SDL_SCANCODE_S:
 		case SDL_SCANCODE_DOWN:
-			keyJustDown(botones::DOWN);
+			keyJustDown(DOWN);
 		break;
 		case SDL_SCANCODE_E:
 		case SDL_SCANCODE_SPACE:
 		case SDL_SCANCODE_EXECUTE:
-			keyJustDown(botones::INTERACT);
+			keyJustDown(INTERACT);
 			break;
 		case SDL_SCANCODE_ESCAPE:
-			keyJustDown(botones::CANCEL);
+			keyJustDown(CANCEL);
 			break;
 		case SDL_SCANCODE_J:
-			keyJustDown(botones::J);
+			keyJustDown(J);
 		default:
 			break;
 		}
@@ -239,23 +278,23 @@ public:
 			mKeyPressed[boton] = true;
 
 			switch (boton) {
-			case botones::LEFT:
+			case LEFT:
 				ejeX = -1; // valor entre -1 y 1
 				break;
-			case botones::RIGHT:
+			case RIGHT:
 				ejeX = 1;
 				break;
-			case botones::UP:
+			case UP:
 				ejeY = -1; // valor entre -1 y 1
 				break;
-			case botones::DOWN:
+			case DOWN:
 				ejeY = 1;
 				break;
-			case botones::INTERACT:
+			case INTERACT:
 				break;
-			case botones::CANCEL:
+			case CANCEL:
 				break;
-			case botones::J:
+			case J:
 				break;
 			default:
 				break;
@@ -269,34 +308,34 @@ public:
 		switch (key) {
 		case SDL_SCANCODE_A:
 		case SDL_SCANCODE_LEFT:
-			mKeyPressed[botones::LEFT] = false;
-			ejeX = mKeyPressed[botones::RIGHT] ? 1 : 0;
+			mKeyPressed[LEFT] = false;
+			ejeX = mKeyPressed[RIGHT] ? 1 : 0;
 			break;
 		case SDL_SCANCODE_D:
 		case SDL_SCANCODE_RIGHT:
-			mKeyPressed[botones::RIGHT] = false;
-			ejeX = mKeyPressed[botones::LEFT] ? -1 : 0;
+			mKeyPressed[RIGHT] = false;
+			ejeX = mKeyPressed[LEFT] ? -1 : 0;
 			break;
 		case SDL_SCANCODE_W:
 		case SDL_SCANCODE_UP:
-			mKeyPressed[botones::UP] = false;
-			ejeY = mKeyPressed[botones::DOWN] ? 1 : 0;
+			mKeyPressed[UP] = false;
+			ejeY = mKeyPressed[DOWN] ? 1 : 0;
 			break;
 		case SDL_SCANCODE_S:
 		case SDL_SCANCODE_DOWN:
-			mKeyPressed[botones::DOWN] = false;
-			ejeY = mKeyPressed[botones::UP] ? -1 : 0;
+			mKeyPressed[DOWN] = false;
+			ejeY = mKeyPressed[UP] ? -1 : 0;
 			break;
 		case SDL_SCANCODE_E:
 		case SDL_SCANCODE_SPACE:
 		case SDL_SCANCODE_EXECUTE:
-			mKeyPressed[botones::INTERACT] = false;
+			mKeyPressed[INTERACT] = false;
 			break;
 		case SDL_SCANCODE_ESCAPE:
-			mKeyPressed[botones::CANCEL] = false;
+			mKeyPressed[CANCEL] = false;
 			break;
 		case SDL_SCANCODE_J:
-			mKeyPressed[botones::J] = false;
+			mKeyPressed[J] = false;
 			break;
 		default:
 			break;
@@ -309,19 +348,19 @@ public:
 		// sincronizar
 		// otherLastKeyPressed = otherKeyPressed;
 
-		if (otherKeyPressed[botones::RIGHT]) {
+		if (otherKeyPressed[RIGHT]) {
 			otherEjeX = 1;
 		}
-		else if (otherKeyPressed[botones::LEFT]) {
+		else if (otherKeyPressed[LEFT]) {
 			otherEjeX = -1;
 		}
 		else
 			otherEjeX = 0;
 
-		if (otherKeyPressed[botones::UP]) {
+		if (otherKeyPressed[UP]) {
 			otherEjeY = -1;
 		}
-		else if (otherKeyPressed[botones::DOWN]) {
+		else if (otherKeyPressed[DOWN]) {
 			otherEjeY = 1;
 		}
 		else
@@ -331,27 +370,36 @@ public:
 	inline void onJoystickMotion(const SDL_Event& e) {
 		switch (e.caxis.axis) {
 		case SDL_CONTROLLER_AXIS_LEFTX:
-			if (e.caxis.value < -CONTROLLER_DEAD_ZONE)
-				ejeX = e.caxis.value; // valor entre -1 y 1
-			else if (e.caxis.value > CONTROLLER_DEAD_ZONE)
+			if (e.caxis.value < -CONTROLLER_DEAD_ZONE || e.caxis.value > CONTROLLER_DEAD_ZONE) {
 				ejeX = e.caxis.value;
-			else
+				mKeyPressed[RIGHT] = true;
+			}
+			else {
 				ejeX = 0;
+				mKeyPressed[LEFT] = mKeyPressed[RIGHT] = false;
+			}
 			break;
 		case SDL_CONTROLLER_AXIS_LEFTY:
-			if (e.caxis.value < -CONTROLLER_DEAD_ZONE)
+			if (e.caxis.value < -CONTROLLER_DEAD_ZONE) {
 				ejeY = e.caxis.value;
-			else if (e.caxis.value > CONTROLLER_DEAD_ZONE)
+				mKeyPressed[UP] = true;
+			}
+			else if (e.caxis.value > CONTROLLER_DEAD_ZONE) {
 				ejeY = e.caxis.value;
-			else
+				mKeyPressed[DOWN] = true;
+			}
+			else {
 				ejeY = 0;
+				mKeyPressed[DOWN] = mKeyPressed[UP] = false;
+			}
 			break;
 		}
 	}
 
 	inline Vector2D<double> getAxis() {
 		Vector2D<double> axis(ejeX, ejeY);
-		axis.normalize();
+		if(axis.magnitude() > 1)
+			axis.normalize();
 		return axis;
 	}
 
