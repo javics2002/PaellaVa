@@ -30,7 +30,7 @@ UIManager::UIManager(Game* game)
 		sdlutils().width() * 2, sdlutils().height() * 2, "quemadura");
 	burnEffect->setInitialDimension(sdlutils().width(), sdlutils().height());
 
-	foco = nullptr;
+	foco = botones.end();
 }
 
 UIManager::~UIManager()
@@ -47,6 +47,11 @@ UIManager::~UIManager()
 	}
 
 	for (auto i : pauseButtons) {
+		delete i;
+		i = nullptr;
+	}
+
+	for (auto i : botones) {
 		delete i;
 		i = nullptr;
 	}
@@ -73,6 +78,12 @@ void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 			}
 		}
 	}
+
+	for(auto i : botones)
+		if (i->isActive() && i->onClick(mx, my, exit)) {
+			mx = -1;
+			my = -1;
+		}
 
 	for (auto j : uicomandas)
 	{
@@ -123,7 +134,6 @@ void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 			{
 				mx = -1;
 				my = -1;
-
 			}
 		}
 	}
@@ -208,12 +218,8 @@ void UIManager::update(bool paused)
 {
 	if (!paused ) {
 		for (auto i : interfaz)
-		{
 			if (i->isActive())
-			{
 				i->update();
-			}
-		}
 	}
 
 	if (enLobby && sdlutils().virtualTimer().currTime() - initTime >= tiempoCreacion) {
@@ -272,6 +278,10 @@ void UIManager::render(SDL_Rect* rect = nullptr)
 			i->render(rect);
 		}
 	}
+
+	for (auto i : botones)
+		if (i->isActive())
+			i->render(rect);
 
 	for (auto i : comandas)
 	{
@@ -434,6 +444,14 @@ void UIManager::randomizaTeclado()
 void UIManager::addInterfaz(GameObject* elementoInterfaz)
 {
 	interfaz.push_back(elementoInterfaz);
+}
+
+void UIManager::addButton(UiButton* button)
+{
+	botones.push_back(button);
+
+	if (foco == botones.end())
+		foco = botones.begin();
 }
 
 vector<Point2D<double>> UIManager::getPosTeclado()
@@ -1012,6 +1030,24 @@ void UIManager::quemarse()
 		});
 
 	sdlutils().soundEffects().at("quemadura").play();
+}
+
+void UIManager::focoExecute(bool& exit)
+{
+	if (foco == botones.end())
+		(*foco)->execute(exit);
+}
+
+void UIManager::avanzaFoco()
+{
+	if(foco + 1 != botones.end())
+		foco++;
+}
+
+void UIManager::retrocedeFoco()
+{
+	if (foco != botones.begin())
+		foco--;
 }
 
 double UIManager::toRadians(double grados)

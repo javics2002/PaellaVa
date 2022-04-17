@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="39" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="235">
+ <tileset firstgid="1" source="Tileset.tsx"/>
+ <layer id="1" name="Capa de patrones 1" width="39" height="12">
+  <data encoding="csv">
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+15,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,14,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,6,
+13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
+13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
+13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
+13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
+13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
+13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
+13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
+13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
+13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4
+</data>
+ </layer>
+ <objectgroup id="2" name="Capa de Objetos 1">
+  <object id="1" name="mesaS" x="575.522" y="128.5">
+   <point/>
+  </object>
+  <object id="5" name="cartel" x="832" y="614">
+   <point/>
+  </object>
+  <object id="6" name="inicioCinta" x="2240" y="102">
+   <properties>
+    <property name="Horizontal" type="bool" value="false"/>
+    <property name="VelocidadX" type="float" value="0"/>
+    <property name="VelocidadY" type="float" value="1.3"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="7" name="cinta" x="2240" y="168">
+   <properties>
+    <property name="Horizontal" type="bool" value="false"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="8" name="finalCinta" x="2240" y="552">
+   <point/>
+  </object>
+  <object id="9" name="fogon" x="1728" y="512">
+   <point/>
+  </object>
+  <object id="10" name="ventanilla" x="1216" y="362">
+   <point/>
+  </object>
+  <object id="11" name="lavavajillas" x="1216" y="234">
+   <point/>
+  </object>
+  <object id="12" name="mesaS" x="944" y="144.167">
+   <point/>
+  </object>
+  <object id="13" name="mesaL" x="192" y="192">
+   <point/>
+  </object>
+  <object id="14" name="mesaS" x="317.5" y="513">
+   <point/>
+  </object>
+  <object id="15" name="fogon" x="1792" y="512">
+   <point/>
+  </object>
+  <object id="16" name="fogon" x="1856" y="126.667">
+   <point/>
+  </object>
+  <object id="17" name="fogon" x="1920" y="128">
+   <point/>
+  </object>
+  <object id="18" name="tabla" x="1598.66" y="128">
+   <point/>
+  </object>
+  <object id="19" name="sillaDer" x="511.667" y="128">
+   <point/>
+  </object>
+  <object id="21" name="sillaIz" x="1008" y="144.5">
+   <point/>
+  </object>
+  <object id="22" name="sillaAb" x="192" y="128">
+   <point/>
+  </object>
+  <object id="27" name="puerta" x="0" y="614">
+   <properties>
+    <property name="MaxTamGrupo" type="int" value="6"/>
+    <property name="VelocidadX" type="float" value="2.3"/>
+    <property name="VelocidadY" type="float" value="0"/>
+    <property name="t_Max" type="int" value="8"/>
+    <property name="vertical" type="bool" value="false"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="30" name="mesaS" x="944" y="380">
+   <point/>
+  </object>
+  <object id="31" name="sillaDer" x="880" y="380">
+   <point/>
+  </object>
+  <object id="32" name="sillaIz" x="1008" y="380">
+   <point/>
+  </object>
+  <object id="33" name="sillaAb" x="256" y="128">
+   <point/>
+  </object>
+  <object id="34" name="sillaDer" x="128" y="192">
+   <point/>
+  </object>
+  <object id="35" name="sillaDer" x="128" y="256">
+   <point/>
+  </object>
+  <object id="36" name="sillaAr" x="256" y="320">
+   <point/>
+  </object>
+  <object id="37" name="sillaAr" x="192" y="320">
+   <point/>
+  </object>
+  <object id="38" name="sillaIz" x="320" y="192">
+   <point/>
+  </object>
+  <object id="39" name="sillaIz" x="320" y="256">
+   <point/>
+  </object>
+  <object id="41" name="sillaIz" x="381" y="513">
+   <point/>
+  </object>
+  <object id="42" name="sillaDer" x="253" y="513">
+   <point/>
+  </object>
+  <object id="46" name="arroz" x="1409.17" y="128.833">
+   <point/>
+  </object>
+  <object id="47" name="tabla" x="1984" y="512">
+   <point/>
+  </object>
+  <object id="48" name="encimera" x="1728" y="448">
+   <point/>
+  </object>
+  <object id="50" name="sillaDer" x="880" y="143.667">
+   <point/>
+  </object>
+  <object id="51" name="sillaAr" x="944" y="444">
+   <point/>
+  </object>
+  <object id="52" name="sillaIz" x="640" y="128.5">
+   <point/>
+  </object>
+  <object id="60" name="encimera" x="1664.17" y="127.667">
+   <point/>
+  </object>
+  <object id="61" name="encimera" x="1728" y="128.167">
+   <point/>
+  </object>
+  <object id="63" name="encimera" x="1856" y="448">
+   <point/>
+  </object>
+  <object id="64" name="encimera" x="1792" y="448">
+   <point/>
+  </object>
+  <object id="65" name="encimera" x="1920" y="448">
+   <point/>
+  </object>
+  <object id="66" name="encimera" x="1984" y="448">
+   <point/>
+  </object>
+  <object id="67" name="encimera" x="1856" y="512">
+   <point/>
+  </object>
+  <object id="68" name="encimera" x="1920" y="512">
+   <point/>
+  </object>
+  <object id="213" name="pilaS" x="1408" y="624.667">
+   <point/>
+  </object>
+  <object id="214" name="pilaM" x="1472" y="624.667">
+   <point/>
+  </object>
+  <object id="215" name="pilaL" x="1536" y="624.667">
+   <point/>
+  </object>
+  <object id="217" name="cinta" x="2240" y="232">
+   <properties>
+    <property name="Horizontal" type="bool" value="false"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="218" name="cinta" x="2240" y="296">
+   <properties>
+    <property name="Horizontal" type="bool" value="false"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="219" name="cinta" x="2240" y="360">
+   <properties>
+    <property name="Horizontal" type="bool" value="false"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="220" name="cinta" x="2240" y="424">
+   <properties>
+    <property name="Horizontal" type="bool" value="false"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="221" name="cinta" x="2240" y="488">
+   <properties>
+    <property name="Horizontal" type="bool" value="false"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="222" name="cinta" x="2240" y="552">
+   <properties>
+    <property name="Horizontal" type="bool" value="false"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="224" name="ventanilla" x="1216" y="298">
+   <point/>
+  </object>
+  <object id="226" name="sillaAr" x="944" y="207.417">
+   <point/>
+  </object>
+  <object id="231" name="mesaS" x="582.667" y="298.333">
+   <point/>
+  </object>
+  <object id="232" name="sillaDer" x="518.667" y="298.333">
+   <point/>
+  </object>
+  <object id="233" name="sillaIz" x="646.667" y="298.333">
+   <point/>
+  </object>
+  <object id="234" name="sillaAr" x="582.667" y="362.333">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="3" name="Pared">
+  <object id="72" name="pared" x="128" y="102">
+   <point/>
+  </object>
+  <object id="73" name="pared" x="192" y="102">
+   <point/>
+  </object>
+  <object id="74" name="pared" x="64" y="102">
+   <point/>
+  </object>
+  <object id="75" name="pared" x="-1.89293e-14" y="102">
+   <point/>
+  </object>
+  <object id="76" name="pared" x="-1.89293e-14" y="166">
+   <point/>
+  </object>
+  <object id="77" name="pared" x="-1.89293e-14" y="230">
+   <point/>
+  </object>
+  <object id="78" name="pared" x="-1.89293e-14" y="294">
+   <point/>
+  </object>
+  <object id="79" name="pared" x="-1.89293e-14" y="358">
+   <point/>
+  </object>
+  <object id="80" name="pared" x="-1.89293e-14" y="422">
+   <point/>
+  </object>
+  <object id="81" name="pared" x="-1.89293e-14" y="486">
+   <point/>
+  </object>
+  <object id="82" name="pared" x="-1.89293e-14" y="550">
+   <point/>
+  </object>
+  <object id="83" name="pared" x="384" y="102">
+   <point/>
+  </object>
+  <object id="84" name="pared" x="320" y="102">
+   <point/>
+  </object>
+  <object id="85" name="pared" x="256" y="102">
+   <point/>
+  </object>
+  <object id="86" name="pared" x="576" y="102">
+   <point/>
+  </object>
+  <object id="87" name="pared" x="640" y="102">
+   <point/>
+  </object>
+  <object id="88" name="pared" x="512" y="102">
+   <point/>
+  </object>
+  <object id="89" name="pared" x="448" y="102">
+   <point/>
+  </object>
+  <object id="90" name="pared" x="832" y="102">
+   <point/>
+  </object>
+  <object id="91" name="pared" x="768" y="102">
+   <point/>
+  </object>
+  <object id="92" name="pared" x="704" y="102">
+   <point/>
+  </object>
+  <object id="93" name="pared" x="1024" y="102">
+   <point/>
+  </object>
+  <object id="94" name="pared" x="1088" y="102">
+   <point/>
+  </object>
+  <object id="95" name="pared" x="960" y="102">
+   <point/>
+  </object>
+  <object id="96" name="pared" x="896" y="102">
+   <point/>
+  </object>
+  <object id="97" name="pared" x="1280" y="102">
+   <point/>
+  </object>
+  <object id="98" name="pared" x="1216" y="102">
+   <point/>
+  </object>
+  <object id="99" name="pared" x="1152" y="102">
+   <point/>
+  </object>
+  <object id="100" name="pared" x="1472" y="102">
+   <point/>
+  </object>
+  <object id="101" name="pared" x="1536" y="102">
+   <point/>
+  </object>
+  <object id="102" name="pared" x="1408" y="102">
+   <point/>
+  </object>
+  <object id="103" name="pared" x="1344" y="102">
+   <point/>
+  </object>
+  <object id="104" name="pared" x="1728" y="102">
+   <point/>
+  </object>
+  <object id="105" name="pared" x="1664" y="102">
+   <point/>
+  </object>
+  <object id="106" name="pared" x="1600" y="102">
+   <point/>
+  </object>
+  <object id="107" name="pared" x="1920" y="102">
+   <point/>
+  </object>
+  <object id="108" name="pared" x="1984" y="102">
+   <point/>
+  </object>
+  <object id="109" name="pared" x="1856" y="102">
+   <point/>
+  </object>
+  <object id="110" name="pared" x="1792" y="102">
+   <point/>
+  </object>
+  <object id="111" name="pared" x="2175.92" y="102">
+   <point/>
+  </object>
+  <object id="112" name="pared" x="2111.92" y="102">
+   <point/>
+  </object>
+  <object id="113" name="pared" x="2047.92" y="102">
+   <point/>
+  </object>
+  <object id="114" name="pared" x="2368" y="102">
+   <point/>
+  </object>
+  <object id="115" name="pared" x="2432" y="102">
+   <point/>
+  </object>
+  <object id="116" name="pared" x="2304" y="102">
+   <point/>
+  </object>
+  <object id="117" name="pared" x="2240" y="102">
+   <point/>
+  </object>
+  <object id="135" name="pared" x="128" y="742">
+   <point/>
+  </object>
+  <object id="136" name="pared" x="192" y="742">
+   <point/>
+  </object>
+  <object id="137" name="pared" x="64" y="742">
+   <point/>
+  </object>
+  <object id="138" name="pared" x="0" y="742">
+   <point/>
+  </object>
+  <object id="139" name="pared" x="384" y="742">
+   <point/>
+  </object>
+  <object id="140" name="pared" x="320" y="742">
+   <point/>
+  </object>
+  <object id="141" name="pared" x="256" y="742">
+   <point/>
+  </object>
+  <object id="142" name="pared" x="576" y="742">
+   <point/>
+  </object>
+  <object id="143" name="pared" x="640" y="742">
+   <point/>
+  </object>
+  <object id="144" name="pared" x="512" y="742">
+   <point/>
+  </object>
+  <object id="145" name="pared" x="448" y="742">
+   <point/>
+  </object>
+  <object id="146" name="pared" x="832" y="742">
+   <point/>
+  </object>
+  <object id="147" name="pared" x="768" y="742">
+   <point/>
+  </object>
+  <object id="148" name="pared" x="704" y="742">
+   <point/>
+  </object>
+  <object id="149" name="pared" x="1024" y="742">
+   <point/>
+  </object>
+  <object id="150" name="pared" x="1088" y="742">
+   <point/>
+  </object>
+  <object id="151" name="pared" x="960" y="742">
+   <point/>
+  </object>
+  <object id="152" name="pared" x="896" y="742">
+   <point/>
+  </object>
+  <object id="153" name="pared" x="1280" y="742">
+   <point/>
+  </object>
+  <object id="154" name="pared" x="1216" y="742">
+   <point/>
+  </object>
+  <object id="155" name="pared" x="1152" y="742">
+   <point/>
+  </object>
+  <object id="156" name="pared" x="1472" y="742">
+   <point/>
+  </object>
+  <object id="157" name="pared" x="1536" y="742">
+   <point/>
+  </object>
+  <object id="158" name="pared" x="1408" y="742">
+   <point/>
+  </object>
+  <object id="159" name="pared" x="1344" y="742">
+   <point/>
+  </object>
+  <object id="160" name="pared" x="1728" y="742">
+   <point/>
+  </object>
+  <object id="161" name="pared" x="1664" y="742">
+   <point/>
+  </object>
+  <object id="162" name="pared" x="1600" y="742">
+   <point/>
+  </object>
+  <object id="163" name="pared" x="1920" y="742">
+   <point/>
+  </object>
+  <object id="164" name="pared" x="1984" y="742">
+   <point/>
+  </object>
+  <object id="165" name="pared" x="1856" y="742">
+   <point/>
+  </object>
+  <object id="166" name="pared" x="1792" y="742">
+   <point/>
+  </object>
+  <object id="167" name="pared" x="2176" y="742">
+   <point/>
+  </object>
+  <object id="168" name="pared" x="2112" y="742">
+   <point/>
+  </object>
+  <object id="169" name="pared" x="2048" y="742">
+   <point/>
+  </object>
+  <object id="170" name="pared" x="2368" y="742">
+   <point/>
+  </object>
+  <object id="171" name="pared" x="2432" y="742">
+   <point/>
+  </object>
+  <object id="172" name="pared" x="2304" y="742">
+   <point/>
+  </object>
+  <object id="173" name="pared" x="2240" y="742">
+   <point/>
+  </object>
+  <object id="187" name="pared" x="1216" y="166">
+   <point/>
+  </object>
+  <object id="192" name="pared" x="1216" y="488.667">
+   <point/>
+  </object>
+  <object id="193" name="pared" x="1216" y="552.667">
+   <point/>
+  </object>
+  <object id="195" name="pared" x="1216" y="680.667">
+   <point/>
+  </object>
+  <object id="204" name="pared" x="2432" y="168">
+   <point/>
+  </object>
+  <object id="205" name="pared" x="2432" y="232">
+   <point/>
+  </object>
+  <object id="206" name="pared" x="2432" y="296">
+   <point/>
+  </object>
+  <object id="207" name="pared" x="2432" y="360">
+   <point/>
+  </object>
+  <object id="208" name="pared" x="2432" y="424">
+   <point/>
+  </object>
+  <object id="209" name="pared" x="2432" y="488">
+   <point/>
+  </object>
+  <object id="210" name="pared" x="2432" y="552">
+   <point/>
+  </object>
+  <object id="211" name="pared" x="2432" y="616">
+   <point/>
+  </object>
+  <object id="212" name="pared" x="2432" y="680">
+   <point/>
+  </object>
+  <object id="216" name="pared" x="0" y="678">
+   <point/>
+  </object>
+  <object id="225" name="pared" x="1216" y="256">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

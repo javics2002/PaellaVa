@@ -39,7 +39,7 @@ Menu::Menu(Game* game) : Scene(game)
 			});
 		});
 
-	uiManager->addInterfaz(startButton);
+	uiManager->addButton(startButton);
 
 	auto settingsButton = new UiButton(game, "settings", 640, posIni + aumento, w, h);
 	settingsButton->setInitialDimension(w, h);
@@ -65,7 +65,7 @@ Menu::Menu(Game* game) : Scene(game)
 			});
 		});
 
-	uiManager->addInterfaz(settingsButton);
+	uiManager->addButton(settingsButton);
 
 	auto creditsButton = new UiButton(game, "credits", 640, posIni + aumento * 2, w, h);
 	creditsButton->setInitialDimension(w, h);
@@ -78,11 +78,8 @@ Menu::Menu(Game* game) : Scene(game)
 				// Settings
 
 				//Abrir pantalla
-
 				game->getUIManager()->toggleCreditos(0);
-
 				game->getUIManager()->desactivaBot();
-
 
 				// -Poner pantalla completa (sdlutils().toggleFullScreen();)
 				// -Volumen de musica y sonido (slides separados)
@@ -93,7 +90,7 @@ Menu::Menu(Game* game) : Scene(game)
 			});
 		});
 
-	uiManager->addInterfaz(creditsButton);
+	uiManager->addButton(creditsButton);
 
 	auto exitButton = new UiButton(game, "exit", 640, posIni + aumento * 3, w, h);
 	exitButton->setInitialDimension(w, h);
@@ -112,7 +109,7 @@ Menu::Menu(Game* game) : Scene(game)
 			});
 		});
 
-	uiManager->addInterfaz(exitButton);
+	uiManager->addButton(exitButton);
 
 	uiManager->creaMenuOpciones();
 

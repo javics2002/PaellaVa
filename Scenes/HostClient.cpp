@@ -32,7 +32,7 @@ HostClient::HostClient(Game* game) : Scene(game)
 
 		game->sendMessageScene(new Lobby(game));
 		});
-	uiManager->addInterfaz(hostButton);
+	uiManager->addButton(hostButton);
 
 	auto clientButton = new UiButton(game, "Buscar restaurante", "paella", { 255, 255, 255, 255 }, { 0, 0, 0, 0 },
 		sdlutils().width() / 2 + offsetX, sdlutils().height() / 2 - offsetY);
@@ -42,5 +42,5 @@ HostClient::HostClient(Game* game) : Scene(game)
 		game->sendMessageScene(new IntroduceIP(game));
 		
 		});
-	uiManager->addInterfaz(clientButton);
+	uiManager->addButton(clientButton);
 }

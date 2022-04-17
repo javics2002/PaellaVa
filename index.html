@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>¡Paella va!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css\bootstrap.css">
+  <link rel="js" href="js\bootstrap.js">
+  <link rel="icon" href="./Assets/Images/menufondo.png">
+</head>
+
+
+<body>
+  <!-- Image and text -->
+  <nav id="menu" class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="">
+      <img src="./assets/images/logo.png" width="170" height="50" class="d-inline-block align-top" alt="">
+    </a> 
+    <form class="form-inline">
+      <a class="btn btn-outline-success" type="button" href="./redes.html">Redes</a>
+    </form>
+  </nav>
+
+  <div class="click-here">Haz Click!</div>
+
+
+  <div class="game-container">
+    <div id="game_canvas">
+      <canvas id="myCanvas"></canvas>
+      <script src="./src/game.js" type="module"></script>
+    </div>
+    <img src="./assets/images/layout.png" alt="Layout" style="width: 1260px; height: 660px;">
+  </div>
+
+
+  <hr>
+
+  <div class="controles-container">
+    <img src="./assets/images/layoutControles.png" alt="Layout">
+    <div class="titulo_controles">Controles</div>
+    <div class="imagen_controles">
+      <img src="./assets/Sprites/Menu/controls.png" alt="controles" width="130%">
+    </div>
+  </div>
+
+  <div class="description-container">
+    <img src="./assets/images/layout.png" alt="Layout" style="width: 60%;">
+    <div class="titulo_description">Descripcion</div>
+    <div class="texto">Heels Running se trata de un runner con scroll lateral 
+      en el cual nuestro personaje se mueve automaticamente hacia la derecha y cuyo objetivo 
+      principal es huir de nuestros perseguidores hasta lograr escapar, para ello tendremos que esquivar obstaculos,
+      tratando tanto de no morir cuando nos disparen los mafiosos, como de que no nos arreste la policia.</div>
+  </div>
+
+  <div class="creadores-container">
+    <img src="./assets/images/layoutControles.png" alt="Layout">
+    <div class="titulo_creadores">Creadores</div>
+    <div class="texto-creadores">Jose Miguel<br>
+      Rodrigo Cabello<br>
+      Daniel Ruiz<br>
+      Diego Rol
+    </div>
+  </div>
+
+  <ul class="box-area" style="z-index: -1;">
+    <li></li>
+    <li>uwu</li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+
+
+</body>
+</html>

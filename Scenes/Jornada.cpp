@@ -69,7 +69,7 @@ Jornada::Jornada(Game* game, string tilemap, int numeroJornada, bool host_) : Sc
 	}
 	
 
-	mapInfo.ruta = "..\\..\\..\\Assets\\Tilemap\\"+tilemap+".tmx";
+	mapInfo.ruta = "Assets\\Tilemap\\" + tilemap + ".tmx";
 	loadMap(mapInfo.ruta);
 
 	fondo->setTexture(mapInfo.ruta);

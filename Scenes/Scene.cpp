@@ -25,6 +25,13 @@ void Scene::handleInput(bool& exit)
 	objectManager->handleInput(exit);
 	uiManager->handleInput(exit, paused);
 
+	if (ih().getKey(InputHandler::INTERACT))
+		uiManager->focoExecute(exit);
+
+	if (ih().getKey(InputHandler::RIGHT) || ih().getKey(InputHandler::DOWN))
+		uiManager->avanzaFoco();
+	if (ih().getKey(InputHandler::LEFT) || ih().getKey(InputHandler::UP))
+		uiManager->retrocedeFoco();
 }
 
 void Scene::update()

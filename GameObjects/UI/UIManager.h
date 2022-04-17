@@ -22,6 +22,7 @@ class UIManager
 	vector<string> texturasTamanos = { "small","medium","large" };
 	vector<Point2D<double> >posicionesBotones;
 	vector<GameObject*> interfaz;//el resto de iconos 
+	vector<UiButton*> botones;//botones
 	vector<Comanda*> comandas;//comandas de la lista de comandas
 	vector<IngredienteButton*> teclado;//iconos que se usan en la comanda qeu esta redactando
 	vector<UiButton*> uicomandas;
@@ -75,7 +76,7 @@ class UIManager
 
 	double toRadians(double grados);
 
-	UiButton* foco;
+	vector<UiButton*>::iterator foco;
 
 public:
 	UIManager(Game* game);
@@ -100,6 +101,7 @@ public:
 	void randomizaTeclado();
 
 	void addInterfaz(GameObject* comanda);
+	void addButton(UiButton* button);
 
 	void creaMenuPausa();
 	void creaMenuOpciones();
@@ -123,5 +125,8 @@ public:
 	void setEnLobby(bool enLobby_);
 
 	void quemarse();
+	void focoExecute(bool& exit);
+	void avanzaFoco();
+	void retrocedeFoco();
 };
 

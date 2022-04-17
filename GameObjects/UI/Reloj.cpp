@@ -62,11 +62,13 @@ void Reloj::update()
 			currentTime.hours += currentTime.minutes / 60;
 			currentTime.minutes = currentTime.minutes % 60;
 		}
+
 		//Si queda justo una hora para cerrar avisamos
-		else if (!ultimaHora && hourFin - 1 == currentTime.hours && minuteFin == currentTime.minutes) {
+		if (!ultimaHora && hourFin - 1 == currentTime.hours && minuteFin == currentTime.minutes) {
 			ultimaHora = true;
 			sdlutils().soundEffects().at("ultimaHora").play();
 		}
+
 		if (currentTime.hours >= 24) {
 			currentTime.hours = currentTime.hours % 24;
 		}

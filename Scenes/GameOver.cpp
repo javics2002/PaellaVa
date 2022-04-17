@@ -43,15 +43,12 @@ GameOver::GameOver(Game* game, int puntuation, int numeroJornada) : Scene(game)
 	puntos->setPosition(Vector2D<double>(posPuntX, posPuntY + puntos->getHeight()));
 	uiManager->addInterfaz(puntos);
 
-
-
 	auto continueButton = new UiButton(game, "continue",
 		sdlutils().width() / 2 + 300, sdlutils().height() / 2 + 200, 300, 120);
 	continueButton->setInitialDimension(300, 120);
 
 	continueButton->setAction([this, continueButton](Game* game, bool& exit) {
 		sdlutils().soundEffects().at("select").play(0, game->UI);
-
 
 		uiManager->addTween(0.9f, 1.0f, 600.0f).via(easing::exponentialOut).onStep(
 			[game, continueButton,this](tweeny::tween<float>& t, float) mutable {
@@ -72,7 +69,7 @@ GameOver::GameOver(Game* game, int puntuation, int numeroJornada) : Scene(game)
 			return false;
 			});
 		});
-	uiManager->addInterfaz(continueButton);
+	uiManager->addButton(continueButton);
 }
 
 void GameOver::calculateStarNumber()

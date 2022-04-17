@@ -7,7 +7,7 @@
 IntroduceIP::IntroduceIP(Game* game) : Scene(game)
 {
 	IP = new UiButton(game,textIP, "paella", { 255, 255, 255, 255 }, { 0, 0, 0, 0 },sdlutils().width() / 2 , sdlutils().height() / 2 );
-	uiManager->addInterfaz(IP);
+	uiManager->addButton(IP);
 
 	auto hostButton = new UiButton(game, "Introduce IP", "paella", { 255, 255, 255, 255 }, { 0, 0, 0, 0 },
 		sdlutils().width() / 2, sdlutils().height() / 2 - 100);
@@ -24,7 +24,7 @@ IntroduceIP::IntroduceIP(Game* game) : Scene(game)
 
 		});
 
-	uiManager->addInterfaz(hostButton);
+	uiManager->addButton(hostButton);
 }
 
 void IntroduceIP::handleInput(bool& exit)

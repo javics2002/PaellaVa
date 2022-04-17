@@ -7,7 +7,6 @@
 
 Lobby::Lobby(Game* game) : Scene(game)
 {
-
 	//fondo
 	fondo->setTexture("lobbyBg");
 	fondo->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
@@ -55,7 +54,7 @@ Lobby::Lobby(Game* game) : Scene(game)
 
 		});
 
-	uiManager->addInterfaz(comenzar);
+	uiManager->addButton(comenzar);
 
 	UiButton *regresar = new UiButton(game, "back", 100, 50, 125, 60);
 
@@ -64,7 +63,7 @@ Lobby::Lobby(Game* game) : Scene(game)
 		game->getNetworkManager()->close();
 	});
 
-	uiManager->addInterfaz(regresar);
+	uiManager->addButton(regresar);
 
 	uiManager->setEnLobby(true);
 }

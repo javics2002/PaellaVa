@@ -29,7 +29,7 @@ Game::~Game() {
 
 void Game::init()
 {
-	SDLUtils::init("Paellas", 1280, 720, "../../../Assets/resources.json");
+	SDLUtils::init("Paella va!", 1280, 720, "Assets/resources.json");
 	SDLUtils::instance()->showCursor();
 
 	ih().setGame(this);
