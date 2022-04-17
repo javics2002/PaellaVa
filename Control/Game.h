@@ -7,6 +7,7 @@
 #include <vector>
 #include <cmath>
 #include <queue>
+#include "../Utils/Vector2D.h"
 
 class Restaurante;
 class ObjectManager;
@@ -29,6 +30,9 @@ class Game {
     queue<MessageChangeScene> qScene;
 
     string nombre = "elbaginon";
+
+    Vector2D<double> slideSon = {0,0};
+    Vector2D<double> slideMus = {0,0};
 
 public:
     Game();
@@ -55,4 +59,9 @@ public:
 
     void setNombre(string nombre_);
     string getNombre();
+
+    void setSlidesPos(Vector2D<double> slideVol_, Vector2D<double> slideSon_);
+    Vector2D<double> getSlideSon();
+    Vector2D<double> getSlideMus();
+    
 };

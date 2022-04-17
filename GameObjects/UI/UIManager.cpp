@@ -500,12 +500,16 @@ void UIManager::creaMenuPausa() {
 	exitButton->setAction([this, exitButton](Game* game, bool& exit) mutable {
 		sdlutils().soundEffects().at("select").play(0, game->UI);
 
-		addTween(0.9f, 1.0f, 600.0f).via(easing::exponentialOut).onStep([game, exitButton](tweeny::tween<float>& t, float) mutable {
+		addTween(0.9f, 1.0f, 600.0f).via(easing::exponentialOut).onStep([this, game, exitButton](tweeny::tween<float>& t, float) mutable {
 			exitButton->setDimension(t.peek() * exitButton->getInitialWidth(), t.peek() * exitButton->getInitialHeight());
 
+			
 			if (t.progress() == 1.0f) {
 				// Exit
+
+				game->getNetworkManager()->close();
 				game->sendMessageScene(new Menu(game));
+
 				return true;
 			}
 			return false;
@@ -584,7 +588,14 @@ void UIManager::creaMenuOpciones()
 	optionsMenu.push_back(textoSonido);
 
 	//Slide musica
-	slideMusica = new UiButton(game, "paella", barraVol_musica->getX(), barraVol_musica->getY(), 80, 80);
+	int x = barraVol_musica->getX(), y = barraVol_musica->getY();
+
+	if (game->getSlideMus().getX() != 0) {
+		x = game->getSlideMus().getX();
+		y = game->getSlideMus().getY();
+	}
+
+	slideMusica = new UiButton(game, "paella", x, y, 80, 80);
 
 	slideMusica->setActive(false);
 	slideMusica->setAction([this, barraVol_musica](Game* game, bool& exit) {
@@ -615,7 +626,14 @@ void UIManager::creaMenuOpciones()
 	sliders.push_back(slideMusica);
 
 	//Slide sonido
-	slideSonido = new UiButton(game, "paella", barraVol_sonido->getX(), barraVol_sonido->getY(), 80, 80);
+	x = barraVol_sonido->getX(), y = barraVol_sonido->getY();
+
+	if (game->getSlideSon().getX() != 0) {
+		x = game->getSlideSon().getX();
+		y = game->getSlideSon().getY();
+	}
+
+	slideSonido = new UiButton(game, "paella", x, y, 80, 80);
 
 	slideSonido->setActive(false);
 	slideSonido->setAction([this, barraVol_sonido](Game* game, bool& exit) {
@@ -644,6 +662,8 @@ void UIManager::creaMenuOpciones()
 
 	optionsMenu.push_back(slideSonido);
 	sliders.push_back(slideSonido);
+
+	game->setSlidesPos(slideSonido->getPosition(), slideMusica->getPosition());
 
 	//Caja de texto del nombre
 	Imagen* fondoNombre = new Imagen(game, sdlutils().width() / 2 - 100, opcPant->getHeight() - 100, 210, 50, "reloj");
@@ -984,14 +1004,14 @@ void UIManager::salirCreditos()
 
 void UIManager::desactivaBot()
 {
-	for (auto i : interfaz) {
+	for (auto i : botones) {
 		i->setActive(false);
 	}
 }
 
 void UIManager::activaBot()
 {
-	for (auto i : interfaz) {
+	for (auto i : botones) {
 		i->setActive(true);
 	}
 }
