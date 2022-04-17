@@ -144,3 +144,19 @@ string Game::getNombre()
 {
 	return nombre;
 }
+
+void Game::setSlidesPos(Vector2D<double> slideVol_, Vector2D<double> slideSon_)
+{
+	slideSon = slideVol_;
+	slideMus = slideSon_;
+}
+
+Vector2D<double> Game::getSlideSon()
+{
+	return slideSon;
+}
+
+Vector2D<double> Game::getSlideMus()
+{
+	return slideMus;
+}
