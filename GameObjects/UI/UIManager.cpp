@@ -12,6 +12,7 @@
 #include "EliminaComandaButton.h"
 #include "OcultabarraButton.h"
 #include "../../Data/ListaComandas.h"
+#include "../../Control/NetworkManager.h"
 
 #include "../../Scenes/Jornada.h"
 #include "../../Scenes/Tutorial.h"
@@ -517,7 +518,7 @@ void UIManager::creaMenuPausa() {
 			
 			if (t.progress() == 1.0f) {
 				// Exit
-
+				game->getNetworkManager()->setGameStarted(false);
 				game->getNetworkManager()->close();
 				game->sendMessageScene(new Menu(game));
 
