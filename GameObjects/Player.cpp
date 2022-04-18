@@ -90,8 +90,12 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 			{
 				//Ingredientes
 				for (auto i : game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->getOverlaps(getOverlap())) {
-					if (i->isActive() && i->canPick() && nearestObject(i))
+					if (i->isActive() && i->canPick() && nearestObject(i)) {
 						objectType_ = INGREDIENTE;
+
+						
+					}
+						
 					if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::cogerIngrediente) {
 						game->getCurrentScene()->changeState(States::pausaCogerIngrediente);
 					}
@@ -117,7 +121,11 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 					pickedObject_->pickObject();
 
 					// Mandar mensaje de que he pillado un objeto
-
+					if (objectType_ == INGREDIENTE) {
+						Ingrediente* object = dynamic_cast<Ingrediente*>(pickedObject_);
+						game->getNetworkManager()->syncInteract(objectType_, object->getId());
+					}
+					
 				}
 			}
 		}
@@ -385,6 +393,23 @@ SDL_Rect Player::getOverlap()
 		 int(overlapPos.getY()),
 		  (overlapDim.getX()),
 		  (overlapDim.getY()) };
+}
+
+void Player::PickCustomObject(int objectType, int objectId)
+{
+	if (objectType == INGREDIENTE) {
+		objectType_ = INGREDIENTE;
+
+		for (auto i : game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->getActiveObjects()) {
+			if (i->getId() == objectId) {
+				pickedObject_ = i;
+				pickedObject_->pickObject();
+
+				cout << "PILLE EL OBJETO" << endl;
+			}
+		}
+	}
+	
 }
 
 void Player::setVel(double x, double y)

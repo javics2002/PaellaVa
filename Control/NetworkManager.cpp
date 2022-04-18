@@ -118,6 +118,12 @@ void NetworkManager::receivePlayers()
 
 					// game_->getObjectManager()->getPlayerTwo()->setPosition(Vector2D<double>(pkt.syncPlayers.posX, pkt.syncPlayers.posY));
 					break;
+
+				case EPT_SYNCINTERACT:
+					// recorrer la pool correspondiente a object type, encontrar el objeto con la id correspondiente y coger dicho objeto
+					game->getObjectManager()->getPlayerTwo()->PickCustomObject(pkt.syncInteract.object_type, pkt.syncInteract.object_id);
+
+					break;
 				case EPT_QUIT:
 					std::cout << ("Client disconnected: ID(%d)\n", i) << std::endl;
 
@@ -448,7 +454,7 @@ bool NetworkManager::init(char type, const char* ip_addr, std::string name)
 
 
 // Currently testing
-void NetworkManager::update() // SINCRONIZAR ESTADO DE JUEGO CADA 1 SEGS
+void NetworkManager::update() // SINCRONIZAR ESTADO DE JUEGO
 {
 	if (gameStarted) {
 		if (lastUpdate_ + updateTime_ > sdlutils().currRealTime()) { // si no pasan
@@ -561,7 +567,7 @@ void NetworkManager::sendStartGame(int numJornada) {
 	pkt.packet_type = EPT_START;
 	pkt.startGame.num_jornada = numJornada;
 
-	for (int i = 0u; i < player_sockets.size(); i++) {
+	for (int i = 1u; i < player_sockets.size(); i++) {
 		if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
 		{
 			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
@@ -704,7 +710,27 @@ void NetworkManager::syncPlayers()
 	}
 }
 
-void NetworkManager::sendInteract()
+void NetworkManager::syncInteract(int objectType, int objectId)
 {
-	
+	Packet pkt;
+	pkt.packet_type = EPT_SYNCINTERACT;
+	pkt.syncInteract.object_type = objectType;
+	pkt.syncInteract.object_id = objectId;
+
+	if (nType == 'h') {
+		for (int i = 1u; i < player_sockets.size(); i++) {
+			if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+			{
+				std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+				exit(EXIT_FAILURE);
+			}
+		}
+	}
+	else {
+		if (SDLNet_TCP_Send(socket, &pkt, sizeof(Packet)) < sizeof(Packet))
+		{
+			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+			exit(EXIT_FAILURE);
+		}
+	}
 }

@@ -23,15 +23,8 @@ enum EPacketType {
 	EPT_CREATECLIENTGROUP,
 	EPT_BUTTONBUFFER,
 	EPT_SYNCPLAYER,
+	EPT_SYNCINTERACT,
 	EPT_QUIT
-};
-
-enum EInputType {
-	EIT_UP,
-	EIT_DOWN,
-	EIT_RIGHT,
-	EIT_LEFT,
-	EIT_NONE
 };
 
 struct PacketSend {
@@ -87,13 +80,22 @@ struct PacketGrupoCliente {
 	float tolerancia;
 };
 
+// Paquete para input jugador (axis)
 struct PacketButtonBuffer {
-	bool buttonBuffer[8];
+	bool buttonBuffer[4];
 };
 
+// Paquete para sincronizar a los jugadores
 struct PacketSyncPlayers {
 	Sint16 posX;
 	Sint16 posY;
+};
+
+// currently testing
+struct PacketSyncInteract {
+	Uint8 object_type; // 0 - ingredientes, 1 - clientes, 2 - paella, 3 - arroz
+	Uint16 object_id; // id
+	
 };
 
 //struct PacketInteract {
@@ -114,6 +116,7 @@ struct Packet {
 		PacketGrupoCliente grupoCliente;
 		PacketButtonBuffer buttonBuffer;
 		PacketSyncPlayers syncPlayers;
+		PacketSyncInteract syncInteract;
 	};
 
 };
@@ -207,7 +210,7 @@ public:
 
 	void syncPlayers();
 
-	void sendInteract();
+	void syncInteract(int objectType, int objectId);
 
 	void setGameStarted(bool gameStarted_) { gameStarted = gameStarted_; }
 };

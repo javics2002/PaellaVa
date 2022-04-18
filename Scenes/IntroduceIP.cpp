@@ -24,7 +24,7 @@ IntroduceIP::IntroduceIP(Game* game) : Scene(game)
 
 		});
 
-	uiManager->addButton(hostButton);
+	uiManager->addInterfaz(hostButton);
 }
 
 void IntroduceIP::handleInput(bool& exit)

@@ -61,5 +61,7 @@ public:
 
 	SDL_Rect getCollider() override;
 	SDL_Rect getOverlap() override;
+
+	void PickCustomObject(int objectType, int objectId);
 };
 
