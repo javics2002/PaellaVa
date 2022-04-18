@@ -55,6 +55,8 @@ class Jornada : public Scene
 
 	bool host;
 
+	int idCount = 0;
+
 public:
 	Jornada(Game* game, string tilemap, int numeroJornada, bool cocinera = true);
 	~Jornada();

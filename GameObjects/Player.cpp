@@ -9,6 +9,7 @@
 #include "Ingrediente.h"
 #include "Muebles/Mueble.h"
 #include "Muebles/Mesa.h"
+#include "Muebles/Encimera.h"
 #include "Arroz.h"
 
 #include "../Utils/Traza.h"
@@ -80,7 +81,9 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 				pickedObject_->pickObject();
 
 				// Mandar mensaje de que he pillado un objeto
-
+				if (objectType_ == INGREDIENTE) {
+					game->getNetworkManager()->syncPickObject(objectType_, pickedObject_->getId());
+				}
 			}
 				
 
@@ -92,8 +95,6 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 				for (auto i : game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->getOverlaps(getOverlap())) {
 					if (i->isActive() && i->canPick() && nearestObject(i)) {
 						objectType_ = INGREDIENTE;
-
-						
 					}
 						
 					if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::cogerIngrediente) {
@@ -122,8 +123,7 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 
 					// Mandar mensaje de que he pillado un objeto
 					if (objectType_ == INGREDIENTE) {
-						Ingrediente* object = dynamic_cast<Ingrediente*>(pickedObject_);
-						game->getNetworkManager()->syncInteract(objectType_, object->getId());
+						game->getNetworkManager()->syncPickObject(objectType_, pickedObject_->getId());
 					}
 					
 				}
@@ -137,8 +137,12 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 			{
 			case INGREDIENTE:
 				if (m != nullptr && m->receiveIngrediente(dynamic_cast<Ingrediente*>(pickedObject_))) {
+					// Mandar mensaje drop 
+					game->getNetworkManager()->syncDropObject(objectType_, pickedObject_->getId(), m->getId());
+
 					pickedObject_->dropObject();
 					pickedObject_ = nullptr;
+
 				}
 				break;
 			case CLIENTES:
@@ -400,16 +404,41 @@ void Player::PickCustomObject(int objectType, int objectId)
 	if (objectType == INGREDIENTE) {
 		objectType_ = INGREDIENTE;
 
+		// comprobar si el ingrediente lo contiene algun mueble
 		for (auto i : game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->getActiveObjects()) {
 			if (i->getId() == objectId) {
 				pickedObject_ = i;
-				pickedObject_->pickObject();
+				break;
+			}
+		}
 
-				cout << "PILLE EL OBJETO" << endl;
+		for (auto i : game->getObjectManager()->getEncimeras()) {
+			if (i->hasIngrediente() != nullptr) {
+				if (i->hasIngrediente()->getId() == pickedObject_->getId()) {
+					i->clearIngrediente();
+					break;
+				}
+			}
+		}
+
+		pickedObject_->pickObject();
+	}
+}
+
+void Player::DropCustomObject(int objectType, int objectId, int muebleId)
+{
+	if (objectType == INGREDIENTE) {
+		// drop in the mueble
+		for (auto e : game->getObjectManager()->getEncimeras()) {
+			if (e->getId() == muebleId) {
+				e->receiveIngrediente(dynamic_cast<Ingrediente*>(pickedObject_));
+				pickedObject_->dropObject();
+				pickedObject_ = nullptr;
+
+				break;
 			}
 		}
 	}
-	
 }
 
 void Player::setVel(double x, double y)

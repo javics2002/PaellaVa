@@ -22,6 +22,8 @@ protected:
 
     Texture* timerTexture;
 
+    int id;
+
 public:
 	Mueble(Game* game, Vector2D<double> position, int width, int height, string claveTextura);
 	~Mueble() = default;
@@ -40,6 +42,9 @@ public:
     SDL_Rect getOverlap() override;   
     virtual void setOverlap(SDL_Rect r) {};
     virtual void setCollider(SDL_Rect r) {};
+
+    virtual void setId(int newId) { id = newId; }
+    virtual int getId() { return id; }
 };
 
 

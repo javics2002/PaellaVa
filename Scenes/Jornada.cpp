@@ -299,18 +299,30 @@ void Jornada::loadMap(string const& path)
 
 				if (name == "mesaS") { // 1 tile
 					Mesa* m = new Mesa(game, position, { 1, 2 }, { 1 , 1 }, name);
+					m->setId(idCount);
+					idCount++;
+					cout << idCount << endl;
 					getObjectManager()->addMueble(m);
 				}
 				else if (name == "mesaMH") { // 2 tiles horizontal
 					Mesa* m = new Mesa(game, position, { 2, 2 }, { 2 , 1 }, name);
+					m->setId(idCount);
+					idCount++;
+					cout << idCount << endl;
 					getObjectManager()->addMueble(m);
 				}
 				else if (name == "mesaMV") { // 2 tiles vertical
 					Mesa* m = new Mesa(game, position, { 1, 3 }, { 1 , 2 }, name);
+					m->setId(idCount);
+					idCount++;
+					cout << idCount << endl;
 					getObjectManager()->addMueble(m);
 				}
 				else if (name == "mesaL") { // 4 tiles
 					Mesa* m = new Mesa(game, position, { 2, 4 }, { 2 , 2 }, name);
+					m->setId(idCount);
+					idCount++;
+					cout << idCount << endl;
 					getObjectManager()->addMueble(m);
 				}
 				else if (name == "sillaIz" || name == "sillaDer") {
@@ -366,7 +378,12 @@ void Jornada::loadMap(string const& path)
 				}
 				else if (name == "encimera") {
 					Encimera* e = new Encimera(game, position);
+					e->setId(idCount);
+					idCount++;
+					cout << idCount << endl;
 					getObjectManager()->addMueble(e);
+
+					getObjectManager()->addEncimera(e);
 				}
 				else if (name == "ventanilla") {
 					Ventanilla* v = new Ventanilla(game, position, camara->renderRect());
@@ -396,6 +413,8 @@ void Jornada::loadMap(string const& path)
 					Pila* p = new Pila(game, position, TipoPaella::Grande, 3);
 					getObjectManager()->addMueble(p);
 				}
+
+				
 			}
 		}
 		// ordenar render

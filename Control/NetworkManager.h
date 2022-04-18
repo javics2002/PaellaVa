@@ -23,7 +23,8 @@ enum EPacketType {
 	EPT_CREATECLIENTGROUP,
 	EPT_BUTTONBUFFER,
 	EPT_SYNCPLAYER,
-	EPT_SYNCINTERACT,
+	EPT_SYNCPICKOBJECT,
+	EPT_SYNCDROPOBJECT,
 	EPT_QUIT
 };
 
@@ -92,15 +93,17 @@ struct PacketSyncPlayers {
 };
 
 // currently testing
-struct PacketSyncInteract {
+struct PacketSyncPickObject {
 	Uint8 object_type; // 0 - ingredientes, 1 - clientes, 2 - paella, 3 - arroz
 	Uint16 object_id; // id
-	
 };
 
-//struct PacketInteract {
-//
-//};
+struct PacketSyncDropObject {
+	Uint8 object_type; // 0 - ingredientes, 1 - clientes, 2 - paella, 3 - arroz
+	Uint16 object_id; // id
+
+	Uint16 mueble_id; // mueble id
+};
 
 struct Packet {
 	Uint8 packet_type;
@@ -116,7 +119,8 @@ struct Packet {
 		PacketGrupoCliente grupoCliente;
 		PacketButtonBuffer buttonBuffer;
 		PacketSyncPlayers syncPlayers;
-		PacketSyncInteract syncInteract;
+		PacketSyncPickObject syncPickObject;
+		PacketSyncDropObject syncDropObject;
 	};
 
 };
@@ -210,7 +214,8 @@ public:
 
 	void syncPlayers();
 
-	void syncInteract(int objectType, int objectId);
+	void syncPickObject(int objectType, int objectId);
+	void syncDropObject(int objectType, int objectId, int muebleId);
 
 	void setGameStarted(bool gameStarted_) { gameStarted = gameStarted_; }
 };
