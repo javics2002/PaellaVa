@@ -6,6 +6,8 @@ class Game;
 class ObjetoPortable : public GameObject
 {
 	bool isPicked_;
+
+	int mId;
 public:
 	ObjetoPortable(Game* game);
 	~ObjetoPortable() {};
@@ -18,6 +20,9 @@ public:
 
 	virtual bool canPick() { return true; };
 	virtual bool canDrop() { return true; };
+
+	virtual void setId(int newId) { mId = newId; }
+	virtual int getId() { return mId; }
 
 protected:
 	virtual void onObjectPicked() = 0;

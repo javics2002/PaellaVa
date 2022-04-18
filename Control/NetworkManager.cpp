@@ -119,10 +119,13 @@ void NetworkManager::receivePlayers()
 					// game_->getObjectManager()->getPlayerTwo()->setPosition(Vector2D<double>(pkt.syncPlayers.posX, pkt.syncPlayers.posY));
 					break;
 
-				case EPT_SYNCINTERACT:
+				case EPT_SYNCPICKOBJECT:
 					// recorrer la pool correspondiente a object type, encontrar el objeto con la id correspondiente y coger dicho objeto
-					game->getObjectManager()->getPlayerTwo()->PickCustomObject(pkt.syncInteract.object_type, pkt.syncInteract.object_id);
+					game->getObjectManager()->getPlayerTwo()->PickCustomObject(pkt.syncPickObject.object_type, pkt.syncPickObject.object_id);
 
+					break;
+				case EPT_SYNCDROPOBJECT:
+					game->getObjectManager()->getPlayerTwo()->DropCustomObject(pkt.syncDropObject.object_type, pkt.syncDropObject.object_id, pkt.syncDropObject.mueble_id);
 					break;
 				case EPT_QUIT:
 					std::cout << ("Client disconnected: ID(%d)\n", i) << std::endl;
@@ -275,6 +278,14 @@ void NetworkManager::updateClient()
 
 					return t.progress() == 1.0f;
 					});
+				break;
+			case EPT_SYNCPICKOBJECT:
+				// recorrer la pool correspondiente a object type, encontrar el objeto con la id correspondiente y coger dicho objeto
+				game->getObjectManager()->getPlayerTwo()->PickCustomObject(server_pkt.syncPickObject.object_type, server_pkt.syncPickObject.object_id);
+
+				break;
+			case EPT_SYNCDROPOBJECT:
+				game->getObjectManager()->getPlayerTwo()->DropCustomObject(server_pkt.syncDropObject.object_type, server_pkt.syncDropObject.object_id, server_pkt.syncDropObject.mueble_id);
 				break;
 			default:
 				break;
@@ -710,12 +721,40 @@ void NetworkManager::syncPlayers()
 	}
 }
 
-void NetworkManager::syncInteract(int objectType, int objectId)
+void NetworkManager::syncDropObject(int objectType, int objectId, int muebleId)
 {
 	Packet pkt;
-	pkt.packet_type = EPT_SYNCINTERACT;
-	pkt.syncInteract.object_type = objectType;
-	pkt.syncInteract.object_id = objectId;
+
+	pkt.packet_type = EPT_SYNCDROPOBJECT;
+
+	pkt.syncDropObject.object_type = objectType;
+	pkt.syncDropObject.object_id = objectId;
+	pkt.syncDropObject.mueble_id = muebleId;
+
+	if (nType == 'h') {
+		for (int i = 1u; i < player_sockets.size(); i++) {
+			if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+			{
+				std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+				exit(EXIT_FAILURE);
+			}
+		}
+	}
+	else {
+		if (SDLNet_TCP_Send(socket, &pkt, sizeof(Packet)) < sizeof(Packet))
+		{
+			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+			exit(EXIT_FAILURE);
+		}
+	}
+}
+
+void NetworkManager::syncPickObject(int objectType, int objectId)
+{
+	Packet pkt;
+	pkt.packet_type = EPT_SYNCPICKOBJECT;
+	pkt.syncPickObject.object_type = objectType;
+	pkt.syncPickObject.object_id = objectId;
 
 	if (nType == 'h') {
 		for (int i = 1u; i < player_sockets.size(); i++) {

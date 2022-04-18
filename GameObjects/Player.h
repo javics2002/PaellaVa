@@ -63,5 +63,6 @@ public:
 	SDL_Rect getOverlap() override;
 
 	void PickCustomObject(int objectType, int objectId);
+	void DropCustomObject(int objectType, int objectId, int muebleId);
 };
 

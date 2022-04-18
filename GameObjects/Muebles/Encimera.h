@@ -18,5 +18,9 @@ public:
 	virtual bool returnObject(Player* p) override;
 	virtual bool receivePaella(Paella* pa) override;
 	virtual bool receiveArroz(Arroz* pa) override;
+
+	Ingrediente* hasIngrediente() { return ingr_; }
+
+	void clearIngrediente() { ingr_ = nullptr; }
 };
 
