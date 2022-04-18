@@ -104,13 +104,13 @@ void NetworkManager::receivePlayers()
 					}
 					break;
 				case EPT_SYNCPLAYER:
-					game->getUIManager()->addTween(game->getObjectManager()->getPlayerTwo()->getPosition().getX(), pkt.syncPlayers.posX, 300).via(easing::linear).onStep([this](tweeny::tween<float>& t, float) mutable {
+					game->getUIManager()->addTween(game->getObjectManager()->getPlayerTwo()->getPosition().getX(), pkt.syncPlayers.posX, 300,true).via(easing::linear).onStep([this](tweeny::tween<float>& t, float) mutable {
 						game->getObjectManager()->getPlayerTwo()->setPosition(t.peek(), game->getObjectManager()->getPlayerTwo()->getPosition().getY());
 
 						return t.progress() == 1.0f;
 					});
 
-					game->getUIManager()->addTween(game->getObjectManager()->getPlayerTwo()->getPosition().getY(), pkt.syncPlayers.posY, 300).via(easing::linear).onStep([this](tweeny::tween<float>& t, float) mutable {
+					game->getUIManager()->addTween(game->getObjectManager()->getPlayerTwo()->getPosition().getY(), pkt.syncPlayers.posY, 300,true).via(easing::linear).onStep([this](tweeny::tween<float>& t, float) mutable {
 						game->getObjectManager()->getPlayerTwo()->setPosition(game->getObjectManager()->getPlayerTwo()->getPosition().getX(), t.peek());
 
 						return t.progress() == 1.0f;
@@ -267,13 +267,13 @@ void NetworkManager::updateClient()
 
 				break;
 			case EPT_SYNCPLAYER:
-				game->getUIManager()->addTween(game->getObjectManager()->getPlayerTwo()->getPosition().getX(), server_pkt.syncPlayers.posX, 300).via(easing::linear).onStep([this](tweeny::tween<float>& t, float) mutable {
+				game->getUIManager()->addTween(game->getObjectManager()->getPlayerTwo()->getPosition().getX(), server_pkt.syncPlayers.posX, 300,true).via(easing::linear).onStep([this](tweeny::tween<float>& t, float) mutable {
 					game->getObjectManager()->getPlayerTwo()->setPosition(t.peek(), game->getObjectManager()->getPlayerTwo()->getPosition().getY());
 
 					return t.progress() == 1.0f;
 					});
 
-				game->getUIManager()->addTween(game->getObjectManager()->getPlayerTwo()->getPosition().getY(), server_pkt.syncPlayers.posY, 300).via(easing::linear).onStep([this](tweeny::tween<float>& t, float) mutable {
+				game->getUIManager()->addTween(game->getObjectManager()->getPlayerTwo()->getPosition().getY(), server_pkt.syncPlayers.posY, 300,true).via(easing::linear).onStep([this](tweeny::tween<float>& t, float) mutable {
 					game->getObjectManager()->getPlayerTwo()->setPosition(game->getObjectManager()->getPlayerTwo()->getPosition().getX(), t.peek());
 
 					return t.progress() == 1.0f;

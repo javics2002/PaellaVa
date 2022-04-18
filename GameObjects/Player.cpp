@@ -399,6 +399,31 @@ SDL_Rect Player::getOverlap()
 		  (overlapDim.getY()) };
 }
 
+void Player::changePlayer(bool c)
+{
+	chef_ = c;
+	anims.clear();
+	if (chef_) {
+		anims.push_back(&sdlutils().images().at("cocineraIdleDown"));
+		anims.push_back(&sdlutils().images().at("cocineraIdleSide"));
+		anims.push_back(&sdlutils().images().at("cocineraIdleUp"));
+
+		anims.push_back(&sdlutils().images().at("cocineraWalkDown"));
+		anims.push_back(&sdlutils().images().at("cocineraWalkSide"));
+		anims.push_back(&sdlutils().images().at("cocineraWalkUp"));
+	}
+
+	else {
+		anims.push_back(&sdlutils().images().at("camareroIdleDown"));
+		anims.push_back(&sdlutils().images().at("camareroIdleSide"));
+		anims.push_back(&sdlutils().images().at("camareroIdleUp"));
+
+		anims.push_back(&sdlutils().images().at("camareroWalkDown"));
+		anims.push_back(&sdlutils().images().at("camareroWalkSide"));
+		anims.push_back(&sdlutils().images().at("camareroWalkUp"));
+	}
+}
+
 void Player::PickCustomObject(int objectType, int objectId)
 {
 	if (objectType == INGREDIENTE) {

@@ -30,7 +30,8 @@ class Tutorial : public Scene
 
 	const float LERP_INTERPOLATION = 0.2f;
 
-	vector<string> textos = { "texto1" ,"texto2", "texto3","texto4","texto5","texto6","texto7","texto8","texto9","texto10","texto11","texto12","texto13","textoComandaEquivocada"};
+	vector<string> textos = { "texto1" ,"texto2", "texto3","texto4","texto5","texto6","texto7","texto8","texto9","texto10",
+		"texto11","texto12","texto13","texto14","texto15","texto16","texto17","texto18","texto19","texto20","texto21"};
 
 	MapInfo mapInfo;
 
@@ -38,7 +39,7 @@ class Tutorial : public Scene
 
 	Vector2D<int> tamRestaurante = Vector2D<int>(0, 1216);
 
-	Imagen* cuadroTexto = new Imagen(game, sdlutils().width() / 2, sdlutils().height() - 100, sdlutils().width()/1.5, 250, "texto1");
+	Imagen* cuadroTexto = new Imagen(game, sdlutils().width() / 2, sdlutils().height() - 100, sdlutils().width()/1.5, 250, "cuadroTextoCocinera");
 
 	RedactaComandabutton* rC = new RedactaComandabutton(game, uiManager, "redactaboton", 10, 10, 30, 30);
 	ListaComandas* lC = new ListaComandas(game, uiManager);
@@ -63,6 +64,8 @@ public:
 	void togglePause();
 	void pauseTutorial() override;
 	void nextStates();
+	void activaCuadro(string texto_);
+	void desactivaCuadro();
 
 };
 

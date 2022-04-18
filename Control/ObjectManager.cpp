@@ -234,6 +234,11 @@ void ObjectManager::addTabla(TablaProcesado* t)
 	tablasProcesados.push_back(t);
 }
 
+void ObjectManager::addLavavajillas(Lavavajillas* l)
+{
+	lavavajillas = l;
+}
+
 vector<Silla*> ObjectManager::getSillas()
 {
 	return sillas;
@@ -299,4 +304,9 @@ InicioCinta* ObjectManager::getIniCinta()
 FinalCinta* ObjectManager::getFinCinta()
 {
 	return finCinta;
+}
+
+Lavavajillas* ObjectManager::getLavavajillas()
+{
+	return lavavajillas;
 }

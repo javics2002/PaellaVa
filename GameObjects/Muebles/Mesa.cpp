@@ -131,6 +131,8 @@ bool Mesa::returnObject(Player* p)
 	if (mGrupo != nullptr ) {
 		if (mGrupo->canPick()) {
 			p->setPickedObject(mGrupo, objectType::CLIENTES);
+			if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == sacarCuenta)
+				game->getCurrentScene()->changeState(pausaSacarCuenta);
 
 			return true;
 		}
@@ -140,6 +142,10 @@ bool Mesa::returnObject(Player* p)
 		paellas.back()->enLaMesa(false);
 		paellas.back()->setContenido(Sucia);
 		paellas.pop_back();
+
+		if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == recogerMesa)
+			game->getCurrentScene()->changeState(pausaRecogerMesa);
+
 
 		if (paellas.empty()) {
 			for (int i = 0; i < mWidth; i++) {

@@ -1,4 +1,5 @@
 #include "Lavavajillas.h"
+#include "../../Scenes/Tutorial.h"
 
 Lavavajillas::Lavavajillas(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, TILE_SIZE, "lavavajillas")
 {
@@ -37,6 +38,10 @@ bool Lavavajillas::receivePaella(Paella* paella_)
 {
 	if (paella_->getContenido()==Sucia) {
 
+
+		if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == dejarLavavajillas)
+			game->getCurrentScene()->changeState(pausaDejarLavavajillas);
+
 		pilaPaellas.push_back(paella_);
 
 		paella_->setPosition(getRectCenter(getOverlap()));
@@ -57,6 +62,9 @@ bool Lavavajillas::returnObject(Player* p)
 		p->setPickedObject(paellasLimpias.front(), PAELLA);
 
 		paellasLimpias.pop_front();
+		if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == cogerLavavajillas)
+			game->getCurrentScene()->changeState(pausaCogerLavavajillas);
+
 
 		i = 0;
 		clip.x = 0;

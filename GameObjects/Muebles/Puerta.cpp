@@ -100,7 +100,13 @@ void Puerta::update()
 
 bool Puerta::receiveGrupoClientes(GrupoClientes* gc)
 {
-	
+	if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == echarClientes) {
+		game->getCurrentScene()->changeState(pausaEcharClientes);
+	}
+	else if (dynamic_cast<Tutorial*>(game->getCurrentScene())) {
+		game->getCurrentScene()->changeState(pausaNoEcharClientes);
+		return false;
+	}
 	gc->setOrientacion(vertical);
 	gc->setActive(false);
 

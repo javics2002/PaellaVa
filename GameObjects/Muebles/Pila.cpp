@@ -33,10 +33,13 @@ bool Pila::returnObject(Player* p)
 
 bool Pila::receivePaella(Paella* pa)
 {
-	if (miTipo == pa->getTipo() && pa->getContenido() == Limpia && !dynamic_cast<Tutorial*>(game->getCurrentScene())) {
+	if (miTipo == pa->getTipo() && pa->getContenido() == Limpia) {
 
 		paellas.push_back(pa);
 		pa->setPosition(getRectCenter(getOverlap()));
+
+		if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::dejarPaellaPila)
+			game->getCurrentScene()->changeState(States::pausaFinal);
 
 		return true;
 	}

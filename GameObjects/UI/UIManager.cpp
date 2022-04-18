@@ -235,7 +235,7 @@ void UIManager::update(bool paused)
 
 		circulo->setInitialDimension(16,16);
 
-		addTween(1.0f, 0.75f, 800.0f).via(easing::exponentialOut).onStep([circulo, this](tweeny::tween<float>& t, float) mutable {
+		addTween(1.0f, 0.75f, 800.0f,false).via(easing::exponentialOut).onStep([circulo, this](tweeny::tween<float>& t, float) mutable {
 			circulo->setDimension(t.peek() * circulo->getInitialWidth(), t.peek() * circulo->getInitialHeight());
 
 			if (t.progress() == 1.0f) {
@@ -253,7 +253,7 @@ void UIManager::update(bool paused)
 	}
 
 	auto i = activeTweens.begin();
-	while (i != activeTweens.end()) {
+	while (i != activeTweens.end() && !paused) {
 		i->step(20);
 
 		//Si el tween ha acabado, lo saco de la lista de tweens
@@ -263,6 +263,18 @@ void UIManager::update(bool paused)
 		}
 		else
 			i++;
+	}
+	auto o = pauseTweens.begin();
+	while (o != pauseTweens.end()) {
+		o->step(20);
+
+		//Si el tween ha acabado, lo saco de la lista de tweens
+		if (o->progress() == 1) {
+			//Erase devuelve el iterador al siguiente tween
+			o = pauseTweens.erase(o);
+		}
+		else
+			o++;
 	}
 }
 
@@ -489,19 +501,35 @@ void UIManager::creaMenuPausa() {
 
 	resumeButton->setAction([this, resumeButton](Game* game, bool& exit) {
 		// Pausa
-		Jornada* currentScene = dynamic_cast<Jornada*>(game->getCurrentScene());
+		if (dynamic_cast<Tutorial*>(game->getCurrentScene())) {
+			Tutorial* currentScene = dynamic_cast<Tutorial*>(game->getCurrentScene());
 
-		addTween(0.9f, 1.0f, 600.0f).via(easing::exponentialOut).onStep([resumeButton, currentScene](tweeny::tween<float>& t, float) mutable {
-			resumeButton->setDimension(t.peek() * resumeButton->getInitialWidth(), t.peek() * resumeButton->getInitialHeight());
+			addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([resumeButton, currentScene](tweeny::tween<float>& t, float) mutable {
+				resumeButton->setDimension(t.peek() * resumeButton->getInitialWidth(), t.peek() * resumeButton->getInitialHeight());
 
-			if (t.progress() > .2f) { //Busco una respuesta mas rapida
-				// Resume
-				currentScene->togglePause();
-				return true;
-			}
-			return false;
+				if (t.progress() > .2f) { //Busco una respuesta mas rapida
+					// Resume
+					currentScene->togglePause();
+					return true;
+				}
+				return false;
+				});
+		}
+		else {
+			Jornada* currentScene = dynamic_cast<Jornada*>(game->getCurrentScene());
+
+			addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([resumeButton, currentScene](tweeny::tween<float>& t, float) mutable {
+				resumeButton->setDimension(t.peek() * resumeButton->getInitialWidth(), t.peek() * resumeButton->getInitialHeight());
+
+				if (t.progress() > .2f) { //Busco una respuesta mas rapida
+					// Resume
+					currentScene->togglePause();
+					return true;
+				}
+				return false;
 			});
-		});
+		}
+	});
 
 	pauseButtons.push_back(resumeButton);
 
@@ -512,7 +540,7 @@ void UIManager::creaMenuPausa() {
 	exitButton->setAction([this, exitButton](Game* game, bool& exit) mutable {
 		sdlutils().soundEffects().at("select").play(0, game->UI);
 
-		addTween(0.9f, 1.0f, 600.0f).via(easing::exponentialOut).onStep([this, game, exitButton](tweeny::tween<float>& t, float) mutable {
+		addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([this, game, exitButton](tweeny::tween<float>& t, float) mutable {
 			exitButton->setDimension(t.peek() * exitButton->getInitialWidth(), t.peek() * exitButton->getInitialHeight());
 
 			
@@ -943,7 +971,7 @@ void UIManager::togglePause() {
 	pauseImage->setDimension(0, 0);
 
 	if (pauseImage->isActive()) {
-		addTween(0.8f, 1.0f, 600.0f).via(easing::exponentialOut).onStep([pauseImage](tweeny::tween<float>& t, float) mutable {
+		addTween(0.8f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([pauseImage](tweeny::tween<float>& t, float) mutable {
 			pauseImage->setDimension(t.peek() * pauseImage->getInitialWidth(), t.peek() * pauseImage->getInitialHeight());
 
 			if (t.progress() == 1.0f) {
@@ -962,7 +990,7 @@ void UIManager::togglePause() {
 		i->setActive(!i->isActive());
 
 		if (i->isActive()) {
-			addTween(0.8f, 1.0f, 600.0f).via(easing::exponentialOut).onStep([i](tweeny::tween<float>& t, float) mutable {
+			addTween(0.8f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([i](tweeny::tween<float>& t, float) mutable {
 				i->setDimension(t.peek() * i->getInitialWidth(), t.peek() * i->getInitialHeight());
 
 				if (t.progress() == 1.0f) {
@@ -1028,11 +1056,16 @@ void UIManager::activaBot()
 	}
 }
 
-tweeny::tween<float>& UIManager::addTween(float from, float to, float during) {
+tweeny::tween<float>& UIManager::addTween(float from, float to, float during,bool activeTweens_) {
 	tweeny::tween<float> tween = tweeny::tween<float>::from(from).to(to).during(during);
-	activeTweens.push_front(tween);
-
-	return activeTweens.front();
+	if (activeTweens_) {
+		activeTweens.push_front(tween);
+		return activeTweens.front();
+	}
+	else {
+		pauseTweens.push_front(tween);
+		return pauseTweens.front();
+	}
 }
 
 void UIManager::setEnLobby(bool enLobby_)
@@ -1043,11 +1076,11 @@ void UIManager::setEnLobby(bool enLobby_)
 void UIManager::quemarse()
 {
 	//Aparece el efecto de quemarse en la interfaz y suena un sonido
-	addTween(2, 1, 300).via(easing::cubicOut).onStep([this](tweeny::tween<float>& t, float) mutable {
+	addTween(2, 1, 300,true).via(easing::cubicOut).onStep([this](tweeny::tween<float>& t, float) mutable {
 		burnEffect->setDimension(t.peek() * burnEffect->getInitialWidth(), t.peek() * burnEffect->getInitialHeight());
 
 		if (t.progress() == 1.0f) {
-			addTween(1, 2, 5000).via(easing::sinusoidalIn).onStep([this](tweeny::tween<float>& t, float) mutable {
+			addTween(1, 2, 5000,true).via(easing::sinusoidalIn).onStep([this](tweeny::tween<float>& t, float) mutable {
 				burnEffect->setDimension(t.peek() * burnEffect->getInitialWidth(), t.peek() * burnEffect->getInitialHeight());
 				
 				return t.progress() == 1.0f;
@@ -1071,7 +1104,7 @@ void UIManager::avanzaFoco()
 {
 	if (!botones.empty()) {
 		auto anteriorFoco = *foco;
-		addTween(1.1f, 1.0f, 600.0f).via(easing::exponentialOut).onStep([anteriorFoco](tweeny::tween<float>& t, float) mutable {
+		addTween(1.1f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([anteriorFoco](tweeny::tween<float>& t, float) mutable {
 			anteriorFoco->setDimension(t.peek() * anteriorFoco->getInitialWidth(), t.peek() * anteriorFoco->getInitialHeight());
 
 			return t.progress() == 1.0f;
@@ -1081,7 +1114,7 @@ void UIManager::avanzaFoco()
 		if (foco == botones.end())
 			foco = botones.begin();
 
-		addTween(1.0f, 1.1f, 600.0f).via(easing::exponentialOut).onStep([this](tweeny::tween<float>& t, float) mutable {
+		addTween(1.0f, 1.1f, 600.0f,false).via(easing::exponentialOut).onStep([this](tweeny::tween<float>& t, float) mutable {
 			(*foco)->setDimension(t.peek() * (*foco)->getInitialWidth(), t.peek() * (*foco)->getInitialHeight());
 
 			return t.progress() == 1.0f;
@@ -1093,7 +1126,7 @@ void UIManager::retrocedeFoco()
 {
 	if (!botones.empty()) {
 		auto anteriorFoco = *foco;
-		addTween(1.1f, 1.0f, 600.0f).via(easing::exponentialOut).onStep([anteriorFoco](tweeny::tween<float>& t, float) mutable {
+		addTween(1.1f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([anteriorFoco](tweeny::tween<float>& t, float) mutable {
 			anteriorFoco->setDimension(t.peek() * anteriorFoco->getInitialWidth(), t.peek() * anteriorFoco->getInitialHeight());
 
 			return t.progress() == 1.0f;
@@ -1104,7 +1137,7 @@ void UIManager::retrocedeFoco()
 		else 
 			foco--;
 
-		addTween(1.0f, 1.1f, 600.0f).via(easing::exponentialOut).onStep([this](tweeny::tween<float>& t, float) mutable {
+		addTween(1.0f, 1.1f, 600.0f,false).via(easing::exponentialOut).onStep([this](tweeny::tween<float>& t, float) mutable {
 			(*foco)->setDimension(t.peek() * (*foco)->getInitialWidth(), t.peek() * (*foco)->getInitialHeight());
 
 			return t.progress() == 1.0f;

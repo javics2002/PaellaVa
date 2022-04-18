@@ -35,7 +35,7 @@ Jornada::Jornada(Game* game, string tilemap, int numeroJornada, bool host_) : Sc
 	startButton->setAction([this, startButton](Game* game, bool& exit) {
 		sdlutils().soundEffects().at("select").play(0, game->UI);
 
-		uiManager->addTween(0.9f, 1.0f, 600.0f).via(easing::exponentialOut).onStep([game, startButton, this](tweeny::tween<float>& t, float) mutable {
+		uiManager->addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([game, startButton, this](tweeny::tween<float>& t, float) mutable {
 			startButton->setDimension(t.peek() * startButton->getInitialWidth(), t.peek() * startButton->getInitialHeight());
 
 			if (t.progress() > .2f) {

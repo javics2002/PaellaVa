@@ -40,6 +40,7 @@ class UIManager
 	vector<UiButton*> sliders; // sliders del menú de opciones
 
 	list<tweeny::tween<float>> activeTweens;
+	list<tweeny::tween<float>> pauseTweens;
 
 	list<Imagen*> cargarAnimacion;
 
@@ -120,7 +121,7 @@ public:
 
 	//string getNombre() { return nombrePlayer; };
 
-	tweeny::tween<float>& addTween(float from, float to, float during);
+	tweeny::tween<float>& addTween(float from, float to, float during,bool activeTweens_);
 
 	void setEnLobby(bool enLobby_);
 

@@ -3,6 +3,7 @@
 #include "../GameObjects/UI/EliminaComandaButton.h"
 #include "../Control/Game.h"
 #include "../GameObjects/UI/UIManager.h"
+#include "../Scenes/Tutorial.h"
 ListaComandas::ListaComandas(Game* game,UIManager* m) :GameObject(game)
 {
 
@@ -154,73 +155,79 @@ void ListaComandas::finalizacomanda(Comanda* comanda)
 
 		}
 	}*/
-	if (comanda == selected)
-		selected = nullptr;
-	for (auto c : lista)
-	{
 
-		if (c->getPosition().getX()<comanda->getPosition().getX())
+	if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState()<cogerPaellaVentanilla){
+
+		game->getCurrentScene()->changeState(pausaBorrarComanda);
+	}
+	else {
+		if (comanda == selected)
+			selected = nullptr;
+		for (auto c : lista)
 		{
-			int nx = c->getPosition().getX() + 1.5 * c->getWidth();
-			int dsp = nx - c->getPosition().getX();
-			c->desplazacomandas(dsp);//esta la paella anterior en el mismo  vector 
-			c->setPosition(nx, cY);
-			c->getEliminabutton()->setPosition(nx, cY + c->getHeight() / 2);
+
+			if (c->getPosition().getX() < comanda->getPosition().getX())
+			{
+				int nx = c->getPosition().getX() + 1.5 * c->getWidth();
+				int dsp = nx - c->getPosition().getX();
+				c->desplazacomandas(dsp);//esta la paella anterior en el mismo  vector 
+				c->setPosition(nx, cY);
+				c->getEliminabutton()->setPosition(nx, cY + c->getHeight() / 2);
+			}
+		}
+		if (lista.size() == 1)
+		{
+			lista.erase(lista.begin());
+		}
+		else
+			lista.erase(comanda->getSitio());
+		numcomandas--;
+		if (!listanovisibles.empty())
+		{
+
+
+			Comanda* c = listanovisibles.front();
+			cX = inicx + 1.5 * c->getWidth();
+			//traer comanda del buffer 
+
+			//Comanda* c = new Comanda(*d);
+			//c->desplazacomandas(+500);
+			//AñadeComanda(c);// noquieres otra copia mas de la comanda solo queires mover esta
+			int x = -cX - c->getX();
+			x += 3 * c->getWidth();
+			c->setPosition(cX, cY);
+			c->desplazacomandas(x);
+			c->getEliminabutton()->setPosition(cX, cY + c->getHeight() / 2);
+			c->setSitio(lista.insert(lista.begin(), c));
+			listanovisibles.pop();
+
+			numcomandas++;
+
+
+
+			/*
+				auto ic = lista.begin();
+
+				Comanda* d = *ic;
+				cX = d->getPosition().getX() - 1.5 * c->getWidth();
+
+
+
+				desplazamineto = cX - x;
+
+				c->desplazacomandas(desplazamineto - c->getWidth());//esta la paella anterior en el mismo  vector
+				c->setPosition(cX, cY);
+				c->getPosition().setX(cX);
+
+				c->setSitio(lista.insert(lista.begin(), c));
+				c->getEliminabutton()->setPosition(cX, cY + c->getHeight() / 2);
+
+				numcomandas++;*/
+
+
+
 		}
 	}
-	if (lista.size() == 1)
-	{
-		lista.erase(lista.begin());
-	}
-	else
-	lista.erase( comanda->getSitio());
-	numcomandas--;
-	if (!listanovisibles.empty())
-	{
-
-	
-		Comanda* c = listanovisibles.front();
-		cX = inicx + 1.5*c->getWidth();
-		//traer comanda del buffer 
-		
-		//Comanda* c = new Comanda(*d);
-		//c->desplazacomandas(+500);
-		//AñadeComanda(c);// noquieres otra copia mas de la comanda solo queires mover esta
-		int x =-cX - c->getX();
-		x += 3 * c->getWidth();
-		c->setPosition(cX, cY);
-		c->desplazacomandas(x);
-		c->getEliminabutton()->setPosition(cX, cY + c->getHeight() / 2);
-	    c->setSitio(lista.insert(lista.begin(), c));
-		listanovisibles.pop();
-
-		numcomandas++;
-		
-			
-		
-		/*
-			auto ic = lista.begin();
-
-			Comanda* d = *ic;
-			cX = d->getPosition().getX() - 1.5 * c->getWidth();
-
-
-
-			desplazamineto = cX - x;
-
-			c->desplazacomandas(desplazamineto - c->getWidth());//esta la paella anterior en el mismo  vector 
-			c->setPosition(cX, cY);
-			c->getPosition().setX(cX);
-
-			c->setSitio(lista.insert(lista.begin(), c));
-			c->getEliminabutton()->setPosition(cX, cY + c->getHeight() / 2);
-
-			numcomandas++;*/
-		
-		
-
-	}
-
 }
 void ListaComandas::update()
 {

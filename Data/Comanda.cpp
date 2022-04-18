@@ -313,46 +313,46 @@ void Comanda::aceptaPaella()
 
 void Comanda::enviaComanda()
 {
-	if (dynamic_cast<Tutorial*>(game->getCurrentScene())) {
+	if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState()==apuntaPedido) {
 
-		if (Pedido.size() == 4 && Pedido[0]->getTextura() == "small") {
-			if (Pedido[1]->getTextura() == "alcachofa") {
-				if (Pedido[2]->getTextura() == "calamar") {
-					if (Pedido[3]->getTextura() == "cangrejo") {
+		if (numeroPaellas == 1 && paellas[0].size()==4 && paellas[0][0]->getTextura() == "small") {
+			if (paellas[0][1]->getTextura() == "alcachofa") {
+				if (paellas[0][2]->getTextura() == "calamar") {
+					if (paellas[0][3]->getTextura() == "cangrejo") {
 						eC();
 						game->getCurrentScene()->changeState(States::pausaPedido);
 					}
 				}
-				else if (Pedido[2]->getTextura() == "cangrejo") {
-					if (Pedido[3]->getTextura() == "calamar") {
-						eC();
-						game->getCurrentScene()->changeState(States::pausaPedido);
-					}
-				}
-			}
-			else if (Pedido[1]->getTextura() == "calamar") {
-				if (Pedido[2]->getTextura() == "alcachofa") {
-					if (Pedido[3]->getTextura() == "cangrejo") {
-						eC();
-						game->getCurrentScene()->changeState(States::pausaPedido);
-					}
-				}
-				else if (Pedido[2]->getTextura() == "cangrejo") {
-					if (Pedido[3]->getTextura() == "alcachofa") {
+				else if (paellas[0][2]->getTextura() == "cangrejo") {
+					if (paellas[0][3]->getTextura() == "calamar") {
 						eC();
 						game->getCurrentScene()->changeState(States::pausaPedido);
 					}
 				}
 			}
-			else if (Pedido[1]->getTextura() == "cangrejo") {
-				if (Pedido[2]->getTextura() == "calamar") {
-					if (Pedido[3]->getTextura() == "alcachofa") {
+			else if (paellas[0][1]->getTextura() == "calamar") {
+				if (paellas[0][2]->getTextura() == "alcachofa") {
+					if (paellas[0][3]->getTextura() == "cangrejo") {
 						eC();
 						game->getCurrentScene()->changeState(States::pausaPedido);
 					}
 				}
-				else if (Pedido[2]->getTextura() == "alcachofa") {
-					if (Pedido[3]->getTextura() == "calamar") {
+				else if (paellas[0][2]->getTextura() == "cangrejo") {
+					if (paellas[0][3]->getTextura() == "alcachofa") {
+						eC();
+						game->getCurrentScene()->changeState(States::pausaPedido);
+					}
+				}
+			}
+			else if (paellas[0][1]->getTextura() == "cangrejo") {
+				if (paellas[0][2]->getTextura() == "calamar") {
+					if (paellas[0][3]->getTextura() == "alcachofa") {
+						eC();
+						game->getCurrentScene()->changeState(States::pausaPedido);
+					}
+				}
+				else if (paellas[0][2]->getTextura() == "alcachofa") {
+					if (paellas[0][3]->getTextura() == "calamar") {
 						eC();
 						game->getCurrentScene()->changeState(States::pausaPedido);
 					}

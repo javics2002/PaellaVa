@@ -19,14 +19,20 @@ bool Ventanilla::receivePaella(Paella* pa)
 	uimt = game->getUIManager();
 	if (pa != nullptr)
 	{
-		mpaella = pa;
-		mpaella->setPosition(getRectCenter(getOverlap()));
+		if (!dynamic_cast<Tutorial*>(game->getCurrentScene())) {
+			mpaella = pa;
+			mpaella->setPosition(getRectCenter(getOverlap()));
+		}
 
 		if (uimt->getBarra()->getComandaSeleccionada() != nullptr)
 		{
 
-			if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::dejarPaellaVentanilla)
+			if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::dejarPaellaVentanilla) {
+				mpaella = pa;
+				mpaella->setPosition(getRectCenter(getOverlap()));
+
 				game->getCurrentScene()->changeState(States::pausaDejarPaellVentanilla);
+			}
 
 
 			//UiButton* u = uimt->getBarra()->getComandaSeleccionada()->getNumeromesa();
@@ -42,6 +48,10 @@ bool Ventanilla::receivePaella(Paella* pa)
 				
 			}
 			
+		}
+		else if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::dejarPaellaVentanilla) {
+			game->getCurrentScene()->changeState(States::pausaVentanillaSinComanda);
+			return false;
 		}
 
 		return true;

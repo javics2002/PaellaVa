@@ -16,6 +16,7 @@ Scene::~Scene()
 {
 	delete uiManager;
 	delete objectManager;
+	delete textMngr;
 	delete fondo;
 	delete camara;
 }

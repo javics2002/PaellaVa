@@ -47,7 +47,7 @@ Lobby::Lobby(Game* game) : Scene(game)
 		// crear player
 		
 		game->sendMessageScene(new Jornada(game, "Jornada1", 0 , true));
-		//game->sendMessageScene(new Tutorial(game, "Tutorial"));
+
 		
 		// send info 
 		game->getNetworkManager()->sendStartGame(0);

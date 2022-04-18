@@ -34,6 +34,7 @@ public:
 	void anadeLetra();
 	void cambiaVelocidad(bool r);
 	bool vaRapido() { return rapido; };
+	void cambiaPausa() { pausa = !pausa; };
 
 private:
 
@@ -43,7 +44,7 @@ private:
 	string fuenteLetra, dialogo_, ultimoCaracter;
 	vector<string> lineas;
 
-	bool terminado=true, dialogoTerminado=true,ultimoParrafo,desactivado_=true, rapido=false;
+	bool terminado=true, dialogoTerminado=true,ultimoParrafo,desactivado_=true, rapido=false,pausa = false;
 	int offsetYLinea,tiempoCreaccionLetra, numeroLinea,anchoLetra, alturaLetra, anchoTexto;;
 
 };

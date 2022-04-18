@@ -17,7 +17,8 @@ class Player;
 enum States {
 	cogerClientes,pausaClientes, dejarClientesMesa,pausaPaellas,abreLibreta,pauasAbreLibreta,apuntaPedido ,pausaPedido, cogePaellera,pausaCogePaellera, dejaPaellera,pausaDejaPaella,cogerDejarArroz,pausaCogerDejarArroz, cogerIngrediente,pausaCogerIngrediente,
 	procesarIngrediente,pausaProcesarIngrediente, dejarIngredientePaella,pausaDejarIngredientes, cocinarPaella,pausaCocinarPaella, recogerPaellaCocinada,pausaRecogerPaellaCocinada,
-	dejarPaellaVentanilla,pausaDejarPaellVentanilla,cogerPaellaVentanilla,pausaCogerPaellaVentanilla,darDeComer,pausaDarDeComer, pausaComandaEquivocada
+	dejarPaellaVentanilla,pausaDejarPaellVentanilla,cogerPaellaVentanilla,pausaCogerPaellaVentanilla,darDeComer,pausaDarDeComer,sacarCuenta,pausaSacarCuenta,echarClientes,pausaEcharClientes,recogerMesa,pausaRecogerMesa,dejarLavavajillas,pausaDejarLavavajillas,
+	cogerLavavajillas,pausaCogerLavavajillas,dejarPaellaPila,pausaFinal,final, pausaComandaEquivocada,pausaVentanillaSinComanda,pausaBorrarComanda,pausaNoEcharClientes,pausaInicio
 };
 
 
@@ -29,7 +30,7 @@ protected:
 	ObjectManager* objectManager;
 	Camera* camara;
 
-	States currentState = cogerClientes;
+	States currentState = cogerClientes,anteriorEstado;
 	UIManager* uiManager;
 
 	Imagen* fondo;

@@ -80,7 +80,7 @@ public:
 	enum MOUSEBUTTON : uint8_t { MOUSE_LEFT, MOUSE_MIDDLE, MOUSE_RIGHT };
 
 	//Unknown debe ser el �ltimo bot�n para marcar el n�mero de botones
-	enum botones { LEFT, RIGHT, UP, DOWN, INTERACT, CANCEL, J, UNKNOWN };
+	enum botones { LEFT, RIGHT, UP, DOWN, INTERACT, CANCEL, Q, UNKNOWN };
 
 	virtual ~InputHandler() {
 	}
@@ -162,7 +162,7 @@ public:
 			keyJustDown(CANCEL);
 			break;
 		case SDL_CONTROLLER_BUTTON_Y:
-			keyJustDown(J);
+			keyJustDown(Q);
 
 		case SDL_CONTROLLER_BUTTON_DPAD_UP:
 			keyJustDown(UP);
@@ -191,7 +191,7 @@ public:
 			mKeyPressed[CANCEL] = false;
 			break;
 		case SDL_CONTROLLER_BUTTON_Y:
-			mKeyPressed[J] = false;
+			mKeyPressed[Q] = false;
 			break;
 
 		case SDL_CONTROLLER_BUTTON_DPAD_LEFT:
@@ -264,8 +264,8 @@ public:
 		case SDL_SCANCODE_ESCAPE:
 			keyJustDown(CANCEL);
 			break;
-		case SDL_SCANCODE_J:
-			keyJustDown(J);
+		case SDL_SCANCODE_Q:
+			keyJustDown(Q);
 		default:
 			break;
 		}
@@ -294,7 +294,7 @@ public:
 				break;
 			case CANCEL:
 				break;
-			case J:
+			case Q:
 				break;
 			default:
 				break;
@@ -334,8 +334,8 @@ public:
 		case SDL_SCANCODE_ESCAPE:
 			mKeyPressed[CANCEL] = false;
 			break;
-		case SDL_SCANCODE_J:
-			mKeyPressed[J] = false;
+		case SDL_SCANCODE_Q:
+			mKeyPressed[Q] = false;
 			break;
 		default:
 			break;

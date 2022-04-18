@@ -21,6 +21,7 @@ class Fogon;
 class Silla;
 class Mesa;
 class TablaProcesado;
+class Lavavajillas;
 
 #include "../GameObjects/Ingredienteletal.h"
 
@@ -61,6 +62,7 @@ class ObjectManager
 	BolsaArroz* bolsaDeArroz;
 	InicioCinta* iniCinta;
 	FinalCinta* finCinta;
+	Lavavajillas* lavavajillas;
 
 
 public:
@@ -89,6 +91,7 @@ public:
 	void addBolsa(BolsaArroz* b);
 	void addFogon(Fogon* f);
 	void addTabla(TablaProcesado* t);
+	void addLavavajillas(Lavavajillas* l);
 
 	vector<Silla*> getSillas();
 	vector<Mesa*> getMesas();
@@ -103,6 +106,7 @@ public:
 	BolsaArroz* getBolsa();
 	InicioCinta* getIniCinta();
 	FinalCinta* getFinCinta();
+	Lavavajillas* getLavavajillas();
 
 
 

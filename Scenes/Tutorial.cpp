@@ -10,6 +10,7 @@
 #include "../GameObjects/UI/Reloj.h"
 #ifdef _DEBUG
 #include "../Scenes/GameOver.h"
+#include "../Scenes/Menu.h"
 #endif // _DEBUG
 
 #include <iostream>
@@ -47,7 +48,7 @@ Tutorial::Tutorial(Game* game, string tilemap) : Scene(game)
 
 	objectManager->initMuebles();
 
-	changeState(cogerClientes);
+	changeState(pausaInicio);
 
 	uiManager->addInterfaz(rC);
 	uiManager->setBarra(lC);
@@ -55,11 +56,8 @@ Tutorial::Tutorial(Game* game, string tilemap) : Scene(game)
 	lC->setActive(false);
 }
 
-Tutorial::~Tutorial()
-{
-	delete objectManager;
-	delete fondo;
-	delete camara;
+Tutorial::~Tutorial(){
+
 }
 
 
@@ -80,7 +78,7 @@ void Tutorial::handleInput(bool& exit)
 
 
 
-	if (ih().getKey(InputHandler::J) && paused && textMngr->TerminadoEscribir()) {
+	if (ih().getKey(InputHandler::Q) && paused && textMngr->TerminadoEscribir()) {
 
 #ifdef _DEBUG
 		pauseTutorial();
@@ -89,7 +87,7 @@ void Tutorial::handleInput(bool& exit)
 #endif // _DEBUG
 	}
 
-	if (ih().getKey(InputHandler::J) && paused && textMngr->terminadoParrado()) {
+	if (ih().getKey(InputHandler::Q) && paused && textMngr->terminadoParrado()) {
 
 #ifdef _DEBUG
 		continua = true;
@@ -97,7 +95,7 @@ void Tutorial::handleInput(bool& exit)
 
 #endif // _DEBUG
 	}
-	else if (ih().getKey(InputHandler::J) && paused && !textMngr->terminadoParrado() && !textMngr->vaRapido()) {
+	else if (ih().getKey(InputHandler::Q) && paused && !textMngr->terminadoParrado() && !textMngr->vaRapido()) {	
 
 #ifdef _DEBUG
 		textMngr->cambiaVelocidad(true);
@@ -125,12 +123,11 @@ void Tutorial::update()
 
 void Tutorial::changeState(States state_)
 {
+	anteriorEstado = currentState;
 	currentState = state_;
-	if (currentState == pausaComandaEquivocada)
+	if (currentState == pausaComandaEquivocada || currentState == pausaVentanillaSinComanda || currentState % 2 != 0 
+		|| currentState==pausaBorrarComanda || currentState==pausaNoEcharClientes || currentState==pausaInicio)
 	{
-		pauseTutorial();
-	}
-	else if (currentState % 2 != 0) {
 		pauseTutorial();
 	}
 	else switch (currentState){
@@ -152,38 +149,59 @@ void Tutorial::changeState(States state_)
 			break;
 		}
 		case 8:{
+			objectManager->getPlayerOne()->changePlayer(true);
+			cuadroTexto->setTexture("cuadroTextoCamarero");
 			for (auto i : objectManager->getEncimeras())
 				i->setActive(true);
 			for (auto i : objectManager->getPilas())
 				i->setActive(true);
 			break;
 		}
-		case 10:{
+		case 12:{
 			getObjectManager()->getBolsa()->setActive(true);
 			break;
 		}
-		case 12:{
+		case 14:{
 			for (auto i : objectManager->getCintas())
 				i->setActive(true);
 			getObjectManager()->getIniCinta()->setActive(true);
 			getObjectManager()->getFinCinta()->setActive(true);
 			break;
 		}
-		case 14:{
+		case 16:{
 			for (auto i : objectManager->getTablas())
 				i->setActive(true);
 			break;
 		}
-		case 16: { break; }
-		case 18: {
+		case 20: {
 			for (auto i : objectManager->getFogones())
 				i->setActive(true);
 			break;
 		}
-		case 20: {
+		case 22: {
 			for (auto i : objectManager->getVentanilla())
 				i->setActive(true);
 			break;
+		}
+		case 26: {
+			objectManager->getPlayerOne()->changePlayer(false);
+			cuadroTexto->setTexture("cuadroTextoCocinera");
+			break;
+		}
+		case 34: {
+			objectManager->getLavavajillas()->setActive(true);
+			cuadroTexto->setTexture("cuadroTextoCamarero");
+			break;
+		}
+		case 38: {
+			objectManager->getPlayerOne()->changePlayer(true);
+			cuadroTexto->setTexture("cuadroTextoCocinera");
+			break;
+		}
+		case final: {
+			
+			game->getNetworkManager()->close();
+			game->sendMessageScene(new Menu(game));
 		}
 		default:
 			break;
@@ -207,28 +225,24 @@ void Tutorial::render()
 	objectManager->render(camara->renderRect());
 	uiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
 	if (currentState == pausaComandaEquivocada) {
-		cuadroTexto->setActive(true);
-		if (textMngr->desactivado())textMngr->activaTexto(sdlutils().dialogs().at("textoComandaEquivocada"));
-		else if (textMngr->terminadoParrado() && !textMngr->esUltimoParrafo() && continua) {
-			textMngr->cambiaVelocidad(false);
-			textMngr->reiniciaParrafo();
-			continua = false;
-		}
+		activaCuadro("textoComandaEquivocada");
 	}
+	else if (currentState == pausaVentanillaSinComanda) {
+		activaCuadro("textoVentanillaSinComanda");
+	}
+	else if (currentState == pausaBorrarComanda) {
+		activaCuadro("textoBorrarComanda");
+	}
+	else if (currentState == pausaNoEcharClientes) {
+		activaCuadro("textoNoEcharClientes");
+	}
+	else if (currentState == pausaInicio)
+		activaCuadro("texto0");
 	else if (currentState % 2 != 0) {
-		cuadroTexto->setActive(true);
-		if(textMngr->desactivado())textMngr->activaTexto(sdlutils().dialogs().at(textos[currentState/2]));
-		else if (textMngr->terminadoParrado() && !textMngr->esUltimoParrafo() && continua) {
-			textMngr->cambiaVelocidad(false);
-			textMngr->reiniciaParrafo();
-			continua = false;
-		}
+		activaCuadro(textos[currentState/2]);
 	}
 	else if (currentState % 2 == 0) {
-		textMngr->desactivaTexto();
-		textMngr->cambiaVelocidad(false);
-		cuadroTexto->setActive(false);
-		text->setActive(false);
+		desactivaCuadro();
 	}
 	textMngr->render();
 }
@@ -430,6 +444,7 @@ void Tutorial::loadMap(string const& path)
 				else if (name == "lavavajillas") {
 					Lavavajillas* l = new Lavavajillas(game, position);
 					getObjectManager()->addMueble(l);
+					getObjectManager()->addLavavajillas(l);
 					l->setActive(false);
 
 				}
@@ -536,7 +551,8 @@ void Tutorial::togglePause()
 {
 	uiManager->togglePause();
 
-	paused = !paused;
+	if (currentState % 2 == 0)paused = !paused;
+	else textMngr->cambiaPausa();
 
 	if (paused) {
 
@@ -564,7 +580,15 @@ void Tutorial::pauseTutorial()
 	else {
 		sdlutils().virtualTimer().resume();
 		if (currentState == pausaComandaEquivocada)
-			currentState = apuntaPedido;
+			currentState = anteriorEstado;
+		else if (currentState == pausaVentanillaSinComanda)
+			currentState = anteriorEstado;
+		else if (currentState == pausaBorrarComanda)
+			currentState = anteriorEstado;
+		else if (currentState == pausaNoEcharClientes)
+			currentState = anteriorEstado;
+		else if (currentState == pausaInicio)
+			currentState = cogerClientes;
 		else currentState = (States)(currentState + 1);
 		changeState(currentState);
 		sdlutils().soundEffects().at("select").play(0, game->UI);
@@ -574,4 +598,23 @@ void Tutorial::pauseTutorial()
 void Tutorial::nextStates()
 {
 	currentState =(States) (currentState + 1);
+}
+
+void Tutorial::desactivaCuadro()
+{
+	textMngr->desactivaTexto();
+	textMngr->cambiaVelocidad(false);
+	cuadroTexto->setActive(false);
+	text->setActive(false);
+}
+
+void Tutorial::activaCuadro(string texto_)
+{
+	cuadroTexto->setActive(true);
+	if (textMngr->desactivado())textMngr->activaTexto(sdlutils().dialogs().at(texto_));
+	else if (textMngr->terminadoParrado() && !textMngr->esUltimoParrafo() && continua) {
+		textMngr->cambiaVelocidad(false);
+		textMngr->reiniciaParrafo();
+		continua = false;
+	}
 }

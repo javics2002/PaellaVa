@@ -50,7 +50,7 @@ GameOver::GameOver(Game* game, int puntuation, int numeroJornada) : Scene(game)
 	continueButton->setAction([this, continueButton](Game* game, bool& exit) {
 		sdlutils().soundEffects().at("select").play(0, game->UI);
 
-		uiManager->addTween(0.9f, 1.0f, 600.0f).via(easing::exponentialOut).onStep(
+		uiManager->addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep(
 			[game, continueButton,this](tweeny::tween<float>& t, float) mutable {
 			continueButton->setDimension(t.peek() * continueButton->getInitialWidth(), 
 				t.peek() * continueButton->getInitialHeight());
@@ -136,7 +136,7 @@ void GameOver::renderReviews() {
 void GameOver::tweenEstrellas(vector<GameObject*> estrellas, int i)
 {
 	estrellas[i]->setActive(true);
-	uiManager->addTween(0.0f, 1.0f, 1100.0f).via(easing::bounceOut).onStep([=](tweeny::tween<float>& t, float) mutable {
+	uiManager->addTween(0.0f, 1.0f, 1100.0f,false).via(easing::bounceOut).onStep([=](tweeny::tween<float>& t, float) mutable {
 		estrellas[i]->setDimension(t.peek() * estrellas[i]->getInitialWidth(), t.peek() * estrellas[i]->getInitialHeight());
 		if (t.progress() == 1) {
 			cout << "estrella " << i + 1 << endl;

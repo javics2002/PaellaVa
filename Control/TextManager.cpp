@@ -14,11 +14,11 @@ offsetYLinea(2), tiempoCreaccionLetra(1), ultimoCaracter(""), terminado(true), n
 
 void TextManager::update()
 {
-	if (rapido) {
+	if (rapido && !pausa) {
 		while (!terminado)
 			anadeLetra();
 	}
-	else if (!terminado && vt->currTime() > tiempoCreaccionLetra) {
+	else if (!terminado && vt->currTime() > tiempoCreaccionLetra && !pausa) {
 
 		anadeLetra();
 		vt->reset();

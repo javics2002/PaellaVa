@@ -62,6 +62,8 @@ public:
 	SDL_Rect getCollider() override;
 	SDL_Rect getOverlap() override;
 
+	void changePlayer(bool c); //para el tutorial 
+
 	void PickCustomObject(int objectType, int objectId);
 	void DropCustomObject(int objectType, int objectId, int muebleId);
 };
