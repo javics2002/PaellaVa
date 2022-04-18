@@ -14,6 +14,7 @@
     { "id": "cuadernillo", "file": "Assets/Images/cuadernillo.png"},
     { "id": "cuadernilloseleted", "file": "Assets/Images/cuadernilloselected.png"},
     { "id": "barra", "file": "Assets/Images/barracomandas.png"},
+    { "id": "barraboton", "file": "Assets/Images/ocultabarraboton.png"},
     { "id": "redactaboton", "file": "Assets/Images/redactaboton.png"},
     { "id": "uno", "file": "Assets/Images/uno.png"},
     { "id": "dos", "file": "Assets/Images/dos.png"},

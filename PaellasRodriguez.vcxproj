@@ -147,6 +147,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\IngredienteLetal.h" />
+    <ClInclude Include="GameObjects\UI\OcultabarraButton.h" />
     <ClInclude Include="Scenes\Jornada.h" />
     <ClInclude Include="GameObjects\Arroz.h" />
     <ClInclude Include="Control\NetworkManager.h" />
@@ -239,6 +240,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObjects\IngredienteLetal.cpp" />
+    <ClCompile Include="GameObjects\UI\OcultabarraButton.cpp" />
     <ClCompile Include="Scenes\Jornada.cpp" />
     <ClCompile Include="GameObjects\Arroz.cpp" />
     <ClCompile Include="Control\NetworkManager.cpp" />

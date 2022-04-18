@@ -10,6 +10,7 @@
 #include "BorrarButton.h"
 #include "AceptaPaellaButton.h"
 #include "EliminaComandaButton.h"
+#include "OcultabarraButton.h"
 #include "../../Data/ListaComandas.h"
 
 #include "../../Scenes/Jornada.h"
@@ -100,15 +101,18 @@ void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 	{
 		for (auto c : barra->getlista())
 		{
-			if (c->getEliminabutton()->onClick(mx, my, exit))
+			if (c->isActive())
 			{
-				mx = -100;
-				my = -100;
-			}
-			if (c->onClick(mx, my, exit))
-			{
-				mx = -100;
-				my = -100;
+				if (c->getEliminabutton()->onClick(mx, my, exit))
+				{
+					mx = -100;
+					my = -100;
+				}
+				if (c->onClick(mx, my, exit))
+				{
+					mx = -100;
+					my = -100;
+				}
 			}
 		}
 	}
@@ -376,6 +380,8 @@ ListaComandas* UIManager::getBarra()
 void UIManager::setBarra(ListaComandas* b)
 {
 	barra = b;
+	OcultabarraButton* o = new OcultabarraButton(this, game, "barraboton", b->getX() + b->getWidth()/2 + uiscale*anchobotones, b->getY(), uiscale * anchobotones, uiscale * anchobotones, b);
+	addButton(o);
 }
 
 void UIManager::creaTeclado()

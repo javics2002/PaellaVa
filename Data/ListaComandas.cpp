@@ -115,10 +115,11 @@ void ListaComandas::renderComandas()
 {
 	for (auto i: lista)
 	{
-		
+		if (i->isActive())
+		{
 			i->render(nullptr);//se pasan bien pero los uibutton de la lista de paelas deciden morir aqui xd
 			i->dibujaPedido();//XD son punteros y la comanda hace paella clear y los borra lol
-		
+		}
 	}
 }
 void ListaComandas::finalizacomanda(Comanda* comanda)
@@ -237,4 +238,12 @@ void ListaComandas::seleccionaComanda(Comanda* comanda)
 Comanda* ListaComandas::getComandaSeleccionada()
 {
 	return selected;
+}
+void ListaComandas::toggleBarra()
+{
+	active = !active;
+	for (auto i : lista)
+	{
+		i->setActive(active);
+	}
 }
