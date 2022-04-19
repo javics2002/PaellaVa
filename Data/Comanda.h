@@ -82,6 +82,8 @@ private:
     int ancho = 110;
     int alto = 220;
     int altoini;
+    int maxingrendientes=3;
+    int maxpaellas = 4;
     uint numeroMesa;
     uint numeroPaellas = 0;
     list<Comanda*>::iterator sitiolista;

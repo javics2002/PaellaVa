@@ -73,40 +73,42 @@ Comanda::~Comanda()
 }
 void Comanda::añadiraPedido(string i)
 {
+	if (Pedido.size() < maxingrendientes+1&&paellas.size()<maxpaellas)
 
-	UiButton* a = new UiButton(game, i, escritoX, escritoY, anchobotones / 2, anchobotones / 2);
-	escritoX += anchobotones / 2 + margenbotones;
-	//gamet->getObjectManager()->creaTeclado(a);
-	Pedido.push_back(a);
-	if (Pedido.size() % 4 == 0)
 	{
-		escritoY += anchobotones / 2 + margenbotones;
-		escritoX = getPosition().getX() / 2  + anchobotones / 6;
-		alto = alto + anchobotones / 2 + 2 * margenbotones;
-		setDimension(ancho, alto);
-		setPosition(getPosition().getX(), getPosition().getY() + 2 * margenbotones);
-		vector<Point2D<double>> sangria = uiManager->getPosTeclado();
-		for (int i = 0; i < sangria.size(); i++)
+		UiButton* a = new UiButton(game, i, escritoX, escritoY, anchobotones / 2, anchobotones / 2);
+		escritoX += anchobotones / 2 + margenbotones;
+		//gamet->getObjectManager()->creaTeclado(a);
+		Pedido.push_back(a);
+		if (Pedido.size() % 4 == 0)
 		{
-			int ny = sangria[i].getY() + anchobotones * 0.7f;
-			sangria[i].setY(ny);
-			//en algun lugar vuelven a tener el valor default lo tengo que mirar
-			//bajar teclado
-			//lo bajará en uim?
-		}
-		for (int i = 0; i<tecladotam.size();i++)
-		{
-			//b->getPosition().setY(b->getPosition().getY()+anchobotones*0.7);
-			int ny =tecladotam[i]->getY() + anchobotones * 0.5f;
-			
-			Point2D<double> np = tecladotam[i]->getPosition();
-			np.setY(ny);
-			tecladotam[i]->setPosition(np);
-		}
-		uiManager->setPosTeclado(sangria);
-	}
-	randomizaIconos();
+			escritoY += anchobotones / 2 + margenbotones;
+			escritoX = getPosition().getX() / 2 + anchobotones / 6;
+			alto = alto + anchobotones / 2 + 2 * margenbotones;
+			setDimension(ancho, alto);
+			setPosition(getPosition().getX(), getPosition().getY() + 2 * margenbotones);
+			vector<Point2D<double>> sangria = uiManager->getPosTeclado();
+			for (int i = 0; i < sangria.size(); i++)
+			{
+				int ny = sangria[i].getY() + anchobotones * 0.7f;
+				sangria[i].setY(ny);
+				//en algun lugar vuelven a tener el valor default lo tengo que mirar
+				//bajar teclado
+				//lo bajará en uim?
+			}
+			for (int i = 0; i < tecladotam.size(); i++)
+			{
+				//b->getPosition().setY(b->getPosition().getY()+anchobotones*0.7);
+				int ny = tecladotam[i]->getY() + anchobotones * 0.5f;
 
+				Point2D<double> np = tecladotam[i]->getPosition();
+				np.setY(ny);
+				tecladotam[i]->setPosition(np);
+			}
+			uiManager->setPosTeclado(sangria);
+		}
+		randomizaIconos();
+	}
 }
 void Comanda::anadirNumeromesa(string n)
 {
@@ -265,50 +267,53 @@ void Comanda::aceptaPaella()
 	//aqui esta lo dificil el vector de la paella que envias ya no lo podras editar pero deberia seguir siendo visible 
 	//, tendra que mover margenes y vaciar el vector de pedido y que haya un render paellas , lo dificil va  a ser que 
 	//se renderice otdo guay
-	if (!Pedido.empty())
+	if (!tecladonum[0]->isActive()&&paellas.size()<maxpaellas)
 	{
-		paellas.push_back(vector<UiButton*>());
-		for (int j = 0; j < Pedido.size(); j++)
+		if (!Pedido.empty())
 		{
-			paellas[numeroPaellas].push_back(Pedido[j]);
-			//  string s = Pedido[j]->getTextura();
+			paellas.push_back(vector<UiButton*>());
+			for (int j = 0; j < Pedido.size(); j++)
+			{
+				paellas[numeroPaellas].push_back(Pedido[j]);
+				//  string s = Pedido[j]->getTextura();
 
-			  //paellas[numeroPaellas][j].push_back(*s.c_str()); //el vector qeuire chars raros por algun motivo
-			  ///paellas[numeroPaellas].push_back(s);
-			  //esta explotando ahi por algun motivo//el motivo : no se leer
+				  //paellas[numeroPaellas][j].push_back(*s.c_str()); //el vector qeuire chars raros por algun motivo
+				  ///paellas[numeroPaellas].push_back(s);
+				  //esta explotando ahi por algun motivo//el motivo : no se leer
+			}
+			Pedido.erase(Pedido.begin(), Pedido.begin() + Pedido.size());
+			Pedido.clear();
+			numeroPaellas++;
 		}
-		Pedido.erase(Pedido.begin(), Pedido.begin() + Pedido.size());
-		Pedido.clear();
-		numeroPaellas++;
-	}
-	//sangriado
+		//sangriado
 
-	escritoY += anchobotones / 2 + margenbotones;
-	escritoX = getPosition().getX() / 2 + margenbotones + anchobotones / 2;
-	alto = alto + anchobotones / 2 + 2 * margenbotones;
-	setDimension(ancho, alto);
-	setPosition(getPosition().getX(), getPosition().getY() + 2 * margenbotones);
-	vector<Point2D<double>> sangria = uiManager->getPosTeclado();
-	for (int i = 0; i < sangria.size(); i++)
-	{
-		int ny = sangria[i].getY() + anchobotones * 0.7f;
-		sangria[i].setY(ny);
-		//en algun lugar vuelven a tener el valor default lo tengo que mirar
-		//bajar teclado
-		//lo bajará en uim?
-	}
-	for (int i = 0; i < tecladotam.size(); i++)
-	{
-		//b->getPosition().setY(b->getPosition().getY()+anchobotones*0.7);
-		int ny = tecladotam[i]->getY() + anchobotones * 0.7f;
+		escritoY += anchobotones / 2 + margenbotones;
+		escritoX = getPosition().getX() / 2 + margenbotones + anchobotones / 2;
+		alto = alto + anchobotones / 2 + 2 * margenbotones;
+		setDimension(ancho, alto);
+		setPosition(getPosition().getX(), getPosition().getY() + 2 * margenbotones);
+		vector<Point2D<double>> sangria = uiManager->getPosTeclado();
+		for (int i = 0; i < sangria.size(); i++)
+		{
+			int ny = sangria[i].getY() + anchobotones * 0.7f;
+			sangria[i].setY(ny);
+			//en algun lugar vuelven a tener el valor default lo tengo que mirar
+			//bajar teclado
+			//lo bajará en uim?
+		}
+		for (int i = 0; i < tecladotam.size(); i++)
+		{
+			//b->getPosition().setY(b->getPosition().getY()+anchobotones*0.7);
+			int ny = tecladotam[i]->getY() + anchobotones * 0.7f;
 
-		Point2D<double> np = tecladotam[i]->getPosition();
-		np.setY(ny);
-		tecladotam[i]->setPosition(np);
+			Point2D<double> np = tecladotam[i]->getPosition();
+			np.setY(ny);
+			tecladotam[i]->setPosition(np);
+		}
+		uiManager->setPosTeclado(sangria);
+		toggleTeclado(false);
+		toggleTecaldotam(true);
 	}
-	uiManager->setPosTeclado(sangria);
-	toggleTeclado(false);
-	toggleTecaldotam(true);
 }
 
 void Comanda::enviaComanda()
