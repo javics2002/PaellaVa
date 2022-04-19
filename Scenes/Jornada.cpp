@@ -99,15 +99,26 @@ void Jornada::handleInput(bool& exit)
 {
 	Scene::handleInput(exit);
 
-	if (ih().getKey(InputHandler::CANCEL)) {
-
-#ifdef _DEBUG
-		// game->changeScene(new GameOver(game, 100));
-		togglePause();
-#else
+	if (paused) {
+		if (ih().getKey(InputHandler::A))
+			uiManager->getPauseButtons()[1]->execute(exit);
+		else if (ih().getKey(InputHandler::B))
+			uiManager->getPauseButtons()[0]->execute(exit);
+	}
+	else if (ih().getKey(InputHandler::PAUSE)) {
 		//Abrir menú de pausa
 		togglePause();
-#endif // _DEBUG
+	}
+
+	if (ih().getKey(InputHandler::Y)) {
+		if (uiManager->getComanda() == nullptr)
+		{
+			uiManager->creaComanda(game);
+		}
+		else
+		{
+			uiManager->getComanda()->toggleactive();
+		}
 	}
 }
 

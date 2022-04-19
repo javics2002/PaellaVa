@@ -33,7 +33,7 @@ Menu::Menu(Game* game) : Scene(game)
 
 			if (t.progress() > .2f) {
 				//Start game
-				game->sendMessageScene(new Jornada(game,"Jornada1",0,true));
+				game->sendMessageScene(new HostClient(game));
 				return true;
 			}
 			return false;
@@ -135,12 +135,4 @@ Menu::Menu(Game* game) : Scene(game)
 	uiManager->creaMenuOpciones();
 
 	uiManager->creaPantallaCreditos();
-}
-
-void Menu::handleInput(bool& exit)
-{
-	Scene::handleInput(exit);
-
-	if (ih().getKey(InputHandler::CANCEL))
-		exit = true;
 }

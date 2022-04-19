@@ -110,13 +110,12 @@ public:
 	void togglePause();
 	void toggleOpciones();
 	void toggleCreditos(int pagina);
-	void salirOpciones();
 	void salirCreditos();
 
 	void desactivaBot();
 	void activaBot();
 
-	vector<GameObject*> getPauseMenu() { return pauseMenu; }
+	vector<UiButton*> getPauseButtons() { return pauseButtons; }
 	vector<GameObject*> getInterfaz() { return interfaz; }
 
 	//string getNombre() { return nombrePlayer; };

@@ -64,7 +64,7 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 
 	vel.clamp(-maxVel, maxVel);
 
-	if (ih().getKey(InputHandler::INTERACT) && playerOne) {
+	if (ih().getKey(InputHandler::A) && playerOne) {
 		//Se prioriza la interaccion con los muebles por encima de otros objetos
 		//Se prioriza el mueble mas cercano al jugador
 		Mueble* m = nullptr;

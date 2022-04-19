@@ -7,5 +7,4 @@ class Menu : public Scene
 {
 public:
 	Menu(Game* game);
-	void handleInput(bool& exit) override;
 };

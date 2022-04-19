@@ -79,8 +79,17 @@ class InputHandler : public Singleton<InputHandler> {
 public:
 	enum MOUSEBUTTON : uint8_t { MOUSE_LEFT, MOUSE_MIDDLE, MOUSE_RIGHT };
 
-	//Unknown debe ser el �ltimo bot�n para marcar el n�mero de botones
-	enum botones { LEFT, RIGHT, UP, DOWN, INTERACT, CANCEL, Q, UNKNOWN };
+	/* Estos botones son de mando de XBOX/teclado
+	A/E, SPACE, ENTER es Interactuar
+	B/ESC es Cancelar, Volver
+	X/Left Shift es Abrir o cerrar la libretita de las comandas
+	Y/Q es avanzar el texto
+	LB, RB, LT, RT ajustan el volumen en el menu de configuracion
+	Pause/ESC pausa el juego
+	Las flechas de direccion se pueden controlar tanto con WASD, las flechas del teclado,
+	el dpad del mando y el joystick izquierdo
+	Unknown debe ser el �ltimo bot�n para marcar el n�mero de botones*/
+	enum botones { LEFT, RIGHT, UP, DOWN, A, B, X, Y, LB, RB, LT, RT, PAUSE, UNKNOWN };
 
 	virtual ~InputHandler() {
 	}
@@ -155,14 +164,28 @@ public:
 		switch (event.cbutton.button)
 		{
 		case SDL_CONTROLLER_BUTTON_A:
-			keyJustDown(INTERACT);
+			keyJustDown(A);
 			break;
 		case SDL_CONTROLLER_BUTTON_B:
-		case SDL_CONTROLLER_BUTTON_START:
-			keyJustDown(CANCEL);
+			keyJustDown(B);
+			break;
+		case SDL_CONTROLLER_BUTTON_X:
+			keyJustDown(X);
 			break;
 		case SDL_CONTROLLER_BUTTON_Y:
-			keyJustDown(Q);
+			keyJustDown(Y);
+			break;
+
+		case SDL_CONTROLLER_BUTTON_LEFTSHOULDER:
+			keyJustDown(LB);
+			break;
+		case SDL_CONTROLLER_BUTTON_RIGHTSHOULDER:
+			keyJustDown(RB);
+			break;
+
+		case SDL_CONTROLLER_BUTTON_START:
+			keyJustDown(PAUSE);
+			break;
 
 		case SDL_CONTROLLER_BUTTON_DPAD_UP:
 			keyJustDown(UP);
@@ -184,14 +207,27 @@ public:
 		switch (event.cbutton.button)
 		{
 		case SDL_CONTROLLER_BUTTON_A:
-			mKeyPressed[INTERACT] = false;
+			mKeyPressed[A] = false;
 			break;
 		case SDL_CONTROLLER_BUTTON_B:
-		case SDL_CONTROLLER_BUTTON_START:
-			mKeyPressed[CANCEL] = false;
+			mKeyPressed[B] = false;
+			break;
+		case SDL_CONTROLLER_BUTTON_X:
+			mKeyPressed[X] = false;
 			break;
 		case SDL_CONTROLLER_BUTTON_Y:
-			mKeyPressed[Q] = false;
+			mKeyPressed[Y] = false;
+			break;
+
+		case SDL_CONTROLLER_BUTTON_LEFTSHOULDER:
+			mKeyPressed[LB] = false;
+			break;
+		case SDL_CONTROLLER_BUTTON_RIGHTSHOULDER:
+			mKeyPressed[RB] = false;
+			break;
+
+		case SDL_CONTROLLER_BUTTON_START:
+			mKeyPressed[PAUSE] = false;
 			break;
 
 		case SDL_CONTROLLER_BUTTON_DPAD_LEFT:
@@ -238,7 +274,7 @@ public:
 		}
 	}
 
-	inline void onKeyboardDown(SDL_Scancode key) {
+	void onKeyboardDown(SDL_Scancode key) {
 		switch (key) {
 		case SDL_SCANCODE_A:
 		case SDL_SCANCODE_LEFT:
@@ -256,16 +292,20 @@ public:
 		case SDL_SCANCODE_DOWN:
 			keyJustDown(DOWN);
 		break;
+
 		case SDL_SCANCODE_E:
 		case SDL_SCANCODE_SPACE:
-		case SDL_SCANCODE_EXECUTE:
-			keyJustDown(INTERACT);
+		case SDL_SCANCODE_RETURN: //Enter
+			keyJustDown(A);
 			break;
 		case SDL_SCANCODE_ESCAPE:
-			keyJustDown(CANCEL);
+			keyJustDown(B);
+			keyJustDown(PAUSE);
 			break;
 		case SDL_SCANCODE_Q:
-			keyJustDown(Q);
+			keyJustDown(X);
+		case SDL_SCANCODE_LSHIFT:
+			keyJustDown(Y);
 		default:
 			break;
 		}
@@ -289,13 +329,6 @@ public:
 				break;
 			case DOWN:
 				ejeY = 1;
-				break;
-			case INTERACT:
-				break;
-			case CANCEL:
-				break;
-			case Q:
-				break;
 			default:
 				break;
 			}
@@ -326,16 +359,21 @@ public:
 			mKeyPressed[DOWN] = false;
 			ejeY = mKeyPressed[UP] ? -1 : 0;
 			break;
+
 		case SDL_SCANCODE_E:
 		case SDL_SCANCODE_SPACE:
-		case SDL_SCANCODE_EXECUTE:
-			mKeyPressed[INTERACT] = false;
+		case SDL_SCANCODE_RETURN:
+			mKeyPressed[A] = false;
 			break;
 		case SDL_SCANCODE_ESCAPE:
-			mKeyPressed[CANCEL] = false;
+			mKeyPressed[B] = false;
+			mKeyPressed[PAUSE] = false;
 			break;
 		case SDL_SCANCODE_Q:
-			mKeyPressed[Q] = false;
+			mKeyPressed[X] = false;
+			break;
+		case SDL_SCANCODE_LSHIFT:
+			mKeyPressed[Y] = false;
 			break;
 		default:
 			break;
@@ -392,6 +430,18 @@ public:
 				ejeY = 0;
 				mKeyPressed[DOWN] = mKeyPressed[UP] = false;
 			}
+			break;
+		case SDL_CONTROLLER_AXIS_TRIGGERLEFT:
+			if(e.caxis.value > CONTROLLER_DEAD_ZONE)
+				keyJustDown(LT);
+			else
+				mKeyPressed[LT] = false;
+			break;
+		case SDL_CONTROLLER_AXIS_TRIGGERRIGHT:
+			if (e.caxis.value > CONTROLLER_DEAD_ZONE)
+				keyJustDown(RT);
+			else
+				mKeyPressed[RT] = false;
 			break;
 		}
 	}

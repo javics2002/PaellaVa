@@ -216,6 +216,59 @@ void UIManager::handleInput(bool& exit, bool paused)
 	else if (ih().getMouseButtonHeld()) {
 		slideEvent(ih().getmx(), ih().getmy(), exit);
 	}
+
+	if (!optionsButtons.empty() && (*optionsButtons.begin())->isActive()) {
+		//Salimos de la configuracion
+		if (ih().getKey(InputHandler::B)) {
+			toggleOpciones();
+			return;
+		}
+
+		//Movemos el slider de musica
+		if (ih().getKey(InputHandler::LT) || ih().getKey(InputHandler::RT)) {
+			auto barraVolumenMusica = optionsMenu[4];
+			auto sliderMusica = sliders[0];
+			volumenMusica += ih().getKey(InputHandler::RT) ? 12.8f : -12.8f;
+
+			if (volumenMusica > 127) volumenMusica = 128;
+			else if (volumenMusica < 1) volumenMusica = 0;
+
+			std::map<std::string, Music>::iterator it = sdlutils().musics().begin();
+			while (it != sdlutils().musics().end())
+			{
+				it->second.setMusicVolume(volumenMusica);
+				++it;
+			}
+
+			sliderMusica->setPosition(barraVolumenMusica->getX() + (volumenMusica-64) / 64 * barraVolumenMusica->getWidth() / 2,
+				slideMusica->getY());
+		}
+
+		//Movemos el slider de sonido
+		if (ih().getKey(InputHandler::LB) || ih().getKey(InputHandler::RB)) {
+			auto barraVolumenSonido = optionsMenu[6];
+			auto sliderSonido = sliders[1];
+
+			volumenSonido += ih().getKey(InputHandler::RB) ? 12.8f : -12.8f;
+
+			if (volumenSonido > 127) volumenSonido = 128;
+			else if (volumenSonido < 1) volumenSonido = 0;
+
+			std::map<std::string, SoundEffect>::iterator it = sdlutils().soundEffects().begin();
+			while (it != sdlutils().soundEffects().end())
+			{
+				it->second.setChannelVolume(volumenSonido);
+				++it;
+			}
+
+			sliderSonido->setPosition(barraVolumenSonido->getX() + (volumenSonido - 64) / 64 * barraVolumenSonido->getWidth() / 2,
+				slideSonido->getY());
+		}
+		if (ih().getKey(InputHandler::Y)) {
+			sdlutils().toggleFullScreen();
+		}
+
+	}
 }
 
 void UIManager::update(bool paused)
@@ -394,7 +447,7 @@ void UIManager::setBarra(ListaComandas* b)
 {
 	barra = b;
 	OcultabarraButton* o = new OcultabarraButton(this, game, "barraboton", b->getX() + b->getWidth()/2 + uiscale*anchobotones, b->getY(), uiscale * anchobotones, uiscale * anchobotones, b);
-	addButton(o);
+	addInterfaz(o);
 }
 
 void UIManager::creaTeclado()
@@ -573,8 +626,7 @@ void UIManager::creaMenuOpciones()
 
 	botonSalir->setActive(false);
 	botonSalir->setAction([this, botonSalir](Game* game, bool& exit) {
-		activaBot();
-		salirOpciones();
+		toggleOpciones();
 		});
 
 	optionsMenu.push_back(botonSalir);
@@ -763,6 +815,9 @@ void UIManager::creaMenuOpciones()
 	textoNombre->setActive(false);
 
 	optionsMenu.push_back(textoNombre);
+
+	volumenMusica = 64;
+	volumenSonido = 64;
 }
 
 void UIManager::creaPantallaCreditos()
@@ -1005,9 +1060,15 @@ void UIManager::togglePause() {
 void UIManager::toggleOpciones()
 {
 	for (auto i : optionsMenu) {
-		i->setActive(true);
+		i->setActive(!i->isActive());
 	}
+
+	escribiendoNombre = false;
+
+	if(!optionsMenu[0]->isActive())
+		activaBot();
 }
+
 void UIManager::toggleCreditos(int pagina)
 {
 	for (auto i : creditsScreen[paginaCreditos]) {
@@ -1022,14 +1083,6 @@ void UIManager::toggleCreditos(int pagina)
 	paginaCreditos = pagina;
 }
 
-void UIManager::salirOpciones()
-{
-	for (auto i : optionsMenu) {
-		i->setActive(false);
-	}
-
-	escribiendoNombre = false;
-}
 void UIManager::salirCreditos()
 {
 	for (auto i : creditsScreen) {

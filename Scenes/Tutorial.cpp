@@ -65,7 +65,7 @@ void Tutorial::handleInput(bool& exit)
 {
 	Scene::handleInput(exit);
 
-	if (ih().getKey(InputHandler::CANCEL)) {
+	if (ih().getKey(InputHandler::B)) {
 
 #ifdef _DEBUG
 		// game->changeScene(new GameOver(game, 100));
@@ -78,7 +78,7 @@ void Tutorial::handleInput(bool& exit)
 
 
 
-	if (ih().getKey(InputHandler::Q) && paused && textMngr->TerminadoEscribir()) {
+	if (ih().getKey(InputHandler::X) && paused && textMngr->TerminadoEscribir()) {
 
 #ifdef _DEBUG
 		pauseTutorial();
@@ -87,7 +87,7 @@ void Tutorial::handleInput(bool& exit)
 #endif // _DEBUG
 	}
 
-	if (ih().getKey(InputHandler::Q) && paused && textMngr->terminadoParrado()) {
+	if (ih().getKey(InputHandler::X) && paused && textMngr->terminadoParrado()) {
 
 #ifdef _DEBUG
 		continua = true;
@@ -95,7 +95,7 @@ void Tutorial::handleInput(bool& exit)
 
 #endif // _DEBUG
 	}
-	else if (ih().getKey(InputHandler::Q) && paused && !textMngr->terminadoParrado() && !textMngr->vaRapido()) {	
+	else if (ih().getKey(InputHandler::X) && paused && !textMngr->terminadoParrado() && !textMngr->vaRapido()) {	
 
 #ifdef _DEBUG
 		textMngr->cambiaVelocidad(true);

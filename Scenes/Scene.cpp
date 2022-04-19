@@ -26,7 +26,7 @@ void Scene::handleInput(bool& exit)
 	if(!paused)objectManager->handleInput(exit);
 	uiManager->handleInput(exit, paused);
 
-	if (ih().getKey(InputHandler::INTERACT))
+	if (ih().getKey(InputHandler::A))
 		uiManager->focoExecute(exit);
 
 	if (ih().getKey(InputHandler::RIGHT) || ih().getKey(InputHandler::DOWN))
