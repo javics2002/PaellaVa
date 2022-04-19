@@ -114,7 +114,7 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 		drawRender(cameraRect);
 
 	int bocadilloX = 80;
-	int bocadilloY = 60;
+	int bocadilloY = 80;
 
 	if (showPed && estado_ == PIDIENDO) {
 		if (sdlutils().virtualTimer().currTime() - lastTimePed >= PED_DELAY) {
@@ -138,14 +138,14 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 			SDL_Rect bocadillo = {};
 			SDL_Rect emoticono = {};
 
-			int emoticonoX = 30;
-			int emoticonoY = 25;
+			int emoticonoX = 35;
+			int emoticonoY = 30;
 
 			if (estado_ < PIDIENDO) {
 				bocadillo = { mitadGrupo() - bocadilloX / 2,
 					(int)clientes[0]->getY() - clientes[0]->getHeight() / 2 - bocadilloY, bocadilloX, bocadilloY };
 				emoticono = { mitadGrupo() - emoticonoX / 2,
-					(int)clientes[0]->getY() - clientes[0]->getHeight() / 2 - bocadilloY + emoticonoY / 2, emoticonoX, emoticonoY };
+					(int)clientes[0]->getY() - clientes[0]->getHeight() / 2 - bocadilloY + emoticonoY - emoticonoY/3, emoticonoX, emoticonoY };
 			}
 			else {
 				bocadillo = { (int)getX() - bocadilloX / 2, (int)getY() - bocadilloY, bocadilloX, bocadilloY };
