@@ -2,6 +2,9 @@
 #include "UiButton.h"
 #include "../../Data/Comanda.h"
 
+class Game;
+class UIManager;
+
 class NumeroButton : public UiButton
 {
 	string textura;

@@ -12,6 +12,7 @@ class Arroz;
 class Mesa;
 class Silla;
 class PoolObject;
+class Herramienta;
 
 class Mueble : public GameObject
 {
@@ -23,6 +24,9 @@ protected:
     Texture* timerTexture;
 
     int id;
+    bool funcionando;
+    int roto = 30;
+    int randomOptions = 100;
 
 public:
 	Mueble(Game* game, Vector2D<double> position, int width, int height, string claveTextura);
@@ -32,6 +36,8 @@ public:
     virtual bool receiveGrupoClientes(GrupoClientes* gc) { return false; }
     virtual bool receivePaella(Paella* pa) { return false; }
     virtual bool receiveArroz(Arroz* arr) { return false;}
+    virtual bool receiveHerramienta(Herramienta* h);
+    virtual bool testMueble();
 
     virtual bool returnObject(Player* p) { return false; }
 

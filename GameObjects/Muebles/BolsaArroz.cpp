@@ -9,6 +9,8 @@
 
 BolsaArroz::BolsaArroz(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, "bolsaArroz")
 {
+	//Siempre tiene que funcionar
+	funcionando = true;
 }
 
 bool BolsaArroz::returnObject(Player* p)

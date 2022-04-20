@@ -1,6 +1,9 @@
 #pragma once
 #include "Scene.h"
 
+class UIButton;
+class Imagen;
+
 class Lobby:public Scene
 {
 

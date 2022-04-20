@@ -29,6 +29,7 @@ class Lavavajillas;
 #include <vector>
 
 class Game;
+class Herramienta;
 
 using namespace std;
 

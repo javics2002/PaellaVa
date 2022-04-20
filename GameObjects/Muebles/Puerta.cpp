@@ -11,6 +11,9 @@ Puerta::Puerta(Game* game, Vector2D<double> pos, int t_Max, int tamMaxGrupo_, bo
 	maxTamGrupo = 3;
 
 	host = host_;
+
+	//Siempre tiene que funcionar
+	funcionando = true;
 }
 
 void Puerta::update()

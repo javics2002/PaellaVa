@@ -15,6 +15,9 @@ Mesa::Mesa(Game* game, Vector2D<double> pos, Vector2D<int> dim, Vector2D<int> ti
 	mGrupo = nullptr;
 
 	nSillas = 0;
+
+	//Siempre tiene que funcionar
+	funcionando = true;
 }
 
 void Mesa::setTiles() {

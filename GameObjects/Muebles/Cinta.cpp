@@ -17,6 +17,8 @@ Cinta::Cinta(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE,  T
 
 	setTexture("cinta");
 
+	//Siempre tiene que funcionar
+	funcionando = true;
 }
 
 Cinta::~Cinta()

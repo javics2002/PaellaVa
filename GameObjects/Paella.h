@@ -4,7 +4,7 @@
 #include "../Control/ObjectManager.h"
 #include <list>
 
-enum EstadoPaellas { Preparacion, Coccion, Hecha };
+enum EstadoPaellas { Preparacion, Coccion, Hecha, Lavandose };
 enum Resultado { Cruda, PocoHecha, Perfecta, MuyHecha, Quemada, Incomestible };
 enum Contenido { Limpia, Entera, Mitad, Sucia };
 enum TipoPaella { Pequena, Mediana, Grande };
@@ -29,7 +29,9 @@ public:
 
 	void paellaRecogida();
 	void update() override;
-	void setLavado(Contenido contenidoPaella,string texturaPaella);
+
+	void finLavado();
+	void iniLavado();
 
 	void setEnsuciada();
 

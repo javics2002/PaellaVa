@@ -10,6 +10,8 @@
 #include "../Control/Game.h"
 #include "../Data/ListaComandas.h"
 #include "../GameObjects/UI/Reloj.h"
+#include "../GameObjects/Herramienta.h"
+#include "../GameObjects/Muebles/CajaHerramientas.h"
 #ifdef _DEBUG
 #include "../Scenes/GameOver.h"
 #endif // _DEBUG
@@ -30,7 +32,7 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 
 			if (t.progress() > .2f) {
 				//Start game
-				game->changeScene(new GameOver(game,0));
+				game->changeScene(new GameOver(game, 0));
 				return true;
 			}
 			return false;
@@ -53,7 +55,7 @@ Restaurante::Restaurante(Game* game) : Scene(game)
 	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
 
 	uiManager->addInterfaz(new RedactaComandabutton(game, uiManager, "redactaboton", 10, 10, 30, 30));
-	uiManager->setBarra(new ListaComandas(game,uiManager));
+	uiManager->setBarra(new ListaComandas(game, uiManager));
 
 	uiManager->creaMenuPausa();
 
@@ -74,7 +76,7 @@ void Restaurante::handleInput(bool& exit)
 	Scene::handleInput(exit);
 
 	if (ih().getKey(InputHandler::CANCEL)) {
-		
+
 #ifdef _DEBUG
 		// game->changeScene(new GameOver(game, 100));
 		togglePause();
@@ -96,7 +98,7 @@ void Restaurante::update()
 {
 	if (!paused) {
 		objectManager->update();
-		
+
 		if (objectManager->getHost()->getX() > tamRestaurante.getY() + TILE_SIZE) { // tamRestaurante es un rango, no una posición, por eso tengo que hacer getY()
 			camara->Lerp(Vector2D<float>(tamRestaurante.getY(), 16), LERP_INTERPOLATION);
 		}
@@ -118,7 +120,7 @@ void Restaurante::mediaPuntuaciones()
 {
 	int sumaMedia = 0;
 	for (auto i : puntuacionesComandas) {
-		sumaMedia+=i;
+		sumaMedia += i;
 	}
 	puntuaciónTotal = sumaMedia / puntuacionesComandas.size();
 }
@@ -132,13 +134,13 @@ void Restaurante::togglePause()
 	if (paused) {
 
 		sdlutils().virtualTimer().pause();
-		
+
 		sdlutils().soundEffects().at("cancel").play(0, game->UI);
 	}
 	else {
 		sdlutils().virtualTimer().resume();
 
-		
+
 		sdlutils().soundEffects().at("select").play(0, game->UI);
 	}
 }
@@ -284,7 +286,7 @@ void Restaurante::loadMap(string const& path) {
 				/// Puerta = 1
 				/// 
 				/// </Z coords>
-				
+
 				if (name == "mesaS") { // 1 tile
 					Mesa* m = new Mesa(game, position, { 1, 2 }, name);
 					m->setDepth(1);
@@ -388,24 +390,26 @@ void Restaurante::loadMap(string const& path) {
 				}
 				else if (name == "pilaM")
 				{
-				Pila* p = new Pila(game, position, TipoPaella::Mediana, 5);
-				p->setDepth(1);
-				getObjectManager()->addMueble(p);
+					Pila* p = new Pila(game, position, TipoPaella::Mediana, 5);
+					p->setDepth(1);
+					getObjectManager()->addMueble(p);
 				}
 				else if (name == "pilaL")
 				{
-				Pila* p = new Pila(game, position, TipoPaella::Grande, 3);
-				p->setDepth(1);
-				getObjectManager()->addMueble(p);
+					Pila* p = new Pila(game, position, TipoPaella::Grande, 3);
+					p->setDepth(1);
+					getObjectManager()->addMueble(p);
 				}
+
+				//Añadir caja de herramientas (encimera pero con caja)
 			}
+
+			// ordenar render
+			getObjectManager()->sortAllGO();
+
+			SDL_SetRenderTarget(renderer, nullptr);
+
+			if (!sdlutils().images().count(path))
+				sdlutils().images().emplace(path, Texture(renderer, fondo, mapInfo.anchoFondo, mapInfo.altoFondo));
 		}
-		// ordenar render
-		getObjectManager()->sortAllGO();
-
-		SDL_SetRenderTarget(renderer, nullptr);
-
-		if (!sdlutils().images().count(path)) 
-			sdlutils().images().emplace(path, Texture(renderer, fondo, mapInfo.anchoFondo, mapInfo.altoFondo));
 	}
-}
