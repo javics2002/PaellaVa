@@ -22,7 +22,7 @@ public:
 	int couldBreak = MAX_BREAK_TIME;
 	int seg = 10;
 
-	deque<Paella*> pilaPaellas;
+	deque<Paella*> paellasSucias;
 	deque<Paella*> paellasLimpias;
 
 	int i = 0;

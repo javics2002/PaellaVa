@@ -10,13 +10,13 @@ Lavavajillas::Lavavajillas(Game* game, Vector2D<double> pos) : Mueble(game, pos,
 
 void Lavavajillas::update()
 {
-	if (!pilaPaellas.empty() && isActive())
+	if (!paellasSucias.empty() && isActive())
 	{
 		if (funcionando)
 		{
 			lavando();
 		}
-		else if (!funcionando && !pilaPaellas.empty())
+		else if (!funcionando && !paellasSucias.empty())
 		{
 			//Si el lavavajillas est� roto, se ensucian las paellas
 			ensuciarPaellas();
@@ -48,11 +48,11 @@ void Lavavajillas::ensuciarPaellas()
 {
 	for (auto it = paellasLimpias.front(); it != paellasLimpias.back(); it++)
 	{
-		pilaPaellas.push_back(pilaPaellas.front());
+		paellasSucias.push_back(paellasSucias.front());
 		paellasLimpias.pop_front();
 	}
 
-	for (auto it = pilaPaellas.front(); it != pilaPaellas.back(); it++)
+	for (auto it = paellasSucias.front(); it != paellasSucias.back(); it++)
 	{
 		it->setTexture("paellaSucia");
 		it->setContenido(Sucia);
@@ -93,17 +93,18 @@ bool Lavavajillas::receivePaella(Paella* paella_)
 		if (paella_->getContenido() == Sucia) {
 
 
-		if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == dejarLavavajillas)
-			game->getCurrentScene()->changeState(pausaDejarLavavajillas);
+			if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == dejarLavavajillas)
+				game->getCurrentScene()->changeState(pausaDejarLavavajillas);
 
-		initTime = sdlutils().currRealTime();
+			initTime = sdlutils().currRealTime();
 
-		paellasSucias.push_back(paella_);
+			paellasSucias.push_back(paella_);
 
-		paella_->setPosition(Vector2D<double>(-500, 0));
-		paella_->iniLavado();
+			paella_->setPosition(Vector2D<double>(-500, 0));
+			paella_->iniLavado();
 
-		return true;
+			return true;
+		}
 	}
 
 	return false;
