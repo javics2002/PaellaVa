@@ -5,12 +5,6 @@
 
 
 #include "../Scenes/Menu.h"
-#ifdef _DEBUG
-#include "../Scenes/Restaurante.h"
-#include "../Scenes/GameOver.h"
-#include "../Scenes/HostClient.h"
-#include "../Scenes/IntroduceIP.h"
-#endif // _DEBUG
 #include "../sdlutils/SDLUtils.h"
 #include "../sdlutils/InputHandler.h"
 #include "../Control/ObjectManager.h"
@@ -34,14 +28,8 @@ void Game::init()
 
 	ih().setGame(this);
 	nm = new NetworkManager(this);
-	
 
-#ifdef _DEBUG
 	currentScene = new Menu(this);
-	//nm->init('h');
-#else
-	currentScene = new Menu(this);
-#endif // _DEBUG
 }
 
 void Game::start()

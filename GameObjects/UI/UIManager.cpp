@@ -32,6 +32,8 @@ UIManager::UIManager(Game* game)
 	burnEffect = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2, 
 		sdlutils().width() * 2, sdlutils().height() * 2, "quemadura");
 	burnEffect->setInitialDimension(sdlutils().width(), sdlutils().height());
+
+	enAjustes = false;
 }
 
 UIManager::~UIManager()
@@ -1067,6 +1069,8 @@ void UIManager::toggleOpciones()
 
 	if(!optionsMenu[0]->isActive())
 		activaBot();
+
+	enAjustes = !enAjustes;
 }
 
 void UIManager::toggleCreditos(int pagina)
@@ -1145,6 +1149,8 @@ void UIManager::quemarse()
 		});
 
 	sdlutils().soundEffects().at("quemadura").play();
+	ih().rumble(USHRT_MAX, USHRT_MAX, 1000);
+	
 }
 
 void UIManager::focoExecute(bool& exit)

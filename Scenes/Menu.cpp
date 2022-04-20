@@ -136,3 +136,17 @@ Menu::Menu(Game* game) : Scene(game)
 
 	uiManager->creaPantallaCreditos();
 }
+
+void Menu::handleInput(bool& exit)
+{
+	if (!paused)objectManager->handleInput(exit);
+	uiManager->handleInput(exit, paused);
+
+	if (ih().getKey(InputHandler::A) && !uiManager->getEnAjustes())
+		uiManager->focoExecute(exit);
+
+	if (ih().getKey(InputHandler::RIGHT) || ih().getKey(InputHandler::DOWN))
+		uiManager->avanzaFoco();
+	if (ih().getKey(InputHandler::LEFT) || ih().getKey(InputHandler::UP))
+		uiManager->retrocedeFoco();
+}

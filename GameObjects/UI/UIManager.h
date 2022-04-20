@@ -78,6 +78,7 @@ class UIManager
 	double toRadians(double grados);
 
 	vector<UiButton*>::iterator foco;
+	bool enAjustes;
 
 public:
 	UIManager(Game* game);
@@ -128,5 +129,7 @@ public:
 	void focoExecute(bool& exit);
 	void avanzaFoco();
 	void retrocedeFoco();
+
+	bool getEnAjustes() { return enAjustes; };
 };
 
