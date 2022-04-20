@@ -80,7 +80,7 @@ void GameObject::renderDebug(SDL_Rect* cameraRect)
 
 void GameObject::render(SDL_Rect* cameraRect)
 {
-	if(isActive()) drawRender(cameraRect);
+	if (isActive()) drawRender(cameraRect);
 }
 
 void GameObject::drawRender(SDL_Rect* cameraRect)

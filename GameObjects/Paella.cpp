@@ -112,12 +112,17 @@ void Paella::update()
 	humo->update();
 }
 
-void Paella::setLavado(Contenido contenidoPaella, string texturaPaella)
+void Paella::finLavado()
 {
-	contenido = contenidoPaella;
+	contenido = Limpia;
 	estado = Preparacion;
 	contaminada = false;
-	setTexture(texturaPaella);
+	setTexture("paellaLimpia");
+}
+
+void Paella::iniLavado()
+{
+	estado = Lavandose;
 }
 
 void Paella::onObjectPicked()
@@ -226,18 +231,20 @@ int Paella::ingredientesEnPaella()
 
 void Paella::render(SDL_Rect* cameraRect)
 {
-	drawRender(cameraRect);
+	if (estado != Lavandose) {
+		drawRender(cameraRect);
 
-	if (contenido == Entera) {
-		for (auto i : ingredientes) {
-			drawRender(cameraRect, getTexBox(), &sdlutils().images().at(texturaIngrediente[i] + "C"));
+		if (contenido == Entera) {
+			for (auto i : ingredientes) {
+				drawRender(cameraRect, getTexBox(), &sdlutils().images().at(texturaIngrediente[i] + "C"));
+			}
 		}
-	}
-	else if (contenido == Mitad) {
-		for (auto i : ingredientes) {
-			drawRender(cameraRect, getTexBox(), &sdlutils().images().at(texturaIngrediente[i] + "M"));
+		else if (contenido == Mitad) {
+			for (auto i : ingredientes) {
+				drawRender(cameraRect, getTexBox(), &sdlutils().images().at(texturaIngrediente[i] + "M"));
+			}
 		}
-	}
-	
-	humo->draw(cameraRect);
+
+		humo->draw(cameraRect);
+	}	
 }

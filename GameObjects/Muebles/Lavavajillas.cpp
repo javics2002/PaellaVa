@@ -10,7 +10,7 @@ Lavavajillas::Lavavajillas(Game* game, Vector2D<double> pos) : Mueble(game, pos,
 
 void Lavavajillas::update()
 {
-	if (!pilaPaellas.empty() && isActive())
+	if (!paellasSucias.empty() && isActive())
 		lavando();
 }
 
@@ -18,10 +18,15 @@ void Lavavajillas::lavando()
 {
 
 	if (sdlutils().currRealTime() - initTime >= TIEMPO_LAVADO) {
-		pilaPaellas.front()->setLavado(Limpia,"paellaLimpia");
-		paellasLimpias.push_back(pilaPaellas.front());
-		pilaPaellas.pop_front();
-		initTime = sdlutils().currRealTime();
+		if (paellasLimpias.empty()) {
+			paellasSucias.front()->setPosition(getRectCenter(getOverlap()));
+		}
+		paellasSucias.front()->finLavado();
+		paellasLimpias.push_back(paellasSucias.front());
+		paellasSucias.pop_front();
+		
+
+		initTime = sdlutils().currRealTime();		
 	}
 
 	else if (sdlutils().currRealTime() - initTime >= rellenoTimer + TIEMPO_LAVADO / 8) {
@@ -36,17 +41,18 @@ void Lavavajillas::lavando()
 
 bool Lavavajillas::receivePaella(Paella* paella_)
 {
-	if (paella_->getContenido()==Sucia) {
+	if (paella_->getContenido() == Sucia) {
 
 
 		if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == dejarLavavajillas)
 			game->getCurrentScene()->changeState(pausaDejarLavavajillas);
 
-		pilaPaellas.push_back(paella_);
-
-		paella_->setPosition(getRectCenter(getOverlap()));
-
 		initTime = sdlutils().currRealTime();
+
+		paellasSucias.push_back(paella_);
+
+		paella_->setPosition(Vector2D<double>(-500, 0));
+		paella_->iniLavado();
 
 		return true;
 	}
@@ -62,6 +68,11 @@ bool Lavavajillas::returnObject(Player* p)
 		p->setPickedObject(paellasLimpias.front(), PAELLA);
 
 		paellasLimpias.pop_front();
+
+		if (!paellasLimpias.empty())
+			paellasLimpias.front()->setPosition(getRectCenter(getOverlap()));
+
+
 		if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == cogerLavavajillas)
 			game->getCurrentScene()->changeState(pausaCogerLavavajillas);
 
@@ -84,11 +95,15 @@ void Lavavajillas::render(SDL_Rect* camera)
 
 		drawRender(camera, dest, &sdlutils().images().at("lavavajillas"));
 
-		if (!pilaPaellas.empty() && pilaPaellas.front()->getContenido() == Sucia && i != 0) {
+		if (!paellasSucias.empty() && paellasSucias.front()->getContenido() == Sucia && i != 0) {
 
 			SDL_Rect dest_ = { getX() + getWidth() / 2, getY() - getHeight() / 2, timerDimension, timerDimension };
 
 			drawRender(camera, dest_, &sdlutils().images().at("timer"), clip);
+		}
+
+		if (!paellasLimpias.empty()) {
+			(*paellasLimpias.begin())->render(camera);
 		}
 	}
 }

@@ -17,7 +17,7 @@ public:
 	const double TIEMPO_LAVADO = 3000.0;
 	double initTime;
 
-	deque<Paella*> pilaPaellas;
+	deque<Paella*> paellasSucias;
 	deque<Paella*> paellasLimpias;
 
 	int i = 0;
