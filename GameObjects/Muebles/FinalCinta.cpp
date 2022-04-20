@@ -5,6 +5,8 @@
 
 FinalCinta::FinalCinta(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, "basura")
 {
+	//Siempre tiene que funcionar
+	funcionando = true;
 }
 
 void FinalCinta::update()

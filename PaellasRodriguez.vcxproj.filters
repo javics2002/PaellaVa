@@ -39,7 +39,6 @@
     <ClCompile Include="Scenes\Scene.cpp" />
     <ClCompile Include="Scenes\Menu.cpp" />
     <ClCompile Include="Control\Camera.cpp" />
-    <ClCompile Include="GameObjects\Muebles\Encimera.cpp" />
     <ClCompile Include="GameObjects\UI\AceptaPaellaButton.cpp" />
     <ClCompile Include="GameObjects\UI\BorrarButton.cpp" />
     <ClCompile Include="GameObjects\UI\DescartaCommandaButton.cpp" />
@@ -68,6 +67,10 @@
     <ClCompile Include="Utils\ParticleSystem.cpp" />
     <ClCompile Include="Control\TextManager.cpp" />
     <ClCompile Include="GameObjects\UI\OcultabarraButton.cpp" />
+    <ClCompile Include="GameObjects\Ingredienteletal.cpp" />
+    <ClCompile Include="GameObjects\Herramienta.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Encimera.cpp" />
+    <ClCompile Include="GameObjects\Muebles\CajaHerramientas.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
@@ -132,7 +135,6 @@
     <ClInclude Include="Scenes\Scene.h" />
     <ClInclude Include="Scenes\Menu.h" />
     <ClInclude Include="Control\Camera.h" />
-    <ClInclude Include="GameObjects\Muebles\Encimera.h" />
     <ClInclude Include="GameObjects\UI\AceptaPaellaButton.h" />
     <ClInclude Include="GameObjects\UI\BorrarButton.h" />
     <ClInclude Include="GameObjects\UI\DescartaCommandaButton.h" />
@@ -161,6 +163,10 @@
     <ClInclude Include="Utils\ParticleExample.h" />
     <ClInclude Include="Control\TextManager.h" />
     <ClInclude Include="GameObjects\UI\OcultabarraButton.h" />
+    <ClInclude Include="GameObjects\Ingredienteletal.h" />
+    <ClInclude Include="GameObjects\Herramienta.h" />
+    <ClInclude Include="GameObjects\Muebles\Encimera.h" />
+    <ClInclude Include="GameObjects\Muebles\CajaHerramientas.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />

@@ -9,6 +9,11 @@ class TablaProcesado: public Mueble
 	const unsigned int DIMENSION_W = 1;
 	const unsigned int DIMENSION_H = 1;
 
+	const int MAX_BREAK_TIME = 8000;
+	const int REDUCE_BREAK_TIME = 500;
+	int couldBreak = MAX_BREAK_TIME;
+	int seg = 10;
+
 	const double TIEMPO_PROCESADO = 3000.0;
 
 	Ingrediente* ingr_;

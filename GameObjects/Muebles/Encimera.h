@@ -24,3 +24,5 @@ public:
 	void clearIngrediente() { ingr_ = nullptr; }
 };
 
+
+

@@ -11,32 +11,82 @@ Lavavajillas::Lavavajillas(Game* game, Vector2D<double> pos) : Mueble(game, pos,
 void Lavavajillas::update()
 {
 	if (!pilaPaellas.empty() && isActive())
-		lavando();
+	{
+		if (funcionando)
+		{
+			lavando();
+		}
+		else if (!funcionando && !pilaPaellas.empty())
+		{
+			//Si el lavavajillas estï¿½ roto, se ensucian las paellas
+			ensuciarPaellas();
+		}
+	}
+
+	if (funcionando && couldBreak <= 0)
+	{
+		testMueble();
+
+		if (funcionando)
+		{
+			//se reduce cuando se podrï¿½a romper
+			couldBreak = MAX_BREAK_TIME - REDUCE_BREAK_TIME;
+		}
+		else
+		{
+			//se resetea cuando se podrï¿½a romper
+			couldBreak = MAX_BREAK_TIME;
+		}
+	}
+	else if (funcionando && couldBreak > 0)
+	{
+		couldBreak -= seg;
+	}
+}
+
+void Lavavajillas::ensuciarPaellas()
+{
+	for (auto it = paellasLimpias.front(); it != paellasLimpias.back(); it++)
+	{
+		pilaPaellas.push_back(pilaPaellas.front());
+		paellasLimpias.pop_front();
+	}
+
+	for (auto it = pilaPaellas.front(); it != pilaPaellas.back(); it++)
+	{
+		it->setTexture("paellaSucia");
+		it->setContenido(Sucia);
+		it->setEnsuciada();
+	}
 }
 
 void Lavavajillas::lavando()
 {
+	if (funcionando)
+	{
+		if (sdlutils().currRealTime() - initTime >= TIEMPO_LAVADO) {
+			pilaPaellas.front()->setLavado(Limpia, "paellaLimpia");
+			paellasLimpias.push_back(pilaPaellas.front());
+			pilaPaellas.pop_front();
+			initTime = sdlutils().currRealTime();
+		}
 
-	if (sdlutils().currRealTime() - initTime >= TIEMPO_LAVADO) {
-		pilaPaellas.front()->setLavado(Limpia,"paellaLimpia");
-		paellasLimpias.push_back(pilaPaellas.front());
-		pilaPaellas.pop_front();
-		initTime = sdlutils().currRealTime();
-	}
+		else if (sdlutils().currRealTime() - initTime >= rellenoTimer + TIEMPO_LAVADO / 8) {
 
-	else if (sdlutils().currRealTime() - initTime >= rellenoTimer + TIEMPO_LAVADO / 8) {
+			clip.x = i * clip.w;
 
-		clip.x = i * clip.w;
+			i++;
 
-		i++;
-
-		rellenoTimer += TIEMPO_LAVADO / 8;
+			rellenoTimer += TIEMPO_LAVADO / 8;
+		}
 	}
 }
 
 bool Lavavajillas::receivePaella(Paella* paella_)
 {
-	if (paella_->getContenido()==Sucia) {
+	if (funcionando)
+	{
+		if (paella_->getContenido() == Sucia) {
 
 
 		if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == dejarLavavajillas)
@@ -44,11 +94,12 @@ bool Lavavajillas::receivePaella(Paella* paella_)
 
 		pilaPaellas.push_back(paella_);
 
-		paella_->setPosition(getRectCenter(getOverlap()));
+			paella_->setPosition(getRectCenter(getOverlap()));
 
-		initTime = sdlutils().currRealTime();
+			initTime = sdlutils().currRealTime();
 
-		return true;
+			return true;
+		}
 	}
 
 	return false;
@@ -58,7 +109,7 @@ bool Lavavajillas::returnObject(Player* p)
 {
 	if (!paellasLimpias.empty())
 	{
-		//TOCHECK: Podríamos hacer un return del objeto y que el player se lo guarde a sí mismo
+		//TOCHECK: Podrï¿½amos hacer un return del objeto y que el player se lo guarde a sï¿½ mismo
 		p->setPickedObject(paellasLimpias.front(), PAELLA);
 
 		paellasLimpias.pop_front();
@@ -81,6 +132,8 @@ void Lavavajillas::render(SDL_Rect* camera)
 	if (isActive()) {
 		SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, getWidth(),
 			getHeight() };
+
+	//Si no funciona usar la textura del fuego
 
 		drawRender(camera, dest, &sdlutils().images().at("lavavajillas"));
 

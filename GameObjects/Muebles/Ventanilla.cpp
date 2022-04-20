@@ -13,6 +13,9 @@ Ventanilla::Ventanilla(Game* game, Vector2D<double> pos, SDL_Rect* r) : Mueble(g
 	camerar = r;
 	xnumero = pos.getX()-getWidth();
 	ynumero = pos.getY()+getHeight();
+
+	//Siempre tiene que funcionar
+	funcionando = true;
 }
 bool Ventanilla::receivePaella(Paella* pa)
 {
