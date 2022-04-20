@@ -33,6 +33,7 @@ void NetworkManager::acceptPlayers()
 			pkt.packet_type = EPT_ACCEPT;
 
 			strcpy_s(pkt.accept.player_name, myName.c_str());
+			sdlutils().soundEffects().at("connected").play();
 
 			if (player_sockets.size() > MAX_PLAYERS) { // TODO: CHECK IF A PLAYER IS DISCONNECTED
 				pkt.packet_type = EPT_DENY;

@@ -264,10 +264,10 @@ void UIManager::handleInput(bool& exit, bool paused)
 			sliderSonido->setPosition(barraVolumenSonido->getX() + (volumenSonido - 64) / 64 * barraVolumenSonido->getWidth() / 2,
 				slideSonido->getY());
 		}
+
 		if (ih().getKey(InputHandler::Y)) {
 			sdlutils().toggleFullScreen();
 		}
-
 	}
 }
 
