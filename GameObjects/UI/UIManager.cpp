@@ -1149,8 +1149,6 @@ void UIManager::quemarse()
 		});
 
 	sdlutils().soundEffects().at("quemadura").play();
-	ih().rumble(USHRT_MAX, USHRT_MAX, 1000);
-	
 }
 
 void UIManager::focoExecute(bool& exit)
