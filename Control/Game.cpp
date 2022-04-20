@@ -84,7 +84,6 @@ void Game::update()
 {
 	currentScene->update();
 
-	// update nm
 	if(nm != nullptr)
 		nm->update();
 }

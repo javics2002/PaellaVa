@@ -8,10 +8,8 @@
 #include "../sdlutils/SDLUtils.h"
 #include "../Control/Game.h"
 #include "../GameObjects/UI/Reloj.h"
-#ifdef _DEBUG
 #include "../Scenes/GameOver.h"
 #include "../Scenes/Menu.h"
-#endif // _DEBUG
 
 #include <iostream>
 

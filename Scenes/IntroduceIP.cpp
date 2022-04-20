@@ -21,7 +21,6 @@ IntroduceIP::IntroduceIP(Game* game) : Scene(game)
 			// crear el lobby
 			game->sendMessageScene(new Lobby(game, game->getNetworkManager()->getOtherName()));
 		}
-
 		});
 
 	uiManager->addInterfaz(hostButton);
@@ -46,13 +45,10 @@ void IntroduceIP::handleInput(bool& exit)
 			textIP = ' ';
 		IP->setTexture(textIP, string("paella"), { 255, 255, 255, 255 }, { 0, 0, 0, 0 });
 		IP->setDimension();
-		
-		//cout << hIP <<"h"; //se actualiza mal hay que hacer un callback
 	}
 
 	if (ih().getMouseButtonState(InputHandler::MOUSE_LEFT))
 	{
-		//cout << nombrePlayer << endl;
 		int mx = ih().getmx();
 		int my = ih().getmy();
 
@@ -67,8 +63,5 @@ void IntroduceIP::handleInput(bool& exit)
 				}
 			}
 		}
-
 	}
-
-	
 }
