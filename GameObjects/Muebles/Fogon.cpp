@@ -84,7 +84,7 @@ bool Fogon::receivePaella(Paella* pa)
 
 			barra = true;
 
-			game->getUIManager()->addTween((float)(getX() - barraCoccionX / 2 - flechaCoccionX / 2), (float)(getX() + barraCoccionX / 2 - flechaCoccionX / 2), tiempoDeCoccion)
+			game->getUIManager()->addTween((float)(getX() - barraCoccionX / 2 - flechaCoccionX / 2), (float)(getX() + barraCoccionX / 2 - flechaCoccionX / 2), tiempoDeCoccion, true)
 				.onStep(
 					[this](tweeny::tween<float>& t, float) mutable {
 						dest_1.x = t.peek();

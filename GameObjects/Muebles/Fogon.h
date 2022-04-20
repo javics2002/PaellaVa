@@ -29,6 +29,7 @@ public:
 	Fogon(Game* game, Vector2D<double> pos);
 	~Fogon() = default;
 	void render(SDL_Rect* cameraRect)override;
+	void update();
 	virtual bool receivePaella(Paella* pa) override;
 	virtual bool returnObject(Player* p) override;
 };
