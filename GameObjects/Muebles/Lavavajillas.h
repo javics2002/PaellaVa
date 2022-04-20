@@ -17,7 +17,12 @@ public:
 	const double TIEMPO_LAVADO = 3000.0;
 	double initTime;
 
-	deque<Paella*> paellasSucias;
+	const int MAX_BREAK_TIME = 3000;
+	const int REDUCE_BREAK_TIME = 500;
+	int couldBreak = MAX_BREAK_TIME;
+	int seg = 10;
+
+	deque<Paella*> pilaPaellas;
 	deque<Paella*> paellasLimpias;
 
 	int i = 0;
@@ -29,6 +34,7 @@ public:
 	~Lavavajillas() = default;
 
 	void update() override;
+	void ensuciarPaellas();
 	void lavando();
 
 	bool receivePaella(Paella* paella_) override;

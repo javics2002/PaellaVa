@@ -9,6 +9,9 @@ Silla::Silla(Game* game, Vector2D<double> pos, string texture, int d) : Mueble(g
 	clientDepth = d;
 
 	mMesa = nullptr;
+
+	//Siempre tiene que funcionar
+	funcionando = true;
 }
 
 Silla* Silla::initMesa(Mesa* mesa)

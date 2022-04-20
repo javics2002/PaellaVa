@@ -13,6 +13,9 @@ Pila::Pila(Game* game, Vector2D<double> pos, int miTipo_, int nPaellas)
 	numPaellas = nPaellas;
 
 	paellas = deque<Paella*>();	
+
+	//Siempre tiene que funcionar
+	funcionando = true;
 }
 
 bool Pila::returnObject(Player* p)
