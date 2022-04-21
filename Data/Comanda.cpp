@@ -267,7 +267,7 @@ void Comanda::aceptaPaella()
 	//aqui esta lo dificil el vector de la paella que envias ya no lo podras editar pero deberia seguir siendo visible 
 	//, tendra que mover margenes y vaciar el vector de pedido y que haya un render paellas , lo dificil va  a ser que 
 	//se renderice otdo guay
-	if (!tecladonum[0]->isActive()&&paellas.size()<maxpaellas)
+	if (!tecladonum[0]->isActive()&&paellas.size()<maxpaellas&& Pedido.size()>0)
 	{
 		if (!Pedido.empty())
 		{

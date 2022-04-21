@@ -109,7 +109,7 @@ void ListaComandas::AñadeComanda(Comanda* comanda)
 		EliminaComandaButton* e = new EliminaComandaButton(uimt, c, game, "cancela", -500, cY + c->getHeight() / 2, 25, 25);
 	
 		c->setEliminabutton(e);
-		listanovisibles.push(c);
+		listanovisibles.push_front(c);
 	}
 }
 void ListaComandas::renderComandas()
@@ -186,20 +186,21 @@ void ListaComandas::finalizacomanda(Comanda* comanda)
 		{
 
 
-			Comanda* c = listanovisibles.front();
+			Comanda* c = listanovisibles.back();
 			cX = inicx + 1.5 * c->getWidth();
 			//traer comanda del buffer 
+			//se ve el pedido a las izquierda :(
 
 			//Comanda* c = new Comanda(*d);
 			//c->desplazacomandas(+500);
 			//AñadeComanda(c);// noquieres otra copia mas de la comanda solo queires mover esta
 			int x = -cX - c->getX();
-			x += 3 * c->getWidth();
+			x += 3 * c->getWidth() + anchobotones*4;//4 son los botones qeu caben en una linea
 			c->setPosition(cX, cY);
-			c->desplazacomandas(x);
+			c->desplazacomandas(x );
 			c->getEliminabutton()->setPosition(cX, cY + c->getHeight() / 2);
 			c->setSitio(lista.insert(lista.begin(), c));
-			listanovisibles.pop();
+			listanovisibles.pop_back();
 
 			numcomandas++;
 

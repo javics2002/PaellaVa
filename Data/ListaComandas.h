@@ -16,7 +16,7 @@ class ListaComandas :public GameObject
 	int  numcomandas=0;
 	int limit = 0;
 	list<Comanda*> lista;
-	queue<Comanda*> listanovisibles;
+	list<Comanda*> listanovisibles;
 	Comanda* selected = nullptr;
 	bool active=true;
 public:
