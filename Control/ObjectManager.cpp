@@ -4,6 +4,7 @@
 #include "../GameObjects/Muebles/MueblesInclude.h"
 #include "../Utils/Vector2D.h"
 #include "../Scenes/Tutorial.h"
+#include "../GameObjects/Herramienta.h"
 
 
 ObjectManager::ObjectManager(Game* game) : game(game)
@@ -15,6 +16,7 @@ ObjectManager::ObjectManager(Game* game) : game(game)
 		pools.emplace_back((Pool<GameObject>*) new Pool<IngredienteLetal>(game, 10));
 		pools.emplace_back((Pool<GameObject>*) new Pool<Ingrediente>(game, 50));
 	}
+	pools.emplace_back((Pool<GameObject>*) new Pool<Herramienta>(game, 20));
 	pools.emplace_back((Pool<GameObject>*) new Pool<Arroz>(game, 20));
 	pools.emplace_back((Pool<GameObject>*) new Pool<GrupoClientes>(game, 20));
 	pools.emplace_back((Pool<GameObject>*) new Pool<Cliente>(game, 50));

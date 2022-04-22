@@ -5,6 +5,7 @@
 #include "../Paella.h"
 #include "../../sdlutils/SDLUtils.h"
 #include "../../Scenes/Tutorial.h"
+#include "../../Utils/ParticleExample.h"
 
 using tweeny::easing;
 
@@ -17,31 +18,29 @@ Fogon::Fogon(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 2 
 
 void Fogon::update()
 {
-	if (!funcionando && paella_ != nullptr)
-	{
-		paella_->setTexture("paellaSucia");
-		paella_->setContenido(Sucia);
-		paella_->setEnsuciada();
-	}
-	if (funcionando && couldBreak <= 0)
+	if(!funcionando && paella_!=nullptr)
+		paella_->setState(Hecha);
+;	if (funcionando && couldBreak <= 0)
 	{
 		testMueble();
-
-		if (funcionando)
-		{
+		if (funcionando){
 			//se reduce cuando se podría romper
 			couldBreak = MAX_BREAK_TIME - REDUCE_BREAK_TIME;
 		}
-		else
-		{
+		else{
 			//se resetea cuando se podría romper
 			couldBreak = MAX_BREAK_TIME;
 		}
 	}
-	else if (funcionando && couldBreak > 0)
-	{
+	else if (funcionando && couldBreak > 0){
 		couldBreak -= seg;
 	}
+	if (!funcionando)
+		humo->setStyle(ParticleExample::EXPLOSION);
+	else humo->setStyle(ParticleExample::NONE);
+	humo->setPosition(getX(), getY());
+	humo->update();
+
 }
 
 void Fogon::render(SDL_Rect* cameraRect)
@@ -53,7 +52,8 @@ void Fogon::render(SDL_Rect* cameraRect)
 
 	if (isActive()) {
 
-		drawRender(cameraRect, dest, &sdlutils().images().at("fogon"));
+		if(funcionando)drawRender(cameraRect, dest, &sdlutils().images().at("fogon"));
+		else drawRender(cameraRect, dest, &sdlutils().images().at("berenjena"));
 
 
 		if (paella_ != nullptr && barra) {
@@ -63,6 +63,7 @@ void Fogon::render(SDL_Rect* cameraRect)
 			drawRender(cameraRect, dest_, &sdlutils().images().at("barraCoccion"));
 			drawRender(cameraRect, dest_1, &sdlutils().images().at("flechaCoccion"));
 		}
+		humo->draw(cameraRect);
 	}
 }
 
@@ -88,7 +89,7 @@ bool Fogon::receivePaella(Paella* pa)
 				.onStep(
 					[this](tweeny::tween<float>& t, float) mutable {
 						dest_1.x = t.peek();
-						if (t.progress() == 1 || paella_ == nullptr) {
+						if (t.progress() == 1 || paella_ == nullptr || !funcionando) {
 
 							barra = false;
 
@@ -103,18 +104,15 @@ bool Fogon::receivePaella(Paella* pa)
 
 			return true;
 		}
-		return false;
 	}
 	return false;
 }
 
 bool Fogon::returnObject(Player* p)
 {
-	if (funcionando)
+	if (paella_ != nullptr)
 	{
-		if (paella_ != nullptr)
-		{
-			paella_->setState(Hecha);
+		paella_->setState(Hecha);
 
 		//Si nos hemos pasado, nos quemamos
 		if (paella_->getCoccion() >= Quemada) {
@@ -126,19 +124,13 @@ bool Fogon::returnObject(Player* p)
 
 		p->setPickedObject(paella_, PAELLA);
 
-			paella_ = nullptr;
-
+		paella_ = nullptr;
 		barra = false;
 		dest_1 = { (int)getX() - barraCoccionX / 2 + flechaCoccionX / 2,(int)getY() - (int)(getHeight() / 1.5) - (int)(barraCoccionY / 1.5),
-	flechaCoccionX, flechaCoccionY };
+				flechaCoccionX, flechaCoccionY 
+		};
 
-		//TOCHECK: Habr�a que devolver la paella al estado de "Preparaci�n" si no est� Preparada?
-		//Y desde donde se llama a que est� ya Preparada?
-
-			return true;
-		}
-		else
-			return false;
+		return true;
 	}
 	else
 		return false;

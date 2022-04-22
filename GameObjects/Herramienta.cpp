@@ -1,32 +1,10 @@
 #include "Herramienta.h"
+#include "../Control/Game.h"
 
-#include <iostream>
 
 Herramienta::Herramienta(Game* game) : ObjetoPortable(game) {
 	setDimension(DIMENSION, DIMENSION);
-
+	setTexture("berenjena");
 	setDepth(2);
 }
 
-void Herramienta::update()
-{
-
-}
-
-void Herramienta::onActivate()
-{
-	setTexture("berenjena");
-}
-
-void Herramienta::onDeactivate()
-{
-}
-
-void Herramienta::onObjectPicked()
-{
-
-}
-
-void Herramienta::onObjectDropped()
-{
-}

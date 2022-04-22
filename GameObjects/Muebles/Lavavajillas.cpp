@@ -1,4 +1,5 @@
 #include "Lavavajillas.h"
+#include "../../Utils/ParticleExample.h"
 #include "../../Scenes/Tutorial.h"
 
 Lavavajillas::Lavavajillas(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, TILE_SIZE, "lavavajillas")
@@ -10,79 +11,62 @@ Lavavajillas::Lavavajillas(Game* game, Vector2D<double> pos) : Mueble(game, pos,
 
 void Lavavajillas::update()
 {
-	if (!paellasSucias.empty() && isActive())
-	{
-		if (funcionando)
-		{
-			lavando();
-		}
-		else if (!funcionando && !paellasSucias.empty())
-		{
-			//Si el lavavajillas est� roto, se ensucian las paellas
-			ensuciarPaellas();
-		}
+	if (funcionando && !paellasSucias.empty() && isActive()){
+		lavando();
 	}
+	else if (!funcionando && !paellasSucias.empty() && isActive()) {
+		i = 0;
+		clip.x = 0;
+		rellenoTimer = 0;
 
-	if (funcionando && couldBreak <= 0)
+		initTime = sdlutils().currRealTime();
+	}
+	if (funcionando && couldBreak <= 0 )
 	{
 		testMueble();
-
-		if (funcionando)
-		{
+		if (funcionando){
 			//se reduce cuando se podr�a romper
 			couldBreak = MAX_BREAK_TIME - REDUCE_BREAK_TIME;
 		}
-		else
-		{
+		else{
 			//se resetea cuando se podr�a romper
 			couldBreak = MAX_BREAK_TIME;
 		}
 	}
-	else if (funcionando && couldBreak > 0)
-	{
+	else if (funcionando && couldBreak > 0){
 		couldBreak -= seg;
 	}
+	if (!funcionando)
+		humo->setStyle(ParticleExample::EXPLOSION);
+	else humo->setStyle(ParticleExample::NONE);
+	humo->setPosition(getX(), getY());
+	humo->update();
 }
 
-void Lavavajillas::ensuciarPaellas()
-{
-	for (auto it = paellasLimpias.front(); it != paellasLimpias.back(); it++)
-	{
-		paellasSucias.push_back(paellasSucias.front());
-		paellasLimpias.pop_front();
-	}
-
-	for (auto it = paellasSucias.front(); it != paellasSucias.back(); it++)
-	{
-		it->setTexture("paellaSucia");
-		it->setContenido(Sucia);
-		it->setEnsuciada();
-	}
-}
 
 void Lavavajillas::lavando()
 {
-	if (funcionando)
-	{
-		if (sdlutils().currRealTime() - initTime >= TIEMPO_LAVADO) {
-			if (paellasLimpias.empty()) {
-				paellasSucias.front()->setPosition(getRectCenter(getOverlap()));
-			}
-			paellasSucias.front()->finLavado();
-			paellasLimpias.push_back(paellasSucias.front());
-			paellasSucias.pop_front();
-			
-
-			initTime = sdlutils().currRealTime();		
+	if (sdlutils().currRealTime() - initTime >= TIEMPO_LAVADO) {
+		if (paellasLimpias.empty()) {
+			paellasSucias.front()->setPosition(getRectCenter(getOverlap()));
 		}
-		else if (sdlutils().currRealTime() - initTime >= rellenoTimer + TIEMPO_LAVADO / 8) {
+		paellasSucias.front()->finLavado();
+		paellasLimpias.push_back(paellasSucias.front());
+		paellasSucias.pop_front();
 
-			clip.x = i * clip.w;
+		i = 0;
+		clip.x = 0;
+		rellenoTimer = 0;
 
-			i++;
+		initTime = sdlutils().currRealTime();
+	}
+	else if (sdlutils().currRealTime() - initTime >= rellenoTimer + TIEMPO_LAVADO / 8) {
 
-			rellenoTimer += TIEMPO_LAVADO / 8;
-		}
+		clip.x = i * clip.w;
+
+		i++;
+
+		rellenoTimer += TIEMPO_LAVADO / 8;
 	}
 }
 
@@ -145,7 +129,8 @@ void Lavavajillas::render(SDL_Rect* camera)
 
 	//Si no funciona usar la textura del fuego
 
-		drawRender(camera, dest, &sdlutils().images().at("lavavajillas"));
+		if(funcionando)drawRender(camera, dest, &sdlutils().images().at("lavavajillas"));
+		else drawRender(camera, dest, &sdlutils().images().at("berenjena"));
 
 		if (!paellasSucias.empty() && paellasSucias.front()->getContenido() == Sucia && i != 0) {
 
@@ -157,6 +142,7 @@ void Lavavajillas::render(SDL_Rect* camera)
 		if (!paellasLimpias.empty()) {
 			(*paellasLimpias.begin())->render(camera);
 		}
+		humo->draw(camera);
 	}
 }
 

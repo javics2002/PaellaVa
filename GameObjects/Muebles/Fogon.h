@@ -9,7 +9,7 @@ private:
 	Paella* paella_;
 	float tiempoDeCoccion = 15000;
 
-	const int MAX_BREAK_TIME = 5000;
+	const int MAX_BREAK_TIME = 22500;
 	const int REDUCE_BREAK_TIME = 500;
 	int couldBreak = MAX_BREAK_TIME;
 	int seg = 10;

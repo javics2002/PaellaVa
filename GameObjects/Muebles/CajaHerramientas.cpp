@@ -1,45 +1,27 @@
 #include "CajaHerramientas.h"
-#include "../Ingrediente.h"
-#include "../Player.h"
-#include "../Paella.h"
-#include "../../Control/Game.h"
-#include "../Herramienta.h"
 
-CajaHerramientas::CajaHerramientas(Game* game, Vector2D<double> pos) : Mueble(game, pos, 1 * TILE_SIZE, 2 * TILE_SIZE, "encimera")
+#include "../Herramienta.h"
+#include "../Player.h"
+
+#include "../../Control/Game.h"
+#include "../../Control/ObjectManager.h"
+
+CajaHerramientas::CajaHerramientas(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, "berenjena")
 {
 	//Siempre tiene que funcionar
 	funcionando = true;
-
-	tool_ = new Herramienta(game);
 }
 
 bool CajaHerramientas::receiveHerramienta(Herramienta* h)
 {
-	//Si ya tiene objeto, no recoge objeto
-	if (tool_ == nullptr)
-	{
-		tool_ = h;
-
-		tool_->setPosition(getRectCenter(getOverlap()));
-
-		return true;
-	}
-	else
-		return false;
+	h->setActive(false);
+	return true;
 }
 
 bool CajaHerramientas::returnObject(Player* p)
 {
-	if (tool_ != nullptr)
-	{
-		//TOCHECK: Podríamos hacer un return del objeto y que el player se lo guarde a sí mismo
-		p->setPickedObject(tool_, HERRAMIENTA);
+	p->setPickedObject(game->getObjectManager()->getPool<Herramienta>(_p_HERRAMIENTA)->add(), HERRAMIENTA);
 
-		tool_ = nullptr;
-
-		return true;
-	}
-	else
-		return false;
+	return true;
 }
 

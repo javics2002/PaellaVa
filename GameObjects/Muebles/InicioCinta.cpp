@@ -3,13 +3,13 @@
 #include "../../Control/ObjectManager.h"
 #include "../../Scenes/Tutorial.h"
 #include "../../Control/NetworkManager.h"
+#include "../../Utils/ParticleExample.h"
 
 InicioCinta::InicioCinta(Game* game, Vector2D<double> pos, bool host_) : Mueble(game, pos, TILE_SIZE, TILE_SIZE, "inicioCinta")
 {
 	initTime = sdlutils().virtualTimer().currTime();
 	host = host_;
-	//Siempre tiene que funcionar
-	funcionando = true;
+
 }
 
 void InicioCinta::update()
@@ -20,7 +20,7 @@ void InicioCinta::update()
 
 	int i = rand() % 1000;
 
-	if (sdlutils().virtualTimer().currTime() - initTime >= SPAWN_DELAY && isActive())
+	if (sdlutils().virtualTimer().currTime() - initTime >= SPAWN_DELAY && isActive() && funcionando)
 	{
 		if (i < porcentajeLetal && !dynamic_cast<Tutorial*>(game->getCurrentScene()))
 		{ 
@@ -41,6 +41,39 @@ void InicioCinta::update()
 			game->getNetworkManager()->sendCreateIngrediente(ing->getTipo(), ing->getId(), getPosition(), vel);
 		}
 	}
+	if (funcionando && couldBreak <= 0)
+	{
+		testMueble();
+		if (funcionando) {
+			//se reduce cuando se podría romper
+			couldBreak = MAX_BREAK_TIME - REDUCE_BREAK_TIME;
+		}
+		else {
+			//se resetea cuando se podría romper
+			couldBreak = MAX_BREAK_TIME;
+		}
+	}
+	else if (funcionando && couldBreak > 0) {
+		couldBreak -= seg;
+	}
+	if (!funcionando)
+		humo->setStyle(ParticleExample::EXPLOSION);
+	else humo->setStyle(ParticleExample::NONE);
+	humo->setPosition(getX(), getY());
+	humo->update();
+}
+
+void InicioCinta::render(SDL_Rect* cameraRect)
+{
+	SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, getWidth(),
+	   getHeight() };
+	if (isActive()) {
+
+		if (funcionando)drawRender(cameraRect, dest, &sdlutils().images().at("inicioCinta"));
+		else drawRender(cameraRect, dest, &sdlutils().images().at("berenjena"));
+
+		humo->draw(cameraRect);
+	}
 }
 
 SDL_Rect InicioCinta::getCollider()
@@ -51,5 +84,5 @@ SDL_Rect InicioCinta::getCollider()
 
 SDL_Rect InicioCinta::getOverlap()
 {
-	return SDL_Rect();
+	return getTexBox();
 }

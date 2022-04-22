@@ -33,7 +33,7 @@ class Herramienta;
 
 using namespace std;
 
-enum poolType { _p_INGREDIENTELETAL, _p_INGREDIENTE, _p_ARROZ, _p_GRUPO, _p_CLIENTE};
+enum poolType { _p_INGREDIENTELETAL, _p_INGREDIENTE, _p_HERRAMIENTA, _p_ARROZ, _p_GRUPO, _p_CLIENTE};
 
 
 class ObjectManager

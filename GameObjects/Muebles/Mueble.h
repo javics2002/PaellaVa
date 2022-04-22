@@ -13,6 +13,7 @@ class Mesa;
 class Silla;
 class PoolObject;
 class Herramienta;
+class ParticleExample;
 
 class Mueble : public GameObject
 {
@@ -25,12 +26,15 @@ protected:
 
     int id;
     bool funcionando;
-    int roto = 30;
+    int roto = 20;
     int randomOptions = 100;
+    ParticleExample* humo;
+
 
 public:
 	Mueble(Game* game, Vector2D<double> position, int width, int height, string claveTextura);
-	~Mueble() = default;
+    ~Mueble() { delete humo; };
+
 
     virtual bool receiveIngrediente(Ingrediente* ingr) { return false; }
     virtual bool receiveGrupoClientes(GrupoClientes* gc) { return false; }

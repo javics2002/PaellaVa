@@ -4,12 +4,14 @@
 #include "../GameObjects/Paella.h"
 #include "../GameObjects/Ingrediente.h"
 #include "../GameObjects/Muebles/Pila.h"
+#include "../GameObjects/Muebles/CajaHerramientas.h"
 #include "../GameObjects/Muebles/MueblesInclude.h"
 #include  "../GameObjects/UI/RedactaComandabutton.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../Control/Game.h"
 #include "../Data/ListaComandas.h"
 #include "../GameObjects/UI/Reloj.h"
+
 #ifdef _DEBUG
 #include "../Scenes/GameOver.h"
 #endif // _DEBUG
@@ -418,6 +420,10 @@ void Jornada::loadMap(string const& path)
 				{
 					Pila* p = new Pila(game, position, TipoPaella::Grande, 3);
 					getObjectManager()->addMueble(p);
+				}else if (name == "cajaHerramientas")
+				{
+					CajaHerramientas* ch = new CajaHerramientas(game, position);
+					getObjectManager()->addMueble(ch);
 				}
 
 				

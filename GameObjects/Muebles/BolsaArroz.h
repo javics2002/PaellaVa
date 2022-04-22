@@ -10,5 +10,6 @@ public:
 	~BolsaArroz() = default;
 	
 	virtual bool returnObject(Player* p) override;
+	virtual bool receiveArroz(Arroz* arr) override;
 };
 

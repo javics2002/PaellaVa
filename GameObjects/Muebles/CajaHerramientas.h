@@ -5,9 +5,6 @@ class Herramienta;
 
 class CajaHerramientas : public Mueble
 {
-private:
-	Herramienta* tool_ = nullptr;
-
 public:
 	CajaHerramientas(Game* game, Vector2D<double> pos);
 	~CajaHerramientas() = default;

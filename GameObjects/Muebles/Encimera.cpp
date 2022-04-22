@@ -78,8 +78,7 @@ bool Encimera::receiveArroz(Arroz* arr)
 			return false;
 		}
 	}
-	
-	else if (ingr_ == nullptr && arroz_ == nullptr) {
+	else if (ingr_ == nullptr && arroz_ == nullptr && paella_==nullptr) {
 
 		arroz_ = arr;
 		arroz_->setPosition(getRectCenter(getOverlap()));

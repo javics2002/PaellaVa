@@ -17,7 +17,7 @@ public:
 	const double TIEMPO_LAVADO = 3000.0;
 	double initTime;
 
-	const int MAX_BREAK_TIME = 3000;
+	const int MAX_BREAK_TIME = 18000;
 	const int REDUCE_BREAK_TIME = 500;
 	int couldBreak = MAX_BREAK_TIME;
 	int seg = 10;
@@ -34,7 +34,6 @@ public:
 	~Lavavajillas() = default;
 
 	void update() override;
-	void ensuciarPaellas();
 	void lavando();
 
 	bool receivePaella(Paella* paella_) override;

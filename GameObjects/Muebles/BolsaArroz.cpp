@@ -19,3 +19,11 @@ bool BolsaArroz::returnObject(Player* p)
 
 	return true;
 }
+
+bool BolsaArroz::receiveArroz(Arroz* arr)
+{
+	arr->setActive(false);
+	return true;
+}
+
+

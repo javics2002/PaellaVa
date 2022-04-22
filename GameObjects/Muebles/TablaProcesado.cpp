@@ -1,8 +1,10 @@
 #include "TablaProcesado.h"
+#include "../../sdlutils/SDLUtils.h"
 
 #include "../../GameObjects/Player.h"
 #include "../../Control/Game.h"
 #include "../../Scenes/Tutorial.h"
+#include "../../Utils/ParticleExample.h"
 
 
 TablaProcesado::TablaProcesado(Game* game_, Vector2D<double> pos) : Mueble(game_, pos, TILE_SIZE, 2 * TILE_SIZE, "tablaProcesado")
@@ -11,69 +13,67 @@ TablaProcesado::TablaProcesado(Game* game_, Vector2D<double> pos) : Mueble(game_
 	clip.w = timerTexture->width() / 8;
 	clip.h = timerTexture->height();
 	clip.y = 0;
+
+
 }
 
 void TablaProcesado::update() 
 {
+	if (funcionando && ingr_ != nullptr) {
+		procesando();
+	}
+	else if (!funcionando && ingr_ != nullptr) {
+		i = 0;
+		clip.x = 0;
+		rellenoTimer = 0;
+		tiempo = sdlutils().currRealTime();
+	}
+
 	if (funcionando)
 	{
-		if (ingr_ != nullptr)
-		{
-			procesando();
-		}
-
 		if (couldBreak <= 0)
 		{
 			testMueble();
-
-			if (funcionando)
-			{
+			if (funcionando){	
 				//se reduce cuando se podr�a romper
 				couldBreak = MAX_BREAK_TIME - REDUCE_BREAK_TIME;
 			}
-			else
-			{
+			else{
 				//se resetea cuando se podr�a romper
 				couldBreak = MAX_BREAK_TIME;
 			}
 		}
-		else if (couldBreak > 0)
-		{
+		else if (couldBreak > 0){
 			couldBreak -= seg;
 		}
 	}
 	if (!funcionando)
-	{
-		if (ingr_ != nullptr)
-		{
-			//Se destruye el ingrediente
-			ingr_->setActive(false);
-		}
-	}
+		humo->setStyle(ParticleExample::EXPLOSION);
+	else humo->setStyle(ParticleExample::NONE);
+	humo->setPosition(getX(), getY());
+	humo->update();
 }
 
 void TablaProcesado::procesando() 
 {
-	if (funcionando)
+
+	if (sdlutils().currRealTime() - tiempo >= TIEMPO_PROCESADO)
 	{
-		if (sdlutils().currRealTime() - tiempo >= TIEMPO_PROCESADO)
-		{
-			ingr_->setProcesado(true, ingr_);
-			tiempo = sdlutils().currRealTime();
+		ingr_->setProcesado(true, ingr_);
+		tiempo = sdlutils().currRealTime();
 
-			clip.x = i * clip.w;
+		clip.x = i * clip.w;
 
-			sdlutils().soundEffects().at("cortar1").haltChannel(canalSonido);
-		}
-		else if (sdlutils().currRealTime() - tiempo >= rellenoTimer + TIEMPO_PROCESADO / 8)
-		{
+		sdlutils().soundEffects().at("cortar1").haltChannel(canalSonido);
+	}
+	else if (sdlutils().currRealTime() - tiempo >= rellenoTimer + TIEMPO_PROCESADO / 8)
+	{
 
-			clip.x = i * clip.w;
+		clip.x = i * clip.w;
 
-			i++;
+		i++;
 
-			rellenoTimer += TIEMPO_PROCESADO / 8;
-		}
+		rellenoTimer += TIEMPO_PROCESADO / 8;
 	}
 }
 
@@ -83,9 +83,10 @@ void TablaProcesado::render(SDL_Rect* camera)
 		SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, getWidth(),
 			getHeight() };
 
-	//Si no funciona usar la textura del fuego
+			
 
-		drawRender(camera, dest, &sdlutils().images().at("tablaProcesado"));
+		if(funcionando)drawRender(camera, dest, &sdlutils().images().at("tablaProcesado"));
+		else drawRender(camera, dest, &sdlutils().images().at("berenjena"));
 
 		if (ingr_ != nullptr && !ingr_->getProcesado() && i != 0) {
 
@@ -93,6 +94,8 @@ void TablaProcesado::render(SDL_Rect* camera)
 
 			drawRender(camera, dest_, &sdlutils().images().at("timer"), clip);
 		}
+
+		humo->draw(camera);
 	}
 
 }
