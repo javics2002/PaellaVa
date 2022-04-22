@@ -24,7 +24,7 @@ class UIManager
 	vector<GameObject*> interfaz;//el resto de iconos 
 	vector<UiButton*> botones;//botones
 	vector<Comanda*> comandas;//comandas de la lista de comandas
-	vector<IngredienteButton*> teclado;//iconos que se usan en la comanda qeu esta redactando
+	vector<UiButton*> teclado;//iconos que se usan en la comanda qeu esta redactando
 	vector<UiButton*> uicomandas;
 	//vector <GameObject*> pedido;//pedido que se est� redactando lo lleva la comanda
 
@@ -97,7 +97,7 @@ public:
 	ListaComandas* getBarra();
 	void setBarra(ListaComandas* b);
 	vector< Point2D<double>> getPosTeclado();
-	vector<IngredienteButton*> getTeclado() { return teclado; };
+	vector<UiButton*> getTeclado() { return teclado; };
 	void setPosTeclado(vector< Point2D<double>> t);
 	void creaTeclado();
 	void randomizaTeclado();

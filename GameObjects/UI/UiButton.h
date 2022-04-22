@@ -10,6 +10,7 @@ class UiButton: public GameObject
 
 protected:
 	string textura;
+//ool focused = true;
 	
 public:
 	//UiButton(int x, int y, Texture* texture,int w,int h) :x(x), y(y), textura(texture) ,w(w),h(h){};
@@ -23,5 +24,9 @@ public:
 	string getTextura() { return textura; };
 
 	void setAction(function<void(Game* game, bool& exit)> action);
+	void setfocused();
+	void setunfocused();
+//ool getfocused() { return focused; };
+	
 };
 

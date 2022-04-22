@@ -8,6 +8,7 @@
 #include "../Control/ObjectManager.h"
 #include "../GameObjects/UI/UIManager.h"
 #include "ListaComandas.h"
+#include "../sdlutils/InputHandler.h"
 
 Comanda::Comanda(Game* game, uint escala, UIManager* uim) :GameObject(game)
 {
@@ -37,11 +38,11 @@ Comanda::Comanda(Game* game, uint escala, UIManager* uim) :GameObject(game)
 	double ix = p.getX() / 2 + margenbotones + anchobotones / 2;
 	double iy = p.getY() / 2 + 2 * anchobotones;
 	margenizquierdo = ix;
-	margensuperior = iy;
+	margensuperior = iy-anchobotones/2;
 	escritoX = ix;
 	//margenizquierdo= getPosition().getX() / 2 + anchobotones / 1*escale;
 	//escritoX = getPosition().getX() / 2 + anchobotones / 1*escale;
-	escritoY = iy - anchobotones - margenbotones;
+	escritoY = margensuperior;
 	//teclado inicial igualq eu lso magenes y eso para resetear la comanda bien
 	 //creamos las psiciones de los botones del teclado
 }
@@ -73,6 +74,7 @@ Comanda::~Comanda()
 }
 void Comanda::añadiraPedido(string i)
 {
+	
 	if (Pedido.size() < maxingrendientes+1&&paellas.size()<maxpaellas)
 
 	{
@@ -115,6 +117,9 @@ void Comanda::anadirNumeromesa(string n)
 	numeromesa = new UiButton(game, n, x + anchobotones, anchobotones, anchobotones / 2, anchobotones / 2);
 	toggleTecladonum(false);
 	toggleTecaldotam(true);
+	activeTeclado = tecladotam;
+	chageActiveTeclado();
+	
 }
 UiButton* Comanda::getNumeromesa()
 {
@@ -223,12 +228,12 @@ void Comanda::guardaTeclado()
    // de momento voy a forzar una sangria aqui s tnego tiempo mirare una manera mejor xd
 }
 
-void Comanda::guardaTecladonum(vector<NumeroButton*> n)
+void Comanda::guardaTecladonum(vector<UiButton*> n)
 {
 	tecladonum = n;
 }
 
-void Comanda::guardaTecladotam(vector<TamanoButton*> t)
+void Comanda::guardaTecladotam(vector<UiButton*> t)
 {
 	tecladotam = t;
 }
@@ -267,7 +272,7 @@ void Comanda::aceptaPaella()
 	//aqui esta lo dificil el vector de la paella que envias ya no lo podras editar pero deberia seguir siendo visible 
 	//, tendra que mover margenes y vaciar el vector de pedido y que haya un render paellas , lo dificil va  a ser que 
 	//se renderice otdo guay
-	if (!tecladonum[0]->isActive()&&paellas.size()<maxpaellas&& Pedido.size()>0)
+	if (!tecladonum[0]->isActive()&&paellas.size()<maxpaellas&&Pedido.size()>0)
 	{
 		if (!Pedido.empty())
 		{
@@ -481,12 +486,27 @@ void Comanda::toggleactive()
 	if (isActive())//activando comanda
 	{
 		toggleTecladonum(isActive());
+		focusedzone = 0;
+		indexfocus = 0;
+		//tecladonum[indexfocus]->setfocused();
+		activeTeclado = tecladonum;
+		focusedbutton = activeTeclado[indexfocus];
+		activeTeclado[indexfocus]->setfocused();
+		
+		
+
+
+
 	}
 	else//desactivando comanda
 	{
 		toggleTecaldotam(isActive());
 		toggleTeclado(isActive());
 		toggleTecladonum(isActive());
+		focusedbutton->setunfocused();
+		focusedbutton = nullptr;
+		focusedzone = -1;
+		indexfocus = -1;
 	}
 
 	cancelaPedido();
@@ -526,4 +546,98 @@ Comanda* Comanda::seleccionaComanda()
 void Comanda::deseleccionaComanda()
 {
 	setTexture("cuadernillo");
+}
+void Comanda::pressSelectedButton()
+{
+	if (focusedbutton != nullptr)
+	{
+		bool b= false;
+		focusedbutton->execute(b);
+	}
+}
+void Comanda::cambiazonafoco()
+{
+	if (focusedzone == 0)//cambio del teclado a la ui comandas
+	{
+		activeTeclado = botones;
+		chageActiveTeclado();
+		focusedzone = 1;
+	}
+	else
+	{
+		//ver que teclado esta activo  y focusearlo
+		if (teclado[0]->isActive())
+		{
+			activeTeclado = teclado;
+			chageActiveTeclado();
+		}
+		else if (tecladonum[0]->isActive())
+		{
+			activeTeclado = tecladonum;
+			chageActiveTeclado();
+
+		}
+		else if (tecladotam[0]->isActive())
+		{
+			activeTeclado = tecladotam;
+			chageActiveTeclado();
+
+		}
+		focusedzone = 0;
+	}
+}
+void Comanda::siguientebotonfocus(int dir)
+{
+	if (!activeTeclado.empty())
+	{
+		activeTeclado[indexfocus]->setunfocused();
+		indexfocus += dir;
+		if (indexfocus < activeTeclado.size()&&indexfocus>=0)
+		{
+			//indice valido todo guay
+		}
+		 else if (indexfocus < 0)
+		{
+			indexfocus = activeTeclado.size() - 1;
+		}
+		else indexfocus = 0;
+		focusedbutton = activeTeclado[indexfocus];
+		activeTeclado[indexfocus]->setfocused();
+	}
+}
+void Comanda::update()
+{
+	if (isActive())
+	{
+		if (ih().getKey(ih().RIGHT))
+		{
+		
+			siguientebotonfocus(1);
+		}
+		if (ih().getKey(ih().LEFT))
+		{
+			siguientebotonfocus(-1);
+		}
+		if (ih().getKey(ih().A))
+		{
+			pressSelectedButton();
+			
+		}
+		if (ih().getKey(ih().LB))
+		{
+			cambiazonafoco();
+		}
+
+	}
+}
+void Comanda::chageActiveTeclado()
+{
+	focusedbutton->setunfocused();
+	activeTeclado[0]->setfocused();
+	focusedbutton = activeTeclado[0];
+}
+void Comanda::setActiveTeclado(vector<UiButton*> a)
+{
+	activeTeclado = a;
+	chageActiveTeclado();
 }

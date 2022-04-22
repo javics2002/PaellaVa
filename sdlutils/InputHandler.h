@@ -32,6 +32,7 @@ class InputHandler : public Singleton<InputHandler> {
 
 	int mx = -1;
 	int my = -1;
+	bool focusedcontrols = false;
 
 	bool isMouseButtonHeldDown_;
 
@@ -556,6 +557,7 @@ public:
 	}
 
 	void setGame(Game* game_) { game = game_; }
+	void setFocused(bool b) { focusedcontrols = b; };
 };
 
 // This macro defines a compact way for using the singleton InputHandler, instead of

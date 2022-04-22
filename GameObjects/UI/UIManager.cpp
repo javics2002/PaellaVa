@@ -279,7 +279,25 @@ void UIManager::update(bool paused)
 		for (auto i : interfaz)
 			if (i->isActive())
 				i->update();
+		for (auto i : comandas)
+		{
+			if(i->isActive())
+			i->update();
+		}
+		/*if (ih().getKey(ih().Y))
+		{
+			if (getComanda() == nullptr)
+			{
+				creaComanda(game);
+			}
+			else
+			{
+				getComanda()->toggleactive();
+			}
+			cout << "Y  ";
+		}*/
 	}
+
 
 	if (enLobby && sdlutils().virtualTimer().currTime() - initTime >= tiempoCreacion) {
 
@@ -429,6 +447,8 @@ void UIManager::creaComanda(Game* game)
 	EnviaComandaButton* enviaComandaButton = new EnviaComandaButton(game, "envia", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() + actual->getHeight() / 4 + anchobotones, uiscale * anchobotones, uiscale * anchobotones);
 	interfaz.push_back(enviaComandaButton);
 	actual->guardaBoton(enviaComandaButton);
+	actual->toggleactive();
+	actual->toggleactive();
 
 	if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::abreLibreta)
 		game->getCurrentScene()->changeState(States::pauasAbreLibreta);
@@ -478,7 +498,7 @@ void UIManager::creaTeclado()
 		j++;
 	}
 	j = 0;
-	vector <NumeroButton*> tecladonum;
+	vector <UiButton*> tecladonum;
 
 	for (auto i : texturasNumeros)
 	{
@@ -492,7 +512,7 @@ void UIManager::creaTeclado()
 	actual->guardaTecladonum(tecladonum);
 
 	j = 0;
-	vector <TamanoButton*> tecladotam;
+	vector <UiButton*> tecladotam;
 	for (auto i : texturasTamanos)
 	{
 		TamanoButton* a = new TamanoButton(this, game, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), uiscale * anchobotones, uiscale * anchobotones);

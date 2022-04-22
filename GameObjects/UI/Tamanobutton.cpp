@@ -16,7 +16,7 @@ void TamanoButton::execute(bool& exit)
 	c->añadiraPedido(textura);
 	c->toggleTecaldotam(false);
 	c->toggleTeclado(true);
-	
+	c->setActiveTeclado(c->getTecladoing());
 	//Sonido de escribir aleatorio
 	sdlutils().soundEffects().at("escribir" + std::to_string(sdlutils().rand().nextInt(2, 5))).play(0, game->UI);
 }

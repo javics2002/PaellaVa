@@ -42,8 +42,8 @@ public:
 
     void guardaTeclado();
     void guardaBoton(UiButton* b);
-    void guardaTecladonum(vector <NumeroButton*> n);
-    void guardaTecladotam(vector <TamanoButton*> t);
+    void guardaTecladonum(vector <UiButton*> n);
+    void guardaTecladotam(vector <UiButton*> t);
     void toggleTeclado(bool b);
     void toggleTecladonum(bool b);
     void toggleTecaldotam(bool b);
@@ -64,6 +64,12 @@ public:
     bool  OnClick(int mx, int my);
         Comanda *seleccionaComanda();
     void deseleccionaComanda();
+    void pressSelectedButton();
+    void cambiazonafoco();
+    void siguientebotonfocus(int dir);
+    void update() override;
+    void setActiveTeclado(vector<UiButton*> a);
+    vector<UiButton*> getTecladoing() { return teclado; };
 
 private:
     vector<Point2D<double> >posicionesBotones;//vas seleccionando y vas borrando las ya usadas
@@ -92,14 +98,18 @@ private:
     float puntuacion;
     UIManager* uiManager;
     vector<UiButton*> Pedido;//lo que mostramos en la ui  de lo que vas añadiendo a la comanda
-    vector<IngredienteButton*> teclado;
-    vector <NumeroButton*> tecladonum;
-    vector <TamanoButton*> tecladotam;
+    vector<UiButton*> teclado;
+    vector <UiButton*> tecladonum;
+    vector <UiButton*> tecladotam;
     vector<UiButton*> botones;
     UiButton* numeromesa;
     vector<Point2D<double>> postecladoini;
     vector<vector <UiButton* >> paellas; // esto es lo que se envia a la lista de comandas y vamos haciendo paellas[i,j.pushback(]pedido[i])
-
+    UiButton* focusedbutton = nullptr;
+    vector<UiButton*> activeTeclado = {};
+    int indexfocus=-1;
+    int focusedzone = -1; // 0 teclado 1 uicomanda
+    void chageActiveTeclado();
     //float calculaPuntuacion(Paella paella) ; definicion pendiente de la creacion e paella
-    void update() override {};
+   
 };

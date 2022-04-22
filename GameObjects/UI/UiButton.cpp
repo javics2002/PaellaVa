@@ -6,6 +6,8 @@ UiButton::UiButton(Game* game, string claveTextura, int x, int y, int w, int h) 
 	p.setY(y);
 	setPosition(p);
 	setDimension(w, h);
+	iniH=h;
+	iniW = w;
 	setTexture(claveTextura);
 	textura = claveTextura;
 }
@@ -42,10 +44,20 @@ bool UiButton::onClick(int mx, int my, bool& exit)
 
 void UiButton::update()
 {
+	
 }
 
 void UiButton::setAction(function<void(Game* game, bool& exit)> action)
 {
 	callback = action;
+}
+void UiButton::setfocused()
+{
+	setDimension(1.5 * getInitialWidth(), 1.5 * getInitialHeight());
+	
+}
+void UiButton::setunfocused()
+{
+	setDimension(getInitialWidth(), getInitialHeight());
 }
 
