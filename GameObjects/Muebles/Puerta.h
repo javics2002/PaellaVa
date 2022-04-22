@@ -28,6 +28,8 @@ public:
 
 	SDL_Rect getCollider() override;
 	SDL_Rect getOverlap() override;
+
+	Cola* getCola();
 };
 
 

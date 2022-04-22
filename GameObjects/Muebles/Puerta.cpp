@@ -127,3 +127,7 @@ SDL_Rect Puerta::getOverlap()
 	if (isActive())return getTexBox();
 	return { 0,0,0,0 };
 }
+
+Cola* Puerta::getCola() {
+	return cola;
+}

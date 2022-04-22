@@ -139,7 +139,9 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 						Ingrediente* ing = dynamic_cast<Ingrediente*>(pickedObject_);
 						game->getNetworkManager()->syncPickObject(objectType_, ing->getId(), -1, ing->esLetal());
 					}
-
+					else if (objectType_ == CLIENTES) {
+						game->getNetworkManager()->syncPickObject(objectType_, pickedObject_->getId(), -1, 0);
+					}
 				}
 			}
 		}
@@ -474,8 +476,17 @@ void Player::PickCustomObject(int objectType, int objectId, int muebleId, int ex
 				break;
 			}
 		}
-
 	}
+	else if (objectType == CLIENTES)
+	{
+		for (auto i : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getActiveObjects()) {
+			if (i->getId() == objectId) {
+				pickedObject_ = i;
+				break;
+			}
+		}
+	}
+
 	else { // Es un mueble
 		for (auto m : game->getObjectManager()->getMuebles()) {
 			if (m->getId() == muebleId) {
@@ -483,7 +494,6 @@ void Player::PickCustomObject(int objectType, int objectId, int muebleId, int ex
 				break;
 			}
 		}
-
 	}
 
 	// pick object

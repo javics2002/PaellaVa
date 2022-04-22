@@ -2,6 +2,8 @@
 
 #include "../Control/Game.h"
 #include "../GameObjects/Player.h"
+#include "../GameObjects/Muebles/Mueble.h"
+#include "../GameObjects/Muebles/Puerta.h"
 #include "../Control/ObjectManager.h"
 
 #include "../Scenes/Lobby.h"
@@ -246,7 +248,15 @@ void NetworkManager::updateClient()
 				GrupoClientes* g = game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->add();
 				g->setVel(Vector2D<double>(server_pkt.grupoCliente.velX, server_pkt.grupoCliente.velY));
 
-				g->initGrupo(nullptr, v);
+
+				int idDelPaquete = 0;
+
+				for (auto m : game->getObjectManager()->getMuebles()) {
+					if (m->getId() == idDelPaquete) {
+						g->initGrupo(dynamic_cast<Puerta*>(m)->getCola(), v);
+						break;
+					}
+				}
 
 				sdlutils().soundEffects().at("puerta").play();
 				}
