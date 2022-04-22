@@ -70,8 +70,9 @@ struct PacketIngrediente {
 struct PacketGrupoCliente {
 	Uint8 textCliente[8];
 	Uint8 tamGrupo;
-	Sint16 posPuertaX;
-	Sint16 posPuertaY;
+	
+	Uint16 door_id;
+
 	Uint8 velX;
 	Uint8 velY;
 
@@ -211,7 +212,8 @@ public:
 	void sendStartGame(int numJornada);
 	void sendCreateIngrediente(int tipoIngrediente, int ingId, Vector2D<double> pos, Vector2D<double> vel);
 	void sendCreateIngredienteLetal(int tipoIngrediente, Vector2D<double> pos, Vector2D<double> vel);
-	void sendGrupoCliente(int tamGrupo, Vector2D<double> puertaPos, Vector2D<double> vel, Vector2D<double> distancia, std::vector<int>textureNumber, float tolerancia);
+	
+	void sendGrupoCliente(int tamGrupo, int idPuerta, Vector2D<double> vel, Vector2D<double> distancia, std::vector<int> textureNumber, float tolerancia);
 	void sendButtonsBuffer(std::vector<bool> keyPressed);
 
 	void syncPlayers();
