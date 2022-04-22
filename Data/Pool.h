@@ -27,6 +27,8 @@ class Pool
 	//siguiente objeto a añadir al juego (o ultimo en haberse a�adido)
 	int nextElem;
 
+	int mNextId;
+
 	void findNextElem() {
 		nextElem = (nextElem + 1) % numElems;
 		int cont = 0;
@@ -43,6 +45,8 @@ class Pool
 			for (int i = 0; i < numElems; i++) {
 				T* o = new T(game);
 				o->setActive(false);
+				o->setId(mNextId);
+				mNextId++;
 				v.push_back(o);
 			}			
 		
@@ -61,6 +65,8 @@ public:
 		for (int i = 0; i < n; i++) {
 			T* o = new T(game);
 			o->setActive(false);
+			o->setId(mNextId);
+			mNextId++;
 			v.push_back(o);
 		}
 			

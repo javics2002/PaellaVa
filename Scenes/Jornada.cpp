@@ -336,22 +336,32 @@ void Jornada::loadMap(string const& path)
 				}
 				else if (name == "sillaIz" || name == "sillaDer") {
 					Silla* s = new Silla(game, position, name, +1);
+					s->setId(idCount);
+					idCount++;
 					getObjectManager()->addMueble(s);
 				}
 				else if (name == "sillaAr") {
-					Silla* s = new Silla(game, position, name, -1);;
+					Silla* s = new Silla(game, position, name, -1);
+					s->setId(idCount);
+					idCount++;
 					getObjectManager()->addMueble(s);
 				}
 				else if (name == "sillaAb") {
 					Silla* s = new Silla(game, position, name, +1);
+					s->setId(idCount);
+					idCount++;
 					getObjectManager()->addMueble(s);
 				}
 				else if (name == "fogon") {
 					Fogon* f = new Fogon(game, position);
+					f->setId(idCount);
+					idCount++;
 					getObjectManager()->addMueble(f);
 				}
 				else if (name == "lavavajillas") {
 					Lavavajillas* l = new Lavavajillas(game, position);
+					l->setId(idCount);
+					idCount++;
 					getObjectManager()->addMueble(l);
 				}
 				else if (name == "cinta") {
@@ -370,11 +380,17 @@ void Jornada::loadMap(string const& path)
 				}
 				else if (name == "finalCinta") {
 					FinalCinta* c = new FinalCinta(game, position);
+					c->setId(idCount);
+					idCount++;
 					getObjectManager()->addMueble(c);
 				}
-				else if (name == "puerta") {
+				else if (name == "puerta") { 
 					Puerta* puerta = new Puerta(game, position, p[3].getIntValue(), p[0].getIntValue(), host);
 					puerta->setVel(Vector2D<double>((double)p[1].getFloatValue(), (double)p[2].getFloatValue()));
+
+					puerta->setId(idCount);
+					idCount++;
+
 					getObjectManager()->addMueble(puerta);
 				}
 				else if (name == "cartel") {
@@ -383,6 +399,8 @@ void Jornada::loadMap(string const& path)
 				}
 				else if (name == "tabla") {
 					TablaProcesado* t = new TablaProcesado(game, position);
+					t->setId(idCount);
+					idCount++;
 					getObjectManager()->addMueble(t);
 				}
 				else if (name == "encimera") {
@@ -390,8 +408,6 @@ void Jornada::loadMap(string const& path)
 					e->setId(idCount);
 					idCount++;
 					getObjectManager()->addMueble(e);
-
-					getObjectManager()->addEncimera(e);
 				}
 				else if (name == "ventanilla") {
 					Ventanilla* v = new Ventanilla(game, position, camara->renderRect());
@@ -399,6 +415,8 @@ void Jornada::loadMap(string const& path)
 				}
 				else if (name == "arroz") {
 					BolsaArroz* b = new BolsaArroz(game, position);
+					b->setId(idCount);
+					idCount++;
 					getObjectManager()->addMueble(b);
 				}
 				else if (name == "pared") {
@@ -409,18 +427,25 @@ void Jornada::loadMap(string const& path)
 				else if (name == "pilaS")
 				{
 					Pila* p = new Pila(game, position, TipoPaella::Pequena, 4);
+					p->setId(idCount);
+					idCount++;
 					getObjectManager()->addMueble(p);
 				}
 				else if (name == "pilaM")
 				{
 					Pila* p = new Pila(game, position, TipoPaella::Mediana, 5);
+					p->setId(idCount);
+					idCount++;
 					getObjectManager()->addMueble(p);
 				}
 				else if (name == "pilaL")
 				{
 					Pila* p = new Pila(game, position, TipoPaella::Grande, 3);
+					p->setId(idCount);
+					idCount++;
 					getObjectManager()->addMueble(p);
-				}else if (name == "cajaHerramientas")
+				}
+				else if (name == "cajaHerramientas")
 				{
 					CajaHerramientas* ch = new CajaHerramientas(game, position);
 					getObjectManager()->addMueble(ch);

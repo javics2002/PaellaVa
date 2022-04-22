@@ -2,6 +2,8 @@
 
 #include "../Control/Game.h"
 #include "../GameObjects/Player.h"
+#include "../GameObjects/Muebles/Mueble.h"
+#include "../GameObjects/Muebles/Puerta.h"
 #include "../Control/ObjectManager.h"
 
 #include "../Scenes/Lobby.h"
@@ -122,7 +124,7 @@ void NetworkManager::receivePlayers()
 
 				case EPT_SYNCPICKOBJECT:
 					// recorrer la pool correspondiente a object type, encontrar el objeto con la id correspondiente y coger dicho objeto
-					game->getObjectManager()->getPlayerTwo()->PickCustomObject(pkt.syncPickObject.object_type, pkt.syncPickObject.object_id);
+					game->getObjectManager()->getPlayerTwo()->PickCustomObject(pkt.syncPickObject.object_type, pkt.syncPickObject.object_id, pkt.syncPickObject.mueble_id, pkt.syncPickObject.extra_info);
 
 					break;
 				case EPT_SYNCDROPOBJECT:
@@ -230,8 +232,17 @@ void NetworkManager::updateClient()
 				{
 				vector<Cliente*> v;
 
+				Puerta* puerta = nullptr;
+
+				for (auto m : game->getObjectManager()->getMuebles()) {
+					if (m->getId() == server_pkt.grupoCliente.door_id) {
+						puerta = dynamic_cast<Puerta*>(m);
+						break;
+					}
+				}
+
 				Vector2D<double> distancia = Vector2D<double>(server_pkt.grupoCliente.dirX, server_pkt.grupoCliente.dirY);
-				Vector2D<double> pos = Vector2D<double>(server_pkt.grupoCliente.posPuertaX, server_pkt.grupoCliente.posPuertaY);
+				Vector2D<double> pos = puerta->getPosition();
 
 				for (int i = 0; i < server_pkt.grupoCliente.tamGrupo; i++) {
 					Cliente* c = game->getObjectManager()->getPool<Cliente>(_p_CLIENTE)->add();
@@ -246,7 +257,8 @@ void NetworkManager::updateClient()
 				GrupoClientes* g = game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->add();
 				g->setVel(Vector2D<double>(server_pkt.grupoCliente.velX, server_pkt.grupoCliente.velY));
 
-				g->initGrupo(nullptr, v);
+				puerta->getCola()->add(g, server_pkt.grupoCliente.tamGrupo);
+				g->initGrupo(puerta->getCola(), v);
 
 				sdlutils().soundEffects().at("puerta").play();
 				}
@@ -282,7 +294,7 @@ void NetworkManager::updateClient()
 				break;
 			case EPT_SYNCPICKOBJECT:
 				// recorrer la pool correspondiente a object type, encontrar el objeto con la id correspondiente y coger dicho objeto
-				game->getObjectManager()->getPlayerTwo()->PickCustomObject(server_pkt.syncPickObject.object_type, server_pkt.syncPickObject.object_id);
+				game->getObjectManager()->getPlayerTwo()->PickCustomObject(server_pkt.syncPickObject.object_type, server_pkt.syncPickObject.object_id, server_pkt.syncPickObject.mueble_id, server_pkt.syncPickObject.extra_info);
 
 				break;
 			case EPT_SYNCDROPOBJECT:
@@ -637,36 +649,6 @@ void NetworkManager::sendCreateIngredienteLetal(int tipoIngrediente, Vector2D<do
 	}
 }
 
-void NetworkManager::sendGrupoCliente(int tamGrupo, Vector2D<double> puertaPos, Vector2D<double> vel, Vector2D<double> distancia, vector<int> textureNumber, float tolerancia)
-{
-	Packet pkt;
-
-	pkt.packet_type = EPT_CREATECLIENTGROUP;
-	pkt.grupoCliente.tamGrupo = tamGrupo;
-	pkt.grupoCliente.posPuertaX = puertaPos.getX();
-	pkt.grupoCliente.posPuertaY = puertaPos.getY();
-
-	pkt.grupoCliente.velX = vel.getX();
-	pkt.grupoCliente.velY = vel.getY();
-
-	pkt.grupoCliente.dirX = distancia.getX();
-	pkt.grupoCliente.dirY = distancia.getY();
-
-	for (int i = 0u; i < tamGrupo; i++) {
-		pkt.grupoCliente.textCliente[i] = textureNumber[i];
-	}
-
-	pkt.grupoCliente.tolerancia = tolerancia;
-
-	for (int i = 1u; i < player_sockets.size(); i++) {
-		if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
-		{
-			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
-			exit(EXIT_FAILURE);
-		}
-	}
-}
-
 void NetworkManager::sendButtonsBuffer(vector<bool> keyPressed)
 {
 	if (gameStarted) {
@@ -750,12 +732,44 @@ void NetworkManager::syncDropObject(int objectType, int objectId, int muebleId)
 	}
 }
 
-void NetworkManager::syncPickObject(int objectType, int objectId)
+void NetworkManager::sendGrupoCliente(int tamGrupo, int idPuerta, Vector2D<double> vel, Vector2D<double> distancia, std::vector<int> textureNumber, float tolerancia)
+{
+	Packet pkt;
+
+	pkt.packet_type = EPT_CREATECLIENTGROUP;
+	pkt.grupoCliente.tamGrupo = tamGrupo;
+
+	pkt.grupoCliente.door_id = idPuerta;
+
+	pkt.grupoCliente.velX = vel.getX();
+	pkt.grupoCliente.velY = vel.getY();
+
+	pkt.grupoCliente.dirX = distancia.getX();
+	pkt.grupoCliente.dirY = distancia.getY();
+
+	for (int i = 0u; i < tamGrupo; i++) {
+		pkt.grupoCliente.textCliente[i] = textureNumber[i];
+	}
+
+	pkt.grupoCliente.tolerancia = tolerancia;
+
+	for (int i = 1u; i < player_sockets.size(); i++) {
+		if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+		{
+			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+			exit(EXIT_FAILURE);
+		}
+	}
+}
+
+void NetworkManager::syncPickObject(int objectType, int objectId, int muebleId, int extraInfo)
 {
 	Packet pkt;
 	pkt.packet_type = EPT_SYNCPICKOBJECT;
 	pkt.syncPickObject.object_type = objectType;
 	pkt.syncPickObject.object_id = objectId;
+	pkt.syncPickObject.mueble_id = muebleId;
+	pkt.syncPickObject.extra_info = extraInfo;
 
 	if (nType == 'h') {
 		for (int i = 1u; i < player_sockets.size(); i++) {

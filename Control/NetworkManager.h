@@ -70,8 +70,9 @@ struct PacketIngrediente {
 struct PacketGrupoCliente {
 	Uint8 textCliente[8];
 	Uint8 tamGrupo;
-	Sint16 posPuertaX;
-	Sint16 posPuertaY;
+	
+	Uint16 door_id;
+
 	Uint8 velX;
 	Uint8 velY;
 
@@ -95,14 +96,16 @@ struct PacketSyncPlayers {
 // currently testing
 struct PacketSyncPickObject {
 	Uint8 object_type; // 0 - ingredientes, 1 - clientes, 2 - paella, 3 - arroz
+	Uint8 extra_info; // additional info
 	Uint16 object_id; // id
+	Sint16 mueble_id; // id mueble
 };
 
 struct PacketSyncDropObject {
 	Uint8 object_type; // 0 - ingredientes, 1 - clientes, 2 - paella, 3 - arroz
 	Uint16 object_id; // id
 
-	Uint16 mueble_id; // mueble id
+	Sint16 mueble_id; // mueble id
 };
 
 struct Packet {
@@ -209,12 +212,13 @@ public:
 	void sendStartGame(int numJornada);
 	void sendCreateIngrediente(int tipoIngrediente, int ingId, Vector2D<double> pos, Vector2D<double> vel);
 	void sendCreateIngredienteLetal(int tipoIngrediente, Vector2D<double> pos, Vector2D<double> vel);
-	void sendGrupoCliente(int tamGrupo, Vector2D<double> puertaPos, Vector2D<double> vel, Vector2D<double> distancia, std::vector<int>textureNumber, float tolerancia);
+	
+	void sendGrupoCliente(int tamGrupo, int idPuerta, Vector2D<double> vel, Vector2D<double> distancia, std::vector<int> textureNumber, float tolerancia);
 	void sendButtonsBuffer(std::vector<bool> keyPressed);
 
 	void syncPlayers();
 
-	void syncPickObject(int objectType, int objectId);
+	void syncPickObject(int objectType, int objectId, int muebleId, int extraInfo);
 	void syncDropObject(int objectType, int objectId, int muebleId);
 
 	void setGameStarted(bool gameStarted_) { gameStarted = gameStarted_; }

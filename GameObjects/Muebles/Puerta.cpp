@@ -94,7 +94,7 @@ void Puerta::update()
 
 			sdlutils().soundEffects().at("puerta").play();
 
-			game->getNetworkManager()->sendGrupoCliente(integrantes, getPosition(), vel, dist, texturas, 100);
+			game->getNetworkManager()->sendGrupoCliente(integrantes, getId(), vel, dist, texturas, 100);
 		}
 
 		initTime = sdlutils().virtualTimer().currTime();
@@ -126,4 +126,8 @@ SDL_Rect Puerta::getOverlap()
 {
 	if (isActive())return getTexBox();
 	return { 0,0,0,0 };
+}
+
+Cola* Puerta::getCola() {
+	return cola;
 }

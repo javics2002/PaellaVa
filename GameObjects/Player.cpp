@@ -9,16 +9,15 @@
 #include "Ingrediente.h"
 #include "Muebles/Mueble.h"
 #include "Muebles/Mesa.h"
-#include "Muebles/Encimera.h"
+#include "Muebles/FinalCinta.h"
 #include "Arroz.h"
-#include "Herramienta.h"
 
 #include "../Utils/Traza.h"
 
 
 Player::Player(Game* game, bool chef) : GameObject(game), objectType_(INGREDIENTE), pickedObject_(nullptr), chef_(chef),
-	overlapPos(Vector2D<double>(getX() - overlapPos.getX() / 2, getY() - getHeight() / 2 - overlapDim.getY())),
-	overlapDim(Vector2D<int>(50, 50))
+overlapPos(Vector2D<double>(getX() - overlapPos.getX() / 2, getY() - getHeight() / 2 - overlapDim.getY())),
+overlapDim(Vector2D<int>(50, 50))
 {
 	setPosition(200, 600);
 	setDimension(120, 120);
@@ -75,18 +74,26 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 
 		//Si el jugador no lleva nada encima
 		if (pickedObject_ == nullptr) {
-		
+
 			//Si se ha encontrado un mueble, se intenta interactuar con 
 			//este con returnObject(), para que te devuelva el objeto
 			if (m != nullptr && m->returnObject(this)) {
 				pickedObject_->pickObject();
 
 				// Mandar mensaje de que he pillado un objeto
-				if (objectType_ == INGREDIENTE) {
-					game->getNetworkManager()->syncPickObject(objectType_, pickedObject_->getId());
+				if (objectType_ == PAELLA) {
+					Paella* pa = dynamic_cast<Paella*>(pickedObject_);
+					game->getNetworkManager()->syncPickObject(objectType_, pa->getId(), m->getId(), pa->getTipo());
 				}
+				else if (objectType_ == INGREDIENTE) {
+					Ingrediente* ing = dynamic_cast<Ingrediente*>(pickedObject_);
+					game->getNetworkManager()->syncPickObject(objectType_, ing->getId(), m->getId(), ing->esLetal());
+				}
+				else {
+					game->getNetworkManager()->syncPickObject(objectType_, pickedObject_->getId(), m->getId(), 0);
+				}
+
 			}
-				
 
 			//En caso contrario se recorre el resto de objetos del juego para ver si el jugador puede cogerlos
 			//Una vez m�s se prioriza el objeto m�s cercano
@@ -97,7 +104,7 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 					if (i->isActive() && i->canPick() && nearestObject(i)) {
 						objectType_ = INGREDIENTE;
 					}
-						
+
 					if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::cogerIngrediente) {
 						game->getCurrentScene()->changeState(States::pausaCogerIngrediente);
 					}
@@ -110,9 +117,9 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 				}
 				//Grupo de Clientes
 				for (auto i : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getOverlaps(getOverlap())) {
-					if (i->isActive() && i->canPick() && nearestObject(i)) {
+					if (i->isActive() && i->canPick() && !i->isPicked() && nearestObject(i)) {
 						objectType_ = CLIENTES;
-						if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState()==States::cogerClientes) {
+						if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::cogerClientes) {
 							game->getCurrentScene()->changeState(States::pausaClientes);
 						}
 					}
@@ -124,9 +131,12 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 
 					// Mandar mensaje de que he pillado un objeto
 					if (objectType_ == INGREDIENTE) {
-						game->getNetworkManager()->syncPickObject(objectType_, pickedObject_->getId());
+						Ingrediente* ing = dynamic_cast<Ingrediente*>(pickedObject_);
+						game->getNetworkManager()->syncPickObject(objectType_, ing->getId(), -1, ing->esLetal());
 					}
-					
+					else if (objectType_ == CLIENTES) {
+						game->getNetworkManager()->syncPickObject(objectType_, pickedObject_->getId(), -1, 0);
+					}
 				}
 			}
 		}
@@ -148,12 +158,16 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 				break;
 			case CLIENTES:
 				if (m != nullptr && m->receiveGrupoClientes(dynamic_cast<GrupoClientes*>(pickedObject_))) {
+					game->getNetworkManager()->syncDropObject(objectType_, pickedObject_->getId(), m->getId());
+
 					pickedObject_->dropObject();
 					pickedObject_ = nullptr;
 				}
 				else {
 					for (auto i : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getOverlaps(getOverlap())) {
 						if (i == pickedObject_) {
+							game->getNetworkManager()->syncDropObject(objectType_, pickedObject_->getId(), -1);
+
 							pickedObject_->setPicked(false);
 							pickedObject_ = nullptr;
 							return;
@@ -177,20 +191,19 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 						}
 					}
 					else {
-						pickedObject_->dropObject();
-						pickedObject_ = nullptr;
+						game->getNetworkManager()->syncDropObject(objectType_, pickedObject_->getId(), m->getId());
+
+						if (m != dynamic_cast<FinalCinta*>(m)) {
+							pickedObject_->dropObject();
+							pickedObject_ = nullptr;
+						}
 					}
 				}
 				break;
 			case ARROZ:
 				if (m != nullptr && m->receiveArroz(dynamic_cast<Arroz*>(pickedObject_))) {
-					pickedObject_->dropObject();
-					pickedObject_ = nullptr;
-				}
-				break;
-			case HERRAMIENTA:
-				if (m != nullptr && m->receiveHerramienta(dynamic_cast<Herramienta*>(pickedObject_))) 
-				{
+					game->getNetworkManager()->syncDropObject(objectType_, pickedObject_->getId(), m->getId());
+
 					pickedObject_->dropObject();
 					pickedObject_ = nullptr;
 				}
@@ -217,7 +230,7 @@ void Player::update()
 
 	for (auto i : game->getObjectManager()->getMueblesCollisions(newCol)) {
 		//Cuando colisiono con un mueble
-		SDL_Rect c = i->getCollider();	
+		SDL_Rect c = i->getCollider();
 
 		//Comprobamos Izquierda o Derecha
 		double interseccionIz = abs((rect.x + rect.w) - (c.x));
@@ -278,8 +291,8 @@ void Player::update()
 	}
 
 	if (pickedObject_ != nullptr) {
-		if (pickedObject_->isPicked()) 
-			pickedObject_->setPosition(getX(), getY() - getHeight() / 2);			
+		if (pickedObject_->isPicked())
+			pickedObject_->setPosition(getX(), getY() - getHeight() / 2);
 		else
 			pickedObject_ = nullptr;
 	}
@@ -295,7 +308,7 @@ bool Player::nearestObject(ObjetoPortable* go)
 	{
 		Vector2D<double> pos = getRectCenter(getOverlap());
 
-		if ((pos - getRectCenter(go->getOverlap())).magnitude() 
+		if ((pos - getRectCenter(go->getOverlap())).magnitude()
 			< (pos - getRectCenter(pickedObject_->getOverlap())).magnitude()) {
 
 			pickedObject_ = go;
@@ -313,7 +326,7 @@ Mueble* Player::nearestObject(Mueble* m1, Mueble* m2)
 	{
 		Vector2D<double> pos = getRectCenter(getOverlap());
 
-		if ((pos - getRectCenter(m1->getOverlap())).magnitude() 
+		if ((pos - getRectCenter(m1->getOverlap())).magnitude()
 			< (pos - getRectCenter(m2->getOverlap())).magnitude()) {
 
 			return m1;
@@ -346,7 +359,7 @@ void Player::animUpdate(Vector2D<double> axis)
 		break;
 	case E:
 		currAnim = 1;
-		if(flipH) flip = SDL_FLIP_NONE;
+		if (flipH) flip = SDL_FLIP_NONE;
 		break;
 	case O:
 		currAnim = 1;
@@ -392,7 +405,7 @@ void Player::setAnimResources()
 		anims.push_back(&sdlutils().images().at("camareroIdleDown"));
 		anims.push_back(&sdlutils().images().at("camareroIdleSide"));
 		anims.push_back(&sdlutils().images().at("camareroIdleUp"));
-												 
+
 		anims.push_back(&sdlutils().images().at("camareroWalkDown"));
 		anims.push_back(&sdlutils().images().at("camareroWalkSide"));
 		anims.push_back(&sdlutils().images().at("camareroWalkUp"));
@@ -432,46 +445,99 @@ void Player::changePlayer(bool c)
 	}
 }
 
-void Player::PickCustomObject(int objectType, int objectId)
+void Player::PickCustomObject(int objectType, int objectId, int muebleId, int extraInfo)
 {
 	if (objectType == INGREDIENTE) {
-		objectType_ = INGREDIENTE;
+		if (extraInfo == 0) {
+			// comprobar si existe el ingrediente
+			for (auto i : game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->getActiveObjects()) {
+				if (i->getId() == objectId) {
+					pickedObject_ = i;
+					break;
+				}
+			}
+		}
+		else {
+			// ingrediente letal
+			if (pickedObject_ == nullptr) {
+				for (auto i : game->getObjectManager()->getPool<IngredienteLetal>(_p_INGREDIENTELETAL)->getActiveObjects()) {
+					if (i->getId() == objectId) {
+						pickedObject_ = i;
+						break;
+					}
+				}
+			}
+		}
 
-		// comprobar si el ingrediente lo contiene algun mueble
-		for (auto i : game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->getActiveObjects()) {
+		for (auto m : game->getObjectManager()->getMuebles()) {
+			if (m->getId() == muebleId) {
+				m->returnObject(this);
+				break;
+			}
+		}
+	}
+	else if (objectType == CLIENTES)
+	{
+		for (auto i : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getActiveObjects()) {
 			if (i->getId() == objectId) {
 				pickedObject_ = i;
 				break;
 			}
 		}
-
-		for (auto i : game->getObjectManager()->getEncimeras()) {
-			if (i->hasIngrediente() != nullptr) {
-				if (i->hasIngrediente()->getId() == pickedObject_->getId()) {
-					i->clearIngrediente();
-					break;
-				}
-			}
-		}
-
-		pickedObject_->pickObject();
 	}
-}
 
-void Player::DropCustomObject(int objectType, int objectId, int muebleId)
-{
-	if (objectType == INGREDIENTE) {
-		// drop in the mueble
-		for (auto e : game->getObjectManager()->getEncimeras()) {
-			if (e->getId() == muebleId) {
-				e->receiveIngrediente(dynamic_cast<Ingrediente*>(pickedObject_));
-				pickedObject_->dropObject();
-				pickedObject_ = nullptr;
-
+	else { // Es un mueble
+		for (auto m : game->getObjectManager()->getMuebles()) {
+			if (m->getId() == muebleId) {
+				m->returnObject(this);
 				break;
 			}
 		}
 	}
+
+	// pick object
+	pickedObject_->pickObject();
+}
+
+void Player::DropCustomObject(int objectType, int objectId, int muebleId)
+{
+	Mueble* mueble = nullptr;
+	for (auto i : game->getObjectManager()->getMuebles()) {
+		if (i->getId() == muebleId) {
+			mueble = i;
+			break;
+		}
+	}
+
+	if (mueble != nullptr) {
+		if (objectType == INGREDIENTE) {
+			// drop in the mueble
+			mueble->receiveIngrediente(dynamic_cast<Ingrediente*>(pickedObject_));
+		}
+		else if (objectType == PAELLA) {
+			mueble->receivePaella(dynamic_cast<Paella*>(pickedObject_));
+		}
+		else if (objectType == ARROZ) {
+			mueble->receiveArroz(dynamic_cast<Arroz*>(pickedObject_));
+		}
+		else if (objectType == CLIENTES) {
+			mueble->receiveGrupoClientes(dynamic_cast<GrupoClientes*>(pickedObject_));
+		}
+
+		if (mueble != dynamic_cast<FinalCinta*>(mueble)) {
+			pickedObject_->dropObject();
+			pickedObject_ = nullptr;
+		}
+	}
+	else {
+		for (auto g : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getActiveObjects()) {
+			if (g->getId() == objectId) {
+				g->setPicked(false);
+				pickedObject_ = nullptr;
+			}
+		}
+	}
+	
 }
 
 void Player::setVel(double x, double y)
@@ -535,11 +601,11 @@ void Player::setPickedObject(ObjetoPortable* op, objectType ot)
 SDL_Rect Player::getCollider()
 {
 	SDL_Rect rect = getTexBox();
-	
-	return { rect.x + rect.w / 4, 
-		rect.y + rect.h / 3 * 2, 
-		rect.w / 2, 
-		rect.h / 3};
+
+	return { rect.x + rect.w / 4,
+		rect.y + rect.h / 3 * 2,
+		rect.w / 2,
+		rect.h / 3 };
 }
 
 
