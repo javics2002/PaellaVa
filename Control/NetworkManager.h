@@ -98,14 +98,14 @@ struct PacketSyncPickObject {
 	Uint8 object_type; // 0 - ingredientes, 1 - clientes, 2 - paella, 3 - arroz
 	Uint8 extra_info; // additional info
 	Uint16 object_id; // id
-	Uint16 mueble_id; // id mueble
+	Sint16 mueble_id; // id mueble
 };
 
 struct PacketSyncDropObject {
 	Uint8 object_type; // 0 - ingredientes, 1 - clientes, 2 - paella, 3 - arroz
 	Uint16 object_id; // id
 
-	Uint16 mueble_id; // mueble id
+	Sint16 mueble_id; // mueble id
 };
 
 struct Packet {

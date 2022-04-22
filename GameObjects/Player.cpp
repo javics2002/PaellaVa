@@ -9,12 +9,7 @@
 #include "Ingrediente.h"
 #include "Muebles/Mueble.h"
 #include "Muebles/Mesa.h"
-#include "Muebles/Encimera.h"
-#include "Muebles/TablaProcesado.h"
-#include "Muebles/Pila.h"
-#include "Muebles/Fogon.h"
 #include "Muebles/FinalCinta.h"
-#include "Muebles/Lavavajillas.h"
 #include "Arroz.h"
 
 #include "../Utils/Traza.h"
@@ -122,7 +117,7 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 				}
 				//Grupo de Clientes
 				for (auto i : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getOverlaps(getOverlap())) {
-					if (i->isActive() && i->canPick() && nearestObject(i)) {
+					if (i->isActive() && i->canPick() && !i->isPicked() && nearestObject(i)) {
 						objectType_ = CLIENTES;
 						if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::cogerClientes) {
 							game->getCurrentScene()->changeState(States::pausaClientes);
@@ -163,12 +158,16 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 				break;
 			case CLIENTES:
 				if (m != nullptr && m->receiveGrupoClientes(dynamic_cast<GrupoClientes*>(pickedObject_))) {
+					game->getNetworkManager()->syncDropObject(objectType_, pickedObject_->getId(), m->getId());
+
 					pickedObject_->dropObject();
 					pickedObject_ = nullptr;
 				}
 				else {
 					for (auto i : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getOverlaps(getOverlap())) {
 						if (i == pickedObject_) {
+							game->getNetworkManager()->syncDropObject(objectType_, pickedObject_->getId(), -1);
+
 							pickedObject_->setPicked(false);
 							pickedObject_ = nullptr;
 							return;
@@ -510,21 +509,35 @@ void Player::DropCustomObject(int objectType, int objectId, int muebleId)
 		}
 	}
 
-	if (objectType == INGREDIENTE) {
-		// drop in the mueble
-		mueble->receiveIngrediente(dynamic_cast<Ingrediente*>(pickedObject_));
-	}
-	else if (objectType == PAELLA) {
-		mueble->receivePaella(dynamic_cast<Paella*>(pickedObject_));
-	}
-	else if (objectType == ARROZ) {
-		mueble->receiveArroz(dynamic_cast<Arroz*>(pickedObject_));
-	}
+	if (mueble != nullptr) {
+		if (objectType == INGREDIENTE) {
+			// drop in the mueble
+			mueble->receiveIngrediente(dynamic_cast<Ingrediente*>(pickedObject_));
+		}
+		else if (objectType == PAELLA) {
+			mueble->receivePaella(dynamic_cast<Paella*>(pickedObject_));
+		}
+		else if (objectType == ARROZ) {
+			mueble->receiveArroz(dynamic_cast<Arroz*>(pickedObject_));
+		}
+		else if (objectType == CLIENTES) {
+			mueble->receiveGrupoClientes(dynamic_cast<GrupoClientes*>(pickedObject_));
+		}
 
-	if (mueble != dynamic_cast<FinalCinta*>(mueble)) {
-		pickedObject_->dropObject();
-		pickedObject_ = nullptr;
+		if (mueble != dynamic_cast<FinalCinta*>(mueble)) {
+			pickedObject_->dropObject();
+			pickedObject_ = nullptr;
+		}
 	}
+	else {
+		for (auto g : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getActiveObjects()) {
+			if (g->getId() == objectId) {
+				g->setPicked(false);
+				pickedObject_ = nullptr;
+			}
+		}
+	}
+	
 }
 
 void Player::setVel(double x, double y)
