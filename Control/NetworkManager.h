@@ -95,7 +95,9 @@ struct PacketSyncPlayers {
 // currently testing
 struct PacketSyncPickObject {
 	Uint8 object_type; // 0 - ingredientes, 1 - clientes, 2 - paella, 3 - arroz
+	Uint8 extra_info; // additional info
 	Uint16 object_id; // id
+	Uint16 mueble_id; // id mueble
 };
 
 struct PacketSyncDropObject {
@@ -214,7 +216,7 @@ public:
 
 	void syncPlayers();
 
-	void syncPickObject(int objectType, int objectId);
+	void syncPickObject(int objectType, int objectId, int muebleId, int extraInfo);
 	void syncDropObject(int objectType, int objectId, int muebleId);
 
 	void setGameStarted(bool gameStarted_) { gameStarted = gameStarted_; }

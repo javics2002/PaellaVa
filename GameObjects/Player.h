@@ -64,7 +64,7 @@ public:
 
 	void changePlayer(bool c); //para el tutorial 
 
-	void PickCustomObject(int objectType, int objectId);
+	void PickCustomObject(int objectType, int objectId, int muebleId, int extraInfo);
 	void DropCustomObject(int objectType, int objectId, int muebleId);
 };
 

@@ -28,6 +28,8 @@ protected:
    
     int canalSonido;
 
+    int mId; // Id del objeto
+
     void drawRender(SDL_Rect* cameraRect);
     void drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex);
     void drawRender(SDL_Rect rect, Texture* tex);
@@ -95,4 +97,7 @@ public:
 
     SDL_Rect getCollider() override;
     SDL_Rect getOverlap() override;
+
+    void setId(int newId) { mId = newId; }
+    int getId() { return mId; }
 };

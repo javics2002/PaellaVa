@@ -44,7 +44,7 @@ bool FinalCinta::receivePaella(Paella* pa)
 		sdlutils().soundEffects().at("tirarPaella").play();
 	}
 	
-	return false;
+	return true;
 }
 
 bool FinalCinta::receiveArroz(Arroz* arr)

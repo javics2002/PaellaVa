@@ -122,7 +122,7 @@ void NetworkManager::receivePlayers()
 
 				case EPT_SYNCPICKOBJECT:
 					// recorrer la pool correspondiente a object type, encontrar el objeto con la id correspondiente y coger dicho objeto
-					game->getObjectManager()->getPlayerTwo()->PickCustomObject(pkt.syncPickObject.object_type, pkt.syncPickObject.object_id);
+					game->getObjectManager()->getPlayerTwo()->PickCustomObject(pkt.syncPickObject.object_type, pkt.syncPickObject.object_id, pkt.syncPickObject.mueble_id, pkt.syncPickObject.extra_info);
 
 					break;
 				case EPT_SYNCDROPOBJECT:
@@ -282,7 +282,7 @@ void NetworkManager::updateClient()
 				break;
 			case EPT_SYNCPICKOBJECT:
 				// recorrer la pool correspondiente a object type, encontrar el objeto con la id correspondiente y coger dicho objeto
-				game->getObjectManager()->getPlayerTwo()->PickCustomObject(server_pkt.syncPickObject.object_type, server_pkt.syncPickObject.object_id);
+				game->getObjectManager()->getPlayerTwo()->PickCustomObject(server_pkt.syncPickObject.object_type, server_pkt.syncPickObject.object_id, server_pkt.syncPickObject.mueble_id, server_pkt.syncPickObject.extra_info);
 
 				break;
 			case EPT_SYNCDROPOBJECT:
@@ -750,12 +750,14 @@ void NetworkManager::syncDropObject(int objectType, int objectId, int muebleId)
 	}
 }
 
-void NetworkManager::syncPickObject(int objectType, int objectId)
+void NetworkManager::syncPickObject(int objectType, int objectId, int muebleId, int extraInfo)
 {
 	Packet pkt;
 	pkt.packet_type = EPT_SYNCPICKOBJECT;
 	pkt.syncPickObject.object_type = objectType;
 	pkt.syncPickObject.object_id = objectId;
+	pkt.syncPickObject.mueble_id = muebleId;
+	pkt.syncPickObject.extra_info = extraInfo;
 
 	if (nType == 'h') {
 		for (int i = 1u; i < player_sockets.size(); i++) {
