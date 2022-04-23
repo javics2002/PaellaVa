@@ -383,6 +383,7 @@ void Comanda::eC()
 	toggleTecaldotam(false);
 	toggleTeclado(false);
 	toggleTecladonum(true);
+	toggleactive();
 }
 void Comanda::renderizaPaellas()
 {
@@ -503,6 +504,7 @@ void Comanda::toggleactive()
 		toggleTecaldotam(isActive());
 		toggleTeclado(isActive());
 		toggleTecladonum(isActive());
+		if(focusedbutton!=nullptr)
 		focusedbutton->setunfocused();
 		focusedbutton = nullptr;
 		focusedzone = -1;
@@ -510,7 +512,7 @@ void Comanda::toggleactive()
 	}
 
 	cancelaPedido();
-	cout << "togleando active";//se esta invocando en algun sitio qeu no deberia 
+	//cout << "togleando active"; 
 }
 bool Comanda::onClick(int mx, int my, bool& exit)
 {
@@ -540,12 +542,14 @@ bool Comanda::OnClick(int mx, int my)
 Comanda* Comanda::seleccionaComanda()
 {
 	setTexture("cuadernilloseleted");
+	eliminarboton->setActive(true);
 	return this;
 }
 
 void Comanda::deseleccionaComanda()
 {
 	setTexture("cuadernillo");
+	eliminarboton->setActive(false);
 }
 void Comanda::pressSelectedButton()
 {

@@ -91,6 +91,8 @@ Jornada::Jornada(Game* game, string tilemap, int numeroJornada, bool host_) : Sc
 	uiManager->addInterfaz(new Reloj(game, nJornada));
 
 	objectManager->initMuebles();
+
+	uiManager->setEnJornada(true);
 }
 
 Jornada::~Jornada()

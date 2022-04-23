@@ -78,7 +78,7 @@ void ListaComandas::AñadeComanda(Comanda* comanda)
 		EliminaComandaButton* e = new EliminaComandaButton(uimt, c, game, "cancela", cX, cY + c->getHeight()/2, 25, 25);
 		//uimt->addInterfaz(e);
 		c->setEliminabutton(e);
-
+		e->setActive(false);
 		numcomandas++;
 		//cX += 1.5 * c->getWidth();
 		auto ec = lista.end();
@@ -249,9 +249,13 @@ Comanda* ListaComandas::getComandaSeleccionada()
 }
 void ListaComandas::toggleBarra()
 {
-	active = !active;
+	listaActive = !listaActive;
 	for (auto i : lista)
 	{
-		i->setActive(active);
+		i->setActive(listaActive);
 	}
+}
+bool ListaComandas::isBarraActive()
+{
+	return listaActive;
 }

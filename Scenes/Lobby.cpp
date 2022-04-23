@@ -51,7 +51,7 @@ Lobby::Lobby(Game* game) : Scene(game)
 		
 		// send info 
 		game->getNetworkManager()->sendStartGame(0);
-
+		uiManager->setEnJornada(true);
 		});
 
 	uiManager->addButton(comenzar);

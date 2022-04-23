@@ -79,6 +79,7 @@ class UIManager
 
 	vector<UiButton*>::iterator foco;
 	bool enAjustes;
+	bool enJornada = false;
 
 public:
 	UIManager(Game* game);
@@ -131,5 +132,6 @@ public:
 	void retrocedeFoco();
 
 	bool getEnAjustes() { return enAjustes; };
+	void setEnJornada(bool b);
 };
 

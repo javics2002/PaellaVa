@@ -18,7 +18,8 @@ class ListaComandas :public GameObject
 	list<Comanda*> lista;
 	list<Comanda*> listanovisibles;
 	Comanda* selected = nullptr;
-	bool active=true;
+	//bool active=true;
+	bool listaActive = true;
 public:
 	//Añade la comanda que escribe el camarero a la lista
 	ListaComandas(Game* game, UIManager* m);
@@ -32,6 +33,7 @@ public:
 	void update() override;
 	list<Comanda*> getlista() { return lista; };
 	void  toggleBarra();
+	bool isBarraActive();
 private:
 	int ancho =600;
 	int alto = 50;

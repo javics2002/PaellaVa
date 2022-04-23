@@ -284,6 +284,34 @@ void UIManager::update(bool paused)
 			if(i->isActive())
 			i->update();
 		}
+		if (enJornada)
+		{
+			if (ih().getKey(ih().LT))
+			{
+				if (getComanda() == nullptr)
+				{
+					creaComanda(game);
+				}
+				else
+				{
+					getComanda()->toggleactive();
+				}
+				if (barra->isBarraActive())
+				{
+					barra->toggleBarra();
+				}
+			}
+			if (ih().getKey(ih().RT))
+			{
+
+				barra->toggleBarra();
+				if (getComanda()->isActive())
+				{
+					getComanda()->toggleactive();
+				}
+
+			}
+		}
 		/*if (ih().getKey(ih().Y))
 		{
 			if (getComanda() == nullptr)
@@ -1225,4 +1253,8 @@ void UIManager::retrocedeFoco()
 double UIManager::toRadians(double grados)
 {
 	return (grados * MATH_PI) / 180;
+}
+void UIManager::setEnJornada(bool b)
+{
+	enJornada = b;
 }
