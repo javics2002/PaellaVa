@@ -3,6 +3,7 @@
 #include "../GameObjects/UI/EliminaComandaButton.h"
 #include "../Control/Game.h"
 #include "../GameObjects/UI/UIManager.h"
+#include "../sdlutils/InputHandler.h"
 #include "../Scenes/Tutorial.h"
 ListaComandas::ListaComandas(Game* game,UIManager* m) :GameObject(game)
 {
@@ -21,6 +22,7 @@ ListaComandas::ListaComandas(Game* game,UIManager* m) :GameObject(game)
 }
 ListaComandas::~ListaComandas()
 {
+	
 }
 void ListaComandas::AñadeComanda(Comanda* comanda)
 {
@@ -77,8 +79,12 @@ void ListaComandas::AñadeComanda(Comanda* comanda)
 		//UIManager* u,Comanda* c, Game* game, string texturename, int x, int y, int w, int h
 		EliminaComandaButton* e = new EliminaComandaButton(uimt, c, game, "cancela", cX, cY + c->getHeight()/2, 25, 25);
 		//uimt->addInterfaz(e);
+		if (selected != nullptr)
+			selected->deseleccionaComanda();
 		c->setEliminabutton(e);
 		e->setActive(false);
+		selected = c;
+		c->seleccionaComanda();
 		numcomandas++;
 		//cX += 1.5 * c->getWidth();
 		auto ec = lista.end();
@@ -111,6 +117,7 @@ void ListaComandas::AñadeComanda(Comanda* comanda)
 		c->setEliminabutton(e);
 		listanovisibles.push_front(c);
 	}
+	setBarraActive(true);
 }
 void ListaComandas::renderComandas()
 {
@@ -162,7 +169,18 @@ void ListaComandas::finalizacomanda(Comanda* comanda)
 	}
 	else {
 		if (comanda == selected)
-			selected = nullptr;
+		{
+			if (lista.size() > 1)
+			{
+				selected = *lista.begin();
+				selected->seleccionaComanda();
+			}
+			else
+			{
+				selected = nullptr;
+				toggleBarra();
+			}
+		}
 		for (auto c : lista)
 		{
 
@@ -232,6 +250,25 @@ void ListaComandas::finalizacomanda(Comanda* comanda)
 }
 void ListaComandas::update()
 {
+	if (listaActive&&!lista.empty())
+	{
+		if (ih().getKey(ih().RIGHT))
+		{
+
+			seleccionasigcomanda(1);
+		}
+		if (ih().getKey(ih().LEFT))
+		{
+			seleccionasigcomanda(-1);
+		}
+		if (ih().getKey(ih().A))
+		{
+			pressSelectedComanda();
+
+		}
+
+
+	}
 }
 void ListaComandas::seleccionaComanda(Comanda* comanda)
 {
@@ -254,8 +291,128 @@ void ListaComandas::toggleBarra()
 	{
 		i->setActive(listaActive);
 	}
+	if (listaActive)//actiamos la barra y colocamos el foco
+	{
+		if (!lista.empty())
+		{
+			auto it = lista.begin();
+			auto c = *it;
+			selected = c;
+			c->seleccionaComanda();
+		}
+	}
+	else //desactivamos la barra y el foco
+	{
+		if (selected != nullptr)
+		{
+			selected->deseleccionaComanda();
+			selected = nullptr;
+		}
+	}
 }
 bool ListaComandas::isBarraActive()
 {
 	return listaActive;
+}
+void ListaComandas::setBarraActive(bool b)
+{
+	listaActive = b;
+	
+	for (auto i : lista)
+	{
+		i->setActive(listaActive);
+	}
+	if (listaActive)//actiamos la barra y colocamos el foco
+	{
+		if (!lista.empty())
+		{
+			auto it = lista.begin();
+			auto c = *it;
+			selected = c;
+			c->seleccionaComanda();
+		}
+	}
+	else //desactivamos la barra y el foco
+	{
+		if (selected != nullptr)
+		{
+			selected->deseleccionaComanda();
+			selected = nullptr;
+		}
+	}
+}
+
+void ListaComandas::pressSelectedComanda()
+{
+	bool fake=false;
+	if (selected != nullptr)
+	{
+		selected->getEliminabutton()->execute(fake);
+	}
+}
+void ListaComandas::seleccionasigcomanda(int dir)
+{
+	auto it = selected->getSitio();
+	if (it == lista.begin())
+	{
+		if (lista.size() > 1)
+		{
+			if (dir < 0)
+			{
+				it = lista.end();
+				it--;
+			}
+			else
+				it++;
+
+		}
+		//else // a donde te vas a mover si en la lista solo hay 1 comanda xd
+	}
+	else if(it==lista.end())
+	{
+		if (lista.size() > 1)
+		{
+			if (dir > 0)
+			{
+				it = lista.begin();
+			}
+			else
+				it--;
+		}
+
+	}
+	else {
+		if (dir > 0)
+		{
+			it++;
+		}
+		else it--;
+	
+	
+	}
+	selected->deseleccionaComanda();
+	auto c = *it;
+	c->seleccionaComanda();
+	selected = c;
+	/*if (dir > 0)
+	{
+		++it;
+
+		if (it == lista.end())
+		{
+			it = lista.begin();
+		}
+	}
+	else if (it != lista.begin())
+	{
+		it--;
+	}
+	else it = lista.end();
+	{if (it != lista.begin())
+		--it;
+	}
+	selected->deseleccionaComanda();
+	auto c = *it;
+	c->seleccionaComanda();
+	selected = c;*/
 }

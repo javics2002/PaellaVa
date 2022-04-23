@@ -298,7 +298,7 @@ void UIManager::update(bool paused)
 				}
 				if (barra->isBarraActive())
 				{
-					barra->toggleBarra();
+				//barra->toggleBarra();
 				}
 			}
 			if (ih().getKey(ih().RT))
@@ -310,6 +310,10 @@ void UIManager::update(bool paused)
 					getComanda()->toggleactive();
 				}
 
+			}
+			if (getBarra() != nullptr)
+			{
+				getBarra()->update();
 			}
 		}
 		/*if (ih().getKey(ih().Y))

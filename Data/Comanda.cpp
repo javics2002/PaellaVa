@@ -9,6 +9,16 @@
 #include "../GameObjects/UI/UIManager.h"
 #include "ListaComandas.h"
 #include "../sdlutils/InputHandler.h"
+template <class T >
+bool comparaX(T u1, T u2)
+{
+	return u1.getPosition().getX() < u2.getPosition().getX();
+}
+template <class T >
+bool comparaY(T u1,T u2)
+{
+	return  u1.getPosition().getY() < u2.getPosition().getY();
+}
 
 Comanda::Comanda(Game* game, uint escala, UIManager* uim) :GameObject(game)
 {
@@ -125,6 +135,14 @@ UiButton* Comanda::getNumeromesa()
 {
 	return numeromesa;
 }
+bool Comanda::comparaX(UiButton u1, UiButton u2)
+{
+	return (u1.getPosition().getX() < u2.getPosition().getX());
+}
+bool Comanda::comparaY(UiButton u1, UiButton u2)
+{
+	return  (u1.getPosition().getY() < u2.getPosition().getY());
+}
 void Comanda::randomizaIconos()
 {
 	vector<Point2D<double>> posdis = uiManager->getPosTeclado();
@@ -136,6 +154,10 @@ void Comanda::randomizaIconos()
 		if (posdis.size() > 0)
 			j = rand() % posdis.size();
 	}
+	//pero lo qeuiro ordenado para el foco
+	
+	//sort(teclado.begin(), teclado.end(), &comparaY);
+	//sort(teclado.begin(), teclado.end(), &comparaX);
 
 }
 void Comanda::dibujaPedido()
@@ -384,6 +406,9 @@ void Comanda::eC()
 	toggleTeclado(false);
 	toggleTecladonum(true);
 	toggleactive();
+	//uiManager->getBarra()->setBarraActive(false);
+	//uiManager->getBarra()->toggleBarra();
+
 }
 void Comanda::renderizaPaellas()
 {
@@ -494,7 +519,10 @@ void Comanda::toggleactive()
 		focusedbutton = activeTeclado[indexfocus];
 		activeTeclado[indexfocus]->setfocused();
 		
-		
+		uiManager->getBarra()->setBarraActive(true);
+			uiManager->getBarra()->toggleBarra();
+
+	
 
 
 
@@ -556,6 +584,8 @@ void Comanda::pressSelectedButton()
 	if (focusedbutton != nullptr)
 	{
 		bool b= false;
+		
+		setDimension(ancho, alto);
 		focusedbutton->execute(b);
 	}
 }
@@ -595,6 +625,35 @@ void Comanda::siguientebotonfocus(int dir)
 	if (!activeTeclado.empty())
 	{
 		activeTeclado[indexfocus]->setunfocused();
+		if (indexfocus == activeTeclado.size() - 1)
+		{
+			if (dir > 0)
+			{
+				indexfocus = 0;
+			}
+			else indexfocus--;
+		}
+		else if (indexfocus == 0)
+		{
+			if (dir < 0)
+			{
+				indexfocus = activeTeclado.size() - 1;
+			}
+			else
+			{
+				indexfocus++;
+			}
+		}
+		else
+		{
+			indexfocus += dir;
+		}
+		focusedbutton = activeTeclado[indexfocus];
+		activeTeclado[indexfocus]->setfocused();
+	}
+/*	if (!activeTeclado.empty())
+	{
+		activeTeclado[indexfocus]->setunfocused();
 		indexfocus += dir;
 		if (indexfocus < activeTeclado.size()&&indexfocus>=0)
 		{
@@ -607,7 +666,7 @@ void Comanda::siguientebotonfocus(int dir)
 		else indexfocus = 0;
 		focusedbutton = activeTeclado[indexfocus];
 		activeTeclado[indexfocus]->setfocused();
-	}
+	}*/
 }
 void Comanda::update()
 {

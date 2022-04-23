@@ -110,6 +110,8 @@ private:
     int indexfocus=-1;
     int focusedzone = -1; // 0 teclado 1 uicomanda
     void chageActiveTeclado();
+    bool comparaX(UiButton u1, UiButton u2);
+    bool comparaY(UiButton u1, UiButton u2);
     //float calculaPuntuacion(Paella paella) ; definicion pendiente de la creacion e paella
    
 };

@@ -19,7 +19,7 @@ class ListaComandas :public GameObject
 	list<Comanda*> listanovisibles;
 	Comanda* selected = nullptr;
 	//bool active=true;
-	bool listaActive = true;
+	bool listaActive = false;
 public:
 	//Añade la comanda que escribe el camarero a la lista
 	ListaComandas(Game* game, UIManager* m);
@@ -34,6 +34,8 @@ public:
 	list<Comanda*> getlista() { return lista; };
 	void  toggleBarra();
 	bool isBarraActive();
+	void setBarraActive(bool b);
+	
 private:
 	int ancho =600;
 	int alto = 50;
@@ -43,5 +45,8 @@ private:
 	int desplazamineto = 0;
 	int inicx = 0;
 	UIManager* uimt;
+	void pressSelectedComanda();
+	void seleccionasigcomanda(int dir);
+	
 };
 
