@@ -155,7 +155,9 @@ void Comanda::randomizaIconos()
 			j = rand() % posdis.size();
 	}
 	//pero lo qeuiro ordenado para el foco
-	
+	sort(teclado.begin(), teclado.end(), [](UiButton* u1, UiButton* u2) {return  u1->getPosition().getX() < u2->getPosition().getX(); });
+	sort(teclado.begin(), teclado.end(), [](UiButton* u1, UiButton* u2) {return  u1->getPosition().getY() < u2->getPosition().getY(); });
+		
 	//sort(teclado.begin(), teclado.end(), &comparaY);
 	//sort(teclado.begin(), teclado.end(), &comparaX);
 
