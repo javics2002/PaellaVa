@@ -24,7 +24,11 @@ private:
 	void render() override;
 
 	std::vector<Texture*> m_reviews;
+	std::vector<Texture*> m_usernames;
+
 	void createRandomReviews();
+	void createRandomUsernames();
+
 	void renderReviews();
 	int numStarsAdded = 0;
 

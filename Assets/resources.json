@@ -165,7 +165,11 @@
     { "id": "hostClientBg", "file": "Assets/Images/hostClientBg.png" },
     { "id": "lobbyBg", "file": "Assets/Images/lobbyBg.png" },
     { "id": "quemadura", "file": "Assets/Images/quemadura.png" },
-    { "id": "particle", "file": "Assets/Images/particle.png" }
+    { "id": "particle", "file": "Assets/Images/particle.png" },
+    { "id": "profilePicture", "file": "Assets/Images/profilePicture.png" },
+    { "id": "estrellaReview", "file": "Assets/Images/estrellaReview.png" }
+
+
   ],
 
   "tilesets": [
@@ -209,7 +213,21 @@
     {"id": "1stars4","text": "El arroz pasado, muy flojo. Igual fuimos un mal dia... muy amables de trato, eso si", "font": "abadi", "color": "0x000000"},
     {"id": "1stars5","text": "Ojala tuvieran hoja de reclamaciones >:T.", "font": "abadi", "color": "0x000000"},
     {"id": "1stars6","text": "El pollo sabia como a la abuela que me comi ayer", "font": "abadi", "color": "0x000000"},
-    {"id": "1stars7","text": "La atencion al cliente era mas lenta que la sanidad publica", "font": "abadi", "color": "0x000000"}
+    {"id": "1stars7","text": "La atencion al cliente era mas lenta que la sanidad publica", "font": "abadi", "color": "0x000000"},
+
+    {"id": "username1","text": "pacoComePaellas", "font": "abadi", "color": "#00ffff"},
+    {"id": "username2","text": "Margarita Diaz", "font": "abadi", "color": "#00ffff"},
+    {"id": "username3","text": "Anonimo", "font": "abadi", "color": "#00ffff"},
+    {"id": "username4","text": "Juan El Del Bar", "font": "abadi", "color": "#00ffff"},
+    {"id": "username5","text": "Juzgador Profesional", "font": "abadi", "color": "#00ffff"},
+    {"id": "username6","text": "Chef de 10", "font": "abadi", "color": "#00ffff"},
+    {"id": "username7","text": "Enrique Perez", "font": "abadi", "color": "#00ffff"},
+    {"id": "username8","text": "liantedeprimera", "font": "abadi", "color": "#00ffff"},
+    {"id": "username9","text": "XxdarkshadowxX", "font": "abadi", "color": "#00ffff"},
+    {"id": "username10","text": "Jenni", "font": "abadi", "color": "#00ffff"}
+
+
+
   ],
 
   "sounds": [

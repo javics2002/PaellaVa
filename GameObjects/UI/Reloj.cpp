@@ -14,7 +14,6 @@ Reloj::Reloj(Game* game, int numeroJornada) : GameObject(game)
 	currentTime.hours = hourIni;
 	currentTime.minutes = minuteIni;
 	string timeText = parseTimeToString(hourIni, minuteIni);
-
 	setTexture(timeText, string("paella"), fgColor, bgColor);
 
 	ultimaHora = false;
@@ -34,7 +33,8 @@ bool Reloj::finDia()
 
 void Reloj::render(SDL_Rect* cameraRect)
 {
-	drawRender(getTexBox(), relojTexture);
+	SDL_Rect clock = { getTexBox().x-20, getTexBox().y-20, getTexBox().w+40, getTexBox().h+40 };
+	drawRender(clock, relojTexture);
 	drawRender(cameraRect);
 }
 
