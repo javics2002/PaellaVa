@@ -43,7 +43,7 @@ GameOver::GameOver(Game* game, int puntuation, int numeroJornada) : Scene(game)
 	uiManager->addInterfaz(puntos);
 
 	auto continueButton = new UiButton(game, "continue",
-		sdlutils().width() / 2 + 300, sdlutils().height() / 2 + 300, 300, 120);
+		sdlutils().width() / 2 + 350, sdlutils().height() / 2 + 300, 300, 120);
 	continueButton->setInitialDimension(300, 120);
 
 	continueButton->setAction([this, continueButton](Game* game, bool& exit) {
@@ -97,7 +97,7 @@ void GameOver::createRandomReviews()
 {
 	//coge review random del json segun el numero de estrellas
 	auto& rand = sdlutils().rand();
-	std::vector<int> numReviewsByStar{ 7, 5, 5, 6, 10 }; //pos 0 = 1 star
+	std::vector<int> numReviewsByStar{ 12, 10, 10, 15, 15 }; //pos 0 = 1 star
 
 	int numberOfReviews = 2;
 
@@ -114,7 +114,7 @@ void GameOver::createRandomUsernames()
 {
 	//coge review random del json segun el numero de estrellas
 	auto& rand = sdlutils().rand();
-	int numUsernames = 10;
+	int numUsernames = 21;
 	int numberOfReviews = 2; //tiene que ser igual al de arriba
 
 	for (int i = 0; i < numberOfReviews; i++) {
@@ -131,7 +131,7 @@ void GameOver::renderReviews() {
 	for (int i = 0; i < m_reviews.size(); i++) {
 		int letterHeight = m_reviews[i]->height();
 		int letterWidth = letterHeight;
-		int espacioBlanco = 7;
+		int espacioBlanco = 8;
 		int espacioEntreRevs = letterHeight*i;
 		//pos de la primera linea del cuadro de texto
 		int posX = 100;
@@ -156,7 +156,8 @@ void GameOver::renderReviews() {
 		profile->render(destProfile, 0.0f);
 
 		//rect del username
-		Vector2D<int> posUser = Vector2D<int>(posX + wProfile, posY);
+		int posYUser = posY + letterHeight/2;
+		Vector2D<int> posUser = Vector2D<int>(posX + wProfile, posYUser);
 		SDL_Rect destUser = build_sdlrect(posUser, m_usernames[i]->width(), m_usernames[i]->height());
 
 		//render del username
@@ -165,7 +166,7 @@ void GameOver::renderReviews() {
 		//rect de las estrellas
 		//render de las estrellas
 		for (int i = 0; i < starNumber; i++) {
-			Vector2D<int> posStar = Vector2D<int>(posX + wProfile + i*15, posY+letterHeight);
+			Vector2D<int> posStar = Vector2D<int>(posX + wProfile + i*15, posYUser+letterHeight);
 			SDL_Rect destStar = build_sdlrect(posStar, 15, 15);
 
 			Texture* reviewStar = &sdlutils().images().at("estrellaReview");
@@ -173,7 +174,7 @@ void GameOver::renderReviews() {
 		}
 
 		//rect del texto
-		Vector2D<int> pos = Vector2D<int>(posX+letterWidth, posY+wProfile);
+		Vector2D<int> pos = Vector2D<int>(posX+letterWidth, posY+wProfile+letterHeight);
 		SDL_Rect dest = build_sdlrect(pos, m_reviews[i]->width(), m_reviews[i]->height());
 
 		//render del texto
