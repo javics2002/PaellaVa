@@ -108,7 +108,7 @@ private:
     UiButton* focusedbutton = nullptr;
     vector<UiButton*> activeTeclado = {};
     int indexfocus=-1;
-    int focusedzone = -1; // 0 teclado 1 uicomanda
+    int focusedzone = 1; // 0 teclado 1 uicomanda
     void chageActiveTeclado();
     bool comparaX(UiButton u1, UiButton u2);
     bool comparaY(UiButton u1, UiButton u2);

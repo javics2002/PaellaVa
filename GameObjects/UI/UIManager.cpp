@@ -529,6 +529,8 @@ void UIManager::creaTeclado()
 
 		j++;
 	}
+
+	actual->guardaTeclado();
 	j = 0;
 	vector <UiButton*> tecladonum;
 
@@ -568,6 +570,11 @@ void UIManager::randomizaTeclado()
 		if (posdis.size() > 0)
 			j = rand() % posdis.size();
 	}
+
+	sort(teclado.begin(), teclado.end(), [](UiButton* u1, UiButton* u2) {return  u1->getPosition().getX() < u2->getPosition().getX(); });
+	sort(teclado.begin(), teclado.end(), [](UiButton* u1, UiButton* u2) {return  u1->getPosition().getY() < u2->getPosition().getY(); });
+
+	if(teclado[0]->isActive())actual->setActiveTeclado(teclado);
 }
 
 void UIManager::addInterfaz(GameObject* elementoInterfaz)

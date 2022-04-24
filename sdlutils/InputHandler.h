@@ -90,7 +90,7 @@ public:
 	Las flechas de direccion se pueden controlar tanto con WASD, las flechas del teclado,
 	el dpad del mando y el joystick izquierdo
 	Unknown debe ser el �ltimo bot�n para marcar el n�mero de botones*/
-	enum botones { LEFT, RIGHT, UP, DOWN, A, B, X, Y, LB, RB, LT, RT, PAUSE, UNKNOWN };
+	enum botones { LEFT, RIGHT, UP, DOWN, A, B, X, Y, LB, RB, LT, RT, PAUSE, TAB,UNKNOWN };
 
 	virtual ~InputHandler() {
 	}
@@ -305,8 +305,13 @@ public:
 			break;
 		case SDL_SCANCODE_Q:
 			keyJustDown(X);
+			break;
 		case SDL_SCANCODE_LSHIFT:
 			keyJustDown(Y);
+			break;
+		case SDL_SCANCODE_TAB:
+			keyJustDown(TAB);
+			break;
 		default:
 			break;
 		}
@@ -375,6 +380,9 @@ public:
 			break;
 		case SDL_SCANCODE_LSHIFT:
 			mKeyPressed[Y] = false;
+			break;
+		case SDL_SCANCODE_TAB:
+			mKeyPressed[TAB] = false;
 			break;
 		default:
 			break;

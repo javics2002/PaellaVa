@@ -52,12 +52,12 @@ Player::~Player()
 void Player::handleInput(Vector2D<double> axis, bool playerOne)
 {
 	//El jugador se mueve o se para en ambos ejes
-	if (axis.getX() > .1f || axis.getX() < -.1f)
+	if ((axis.getX() > .1f || axis.getX() < -.1f) && !enComanda)
 		vel.setX(vel.getX() + axis.getX() * aceleracion);
 	else
 		vel.setX(vel.getX() * deceleracion);
 
-	if (axis.getY() > .1f || axis.getY() < -.1f)
+	if ((axis.getY() > .1f || axis.getY() < -.1f) && !enComanda)
 		vel.setY(vel.getY() + axis.getY() * aceleracion);
 	else
 		vel.setY(vel.getY() * deceleracion);
@@ -369,21 +369,21 @@ void Player::animUpdate(Vector2D<double> axis)
 		break;
 	}
 
-	if (axis.getY() > .1f) {
+	if (axis.getY() > .1f && !enComanda) {
 		// Andar Abajo
 		currAnim = 3;
 	}
-	else if (axis.getY() < -.1f) {
+	else if (axis.getY() < -.1f && !enComanda) {
 		// Andar Arriba
 		currAnim = 5;
 	}
 
 	// Horizontal va segundo para tener prioridad
-	if (axis.getX() > .1f) {
+	if (axis.getX() > .1f && !enComanda) {
 		// Andar der
 		currAnim = 4;
 	}
-	else if (axis.getX() < -.1f) {
+	else if (axis.getX() < -.1f && !enComanda) {
 		// Andar izq
 		currAnim = 4;
 	}

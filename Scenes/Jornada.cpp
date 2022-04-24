@@ -32,27 +32,27 @@ Jornada::Jornada(Game* game, string tilemap, int numeroJornada, bool host_) : Sc
 	host = host_;
 
 #ifdef _DEBUG
-	auto startButton = new UiButton(game, "start", 640, 100, 100, 100);
-	startButton->setInitialDimension(100, 100);
-	startButton->setAction([this, startButton](Game* game, bool& exit) {
-		sdlutils().soundEffects().at("select").play(0, game->UI);
+	//auto startButton = new UiButton(game, "start", 640, 100, 100, 100);
+	//startButton->setInitialDimension(100, 100);
+	//startButton->setAction([this, startButton](Game* game, bool& exit) {
+	//	sdlutils().soundEffects().at("select").play(0, game->UI);
 
-		uiManager->addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([game, startButton, this](tweeny::tween<float>& t, float) mutable {
-			startButton->setDimension(t.peek() * startButton->getInitialWidth(), t.peek() * startButton->getInitialHeight());
+	//	uiManager->addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([game, startButton, this](tweeny::tween<float>& t, float) mutable {
+	//		startButton->setDimension(t.peek() * startButton->getInitialWidth(), t.peek() * startButton->getInitialHeight());
 
-			if (t.progress() > .2f) {
-				//Start game
-				game->getNetworkManager()->setGameStarted(false);
+	//		if (t.progress() > .2f) {
+	//			//Start game
+	//			game->getNetworkManager()->setGameStarted(false);
 
-				game->sendMessageScene(new GameOver(game, 0, nJornada));
-				
-				return true;
-			}
-			return false;
-			});
-		});
+	//			game->sendMessageScene(new GameOver(game, 0, nJornada));
+	//			
+	//			return true;
+	//		}
+	//		return false;
+	//		});
+	//	});
 
-	uiManager->addInterfaz(startButton);
+	//uiManager->addInterfaz(startButton);
 #endif // _DEBUG
 
 	// crear player dependiendo si es cocinera o no
@@ -115,14 +115,14 @@ void Jornada::handleInput(bool& exit)
 	}
 
 	if (ih().getKey(InputHandler::Y)) {
-		if (uiManager->getComanda() == nullptr)
-		{
+		if (uiManager->getComanda() == nullptr) {
 			uiManager->creaComanda(game);
+			getObjectManager()->getPlayerOne()->changeEnComanda(true);
 		}
-		else
-		{
+		else {
 			uiManager->getComanda()->toggleactive();
 		}
+		
 	}
 }
 

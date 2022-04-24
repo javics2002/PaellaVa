@@ -18,6 +18,7 @@ class Player : public GameObject
 	objectType objectType_;
 
 	bool chef_;		// False is waiter
+	bool enComanda=false;
 
 	orientation orientation_;
 	
@@ -63,6 +64,8 @@ public:
 	SDL_Rect getOverlap() override;
 
 	void changePlayer(bool c); //para el tutorial 
+
+	void changeEnComanda(bool c) { enComanda = c; };
 
 	void PickCustomObject(int objectType, int objectId, int muebleId, int extraInfo);
 	void DropCustomObject(int objectType, int objectId, int muebleId);

@@ -154,9 +154,16 @@ void Comanda::randomizaIconos()
 		if (posdis.size() > 0)
 			j = rand() % posdis.size();
 	}
+
 	//pero lo qeuiro ordenado para el foco
 	sort(teclado.begin(), teclado.end(), [](UiButton* u1, UiButton* u2) {return  u1->getPosition().getX() < u2->getPosition().getX(); });
 	sort(teclado.begin(), teclado.end(), [](UiButton* u1, UiButton* u2) {return  u1->getPosition().getY() < u2->getPosition().getY(); });
+
+
+	setActiveTeclado(teclado);
+
+
+	
 		
 	//sort(teclado.begin(), teclado.end(), &comparaY);
 	//sort(teclado.begin(), teclado.end(), &comparaX);
@@ -165,13 +172,11 @@ void Comanda::randomizaIconos()
 void Comanda::dibujaPedido()
 {
 	if (numeromesa != nullptr)
-	{
 		numeromesa->render(nullptr);
-	}
+
 	for (auto i : Pedido)
-	{
 		i->render(nullptr);
-	}
+
 	renderizaPaellas();
 }
 void Comanda::borraPedido()
@@ -505,6 +510,7 @@ list<Comanda*>::iterator  Comanda::getSitio()
 
 void Comanda::toggleactive()
 {
+	game->getObjectManager()->getPlayerOne()->changeEnComanda(!isActive());
 	setActive(!isActive());
 
 	for (auto b : botones)
@@ -523,11 +529,6 @@ void Comanda::toggleactive()
 		
 		uiManager->getBarra()->setBarraActive(true);
 			uiManager->getBarra()->toggleBarra();
-
-	
-
-
-
 	}
 	else//desactivando comanda
 	{
@@ -593,11 +594,11 @@ void Comanda::pressSelectedButton()
 }
 void Comanda::cambiazonafoco()
 {
-	if (focusedzone == 0)//cambio del teclado a la ui comandas
+	if (focusedzone == 1)//cambio del teclado a la ui comandas
 	{
 		activeTeclado = botones;
 		chageActiveTeclado();
-		focusedzone = 1;
+		focusedzone = 0;
 	}
 	else
 	{
@@ -619,39 +620,38 @@ void Comanda::cambiazonafoco()
 			chageActiveTeclado();
 
 		}
-		focusedzone = 0;
+		focusedzone = 1;
 	}
 }
 void Comanda::siguientebotonfocus(int dir)
 {
 	if (!activeTeclado.empty())
 	{
-		activeTeclado[indexfocus]->setunfocused();
+		if (indexfocus < activeTeclado.size()) 
+			activeTeclado[indexfocus]->setunfocused();
+		
 		if (indexfocus == activeTeclado.size() - 1)
 		{
 			if (dir > 0)
-			{
 				indexfocus = 0;
-			}
 			else indexfocus--;
 		}
-		else if (indexfocus == 0)
-		{
+		else if (indexfocus == 0){
 			if (dir < 0)
-			{
 				indexfocus = activeTeclado.size() - 1;
-			}
-			else
-			{
-				indexfocus++;
-			}
+			else indexfocus++;
 		}
-		else
-		{
-			indexfocus += dir;
+		else indexfocus += dir;
+
+		if (indexfocus <= activeTeclado.size()) {
+			focusedbutton = activeTeclado[indexfocus];
+			activeTeclado[indexfocus]->setfocused();
 		}
-		focusedbutton = activeTeclado[indexfocus];
-		activeTeclado[indexfocus]->setfocused();
+		else {
+			indexfocus = 0;
+			focusedbutton = activeTeclado[indexfocus];
+			activeTeclado[indexfocus]->setfocused();
+		}
 	}
 /*	if (!activeTeclado.empty())
 	{
@@ -688,7 +688,7 @@ void Comanda::update()
 			pressSelectedButton();
 			
 		}
-		if (ih().getKey(ih().LB))
+		if (ih().getKey(ih().LB) || ih().getKey(ih().TAB))
 		{
 			cambiazonafoco();
 		}
@@ -697,9 +697,10 @@ void Comanda::update()
 }
 void Comanda::chageActiveTeclado()
 {
-	focusedbutton->setunfocused();
+	if(focusedbutton!=nullptr)focusedbutton->setunfocused();
 	activeTeclado[0]->setfocused();
 	focusedbutton = activeTeclado[0];
+	indexfocus = 0;
 }
 void Comanda::setActiveTeclado(vector<UiButton*> a)
 {
