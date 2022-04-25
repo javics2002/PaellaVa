@@ -588,8 +588,9 @@ void Comanda::pressSelectedButton()
 	{
 		bool b= false;
 		
-		setDimension(ancho, alto);
+		//setDimension(ancho, alto);
 		focusedbutton->execute(b);
+
 	}
 }
 void Comanda::cambiazonafoco()
@@ -685,6 +686,7 @@ void Comanda::update()
 		}
 		if (ih().getKey(ih().A))
 		{
+			ih().setKey(false, ih().A);
 			pressSelectedButton();
 			
 		}

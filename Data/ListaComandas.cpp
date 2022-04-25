@@ -81,8 +81,9 @@ void ListaComandas::AñadeComanda(Comanda* comanda)
 		//uimt->addInterfaz(e);
 		if (selected != nullptr)
 			selected->deseleccionaComanda();
-		c->setEliminabutton(e);
 		e->setActive(false);
+		c->setEliminabutton(e);
+		
 		selected = c;
 		c->seleccionaComanda();
 		numcomandas++;
