@@ -54,26 +54,20 @@ void TablaProcesado::update()
 	humo->update();
 }
 
-void TablaProcesado::procesando() 
-{
+void TablaProcesado::procesando() {
 
-	if (sdlutils().currRealTime() - tiempo >= TIEMPO_PROCESADO)
-	{
+	if (sdlutils().virtualTimer().currTime() - tiempo >= TIEMPO_PROCESADO) {
 		ingr_->setProcesado(true, ingr_);
 		tiempo = sdlutils().currRealTime();
-
 		clip.x = i * clip.w;
-
 		sdlutils().soundEffects().at("cortar1").haltChannel(canalSonido);
 	}
-	else if (sdlutils().currRealTime() - tiempo >= rellenoTimer + TIEMPO_PROCESADO / 8)
-	{
 
-		clip.x = i * clip.w;
+	else if (sdlutils().virtualTimer().currTime() - tiempo >= rellenoTimer + TIEMPO_PROCESADO / 8) {
 
-		i++;
-
-		rellenoTimer += TIEMPO_PROCESADO / 8;
+			clip.x = i * clip.w;
+			i++;
+			rellenoTimer += TIEMPO_PROCESADO / 8;
 	}
 }
 
@@ -109,7 +103,7 @@ bool TablaProcesado::receiveIngrediente(Ingrediente* ingr)
 
 			ingr_ = ingr;
 
-			tiempo = sdlutils().currRealTime();
+			tiempo = sdlutils().virtualTimer().currTime();
 
 			ingr_->setPosition(getRectCenter(getOverlap()));
 

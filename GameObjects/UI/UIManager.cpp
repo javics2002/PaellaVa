@@ -330,8 +330,7 @@ void UIManager::update(bool paused)
 		}*/
 	}
 
-
-	if (enLobby && sdlutils().virtualTimer().currTime() - initTime >= tiempoCreacion) {
+	if (enLobby && sdlutils().currRealTime() - initTime >= tiempoCreacion) {
 
 		double x = cos(toRadians(alfa));
 		double y = sin(toRadians(alfa));
@@ -451,9 +450,11 @@ void UIManager::render(SDL_Rect* rect = nullptr)
 		}
 	}
 	
-	for (auto it = cargarAnimacion.begin(); it != cargarAnimacion.end(); it++) {
-		auto i = *it;
-		i->render(rect);
+	if (enLobby) {
+		for (auto it = cargarAnimacion.begin(); it != cargarAnimacion.end(); it++) {
+			auto i = *it;
+			i->render(rect);
+		}
 	}
 }
 
@@ -773,6 +774,9 @@ void UIManager::creaMenuOpciones()
 			it->second.setMusicVolume(volumenMusica);
 			++it;
 		}
+
+		game->setSlidesMus(slideMusica->getPosition());
+
 		});
 
 	optionsMenu.push_back(slideMusica);
@@ -811,12 +815,14 @@ void UIManager::creaMenuOpciones()
 			it->second.setChannelVolume(volumenSonido);
 			++it;
 		}
+
+		game->setSlidesSon(slideSonido->getPosition());
+
 		});
 
 	optionsMenu.push_back(slideSonido);
 	sliders.push_back(slideSonido);
 
-	game->setSlidesPos(slideSonido->getPosition(), slideMusica->getPosition());
 
 	//Caja de texto del nombre
 	Imagen* fondoNombre = new Imagen(game, sdlutils().width() / 2 - 100, opcPant->getHeight() - 100, 210, 50, "reloj");

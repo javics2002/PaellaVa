@@ -60,7 +60,8 @@ public:
     void setNombre(string nombre_);
     string getNombre();
 
-    void setSlidesPos(Vector2D<double> slideVol_, Vector2D<double> slideSon_);
+    void setSlidesSon(Vector2D<double> slideSon_);
+    void setSlidesMus(Vector2D<double> slideMus_);
     Vector2D<double> getSlideSon();
     Vector2D<double> getSlideMus();
     
