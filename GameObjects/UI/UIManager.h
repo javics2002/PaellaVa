@@ -58,6 +58,8 @@ class UIManager
 	UiButton* slideSonido;
 
 	bool clickPrevio = true;
+	bool fromMenu = false;
+	bool fromRight = true;
 
 	const int posInicialCreditos = 260;
 	const int avanceCreditos = 70;
@@ -114,6 +116,8 @@ public:
 	void toggleCreditos(int pagina);
 	void salirCreditos();
 
+	void creditsTweenSetter(GameObject* i);
+
 	void desactivaBot();
 	void activaBot();
 
@@ -125,6 +129,8 @@ public:
 	tweeny::tween<float>& addTween(float from, float to, float during,bool activeTweens_);
 
 	void setEnLobby(bool enLobby_);
+	void setFromMenu(bool fromMenu_);
+	void setFromRight(bool fromRight_);
 
 	void quemarse();
 	void focoExecute(bool& exit);

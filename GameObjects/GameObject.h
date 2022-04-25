@@ -21,6 +21,7 @@ protected:
     Vector2D<double> pos, vel;
     int w, h;
     int iniW, iniH;
+    double iniX, iniY;
     int z; // para el render
 
     Game* game;
@@ -68,6 +69,10 @@ public:
     void setPosition(Vector2D<double> v);
     void setDimension(int width, int height);
     void setDimension();
+
+    void setInitialPosition(int xPos, int yPos);
+    int getInitialPositionX() { return iniX; }
+    int getInitialPositionY() { return iniY; }
 
     void setInitialDimension(int width, int height);
     int getInitialWidth() { return iniW; }

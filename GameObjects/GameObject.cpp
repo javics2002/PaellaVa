@@ -26,6 +26,12 @@ void GameObject::setDimension() //pone la dimension al tama�o de la textura
 	}
 }
 
+void GameObject::setInitialPosition(int xPos, int yPos)
+{
+	iniX = xPos;
+	iniY = yPos;
+}
+
 void GameObject::setInitialDimension(int width, int height)
 {
 	iniW = width;

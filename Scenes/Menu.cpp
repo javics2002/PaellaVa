@@ -96,14 +96,11 @@ Menu::Menu(Game* game) : Scene(game)
 			creditsButton->setDimension(t.peek() * creditsButton->getInitialWidth(), t.peek() * creditsButton->getInitialHeight());
 
 			if (t.progress() > .2f) {
-				// Settings
-
-				//Abrir pantalla
+				// Credits
+				game->getUIManager()->setFromMenu(true);
 				game->getUIManager()->toggleCreditos(0);
 				game->getUIManager()->desactivaBot();
-
-				// -Poner pantalla completa (sdlutils().toggleFullScreen();)
-				// -Volumen de musica y sonido (slides separados)
+				
 
 				return true;
 			}
