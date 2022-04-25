@@ -116,7 +116,7 @@ public:
 	void toggleCreditos(int pagina);
 	void salirCreditos();
 
-	void creditsTweenSetter(GameObject* i);
+	void tweenSetter(GameObject* i, bool enAjustes_);
 
 	void desactivaBot();
 	void activaBot();
