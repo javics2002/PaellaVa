@@ -1,5 +1,6 @@
 #include "Encimera.h"
 #include "../Ingrediente.h"
+#include "../Herramienta.h"
 #include "../Player.h"
 #include "../Paella.h"
 #include "../../Control/Game.h"
@@ -89,6 +90,21 @@ bool Encimera::receiveArroz(Arroz* arr)
 	return false;
 }
 
+bool Encimera::receiveHerramienta(Herramienta* h)
+{
+	//Si ya tiene objeto, no recoge objeto
+	if (ingr_ == nullptr && paella_ == nullptr && arroz_ == nullptr && h_ == nullptr)
+	{
+		h_ = h;
+
+		h_->setPosition(getRectCenter(getOverlap()));
+
+		return true;
+	}
+
+	return false;
+}
+
 bool Encimera::returnObject(Player* p)
 {
 	if (ingr_ != nullptr)
@@ -113,6 +129,14 @@ bool Encimera::returnObject(Player* p)
 		p->setPickedObject(arroz_, ARROZ);
 
 		arroz_ = nullptr;
+
+		return true;
+	}
+	else if (h_ != nullptr)
+	{
+		p->setPickedObject(h_, HERRAMIENTA);
+
+		h_ = nullptr;
 
 		return true;
 	}

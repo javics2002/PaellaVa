@@ -7,6 +7,7 @@
 #include "../Control/ObjectManager.h"
 
 #include "Ingrediente.h"
+#include "Herramienta.h"
 #include "Muebles/Mueble.h"
 #include "Muebles/Mesa.h"
 #include "Muebles/FinalCinta.h"
@@ -202,6 +203,14 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 				break;
 			case ARROZ:
 				if (m != nullptr && m->receiveArroz(dynamic_cast<Arroz*>(pickedObject_))) {
+					game->getNetworkManager()->syncDropObject(objectType_, pickedObject_->getId(), m->getId());
+
+					pickedObject_->dropObject();
+					pickedObject_ = nullptr;
+				}
+				break;
+			case HERRAMIENTA:
+				if (m != nullptr && m->receiveHerramienta(dynamic_cast<Herramienta*>(pickedObject_))) {
 					game->getNetworkManager()->syncDropObject(objectType_, pickedObject_->getId(), m->getId());
 
 					pickedObject_->dropObject();
