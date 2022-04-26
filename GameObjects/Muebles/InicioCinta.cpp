@@ -20,6 +20,15 @@ void InicioCinta::update()
 
 	int i = rand() % 1000;
 
+	if (!funcionando)
+	{
+		humo->setStyle(ParticleExample::SMOKE);
+	}
+	else 
+	{
+		humo->setStyle(ParticleExample::NONE);
+	}
+
 	if (sdlutils().virtualTimer().currTime() - initTime >= SPAWN_DELAY && isActive() && funcionando)
 	{
 		if (i < porcentajeLetal && !dynamic_cast<Tutorial*>(game->getCurrentScene()))
@@ -44,21 +53,23 @@ void InicioCinta::update()
 	if (funcionando && couldBreak <= 0)
 	{
 		testMueble();
-		if (funcionando) {
+		if (funcionando) 
+		{
 			//se reduce cuando se podría romper
 			couldBreak = MAX_BREAK_TIME - REDUCE_BREAK_TIME;
 		}
-		else {
+		else 
+		{
 			//se resetea cuando se podría romper
 			couldBreak = MAX_BREAK_TIME;
+			humo->setStyle(ParticleExample::EXPLOSION);
 		}
 	}
-	else if (funcionando && couldBreak > 0) {
+	else if (funcionando && couldBreak > 0) 
+	{
 		couldBreak -= seg;
 	}
-	if (!funcionando)
-		humo->setStyle(ParticleExample::EXPLOSION);
-	else humo->setStyle(ParticleExample::NONE);
+
 	humo->setPosition(getX(), getY());
 	humo->update();
 }
@@ -69,8 +80,9 @@ void InicioCinta::render(SDL_Rect* cameraRect)
 	   getHeight() };
 	if (isActive()) {
 
-		if (funcionando)drawRender(cameraRect, dest, &sdlutils().images().at("inicioCinta"));
-		else drawRender(cameraRect, dest, &sdlutils().images().at("berenjena"));
+		//if (funcionando)drawRender(cameraRect, dest, &sdlutils().images().at("inicioCinta"));
+		//else drawRender(cameraRect, dest, &sdlutils().images().at("berenjena"));
+		drawRender(cameraRect, dest, &sdlutils().images().at("inicioCinta"));
 
 		humo->draw(cameraRect);
 	}

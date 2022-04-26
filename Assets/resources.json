@@ -168,8 +168,8 @@
     { "id": "quemadura", "file": "Assets/Images/quemadura.png" },
     { "id": "particle", "file": "Assets/Images/particle.png" },
     { "id": "profilePicture", "file": "Assets/Images/profilePicture.png" },
-    { "id": "estrellaReview", "file": "Assets/Images/estrellaReview.png" }
-
+    { "id": "estrellaReview", "file": "Assets/Images/estrellaReview.png" },
+    { "id": "extintor", "file": "Assets/Images/extintor.png"}
 
   ],
 

@@ -6,7 +6,7 @@
 #include "../../Control/Game.h"
 #include "../../Control/ObjectManager.h"
 
-CajaHerramientas::CajaHerramientas(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, "berenjena")
+CajaHerramientas::CajaHerramientas(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, "extintor")
 {
 	//Siempre tiene que funcionar
 	funcionando = true;

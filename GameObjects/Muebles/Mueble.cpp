@@ -51,7 +51,8 @@ SDL_Rect Mueble::getOverlap()
 
 bool Mueble::receiveHerramienta(Herramienta* h)
 {
-	if (!funcionando) {
+	if (!funcionando) 
+	{
 		funcionando = true;
 		h->setActive(false);
 		return true;

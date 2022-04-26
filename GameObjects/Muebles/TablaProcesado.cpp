@@ -13,16 +13,25 @@ TablaProcesado::TablaProcesado(Game* game_, Vector2D<double> pos) : Mueble(game_
 	clip.w = timerTexture->width() / 8;
 	clip.h = timerTexture->height();
 	clip.y = 0;
-
-
 }
 
 void TablaProcesado::update() 
 {
-	if (funcionando && ingr_ != nullptr) {
+	if (!funcionando)
+	{
+		humo->setStyle(ParticleExample::SMOKE);
+	}
+	else
+	{
+		humo->setStyle(ParticleExample::NONE);
+	}
+
+	if (funcionando && ingr_ != nullptr) 
+	{
 		procesando();
 	}
-	else if (!funcionando && ingr_ != nullptr) {
+	else if (!funcionando && ingr_ != nullptr) 
+	{
 		i = 0;
 		clip.x = 0;
 		rellenoTimer = 0;
@@ -34,22 +43,23 @@ void TablaProcesado::update()
 		if (couldBreak <= 0)
 		{
 			testMueble();
-			if (funcionando){	
+			if (funcionando)
+			{	
 				//se reduce cuando se podr�a romper
 				couldBreak = MAX_BREAK_TIME - REDUCE_BREAK_TIME;
 			}
-			else{
+			else
+			{
 				//se resetea cuando se podr�a romper
 				couldBreak = MAX_BREAK_TIME;
+				humo->setStyle(ParticleExample::EXPLOSION);
 			}
 		}
 		else if (couldBreak > 0){
 			couldBreak -= seg;
 		}
 	}
-	if (!funcionando)
-		humo->setStyle(ParticleExample::EXPLOSION);
-	else humo->setStyle(ParticleExample::NONE);
+
 	humo->setPosition(getX(), getY());
 	humo->update();
 }
@@ -77,10 +87,9 @@ void TablaProcesado::render(SDL_Rect* camera)
 		SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, getWidth(),
 			getHeight() };
 
-			
-
-		if(funcionando)drawRender(camera, dest, &sdlutils().images().at("tablaProcesado"));
-		else drawRender(camera, dest, &sdlutils().images().at("berenjena"));
+		//if(funcionando)
+			drawRender(camera, dest, &sdlutils().images().at("tablaProcesado"));
+		//else drawRender(camera, dest, &sdlutils().images().at("berenjena"));
 
 		if (ingr_ != nullptr && !ingr_->getProcesado() && i != 0) {
 

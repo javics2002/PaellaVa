@@ -18,26 +18,38 @@ Fogon::Fogon(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 2 
 
 void Fogon::update()
 {
+	if (!funcionando)
+	{
+		humo->setStyle(ParticleExample::SMOKE);
+	}
+	else
+	{
+		humo->setStyle(ParticleExample::NONE);
+	}
 	if(!funcionando && paella_!=nullptr)
+	{
 		paella_->setState(Hecha);
+	}
 ;	if (funcionando && couldBreak <= 0)
 	{
 		testMueble();
-		if (funcionando){
+		if (funcionando)
+		{
 			//se reduce cuando se podría romper
 			couldBreak = MAX_BREAK_TIME - REDUCE_BREAK_TIME;
 		}
-		else{
+		else
+		{
 			//se resetea cuando se podría romper
 			couldBreak = MAX_BREAK_TIME;
+			humo->setStyle(ParticleExample::EXPLOSION);
 		}
 	}
-	else if (funcionando && couldBreak > 0){
+	else if (funcionando && couldBreak > 0)
+	{
 		couldBreak -= seg;
 	}
-	if (!funcionando)
-		humo->setStyle(ParticleExample::EXPLOSION);
-	else humo->setStyle(ParticleExample::NONE);
+
 	humo->setPosition(getX(), getY());
 	humo->update();
 
@@ -45,16 +57,21 @@ void Fogon::update()
 
 void Fogon::render(SDL_Rect* cameraRect)
 {
-	//Si no funciona usar la textura del fuego
-
 	SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, getWidth(),
 	getHeight() };
 
 	if (isActive()) {
 
-		if(funcionando)drawRender(cameraRect, dest, &sdlutils().images().at("fogon"));
-		else drawRender(cameraRect, dest, &sdlutils().images().at("berenjena"));
-
+		//if (funcionando)
+		//{
+		//	drawRender(cameraRect, dest, &sdlutils().images().at("fogon"));
+		//}
+		//else 
+		//{
+		//	/*drawRender(cameraRect, dest, &sdlutils().images().at("berenjena"));*/
+		//	drawRender(cameraRect, dest, &sdlutils().images().at("fogon"));
+		//}
+		drawRender(cameraRect, dest, &sdlutils().images().at("fogon"));
 
 		if (paella_ != nullptr && barra) {
 

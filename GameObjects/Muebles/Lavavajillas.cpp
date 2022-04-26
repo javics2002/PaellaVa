@@ -11,34 +11,47 @@ Lavavajillas::Lavavajillas(Game* game, Vector2D<double> pos) : Mueble(game, pos,
 
 void Lavavajillas::update()
 {
-	if (funcionando && !paellasSucias.empty() && isActive()){
+	if (!funcionando)
+	{
+		humo->setStyle(ParticleExample::SMOKE);
+	}
+	else
+	{
+		humo->setStyle(ParticleExample::NONE);
+	}
+	if (funcionando && !paellasSucias.empty() && isActive())
+	{
 		lavando();
 	}
-	else if (!funcionando && !paellasSucias.empty() && isActive()) {
+	else if (!funcionando && !paellasSucias.empty() && isActive()) 
+	{
 		i = 0;
 		clip.x = 0;
 		rellenoTimer = 0;
 
 		initTime = sdlutils().currRealTime();
 	}
+
 	if (funcionando && couldBreak <= 0 )
 	{
 		testMueble();
-		if (funcionando){
+		if (funcionando)
+		{
 			//se reduce cuando se podr�a romper
 			couldBreak = MAX_BREAK_TIME - REDUCE_BREAK_TIME;
 		}
-		else{
+		else
+		{
 			//se resetea cuando se podr�a romper
 			couldBreak = MAX_BREAK_TIME;
+			humo->setStyle(ParticleExample::EXPLOSION);
 		}
 	}
-	else if (funcionando && couldBreak > 0){
+	else if (funcionando && couldBreak > 0)
+	{
 		couldBreak -= seg;
 	}
-	if (!funcionando)
-		humo->setStyle(ParticleExample::EXPLOSION);
-	else humo->setStyle(ParticleExample::NONE);
+
 	humo->setPosition(getX(), getY());
 	humo->update();
 }
@@ -127,10 +140,9 @@ void Lavavajillas::render(SDL_Rect* camera)
 		SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, getWidth(),
 			getHeight() };
 
-	//Si no funciona usar la textura del fuego
-
-		if(funcionando)drawRender(camera, dest, &sdlutils().images().at("lavavajillas"));
-		else drawRender(camera, dest, &sdlutils().images().at("berenjena"));
+		/*if(funcionando)*/
+		drawRender(camera, dest, &sdlutils().images().at("lavavajillas"));
+		//else drawRender(camera, dest, &sdlutils().images().at("berenjena"));
 
 		if (!paellasSucias.empty() && paellasSucias.front()->getContenido() == Sucia && i != 0) {
 
