@@ -169,7 +169,9 @@
     { "id": "particle", "file": "Assets/Images/particle.png" },
     { "id": "profilePicture", "file": "Assets/Images/profilePicture.png" },
     { "id": "estrellaReview", "file": "Assets/Images/estrellaReview.png" },
-    { "id": "extintor", "file": "Assets/Images/extintor.png"}
+    { "id": "extintor", "file": "Assets/Images/extintor.png"},
+    { "id": "tutorialButton", "file": "Assets/Images/tutorialButton.png"}
+
 
   ],
 
