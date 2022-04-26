@@ -170,3 +170,9 @@ SDL_Rect Lavavajillas::getCollider()
 	return { 0,0,0,0 };
 }
 
+bool Lavavajillas::resetCounter()
+{
+	couldBreak = MAX_BREAK_TIME;
+	return true;
+}
+

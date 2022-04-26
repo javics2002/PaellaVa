@@ -33,5 +33,6 @@ public:
 
 	SDL_Rect getOverlap() override;
 	SDL_Rect getCollider() override;
+	virtual bool resetCounter() override;
 };
 

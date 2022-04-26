@@ -153,3 +153,9 @@ bool Fogon::returnObject(Player* p)
 		return false;
 }
 
+bool Fogon::resetCounter()
+{
+	couldBreak = MAX_BREAK_TIME;
+	return true;
+}
+

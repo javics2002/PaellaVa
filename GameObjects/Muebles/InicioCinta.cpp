@@ -94,6 +94,12 @@ SDL_Rect InicioCinta::getCollider()
 	return { 0,0,0,0 };
 }
 
+bool InicioCinta::resetCounter()
+{
+	couldBreak = MAX_BREAK_TIME;
+	return true;
+}
+
 SDL_Rect InicioCinta::getOverlap()
 {
 	return getTexBox();

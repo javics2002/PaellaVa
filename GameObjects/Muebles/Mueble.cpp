@@ -2,6 +2,7 @@
 #include "../Herramienta.h"
 #include "../../Control/Game.h"
 #include "../../Utils/ParticleExample.h"
+#include "../../Control/ObjectManager.h"
 
 
 Mueble::Mueble(Game* game, Vector2D<double> position, int width, int height, string claveTextura) : GameObject(game)
@@ -68,6 +69,8 @@ bool Mueble::testMueble()
 	{
 		funcionando = false;
 		roto -=5; //Para que cada vez sea más difícil que se rompa
+
+		game->getObjectManager()->resetMueblesCounter();
 	}
 	return funcionando;
 }

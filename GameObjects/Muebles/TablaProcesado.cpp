@@ -147,3 +147,9 @@ bool TablaProcesado::returnObject(Player* p)
 	else
 		return false;
 }
+
+bool TablaProcesado::resetCounter()
+{
+	couldBreak = MAX_BREAK_TIME;
+	return true;
+}

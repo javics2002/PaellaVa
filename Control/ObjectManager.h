@@ -139,5 +139,7 @@ public:
 	void initMuebles();
 
 	void sortAllGO();
+
+	void resetMueblesCounter();
 };
 

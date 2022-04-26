@@ -35,5 +35,7 @@ public:
 
 	bool receiveIngrediente(Ingrediente *ingr_) override;
 	bool returnObject(Player* p);
+
+	virtual bool resetCounter() override;
 };
 

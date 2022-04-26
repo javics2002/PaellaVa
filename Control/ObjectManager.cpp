@@ -164,6 +164,14 @@ void ObjectManager::sortAllGO() {
 		});
 }
 
+void ObjectManager::resetMueblesCounter()
+{
+	for (auto i : muebles)
+	{
+		i->resetCounter();
+	}
+}
+
 void ObjectManager::initMuebles()
 {
 	for (auto i : muebles)

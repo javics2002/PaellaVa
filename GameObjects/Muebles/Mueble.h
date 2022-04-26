@@ -26,7 +26,7 @@ protected:
 
     int id;
     bool funcionando;
-    int roto = 20;
+    int roto = 50;
     int randomOptions = 100;
     ParticleExample* humo;
 
@@ -42,6 +42,7 @@ public:
     virtual bool receiveArroz(Arroz* arr) { return false;}
     virtual bool receiveHerramienta(Herramienta* h);
     virtual bool testMueble();
+    virtual bool resetCounter() { return false; }
 
     virtual bool returnObject(Player* p) { return false; }
 

@@ -32,5 +32,6 @@ public:
 	void update();
 	virtual bool receivePaella(Paella* pa) override;
 	virtual bool returnObject(Player* p) override;
+	virtual bool resetCounter() override;
 };
 
