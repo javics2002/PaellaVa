@@ -35,6 +35,8 @@ public:
 	SDL_Rect getClip();
 	SDL_RendererFlip getFlip();
 
+	void drawPickedClient(SDL_Rect* cameraRect, SDL_Rect rect);
+
 };
 
 

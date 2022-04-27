@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <array>
 #include <List>;
 
 #include "Cliente.h"
@@ -17,9 +18,10 @@ enum EstadoClientes { CAMINANDO, ENCOLA, PIDIENDO, ESPERANDO, COMIENDO, CUENTA }
 
 class GrupoClientes : public ObjetoPortable
 {
-	const unsigned int DIMENSION = 60;
+	const unsigned int DIMENSION = 100;
 
 	vector<Cliente*> clientes;
+	std::array<SDL_Rect, 8> pickedClientsPos;
 
 	list<GrupoClientes*>::const_iterator posCola;
 	Cola* cola;

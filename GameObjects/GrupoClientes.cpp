@@ -123,8 +123,14 @@ void GrupoClientes::update()
 
 void GrupoClientes::render(SDL_Rect* cameraRect)
 {
-	if (isPicked())
-		drawRender(cameraRect);
+	if (isPicked()) {
+		for (int i = 0; i < numIntegrantes(); i++) {
+			SDL_Rect rect = pickedClientsPos[i];
+			rect.x = rect.x + getPosition().getX() - getWidth() / 2;
+			rect.y = rect.y + getPosition().getY() - getWidth() / 2;
+			clientes[i]->drawPickedClient(cameraRect, rect);
+		}
+	}	
 
 	int bocadilloX = 80;
 	int bocadilloY = 80;
@@ -136,10 +142,11 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 			itemNow = (itemNow + 1) % texPedido.size();
 		}
 
-		int itemDim = 50;
+		int itemDim = 45;
+		
 
 		drawRender(cameraRect, { (int)getX() - bocadilloX / 2, (int)getY() - bocadilloY, bocadilloX, bocadilloY }, texTolerancia);
-		drawRender(cameraRect, { (int)getX() - itemDim / 2, (int)getY() - itemDim - 10, itemDim, itemDim }, &sdlutils().images().at(texPedido[itemNow]));
+		drawRender(cameraRect, { (int)getX() - itemDim / 2, (int)getY() - 70, itemDim, itemDim }, &sdlutils().images().at(texPedido[itemNow]));
 
 		showPed = false;
 	}
@@ -158,7 +165,7 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 				bocadillo = { mitadGrupo() - bocadilloX / 2,
 					(int)clientes[0]->getY() - clientes[0]->getHeight() / 2 - bocadilloY, bocadilloX, bocadilloY };
 				emoticono = { mitadGrupo() - emoticonoX / 2,
-					(int)clientes[0]->getY() - clientes[0]->getHeight() / 2 - bocadilloY + emoticonoY - emoticonoY/3, emoticonoX, emoticonoY };
+					(int)clientes[0]->getY() - clientes[0]->getHeight() / 2 - bocadilloY + emoticonoY / 2, emoticonoX, emoticonoY };
 			}
 			else {
 				bocadillo = { (int)getX() - bocadilloX / 2, (int)getY() - bocadilloY, bocadilloX, bocadilloY };
@@ -253,6 +260,15 @@ vector<Cliente*> GrupoClientes::getIntegrantes()
 void GrupoClientes::onObjectPicked()
 {
 	sdlutils().soundEffects().at("conversacion2").haltChannel(canalSonido);
+
+	if (estado_ == ENCOLA) {
+		for (int i = 0; i < numIntegrantes(); i++) {
+			int rX = 50;
+			int rY = 30;
+			pickedClientsPos[i] = { sdlutils().rand().nextInt() % rX - rX / 2, sdlutils().rand().nextInt() % rY - rY / 2,
+					getWidth(), getHeight() };
+		}
+	}	
 }
 
 void GrupoClientes::onObjectDropped()
@@ -315,7 +331,7 @@ void GrupoClientes::hacerPedido(int tamMesa, Mesa* m)
 	pedido = new Pedido(game,clientes.size(), tamMesa);
 
 	// mandar mensaje?
-	game->getNetworkManager()->syncPedido(getId(), ;
+	//game->getNetworkManager()->syncPedido(getId(), ;
 
 	texPedido = pedido->getPedidoTex();
 }

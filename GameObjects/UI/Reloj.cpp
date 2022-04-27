@@ -52,6 +52,9 @@ void Reloj::update()
 #ifndef _DEBUG
 		game->sendMessageScene(new GameOver(game, 100, mNumeroJornada));
 #endif // _DEBUG
+		//game->getNetworkManager()->setGameStarted(false);
+
+		//game->sendMessageScene(new GameOver(game, 100, mNumeroJornada));
 	}
 	else
 	{
