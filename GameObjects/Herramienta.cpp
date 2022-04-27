@@ -4,7 +4,7 @@
 
 Herramienta::Herramienta(Game* game) : ObjetoPortable(game) {
 	setDimension(DIMENSION, DIMENSION);
-	setTexture("extintor");
+	setTexture("llaveInglesa");
 	setDepth(2);
 }
 
