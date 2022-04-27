@@ -23,12 +23,12 @@ private:
 	double mLastUpdate; //tiempo desde el �ltimo update
 	bool ultimaHora;
 
-	Uint32 updateTime_ = 500; // los milisegundos que tarda en actualizarse el reloj
+	Uint32 updateTime_ = 5000; // los milisegundos que tarda en actualizarse el reloj
 
 	int hourIni = 12; //la hora del d�a a la que empieza la jornada
 	int minuteIni = 0; //los minutos de la hora a la que empieza el juego
-	int hourFin = 12; //la hora del dia a la que termina la jornada
-	int minuteFin = 10; //los minutos de la hora del dia a la que termina la jornada
+	int hourFin = 18; //la hora del dia a la que termina la jornada
+	int minuteFin = 0; //los minutos de la hora del dia a la que termina la jornada
 
 	int addedMinutes = 10; //los minutos a�adidos en cada update 
 
