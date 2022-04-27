@@ -567,6 +567,7 @@ public:
 	void setGame(Game* game_) { game = game_; }
 	void setFocused(bool b) { focusedcontrols = b; };
 	void setKey(bool b, botones boton) { mKeyPressed[boton] = b; };
+	bool getFocus() { return focusedcontrols; };
 };
 
 // This macro defines a compact way for using the singleton InputHandler, instead of

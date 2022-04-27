@@ -178,7 +178,7 @@ void ListaComandas::finalizacomanda(Comanda* comanda)
 			}
 			else
 			{
-				selected = nullptr;
+				selected = *lista.begin();
 				toggleBarra();
 			}
 		}
@@ -288,6 +288,7 @@ Comanda* ListaComandas::getComandaSeleccionada()
 void ListaComandas::toggleBarra()
 {
 	listaActive = !listaActive;
+	ih().setFocused(listaActive);
 	for (auto i : lista)
 	{
 		i->setActive(listaActive);

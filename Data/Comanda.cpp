@@ -512,6 +512,7 @@ void Comanda::toggleactive()
 {
 	game->getObjectManager()->getPlayerOne()->changeEnComanda(!isActive());
 	setActive(!isActive());
+	ih().setFocused(isActive());
 
 	for (auto b : botones)
 	{

@@ -53,17 +53,21 @@ Player::~Player()
 void Player::handleInput(Vector2D<double> axis, bool playerOne)
 {
 	//El jugador se mueve o se para en ambos ejes
-	if ((axis.getX() > .1f || axis.getX() < -.1f) && !enComanda)
-		vel.setX(vel.getX() + axis.getX() * aceleracion);
-	else
-		vel.setX(vel.getX() * deceleracion);
+	if (!ih().getFocus())
+	{
+		if ((axis.getX() > .1f || axis.getX() < -.1f) && !enComanda)
+			vel.setX(vel.getX() + axis.getX() * aceleracion);
+		else
+			vel.setX(vel.getX() * deceleracion);
 
-	if ((axis.getY() > .1f || axis.getY() < -.1f) && !enComanda)
-		vel.setY(vel.getY() + axis.getY() * aceleracion);
-	else
-		vel.setY(vel.getY() * deceleracion);
+		if ((axis.getY() > .1f || axis.getY() < -.1f) && !enComanda)
+			vel.setY(vel.getY() + axis.getY() * aceleracion);
 
-	vel.clamp(-maxVel, maxVel);
+		else
+			vel.setY(vel.getY() * deceleracion);
+
+		vel.clamp(-maxVel, maxVel);
+	}
 
 	if (ih().getKey(InputHandler::A) && playerOne) {
 		//Se prioriza la interaccion con los muebles por encima de otros objetos
