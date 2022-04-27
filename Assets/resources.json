@@ -320,7 +320,25 @@
     { "id": "tirarPaella", "file": "Assets/Sounds/tirarPaella.mp3" },
     { "id": "ultimaHora", "file": "Assets/Sounds/UltimaHora.mp3" },
     { "id": "quemadura", "file": "Assets/Sounds/Quemadura.mp3" },
-    { "id": "fuego", "file": "Assets/Sounds/Fuego.mp3" }
+    { "id": "fuego", "file": "Assets/Sounds/Fuego.mp3"},
+    { "id": "incendio", "file": "Assets/Sounds/AlarmaIncendios.mp3"},
+    { "id": "botonesMenu", "file": "Assets/Sounds/BotonesCreditos.mp3" },
+    { "id": "paellaGrande", "file": "Assets/Sounds/CogerPaellaGrande.mp3"},
+    { "id": "paellaMediana", "file": "Assets/Sounds/CogerPaellaMediana.mp3" },
+    { "id": "paellaPequena", "file": "Assets/Sounds/CogerPaellaPequena.mp3" },
+    { "id": "dejarIngrediente1", "file": "Assets/Sounds/DejarIngrediente1.mp3" },
+    { "id": "dejarIngrediente2", "file": "Assets/Sounds/DejarIngrediente2.mp3" },
+    { "id": "paellaLavavajillas", "file": "Assets/Sounds/DejarPaellaLavavajillas.mp3" },
+    { "id": "paellaMesa", "file": "Assets/Sounds/DejarPaellaMesa.mp3" },
+    { "id": "echarComensales", "file": "Assets/Sounds/EcharComensales.mp3" },
+    { "id": "guardarComandas", "file": "Assets/Sounds/GuardarLibretaComandas.mp3" },
+    { "id": "lavarPaella", "file": "Assets/Sounds/LavarPaella.mp3" },
+    { "id": "paellaCociendo", "file": "Assets/Sounds/PaellaCociendose.mp3" },
+    { "id": "cuenta", "file": "Assets/Sounds/PedirCuenta.mp3" },
+    { "id": "cortarMejillones", "file": "Assets/Sounds/ProcesarMejillones.mp3" },
+    { "id": "sacarComandas", "file": "Assets/Sounds/SacarLibretaComandas.mp3" },
+    { "id": "tirarBasura1", "file": "Assets/Sounds/TirarIngredienteBasura1.mp3" },
+    { "id": "tirarBasura2", "file": "Assets/Sounds/TirarIngredienteBasura2.mp3" }
   ],
 
   "musics": [

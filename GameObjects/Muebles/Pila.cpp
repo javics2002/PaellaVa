@@ -27,7 +27,19 @@ bool Pila::returnObject(Player* p)
 		Paella* pa = paellas.front();
 		p->setPickedObject(pa, PAELLA);
 		paellas.pop_front();
-
+		switch (miTipo) {
+		case Pequena:
+			sdlutils().soundEffects().at("paellaPequena").play();
+			break;
+		case Mediana:
+			sdlutils().soundEffects().at("paellaMediana").play();
+			break;
+		case Grande:
+			sdlutils().soundEffects().at("paellaGrande").play();
+			break;
+		default:
+			break;
+		}
 		return true;
 	}
 	

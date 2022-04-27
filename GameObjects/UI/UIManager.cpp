@@ -688,7 +688,7 @@ void UIManager::creaMenuOpciones()
 	botonSalir->setInitialPosition(opcPant->getWidth(), 100);
 	botonSalir->setActive(false);
 	botonSalir->setAction([this, botonSalir](Game* game, bool& exit) {
-		sdlutils().soundEffects().at("select").play(0, game->UI);
+		sdlutils().soundEffects().at("botonesMenu").play(0, game->UI);
 		addTween(0.9f, 1.0f, 600.0f, false).via(easing::exponentialOut).onStep([botonSalir, this](tweeny::tween<float>& t, float) mutable {
 			botonSalir->setDimension(t.peek() * botonSalir->getInitialWidth(), t.peek() * botonSalir->getInitialHeight());
 
@@ -709,6 +709,7 @@ void UIManager::creaMenuOpciones()
 	pantCompleta->setActive(false);
 
 	pantCompleta->setAction([this, pantCompleta](Game* game, bool& exit) {
+		sdlutils().soundEffects().at("botonesMenu").play(0, game->UI);
 		sdlutils().toggleFullScreen();
 		});
 
@@ -915,7 +916,7 @@ void UIManager::creaPantallaCreditos()
 	botonSalir->setInitialPosition(opcPant->getWidth(), 100);
 	botonSalir->setActive(false);
 	botonSalir->setAction([this, botonSalir](Game* game, bool& exit) {
-		sdlutils().soundEffects().at("select").play(0, game->UI);
+		sdlutils().soundEffects().at("botonesMenu").play(0, game->UI);
 		addTween(0.9f, 1.0f, 600.0f, false).via(easing::exponentialOut).onStep([botonSalir, this](tweeny::tween<float>& t, float) mutable {
 			botonSalir->setDimension(t.peek() * botonSalir->getInitialWidth(), t.peek() * botonSalir->getInitialHeight());
 
@@ -936,7 +937,7 @@ void UIManager::creaPantallaCreditos()
 	botonNext->setInitialPosition(opcPant->getWidth(), sdlutils().height() / 2);
 	botonNext->setActive(false);
 	botonNext->setAction([this, botonNext](Game* game, bool& exit) {
-		sdlutils().soundEffects().at("select").play(0, game->UI);
+		sdlutils().soundEffects().at("botonesMenu").play(0, game->UI);
 		addTween(0.9f, 1.0f, 600.0f, false).via(easing::exponentialOut).onStep([botonNext, this](tweeny::tween<float>& t, float) mutable {
 			botonNext->setDimension(t.peek() * botonNext->getInitialWidth(), t.peek() * botonNext->getInitialHeight());
 
@@ -1066,7 +1067,7 @@ void UIManager::creaPantallaCreditos()
 	botonNext2->setInitialPosition(opcPant->getWidth(), sdlutils().height() / 2);
 	botonNext2->setActive(false);
 	botonNext2->setAction([this, botonNext2](Game* game, bool& exit) {
-		sdlutils().soundEffects().at("select").play(0, game->UI);
+		sdlutils().soundEffects().at("botonesMenu").play(0, game->UI);
 		addTween(0.9f, 1.0f, 600.0f, false).via(easing::exponentialOut).onStep([botonNext2, this](tweeny::tween<float>& t, float) mutable {
 			botonNext2->setDimension(t.peek() * botonNext2->getInitialWidth(), t.peek() * botonNext2->getInitialHeight());
 
@@ -1088,7 +1089,7 @@ void UIManager::creaPantallaCreditos()
 	botonPrevious->setInitialPosition(sdlutils().width() - opcPant->getWidth(), sdlutils().height() / 2);
 	botonPrevious->setActive(false);
 	botonPrevious->setAction([this, botonPrevious](Game* game, bool& exit) {
-		sdlutils().soundEffects().at("select").play(0, game->UI);
+		sdlutils().soundEffects().at("botonesMenu").play(0, game->UI);
 		addTween(0.9f, 1.0f, 600.0f, false).via(easing::exponentialOut).onStep([botonPrevious, this](tweeny::tween<float>& t, float) mutable {
 			botonPrevious->setDimension(t.peek() * botonPrevious->getInitialWidth(), t.peek() * botonPrevious->getInitialHeight());
 
@@ -1125,7 +1126,7 @@ void UIManager::creaPantallaCreditos()
 	botonPrevious2->setInitialPosition(sdlutils().width() - opcPant->getWidth(), sdlutils().height() / 2);
 	botonPrevious2->setActive(false);
 	botonPrevious2->setAction([this, botonPrevious2](Game* game, bool& exit) {
-		sdlutils().soundEffects().at("select").play(0, game->UI);
+		sdlutils().soundEffects().at("botonesMenu").play(0, game->UI);
 		addTween(0.9f, 1.0f, 600.0f, false).via(easing::exponentialOut).onStep([botonPrevious2, this](tweeny::tween<float>& t, float) mutable {
 			botonPrevious2->setDimension(t.peek() * botonPrevious2->getInitialWidth(), t.peek() * botonPrevious2->getInitialHeight());
 
@@ -1143,14 +1144,58 @@ void UIManager::creaPantallaCreditos()
 	creditsScreen[2].push_back(botonPrevious2);
 	creditsButtons[2].push_back(botonPrevious2);
 
-	//Título de prueba 2
+	//Título de testers
 
-	ShowText* TituloPrueba2 = new ShowText(game, "Prueba_2", "paella",
+	ShowText* TituloPrueba2 = new ShowText(game, "Testing", "paella",
 		sdlutils().width() / 2, 190, 0, 0);
 	TituloPrueba2->setInitialPosition(sdlutils().width() / 2, 190);
 	TituloPrueba2->setActive(false);
 
 	creditsScreen[2].push_back(TituloPrueba2);
+
+	//Nombre de testers
+
+	ShowText* Tester1 = new ShowText(game, "Andrea Otero", "abadiNombre",
+		sdlutils().width() / 3, posInicialCreditos, 0, 0);
+	Tester1->setInitialPosition(sdlutils().width() / 3, posInicialCreditos);
+	Tester1->setActive(false);
+
+	creditsScreen[2].push_back(Tester1);
+
+	ShowText* Tester2 = new ShowText(game, "Ruben Andrade", "abadiNombre",
+		2 * (sdlutils().width()) / 3, posInicialCreditos, 0, 0);
+	Dev2->setInitialPosition(2 * (sdlutils().width()) / 3, posInicialCreditos);
+	Dev2->setActive(false);
+
+	creditsScreen[2].push_back(Dev2);
+
+	ShowText* Tester3 = new ShowText(game, "David Andrade", "abadiNombre",
+		sdlutils().width() / 3, posInicialCreditos + avanceCreditos, 0, 0);
+	Tester3->setInitialPosition(sdlutils().width() / 3, posInicialCreditos + avanceCreditos);
+	Tester3->setActive(false);
+
+	creditsScreen[2].push_back(Tester3);
+
+	ShowText* Tester4 = new ShowText(game, "Jaime Benedí", "abadiNombre",
+		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos, 0, 0);
+	Tester4->setInitialPosition(2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos);
+	Tester4->setActive(false);
+
+	creditsScreen[2].push_back(Tester4);
+
+	ShowText* Tester5 = new ShowText(game, "Mikele Lopez", "abadiNombre",
+		sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 2, 0, 0);
+	Tester5->setInitialPosition(sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 2);
+	Tester5->setActive(false);
+
+	creditsScreen[2].push_back(Tester5);
+
+	ShowText* Tester6 = new ShowText(game, "Andrea Vega", "abadiNombre",
+		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 2, 0, 0);
+	Tester6->setInitialPosition(2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 2);
+	Tester6->setActive(false);
+
+	creditsScreen[2].push_back(Tester6);
 
 }
 

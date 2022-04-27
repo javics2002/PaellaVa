@@ -93,6 +93,7 @@ bool Fogon::receivePaella(Paella* pa)
 			&& pa->getState() == Preparacion
 			&& pa->conArroz())
 		{
+			sdlutils().soundEffects().at("paellaMesa").play(0, game->UI);
 			paella_ = pa;
 
 			paella_->setPosition(getRectCenter(getOverlap()));

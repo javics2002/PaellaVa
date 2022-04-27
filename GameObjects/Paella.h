@@ -88,6 +88,8 @@ private:
 	vector<bool> ingrEnPaella;
 	bool contaminada = false;
 
+	string currentCoccionSound;
+
 	ParticleExample* humo;
 };
 

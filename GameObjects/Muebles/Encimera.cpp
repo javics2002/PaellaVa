@@ -47,6 +47,7 @@ bool Encimera::receivePaella(Paella* pa)
 	//Si ya tiene objeto, no recoge objeto
 	if (ingr_ == nullptr && paella_ == nullptr && arroz_ == nullptr)
 	{
+		sdlutils().soundEffects().at("paellaMesa").play(0, game->UI);
 		if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::dejaPaellera)
 			game->getCurrentScene()->changeState(States::pausaDejaPaella);
 

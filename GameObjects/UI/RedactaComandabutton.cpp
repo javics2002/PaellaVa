@@ -16,7 +16,9 @@ void RedactaComandabutton::execute(bool& exit)
 {
 	if (uim->getComanda() == nullptr)
 	{
+		sdlutils().soundEffects().at("sacarComandas").play(0, game->UI);
 		uim->creaComanda(game);
+
 	}
 	else
 	{

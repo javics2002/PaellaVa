@@ -519,6 +519,7 @@ void Comanda::toggleactive()
 	}
 	if (isActive())//activando comanda
 	{
+		sdlutils().soundEffects().at("sacarComandas").play(0, game->UI);
 		toggleTecladonum(isActive());
 		focusedzone = 0;
 		indexfocus = 0;
@@ -532,6 +533,7 @@ void Comanda::toggleactive()
 	}
 	else//desactivando comanda
 	{
+		sdlutils().soundEffects().at("guardarComandas").play(0, game->UI);
 		toggleTecaldotam(isActive());
 		toggleTeclado(isActive());
 		toggleTecladonum(isActive());

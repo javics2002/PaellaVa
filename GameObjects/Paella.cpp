@@ -41,6 +41,7 @@ void Paella::anadeIngr(Ingrediente* ingr_)
 	//Si ya he echado arroz
 	if (mArroz) {
 		//Añadimos el ingrediente
+		sdlutils().soundEffects().at("dejarIngrediente2").play(0, game->UI);
 		if (ingr_->esLetal())
 			contaminada = true;
 		ingredientes.push_back(ingr_->getTipo());
@@ -54,6 +55,7 @@ void Paella::anadeArroz(Arroz* arroz)
 	//Si aun no tengo arroz
 	if (!mArroz) {
 		//Añadimos arroz a la paella
+		sdlutils().soundEffects().at("dejarIngrediente2").play(0, game->UI);
 		mArroz = true;
 		estadoCoccion = Cruda;
 		setContenido(Entera);
@@ -69,11 +71,13 @@ void Paella::setState(EstadoPaellas estado_)
 
 	//Sonido
 	if (estado == Coccion) {
+		currentCoccionSound = "paellaCociendo";
 		initCocTime = sdlutils().virtualTimer().currTime();
-		canalSonido = sdlutils().soundEffects().at("paella").play(-1);
+		canalSonido = sdlutils().soundEffects().at(currentCoccionSound).play(-1);
+	
 	}	
 	else
-		sdlutils().soundEffects().at("paella").haltChannel(canalSonido);
+		sdlutils().soundEffects().at(currentCoccionSound).haltChannel(canalSonido);
 }
 
 void Paella::paellaRecogida()
@@ -92,6 +96,11 @@ void Paella::update()
 			estadoCoccion++;
 			setTexture(coccionTex[estadoCoccion]);
 
+			if (estadoCoccion == MuyHecha) {
+				sdlutils().soundEffects().at(currentCoccionSound).haltChannel(canalSonido);
+				currentCoccionSound = "paella";
+				canalSonido = sdlutils().soundEffects().at(currentCoccionSound).play(-1);
+			}
 			if (estadoCoccion == Quemada) {
 				humo->setStyle(ParticleExample::FIRE);
 				sdlutils().soundEffects().at("fuego").play();

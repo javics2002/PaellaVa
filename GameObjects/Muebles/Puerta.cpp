@@ -110,6 +110,7 @@ bool Puerta::receiveGrupoClientes(GrupoClientes* gc)
 		game->getCurrentScene()->changeState(pausaNoEcharClientes);
 		return false;
 	}
+	sdlutils().soundEffects().at("echarComensales").play(0, game->UI);
 	gc->setOrientacion(vertical);
 	gc->setActive(false);
 
