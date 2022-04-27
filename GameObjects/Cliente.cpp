@@ -24,8 +24,7 @@ void Cliente::update()
 {
 	setPosition(pos+vel);
 
-	if (sdlutils().currRealTime() - lastFrameTime > frameRate)
-		animUpdate(Vector2D<double>(1, 0));
+	animUpdate(Vector2D<double>(1, 0));
 }
 
 void Cliente::render(SDL_Rect* cameraRect)
@@ -82,7 +81,9 @@ void Cliente::animUpdate(Vector2D<double> axis)
 	// 1 Idle Front
 	// 3 Sitting Front
 
-	//bool para saber si hay que cambiar el flip
+	if (sdlutils().currRealTime() - lastFrameTime > frameRate) {
+	
+		//bool para saber si hay que cambiar el flip
 	bool flipH = false;
 	if (flip == SDL_FLIP_HORIZONTAL) flipH = true;
 
@@ -93,6 +94,9 @@ void Cliente::animUpdate(Vector2D<double> axis)
 
 	if (frameCounter * clip.w > anims[currAnim]->width() - 10)
 		frameCounter = 0;
+
+	}
+
 
 }
 
