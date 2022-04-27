@@ -58,7 +58,7 @@ void GrupoClientes::update()
 
 		for (auto i : clientes) {
 			i->update();
-			
+			i->setAnim(0);
 		}		
 	}
 
@@ -79,6 +79,11 @@ void GrupoClientes::update()
 			i->colisionClientes();
 		
 		bajaTolerancia();
+		
+		for (auto i : clientes) {
+			i->animUpdate(Vector2D<double>(1, 0));
+			i->setAnim(2);
+		}
 	}
 
 	else if (estado_ == PIDIENDO) {
@@ -87,6 +92,11 @@ void GrupoClientes::update()
 			orderStart = true;
 
 		bajaTolerancia();
+
+		for (auto i : clientes) {
+			i->animUpdate(Vector2D<double>(1, 0));
+			i->setAnim(4);
+		}
 	}
 
 	else if (estado_ == COMIENDO) {
@@ -98,6 +108,11 @@ void GrupoClientes::update()
 		else if (sdlutils().virtualTimer().currTime() - lastTimeComido >= TIEMPO_COMIDA) {
 			mesa->comerPaellas();
 			estado_ = CUENTA;
+		}
+
+		for (auto i : clientes) {
+			i->animUpdate(Vector2D<double>(1, 0));
+			i->setAnim(4);
 		}
 	}
 
