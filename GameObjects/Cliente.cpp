@@ -124,3 +124,8 @@ SDL_RendererFlip Cliente::getFlip()
 	return flip;
 }
 
+void Cliente::drawPickedClient(SDL_Rect* cameraRect, SDL_Rect rect)
+{
+	drawRender(cameraRect, rect, anims[anims.size() - 1], clip, flip);
+}
+

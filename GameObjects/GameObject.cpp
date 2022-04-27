@@ -156,3 +156,5 @@ void GameObject::drawDebug(SDL_Rect* cameraRect, SDL_Rect rect)
 }
 
 
+
+
