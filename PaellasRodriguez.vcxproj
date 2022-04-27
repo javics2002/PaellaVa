@@ -335,6 +335,7 @@
     <Image Include="Assets\Anims\Cocinera\cocineraWalkDown.png" />
     <Image Include="Assets\Anims\Cocinera\cocineraWalkSide.png" />
     <Image Include="Assets\Anims\Cocinera\cocineraWalkUp.png" />
+    <Image Include="Assets\Anims\libretaIp.png" />
     <Image Include="Assets\Images\aceptaboton.png" />
     <Image Include="Assets\Images\arroz.png" />
     <Image Include="Assets\Images\backButton.png" />
@@ -584,6 +585,7 @@
     <Media Include="Assets\Sounds\Fuego.mp3" />
     <Media Include="Assets\Sounds\InicioCinta.mp3" />
     <Media Include="Assets\Sounds\Paella.mp3" />
+    <Media Include="Assets\Sounds\PageTurn.mp3" />
     <Media Include="Assets\Sounds\Puerta.mp3" />
     <Media Include="Assets\Sounds\Quemadura.mp3" />
     <Media Include="Assets\Sounds\Select.mp3" />

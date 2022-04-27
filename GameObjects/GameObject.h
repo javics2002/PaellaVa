@@ -103,6 +103,8 @@ public:
     SDL_Rect getCollider() override;
     SDL_Rect getOverlap() override;
 
+    void anim(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex, SDL_Rect clip);
+
     void setId(int newId) { mId = newId; }
     int getId() { return mId; }
 };
