@@ -19,11 +19,13 @@ Menu::Menu(Game* game) : Scene(game)
 
 	sdlutils().musics().at("musicaMenuInicio").play();
 
-	int posIni = 260;
+	int posIni = 360;
 	int aumento = 100;
 	int w = 300;
 	int h = 120;
-	auto startButton = new UiButton(game, "start", 640, posIni - aumento, w, h);
+	int posIniX = w;
+
+	auto startButton = new UiButton(game, "start", posIniX, posIni - aumento, w, h);
 	startButton->setInitialDimension(w, h);
 	startButton->setAction([this, startButton](Game* game, bool& exit) {
 		sdlutils().soundEffects().at("select").play(0, game->UI);
@@ -42,7 +44,7 @@ Menu::Menu(Game* game) : Scene(game)
 
 	uiManager->addButton(startButton);
 
-	auto tutorial = new UiButton(game, "start", 640, posIni, w, h);
+	auto tutorial = new UiButton(game, "tutorialButton", posIniX, posIni, w, h);
 	tutorial->setInitialDimension(w, h);
 	tutorial->setAction([this, tutorial](Game* game, bool& exit) {
 		sdlutils().soundEffects().at("select").play(0, game->UI);
@@ -62,33 +64,9 @@ Menu::Menu(Game* game) : Scene(game)
 
 	uiManager->addButton(tutorial);
 
-	auto settingsButton = new UiButton(game, "settings", 640, posIni + aumento, w, h);
-	settingsButton->setInitialDimension(w, h);
-	settingsButton->setAction([this, settingsButton](Game* game, bool& exit) {
-		sdlutils().soundEffects().at("select").play(0, game->UI);
-		uiManager->addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([game, settingsButton](tweeny::tween<float>& t, float) mutable {
-			settingsButton->setDimension(t.peek() * settingsButton->getInitialWidth(), t.peek() * settingsButton->getInitialHeight());
+	
 
-			if (t.progress() > .2f) {
-				// Settings
-
-				//Abrir pantalla
-
-				game->getUIManager()->toggleOpciones();
-				game->getUIManager()->desactivaBot();
-
-				// -Poner pantalla completa (sdlutils().toggleFullScreen();)
-				// -Volumen de musica y sonido (slides separados)
-
-				return true;
-			}
-			return false;
-			});
-		});
-
-	uiManager->addButton(settingsButton);
-
-	auto creditsButton = new UiButton(game, "credits", 640, posIni + aumento * 2, w, h);
+	auto creditsButton = new UiButton(game, "credits", posIniX, posIni + aumento , w, h);
 	creditsButton->setInitialDimension(w, h);
 	creditsButton->setAction([this, creditsButton](Game* game, bool& exit) {
 		sdlutils().soundEffects().at("select").play(0, game->UI);
@@ -110,8 +88,37 @@ Menu::Menu(Game* game) : Scene(game)
 
 	uiManager->addButton(creditsButton);
 
-	auto exitButton = new UiButton(game, "exit", 640, posIni + aumento * 3, w, h);
-	exitButton->setInitialDimension(w, h);
+	
+	int posIniXAbajo = sdlutils().width() - h/2;
+	int posIniYAbajo = sdlutils().height() - h/2;
+	auto settingsButton = new UiButton(game, "settings", posIniXAbajo - h, posIniYAbajo, h, h);
+	settingsButton->setInitialDimension(h, h);
+	settingsButton->setAction([this, settingsButton](Game* game, bool& exit) {
+		sdlutils().soundEffects().at("select").play(0, game->UI);
+		uiManager->addTween(0.9f, 1.0f, 600.0f, false).via(easing::exponentialOut).onStep([game, settingsButton](tweeny::tween<float>& t, float) mutable {
+			settingsButton->setDimension(t.peek() * settingsButton->getInitialWidth(), t.peek() * settingsButton->getInitialHeight());
+
+			if (t.progress() > .2f) {
+				// Settings
+
+				//Abrir pantalla
+
+				game->getUIManager()->toggleOpciones();
+				game->getUIManager()->desactivaBot();
+
+				// -Poner pantalla completa (sdlutils().toggleFullScreen();)
+				// -Volumen de musica y sonido (slides separados)
+
+				return true;
+			}
+			return false;
+			});
+		});
+
+	uiManager->addButton(settingsButton);
+
+	auto exitButton = new UiButton(game, "exit", posIniXAbajo, posIniYAbajo, h, h);
+	exitButton->setInitialDimension(h, h);
 	exitButton->setAction([this, exitButton](Game* game, bool& exit) {
 		sdlutils().soundEffects().at("cancel").play(0, game->UI);
 
