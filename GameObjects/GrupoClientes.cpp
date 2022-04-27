@@ -330,6 +330,9 @@ void GrupoClientes::hacerPedido(int tamMesa, Mesa* m)
 
 	pedido = new Pedido(game,clientes.size(), tamMesa);
 
+	// mandar mensaje?
+	game->getNetworkManager()->syncPedido(getId(), ;
+
 	texPedido = pedido->getPedidoTex();
 }
 

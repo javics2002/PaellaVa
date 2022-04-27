@@ -386,15 +386,22 @@ void ListaComandas::seleccionasigcomanda(int dir)
 		if (dir > 0)
 		{
 			it++;
+			if (it == lista.end())
+				it = lista.begin();
+			
+				
 		}
 		else it--;
 	
 	
 	}
-	selected->deseleccionaComanda();
-	auto c = *it;
-	c->seleccionaComanda();
-	selected = c;
+	if (*it != nullptr)
+	{
+		selected->deseleccionaComanda();
+		auto c = *it;
+		c->seleccionaComanda();
+		selected = c;
+	}
 	/*if (dir > 0)
 	{
 		++it;

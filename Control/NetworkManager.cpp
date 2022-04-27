@@ -300,6 +300,9 @@ void NetworkManager::updateClient()
 			case EPT_SYNCDROPOBJECT:
 				game->getObjectManager()->getPlayerTwo()->DropCustomObject(server_pkt.syncDropObject.object_type, server_pkt.syncDropObject.object_id, server_pkt.syncDropObject.mueble_id);
 				break;
+			case EPT_SYNCPEDIDO:
+				// crear pedido en x grupo de clientes
+				game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getActiveObjects();
 			default:
 				break;
 			}
@@ -732,6 +735,7 @@ void NetworkManager::syncDropObject(int objectType, int objectId, int muebleId)
 	}
 }
 
+
 void NetworkManager::sendGrupoCliente(int tamGrupo, int idPuerta, Vector2D<double> vel, Vector2D<double> distancia, std::vector<int> textureNumber, float tolerancia)
 {
 	Packet pkt;
@@ -782,6 +786,32 @@ void NetworkManager::syncPickObject(int objectType, int objectId, int muebleId, 
 	}
 	else {
 		if (SDLNet_TCP_Send(socket, &pkt, sizeof(Packet)) < sizeof(Packet))
+		{
+			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+			exit(EXIT_FAILURE);
+		}
+	}
+}
+
+void NetworkManager::syncPedido(int idGrupoCliente, int numPaellas, std::vector<int> tamPaella, std::vector<int> ingPedidos)
+{
+	Packet pkt;
+
+	pkt.packet_type = EPT_SYNCPEDIDO;
+	pkt.syncPedido.group_id = idGrupoCliente;
+	pkt.syncPedido.paella_number = numPaellas;
+
+	for (int i = 0; i < tamPaella.size(); i++) {
+		pkt.syncPedido.paella_size[i] = tamPaella[i];
+	}
+
+	for (int i = 0; i < ingPedidos.size(); i++) {
+		pkt.syncPedido.ing_pedidos[i] = ingPedidos[i];
+	}
+	
+
+	for (int i = 1u; i < player_sockets.size(); i++) {
+		if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
 		{
 			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 			exit(EXIT_FAILURE);
