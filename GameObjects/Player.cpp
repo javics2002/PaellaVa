@@ -21,7 +21,7 @@ overlapPos(Vector2D<double>(getX() - overlapPos.getX() / 2, getY() - getHeight()
 overlapDim(Vector2D<int>(50, 50))
 {
 	setPosition(200, 600);
-	setDimension(120, 120);
+	setDimension(150, 150);
 	overlapDim.set(45, 45);
 
 	aceleracion = 1.2;

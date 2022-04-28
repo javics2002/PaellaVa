@@ -13,14 +13,15 @@ class Ventanilla : public Mueble
 	SDL_Rect* camerar;
 	int lastnumact = 0;
 	int screentimenumero=3000;
+	bool numero = false;
 
 public:
 	Ventanilla(Game* game, Vector2D<double> pos,SDL_Rect* r);
 	bool receivePaella(Paella* pa)override;//return false para no dejar la paella (sin comanda seleccionada no se puede)
 	~Ventanilla() = default;
-	void muestraNumeroMesa();
 	void render(SDL_Rect* cameraRect)override;
 	virtual bool returnObject(Player* p) override;
-	void update() override;
+
+	void receiveNumeroMesa(Texture* t);
 };
 

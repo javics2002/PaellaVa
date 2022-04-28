@@ -27,32 +27,10 @@ bool Ventanilla::receivePaella(Paella* pa)
 			mpaella->setPosition(getRectCenter(getOverlap()));
 		}
 
-		if (uimt->getBarra()->getComandaSeleccionada() != nullptr)
-		{
-
-			if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::dejarPaellaVentanilla) {
-				mpaella = pa;
-				mpaella->setPosition(getRectCenter(getOverlap()));
-
-				game->getCurrentScene()->changeState(States::pausaDejarPaellVentanilla);
-			}
-
-
-			//UiButton* u = uimt->getBarra()->getComandaSeleccionada()->getNumeromesa();
-			//numeroactual = new UiButton(game, u->getTextura(), xnumero, ynumero, 80, 80);
-			if (uimt->getBarra()->getComandaSeleccionada()->getNumeromesa() != nullptr) {
-				string s = uimt->getBarra()->getComandaSeleccionada()->getNumeromesa()->getTextura();
-				numactex = &sdlutils().images().at(s);
-				lastnumact = sdlutils().currRealTime();
-			}
-
-			else//la comanda no tiene numero de mesa que salga una interrogacion
-			{
-				
-			}
-			
-		}
-		else if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::dejarPaellaVentanilla) {
+		ih().setKey(false, InputHandler::A);
+		uimt->creaComandaVentanilla(game);
+		
+		if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::dejarPaellaVentanilla) {
 			game->getCurrentScene()->changeState(States::pausaVentanillaSinComanda);
 			return false;
 		}
@@ -62,26 +40,18 @@ bool Ventanilla::receivePaella(Paella* pa)
 
 	return false;
 }
-void Ventanilla::muestraNumeroMesa()
-{
-	if (numeroactual != nullptr)
-	{
 
-		numeroactual->render(new SDL_Rect{ (1,1,1,1) });
-	}
-}
 void Ventanilla::render(SDL_Rect* cameraRect)
 {
 	SDL_Rect rect = {};
 	drawRender(cameraRect);
-	muestraNumeroMesa();
 	rect = {(int) getPosition().getX() - 50, (int)getPosition().getY() - 50,50,50 };
 	if(numactex!=nullptr)
-	drawRender(cameraRect, rect, numactex);
+		drawRender(cameraRect, rect, numactex);
 }
 bool Ventanilla::returnObject(Player* p)
 {
-	if (mpaella != nullptr)
+	if (mpaella != nullptr && numactex!=nullptr)
 	{
 		p->setPickedObject(mpaella, PAELLA);
 
@@ -89,18 +59,18 @@ bool Ventanilla::returnObject(Player* p)
 			game->getCurrentScene()->changeState(States::pausaCogerPaellaVentanilla);
 
 		mpaella = nullptr;
+		numactex = nullptr;
 
 		return true;
 	}
 	else
 		return false;
 }
-void Ventanilla::update()
+
+void Ventanilla::receiveNumeroMesa(Texture* t)
 {
-
-	if (sdlutils().currRealTime() > lastnumact + screentimenumero)
-	{
-		numactex = nullptr;
-
+	if (mpaella != nullptr) {
+		numactex = t;
+		numero = true;
 	}
 }

@@ -27,7 +27,7 @@
   <object id="6" name="inicioCinta" x="2368" y="678">
    <properties>
     <property name="Horizontal" type="bool" value="true"/>
-    <property name="VelocidadX" type="float" value="-1.3"/>
+    <property name="VelocidadX" type="float" value="-1"/>
     <property name="VelocidadY" type="float" value="0"/>
    </properties>
    <point/>
@@ -87,7 +87,7 @@
    <properties>
     <property name="MaxTamGrupo" type="int" value="6"/>
     <property name="VelocidadX" type="float" value="0"/>
-    <property name="VelocidadY" type="float" value="2.3"/>
+    <property name="VelocidadY" type="float" value="2"/>
     <property name="t_Max" type="int" value="5"/>
     <property name="vertical" type="bool" value="true"/>
    </properties>

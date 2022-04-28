@@ -9,7 +9,6 @@
 #include <queue>
 #include "../Utils/Vector2D.h"
 
-class Restaurante;
 class ObjectManager;
 class Scene;
 class UIManager;

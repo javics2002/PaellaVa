@@ -18,7 +18,7 @@ enum EstadoClientes { CAMINANDO, ENCOLA, PIDIENDO, ESPERANDO, COMIENDO, CUENTA }
 
 class GrupoClientes : public ObjetoPortable
 {
-	const unsigned int DIMENSION = 100;
+	const unsigned int DIMENSION = 150;
 
 	vector<Cliente*> clientes;
 	std::array<SDL_Rect, 8> pickedClientsPos;
