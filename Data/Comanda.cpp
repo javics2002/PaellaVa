@@ -657,22 +657,7 @@ void Comanda::siguientebotonfocus(int dir)
 			activeTeclado[indexfocus]->setfocused();
 		}
 	}
-/*	if (!activeTeclado.empty())
-	{
-		activeTeclado[indexfocus]->setunfocused();
-		indexfocus += dir;
-		if (indexfocus < activeTeclado.size()&&indexfocus>=0)
-		{
-			//indice valido todo guay
-		}
-		 else if (indexfocus < 0)
-		{
-			indexfocus = activeTeclado.size() - 1;
-		}
-		else indexfocus = 0;
-		focusedbutton = activeTeclado[indexfocus];
-		activeTeclado[indexfocus]->setfocused();
-	}*/
+
 }
 void Comanda::update()
 {
