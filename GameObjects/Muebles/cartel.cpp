@@ -22,6 +22,13 @@ SDL_Rect Cartel::getOverlap()
 
 SDL_Rect Cartel::getCollider()
 {
-	if(isActive())return getTexBox();
+	SDL_Rect rect = getTexBox();
+
+	if (isActive())return {
+		rect.x,
+		rect.y + 3 * rect.h / 4,
+		rect.w,
+		rect.h / 4
+	};
 	return { 0,0,0,0 };
 }

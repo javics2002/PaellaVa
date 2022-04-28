@@ -19,7 +19,7 @@ Menu::Menu(Game* game) : Scene(game)
 
 	sdlutils().musics().at("musicaMenuInicio").play();
 
-	int posIni = 360;
+	int posIni = 500;
 	int aumento = 100;
 	int w = 300;
 	int h = 120;

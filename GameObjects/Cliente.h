@@ -8,7 +8,7 @@ const vector<string> texturasClientes = { "clienteBase", "clienteBase2", "client
 
 class Cliente : public GameObject
 {
-	const unsigned int DIMENSION = 100;
+	const unsigned int DIMENSION = 150;
 
 	vector<Texture*> anims;
 	SDL_RendererFlip flip;
