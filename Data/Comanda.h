@@ -7,6 +7,7 @@
 #include <list>
 #define NK_IMPLEMENTATION
 class Paella;
+class Ventanilla;
 class Ingrediente;
 class Game;
 class IngredienteButton;
@@ -23,7 +24,7 @@ class Comanda :public GameObject
     //hay 8 ingredientes distintos
 public:
     enum Tamaño { Pequeña, Mediana, Grande };
-    Comanda(Game* game, uint escala, UIManager* uim);//crear comanda
+    Comanda(Game* game, uint escala, UIManager* uim,bool enVentanilla_);//crear comanda
     Comanda( Comanda& c);//NECESARIO PARA QUE LA LIST DE COMANDAS FUNCIONE
 
     ~Comanda();//No se puede definir todavia y no compila NO LO BORREIS/
@@ -90,6 +91,7 @@ private:
     int altoini;
     int maxingrendientes=3;
     int maxpaellas = 4;
+    bool enVentanilla = false;
     uint numeroMesa;
     uint numeroPaellas = 0;
     list<Comanda*>::iterator sitiolista;
@@ -109,7 +111,7 @@ private:
     vector<UiButton*> activeTeclado = {};
     int indexfocus=-1;
     int focusedzone = 1; // 0 teclado 1 uicomanda
-    void chageActiveTeclado();
+    void changeActiveTeclado();
     bool comparaX(UiButton u1, UiButton u2);
     bool comparaY(UiButton u1, UiButton u2);
     //float calculaPuntuacion(Paella paella) ; definicion pendiente de la creacion e paella

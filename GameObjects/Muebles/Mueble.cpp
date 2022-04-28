@@ -3,6 +3,7 @@
 #include "../../Control/Game.h"
 #include "../../Utils/ParticleExample.h"
 #include "../../Control/ObjectManager.h"
+#include "../../Scenes/Tutorial.h"
 
 
 Mueble::Mueble(Game* game, Vector2D<double> position, int width, int height, string claveTextura) : GameObject(game)
@@ -63,14 +64,18 @@ bool Mueble::receiveHerramienta(Herramienta* h)
 
 bool Mueble::testMueble()
 {
-	float rnd = rand() % randomOptions + 1;
+	if (dynamic_cast<Tutorial*>(game->getCurrentScene())) {
+		float rnd = rand() % randomOptions + 1;
 
-	if (rnd <= roto)
-	{
-		funcionando = false;
-		roto -=5; //Para que cada vez sea más difícil que se rompa
+		if (rnd <= roto)
+		{
+			funcionando = false;
+			roto -= 5; //Para que cada vez sea más difícil que se rompa
 
-		game->getObjectManager()->resetMueblesCounter();
+			game->getObjectManager()->resetMueblesCounter();
+		}
+		return funcionando;
 	}
-	return funcionando;
+	return true;
+
 }

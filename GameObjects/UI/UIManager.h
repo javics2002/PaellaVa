@@ -83,7 +83,7 @@ class UIManager
 
 	vector<UiButton*>::iterator foco;
 	bool enAjustes;
-	bool enJornada = false;
+	bool enJornada = false, enVentanilla=false;
 
 	Texture* libretaTexture = &sdlutils().images().at("libreta");
 	SDL_Rect clip{0,0,libretaTexture->width() / 12,libretaTexture->height()};
@@ -106,6 +106,7 @@ public:
 	void render(SDL_Rect* rect);
 
 	void creaComanda(Game* game);
+	void creaComandaVentanilla(Game* game);
 	Comanda* getComanda();
 	ListaComandas* getBarra();
 	void setBarra(ListaComandas* b);

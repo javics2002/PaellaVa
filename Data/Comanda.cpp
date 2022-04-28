@@ -1,4 +1,5 @@
 #include "Comanda.h"
+#include "../GameObjects/Muebles/Ventanilla.h"
 #include "../GameObjects/UI/Ingredientebutton.h"
 #include "../GameObjects/UI/Numerobutton.h"
 #include "../GameObjects/UI/Tamanobutton.h"
@@ -20,7 +21,7 @@ bool comparaY(T u1,T u2)
 	return  u1.getPosition().getY() < u2.getPosition().getY();
 }
 
-Comanda::Comanda(Game* game, uint escala, UIManager* uim) :GameObject(game)
+Comanda::Comanda(Game* game, uint escala, UIManager* uim,bool enVentanilla_) :GameObject(game)
 {
 	setTexture("cuadernillo");
 	escale = escala;
@@ -55,6 +56,7 @@ Comanda::Comanda(Game* game, uint escala, UIManager* uim) :GameObject(game)
 	escritoY = margensuperior;
 	//teclado inicial igualq eu lso magenes y eso para resetear la comanda bien
 	 //creamos las psiciones de los botones del teclado
+	enVentanilla = enVentanilla_;
 }
 Comanda::Comanda(Comanda& c) : GameObject(c.game)
 {
@@ -124,11 +126,17 @@ void Comanda::añadiraPedido(string i)
 }
 void Comanda::anadirNumeromesa(string n)
 {
+	ih().setKey(false, InputHandler::A);
 	numeromesa = new UiButton(game, n, x + anchobotones, anchobotones, anchobotones / 2, anchobotones / 2);
+	if (enVentanilla) {
+		vector<Ventanilla*> v = game->getObjectManager()->getVentanilla();
+		for (auto i : v)
+			i->receiveNumeroMesa(&sdlutils().images().at(n));
+	}
 	toggleTecladonum(false);
 	toggleTecaldotam(true);
 	activeTeclado = tecladotam;
-	chageActiveTeclado();
+	changeActiveTeclado();
 	
 }
 UiButton* Comanda::getNumeromesa()
@@ -236,6 +244,7 @@ void Comanda::cancelaPedido()
 	{
 		toggleTecladonum(true);
 	}
+	ih().setKey(false, InputHandler::A);
 }
 
 void Comanda::guardaTeclado()
@@ -252,7 +261,6 @@ void Comanda::guardaTeclado()
 	//uimt->setPosTeclado(sangria);
 	postecladoini = sangria;
 	teclado = uiManager->getTeclado();
-	randomizaIconos();
 	//pero al inicial le falta la primera sangria y queda por encima de la primera linea de pedido D:
    // de momento voy a forzar una sangria aqui s tnego tiempo mirare una manera mejor xd
 }
@@ -601,7 +609,7 @@ void Comanda::cambiazonafoco()
 	if (focusedzone == 1)//cambio del teclado a la ui comandas
 	{
 		activeTeclado = botones;
-		chageActiveTeclado();
+		changeActiveTeclado();
 		focusedzone = 0;
 	}
 	else
@@ -610,18 +618,18 @@ void Comanda::cambiazonafoco()
 		if (teclado[0]->isActive())
 		{
 			activeTeclado = teclado;
-			chageActiveTeclado();
+			changeActiveTeclado();
 		}
 		else if (tecladonum[0]->isActive())
 		{
 			activeTeclado = tecladonum;
-			chageActiveTeclado();
+			changeActiveTeclado();
 
 		}
 		else if (tecladotam[0]->isActive())
 		{
 			activeTeclado = tecladotam;
-			chageActiveTeclado();
+			changeActiveTeclado();
 
 		}
 		focusedzone = 1;
@@ -700,15 +708,18 @@ void Comanda::update()
 
 	}
 }
-void Comanda::chageActiveTeclado()
+void Comanda::changeActiveTeclado()
 {
 	if(focusedbutton!=nullptr)focusedbutton->setunfocused();
-	activeTeclado[0]->setfocused();
-	focusedbutton = activeTeclado[0];
+	if (activeTeclado.size() > 0) {
+		activeTeclado[0]->setfocused();
+		focusedbutton = activeTeclado[0];
+	}
+	else toggleactive();
 	indexfocus = 0;
 }
 void Comanda::setActiveTeclado(vector<UiButton*> a)
 {
 	activeTeclado = a;
-	chageActiveTeclado();
+	changeActiveTeclado();
 }
