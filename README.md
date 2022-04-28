@@ -550,16 +550,17 @@ Recogimos los siguientes datos:
 
 * Ritmo del Juego 
 Pedimos  a los testers que analizasen la velocidad de varios elementos del juego.
+<img src="images_gdd/velocidadstats.png">
 Es muy llamativo el conses respecto a lo rápido que funcionaba gran parte del juego.Algo que estresaba a los usuarios y a lo que eramos completamente ajenos ya que habiamos trabajado progresivamente con los elemento y estabamos acostumbrados al accelerado ritmo de juego.
-
+<img src="images_gdd/velocidadstats2.png">
 * Ciclo de Juego 
-Saber como funcionan todos los elementos del juego al unisono también es muy importante y pedimos a los testers qeu se  centrasen en visualizar el juego como un entrenimiento casual para loq eu incialmente habiamos propuesto jornadas de  10 minutos.
-
+Saber como funcionan todos los elementos del juego al unisono también es muy importante y pedimos a los testers que se  centrasen en visualizar el juego como un entrenimiento casual para loq eu incialmente habiamos propuesto jornadas de  10 minutos.
+<img src="images_gdd/jornadastats.png">
 Fue agradable descubrir que nadie se aburrió durante la jornada ni consideró el juego repetitivo.
 
  * Apredizaje de mecánicas
  Al ser un juego muy similar a otros titúlos como el Overcooked suponiamos que la mayoria de las mecánicas resultarian intuitivas y los testers comprenderian el juego rapidamente.Esto era cierto para el movimiento o la interaccion con objetos pero para otras cosas:
- 
+ <img src="images_gdd/puntuacionstats.png">
  Era muy evidente que ciertos aspectos mecánicos no se apreciaban correctamente y enfatizamos su presencia en el tutorial.
  
  
