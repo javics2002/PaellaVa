@@ -172,6 +172,23 @@ void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 		}
 	}
 
+	if (ip != nullptr) {
+		if (ip->isActive()) {
+
+			SDL_Point mouseP = { ih().getmx(), ih().getmy() };
+			SDL_Rect sliderColl = ip->getCollider();
+
+			if (SDL_PointInRect(&mouseP, &sliderColl) == SDL_TRUE)
+			{
+				escribiendoIP = !escribiendoIP;
+				ih().clearInputBuffer();
+				mx = -100;
+				my = -100;
+
+			}
+		}
+	}
+
 	for (int i = 0; i < interfaz.size(); ++i)
 	{
 		if (interfaz[i]->isActive() && !paused)
@@ -213,6 +230,10 @@ void UIManager::handleInput(bool& exit, bool paused)
 
 	else if (escribiendoNombre) {
 		nombre->execute(exit);
+	}
+
+	else if (escribiendoIP) {
+		ip->execute(exit);
 	}
 
 	else if (ih().getMouseButtonHeld()) {
@@ -389,6 +410,17 @@ void UIManager::render(SDL_Rect* rect = nullptr)
 	if (barra != nullptr) {
 		barra->render(rect);
 		barra->renderComandas();
+	}
+
+	if (ip != nullptr) {
+
+		if (sdlutils().virtualTimer().currTime() - tiempo >= sigAnimg + TIEMPO_PROCESADO / 12) {
+
+			clip.x = i * clip.w;
+			if (i < 11) i++;
+			sigAnimg += TIEMPO_PROCESADO / 12;
+		}
+		ip->anim(rect, ip->getCollider(), libretaTexture, clip);
 	}
 
 	for (auto i : interfaz)
@@ -1450,4 +1482,20 @@ double UIManager::toRadians(double grados)
 void UIManager::setEnJornada(bool b)
 {
 	enJornada = b;
+}
+
+void UIManager::setIpButton(UiButton* ip_)
+{
+	if (ip_ == nullptr) {
+		escribiendoIP = false;
+	}
+
+	else {
+		sdlutils().soundEffects().at("pageTurn").play();
+	}
+
+	ip = ip_;
+	tiempo = sdlutils().currRealTime();
+	i = 0;
+	sigAnimg = 0.0;
 }

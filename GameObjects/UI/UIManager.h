@@ -66,10 +66,12 @@ class UIManager
 	int paginaCreditos = 0;
 
 	UiButton* nombre;
+	UiButton* ip = nullptr;
 	GameObject* cursor_;
 	string cursor = "|";
 	const int maxCaracteres = 15;
 	bool escribiendoNombre = false;
+	bool escribiendoIP = false;
 
 	bool enLobby = false;
 	uint8_t tiempoCreacion = 2000;
@@ -82,6 +84,14 @@ class UIManager
 	vector<UiButton*>::iterator foco;
 	bool enAjustes;
 	bool enJornada = false;
+
+	Texture* libretaTexture = &sdlutils().images().at("libreta");
+	SDL_Rect clip{0,0,libretaTexture->width() / 12,libretaTexture->height()};
+
+	const double TIEMPO_PROCESADO = 1000.0;
+	int i = 0;
+	double sigAnimg = 0.0;
+	double tiempo = 0.0;
 
 public:
 	UIManager(Game* game);
@@ -139,5 +149,7 @@ public:
 
 	bool getEnAjustes() { return enAjustes; };
 	void setEnJornada(bool b);
+
+	void setIpButton(UiButton *ip_);
 };
 

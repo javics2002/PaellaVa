@@ -71,6 +71,11 @@ SDL_Rect GameObject::getOverlap()
 	return { 0,0,0,0 };
 }
 
+void GameObject::anim(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex, SDL_Rect clip)
+{
+	drawRender(cameraRect, rect, tex, clip);
+}
+
 SDL_Rect GameObject::getCenter()
 {
 	return { int(getX() - CENTER_TAM / 2),
@@ -118,7 +123,11 @@ void GameObject::drawRender(SDL_Rect rect, Texture* tex)
 
 void GameObject::drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex, SDL_Rect clip)
 {
-	tex->render(clip, { rect.x - cameraRect->x, rect.y - cameraRect->y, rect.w, rect.h }, 0.0);
+	if (cameraRect != nullptr) {
+		tex->render(clip, { rect.x - cameraRect->x, rect.y - cameraRect->y, rect.w, rect.h }, 0.0);
+	}
+
+	else tex->render(clip, { rect.x, rect.y, rect.w, rect.h }, 0.0);
 }
 
 void GameObject::drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex, SDL_Rect clip, SDL_RendererFlip flip)

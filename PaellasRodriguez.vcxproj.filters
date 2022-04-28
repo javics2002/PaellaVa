@@ -357,6 +357,7 @@
     <Image Include="images_gdd\comanda.PNG" />
     <Image Include="images_gdd\comandasacumuladas.PNG" />
     <Image Include="images_gdd\comedor.PNG" />
+    <Image Include="Assets\Anims\libretaIp.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="json\RAEDME.md" />
@@ -452,5 +453,6 @@
     <Media Include="Assets\Sounds\TirarPaella.mp3" />
     <Media Include="Assets\Sounds\UltimaHora.mp3" />
     <Media Include="Assets\Music\changes.mp3" />
+    <Media Include="Assets\Sounds\PageTurn.mp3" />
   </ItemGroup>
 </Project>
