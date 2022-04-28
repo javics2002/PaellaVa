@@ -553,6 +553,7 @@ Pedimos  a los testers que analizasen la velocidad de varios elementos del juego
 <img src="images_gdd/velocidadstats.png">
 Es muy llamativo el conses respecto a lo rápido que funcionaba gran parte del juego.Algo que estresaba a los usuarios y a lo que eramos completamente ajenos ya que habiamos trabajado progresivamente con los elemento y estabamos acostumbrados al accelerado ritmo de juego.
 <img src="images_gdd/velocidadstats2.png">
+
 * Ciclo de Juego 
 Saber como funcionan todos los elementos del juego al unisono también es muy importante y pedimos a los testers que se  centrasen en visualizar el juego como un entrenimiento casual para loq eu incialmente habiamos propuesto jornadas de  10 minutos.
 <img src="images_gdd/jornadastats.png">
@@ -572,17 +573,17 @@ Fue agradable descubrir que nadie se aburrió durante la jornada ni consideró e
   (se usan comillas para emplear palabras textuales de lso testers)
   +"Añadir ingredientes a la paella es raro. Tener que poner siempre el arroz primero te quita libertad. También tener que cocinar todos los ingredientes a la vez te resta de poder autogestionarte."
 
-+"Las mesas deberían venir enumeradas ya."( el numero de mesa ha causado bastante confusión)
+* "Las mesas deberían venir enumeradas ya."( el numero de mesa ha causado bastante confusión)
 
-+Las pilas de paelleras podrian tener un cartelito abajo para indicar el tamaño
+* Las pilas de paelleras podrian tener un cartelito abajo para indicar el tamaño
 
-+Literalmente TODO va demasiado rapido especialmente  las paellas se concinan muy muy muy rapido y no te da tiempo a hacer otra cosa , los clientes empiezan desde el minuto 0 a  venir a  full molaria que al principio hubiera menos y que fuera acelerando y en general menos clientes por minuto se agradeceria.
+* Literalmente TODO va demasiado rapido especialmente  las paellas se concinan muy muy muy rapido y no te da tiempo a hacer otra cosa , los clientes empiezan desde el minuto 0 a  venir a  full molaria que al principio hubiera menos y que fuera acelerando y en general menos clientes por minuto se agradeceria.
 
-+La puerta entre salon y cocina realmente no es una puerta , es un cuadrado blanco y noo se ve bien molaria poner una flechita en el suelo o algo indicando que puedes andar por ahi hacia otra habitacion
+* La puerta entre salon y cocina realmente no es una puerta , es un cuadrado blanco y noo se ve bien molaria poner una flechita en el suelo o algo indicando que puedes andar por ahi hacia otra habitacion
 
-+El signo de prohibido como , paella solo de arroz confunde a  bastante gente.
+* El signo de prohibido como , paella solo de arroz confunde a  bastante gente.
 
-+Ui de muebles mal colocaba o solapada: cuando hay 2 fogones juntos si colocas una paella en cada uno la barra de cocción de una tapara a la  otra , en un mapa donde las tablas de  procesados están abajo del todo y el circulo rojo este de progreso no se ve.
+* Ui de muebles mal colocaba o solapada: cuando hay 2 fogones juntos si colocas una paella en cada uno la barra de cocción de una tapara a la  otra , en un mapa donde las tablas de  procesados están abajo del todo y el circulo rojo este de progreso no se ve.
  
 ## 11. Referencias y contexto cultural <a name="referencias"></a>
 
