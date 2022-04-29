@@ -103,6 +103,9 @@ bool Fogon::receivePaella(Paella* pa)
 
 			barra = true;
 
+			if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == cocinarPaella)
+				game->getCurrentScene()->changeState(pausaCocinarPaella);
+
 			game->getUIManager()->addTween((float)(getX() - barraCoccionX / 2 - flechaCoccionX / 2), (float)(getX() + barraCoccionX / 2 - flechaCoccionX / 2), tiempoDeCoccion, true)
 				.onStep(
 					[this](tweeny::tween<float>& t, float) mutable {

@@ -45,28 +45,6 @@ void ListaComandas::AñadeComanda(Comanda* comanda)
 			cX = d->getPosition().getX() - 1.5 * c->getWidth();
 		}
 		//comprobar si la posicion 0 está libre
-		/*if (numcomandas > 0)
-		{
-
-
-			if (lista[0]->getPosition().getX() != inicx)
-			{
-				//priemraposicion de la lista libre
-				cX = inicx;
-				//shift derecho visual y en el vector
-				for (auto c : lista)
-				{
-
-					
-						//c->setSitio(c->getSitio()+ 1);
-					
-				}
-				
-			}
-			else s
-				cX = inicx + (numcomandas * 1.5 * c->getWidth());
-		}*/
-		//cX = inicx + (numcomandas * 1.5 * c->getWidth());//al llenar y vaciar de locos pero añadir si ya hay 3 , en la posicion 0 ....
 		desplazamineto = cX - x;
 		
 		c->desplazacomandas(desplazamineto);//esta la paella anterior en el mismo  vector 
@@ -133,36 +111,7 @@ void ListaComandas::renderComandas()
 }
 void ListaComandas::finalizacomanda(Comanda* comanda)
 {
-	/*int desplazables = maxvisibles- comanda->getSitio();
-	int aborrar = comanda->getSitio();
-
-	//delete lista[comanda->getSitio()];
-	//lista[comanda->getSitio()] = nullptr;
-
-	//desplazamiento estetico a la derecha
-	for (auto c : lista)
-	{
-
-		if (c->getSitio() < aborrar)
-		{
-			int nx=c->getPosition().getX()+ 1.5 * c->getWidth();
-			int dsp = nx - c->getPosition().getX();
-			c->desplazacomandas(dsp);//esta la paella anterior en el mismo  vector 
-			c->setPosition(nx, cY);
-			c->getEliminabutton()->setPosition(nx, cY+c->getHeight()/2);
-		}
-	}
-
-	//shift del vector a la izquierda
-	for (auto c : lista)
-	{
-
-		if (c->getSitio() > aborrar)
-		{
-			c->setSitio(c->getSitio() - 1);
-
-		}
-	}*/
+	
 
 	if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState()<cogerPaellaVentanilla){
 
@@ -207,12 +156,6 @@ void ListaComandas::finalizacomanda(Comanda* comanda)
 
 			Comanda* c = listanovisibles.back();
 			cX = inicx + 1.5 * c->getWidth();
-			//traer comanda del buffer 
-			//se ve el pedido a las izquierda :(
-
-			//Comanda* c = new Comanda(*d);
-			//c->desplazacomandas(+500);
-			//AñadeComanda(c);// noquieres otra copia mas de la comanda solo queires mover esta
 			int x = -cX - c->getX();
 			x += 3 * c->getWidth() + anchobotones*4;//4 son los botones qeu caben en una linea
 			c->setPosition(cX, cY);
@@ -224,29 +167,9 @@ void ListaComandas::finalizacomanda(Comanda* comanda)
 			numcomandas++;
 
 
-
-			/*
-				auto ic = lista.begin();
-
-				Comanda* d = *ic;
-				cX = d->getPosition().getX() - 1.5 * c->getWidth();
-
-
-
-				desplazamineto = cX - x;
-
-				c->desplazacomandas(desplazamineto - c->getWidth());//esta la paella anterior en el mismo  vector
-				c->setPosition(cX, cY);
-				c->getPosition().setX(cX);
-
-				c->setSitio(lista.insert(lista.begin(), c));
-				c->getEliminabutton()->setPosition(cX, cY + c->getHeight() / 2);
-
-				numcomandas++;*/
-
-
-
 		}
+		selected = *lista.begin();
+		selected->seleccionaComanda();
 	}
 }
 void ListaComandas::update()
@@ -354,6 +277,8 @@ void ListaComandas::pressSelectedComanda()
 }
 void ListaComandas::seleccionasigcomanda(int dir)
 {
+	if (selected == nullptr)
+		selected = *lista.begin();
 	auto it = selected->getSitio();
 	if (it == lista.begin())
 	{
@@ -403,25 +328,5 @@ void ListaComandas::seleccionasigcomanda(int dir)
 		c->seleccionaComanda();
 		selected = c;
 	}
-	/*if (dir > 0)
-	{
-		++it;
-
-		if (it == lista.end())
-		{
-			it = lista.begin();
-		}
-	}
-	else if (it != lista.begin())
-	{
-		it--;
-	}
-	else it = lista.end();
-	{if (it != lista.begin())
-		--it;
-	}
-	selected->deseleccionaComanda();
-	auto c = *it;
-	c->seleccionaComanda();
-	selected = c;*/
+	
 }

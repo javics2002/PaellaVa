@@ -14,6 +14,7 @@ class Silla;
 class PoolObject;
 class Herramienta;
 class ParticleExample;
+class Tutorial;
 
 class Mueble : public GameObject
 {

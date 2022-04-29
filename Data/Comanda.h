@@ -7,6 +7,7 @@
 #include <list>
 #define NK_IMPLEMENTATION
 class Paella;
+class Ventanilla;
 class Ingrediente;
 class Game;
 class IngredienteButton;
@@ -23,7 +24,7 @@ class Comanda :public GameObject
     //hay 8 ingredientes distintos
 public:
     enum Tamaño { Pequeña, Mediana, Grande };
-    Comanda(Game* game, uint escala, UIManager* uim);//crear comanda
+    Comanda(Game* game, uint escala, UIManager* uim,bool enVentanilla_);//crear comanda
     Comanda( Comanda& c);//NECESARIO PARA QUE LA LIST DE COMANDAS FUNCIONE
 
     ~Comanda();//No se puede definir todavia y no compila NO LO BORREIS/
@@ -68,6 +69,9 @@ public:
     void cambiazonafoco();
     void siguientebotonfocus(int dir);
     void update() override;
+    void render(SDL_Rect* cameraRect) override;
+    void animUpdate();
+    void playAnim() { animPlay = true; };
     void setActiveTeclado(vector<UiButton*> a);
     vector<UiButton*> getTecladoing() { return teclado; };
 
@@ -85,14 +89,21 @@ private:
     int anchobotones = 36;
     double margenizquierdo;
     double margensuperior;
-    int ancho = 110;
-    int alto = 220;
+    int ancho = 120;
+    int alto = 230;
     int altoini;
     int maxingrendientes=3;
     int maxpaellas = 4;
+    bool enVentanilla = false;
     uint numeroMesa;
     uint numeroPaellas = 0;
     list<Comanda*>::iterator sitiolista;
+
+    SDL_Rect clip;
+    int frameCounter;
+    float lastFrameTime;
+    float frameRate;
+    bool animPlay;
 
     EliminaComandaButton* eliminarboton;
     float puntuacion;
@@ -109,7 +120,7 @@ private:
     vector<UiButton*> activeTeclado = {};
     int indexfocus=-1;
     int focusedzone = 1; // 0 teclado 1 uicomanda
-    void chageActiveTeclado();
+    void changeActiveTeclado();
     bool comparaX(UiButton u1, UiButton u2);
     bool comparaY(UiButton u1, UiButton u2);
     //float calculaPuntuacion(Paella paella) ; definicion pendiente de la creacion e paella

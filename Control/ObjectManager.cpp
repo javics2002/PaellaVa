@@ -78,6 +78,7 @@ void ObjectManager::debug(SDL_Rect* rect)
 
 void ObjectManager::handleInput(bool& exit)
 {
+
 	// solo se handlea tu propio input
 	Player* p = getPlayerOne();
 	if (p != nullptr)
