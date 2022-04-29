@@ -7,6 +7,9 @@
 class UiButton: public GameObject
 {
 	function<void(Game* game, bool& exit)> callback = [](Game* game, bool& exit) { };
+	bool canHover; //Si el botón reacciona al ratón pasando por él
+	bool isHover; //Si el ratón está encima de el
+	list<UiButton*>::iterator botonIterador;
 
 protected:
 	string textura;
@@ -28,5 +31,8 @@ public:
 	void setunfocused();
 //ool getfocused() { return focused; };
 	
+	bool hover();
+	void setIterador(list<UiButton*>::iterator it);
+	list<UiButton*>::iterator getIterador();
 };
 

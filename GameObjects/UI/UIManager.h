@@ -22,7 +22,7 @@ class UIManager
 	vector<string> texturasTamanos = { "small","medium","large" };
 	vector<Point2D<double> >posicionesBotones;
 	vector<GameObject*> interfaz;//el resto de iconos 
-	vector<UiButton*> botones;//botones
+	list<UiButton*> botones;//botones
 	vector<Comanda*> comandas;//comandas de la lista de comandas
 	vector<UiButton*> teclado;//iconos que se usan en la comanda qeu esta redactando
 	vector<UiButton*> uicomandas;
@@ -81,7 +81,7 @@ class UIManager
 
 	double toRadians(double grados);
 
-	vector<UiButton*>::iterator foco;
+	list<UiButton*>::iterator foco;
 	bool enAjustes;
 	bool enJornada = false, enVentanilla=false;
 
@@ -147,6 +147,8 @@ public:
 	void focoExecute(bool& exit);
 	void avanzaFoco();
 	void retrocedeFoco();
+	void cambiaFoco(list<UiButton*>::iterator nuevoFoco);
+	void quitaFoco();
 
 	bool getEnAjustes() { return enAjustes; };
 	void setEnJornada(bool b);

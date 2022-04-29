@@ -401,6 +401,10 @@ void UIManager::update(bool paused)
 		else
 			o++;
 	}
+
+	for (auto boton : botones) {
+		boton->update();
+	}
 }
 
 void UIManager::render(SDL_Rect* rect = nullptr)
@@ -637,6 +641,7 @@ void UIManager::addInterfaz(GameObject* elementoInterfaz)
 void UIManager::addButton(UiButton* button)
 {
 	botones.push_back(button);
+	button->setIterador(--botones.end());
 
 	foco = botones.begin();
 }
@@ -1463,8 +1468,9 @@ void UIManager::avanzaFoco()
 		if (foco == botones.end())
 			foco = botones.begin();
 
-		addTween(1.0f, 1.1f, 600.0f,false).via(easing::exponentialOut).onStep([this](tweeny::tween<float>& t, float) mutable {
-			(*foco)->setDimension(t.peek() * (*foco)->getInitialWidth(), t.peek() * (*foco)->getInitialHeight());
+		auto nuevoFoco = *foco;
+		addTween(1.0f, 1.1f, 600.0f, false).via(easing::exponentialOut).onStep([nuevoFoco](tweeny::tween<float>& t, float) mutable {
+			nuevoFoco->setDimension(t.peek() * nuevoFoco->getInitialWidth(), t.peek() * nuevoFoco->getInitialHeight());
 
 			return t.progress() == 1.0f;
 			});
@@ -1482,12 +1488,13 @@ void UIManager::retrocedeFoco()
 			});
 
 		if (foco == botones.begin())
-			foco = botones.end() - 1;
+			foco = --botones.end();
 		else 
 			foco--;
 
-		addTween(1.0f, 1.1f, 600.0f,false).via(easing::exponentialOut).onStep([this](tweeny::tween<float>& t, float) mutable {
-			(*foco)->setDimension(t.peek() * (*foco)->getInitialWidth(), t.peek() * (*foco)->getInitialHeight());
+		auto nuevoFoco = *foco;
+		addTween(1.0f, 1.1f, 600.0f,false).via(easing::exponentialOut).onStep([nuevoFoco](tweeny::tween<float>& t, float) mutable {
+			nuevoFoco->setDimension(t.peek() * nuevoFoco->getInitialWidth(), t.peek() * nuevoFoco->getInitialHeight());
 
 			return t.progress() == 1.0f;
 			});
@@ -1501,6 +1508,41 @@ double UIManager::toRadians(double grados)
 void UIManager::setEnJornada(bool b)
 {
 	enJornada = b;
+}
+
+void UIManager::cambiaFoco(list<UiButton*>::iterator nuevoFoco)
+{
+	if (!botones.empty()) {
+		auto anteriorFoco = *foco;
+
+		if (nuevoFoco != anteriorFoco->getIterador()) {
+			addTween(1.1f, 1.0f, 600.0f, false).via(easing::exponentialOut).onStep([anteriorFoco](tweeny::tween<float>& t, float) mutable {
+				anteriorFoco->setDimension(t.peek() * anteriorFoco->getInitialWidth(), t.peek() * anteriorFoco->getInitialHeight());
+
+				return t.progress() == 1.0f;
+				});
+		}
+
+		foco = nuevoFoco;
+
+		addTween(1.0f, 1.1f, 600.0f, false).via(easing::exponentialOut).onStep([nuevoFoco](tweeny::tween<float>& t, float) mutable {
+			(*nuevoFoco)->setDimension(t.peek() * (*nuevoFoco)->getInitialWidth(), t.peek() * (*nuevoFoco)->getInitialHeight());
+
+			return t.progress() == 1.0f;
+			});
+	}
+}
+
+void UIManager::quitaFoco()
+{
+	if (!botones.empty()) {
+		auto anteriorFoco = *foco;
+		addTween(1.1f, 1.0f, 600.0f, false).via(easing::exponentialOut).onStep([anteriorFoco](tweeny::tween<float>& t, float) mutable {
+			anteriorFoco->setDimension(t.peek() * anteriorFoco->getInitialWidth(), t.peek() * anteriorFoco->getInitialHeight());
+
+			return t.progress() == 1.0f;
+			});
+	}
 }
 
 void UIManager::setIpButton(UiButton* ip_)

@@ -12,7 +12,6 @@ using tweeny::easing;
 
 Menu::Menu(Game* game) : Scene(game)
 {
-
 	fondo->setTexture("menufondo");
 	fondo->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
 	fondo->setDimension(sdlutils().width(), sdlutils().height() + 100);
