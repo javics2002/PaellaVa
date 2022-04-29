@@ -401,6 +401,10 @@ void UIManager::update(bool paused)
 		else
 			o++;
 	}
+
+	for (auto boton : botones) {
+		boton->update();
+	}
 }
 
 void UIManager::render(SDL_Rect* rect = nullptr)
@@ -492,7 +496,7 @@ void UIManager::render(SDL_Rect* rect = nullptr)
 
 void UIManager::creaComanda(Game* game)
 {
-	actual = new Comanda(game, uiscale, this);
+	actual = new Comanda(game, uiscale, this,false);
 	comandas.push_back(actual);
 
 	creaTeclado();
@@ -518,6 +522,19 @@ void UIManager::creaComanda(Game* game)
 	if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::abreLibreta)
 		game->getCurrentScene()->changeState(States::pauasAbreLibreta);
 
+}
+
+void UIManager::creaComandaVentanilla(Game* game) {
+	actual = new Comanda(game, uiscale, this,true);
+	comandas.push_back(actual);
+
+	enVentanilla = true;
+
+	creaTeclado();
+	actual->guardaTeclado();
+
+	actual->toggleactive();
+	actual->toggleactive();
 }
 
 Comanda* UIManager::getComanda()
@@ -553,18 +570,6 @@ void UIManager::creaTeclado()
 		}
 	}
 	int j = 0;
-	for (auto i : texturasIngredienes)
-	{
-		//Comanda comanda,Game* game, TextureName texturename, int x, int y, int w, int h
-		IngredienteButton* a = new IngredienteButton(this, game, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), uiscale * anchobotones, uiscale * anchobotones);
-		teclado.push_back(a);
-		//  objectmanager->creaTeclado(a);
-
-		j++;
-	}
-
-	actual->guardaTeclado();
-	j = 0;
 	vector <UiButton*> tecladonum;
 
 	for (auto i : texturasNumeros)
@@ -577,37 +582,55 @@ void UIManager::creaTeclado()
 	}
 
 	actual->guardaTecladonum(tecladonum);
+	if (!enVentanilla) {
 
-	j = 0;
-	vector <UiButton*> tecladotam;
-	for (auto i : texturasTamanos)
-	{
-		TamanoButton* a = new TamanoButton(this, game, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), uiscale * anchobotones, uiscale * anchobotones);
+		j = 0;
+		for (auto i : texturasIngredienes)
+		{
+			//Comanda comanda,Game* game, TextureName texturename, int x, int y, int w, int h
+			IngredienteButton* a = new IngredienteButton(this, game, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), uiscale * anchobotones, uiscale * anchobotones);
+			teclado.push_back(a);
+			//  objectmanager->creaTeclado(a);
 
-		tecladotam.push_back(a);
-		uicomandas.push_back(a);
-		j++;
+			j++;
+		}
+
+		actual->guardaTeclado();
+
+		j = 0;
+		vector <UiButton*> tecladotam;
+		for (auto i : texturasTamanos)
+		{
+			TamanoButton* a = new TamanoButton(this, game, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), uiscale * anchobotones, uiscale * anchobotones);
+
+			tecladotam.push_back(a);
+			uicomandas.push_back(a);
+			j++;
+		}
+		actual->guardaTecladotam(tecladotam);
 	}
-	actual->guardaTecladotam(tecladotam);
+
 
 }
 
 void UIManager::randomizaTeclado()
 {
-	vector<Point2D<double>> posdis = posicionesBotones;
-	int j = rand() % posdis.size();
-	for (auto i : teclado)
-	{
-		i->setPosition(posdis[j]);
-		posdis.erase(posdis.begin() + j);
-		if (posdis.size() > 0)
-			j = rand() % posdis.size();
+	if (!enVentanilla) {
+		vector<Point2D<double>> posdis = posicionesBotones;
+		int j = rand() % posdis.size();
+		for (auto i : teclado)
+		{
+			i->setPosition(posdis[j]);
+			posdis.erase(posdis.begin() + j);
+			if (posdis.size() > 0)
+				j = rand() % posdis.size();
+		}
+
+		sort(teclado.begin(), teclado.end(), [](UiButton* u1, UiButton* u2) {return  u1->getPosition().getX() < u2->getPosition().getX(); });
+		sort(teclado.begin(), teclado.end(), [](UiButton* u1, UiButton* u2) {return  u1->getPosition().getY() < u2->getPosition().getY(); });
+
+		if (teclado[0]->isActive())actual->setActiveTeclado(teclado);
 	}
-
-	sort(teclado.begin(), teclado.end(), [](UiButton* u1, UiButton* u2) {return  u1->getPosition().getX() < u2->getPosition().getX(); });
-	sort(teclado.begin(), teclado.end(), [](UiButton* u1, UiButton* u2) {return  u1->getPosition().getY() < u2->getPosition().getY(); });
-
-	if(teclado[0]->isActive())actual->setActiveTeclado(teclado);
 }
 
 void UIManager::addInterfaz(GameObject* elementoInterfaz)
@@ -618,6 +641,7 @@ void UIManager::addInterfaz(GameObject* elementoInterfaz)
 void UIManager::addButton(UiButton* button)
 {
 	botones.push_back(button);
+	button->setIterador(--botones.end());
 
 	foco = botones.begin();
 }
@@ -1444,8 +1468,9 @@ void UIManager::avanzaFoco()
 		if (foco == botones.end())
 			foco = botones.begin();
 
-		addTween(1.0f, 1.1f, 600.0f,false).via(easing::exponentialOut).onStep([this](tweeny::tween<float>& t, float) mutable {
-			(*foco)->setDimension(t.peek() * (*foco)->getInitialWidth(), t.peek() * (*foco)->getInitialHeight());
+		auto nuevoFoco = *foco;
+		addTween(1.0f, 1.1f, 600.0f, false).via(easing::exponentialOut).onStep([nuevoFoco](tweeny::tween<float>& t, float) mutable {
+			nuevoFoco->setDimension(t.peek() * nuevoFoco->getInitialWidth(), t.peek() * nuevoFoco->getInitialHeight());
 
 			return t.progress() == 1.0f;
 			});
@@ -1463,12 +1488,13 @@ void UIManager::retrocedeFoco()
 			});
 
 		if (foco == botones.begin())
-			foco = botones.end() - 1;
+			foco = --botones.end();
 		else 
 			foco--;
 
-		addTween(1.0f, 1.1f, 600.0f,false).via(easing::exponentialOut).onStep([this](tweeny::tween<float>& t, float) mutable {
-			(*foco)->setDimension(t.peek() * (*foco)->getInitialWidth(), t.peek() * (*foco)->getInitialHeight());
+		auto nuevoFoco = *foco;
+		addTween(1.0f, 1.1f, 600.0f,false).via(easing::exponentialOut).onStep([nuevoFoco](tweeny::tween<float>& t, float) mutable {
+			nuevoFoco->setDimension(t.peek() * nuevoFoco->getInitialWidth(), t.peek() * nuevoFoco->getInitialHeight());
 
 			return t.progress() == 1.0f;
 			});
@@ -1482,6 +1508,41 @@ double UIManager::toRadians(double grados)
 void UIManager::setEnJornada(bool b)
 {
 	enJornada = b;
+}
+
+void UIManager::cambiaFoco(list<UiButton*>::iterator nuevoFoco)
+{
+	if (!botones.empty()) {
+		auto anteriorFoco = *foco;
+
+		if (nuevoFoco != anteriorFoco->getIterador()) {
+			addTween(1.1f, 1.0f, 600.0f, false).via(easing::exponentialOut).onStep([anteriorFoco](tweeny::tween<float>& t, float) mutable {
+				anteriorFoco->setDimension(t.peek() * anteriorFoco->getInitialWidth(), t.peek() * anteriorFoco->getInitialHeight());
+
+				return t.progress() == 1.0f;
+				});
+		}
+
+		foco = nuevoFoco;
+
+		addTween(1.0f, 1.1f, 600.0f, false).via(easing::exponentialOut).onStep([nuevoFoco](tweeny::tween<float>& t, float) mutable {
+			(*nuevoFoco)->setDimension(t.peek() * (*nuevoFoco)->getInitialWidth(), t.peek() * (*nuevoFoco)->getInitialHeight());
+
+			return t.progress() == 1.0f;
+			});
+	}
+}
+
+void UIManager::quitaFoco()
+{
+	if (!botones.empty()) {
+		auto anteriorFoco = *foco;
+		addTween(1.1f, 1.0f, 600.0f, false).via(easing::exponentialOut).onStep([anteriorFoco](tweeny::tween<float>& t, float) mutable {
+			anteriorFoco->setDimension(t.peek() * anteriorFoco->getInitialWidth(), t.peek() * anteriorFoco->getInitialHeight());
+
+			return t.progress() == 1.0f;
+			});
+	}
 }
 
 void UIManager::setIpButton(UiButton* ip_)
