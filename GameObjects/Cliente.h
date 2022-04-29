@@ -37,6 +37,8 @@ public:
 
 	void drawPickedClient(SDL_Rect* cameraRect, SDL_Rect rect);
 
+	SDL_Rect getCollider() override;
+
 };
 
 

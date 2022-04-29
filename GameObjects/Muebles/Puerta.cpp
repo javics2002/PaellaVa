@@ -64,7 +64,7 @@ void Puerta::update()
 			
 			Vector2D<double> dist = vel;
 			dist.normalize();
-			dist = Vector2D<double>(dist.getX() * c->getWidth(), dist.getY() * c->getHeight());
+			dist = Vector2D<double>(dist.getX() * c->getCollider().w, dist.getY() * c->getCollider().h);
 
 			Vector2D<double> pos = getPosition();
 		
