@@ -13,3 +13,4 @@
 #include "Ventanilla.h"
 #include "Pared.h"
 #include "BolsaArroz.h"
+#include "CajaHerramientas.h"

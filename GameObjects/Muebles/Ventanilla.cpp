@@ -22,17 +22,14 @@ bool Ventanilla::receivePaella(Paella* pa)
 	uimt = game->getUIManager();
 	if (pa != nullptr)
 	{
-		if (!dynamic_cast<Tutorial*>(game->getCurrentScene())) {
-			mpaella = pa;
-			mpaella->setPosition(getRectCenter(getOverlap()));
-		}
+		mpaella = pa;
+		mpaella->setPosition(getRectCenter(getOverlap()));
 
 		ih().setKey(false, InputHandler::A);
 		uimt->creaComandaVentanilla(game);
 		
 		if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::dejarPaellaVentanilla) {
-			game->getCurrentScene()->changeState(States::pausaVentanillaSinComanda);
-			return false;
+			game->getCurrentScene()->changeState(States::pausaDejarPaellVentanilla);
 		}
 
 		return true;
@@ -72,5 +69,6 @@ void Ventanilla::receiveNumeroMesa(Texture* t)
 	if (mpaella != nullptr) {
 		numactex = t;
 		numero = true;
+		game->getObjectManager()->getPlayerOne()->changePlayer(false);
 	}
 }

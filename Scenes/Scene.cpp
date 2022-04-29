@@ -19,6 +19,7 @@ Scene::~Scene()
 	delete textMngr;
 	delete fondo;
 	delete camara;
+
 }
 
 void Scene::handleInput(bool& exit)

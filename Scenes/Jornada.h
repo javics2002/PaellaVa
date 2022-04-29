@@ -50,6 +50,8 @@ class Jornada : public Scene
 	double puntuaciónTotal;
 
 	Vector2D<int> tamRestaurante = Vector2D<int>(0, 1216);
+	Vector2D<double> positionCamarero;
+	Vector2D<double> positionCocinera;
 
 	int nJornada = 0;
 

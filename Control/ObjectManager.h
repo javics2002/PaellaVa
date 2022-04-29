@@ -22,6 +22,7 @@ class Silla;
 class Mesa;
 class TablaProcesado;
 class Lavavajillas;
+class CajaHerramientas;
 
 #include "../GameObjects/Ingredienteletal.h"
 
@@ -64,6 +65,8 @@ class ObjectManager
 	InicioCinta* iniCinta;
 	FinalCinta* finCinta;
 	Lavavajillas* lavavajillas;
+	CajaHerramientas* cajaHerramientas;
+
 
 
 public:
@@ -93,6 +96,7 @@ public:
 	void addFogon(Fogon* f);
 	void addTabla(TablaProcesado* t);
 	void addLavavajillas(Lavavajillas* l);
+	void addCaja(CajaHerramientas* c);
 
 	vector<Silla*> getSillas();
 	vector<Mesa*> getMesas();
@@ -108,6 +112,7 @@ public:
 	InicioCinta* getIniCinta();
 	FinalCinta* getFinCinta();
 	Lavavajillas* getLavavajillas();
+	CajaHerramientas* getCajaHerramientas();
 
 
 

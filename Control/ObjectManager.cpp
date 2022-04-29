@@ -250,6 +250,11 @@ void ObjectManager::addLavavajillas(Lavavajillas* l)
 	lavavajillas = l;
 }
 
+void ObjectManager::addCaja(CajaHerramientas* c)
+{
+	cajaHerramientas = c;
+}
+
 vector<Silla*> ObjectManager::getSillas()
 {
 	return sillas;
@@ -320,4 +325,9 @@ FinalCinta* ObjectManager::getFinCinta()
 Lavavajillas* ObjectManager::getLavavajillas()
 {
 	return lavavajillas;
+}
+
+CajaHerramientas* ObjectManager::getCajaHerramientas()
+{
+	return cajaHerramientas;
 }

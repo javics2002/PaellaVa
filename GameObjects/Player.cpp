@@ -18,11 +18,11 @@
 #include "../Utils/Traza.h"
 
 
-Player::Player(Game* game, bool chef) : GameObject(game), objectType_(INGREDIENTE), pickedObject_(nullptr), chef_(chef),
+Player::Player(Game* game,double x, double y, bool chef) : GameObject(game), objectType_(INGREDIENTE), pickedObject_(nullptr), chef_(chef),
 overlapPos(Vector2D<double>(getX() - overlapPos.getX() / 2, getY() - getHeight() / 2 - overlapDim.getY())),
 overlapDim(Vector2D<int>(50, 50))
 {
-	setPosition(200, 600);
+	setPosition(x, y);
 	setDimension(150, 150);
 	overlapDim.set(45, 45);
 

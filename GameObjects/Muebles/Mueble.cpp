@@ -64,7 +64,7 @@ bool Mueble::receiveHerramienta(Herramienta* h)
 
 bool Mueble::testMueble()
 {
-	if (dynamic_cast<Tutorial*>(game->getCurrentScene())) {
+	if (!dynamic_cast<Tutorial*>(game->getCurrentScene())) {
 		float rnd = rand() % randomOptions + 1;
 
 		if (rnd <= roto)

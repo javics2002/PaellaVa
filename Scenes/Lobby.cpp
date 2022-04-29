@@ -48,7 +48,7 @@ Lobby::Lobby(Game* game) : Scene(game)
 		
 		game->sendMessageScene(new Jornada(game, "Jornada1", 0 , true));
 
-		
+		sdlutils().virtualTimer().reset();
 		// send info 
 		game->getNetworkManager()->sendStartGame(0);
 		uiManager->setEnJornada(true);

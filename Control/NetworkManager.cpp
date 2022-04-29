@@ -572,7 +572,7 @@ void NetworkManager::close()
 
 Player* NetworkManager::addPlayerHost()
 {
-	Player* p = new Player(game, true);
+	Player* p = new Player(game, true,0,0);
 	
 	player_ids.push_back(id_count);
 	id_count++;
@@ -582,7 +582,7 @@ Player* NetworkManager::addPlayerHost()
 
 Player* NetworkManager::addPlayerClient(int id)
 {
-	Player* p = new Player(game, false);
+	Player* p = new Player(game, false,0,0);
 	
 	player_ids.push_back(id);
 

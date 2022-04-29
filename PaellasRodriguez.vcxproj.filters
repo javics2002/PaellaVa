@@ -71,9 +71,6 @@
     <ClCompile Include="GameObjects\Muebles\Encimera.cpp" />
     <ClCompile Include="GameObjects\Muebles\CajaHerramientas.cpp" />
     <ClCompile Include="GameObjects\Herramienta.cpp" />
-    <ClCompile Include="introduceIP.cpp" />
-    <ClCompile Include="Lobby.cpp" />
-    <ClCompile Include="Numerobutton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
@@ -170,10 +167,7 @@
     <ClInclude Include="GameObjects\Herramienta.h" />
     <ClInclude Include="GameObjects\Muebles\Encimera.h" />
     <ClInclude Include="GameObjects\Muebles\CajaHerramientas.h" />
-    <ClInclude Include="introduceIP.h" />
-    <ClInclude Include="Lobby.h" />
     <ClInclude Include="naming_conventions.h" />
-    <ClInclude Include="Numerobutton.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />
