@@ -13,7 +13,7 @@
     {"id":  "cuadroTextoCamarero","file": "Assets/Images/Tutorial/cuadroTextoCamarero.png"},
     {"id": "barraCoccion", "file": "Assets/Images/barraCoccion.png"},
     {"id": "flechaCoccion","file": "Assets/Images/flechaCoccion.png"},
-    { "id": "cuadernillo", "file": "Assets/Images/cuadernillo.png"},
+    { "id": "cuadernillo", "file": "Assets/Anims/cuadernillo.png"},
     { "id": "cuadernilloseleted", "file": "Assets/Images/cuadernilloselected.png"},
     { "id": "barra", "file": "Assets/Images/barracomandas.png"},
     { "id": "barraboton", "file": "Assets/Images/ocultabarraboton.png"},

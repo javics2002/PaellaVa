@@ -69,6 +69,9 @@ public:
     void cambiazonafoco();
     void siguientebotonfocus(int dir);
     void update() override;
+    void render(SDL_Rect* cameraRect) override;
+    void animUpdate();
+    void playAnim() { animPlay = true; };
     void setActiveTeclado(vector<UiButton*> a);
     vector<UiButton*> getTecladoing() { return teclado; };
 
@@ -95,6 +98,12 @@ private:
     uint numeroMesa;
     uint numeroPaellas = 0;
     list<Comanda*>::iterator sitiolista;
+
+    SDL_Rect clip;
+    int frameCounter;
+    float lastFrameTime;
+    float frameRate;
+    bool animPlay;
 
     EliminaComandaButton* eliminarboton;
     float puntuacion;

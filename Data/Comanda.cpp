@@ -24,6 +24,17 @@ bool comparaY(T u1,T u2)
 Comanda::Comanda(Game* game, uint escala, UIManager* uim,bool enVentanilla_) :GameObject(game)
 {
 	setTexture("cuadernillo");
+
+	clip.x = 0;
+	clip.y = 0;
+	clip.w = 256;
+	clip.h = 256;
+
+	frameCounter = 0;
+	lastFrameTime = sdlutils().currRealTime();
+	frameRate = 1000 / 24;
+
+
 	escale = escala;
 	Vector2D<double> p;
 	ancho *= escale;
@@ -691,8 +702,34 @@ void Comanda::update()
 			cambiazonafoco();
 		}
 
+		if (sdlutils().currRealTime() - lastFrameTime > frameRate && isActive())
+			animUpdate();
+
 	}
 }
+
+void Comanda::render(SDL_Rect* cameraRect)
+{
+	SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, w, h };
+	drawRender(cameraRect, dest, texture, clip);
+}
+
+void Comanda::animUpdate()
+{
+	lastFrameTime = sdlutils().currRealTime();
+
+	if (animPlay) {
+		clip.x = frameCounter * clip.w;
+		frameCounter++;
+	}
+
+	if (frameCounter * clip.w > texture->width() - 10) {
+		frameCounter = 0;
+		animPlay = false;
+	}
+
+}
+
 void Comanda::changeActiveTeclado()
 {
 	if(focusedbutton!=nullptr)focusedbutton->setunfocused();
