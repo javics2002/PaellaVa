@@ -188,7 +188,10 @@
     { "id": "estrellaReview", "file": "Assets/Images/estrellaReview.png" },
     { "id": "cajaHerramientas", "file": "Assets/Images/cajaHerramientas.png"},
     { "id": "llaveInglesa", "file": "Assets/Images/llaveInglesa.png"},
-    { "id": "tutorialButton", "file": "Assets/Images/tutorialButton.png"}
+    { "id": "tutorialButton", "file": "Assets/Images/tutorialButton.png"},
+    { "id": "abrirRestauranteButton", "file": "Assets/Images/abrirRestauranteButton.png" },
+    { "id": "buscarRestauranteButton", "file": "Assets/Images/buscarRestauranteButton.png" }
+
   ],
 
   "tilesets": [
