@@ -2,7 +2,7 @@
 #include "../Scenes/Tutorial.h"
 #include "../Control/Game.h"
 
-Pedido::Pedido(Game* game_,int numComensales, int numeroTiles)
+Pedido::Pedido(Game* game_, int numComensales, int numeroTiles)
 {
 	game = game_;
 	comensales = numComensales;
@@ -71,6 +71,24 @@ Pedido::Pedido(Game* game_,int numComensales, int numeroTiles)
 		ingredientesPedidos = vector<bool>(tipoIngrediente::LAST, false);
 	}
 }
+
+Pedido::Pedido(Game* game_, int numPaellas, vector<int> tamPaellas, vector<int> ingPedidos)
+{
+	game = game_;
+
+	for (int i = 0; i < numPaellas; i++) {
+		pedidoPaella nuevaPaella;
+		paellas.push_back(nuevaPaella);
+		paellas[i].tamanoPaella = tamPaellas[i];
+
+		for (int j = 0; j < ingPedidos.size(); j++) {
+			if (ingPedidos[j] == LAST) break;
+			paellas[i].ingredientesPedido.push_back(ingPedidos[j]);
+		}
+	}
+	
+}
+
 vector<pedidoPaella> Pedido::getPedido()
 {
 	return paellas;

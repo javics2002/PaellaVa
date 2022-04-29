@@ -130,6 +130,25 @@ void NetworkManager::receivePlayers()
 				case EPT_SYNCDROPOBJECT:
 					game->getObjectManager()->getPlayerTwo()->DropCustomObject(pkt.syncDropObject.object_type, pkt.syncDropObject.object_id, pkt.syncDropObject.mueble_id);
 					break;
+				case EPT_SYNCPEDIDO:
+					// crear pedido en x grupo de clientes
+					for (int i = 0; i < game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getActiveObjects().size(); i++) {
+						GrupoClientes* gC = game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getActiveObjects()[i];
+						if (gC->getId() == pkt.syncPedido.group_id) {
+							vector<int> tamPaellas;
+							vector<int> ingPedidos(12, LAST);
+
+							for (int i = 0; i < pkt.syncPedido.paella_number; i++) {
+								tamPaellas.push_back(pkt.syncPedido.paella_size[i]);
+							}
+
+							for (int i = 0; i < ingPedidos.size(); i++) {
+								ingPedidos[i] = pkt.syncPedido.ing_pedidos[i];
+							}
+
+							gC->modificaPedido(pkt.syncPedido.paella_number, tamPaellas, ingPedidos);
+						}
+					}
 				case EPT_QUIT:
 					std::cout << ("Client disconnected: ID(%d)\n", i) << std::endl;
 
@@ -255,6 +274,7 @@ void NetworkManager::updateClient()
 				}
 
 				GrupoClientes* g = game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->add();
+				g->setId(server_pkt.grupoCliente.group_id);
 				g->setVel(Vector2D<double>(server_pkt.grupoCliente.velX, server_pkt.grupoCliente.velY));
 
 				puerta->getCola()->add(g, server_pkt.grupoCliente.tamGrupo);
@@ -302,48 +322,30 @@ void NetworkManager::updateClient()
 				break;
 			case EPT_SYNCPEDIDO:
 				// crear pedido en x grupo de clientes
-				game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getActiveObjects();
+				for (int i = 0; i < game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getActiveObjects().size(); i++) {
+					GrupoClientes* gC = game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getActiveObjects()[i];
+					if (gC->getId() == server_pkt.syncPedido.group_id) {
+						vector<int> tamPaellas;
+						vector<int> ingPedidos(12, LAST);
+
+						for (int i = 0; i < server_pkt.syncPedido.paella_number; i++) {
+							tamPaellas.push_back(server_pkt.syncPedido.paella_size[i]);
+						}
+
+						for (int i = 0; i < ingPedidos.size(); i++) {
+							ingPedidos[i] = server_pkt.syncPedido.ing_pedidos[i];
+						}
+
+						gC->modificaPedido(server_pkt.syncPedido.paella_number, tamPaellas, ingPedidos);
+					}
+				}
+
+				
 			default:
 				break;
 			}
 
-			//// recorrer el vector de players hasta que pkt.player_id == player_ids[i]
-			//for (int i = 0u; i < player_ids.size(); i++) {
-			//	if (server_pkt.player_id == player_ids[i]) {
-			//		p = game_->getObjectManager()->getPlayers()[i];
-			//	}
-			//}
-
-			//if (p == nullptr) {
-			//	p = addPlayerClient(server_pkt.player_id);
-			//	game_->getObjectManager()->addPlayer(p);
-			//}
-
-			//switch (server_pkt.packet_type) {
-			//case EPT_UPDATE:
-			//	p->handleInput(Vector2D<double>(server_pkt.player_horizontal, server_pkt.player_vertical));
-			//	break;
-			//case EPT_SYNCPLAYER:
-			//	// parsear pkt
-			//	PacketSyncPlayer newPkt = *(PacketSyncPlayer*)(void*)&server_pkt;
-			//	p->setPosition(newPkt.posX, newPkt.posY);
-
-			//	break;
-			//}
 		}
-
-		// Send info
-		//PacketRecv client_pkt;
-		//client_pkt.packet_type = EPT_UPDATE;
-		//
-		//client_pkt.player_horizontal = game_->getObjectManager()->getHost()->getAxis().getX(); // Nosotros mismos
-		//client_pkt.player_vertical = game_->getObjectManager()->getHost()->getAxis().getY();
-
-		//if (SDLNet_TCP_Send(socket, &client_pkt, sizeof(PacketRecv)) < sizeof(PacketRecv))
-		//{
-		//	std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
-		//	exit(EXIT_FAILURE);
-		//}
 
 		SDL_Delay(client_frequency);
 	}
@@ -736,7 +738,7 @@ void NetworkManager::syncDropObject(int objectType, int objectId, int muebleId)
 }
 
 
-void NetworkManager::sendGrupoCliente(int tamGrupo, int idPuerta, Vector2D<double> vel, Vector2D<double> distancia, std::vector<int> textureNumber, float tolerancia)
+void NetworkManager::sendGrupoCliente(int tamGrupo, int idPuerta, int idGrupoClientes, Vector2D<double> vel, Vector2D<double> distancia, std::vector<int> textureNumber, float tolerancia)
 {
 	Packet pkt;
 
@@ -744,6 +746,7 @@ void NetworkManager::sendGrupoCliente(int tamGrupo, int idPuerta, Vector2D<doubl
 	pkt.grupoCliente.tamGrupo = tamGrupo;
 
 	pkt.grupoCliente.door_id = idPuerta;
+	pkt.grupoCliente.group_id = idGrupoClientes;
 
 	pkt.grupoCliente.velX = vel.getX();
 	pkt.grupoCliente.velY = vel.getY();
@@ -810,8 +813,17 @@ void NetworkManager::syncPedido(int idGrupoCliente, int numPaellas, std::vector<
 	}
 	
 
-	for (int i = 1u; i < player_sockets.size(); i++) {
-		if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+	if (nType == 'h') {
+		for (int i = 1u; i < player_sockets.size(); i++) {
+			if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+			{
+				std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+				exit(EXIT_FAILURE);
+			}
+		}
+	}
+	else {
+		if (SDLNet_TCP_Send(socket, &pkt, sizeof(Packet)) < sizeof(Packet))
 		{
 			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 			exit(EXIT_FAILURE);

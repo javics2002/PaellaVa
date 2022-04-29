@@ -13,6 +13,8 @@
 #include "Muebles/FinalCinta.h"
 #include "Arroz.h"
 
+#include "../Data/Pedido.h"
+
 #include "../Utils/Traza.h"
 
 
@@ -166,6 +168,24 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 					game->getNetworkManager()->syncDropObject(objectType_, pickedObject_->getId(), m->getId());
 
 					pickedObject_->dropObject();
+					
+
+					// mandar mensaje?
+					GrupoClientes* gClientes = dynamic_cast<GrupoClientes*>(pickedObject_);
+					
+					vector<int> tamPaellas;
+					vector<int> ingPedidos = vector<int>(12, LAST);
+
+					for (int i = 0; i < gClientes->getPedido()->getPedido().size(); i++) {
+						tamPaellas.push_back(gClientes->getPedido()->getPedido()[i].tamanoPaella);
+
+						for (int j = 0; j < gClientes->getPedido()->getPedido()[i].ingredientesPedido.size(); j++) {
+							ingPedidos[j] = gClientes->getPedido()->getPedido()[i].ingredientesPedido[j];
+						}
+					}
+
+					game->getNetworkManager()->syncPedido(pickedObject_->getId(), gClientes->getPedido()->getPedido().size(), tamPaellas, ingPedidos);
+
 					pickedObject_ = nullptr;
 				}
 				else {

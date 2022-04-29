@@ -330,8 +330,13 @@ void GrupoClientes::hacerPedido(int tamMesa, Mesa* m)
 
 	pedido = new Pedido(game,clientes.size(), tamMesa);
 
-	// mandar mensaje?
-	//game->getNetworkManager()->syncPedido(getId(), ;
+	texPedido = pedido->getPedidoTex();
+}
+
+void GrupoClientes::modificaPedido(int numPaellas, vector<int> tamPaellas, vector<int> ingPedidos) {
+	delete pedido; // borramos el anterior pedido
+
+	pedido = new Pedido(game, numPaellas, tamPaellas, ingPedidos);
 
 	texPedido = pedido->getPedidoTex();
 }

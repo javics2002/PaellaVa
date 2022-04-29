@@ -3,8 +3,8 @@
 #include "../GameObjects/Paella.h"
 
 struct pedidoPaella {
-	TipoPaella tamanoPaella;
-	vector<tipoIngrediente> ingredientesPedido;
+	int tamanoPaella;
+	vector<int> ingredientesPedido;
 	double puntuacionPaella = 10;
 };
 
@@ -34,7 +34,8 @@ class Game;
 class Pedido 
 {
 public:
-	Pedido(Game* game,int numComensales, int numeroTiles);
+	Pedido(Game* game, int numComensales, int numeroTiles);
+	Pedido(Game* game, int numPaellas, vector<int> tamPaellas, vector<int> ingPedidos);
 	~Pedido() {};
 	vector<pedidoPaella> getPedido();
 	vector<string> getPedidoTex();

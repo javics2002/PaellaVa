@@ -72,6 +72,7 @@ struct PacketGrupoCliente {
 	Uint8 textCliente[8];
 	Uint8 tamGrupo;
 	
+	Uint16 group_id;
 	Uint16 door_id;
 
 	Uint8 velX;
@@ -115,7 +116,7 @@ struct PacketSyncPedido {
 	Uint8 paella_number; // numero de paellas
 	Uint8 paella_size[4];
 
-	Uint8 ing_pedidos[9]; // 9 ingredientes
+	Uint8 ing_pedidos[12]; // 9 ingredientes
 };
 
 struct Packet {
@@ -224,7 +225,7 @@ public:
 	void sendCreateIngrediente(int tipoIngrediente, int ingId, Vector2D<double> pos, Vector2D<double> vel);
 	void sendCreateIngredienteLetal(int tipoIngrediente, Vector2D<double> pos, Vector2D<double> vel);
 	
-	void sendGrupoCliente(int tamGrupo, int idPuerta, Vector2D<double> vel, Vector2D<double> distancia, std::vector<int> textureNumber, float tolerancia);
+	void sendGrupoCliente(int tamGrupo, int idPuerta, int idGrupoClientes, Vector2D<double> vel, Vector2D<double> distancia, std::vector<int> textureNumber, float tolerancia);
 	void sendButtonsBuffer(std::vector<bool> keyPressed);
 
 	void syncPlayers();

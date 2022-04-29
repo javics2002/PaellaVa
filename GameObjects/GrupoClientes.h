@@ -92,7 +92,9 @@ public:
 	void onDeactivate() override;
 
 	void hacerPedido(int tamMesa, Mesa* m);
+	void modificaPedido(int numPaellas, std::vector<int> tamPaellas, std::vector<int> ingPedidos);
 	void decirPedidio();
+	Pedido* getPedido() { return pedido; }
 
 	void setOrientacion(bool vertical_);
 

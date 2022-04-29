@@ -94,7 +94,7 @@ void Puerta::update()
 
 			sdlutils().soundEffects().at("puerta").play();
 
-			game->getNetworkManager()->sendGrupoCliente(integrantes, getId(), vel, dist, texturas, 100);
+			game->getNetworkManager()->sendGrupoCliente(integrantes, getId(), g->getId(), vel, dist, texturas, 100);
 		}
 
 		initTime = sdlutils().virtualTimer().currTime();

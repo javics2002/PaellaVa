@@ -47,8 +47,8 @@ HostClient::HostClient(Game* game) : Scene(game)
 
 	clientButton->setAction([this, ip](Game* game, bool& exit) {
 		//Client
-		//game->sendMessageScene(new IntroduceIP(game));
-		if (!introIp->isActive()) {
+		game->sendMessageScene(new IntroduceIP(game));
+		/*if (!introIp->isActive()) {
 			uiManager->setIpButton(introIp);
 		}
 
@@ -59,7 +59,7 @@ HostClient::HostClient(Game* game) : Scene(game)
 			ip->setDimension();
 		}
 
-		introIp->setActive(!introIp->isActive());
+		introIp->setActive(!introIp->isActive());*/
 		//ip->setActive(introIp->isActive());
 		});
 
