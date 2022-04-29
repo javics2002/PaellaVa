@@ -86,8 +86,8 @@ private:
     int anchobotones = 36;
     double margenizquierdo;
     double margensuperior;
-    int ancho = 110;
-    int alto = 220;
+    int ancho = 120;
+    int alto = 230;
     int altoini;
     int maxingrendientes=3;
     int maxpaellas = 4;
