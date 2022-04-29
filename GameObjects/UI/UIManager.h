@@ -85,7 +85,7 @@ class UIManager
 	bool enAjustes;
 	bool enJornada = false, enVentanilla=false;
 
-	Texture* libretaTexture = &sdlutils().images().at("libreta");
+	Texture* libretaTexture = &sdlutils().images().at("cuadernillo");
 	SDL_Rect clip{0,0,libretaTexture->width() / 12,libretaTexture->height()};
 
 	const double TIEMPO_PROCESADO = 1000.0;

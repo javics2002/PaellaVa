@@ -188,8 +188,7 @@
     { "id": "estrellaReview", "file": "Assets/Images/estrellaReview.png" },
     { "id": "cajaHerramientas", "file": "Assets/Images/cajaHerramientas.png"},
     { "id": "llaveInglesa", "file": "Assets/Images/llaveInglesa.png"},
-    { "id": "tutorialButton", "file": "Assets/Images/tutorialButton.png"},
-    { "id": "libreta", "file": "Assets/Anims/libretaIp.png" }
+    { "id": "tutorialButton", "file": "Assets/Images/tutorialButton.png"}
   ],
 
   "tilesets": [

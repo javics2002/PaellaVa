@@ -7,7 +7,7 @@ class HostClient : public Scene
 	UiButton* introIp;
 
 	SDL_Rect clip;
-	Texture* libretaTexture = &sdlutils().images().at("libreta");
+	Texture* libretaTexture = &sdlutils().images().at("cuadernillo");
 public:
 	HostClient(Game* game);
 };
