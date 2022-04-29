@@ -129,3 +129,15 @@ void Cliente::drawPickedClient(SDL_Rect* cameraRect, SDL_Rect rect)
 	drawRender(cameraRect, rect, anims[anims.size() - 1], clip, flip);
 }
 
+SDL_Rect Cliente::getCollider()
+{
+	SDL_Rect rect = getTexBox();
+
+	return {
+		rect.x + rect.w / 4,
+		rect.y + rect.h / 4,
+		rect.w / 2,
+		rect.h * 3 / 4
+	};
+}
+
