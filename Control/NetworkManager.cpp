@@ -149,6 +149,7 @@ void NetworkManager::receivePlayers()
 							gC->modificaPedido(pkt.syncPedido.paella_number, tamPaellas, ingPedidos);
 						}
 					}
+					break;
 				case EPT_QUIT:
 					std::cout << ("Client disconnected: ID(%d)\n", i) << std::endl;
 
@@ -159,6 +160,8 @@ void NetworkManager::receivePlayers()
 
 					break;
 				}
+
+				
 			} // TODO: CHECK WHEN TIRAR DEL CABLE
 			  // TODO: SYNC PLAYERS?
 		}
@@ -340,8 +343,6 @@ void NetworkManager::updateClient()
 					}
 				}
 
-				
-			default:
 				break;
 			}
 
