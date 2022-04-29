@@ -13,20 +13,9 @@ HostClient::HostClient(Game* game) : Scene(game)
 
 	int offsetX = 300, offsetY = 150;
 
-	auto cocineraSprite = new GameObject(game), camareroSprite = new GameObject(game);
-	cocineraSprite->setTexture("cocinera");
-	cocineraSprite->setPosition(Vector2D<double>(sdlutils().width() / 2 - offsetX, sdlutils().height() / 2 + offsetY));
-	cocineraSprite->setDimension(1024, 1024);
-	camareroSprite->setTexture("camarero");
-	camareroSprite->setPosition(Vector2D<double>(sdlutils().width() / 2 + offsetX, sdlutils().height() / 2 + offsetY));
-	camareroSprite->setDimension(1024, 1024);
-
-	uiManager->addInterfaz(cocineraSprite);
-	uiManager->addInterfaz(camareroSprite);
-
-	auto hostButton = new UiButton(game, "abrirRestauranteButton",
-		sdlutils().width() / 2 - offsetX, sdlutils().height() / 2 - offsetY, 400, 200);
-	hostButton->setInitialDimension(hostButton->getWidth(), hostButton->getHeight());
+	auto hostButton = new UiButton(game, "cocinera",
+		sdlutils().width() / 2 - offsetX, sdlutils().height() - 350, 500, 700);
+	hostButton->setInitialDimension(500, 700);
 	hostButton->setAction([](Game* game, bool& exit) {
 		//Host
 		game->getNetworkManager()->init('h', nullptr, game->getNombre());
@@ -35,9 +24,9 @@ HostClient::HostClient(Game* game) : Scene(game)
 		});
 	uiManager->addButton(hostButton);
 
-	auto clientButton = new UiButton(game, "buscarRestauranteButton",
-		sdlutils().width() / 2 + offsetX, sdlutils().height() / 2 - offsetY, 400, 200);
-	clientButton->setInitialDimension(clientButton->getWidth(), clientButton->getHeight());
+	auto clientButton = new UiButton(game, "camarero",
+		sdlutils().width() / 2 + offsetX, sdlutils().height() - 350, 500, 700);
+	clientButton->setInitialDimension(500, 700);
 
 	introIp = new UiButton(game, "cuadernillo", clientButton->getX(), clientButton->getY() - 110 , libretaTexture->width() / 12, libretaTexture->height());
 	introIp->setActive(false);
