@@ -18,6 +18,13 @@ void IngredienteLetal::onActivate()
 	setTexture(texturaIngredienteLetal[n]);
 }
 
+void IngredienteLetal::setProcesado(bool estadoIngr, Ingrediente* ingr)
+{
+	procesado = estadoIngr;
+
+	setTexture("rataP");
+}
+
 void IngredienteLetal::cambiaTipo(int n) {
 
 	miTipoL = tipoIngredienteLetal(n);

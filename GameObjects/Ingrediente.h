@@ -41,7 +41,7 @@ public:
 	void cambiaTipo(int n);
 	void ingredienteRecogido();
 	
-	void setProcesado(bool estadoIngr, Ingrediente *ingr);
+	virtual void setProcesado(bool estadoIngr, Ingrediente *ingr);
 	bool getProcesado();
 	bool esLetal();
 

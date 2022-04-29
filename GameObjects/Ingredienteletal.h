@@ -12,6 +12,7 @@ public:
 	~IngredienteLetal();
 	void onActivate() override;
 
+	void setProcesado(bool estadoIngr, Ingrediente* ingr) override;
 	void cambiaTipo (int n);
 };
 
