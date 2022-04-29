@@ -24,8 +24,8 @@ HostClient::HostClient(Game* game) : Scene(game)
 	uiManager->addInterfaz(cocineraSprite);
 	uiManager->addInterfaz(camareroSprite);
 
-	auto hostButton = new UiButton(game, "Abrir restaurante", "paella", { 255, 255, 255, 255 }, { 0, 0, 0, 0 },
-		sdlutils().width() / 2 - offsetX, sdlutils().height() / 2 - offsetY);
+	auto hostButton = new UiButton(game, "abrirRestauranteButton",
+		sdlutils().width() / 2 - offsetX, sdlutils().height() / 2 - offsetY, 400, 200);
 	hostButton->setInitialDimension(hostButton->getWidth(), hostButton->getHeight());
 	hostButton->setAction([](Game* game, bool& exit) {
 		//Host
@@ -35,8 +35,8 @@ HostClient::HostClient(Game* game) : Scene(game)
 		});
 	uiManager->addButton(hostButton);
 
-	auto clientButton = new UiButton(game, "Buscar restaurante", "paella", { 255, 255, 255, 255 }, { 0, 0, 0, 0 },
-		sdlutils().width() / 2 + offsetX, sdlutils().height() / 2 - offsetY);
+	auto clientButton = new UiButton(game, "buscarRestauranteButton",
+		sdlutils().width() / 2 + offsetX, sdlutils().height() / 2 - offsetY, 400, 200);
 	clientButton->setInitialDimension(clientButton->getWidth(), clientButton->getHeight());
 
 	introIp = new UiButton(game, "libreta", clientButton->getX(), clientButton->getY() - 110 , libretaTexture->width() / 12, libretaTexture->height());
