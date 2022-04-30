@@ -12,6 +12,8 @@
 #include "../Control/NetworkManager.h"
 #include "../Control/TextManager.h"
 
+#include "../GameObjects/Ingrediente.h"
+
 
 Game::Game() {	
 	srand(time(NULL));
@@ -28,6 +30,8 @@ void Game::init()
 
 	ih().setGame(this);
 	nm = new NetworkManager(this);
+
+	setNombre(texturaIngrediente[sdlutils().rand().nextInt(0, texturaIngrediente.size())]);
 
 	currentScene = new Menu(this);
 }

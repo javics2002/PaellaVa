@@ -22,7 +22,7 @@ public:
         EXPLOSION,
         SMOKE,
         SNOW,
-        RAIN,
+        RAIN
     };
 
     PatticleStyle style_ = NONE;

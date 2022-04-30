@@ -106,7 +106,7 @@ Lobby::Lobby(Game* game, string nombreHost) : Scene(game)
 void Lobby::clienteUnido(std::string nombreCliente)
 {
 	comenzar->setTexture("start");
-	camarero->setTexture("camarero");
+	camarero->setTexture("camareroLobby");
 
 	uiManager->setEnLobby(false);
 
