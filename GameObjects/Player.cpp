@@ -256,7 +256,11 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 		}
 	}
 	if (sdlutils().currRealTime() - lastFrameTime > frameRate)
+	{
+		if (ih().getFocus())
+		{ }
 		animUpdate(axis);
+	}
 }
 
 void Player::update()
@@ -391,44 +395,50 @@ void Player::animUpdate(Vector2D<double> axis)
 	if (frameCounter * clip.w > anims[currAnim]->width() - 10)
 		frameCounter = 0;
 
-	switch (orientation_)
-	{
-	case N:
-		currAnim = 2;
-		break;
-	case S:
-		currAnim = 0;
-		break;
-	case E:
-		currAnim = 1;
-		if (flipH) flip = SDL_FLIP_NONE;
-		break;
-	case O:
-		currAnim = 1;
-		if (!flipH)flip = SDL_FLIP_HORIZONTAL;
-		break;
-	default:
-		break;
-	}
+	
+		switch (orientation_)
+		{
+		case N:
+			currAnim = 2;
+			break;
+		case S:
+			currAnim = 0;
+			break;
+		case E:
+			currAnim = 1;
+			if (flipH) flip = SDL_FLIP_NONE;
+			break;
+		case O:
+			currAnim = 1;
+			if (!flipH)flip = SDL_FLIP_HORIZONTAL;
+			break;
+		default:
+			break;
+		}
+		
+		if (!ih().getFocus())
+		{
 
-	if (axis.getY() > .1f && !enComanda) {
-		// Andar Abajo
-		currAnim = 3;
-	}
-	else if (axis.getY() < -.1f && !enComanda) {
-		// Andar Arriba
-		currAnim = 5;
-	}
+			if (axis.getY() > .1f && !enComanda) {
+				// Andar Abajo
+				currAnim = 3;
+			}
+			else if (axis.getY() < -.1f && !enComanda) {
+				// Andar Arriba
+				currAnim = 5;
+			}
 
-	// Horizontal va segundo para tener prioridad
-	if (axis.getX() > .1f && !enComanda) {
-		// Andar der
-		currAnim = 4;
-	}
-	else if (axis.getX() < -.1f && !enComanda) {
-		// Andar izq
-		currAnim = 4;
-	}
+			// Horizontal va segundo para tener prioridad
+			if (axis.getX() > .1f && !enComanda) {
+				// Andar der
+				currAnim = 4;
+			}
+			else if (axis.getX() < -.1f && !enComanda) {
+				// Andar izq
+				currAnim = 4;
+			}
+		}
+	
 }
 
 void Player::setAnimResources()

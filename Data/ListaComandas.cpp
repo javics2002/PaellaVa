@@ -133,7 +133,7 @@ void ListaComandas::finalizacomanda(Comanda* comanda)
 			else
 			{
 				selected = *lista.begin();
-				toggleBarra();
+				//toggleBarra();
 			}
 		}
 		for (auto c : lista)
@@ -182,6 +182,9 @@ void ListaComandas::finalizacomanda(Comanda* comanda)
 		if (lista.size() > 0) {
 			selected = *lista.begin();
 			selected->seleccionaComanda();
+		}
+		else {
+			toggleBarra();
 		}
 	}
 }

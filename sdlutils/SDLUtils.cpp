@@ -94,7 +94,7 @@ void SDLUtils::initSDLExtensions() {
 	std::cout << "Initializing SDL_Mixer" << std::endl;
 #endif
 	// initialize SDL_Mixer
-	int mixOpenAudio = Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+	int mixOpenAudio = Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT,2, 2048);
 	assert(mixOpenAudio == 0);
 	int mixInit_ret = Mix_Init(
 			MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG);

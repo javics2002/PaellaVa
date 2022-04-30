@@ -39,7 +39,7 @@ Comanda::Comanda(Game* game, uint escala, UIManager* uim,bool enVentanilla_) :Ga
 	Vector2D<double> p;
 	ancho *= escale;
 	alto *= escale;
-	w = 180;
+	w = 187;
 	h = 291;
 	margenbotones *= escale;
 	anchobotones *= escale;
@@ -448,6 +448,7 @@ void Comanda::eC()
 	toggleTeclado(false);
 	toggleTecladonum(true);
 	toggleactive();
+	ih().setFocused(true);
 	//uiManager->getBarra()->setBarraActive(false);
 	//uiManager->getBarra()->toggleBarra();
 
