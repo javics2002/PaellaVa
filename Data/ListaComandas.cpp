@@ -168,8 +168,10 @@ void ListaComandas::finalizacomanda(Comanda* comanda)
 
 
 		}
-		selected = *lista.begin();
-		selected->seleccionaComanda();
+		if (lista.size() > 0) {
+			selected = *lista.begin();
+			selected->seleccionaComanda();
+		}
 	}
 }
 void ListaComandas::update()

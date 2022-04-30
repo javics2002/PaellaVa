@@ -31,13 +31,15 @@ class Tutorial : public Scene
 	const float LERP_INTERPOLATION = 0.2f;
 
 	vector<string> textos = { "texto1" ,"texto2", "texto3","texto4","texto5","texto6","texto7","texto8","texto9","texto10",
-		"texto11","texto12","texto13","texto14","texto15","texto16","texto17","texto18","texto19","texto20","texto21"};
+		"texto11","texto12","texto13","texto14","texto15","texto16","texto17","texto18","texto19","texto20","texto21", "texto22"};
 
 	MapInfo mapInfo;
 
 	bool continua = false;
 
 	Vector2D<int> tamRestaurante = Vector2D<int>(0, 1216);
+	Vector2D<double> positionCamarero;
+	Vector2D<double> positionCocinera;
 
 	Imagen* cuadroTexto = new Imagen(game, sdlutils().width() / 2, sdlutils().height() - 100, sdlutils().width()/1.5, 250, "cuadroTextoCocinera");
 
@@ -66,6 +68,8 @@ public:
 	void nextStates();
 	void activaCuadro(string texto_);
 	void desactivaCuadro();
+
+	void cambiaPlayer(bool c);
 
 };
 

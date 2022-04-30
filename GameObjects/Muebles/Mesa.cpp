@@ -118,12 +118,12 @@ bool Mesa::receivePaella(Paella* paella)
 		}
 		else if(mGrupo->paellasPedidas()){
 			paella->setState(Hecha);
-				paellas.push_back(paella);
-				paella->setPosition(getProxPos(paella->getPosition()));
-				paella->enLaMesa(true);
+			paellas.push_back(paella);
+			paella->setPosition(getProxPos(paella->getPosition()));
+			paella->enLaMesa(true);
 
-				sdlutils().soundEffects().at("cubiertos").play();
-				return true;
+			sdlutils().soundEffects().at("cubiertos").play();
+			return true;
 		}
 	}
 	return false;

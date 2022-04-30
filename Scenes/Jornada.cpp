@@ -56,22 +56,6 @@ Jornada::Jornada(Game* game, string tilemap, int numeroJornada, bool host_) : Sc
 #endif // _DEBUG
 
 	// crear player dependiendo si es cocinera o no
-	if (host) {
-		Player* p = new Player(game, true);
-		objectManager->addPlayer(p);
-
-		// Jugador 2
-		Player* p2 = new Player(game, false);
-		objectManager->addPlayer(p2);
-	}
-	else {
-		Player* p = new Player(game, false);
-		objectManager->addPlayer(p);
-
-		// Jugador 2
-		Player* p2 = new Player(game, true);
-		objectManager->addPlayer(p2);
-	}
 	
 	mapInfo.ruta = "Assets\\Tilemap\\" + tilemap + ".tmx";
 	loadMap(mapInfo.ruta);
@@ -79,6 +63,23 @@ Jornada::Jornada(Game* game, string tilemap, int numeroJornada, bool host_) : Sc
 	fondo->setTexture(mapInfo.ruta);
 	fondo->setPosition(mapInfo.anchoFondo / 2, sdlutils().height() / 2);
 	fondo->setDimension(mapInfo.anchoFondo, mapInfo.altoFondo);
+
+	if (host) {
+		Player* p = new Player(game, positionCocinera.getX(), positionCocinera.getY(),true);
+		objectManager->addPlayer(p);
+
+		// Jugador 2
+		Player* p2 = new Player(game, positionCamarero.getX(), positionCamarero.getY(),false);
+		objectManager->addPlayer(p2);
+	}
+	else {
+		Player* p = new Player(game, positionCamarero.getX(), positionCamarero.getY(), false);
+		objectManager->addPlayer(p);
+
+		// Jugador 2
+		Player* p2 = new Player(game, positionCocinera.getX(), positionCocinera.getY(), true);
+		objectManager->addPlayer(p2);
+	}
 
 	// camara init
 	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
@@ -311,7 +312,12 @@ void Jornada::loadMap(string const& path)
 				/// Puerta = 1
 				/// 
 				/// </Z coords>
-
+				if (name == "camarero") {
+					positionCamarero = position;
+				}
+				if (name == "cocinera") {
+					positionCocinera = position;
+				}
 				if (name == "mesaS") { // 1 tile
 					Mesa* m = new Mesa(game, position, { 1, 2 }, { 1 , 1 }, name);
 					m->setId(idCount);

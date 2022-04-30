@@ -18,11 +18,11 @@
 #include "../Utils/Traza.h"
 
 
-Player::Player(Game* game, bool chef) : GameObject(game), objectType_(INGREDIENTE), pickedObject_(nullptr), chef_(chef),
+Player::Player(Game* game,double x, double y, bool chef) : GameObject(game), objectType_(INGREDIENTE), pickedObject_(nullptr), chef_(chef),
 overlapPos(Vector2D<double>(getX() - overlapPos.getX() / 2, getY() - getHeight() / 2 - overlapDim.getY())),
 overlapDim(Vector2D<int>(50, 50))
 {
-	setPosition(200, 600);
+	setPosition(x, y);
 	setDimension(150, 150);
 	overlapDim.set(45, 45);
 
@@ -191,9 +191,9 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 				else {
 					for (auto i : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getOverlaps(getOverlap())) {
 						if (i == pickedObject_) {
-							game->getNetworkManager()->syncDropObject(objectType_, pickedObject_->getId(), -1);
-
+							game->getNetworkManager()->syncDropObject(objectType_, pickedObject_->getId(), -1);						
 							pickedObject_->setPicked(false);
+							i->setGoshtGroup();
 							pickedObject_ = nullptr;
 							return;
 						}
@@ -564,8 +564,9 @@ void Player::DropCustomObject(int objectType, int objectId, int muebleId)
 	}
 	else {
 		for (auto g : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getActiveObjects()) {
-			if (g->getId() == objectId) {
+			if (g->getId() == objectId) {			
 				g->setPicked(false);
+				g->setGoshtGroup();
 				pickedObject_ = nullptr;
 			}
 		}
@@ -623,6 +624,7 @@ void Player::render(SDL_Rect* cameraRect)
 {
 	SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, w, h };
 	drawRender(cameraRect, dest, anims[currAnim], clip, flip);
+	//drawRender(cameraRect, 128);
 }
 
 void Player::setPickedObject(ObjetoPortable* op, objectType ot)

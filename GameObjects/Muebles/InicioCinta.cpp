@@ -4,12 +4,13 @@
 #include "../../Scenes/Tutorial.h"
 #include "../../Control/NetworkManager.h"
 #include "../../Utils/ParticleExample.h"
+#include "../Herramienta.h"
 
 InicioCinta::InicioCinta(Game* game, Vector2D<double> pos, bool host_) : Mueble(game, pos, TILE_SIZE, TILE_SIZE, "inicioCinta")
 {
-	initTime = sdlutils().virtualTimer().currTime();
+	initTime = 0;
 	host = host_;
-
+	funcionando = true;
 }
 
 void InicioCinta::update()
@@ -32,7 +33,7 @@ void InicioCinta::update()
 	if (sdlutils().virtualTimer().currTime() - initTime >= SPAWN_DELAY && isActive() && funcionando)
 	{
 		if (i < porcentajeLetal && !dynamic_cast<Tutorial*>(game->getCurrentScene()))
-		{ 
+		{
 			IngredienteLetal* ingLetal = game->getObjectManager()->getPool<IngredienteLetal>(_p_INGREDIENTELETAL)->add(getPosition());
 			ingLetal->setVel(vel);
 			initTime = sdlutils().virtualTimer().currTime();
@@ -50,24 +51,27 @@ void InicioCinta::update()
 			game->getNetworkManager()->sendCreateIngrediente(ing->getTipo(), ing->getId(), getPosition(), vel);
 		}
 	}
-	if (funcionando && couldBreak <= 0)
-	{
-		testMueble();
-		if (funcionando) 
+
+	if(!dynamic_cast<Tutorial*>(game->getCurrentScene())){
+		if (funcionando && couldBreak <= 0)
 		{
-			//se reduce cuando se podría romper
-			couldBreak = MAX_BREAK_TIME - REDUCE_BREAK_TIME;
+			testMueble();
+			if (funcionando)
+			{
+				//se reduce cuando se podría romper
+				couldBreak = MAX_BREAK_TIME - REDUCE_BREAK_TIME;
+			}
+			else
+			{
+				//se resetea cuando se podría romper
+				couldBreak = MAX_BREAK_TIME;
+				humo->setStyle(ParticleExample::EXPLOSION);
+			}
 		}
-		else 
+		else if (funcionando && couldBreak > 0)
 		{
-			//se resetea cuando se podría romper
-			couldBreak = MAX_BREAK_TIME;
-			humo->setStyle(ParticleExample::EXPLOSION);
+			couldBreak -= seg;
 		}
-	}
-	else if (funcionando && couldBreak > 0) 
-	{
-		couldBreak -= seg;
 	}
 
 	humo->setPosition(getX(), getY());
@@ -100,7 +104,24 @@ bool InicioCinta::resetCounter()
 	return true;
 }
 
+bool InicioCinta::receiveHerramienta(Herramienta* h)
+{
+	if (!funcionando)
+	{
+		if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == arreglarCinta)
+			game->getCurrentScene()->changeState(pausaArreglarCinta);
+
+		funcionando = true;
+		h->setActive(false);
+		return true;
+	}
+	return false;
+}
+
 SDL_Rect InicioCinta::getOverlap()
 {
-	return getTexBox();
+	return { int(getX() -getWidth()),
+		int(getY() - getHeight()),
+		(getWidth() *2),
+		(getHeight() * 2) };
 }

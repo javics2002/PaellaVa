@@ -34,9 +34,9 @@ void Puerta::update()
 
 			Vector2D<double> pos = getPosition();
 
-			int t = rand() % texturasClientes.size();
+			int t = sdlutils().rand().nextInt(0, 3);
 			c->setPosition(getX(), getY());
-			c->cambiaTextura(texturasClientes[t]);
+			c->setAnimResources(t);
 			clientes.push_back(c);
 
 			pos = pos - dist;
@@ -64,13 +64,13 @@ void Puerta::update()
 			
 			Vector2D<double> dist = vel;
 			dist.normalize();
-			dist = Vector2D<double>(dist.getX() * c->getWidth(), dist.getY() * c->getHeight());
+			dist = Vector2D<double>(dist.getX() * c->getCollider().w, dist.getY() * c->getCollider().h);
 
 			Vector2D<double> pos = getPosition();
 		
-			int t = rand() % texturasClientes.size();
+			int t = sdlutils().rand().nextInt(0, 3);
 			c->setPosition(getX(), getY());
-			c->cambiaTextura(texturasClientes[t]);
+			c->setAnimResources(t);
 			clientes.push_back(c);
 			texturas.push_back(t);
 		
@@ -79,9 +79,9 @@ void Puerta::update()
 
 				c = game->getObjectManager()->getPool<Cliente>(_p_CLIENTE)->add();
 
-				t = rand() % texturasClientes.size();
+				t = sdlutils().rand().nextInt(0, 3);
 				c->setPosition(pos);
-				c->cambiaTextura(texturasClientes[t]);
+				c->setAnimResources(t);
 				clientes.push_back(c);
 				texturas.push_back(t);
 			}

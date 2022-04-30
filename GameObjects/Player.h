@@ -42,7 +42,7 @@ class Player : public GameObject
 	int currAnim;
 
 public:
-	Player(Game* game, bool chef);
+	Player(Game* game, double x, double y,bool chef);
 	~Player();
 
 	void handleInput(Vector2D<double> axis, bool playerOne);

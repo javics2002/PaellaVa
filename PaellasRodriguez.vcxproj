@@ -151,10 +151,7 @@
     <ClInclude Include="GameObjects\Muebles\CajaHerramientas.h" />
     <ClInclude Include="GameObjects\Muebles\Encimera.h" />
     <ClInclude Include="GameObjects\Herramienta.h" />
-    <ClInclude Include="introduceIP.h" />
-    <ClInclude Include="Lobby.h" />
     <ClInclude Include="naming_conventions.h" />
-    <ClInclude Include="Numerobutton.h" />
     <ClInclude Include="Scenes\Jornada.h" />
     <ClInclude Include="GameObjects\Arroz.h" />
     <ClInclude Include="Control\NetworkManager.h" />
@@ -250,9 +247,6 @@
     <ClCompile Include="GameObjects\UI\OcultabarraButton.cpp" />
     <ClCompile Include="GameObjects\Muebles\CajaHerramientas.cpp" />
     <ClCompile Include="GameObjects\Muebles\Encimera.cpp" />
-    <ClCompile Include="introduceIP.cpp" />
-    <ClCompile Include="Lobby.cpp" />
-    <ClCompile Include="Numerobutton.cpp" />
     <ClCompile Include="Scenes\Jornada.cpp" />
     <ClCompile Include="GameObjects\Arroz.cpp" />
     <ClCompile Include="Control\NetworkManager.cpp" />

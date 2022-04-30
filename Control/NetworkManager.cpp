@@ -149,6 +149,7 @@ void NetworkManager::receivePlayers()
 							gC->modificaPedido(pkt.syncPedido.paella_number, tamPaellas, ingPedidos);
 						}
 					}
+					break;
 				case EPT_QUIT:
 					std::cout << ("Client disconnected: ID(%d)\n", i) << std::endl;
 
@@ -159,6 +160,8 @@ void NetworkManager::receivePlayers()
 
 					break;
 				}
+
+				
 			} // TODO: CHECK WHEN TIRAR DEL CABLE
 			  // TODO: SYNC PLAYERS?
 		}
@@ -266,7 +269,7 @@ void NetworkManager::updateClient()
 				for (int i = 0; i < server_pkt.grupoCliente.tamGrupo; i++) {
 					Cliente* c = game->getObjectManager()->getPool<Cliente>(_p_CLIENTE)->add();
 					c->setPosition(pos);
-					c->cambiaTextura(texturasClientes[server_pkt.grupoCliente.textCliente[i]]);
+					c->setAnimResources(server_pkt.grupoCliente.textCliente[i]);
 
 					pos = pos - distancia;
 
@@ -340,8 +343,6 @@ void NetworkManager::updateClient()
 					}
 				}
 
-				
-			default:
 				break;
 			}
 
@@ -571,7 +572,7 @@ void NetworkManager::close()
 
 Player* NetworkManager::addPlayerHost()
 {
-	Player* p = new Player(game, true);
+	Player* p = new Player(game, true,0,0);
 	
 	player_ids.push_back(id_count);
 	id_count++;
@@ -581,7 +582,7 @@ Player* NetworkManager::addPlayerHost()
 
 Player* NetworkManager::addPlayerClient(int id)
 {
-	Player* p = new Player(game, false);
+	Player* p = new Player(game, false,0,0);
 	
 	player_ids.push_back(id);
 

@@ -4,8 +4,6 @@
 
 class Game;
 
-const vector<string> texturasClientes = { "clienteBase", "clienteBase2", "clienteBase3" };
-
 class Cliente : public GameObject
 {
 	const unsigned int DIMENSION = 150;
@@ -17,6 +15,8 @@ class Cliente : public GameObject
 	float lastFrameTime;
 	float frameRate;
 	int currAnim;
+
+	bool gosht;
 
 public:
 	Cliente(Game* game);
@@ -37,6 +37,10 @@ public:
 
 	void drawPickedClient(SDL_Rect* cameraRect, SDL_Rect rect);
 
+	SDL_Rect getCollider() override;
+	SDL_Rect getOverlap() override;
+
+	void setGoshtClient(bool b);
 };
 
 

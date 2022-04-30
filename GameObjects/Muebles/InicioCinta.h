@@ -34,5 +34,9 @@ public:
 	SDL_Rect getOverlap() override;
 	SDL_Rect getCollider() override;
 	virtual bool resetCounter() override;
+
+	void dejaFuncionar() { funcionando = false; };
+
+	bool receiveHerramienta(Herramienta* h) override;
 };
 

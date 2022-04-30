@@ -20,8 +20,6 @@ Tutorial::Tutorial(Game* game, string tilemap) : Scene(game)
 {
 	this->game = game;
 
-	Player* p = new Player(game, false);
-	objectManager->addPlayer(p);
 
 
 	mapInfo.ruta = "Assets\\Tilemap\\" + tilemap + ".tmx";
@@ -30,6 +28,9 @@ Tutorial::Tutorial(Game* game, string tilemap) : Scene(game)
 	fondo->setTexture(mapInfo.ruta);
 	fondo->setPosition(mapInfo.anchoFondo / 2, sdlutils().height() / 2);
 	fondo->setDimension(mapInfo.anchoFondo, mapInfo.altoFondo);
+
+	Player* p = new Player(game, positionCamarero.getX(), positionCamarero.getY(), false);
+	objectManager->addPlayer(p);
 
 	// camara init
 	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
@@ -63,44 +64,14 @@ void Tutorial::handleInput(bool& exit)
 {
 	Scene::handleInput(exit);
 
-	if (ih().getKey(InputHandler::B)) {
-
-#ifdef _DEBUG
-		// game->changeScene(new GameOver(game, 100));
+	if (ih().getKey(InputHandler::B)) 
 		togglePause();
-#else
-		//Abrir menú de pausa
-		togglePause();
-#endif // _DEBUG
-	}
-
-
-
-	if (ih().getKey(InputHandler::X) && paused && textMngr->TerminadoEscribir()) {
-
-#ifdef _DEBUG
+	if (ih().getKey(InputHandler::X) && paused && textMngr->TerminadoEscribir()) 
 		pauseTutorial();
-#else
-
-#endif // _DEBUG
-	}
-
-	if (ih().getKey(InputHandler::X) && paused && textMngr->terminadoParrado()) {
-
-#ifdef _DEBUG
+	if (ih().getKey(InputHandler::X) && paused && textMngr->terminadoParrado()) 
 		continua = true;
-#else
-
-#endif // _DEBUG
-	}
-	else if (ih().getKey(InputHandler::X) && paused && !textMngr->terminadoParrado() && !textMngr->vaRapido()) {	
-
-#ifdef _DEBUG
+	else if (ih().getKey(InputHandler::X) && paused && !textMngr->terminadoParrado() && !textMngr->vaRapido())
 		textMngr->cambiaVelocidad(true);
-#else
-
-#endif // _DEBUG
-	}
 }
 
 void Tutorial::update()
@@ -123,9 +94,19 @@ void Tutorial::changeState(States state_)
 {
 	anteriorEstado = currentState;
 	currentState = state_;
-	if (currentState == pausaComandaEquivocada || currentState == pausaVentanillaSinComanda || currentState % 2 != 0 
+
+	if (currentState == pausaComandaEquivocada  || currentState % 2 != 0 
 		|| currentState==pausaBorrarComanda || currentState==pausaNoEcharClientes || currentState==pausaInicio)
 	{
+		if (currentState == 13) {
+			for (auto i : objectManager->getCintas())
+				i->setActive(true);
+			getObjectManager()->getIniCinta()->setActive(true);
+			getObjectManager()->getIniCinta()->dejaFuncionar();
+			getObjectManager()->getFinCinta()->setActive(true);
+
+		}
+
 		pauseTutorial();
 	}
 	else switch (currentState){
@@ -160,38 +141,34 @@ void Tutorial::changeState(States state_)
 			break;
 		}
 		case 14:{
-			for (auto i : objectManager->getCintas())
-				i->setActive(true);
-			getObjectManager()->getIniCinta()->setActive(true);
-			getObjectManager()->getFinCinta()->setActive(true);
+			game->getObjectManager()->getCajaHerramientas()->setActive(true);
 			break;
 		}
-		case 16:{
+		case 18:{
 			for (auto i : objectManager->getTablas())
 				i->setActive(true);
 			break;
 		}
-		case 20: {
+		case 22: {
 			for (auto i : objectManager->getFogones())
 				i->setActive(true);
 			break;
 		}
-		case 22: {
+		case 24: {
 			for (auto i : objectManager->getVentanilla())
 				i->setActive(true);
 			break;
 		}
-		case 26: {
-			objectManager->getPlayerOne()->changePlayer(false);
+		case 28: {
 			cuadroTexto->setTexture("cuadroTextoCocinera");
 			break;
 		}
-		case 34: {
+		case 36: {
 			objectManager->getLavavajillas()->setActive(true);
 			cuadroTexto->setTexture("cuadroTextoCamarero");
 			break;
 		}
-		case 38: {
+		case 40: {
 			objectManager->getPlayerOne()->changePlayer(true);
 			cuadroTexto->setTexture("cuadroTextoCocinera");
 			break;
@@ -224,9 +201,6 @@ void Tutorial::render()
 	uiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
 	if (currentState == pausaComandaEquivocada) {
 		activaCuadro("textoComandaEquivocada");
-	}
-	else if (currentState == pausaVentanillaSinComanda) {
-		activaCuadro("textoVentanillaSinComanda");
 	}
 	else if (currentState == pausaBorrarComanda) {
 		activaCuadro("textoBorrarComanda");
@@ -390,6 +364,13 @@ void Tutorial::loadMap(string const& path)
 				/// 
 				/// </Z coords>
 
+
+				if (name == "camarero") {
+					positionCamarero = position;
+				}
+				if (name == "cocinera") {
+					positionCocinera = position;
+				}
 				if (name == "mesaS") { // 1 tile
 					Mesa* m = new Mesa(game, position, { 1, 2 }, { 1 , 1 }, name);
 					getObjectManager()->addMueble(m);
@@ -533,6 +514,13 @@ void Tutorial::loadMap(string const& path)
 					getObjectManager()->addPilas(p);
 					p->setActive(false);
 				}
+				else if (name == "cajaHerramientas")
+				{
+					CajaHerramientas* p = new CajaHerramientas(game, position);
+					getObjectManager()->addMueble(p);
+					getObjectManager()->addCaja(p);
+					p->setActive(false);
+				}
 			}
 		}
 		// ordenar render
@@ -579,8 +567,6 @@ void Tutorial::pauseTutorial()
 		sdlutils().virtualTimer().resume();
 		if (currentState == pausaComandaEquivocada)
 			currentState = anteriorEstado;
-		else if (currentState == pausaVentanillaSinComanda)
-			currentState = anteriorEstado;
 		else if (currentState == pausaBorrarComanda)
 			currentState = anteriorEstado;
 		else if (currentState == pausaNoEcharClientes)
@@ -605,6 +591,7 @@ void Tutorial::desactivaCuadro()
 	cuadroTexto->setActive(false);
 	text->setActive(false);
 }
+
 
 void Tutorial::activaCuadro(string texto_)
 {
