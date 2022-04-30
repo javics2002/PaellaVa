@@ -18,6 +18,8 @@ class Cliente : public GameObject
 	float frameRate;
 	int currAnim;
 
+	bool gosht;
+
 public:
 	Cliente(Game* game);
 	~Cliente() = default;
@@ -38,7 +40,9 @@ public:
 	void drawPickedClient(SDL_Rect* cameraRect, SDL_Rect rect);
 
 	SDL_Rect getCollider() override;
+	SDL_Rect getOverlap() override;
 
+	void setGoshtClient(bool b);
 };
 
 

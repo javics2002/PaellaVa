@@ -24,7 +24,7 @@ class Mesa : public Mueble
 
 	void setTiles();
 	Vector2D<double> getProxPos(Vector2D<double> pos);
-	Vector2D<double> getCenterMesa();
+	
 
 public:
 	Mesa(Game* game, Vector2D<double> pos, Vector2D<int> dim, Vector2D<int> tiles, string texture);
@@ -46,5 +46,7 @@ public:
 	SDL_Rect getOverlap() override;
 
 	void decirPedido() override;
+
+	Vector2D<double> getCenterMesa();
 };
 

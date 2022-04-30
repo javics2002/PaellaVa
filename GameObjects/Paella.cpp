@@ -74,10 +74,10 @@ void Paella::setState(EstadoPaellas estado_)
 		currentCoccionSound = "paellaCociendo";
 		initCocTime = sdlutils().virtualTimer().currTime();
 		canalSonido = sdlutils().soundEffects().at(currentCoccionSound).play(-1);
-	
-	}	
-	else
-		sdlutils().soundEffects().at(currentCoccionSound).haltChannel(canalSonido);
+
+	}
+	else;
+		//sdlutils().soundEffects().at(currentCoccionSound).haltChannel(canalSonido);
 }
 
 void Paella::paellaRecogida()

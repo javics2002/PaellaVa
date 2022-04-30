@@ -191,9 +191,9 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 				else {
 					for (auto i : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getOverlaps(getOverlap())) {
 						if (i == pickedObject_) {
-							game->getNetworkManager()->syncDropObject(objectType_, pickedObject_->getId(), -1);
-
+							game->getNetworkManager()->syncDropObject(objectType_, pickedObject_->getId(), -1);						
 							pickedObject_->setPicked(false);
+							i->setGoshtGroup();
 							pickedObject_ = nullptr;
 							return;
 						}
@@ -623,6 +623,7 @@ void Player::render(SDL_Rect* cameraRect)
 {
 	SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, w, h };
 	drawRender(cameraRect, dest, anims[currAnim], clip, flip);
+	//drawRender(cameraRect, 128);
 }
 
 void Player::setPickedObject(ObjetoPortable* op, objectType ot)

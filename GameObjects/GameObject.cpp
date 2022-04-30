@@ -164,6 +164,20 @@ void GameObject::drawDebug(SDL_Rect* cameraRect, SDL_Rect rect)
 	SDL_SetRenderDrawColor(sdlutils().renderer(), 255, 255, 255, 0);
 }
 
+void GameObject::drawRender(SDL_Rect* cameraRect, Uint8 alpha)
+{
+	SDL_Rect c = getTexBox();
+	SDL_Rect textureBox;
+
+	if (cameraRect != nullptr) {
+		textureBox = { c.x - cameraRect->x, c.y - cameraRect->y, c.w, c.h };
+	}
+	else {
+		textureBox = { c.x, c.y, c.w, c.h };
+	}
+	texture->render(textureBox, alpha);
+}
+
 
 
 

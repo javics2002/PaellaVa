@@ -99,6 +99,8 @@ public:
 	void setOrientacion(bool vertical_);
 
 	bool paellasPedidas();
+
+	void setGoshtGroup();
 };
 
 

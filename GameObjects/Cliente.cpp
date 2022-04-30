@@ -18,6 +18,8 @@ Cliente::Cliente(Game* game) : GameObject(game)
 
 	currAnim = 0;
 	setAnimResources(sdlutils().rand().nextInt(0, 3));
+
+	gosht = false;
 }
 
 void Cliente::update()
@@ -29,8 +31,19 @@ void Cliente::update()
 
 void Cliente::render(SDL_Rect* cameraRect)
 {
+	animUpdate(Vector2D<double>(1, 0));
+
 	SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, w, h };
-	drawRender(cameraRect, dest, anims[currAnim], clip, flip);
+
+	if (gosht) {
+		SDL_SetTextureAlphaMod(anims[currAnim]->getSdlTexture(), 128);
+		drawRender(cameraRect, dest, anims[currAnim], { 0 ,0 ,255, 255 }, flip);
+		SDL_SetTextureAlphaMod(anims[currAnim]->getSdlTexture(), 255);
+	}
+	else
+	{
+		drawRender(cameraRect, dest, anims[currAnim], clip, flip);
+	}	
 }
 
 void Cliente::cambiaTextura(string textureN)
@@ -139,5 +152,15 @@ SDL_Rect Cliente::getCollider()
 		rect.w / 2,
 		rect.h * 3 / 4
 	};
+}
+
+SDL_Rect Cliente::getOverlap()
+{
+	return getCollider();
+}
+
+void Cliente::setGoshtClient(bool b)
+{
+	gosht = b;
 }
 
