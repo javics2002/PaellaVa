@@ -382,8 +382,12 @@ void Jornada::loadMap(string const& path)
 					getObjectManager()->addMueble(c);
 				}
 				else if (name == "inicioCinta") {
-					InicioCinta* c = new InicioCinta(game, position, host);
+					InicioCinta* c = new InicioCinta(game, position);
 					c->setVel(Vector2D<double>((double)p[1].getFloatValue(), (double)p[2].getFloatValue()));
+
+					c->setId(idCount);
+					idCount++;
+
 					getObjectManager()->addMueble(c);
 				}
 				else if (name == "finalCinta") {
@@ -393,7 +397,7 @@ void Jornada::loadMap(string const& path)
 					getObjectManager()->addMueble(c);
 				}
 				else if (name == "puerta") { 
-					Puerta* puerta = new Puerta(game, position, p[3].getIntValue(), p[0].getIntValue(), host);
+					Puerta* puerta = new Puerta(game, position, p[3].getIntValue(), p[0].getIntValue());
 					puerta->setVel(Vector2D<double>((double)p[1].getFloatValue(), (double)p[2].getFloatValue()));
 
 					puerta->setId(idCount);
@@ -457,6 +461,8 @@ void Jornada::loadMap(string const& path)
 				else if (name == "cajaHerramientas")
 				{
 					CajaHerramientas* ch = new CajaHerramientas(game, position);
+					ch->setId(idCount);
+					idCount++;
 					getObjectManager()->addMueble(ch);
 				}
 

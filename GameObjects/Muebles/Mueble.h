@@ -57,6 +57,8 @@ public:
 
     virtual void setId(int newId) { id = newId; }
     virtual int getId() { return id; }
+
+    void romperMueble();
 };
 
 

@@ -26,10 +26,18 @@ void Fogon::update()
 	{
 		humo->setStyle(ParticleExample::NONE);
 	}
+
+	humo->setPosition(getX(), getY());
+	humo->update();
+
 	if(!funcionando && paella_!=nullptr)
 	{
 		paella_->setState(Hecha);
 	}
+
+	if (!game->getNetworkManager()->isHost())
+		return;
+
 ;	if (funcionando && couldBreak <= 0)
 	{
 		testMueble();
@@ -50,8 +58,7 @@ void Fogon::update()
 		couldBreak -= seg;
 	}
 
-	humo->setPosition(getX(), getY());
-	humo->update();
+	
 
 }
 

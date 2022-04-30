@@ -15,7 +15,7 @@ Encimera::Encimera(Game* game, Vector2D<double> pos) : Mueble(game, pos, 1 * TIL
 bool Encimera::receiveIngrediente(Ingrediente* ingr)
 {
 	//Si ya tiene objeto, no recoge objeto
-	if (ingr_ == nullptr && paella_ == nullptr && arroz_ == nullptr)
+	if (ingr_ == nullptr && paella_ == nullptr && arroz_ == nullptr && herramienta == nullptr)
 	{
 		ingr_ = ingr;
 
@@ -45,7 +45,7 @@ bool Encimera::receiveIngrediente(Ingrediente* ingr)
 bool Encimera::receivePaella(Paella* pa)
 {
 	//Si ya tiene objeto, no recoge objeto
-	if (ingr_ == nullptr && paella_ == nullptr && arroz_ == nullptr)
+	if (ingr_ == nullptr && paella_ == nullptr && arroz_ == nullptr && herramienta == nullptr)
 	{
 		sdlutils().soundEffects().at("paellaMesa").play(0, game->UI);
 		if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::dejaPaellera)
@@ -80,7 +80,7 @@ bool Encimera::receiveArroz(Arroz* arr)
 			return false;
 		}
 	}
-	else if (ingr_ == nullptr && arroz_ == nullptr && paella_==nullptr) {
+	else if (ingr_ == nullptr && arroz_ == nullptr && paella_==nullptr && herramienta == nullptr) {
 
 		arroz_ = arr;
 		arroz_->setPosition(getRectCenter(getOverlap()));
@@ -94,11 +94,11 @@ bool Encimera::receiveArroz(Arroz* arr)
 bool Encimera::receiveHerramienta(Herramienta* h)
 {
 	//Si ya tiene objeto, no recoge objeto
-	if (ingr_ == nullptr && paella_ == nullptr && arroz_ == nullptr && h_ == nullptr)
+	if (ingr_ == nullptr && paella_ == nullptr && arroz_ == nullptr && herramienta == nullptr)
 	{
-		h_ = h;
+		herramienta = h;
 
-		h_->setPosition(getRectCenter(getOverlap()));
+		herramienta->setPosition(getRectCenter(getOverlap()));
 
 		return true;
 	}
@@ -133,11 +133,11 @@ bool Encimera::returnObject(Player* p)
 
 		return true;
 	}
-	else if (h_ != nullptr)
+	else if (herramienta != nullptr)
 	{
-		p->setPickedObject(h_, HERRAMIENTA);
+		p->setPickedObject(herramienta, HERRAMIENTA);
 
-		h_ = nullptr;
+		herramienta = nullptr;
 
 		return true;
 	}

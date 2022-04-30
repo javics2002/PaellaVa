@@ -26,6 +26,7 @@ enum EPacketType {
 	EPT_SYNCPICKOBJECT,
 	EPT_SYNCDROPOBJECT,
 	EPT_SYNCPEDIDO,
+	EPT_SYNCMUEBLEROTO,
 	EPT_QUIT
 };
 
@@ -97,14 +98,14 @@ struct PacketSyncPlayers {
 
 // currently testing
 struct PacketSyncPickObject {
-	Uint8 object_type; // 0 - ingredientes, 1 - clientes, 2 - paella, 3 - arroz
+	Uint8 object_type; // 0 - ingredientes, 1 - clientes, 2 - paella, 3 - arroz 4 - herramienta
 	Uint8 extra_info; // additional info
 	Uint16 object_id; // id
 	Sint16 mueble_id; // id mueble
 };
 
 struct PacketSyncDropObject {
-	Uint8 object_type; // 0 - ingredientes, 1 - clientes, 2 - paella, 3 - arroz
+	Uint8 object_type; // 0 - ingredientes, 1 - clientes, 2 - paella, 3 - arroz 4 - herramienta
 	Uint16 object_id; // id
 
 	Sint16 mueble_id; // mueble id
@@ -117,6 +118,10 @@ struct PacketSyncPedido {
 	Uint8 paella_size[4];
 
 	Uint8 ing_pedidos[12]; // 9 ingredientes
+};
+
+struct PacketSyncMuebleRoto {
+	Uint8 mueble_id;
 };
 
 struct Packet {
@@ -136,6 +141,7 @@ struct Packet {
 		PacketSyncPickObject syncPickObject;
 		PacketSyncDropObject syncDropObject;
 		PacketSyncPedido syncPedido;
+		PacketSyncMuebleRoto syncMuebleRoto;
 	};
 
 };
@@ -204,6 +210,9 @@ private:
 	Uint32 lastUpdate_; //tiempo desde el último update
 	Uint32 updateTime_ = 4000; //los segundos que tarda en actualizarse el reloj
 
+	// Host
+	bool host;
+
 public:
 	NetworkManager(Game* game_);
 	~NetworkManager();
@@ -213,6 +222,7 @@ public:
 
 	void close();
 
+	bool isHost() { return host; }
 	Player* addPlayerHost();
 	Player* addPlayerClient(int id);
 
@@ -236,4 +246,6 @@ public:
 	void setGameStarted(bool gameStarted_) { gameStarted = gameStarted_; }
 
 	void syncPedido(int idGrupoCliente, int numPaellas, std::vector<int> tamPaella, std::vector<int> ingPedidos);
+
+	void syncMuebleRoto(int muebleId);
 };

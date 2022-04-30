@@ -344,6 +344,14 @@ void NetworkManager::updateClient()
 				}
 
 				break;
+			case EPT_SYNCMUEBLEROTO:
+				// romper mueble con la id que toque
+				for (auto m : game->getObjectManager()->getMuebles()) {
+					if (server_pkt.syncMuebleRoto.mueble_id == m->getId()) {
+						m->romperMueble();
+					}
+				}
+				break;
 			}
 
 		}
@@ -430,6 +438,8 @@ bool NetworkManager::init(char type, const char* ip_addr, std::string name)
 	Packet pkt;
 
 	if (type == 'c') { // Si somos un cliente
+		host = false;
+
 		while (SDLNet_TCP_Recv(socket, &pkt, sizeof(Packet)) == 0); // Esperamos a que el servidor nos acepte
 
 		if (pkt.packet_type == EPT_ACCEPT) { // Cuando nos acepte, se crea el personaje, etc.
@@ -464,7 +474,7 @@ bool NetworkManager::init(char type, const char* ip_addr, std::string name)
 	}
 	else { // Si somos un host
 		// game_->getObjectManager()->addPlayer(addPlayerHost());
-
+		host = true;
 		// Hilos
 
 		accept_t = new std::thread(&NetworkManager::acceptPlayers, this);
@@ -790,6 +800,21 @@ void NetworkManager::syncPickObject(int objectType, int objectId, int muebleId, 
 	}
 	else {
 		if (SDLNet_TCP_Send(socket, &pkt, sizeof(Packet)) < sizeof(Packet))
+		{
+			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+			exit(EXIT_FAILURE);
+		}
+	}
+}
+
+void NetworkManager::syncMuebleRoto(int muebleId)
+{
+	Packet pkt;
+	pkt.packet_type = EPT_SYNCMUEBLEROTO;
+	pkt.syncMuebleRoto.mueble_id = muebleId;
+
+	for (int i = 1u; i < player_sockets.size(); i++) {
+		if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
 		{
 			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 			exit(EXIT_FAILURE);

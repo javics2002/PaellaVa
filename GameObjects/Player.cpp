@@ -527,6 +527,22 @@ void Player::PickCustomObject(int objectType, int objectId, int muebleId, int ex
 			}
 		}
 	}
+	else if (objectType == HERRAMIENTA) {
+		// comprobar si existe la herramienta
+		for (auto i : game->getObjectManager()->getPool<Ingrediente>(_p_HERRAMIENTA)->getActiveObjects()) {
+			if (i->getId() == objectId) {
+				pickedObject_ = i;
+				break;
+			}
+		}
+
+		for (auto m : game->getObjectManager()->getMuebles()) {
+			if (m->getId() == muebleId) {
+				m->returnObject(this);
+				break;
+			}
+		}
+	}
 
 	else { // Es un mueble
 		for (auto m : game->getObjectManager()->getMuebles()) {
@@ -564,6 +580,9 @@ void Player::DropCustomObject(int objectType, int objectId, int muebleId)
 		}
 		else if (objectType == CLIENTES) {
 			mueble->receiveGrupoClientes(dynamic_cast<GrupoClientes*>(pickedObject_));
+		}
+		else if (objectType == HERRAMIENTA) {
+			mueble->receiveHerramienta(dynamic_cast<Herramienta*>(pickedObject_));
 		}
 
 		if (mueble != dynamic_cast<FinalCinta*>(mueble)) {
