@@ -22,7 +22,8 @@ protected:
     int w, h;
     int iniW, iniH;
     double iniX, iniY;
-    int z; // para el render
+    int z; // para el render por capas
+    int posVertical; // mi posicion proyectada al suelo
 
     Game* game;
     Texture* texture;
@@ -50,12 +51,7 @@ public:
 
     virtual ~GameObject() {};
 
-    virtual void update() {
-        //pos = pos + vel;
-    };
-
-
-    
+    virtual void update() {};
 
     void setVel(Vector2D<double> vel_) { vel = vel_; };
 
@@ -87,6 +83,9 @@ public:
 
     void setDepth(int depth) { z = depth; }
     int getDepth() { return z; }
+    
+    void setPosVertical(int nuevaPosVertical) { posVertical = pos.getY() + h / 2 + nuevaPosVertical; }
+    int getPosVertical() { return posVertical; }
 
     double getX() { return pos.getX(); };
     double getY() { return pos.getY(); };

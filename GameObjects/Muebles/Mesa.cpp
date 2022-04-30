@@ -93,6 +93,7 @@ bool Mesa::receiveGrupoClientes(GrupoClientes* gc)
 			vector<Cliente*> clientes = gc->getIntegrantes();
 			for (int i = 0; i < n; i++) {
 				clientes[i]->setPosition(sillas[i]->setClientPos());
+				clientes[i]->setPosVertical(20);
 			}
 			return true;
 		}		
@@ -200,6 +201,19 @@ SDL_Rect Mesa::getOverlap() {
 		rect.h + incr * 2
 	};
 
+}
+
+SDL_Rect Mesa::getCollider()
+{
+	SDL_Rect rect = getTexBox();
+
+	if (isActive())return {
+		rect.x,
+		rect.y + rect.h / 2,
+		rect.w,
+		rect.h / 2
+	};
+	return { 0,0,0,0 };
 }
 
 void Mesa::decirPedido()

@@ -44,6 +44,7 @@ public:
 	void comerPaellas();
 
 	SDL_Rect getOverlap() override;
+	SDL_Rect getCollider() override;
 
 	void decirPedido() override;
 

@@ -161,7 +161,8 @@ vector<Mueble*> ObjectManager::getMueblesOverlaps(SDL_Rect collider)
 
 void ObjectManager::sortAllGO() {
 	std::sort(renderAll.begin(), renderAll.end(), [](GameObject* a, GameObject* b) {
-		return a->getDepth() < b->getDepth() || (a->getDepth() == b->getDepth() && a->getY() < b->getY());
+		return a->getDepth() < b->getDepth() || 
+			(a->getDepth() == b->getDepth() && a->getPosVertical() < b->getPosVertical());
 		});
 }
 
