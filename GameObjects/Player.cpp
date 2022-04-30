@@ -565,6 +565,7 @@ void Player::DropCustomObject(int objectType, int objectId, int muebleId)
 	else {
 		for (auto g : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getActiveObjects()) {
 			if (g->getId() == objectId) {
+				g->setGoshtGroup();
 				g->setPicked(false);
 				pickedObject_ = nullptr;
 			}
