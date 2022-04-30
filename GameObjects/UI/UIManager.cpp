@@ -516,8 +516,9 @@ void UIManager::creaComanda(Game* game)
 	EnviaComandaButton* enviaComandaButton = new EnviaComandaButton(game, "envia", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones / 4, actual->getPosition().getY() + actual->getHeight() / 4 + anchobotones, uiscale * anchobotones, uiscale * anchobotones);
 	interfaz.push_back(enviaComandaButton);
 	actual->guardaBoton(enviaComandaButton);
+	actual->setActive(false);
 	actual->toggleactive();
-	actual->toggleactive();
+	//actual->toggleactive();
 
 	if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::abreLibreta)
 		game->getCurrentScene()->changeState(States::pauasAbreLibreta);
@@ -550,7 +551,7 @@ ListaComandas* UIManager::getBarra()
 void UIManager::setBarra(ListaComandas* b)
 {
 	barra = b;
-	OcultabarraButton* o = new OcultabarraButton(this, game, "barraboton", b->getX() + b->getWidth()/2 + uiscale*anchobotones, b->getY(), uiscale * anchobotones, uiscale * anchobotones, b);
+	OcultabarraButton* o = new OcultabarraButton(this, game, "barraboton", b->getX() + b->getWidth()*0.7 + uiscale*anchobotones, b->getY(), uiscale * anchobotones, uiscale * anchobotones, b);
 	addInterfaz(o);
 }
 

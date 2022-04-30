@@ -26,9 +26,9 @@ Comanda::Comanda(Game* game, uint escala, UIManager* uim,bool enVentanilla_) :Ga
 	setTexture("cuadernillo");
 
 	clip.x = 0;
-	clip.y = 0;
-	clip.w = 256;
-	clip.h = 256;
+	clip.y = 75;
+	clip.w = sdlutils().images().at("cuadernillo").width() / 8;
+	clip.h = sdlutils().images().at("cuadernillo").height() ;
 
 	frameCounter = 0;
 	lastFrameTime = sdlutils().currRealTime();
@@ -39,13 +39,16 @@ Comanda::Comanda(Game* game, uint escala, UIManager* uim,bool enVentanilla_) :Ga
 	Vector2D<double> p;
 	ancho *= escale;
 	alto *= escale;
+	w = 180;
+	h = 291;
 	margenbotones *= escale;
 	anchobotones *= escale;
 	margenbotones *= escale;
 	margenizquierdo *= escale;
 	margensuperior *= escale;
-	x = 100;
-	y = 110;
+	x = 100;//30
+	y = 110;//0
+	tx = 10;
 //	x += ancho /2*escale;
 	//y += alto / 4*escale;
 	p.setX(x);
@@ -71,6 +74,14 @@ Comanda::Comanda(Game* game, uint escala, UIManager* uim,bool enVentanilla_) :Ga
 }
 Comanda::Comanda(Comanda& c) : GameObject(c.game)
 {
+	clip.x = 0;
+	clip.y = 0;
+	clip.w = sdlutils().images().at("cuadernilloseleted").width();
+	clip.h = sdlutils().images().at("cuadernilloseleted").height();
+	y = c.y;
+	x = c.x;
+	h = c.h;
+	w = c.w*0.7;
 	setTexture("cuadernillo");
 	setPosition(c.x, c.y);
 	paellas = c.copyPaellas();
@@ -110,8 +121,10 @@ void Comanda::añadiraPedido(string i)
 			escritoY += anchobotones / 2 + margenbotones;
 			escritoX = getPosition().getX() / 2 + anchobotones / 6;
 			alto = alto + anchobotones / 2 + 2 * margenbotones;
+			h+= +anchobotones / 2 + 2 * margenbotones;
 			setDimension(ancho, alto);
 			setPosition(getPosition().getX(), getPosition().getY() + 2 * margenbotones);
+			//y += 2 * margenbotones;
 			vector<Point2D<double>> sangria = uiManager->getPosTeclado();
 			for (int i = 0; i < sangria.size(); i++)
 			{
@@ -235,6 +248,7 @@ void Comanda::cancelaPedido()
 	escritoX = margenizquierdo;
 	escritoY = margensuperior;
 	alto = altoini;
+	h= sdlutils().images().at("cuadernillo").height();
 	setDimension(ancho, altoini);
 	setPosition(getPosition().getX(), iniy);
 	uiManager->setPosTeclado(postecladoini);
@@ -343,8 +357,10 @@ void Comanda::aceptaPaella()
 		escritoY += anchobotones / 2 + margenbotones;
 		escritoX = getPosition().getX() / 2 + margenbotones + anchobotones / 2;
 		alto = alto + anchobotones / 2 + 2 * margenbotones;
+		h+= anchobotones / 2 + 2 * margenbotones;
 		setDimension(ancho, alto);
 		setPosition(getPosition().getX(), getPosition().getY() + 2 * margenbotones);
+		//y += 2 * margenbotones;
 		vector<Point2D<double>> sangria = uiManager->getPosTeclado();
 		for (int i = 0; i < sangria.size(); i++)
 		{
@@ -477,7 +493,8 @@ void Comanda::desplazacomandas(int d)
 	{
 		numeromesa->setPosition(numeromesa->getPosition().getX() + d, numeromesa->getPosition().getY());
 	}
-
+	
+	
 
 }
 void Comanda::clearPaellas()
@@ -533,38 +550,71 @@ void Comanda::toggleactive()
 	setActive(!isActive());
 	ih().setFocused(isActive());
 
-	for (auto b : botones)
-	{
-		b->setActive(!b->isActive());
-	}
 	if (isActive())//activando comanda
 	{
-		sdlutils().soundEffects().at("sacarComandas").play(0, game->UI);
-		toggleTecladonum(isActive());
-		focusedzone = 0;
-		indexfocus = 0;
-		//tecladonum[indexfocus]->setfocused();
-		activeTeclado = tecladonum;
-		focusedbutton = activeTeclado[indexfocus];
-		activeTeclado[indexfocus]->setfocused();
+		uiManager->addTween(-200.0f, -56.0f, 500.0f, true).via(easing::quadraticOut).onStep(
+			[ this](tweeny::tween<float>& t, float) mutable {
+				
+					y=t.peek();
+
+				if (t.progress() == 1.0f) {
+					
+					sdlutils().soundEffects().at("sacarComandas").play(0, game->UI);
+					for (auto b : botones)
+					{
+						b->setActive(true);
+					}
+
+					toggleTecladonum(true);
+					cancelaPedido();
+					focusedzone = 0;
+					indexfocus = 0;
+					
+					activeTeclado = tecladonum;
+					focusedbutton = activeTeclado[indexfocus];
+					activeTeclado[indexfocus]->setfocused();
+
+					uiManager->getBarra()->setBarraActive(true);
+					uiManager->getBarra()->toggleBarra();
+					return true;
+				}
+				return false;
+			});;
 		
-		uiManager->getBarra()->setBarraActive(true);
-			uiManager->getBarra()->toggleBarra();
 	}
 	else//desactivando comanda
 	{
-		sdlutils().soundEffects().at("guardarComandas").play(0, game->UI);
-		toggleTecaldotam(isActive());
-		toggleTeclado(isActive());
-		toggleTecladonum(isActive());
-		if(focusedbutton!=nullptr)
-		focusedbutton->setunfocused();
-		focusedbutton = nullptr;
-		focusedzone = -1;
-		indexfocus = -1;
+		setActive(true);
+		for (auto b : botones)
+		{
+			b->setActive(false);
+		}
+
+		toggleTecaldotam(false);
+		toggleTeclado(false);
+		toggleTecladonum(false);
+		uiManager->addTween(-56.0f, -200.0f, 500.0f, true).via(easing::quadraticOut).onStep(
+			[this](tweeny::tween<float>& t, float) mutable 
+			{
+				y = t.peek();
+				if (t.progress() == 1.0f) 
+				{
+					sdlutils().soundEffects().at("guardarComandas").play(0, game->UI);
+				
+					setActive(false);
+					cancelaPedido();
+					if (focusedbutton != nullptr)
+						focusedbutton->setunfocused();
+					focusedbutton = nullptr;
+					focusedzone = -1;
+					indexfocus = -1;
+					return true;
+				}
+				return false;
+			});;
 	}
 
-	cancelaPedido();
+	
 	//cout << "togleando active"; 
 }
 bool Comanda::onClick(int mx, int my, bool& exit)
@@ -594,6 +644,10 @@ bool Comanda::OnClick(int mx, int my)
 
 Comanda* Comanda::seleccionaComanda()
 {
+	clip.x = 0;
+	clip.y = 0;
+	clip.w = sdlutils().images().at("cuadernilloseleted").width();
+	clip.h = sdlutils().images().at("cuadernilloseleted").height();
 	setTexture("cuadernilloseleted");
 	eliminarboton->setActive(true);
 	return this;
@@ -601,6 +655,9 @@ Comanda* Comanda::seleccionaComanda()
 
 void Comanda::deseleccionaComanda()
 {
+	clip.x =36;
+	clip.y = 75;
+	clip.w = sdlutils().images().at("cuadernillo").width() /8 - clip.x*1.3;
 	setTexture("cuadernillo");
 	eliminarboton->setActive(false);
 }
@@ -710,7 +767,7 @@ void Comanda::update()
 
 void Comanda::render(SDL_Rect* cameraRect)
 {
-	SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, w, h };
+	SDL_Rect dest = { tx , y , w, h};
 	drawRender(cameraRect, dest, texture, clip);
 }
 
@@ -744,4 +801,9 @@ void Comanda::setActiveTeclado(vector<UiButton*> a)
 {
 	activeTeclado = a;
 	changeActiveTeclado();
+}
+void Comanda::setTexturecoords(int nx, int ny)
+{
+	tx = nx-w/2;
+	y = ny-h/2;
 }
