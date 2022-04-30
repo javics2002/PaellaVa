@@ -141,6 +141,9 @@ void NetworkManager::receivePlayers()
 						}
 					}
 					break;
+				case EPT_SYNCPAUSE:
+					dynamic_cast<Jornada*>(game->getCurrentScene())->togglePause();
+					break;
 				case EPT_QUIT:
 					std::cout << ("Client disconnected: ID(%d)\n", i) << std::endl;
 
@@ -334,6 +337,10 @@ void NetworkManager::updateClient()
 						m->romperMueble();
 					}
 				}
+				break;
+
+			case EPT_SYNCPAUSE:
+				dynamic_cast<Jornada*>(game->getCurrentScene())->togglePause();
 				break;
 			}
 
@@ -824,6 +831,28 @@ void NetworkManager::syncPedido(int idGrupoCliente, int numPaellas, std::vector<
 		pkt.syncPedido.ing_pedidos[i] = ingPedidos[i];
 	}
 	
+
+	if (nType == 'h') {
+		for (int i = 1u; i < player_sockets.size(); i++) {
+			if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+			{
+				std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+				exit(EXIT_FAILURE);
+			}
+		}
+	}
+	else {
+		if (SDLNet_TCP_Send(socket, &pkt, sizeof(Packet)) < sizeof(Packet))
+		{
+			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+			exit(EXIT_FAILURE);
+		}
+	}
+}
+
+void NetworkManager::syncPause() {
+	Packet pkt;
+	pkt.packet_type = EPT_SYNCPAUSE;
 
 	if (nType == 'h') {
 		for (int i = 1u; i < player_sockets.size(); i++) {

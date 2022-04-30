@@ -105,14 +105,20 @@ void Jornada::handleInput(bool& exit)
 	Scene::handleInput(exit);
 
 	if (paused) {
-		if (ih().getKey(InputHandler::A))
+		if (ih().getKey(InputHandler::A)) {
 			uiManager->getPauseButtons()[1]->execute(exit);
-		else if (ih().getKey(InputHandler::B))
+		}
+		else if (ih().getKey(InputHandler::B)) {
 			uiManager->getPauseButtons()[0]->execute(exit);
+		}
+			
 	}
 	else if (ih().getKey(InputHandler::PAUSE)) {
 		//Abrir menú de pausa
 		togglePause();
+
+		// Mandar mensaje para pausar el juego
+		game->getNetworkManager()->syncPause();
 	}
 
 	if (ih().getKey(InputHandler::Y)) {

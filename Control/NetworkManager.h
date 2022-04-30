@@ -27,6 +27,7 @@ enum EPacketType {
 	EPT_SYNCDROPOBJECT,
 	EPT_SYNCPEDIDO,
 	EPT_SYNCMUEBLEROTO,
+	EPT_SYNCPAUSE,
 	EPT_QUIT
 };
 
@@ -243,13 +244,11 @@ public:
 	void sendButtonsBuffer(std::vector<bool> keyPressed);
 
 	void syncPlayers();
-
 	void syncPickObject(int objectType, int objectId, int muebleId, int extraInfo);
 	void syncDropObject(int objectType, int objectId, int muebleId);
+	void syncPedido(int idGrupoCliente, int numPaellas, std::vector<int> tamPaella, std::vector<int> ingPedidos);
+	void syncMuebleRoto(int muebleId);
+	void syncPause();
 
 	void setGameStarted(bool gameStarted_) { gameStarted = gameStarted_; }
-
-	void syncPedido(int idGrupoCliente, int numPaellas, std::vector<int> tamPaella, std::vector<int> ingPedidos);
-
-	void syncMuebleRoto(int muebleId);
 };

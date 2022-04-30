@@ -694,12 +694,13 @@ void UIManager::creaMenuPausa() {
 		else {
 			Jornada* currentScene = dynamic_cast<Jornada*>(game->getCurrentScene());
 
-			addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([resumeButton, currentScene](tweeny::tween<float>& t, float) mutable {
+			addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([game, resumeButton, currentScene](tweeny::tween<float>& t, float) mutable {
 				resumeButton->setDimension(t.peek() * resumeButton->getInitialWidth(), t.peek() * resumeButton->getInitialHeight());
 
 				if (t.progress() > .2f) { //Busco una respuesta mas rapida
 					// Resume
 					currentScene->togglePause();
+					game->getNetworkManager()->syncPause();
 					return true;
 				}
 				return false;

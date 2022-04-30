@@ -30,7 +30,7 @@ protected:
 	ObjectManager* objectManager;
 	Camera* camara;
 
-	States currentState = cogerClientes,anteriorEstado;
+	States currentState = cogerClientes, anteriorEstado;
 	UIManager* uiManager;
 
 	Imagen* fondo;
