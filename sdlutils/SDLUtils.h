@@ -19,7 +19,7 @@
 class SDLUtils: public Singleton<SDLUtils> {
 
 	friend Singleton<SDLUtils> ; // needed to give access to private constructors
-
+	//static bool sound_initialized;
 public:
 
 	// we abstract away the actual data structure we use for
@@ -34,13 +34,14 @@ public:
 	using sdl_resource_table = std::map<std::string,T>;
 
 	virtual ~SDLUtils();
-
+	
 	// cannot copy/move
 	SDLUtils(SDLUtils&) = delete;
 	SDLUtils(SDLUtils&&) = delete;
 	SDLUtils& operator=(SDLUtils&) = delete;
 	SDLUtils& operator=(SDLUtils&&) = delete;
 
+	//static bool isSoundInitialized() { return sound_initialized; }
 	// access to the underlying SDL_Window -- in principle not needed
 	inline SDL_Window* window() {
 		return window_;

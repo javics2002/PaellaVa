@@ -6,7 +6,8 @@
 #include <memory>
 
 #include "../../json/JSON.h"
-
+//bool SDLUtils::sound_initialized = false;
+bool Music::sound_initialized = false;
 SDLUtils::SDLUtils() :
 		SDLUtils("SDL Demo", 600, 400) {
 }
@@ -94,13 +95,20 @@ void SDLUtils::initSDLExtensions() {
 	std::cout << "Initializing SDL_Mixer" << std::endl;
 #endif
 	// initialize SDL_Mixer
-	int mixOpenAudio = Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT,2, 2048);
-	assert(mixOpenAudio == 0);
-	int mixInit_ret = Mix_Init(
+	int mixOpenAudio = Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+	if (mixOpenAudio == 0) {
+		int mixInit_ret = Mix_Init(
 			MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG);
-	assert(mixInit_ret != 0);
-	SoundEffect::setNumberofChannels(8); // we start with 8 channels
-
+		if (mixInit_ret != 0) {
+			//sound_initialized = true;
+			SoundEffect::sound_initialized = true;
+			Music::sound_initialized = true;
+			SoundEffect::setNumberofChannels(8); // we start with 8 channels
+		}
+	
+	}
+	
+		
 }
 
 void SDLUtils::loadReasources(std::string filename) {
