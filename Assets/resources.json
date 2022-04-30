@@ -4,7 +4,8 @@
     { "id": "abadiT", "file": "Assets/Fonts/Abadi.otf", "size": 24 },
     { "id": "abadiReview", "file": "Assets/Fonts/Abadi.otf", "size": 20 },
     { "id": "abadiNombre", "file": "Assets/Fonts/Abadi.otf", "size": 30},
-    { "id": "paella", "file": "Assets/Fonts/Paella.ttf", "size": 64}
+    { "id": "paella", "file": "Assets/Fonts/Paella.ttf", "size": 64},
+    { "id": "ip", "file": "Assets/Fonts/CocoBubble.ttf", "size": 64}
   ],
 
   "images": [
@@ -191,8 +192,13 @@
     { "id": "llaveInglesa", "file": "Assets/Images/llaveInglesa.png"},
     { "id": "tutorialButton", "file": "Assets/Images/tutorialButton.png"},
     { "id": "abrirRestauranteButton", "file": "Assets/Images/abrirRestauranteButton.png" },
-    { "id": "buscarRestauranteButton", "file": "Assets/Images/buscarRestauranteButton.png" }
-
+    { "id": "buscarRestauranteButton", "file": "Assets/Images/buscarRestauranteButton.png" },
+    { "id": "LT", "file": "Assets/Images/Lt.png" },
+    { "id": "RT", "file": "Assets/Images/Rt.png" },
+    { "id": "LB", "file": "Assets/Images/Lb.png" },
+    { "id": "RB", "file": "Assets/Images/Rb.png" },
+    { "id": "Y", "file": "Assets/Images/Y.png" },
+    { "id": "R", "file": "Assets/Images/R.png" }
   ],
 
   "tilesets": [

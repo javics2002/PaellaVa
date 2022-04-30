@@ -32,6 +32,7 @@ class UIManager
 	GameObject* burnEffect; //Efecto cuando te quemas con una paella caliente
 	vector<GameObject*> pauseMenu; // menú de pausa
 	vector<GameObject*> optionsMenu; // menú de opciones
+	vector<GameObject*> botonesMando; // menú de opciones
 	vector<GameObject*> creditsBase; //partes de los créditos que no cambian al cambiar de página
 	vector<vector<GameObject*>> creditsScreen; // pantalla de créditos
 	vector<UiButton*> pauseButtons; // botones del menú de pausa
@@ -84,14 +85,6 @@ class UIManager
 	list<UiButton*>::iterator foco;
 	bool enAjustes;
 	bool enJornada = false, enVentanilla=false;
-
-	Texture* libretaTexture = &sdlutils().images().at("cuadernillo");
-	SDL_Rect clip{0,0,libretaTexture->width() / 12,libretaTexture->height()};
-
-	const double TIEMPO_PROCESADO = 1000.0;
-	int i = 0;
-	double sigAnimg = 0.0;
-	double tiempo = 0.0;
 
 public:
 	UIManager(Game* game);

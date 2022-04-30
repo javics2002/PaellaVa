@@ -71,6 +71,11 @@
     <ClCompile Include="GameObjects\Muebles\Encimera.cpp" />
     <ClCompile Include="GameObjects\Muebles\CajaHerramientas.cpp" />
     <ClCompile Include="GameObjects\Herramienta.cpp" />
+    <ClCompile Include="introduceIP.cpp" />
+    <ClCompile Include="Lobby.cpp" />
+    <ClCompile Include="Numerobutton.cpp" />
+    <ClCompile Include="sdlutils\InputHandler.cpp" />
+  
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
@@ -352,6 +357,12 @@
     <Image Include="images_gdd\comandasacumuladas.PNG" />
     <Image Include="images_gdd\comedor.PNG" />
     <Image Include="Assets\Anims\libretaIp.png" />
+    <Image Include="Assets\Images\Lb.png" />
+    <Image Include="Assets\Images\Lt.png" />
+    <Image Include="Assets\Images\R.png" />
+    <Image Include="Assets\Images\Rb.png" />
+    <Image Include="Assets\Images\Rt.png" />
+    <Image Include="Assets\Images\Y.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="json\RAEDME.md" />

@@ -416,23 +416,23 @@ void UIManager::render(SDL_Rect* rect = nullptr)
 		barra->renderComandas();
 	}
 
-	if (ip != nullptr) {
-
-		if (sdlutils().virtualTimer().currTime() - tiempo >= sigAnimg + TIEMPO_PROCESADO / 12) {
-
-			clip.x = i * clip.w;
-			if (i < 11) i++;
-			sigAnimg += TIEMPO_PROCESADO / 12;
-		}
-		ip->anim(rect, ip->getCollider(), libretaTexture, clip);
-	}
-
 	for (auto i : interfaz)
 	{
 		if (i->isActive())
 		{
 			i->render(rect);
 		}
+	}
+
+	if (ip != nullptr) {
+
+		//if (sdlutils().virtualTimer().currTime() - tiempo >= sigAnimg + TIEMPO_PROCESADO / 8) {
+
+		//	clip.x = i * clip.w;
+		//	if (i < 7) i++;
+		//	sigAnimg += TIEMPO_PROCESADO / 8;
+		//}
+		ip->render(rect);
 	}
 
 	for (auto i : botones)
@@ -474,6 +474,10 @@ void UIManager::render(SDL_Rect* rect = nullptr)
 
 	for (auto i : optionsMenu) {
 		if (i->isActive()) i->render(rect);
+	}
+
+	for (auto i : botonesMando) {
+		if (i->isActive())i->render(rect);
 	}
 
 	for (auto i : creditsBase) {
@@ -773,6 +777,12 @@ void UIManager::creaMenuOpciones()
 	optionsButtons.push_back(pantCompleta);
 	optionsMenu.push_back(pantCompleta);
 
+	//Boton Pant Completa
+	Imagen* botPantCompl = new Imagen(game, pantCompleta->getX() + pantCompleta->getWidth() / 2 + 35,
+		pantCompleta->getY(), 60, 50, "Y");
+	botPantCompl->setActive(false);
+	botonesMando.push_back(botPantCompl);
+
 	//Texto pantalla completa
 	Imagen* textoPCompleta = new Imagen(game, pantCompleta->getX() - pantCompleta->getWidth() / 2 - 75, pantCompleta->getY(), 125, 50, "PCompleta");
 	textoPCompleta->setInitialPosition(pantCompleta->getX() - pantCompleta->getWidth() / 2 - 75, pantCompleta->getY());
@@ -787,6 +797,17 @@ void UIManager::creaMenuOpciones()
 
 	optionsMenu.push_back(barraVol_musica);
 
+	//Bontes para Musica
+	Imagen* botMusicaIzq = new Imagen(game, barraVol_musica->getX() - barraVol_musica->getWidth() / 2 + 35,
+		barraVol_musica->getY() - barraVol_musica->getHeight() - 15, 60, 50, "LT");
+	botMusicaIzq->setActive(false);
+	botonesMando.push_back(botMusicaIzq);
+
+	Imagen* botMusicaDer = new Imagen(game, barraVol_musica->getX() + barraVol_musica->getWidth() / 2 - 35,
+		barraVol_musica->getY() - barraVol_musica->getHeight() - 15, 60, 50, "RT");
+	botMusicaDer->setActive(false);
+	botonesMando.push_back(botMusicaDer);
+
 	//Texto barra musica
 	Imagen* textoMusica = new Imagen(game, barraVol_musica->getX() - barraVol_musica->getWidth()/2 - 75, barraVol_musica->getY(), 125, 50, "musica");
 	textoMusica->setInitialPosition(barraVol_musica->getX() - barraVol_musica->getWidth() / 2 - 75, barraVol_musica->getY());
@@ -800,6 +821,17 @@ void UIManager::creaMenuOpciones()
 	barraVol_sonido->setActive(false);
 	
 	optionsMenu.push_back(barraVol_sonido);
+	
+	//Bontes para sonido
+	Imagen* botSonidoIzq = new Imagen(game, barraVol_sonido->getX() - barraVol_sonido->getWidth() / 2 + 35,
+		barraVol_sonido->getY() - barraVol_sonido->getHeight() - 15, 60, 50, "LB");
+	botSonidoIzq->setActive(false);
+	botonesMando.push_back(botSonidoIzq);
+
+	Imagen* botSonidoDer = new Imagen(game, barraVol_sonido->getX() + barraVol_sonido->getWidth() / 2 - 35,
+		barraVol_sonido->getY() - barraVol_sonido->getHeight() - 15, 60, 50, "RB");
+	botSonidoDer->setActive(false);
+	botonesMando.push_back(botSonidoDer);
 
 	//Texto barra sonido
 	Imagen* textoSonido = new Imagen(game, barraVol_sonido->getX() - barraVol_sonido->getWidth() / 2 - 75, barraVol_sonido->getY(), 125, 50, "sonido");
@@ -862,30 +894,30 @@ void UIManager::creaMenuOpciones()
 	slideSonido->setActive(false);
 	slideSonido->setAction([this, barraVol_sonido](Game* game, bool& exit) {
 
-		int newPos = ih().getmx() - slideSonido->getWidth();
-		int extremoIzq = barraVol_sonido->getX() - (barraVol_sonido->getWidth() / 2) - slideSonido->getWidth();
-		int extremoDer = barraVol_sonido->getX() + (barraVol_sonido->getWidth() / 2) - slideSonido->getWidth();
+	int newPos = ih().getmx() - slideSonido->getWidth();
+	int extremoIzq = barraVol_sonido->getX() - (barraVol_sonido->getWidth() / 2) - slideSonido->getWidth();
+	int extremoDer = barraVol_sonido->getX() + (barraVol_sonido->getWidth() / 2) - slideSonido->getWidth();
 
-		if (newPos >= extremoIzq && newPos <= extremoDer) {
+	if (newPos >= extremoIzq && newPos <= extremoDer) {
 
-			slideSonido->setPosition(ih().getmx(), slideSonido->getY());
-		}
+		slideSonido->setPosition(ih().getmx(), slideSonido->getY());
+	}
 
-		volumenSonido = (slideSonido->getX() - slideSonido->getWidth() - extremoIzq) / barraVol_sonido->getWidth() * 128;
+	volumenSonido = (slideSonido->getX() - slideSonido->getWidth() - extremoIzq) / barraVol_sonido->getWidth() * 128;
 
-		if (volumenSonido > 127) volumenSonido = 128;
-		else if (volumenSonido < 1) volumenSonido = 0;
+	if (volumenSonido > 127) volumenSonido = 128;
+	else if (volumenSonido < 1) volumenSonido = 0;
 
-		std::map<std::string, SoundEffect>::iterator it = sdlutils().soundEffects().begin();
-		while (it != sdlutils().soundEffects().end())
-		{
-			it->second.setChannelVolume(volumenSonido);
-			++it;
-		}
+	std::map<std::string, SoundEffect>::iterator it = sdlutils().soundEffects().begin();
+	while (it != sdlutils().soundEffects().end())
+	{
+		it->second.setChannelVolume(volumenSonido);
+		++it;
+	}
 
-		game->setSlidesSon(slideSonido->getPosition());
+	game->setSlidesSon(slideSonido->getPosition());
 
-		});
+	});
 
 	optionsMenu.push_back(slideSonido);
 	sliders.push_back(slideSonido);
@@ -1306,6 +1338,18 @@ void UIManager::toggleOpciones()
 		tweenSetter(i, enAjustes);
 	}
 
+	if (ih().isMandoActive() && enAjustes) {
+		for (auto i:botonesMando) {
+			i->setActive(true);
+		}
+	}
+
+	else{
+		for (auto i : botonesMando) {
+			i->setActive(false);
+		}
+	}
+
 	escribiendoNombre = false;
 
 	if (!optionsMenu[0]->isActive())
@@ -1552,12 +1596,5 @@ void UIManager::setIpButton(UiButton* ip_)
 		escribiendoIP = false;
 	}
 
-	else {
-		sdlutils().soundEffects().at("pageTurn").play();
-	}
-
 	ip = ip_;
-	tiempo = sdlutils().currRealTime();
-	i = 0;
-	sigAnimg = 0.0;
 }

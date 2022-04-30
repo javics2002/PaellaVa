@@ -564,6 +564,10 @@ public:
 		return ejeY;
 	}
 
+	bool isMandoActive() {
+		return mController != nullptr;
+	}
+
 	void setGame(Game* game_) { game = game_; }
 	void setFocused(bool b) { focusedcontrols = b; };
 	void setKey(bool b, botones boton) { mKeyPressed[boton] = b; };

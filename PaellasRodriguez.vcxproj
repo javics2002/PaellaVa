@@ -301,6 +301,7 @@
     <ClCompile Include="Scenes\Menu.cpp" />
     <ClCompile Include="Scenes\Scene.cpp" />
     <ClCompile Include="SDL2-2.0.20\include\SDL_rect.cpp" />
+    <ClCompile Include="sdlutils\InputHandler.cpp" />
     <ClCompile Include="sdlutils\SDLUtils.cpp" />
     <ClCompile Include="sdlutils\SoundEffect.cpp" />
     <ClCompile Include="GameObjects\UI\ShowText.cpp" />
@@ -401,8 +402,10 @@
     <Image Include="Assets\Images\inicioCinta.png" />
     <Image Include="Assets\Images\large.png" />
     <Image Include="Assets\Images\lavavajillas.png" />
+    <Image Include="Assets\Images\Lb.png" />
     <Image Include="Assets\Images\loading.png" />
     <Image Include="Assets\Images\lobbyBg.png" />
+    <Image Include="Assets\Images\Lt.png" />
     <Image Include="Assets\Images\medium.png" />
     <Image Include="Assets\Images\menufondo.png" />
     <Image Include="Assets\Images\mesa.png" />
@@ -460,10 +463,13 @@
     <Image Include="Assets\Images\previousCreditsButton.png" />
     <Image Include="Assets\Images\puerta.PNG" />
     <Image Include="Assets\Images\quemadura.png" />
+    <Image Include="Assets\Images\R.png" />
+    <Image Include="Assets\Images\Rb.png" />
     <Image Include="Assets\Images\redactaboton.png" />
     <Image Include="Assets\Images\reloj.png" />
     <Image Include="Assets\Images\resumeBoton.png" />
     <Image Include="Assets\Images\review.png" />
+    <Image Include="Assets\Images\Rt.png" />
     <Image Include="Assets\Images\seis.png" />
     <Image Include="Assets\Images\settings.png" />
     <Image Include="Assets\Images\SettingsPant.png" />
@@ -484,6 +490,7 @@
     <Image Include="Assets\Images\Tutorial\cuadroTextoCamarero.png" />
     <Image Include="Assets\Images\Tutorial\cuadroTextoCocinera.png" />
     <Image Include="Assets\Images\uno.png" />
+    <Image Include="Assets\Images\Y.png" />
     <Image Include="Assets\Tilemap\Restaurante.png" />
     <Image Include="Assets\Tilemap\Tileset.png" />
     <Image Include="Images\a.png" />
