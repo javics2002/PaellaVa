@@ -180,11 +180,14 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 					vector<int> tamPaellas;
 					vector<int> ingPedidos = vector<int>(12, LAST);
 
+					int cont = 0;
+
 					for (int i = 0; i < gClientes->getPedido()->getPedido().size(); i++) {
 						tamPaellas.push_back(gClientes->getPedido()->getPedido()[i].tamanoPaella);
 
 						for (int j = 0; j < gClientes->getPedido()->getPedido()[i].ingredientesPedido.size(); j++) {
-							ingPedidos[j] = gClientes->getPedido()->getPedido()[i].ingredientesPedido[j];
+							ingPedidos[cont] = gClientes->getPedido()->getPedido()[i].ingredientesPedido[j];
+							cont++;
 						}
 					}
 
