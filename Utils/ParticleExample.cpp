@@ -683,6 +683,64 @@ void ParticleExample::setStyle(PatticleStyle style)
         _posVar = { 1.0f * x_, 0.0f };
         break;
     }
+    case LIGHT:
+    {
+        initWithTotalParticles(40);
+
+        // duration
+        _duration = DURATION_INFINITY;
+
+        // Gravity Mode
+        this->_emitterMode = Mode::GRAVITY;
+
+        // Gravity Mode: gravity
+        this->modeA.gravity = { 0, 0 };
+
+        // Gravity Mode: radial acceleration
+        this->modeA.radialAccel = 0;
+        this->modeA.radialAccelVar = 0;
+
+        // Gravity Mode: speed of particles
+        this->modeA.speed = -60;
+        this->modeA.speedVar = 20;
+
+        // starting angle
+        _angle = 90;
+        _angleVar = 10;
+
+        // life of particles
+        _life = 10.0f;
+        _lifeVar = 2.0f;
+
+        // size, in pixels
+        _startSize = 60.0f;
+        _startSizeVar = 20.0f;
+        _endSize = START_SIZE_EQUAL_TO_END_SIZE;
+
+        // emits per frame
+        _emissionRate = _totalParticles / _life;
+
+        // color of particles
+        _startColor.r = 0.97f;
+        _startColor.g = 0.95f;
+        _startColor.b = 0.59f;
+        _startColor.a = 1.0f;
+        _startColorVar.r = 0.0f;
+        _startColorVar.g = 0.0f;
+        _startColorVar.b = 0.0f;
+        _startColorVar.a = 0.0f;
+        _endColor.r = 1.0f;
+        _endColor.g = 1.0f;
+        _endColor.b = 1.0f;
+        _endColor.a = 0.7f;
+        _endColorVar.r = 0.0f;
+        _endColorVar.g = 0.0f;
+        _endColorVar.b = 0.0f;
+        _endColorVar.a = 0.0f;
+
+        _posVar = { sdlutils().width() / 4.0f, 0.0f };
+        break;
+    }
     default:
         break;
     }

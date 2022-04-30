@@ -130,8 +130,8 @@ void HostClient::update()
 	if (clientButton->hover()) {
 		ip->setPosition(ip->getX(), posYOver);
 		cursor->setPosition(cursor->getX(), posYOver);
-		light->setStyle(ParticleExample::GALAXY);
-		light->setPosition(clientButton->getX(), clientButton->getY());
+		light->setStyle(ParticleExample::LIGHT);
+		light->setPosition(clientButton->getX(), sdlutils().height());
 	}
 
 	else {
@@ -140,8 +140,8 @@ void HostClient::update()
 	}
 
 	if (hostButton->hover()) {
-		light->setStyle(ParticleExample::GALAXY);
-		light->setPosition(hostButton->getX(), hostButton->getY());
+		light->setStyle(ParticleExample::LIGHT);
+		light->setPosition(hostButton->getX(), sdlutils().height());
 	}
 
 }
