@@ -28,7 +28,7 @@ class Game {
 
     queue<MessageChangeScene> qScene;
 
-    string nombre = "elbaginon";
+    string nombre = "Cojoncio";
 
     Vector2D<double> slideSon = {0,0};
     Vector2D<double> slideMus = {0,0};

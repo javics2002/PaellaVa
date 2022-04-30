@@ -83,6 +83,7 @@ void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 	}
 
 	for(auto i : botones)
+		
 		if (i->isActive() && i->onClick(mx, my, exit)) {
 			mx = -100;
 			my = -100;
@@ -172,23 +173,6 @@ void UIManager::uiEvent(int mx, int my, bool& exit, bool paused)
 		}
 	}
 
-	if (ip != nullptr) {
-		if (ip->isActive()) {
-
-			SDL_Point mouseP = { ih().getmx(), ih().getmy() };
-			SDL_Rect sliderColl = ip->getCollider();
-
-			if (SDL_PointInRect(&mouseP, &sliderColl) == SDL_TRUE)
-			{
-				escribiendoIP = !escribiendoIP;
-				ih().clearInputBuffer();
-				mx = -100;
-				my = -100;
-
-			}
-		}
-	}
-
 	for (int i = 0; i < interfaz.size(); ++i)
 	{
 		if (interfaz[i]->isActive() && !paused)
@@ -230,10 +214,6 @@ void UIManager::handleInput(bool& exit, bool paused)
 
 	else if (escribiendoNombre) {
 		nombre->execute(exit);
-	}
-
-	else if (escribiendoIP) {
-		ip->execute(exit);
 	}
 
 	else if (ih().getMouseButtonHeld()) {
@@ -422,17 +402,6 @@ void UIManager::render(SDL_Rect* rect = nullptr)
 		{
 			i->render(rect);
 		}
-	}
-
-	if (ip != nullptr) {
-
-		//if (sdlutils().virtualTimer().currTime() - tiempo >= sigAnimg + TIEMPO_PROCESADO / 8) {
-
-		//	clip.x = i * clip.w;
-		//	if (i < 7) i++;
-		//	sigAnimg += TIEMPO_PROCESADO / 8;
-		//}
-		ip->render(rect);
 	}
 
 	for (auto i : botones)
@@ -694,12 +663,13 @@ void UIManager::creaMenuPausa() {
 		else {
 			Jornada* currentScene = dynamic_cast<Jornada*>(game->getCurrentScene());
 
-			addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([resumeButton, currentScene](tweeny::tween<float>& t, float) mutable {
+			addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([game, resumeButton, currentScene](tweeny::tween<float>& t, float) mutable {
 				resumeButton->setDimension(t.peek() * resumeButton->getInitialWidth(), t.peek() * resumeButton->getInitialHeight());
 
 				if (t.progress() > .2f) { //Busco una respuesta mas rapida
 					// Resume
 					currentScene->togglePause();
+					game->getNetworkManager()->syncPause();
 					return true;
 				}
 				return false;
@@ -765,7 +735,7 @@ void UIManager::creaMenuOpciones()
 	optionsButtons.push_back(botonSalir);
 
 	//Boton pantalla completa
-	UiButton* pantCompleta = new UiButton(game, "reloj", sdlutils().width() / 2 + sdlutils().width()/5, opcPant->getHeight() - 100, 100, 100);
+	UiButton* pantCompleta = new UiButton(game, "fondoMadera", sdlutils().width() / 2 + sdlutils().width()/5, opcPant->getHeight() - 100, 100, 100);
 	pantCompleta->setInitialPosition(sdlutils().width() / 2 + sdlutils().width() / 5, opcPant->getHeight() - 100);
 	pantCompleta->setActive(false);
 
@@ -924,7 +894,7 @@ void UIManager::creaMenuOpciones()
 
 
 	//Caja de texto del nombre
-	Imagen* fondoNombre = new Imagen(game, sdlutils().width() / 2 - 100, opcPant->getHeight() - 100, 210, 50, "reloj");
+	Imagen* fondoNombre = new Imagen(game, sdlutils().width() / 2 - 100, opcPant->getHeight() - 100, 210, 50, "fondoMadera");
 	fondoNombre->setInitialPosition(sdlutils().width() / 2 - 100, opcPant->getHeight() - 100);
 	fondoNombre->setActive(false);
 
@@ -963,14 +933,8 @@ void UIManager::creaMenuOpciones()
 
 			nombre->setTexture(nombrePlayer, string("abadiNombre"), { 255, 255, 255, 255 }, { 0, 0, 0, 0 });
 			nombre->setDimension();
-
-			//cursor_->setPosition(nombre->getX() + nombre->getWidth(), nombre->getY());
-
-			//cursor_->setTexture(cursor, string("abadiNombre"), { 255, 255, 255, 255 }, { 0, 0, 0, 0 });
-			//cursor_->setDimension();
 		}
 		nombre->render(nullptr);
-		//cursor_->render(nullptr);
 		});
 
 	optionsMenu.push_back(nombre);
@@ -1588,13 +1552,4 @@ void UIManager::quitaFoco()
 			return t.progress() == 1.0f;
 			});
 	}
-}
-
-void UIManager::setIpButton(UiButton* ip_)
-{
-	if (ip_ == nullptr) {
-		escribiendoIP = false;
-	}
-
-	ip = ip_;
 }

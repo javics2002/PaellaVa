@@ -1,14 +1,34 @@
 #pragma once
 #include "Scene.h"
+#include "../Utils/ParticleExample.h"
+
 class HostClient : public Scene
 {
-	int maxCaracteres = 15;
+	int maxCaracteres = 16;
 	string ip_ = "";
-	UiButton* introIp;
+	ParticleExample *light;
 
-	SDL_Rect clip;
-	Texture* libretaTexture = &sdlutils().images().at("cuadernillo");
+	ShowText* ip;
+	ShowText* cursor;
+	UiButton* clientButton;
+	UiButton* hostButton;
+
+	int posYOver = 0;
+	int posYNotOver = 0;
+
+	bool escribiendo = false;
+	bool escrito = false;
+
+	float frameRate = 800;
+	float tiempo;
+
+	bool esValida(string ipText);
+	vector<string>split(string ipText);
+
 public:
 	HostClient(Game* game);
+
+	void update() override;
+	void render() override;
 };
 

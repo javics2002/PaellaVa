@@ -72,7 +72,6 @@ class UIManager
 	string cursor = "|";
 	const int maxCaracteres = 15;
 	bool escribiendoNombre = false;
-	bool escribiendoIP = false;
 
 	bool enLobby = false;
 	uint8_t tiempoCreacion = 2000;
@@ -145,7 +144,5 @@ public:
 
 	bool getEnAjustes() { return enAjustes; };
 	void setEnJornada(bool b);
-
-	void setIpButton(UiButton *ip_);
 };
 

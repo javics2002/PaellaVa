@@ -21,10 +21,8 @@ class InicioCinta : public Mueble
 
 	int idCont = 0; // Asigna las IDs
 
-	bool host = true;
-
 public:
-	InicioCinta(Game* game, Vector2D<double> pos, bool host_);
+	InicioCinta(Game* game, Vector2D<double> pos);
 	~InicioCinta() = default;
 
 	void update() override;

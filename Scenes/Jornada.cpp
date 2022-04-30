@@ -85,6 +85,7 @@ Jornada::Jornada(Game* game, string tilemap, int numeroJornada, bool host_) : Sc
 	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
 
 	uiManager->addInterfaz(new RedactaComandabutton(game, uiManager, "redactaboton", 10, 10, 30, 30));
+	uiManager->addInterfaz(new Imagen(game, 50, 20, 40, 40, "R"));
 	uiManager->setBarra(new ListaComandas(game, uiManager));
 
 	uiManager->creaMenuPausa();
@@ -105,14 +106,20 @@ void Jornada::handleInput(bool& exit)
 	Scene::handleInput(exit);
 
 	if (paused) {
-		if (ih().getKey(InputHandler::A))
+		if (ih().getKey(InputHandler::A)) {
 			uiManager->getPauseButtons()[1]->execute(exit);
-		else if (ih().getKey(InputHandler::B))
+		}
+		else if (ih().getKey(InputHandler::B)) {
 			uiManager->getPauseButtons()[0]->execute(exit);
+		}
+			
 	}
 	else if (ih().getKey(InputHandler::PAUSE)) {
 		//Abrir menú de pausa
 		togglePause();
+
+		// Mandar mensaje para pausar el juego
+		game->getNetworkManager()->syncPause();
 	}
 
 	if (ih().getKey(InputHandler::Y)) {
@@ -382,8 +389,12 @@ void Jornada::loadMap(string const& path)
 					getObjectManager()->addMueble(c);
 				}
 				else if (name == "inicioCinta") {
-					InicioCinta* c = new InicioCinta(game, position, host);
+					InicioCinta* c = new InicioCinta(game, position);
 					c->setVel(Vector2D<double>((double)p[1].getFloatValue(), (double)p[2].getFloatValue()));
+
+					c->setId(idCount);
+					idCount++;
+
 					getObjectManager()->addMueble(c);
 				}
 				else if (name == "finalCinta") {
@@ -393,7 +404,7 @@ void Jornada::loadMap(string const& path)
 					getObjectManager()->addMueble(c);
 				}
 				else if (name == "puerta") { 
-					Puerta* puerta = new Puerta(game, position, p[3].getIntValue(), p[0].getIntValue(), host);
+					Puerta* puerta = new Puerta(game, position, p[3].getIntValue(), p[0].getIntValue());
 					puerta->setVel(Vector2D<double>((double)p[1].getFloatValue(), (double)p[2].getFloatValue()));
 
 					puerta->setId(idCount);
@@ -457,6 +468,8 @@ void Jornada::loadMap(string const& path)
 				else if (name == "cajaHerramientas")
 				{
 					CajaHerramientas* ch = new CajaHerramientas(game, position);
+					ch->setId(idCount);
+					idCount++;
 					getObjectManager()->addMueble(ch);
 				}
 

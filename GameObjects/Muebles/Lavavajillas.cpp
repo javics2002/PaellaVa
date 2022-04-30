@@ -19,6 +19,10 @@ void Lavavajillas::update()
 	{
 		humo->setStyle(ParticleExample::NONE);
 	}
+
+	humo->setPosition(getX(), getY());
+	humo->update();
+
 	if (funcionando && !paellasSucias.empty() && isActive())
 	{
 		lavando();
@@ -31,6 +35,10 @@ void Lavavajillas::update()
 
 		initTime = sdlutils().currRealTime();
 	}
+
+
+	if (!game->getNetworkManager()->isHost())
+		return;
 
 	if (funcionando && couldBreak <= 0 )
 	{
@@ -52,8 +60,7 @@ void Lavavajillas::update()
 		couldBreak -= seg;
 	}
 
-	humo->setPosition(getX(), getY());
-	humo->update();
+	
 }
 
 

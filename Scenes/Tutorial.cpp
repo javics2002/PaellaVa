@@ -439,7 +439,7 @@ void Tutorial::loadMap(string const& path)
 					c->setActive(false);
 				}
 				else if (name == "inicioCinta") {
-					InicioCinta* c = new InicioCinta(game, position,true);
+					InicioCinta* c = new InicioCinta(game, position);
 					c->setVel(Vector2D<double>((double)p[1].getFloatValue(), (double)p[2].getFloatValue()));
 					getObjectManager()->addMueble(c);
 					getObjectManager()->addIniCinta(c);
@@ -452,7 +452,7 @@ void Tutorial::loadMap(string const& path)
 					c->setActive(false);
 				}
 				else if (name == "puerta") {
-					Puerta* puerta = new Puerta(game, position, p[3].getIntValue(), p[0].getIntValue(),true);
+					Puerta* puerta = new Puerta(game, position, p[3].getIntValue(), p[0].getIntValue());
 					puerta->setVel(Vector2D<double>((double)p[1].getFloatValue(), (double)p[2].getFloatValue()));
 					getObjectManager()->addMueble(puerta);
 					getObjectManager()->addPuerta(puerta);

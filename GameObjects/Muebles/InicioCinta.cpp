@@ -6,21 +6,14 @@
 #include "../../Utils/ParticleExample.h"
 #include "../Herramienta.h"
 
-InicioCinta::InicioCinta(Game* game, Vector2D<double> pos, bool host_) : Mueble(game, pos, TILE_SIZE, TILE_SIZE, "inicioCinta")
+InicioCinta::InicioCinta(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, TILE_SIZE, "inicioCinta")
 {
 	initTime = 0;
-	host = host_;
 	funcionando = true;
 }
 
 void InicioCinta::update()
 {
-	if (!host)
-		return;
-
-
-	int i = rand() % 1000;
-
 	if (!funcionando)
 	{
 		humo->setStyle(ParticleExample::SMOKE);
@@ -30,6 +23,13 @@ void InicioCinta::update()
 		humo->setStyle(ParticleExample::NONE);
 	}
 
+	humo->setPosition(getX(), getY());
+	humo->update();
+
+	if (!game->getNetworkManager()->isHost())
+		return;
+
+	int i = rand() % 1000;
 	if (sdlutils().virtualTimer().currTime() - initTime >= SPAWN_DELAY && isActive() && funcionando)
 	{
 		if (i < porcentajeLetal && !dynamic_cast<Tutorial*>(game->getCurrentScene()))
@@ -74,8 +74,7 @@ void InicioCinta::update()
 		}
 	}
 
-	humo->setPosition(getX(), getY());
-	humo->update();
+	
 }
 
 void InicioCinta::render(SDL_Rect* cameraRect)

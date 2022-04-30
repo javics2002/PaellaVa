@@ -64,18 +64,25 @@ bool Mueble::receiveHerramienta(Herramienta* h)
 
 bool Mueble::testMueble()
 {
-	/*if (!dynamic_cast<Tutorial*>(game->getCurrentScene())) {
+	if (!dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getNetworkManager()->isHost()) {
 		float rnd = rand() % randomOptions + 1;
 
 		if (rnd <= roto)
 		{
-			funcionando = false;
-			roto -= 5; //Para que cada vez sea más difícil que se rompa
+			romperMueble();
 
-			game->getObjectManager()->resetMueblesCounter();
+			// Mandar mensaje de que se rompe el mueble
+			game->getNetworkManager()->syncMuebleRoto(getId());
 		}
 		return funcionando;
-	}*/
+	}
 	return true;
 
+}
+
+void Mueble::romperMueble() {
+	funcionando = false;
+	roto -= 5; //Para que cada vez sea más difícil que se rompa
+
+	game->getObjectManager()->resetMueblesCounter();
 }

@@ -5,12 +5,10 @@
 #include "../../Control/NetworkManager.h"
 #include "../../Scenes/Tutorial.h"
 
-Puerta::Puerta(Game* game, Vector2D<double> pos, int t_Max, int tamMaxGrupo_, bool host_) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, "puerta")
+Puerta::Puerta(Game* game, Vector2D<double> pos, int t_Max, int tamMaxGrupo_) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, "puerta")
 {
 	cola = new Cola(t_Max);
 	maxTamGrupo = 3;
-
-	host = host_;
 
 	//Siempre tiene que funcionar
 	funcionando = true;
@@ -18,7 +16,7 @@ Puerta::Puerta(Game* game, Vector2D<double> pos, int t_Max, int tamMaxGrupo_, bo
 
 void Puerta::update()
 {
-	if (!host)
+	if (!game->getNetworkManager()->isHost())
 		return;
 
 	if (dynamic_cast<Tutorial*>(game->getCurrentScene())) {

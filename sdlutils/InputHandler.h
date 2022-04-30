@@ -10,7 +10,6 @@
 #include "../Control/Game.h"
 #include "../Control/NetworkManager.h"
 
-
 // Instead of a Singleton class, we could make it part of
 // SDLUtils as well.
 
@@ -147,6 +146,7 @@ public:
 				switch (event.window.event) {
 				case SDL_WINDOWEVENT_MOVED:
 					cout << "Has movido la ventana" << endl;
+					
 					break;
 				}
 				break;

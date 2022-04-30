@@ -23,6 +23,7 @@ public:
         SMOKE,
         SNOW,
         RAIN,
+        LIGHT
     };
 
     PatticleStyle style_ = NONE;
