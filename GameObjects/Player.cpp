@@ -70,6 +70,10 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 
 		vel.clamp(-maxVel, maxVel);
 	}
+	else {
+		vel.setX(0);
+		vel.setY(0);
+	}
 
 	if (ih().getKey(InputHandler::A) && playerOne) {
 		//Se prioriza la interaccion con los muebles por encima de otros objetos
@@ -172,21 +176,26 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 
 					// mandar mensaje?
 					GrupoClientes* gClientes = dynamic_cast<GrupoClientes*>(pickedObject_);
-					
-					vector<int> tamPaellas;
-					vector<int> ingPedidos = vector<int>(12, LAST);
 
-					for (int i = 0; i < gClientes->getPedido()->getPedido().size(); i++) {
-						tamPaellas.push_back(gClientes->getPedido()->getPedido()[i].tamanoPaella);
+					if (gClientes->getPedido() != nullptr) {
+						vector<int> tamPaellas;
+						vector<int> ingPedidos = vector<int>(12, LAST);
 
-						for (int j = 0; j < gClientes->getPedido()->getPedido()[i].ingredientesPedido.size(); j++) {
-							ingPedidos[j] = gClientes->getPedido()->getPedido()[i].ingredientesPedido[j];
+						int cont = 0;
+
+						for (int i = 0; i < gClientes->getPedido()->getPedido().size(); i++) {
+							tamPaellas.push_back(gClientes->getPedido()->getPedido()[i].tamanoPaella);
+
+							for (int j = 0; j < gClientes->getPedido()->getPedido()[i].ingredientesPedido.size(); j++) {
+								ingPedidos[cont] = gClientes->getPedido()->getPedido()[i].ingredientesPedido[j];
+								cont++;
+							}
 						}
+
+						game->getNetworkManager()->syncPedido(pickedObject_->getId(), gClientes->getPedido()->getPedido().size(), tamPaellas, ingPedidos);
+
+						pickedObject_ = nullptr;
 					}
-
-					game->getNetworkManager()->syncPedido(pickedObject_->getId(), gClientes->getPedido()->getPedido().size(), tamPaellas, ingPedidos);
-
-					pickedObject_ = nullptr;
 				}
 				else {
 					for (auto i : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getOverlaps(getOverlap())) {

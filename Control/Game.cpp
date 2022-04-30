@@ -87,7 +87,7 @@ void Game::render()
 
 	currentScene->render();
 #ifdef _DEBUG
-	currentScene->debug();
+	//currentScene->debug();
 #endif // _DEBUG
 
 	sdlutils().presentRenderer();

@@ -68,7 +68,13 @@ Pedido::Pedido(Game* game_, int numComensales, int numeroTiles)
 				j--;
 			}
 		}
-		ingredientesPedidos = vector<bool>(tipoIngrediente::LAST, false);
+
+		while (paellas[g].ingredientesPedido.size() < 3)
+		{
+			paellas[g].ingredientesPedido.push_back(LAST);
+		}
+
+		ingredientesPedidos = vector<bool>(tipoIngrediente::LAST, false); // ??? no sirve de nada xd
 	}
 }
 
@@ -76,14 +82,16 @@ Pedido::Pedido(Game* game_, int numPaellas, vector<int> tamPaellas, vector<int> 
 {
 	game = game_;
 
+	int cont = 0;
+
 	for (int i = 0; i < numPaellas; i++) {
 		pedidoPaella nuevaPaella;
 		paellas.push_back(nuevaPaella);
 		paellas[i].tamanoPaella = tamPaellas[i];
 
-		for (int j = 0; j < ingPedidos.size(); j++) {
-			if (ingPedidos[j] == LAST) break;
-			paellas[i].ingredientesPedido.push_back(ingPedidos[j]);
+		for (int j = 0; j < 3; j++) { // 3 ing por pedido
+			paellas[i].ingredientesPedido.push_back(ingPedidos[cont]);
+			cont++;
 		}
 	}
 	
@@ -204,7 +212,8 @@ vector<string> Pedido::getPedidoTex()
 			v.push_back(paellasTamTex[i.tamanoPaella]);
 			if (!i.ingredientesPedido.empty()) {
 				for (auto j : i.ingredientesPedido) {
-					v.push_back(texturaIngrediente[j]);
+					if(j != LAST)
+						v.push_back(texturaIngrediente[j]);
 				}
 			}
 			else v.push_back("sinIngredientes");

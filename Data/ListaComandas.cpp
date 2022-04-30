@@ -13,7 +13,7 @@ ListaComandas::ListaComandas(Game* game,UIManager* m) :GameObject(game)
 	p.setX(500);
 	p.setY(40);
 	setPosition(p);
-	cX = p.getX()/5;
+	cX = p.getX()/5 ;
 	cY = p.getY();
 	setDimension(ancho, alto);
 	uimt = m;
@@ -50,6 +50,7 @@ void ListaComandas::AñadeComanda(Comanda* comanda)
 		c->desplazacomandas(desplazamineto);//esta la paella anterior en el mismo  vector 
 		c->setPosition(cX, cY);
 		c->getPosition().setX(cX);
+		c->setTexturecoords(cX, cY);
 		//c->setSitio();
 		c->setSitio(lista.insert(lista.begin(),c));
 		//c->setSitio(inicx/(1.5 * c->getWidth())-1); AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -58,7 +59,10 @@ void ListaComandas::AñadeComanda(Comanda* comanda)
 		EliminaComandaButton* e = new EliminaComandaButton(uimt, c, game, "cancela", cX, cY + c->getHeight()/2, 25, 25);
 		//uimt->addInterfaz(e);
 		if (selected != nullptr)
+		{
 			selected->deseleccionaComanda();
+			selected = nullptr;
+		}
 		e->setActive(false);
 		c->setEliminabutton(e);
 		
@@ -80,6 +84,7 @@ void ListaComandas::AñadeComanda(Comanda* comanda)
 				int dsp = nx - c->getPosition().getX();
 				c->desplazacomandas(dsp);//esta la paella anterior en el mismo  vector 
 				c->setPosition(nx, cY);
+				c->setTexturecoords(nx, cY);
 				c->getEliminabutton()->setPosition(nx, cY + c->getHeight() / 2);
 
 			}
@@ -140,6 +145,7 @@ void ListaComandas::finalizacomanda(Comanda* comanda)
 				int dsp = nx - c->getPosition().getX();
 				c->desplazacomandas(dsp);//esta la paella anterior en el mismo  vector 
 				c->setPosition(nx, cY);
+				c->setTexturecoords(nx, cY);
 				c->getEliminabutton()->setPosition(nx, cY + c->getHeight() / 2);
 			}
 		}
@@ -159,11 +165,16 @@ void ListaComandas::finalizacomanda(Comanda* comanda)
 			int x = -cX - c->getX();
 			x += 3 * c->getWidth() + anchobotones*4;//4 son los botones qeu caben en una linea
 			c->setPosition(cX, cY);
+			c->setTexturecoords(cX, cY);
 			c->desplazacomandas(x );
 			c->getEliminabutton()->setPosition(cX, cY + c->getHeight() / 2);
 			c->setSitio(lista.insert(lista.begin(), c));
 			listanovisibles.pop_back();
-
+			if (selected != nullptr)
+			{
+				selected->deseleccionaComanda();
+				selected = nullptr;
+			}
 			numcomandas++;
 
 
@@ -251,6 +262,11 @@ void ListaComandas::setBarraActive(bool b)
 	}
 	if (listaActive)//actiamos la barra y colocamos el foco
 	{
+		if (selected != nullptr)
+		{
+			selected->deseleccionaComanda();
+			selected = nullptr;
+		}
 		if (!lista.empty())
 		{
 			auto it = lista.begin();

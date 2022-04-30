@@ -74,11 +74,13 @@ public:
     void playAnim() { animPlay = true; };
     void setActiveTeclado(vector<UiButton*> a);
     vector<UiButton*> getTecladoing() { return teclado; };
+    void setTexturecoords(int nx, int ny);
 
 private:
     vector<Point2D<double> >posicionesBotones;//vas seleccionando y vas borrando las ya usadas
     int escale = 1;//esta mas difisil de lo que pensaba mmh
     int x;
+    int tx;//coordenada para la textura, necesario para spritesheets
     int iniy;
     int y;
     int escritoX;
