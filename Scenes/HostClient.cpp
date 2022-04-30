@@ -39,10 +39,10 @@ HostClient::HostClient(Game* game) : Scene(game)
 		sdlutils().width() / 2 + offsetX, sdlutils().height() / 2 - offsetY, 400, 200);
 	clientButton->setInitialDimension(clientButton->getWidth(), clientButton->getHeight());
 
-	introIp = new UiButton(game, "cuadernillo", clientButton->getX(), clientButton->getY() - 110 , libretaTexture->width() / 12, libretaTexture->height());
+	introIp = new UiButton(game, "cuadernillo", sdlutils().width()/2, sdlutils().height()/2 , libretaTexture->width() / 8, libretaTexture->height());
 	introIp->setActive(false);
 
-	ShowText* ip = new ShowText(game, " ", "abadiNombre", introIp->getX(), introIp->getY());
+	ShowText* ip = new ShowText(game, " ", "abadiReview", introIp->getX(), introIp->getY());
 	ip->setActive(true);
 
 	clientButton->setAction([this, ip](Game* game, bool& exit) {
@@ -59,8 +59,8 @@ HostClient::HostClient(Game* game) : Scene(game)
 			ip->setDimension();
 		}
 
-		introIp->setActive(!introIp->isActive());*/
-		//ip->setActive(introIp->isActive());
+		introIp->setActive(!introIp->isActive());
+		ip->setActive(introIp->isActive());*/
 		});
 
 	introIp->setAction([ip, this](Game* game, bool& exit) {

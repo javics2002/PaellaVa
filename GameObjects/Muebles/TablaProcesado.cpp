@@ -93,7 +93,7 @@ void TablaProcesado::render(SDL_Rect* camera)
 
 		if (ingr_ != nullptr && !ingr_->getProcesado() && i != 0) {
 
-			SDL_Rect dest_ = { getX() - getWidth() / 2, getY() + getHeight() / 2, timerDimension, timerDimension };
+			SDL_Rect dest_ = { getX() - getWidth() / 2, getY() - getHeight(), timerDimension, timerDimension };
 
 			drawRender(camera, dest_, &sdlutils().images().at("timer"), clip);
 		}
