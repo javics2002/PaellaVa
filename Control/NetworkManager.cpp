@@ -107,17 +107,8 @@ void NetworkManager::receivePlayers()
 					}
 					break;
 				case EPT_SYNCPLAYER:
-					game->getUIManager()->addTween(game->getObjectManager()->getPlayerTwo()->getPosition().getX(), pkt.syncPlayers.posX, 300,true).via(easing::linear).onStep([this](tweeny::tween<float>& t, float) mutable {
-						game->getObjectManager()->getPlayerTwo()->setPosition(t.peek(), game->getObjectManager()->getPlayerTwo()->getPosition().getY());
-
-						return t.progress() == 1.0f;
-					});
-
-					game->getUIManager()->addTween(game->getObjectManager()->getPlayerTwo()->getPosition().getY(), pkt.syncPlayers.posY, 300,true).via(easing::linear).onStep([this](tweeny::tween<float>& t, float) mutable {
-						game->getObjectManager()->getPlayerTwo()->setPosition(game->getObjectManager()->getPlayerTwo()->getPosition().getX(), t.peek());
-
-						return t.progress() == 1.0f;
-					});
+					game->getObjectManager()->getPlayerTwo()->setPosition(pkt.syncPlayers.posX, pkt.syncPlayers.posY);
+					game->getObjectManager()->getPlayerTwo()->setVel(Vector2D<double>(pkt.syncPlayers.velX, pkt.syncPlayers.velY));
 
 					// game_->getObjectManager()->getPlayerTwo()->setPosition(Vector2D<double>(pkt.syncPlayers.posX, pkt.syncPlayers.posY));
 					break;
@@ -303,17 +294,9 @@ void NetworkManager::updateClient()
 
 				break;
 			case EPT_SYNCPLAYER:
-				game->getUIManager()->addTween(game->getObjectManager()->getPlayerTwo()->getPosition().getX(), server_pkt.syncPlayers.posX, 300,true).via(easing::linear).onStep([this](tweeny::tween<float>& t, float) mutable {
-					game->getObjectManager()->getPlayerTwo()->setPosition(t.peek(), game->getObjectManager()->getPlayerTwo()->getPosition().getY());
+				game->getObjectManager()->getPlayerTwo()->setPosition(server_pkt.syncPlayers.posX, server_pkt.syncPlayers.posY);
+				game->getObjectManager()->getPlayerTwo()->setVel(Vector2D<double>(server_pkt.syncPlayers.velX, server_pkt.syncPlayers.velY));
 
-					return t.progress() == 1.0f;
-					});
-
-				game->getUIManager()->addTween(game->getObjectManager()->getPlayerTwo()->getPosition().getY(), server_pkt.syncPlayers.posY, 300,true).via(easing::linear).onStep([this](tweeny::tween<float>& t, float) mutable {
-					game->getObjectManager()->getPlayerTwo()->setPosition(game->getObjectManager()->getPlayerTwo()->getPosition().getX(), t.peek());
-
-					return t.progress() == 1.0f;
-					});
 				break;
 			case EPT_SYNCPICKOBJECT:
 				// recorrer la pool correspondiente a object type, encontrar el objeto con la id correspondiente y coger dicho objeto
@@ -701,6 +684,9 @@ void NetworkManager::syncPlayers()
 
 	pkt.syncPlayers.posX = game->getObjectManager()->getPlayerOne()->getPosition().getX();
 	pkt.syncPlayers.posY = game->getObjectManager()->getPlayerOne()->getPosition().getY();
+
+	pkt.syncPlayers.velX = game->getObjectManager()->getPlayerOne()->getVel().getX();
+	pkt.syncPlayers.velY = game->getObjectManager()->getPlayerOne()->getVel().getY();
 
 	if (nType == 'h') {
 		for (int i = 1u; i < player_sockets.size(); i++) {

@@ -94,6 +94,10 @@ struct PacketButtonBuffer {
 struct PacketSyncPlayers {
 	Sint16 posX;
 	Sint16 posY;
+
+	float velX;
+	float velY;
+
 };
 
 // currently testing
@@ -208,7 +212,7 @@ private:
 
 	// Timer
 	Uint32 lastUpdate_; //tiempo desde el último update
-	Uint32 updateTime_ = 4000; //los segundos que tarda en actualizarse el reloj
+	Uint32 updateTime_ = 150; //los segundos que tarda en actualizarse el reloj
 
 	// Host
 	bool host;
