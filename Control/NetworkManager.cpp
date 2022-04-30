@@ -269,7 +269,7 @@ void NetworkManager::updateClient()
 				for (int i = 0; i < server_pkt.grupoCliente.tamGrupo; i++) {
 					Cliente* c = game->getObjectManager()->getPool<Cliente>(_p_CLIENTE)->add();
 					c->setPosition(pos);
-					c->cambiaTextura(texturasClientes[server_pkt.grupoCliente.textCliente[i]]);
+					c->setAnimResources(server_pkt.grupoCliente.textCliente[i]);
 
 					pos = pos - distancia;
 

@@ -275,7 +275,7 @@ void GrupoClientes::onObjectDropped()
 {
 	if (estado_ == ENCOLA) {
 
-		estado_ = PIDIENDO;
+		setState(PIDIENDO);
 
 		setGoshtGroup();
 

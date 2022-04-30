@@ -4,8 +4,6 @@
 
 class Game;
 
-const vector<string> texturasClientes = { "clienteBase", "clienteBase2", "clienteBase3" };
-
 class Cliente : public GameObject
 {
 	const unsigned int DIMENSION = 150;

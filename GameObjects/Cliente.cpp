@@ -17,7 +17,6 @@ Cliente::Cliente(Game* game) : GameObject(game)
 	frameRate = 1000 / 50;
 
 	currAnim = 0;
-	setAnimResources(sdlutils().rand().nextInt(0, 3));
 
 	gosht = false;
 }
