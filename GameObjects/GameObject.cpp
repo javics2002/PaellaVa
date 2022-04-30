@@ -5,17 +5,20 @@
 void GameObject::setPosition(double x, double y)
 {
 	pos = Point2D<double>(x, y);
+	posVertical = y + h / 2;
 }
 
 void GameObject::setPosition(Vector2D<double> v)
 {
 	pos = v;
+	posVertical = pos.getY() + h / 2;
 }
 
 void GameObject::setDimension(int width, int height)
 {
 	w = width;
 	h = height;
+	posVertical = pos.getY() + h / 2;
 }
 
 void GameObject::setDimension() //pone la dimension al tama�o de la textura
@@ -23,6 +26,7 @@ void GameObject::setDimension() //pone la dimension al tama�o de la textura
 	if (texture != nullptr) {
 		w = texture->width();
 		h = texture->height();
+		posVertical = pos.getY() + h / 2;
 	}
 }
 

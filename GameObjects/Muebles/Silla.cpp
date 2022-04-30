@@ -76,6 +76,6 @@ SDL_Rect Silla::getCollider()
 
 Vector2D<double> Silla::setClientPos()
 {
-	return Vector2D<double>(getX(), getY() + clientDepth);
+	return Vector2D<double>(getX(), getY() + clientDepth - h / 4);
 }
 
