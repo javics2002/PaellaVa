@@ -201,7 +201,9 @@
     { "id": "Y", "file": "Assets/Images/Y.png" },
     { "id": "R", "file": "Assets/Images/R.png" },
     { "id": "ip", "file": "Assets/Images/ip.png" },
-    { "id": "camareroLobby", "file": "Assets/Images/camareroLobby.png" }
+    { "id": "camareroLobby", "file": "Assets/Images/camareroLobby.png" },
+    { "id": "fondoMadera", "file": "Assets/Images/fondoMadera.png" }
+
   ],
 
   "tilesets": [

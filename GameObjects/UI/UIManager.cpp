@@ -735,7 +735,7 @@ void UIManager::creaMenuOpciones()
 	optionsButtons.push_back(botonSalir);
 
 	//Boton pantalla completa
-	UiButton* pantCompleta = new UiButton(game, "reloj", sdlutils().width() / 2 + sdlutils().width()/5, opcPant->getHeight() - 100, 100, 100);
+	UiButton* pantCompleta = new UiButton(game, "fondoMadera", sdlutils().width() / 2 + sdlutils().width()/5, opcPant->getHeight() - 100, 100, 100);
 	pantCompleta->setInitialPosition(sdlutils().width() / 2 + sdlutils().width() / 5, opcPant->getHeight() - 100);
 	pantCompleta->setActive(false);
 
@@ -894,7 +894,7 @@ void UIManager::creaMenuOpciones()
 
 
 	//Caja de texto del nombre
-	Imagen* fondoNombre = new Imagen(game, sdlutils().width() / 2 - 100, opcPant->getHeight() - 100, 210, 50, "reloj");
+	Imagen* fondoNombre = new Imagen(game, sdlutils().width() / 2 - 100, opcPant->getHeight() - 100, 210, 50, "fondoMadera");
 	fondoNombre->setInitialPosition(sdlutils().width() / 2 - 100, opcPant->getHeight() - 100);
 	fondoNombre->setActive(false);
 
