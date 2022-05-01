@@ -9,7 +9,7 @@ class Lobby:public Scene
 
 	UiButton* comenzar;
 	Imagen* camarero;
-
+	ShowText* buscando;
 public:
 	Lobby(Game *game);
 

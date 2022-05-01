@@ -10,7 +10,7 @@ private:
 	Ingrediente* ingr_ = nullptr;
 	Paella* paella_ = nullptr;
 	Arroz* arroz_ = nullptr;
-	Herramienta* herramienta = nullptr;
+	Herramienta* herramienta_ = nullptr;
 
 public:
 	Encimera(Game* game, Vector2D<double> pos);

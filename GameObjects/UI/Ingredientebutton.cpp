@@ -1,16 +1,17 @@
 #include "Ingredientebutton.h"
 #include "../UI/UIManager.h"
 
-IngredienteButton::IngredienteButton(UIManager* uim, Game* game, string texturename, int x, int y, int w, int h) : UiButton(game, texturename, x, y, w, h)
+IngredienteButton::IngredienteButton(UIManager* uim, Game* game, string texturename, int x, int y, int w, int h,int id) : UiButton(game, texturename, x, y, w, h)
 {
 	this->uim = uim;
+	idonline = id;
 }
 IngredienteButton::~IngredienteButton()
 {
 }
 void IngredienteButton::execute(bool& exit)
 {
-	uim->getComanda()->añadiraPedido(textura);
+	uim->getComanda()->añadiraPedido(textura,idonline);
 	uim->randomizaTeclado();
 
 	//Sonido de escribir aleatorio

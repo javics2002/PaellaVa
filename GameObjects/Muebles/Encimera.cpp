@@ -15,7 +15,24 @@ Encimera::Encimera(Game* game, Vector2D<double> pos) : Mueble(game, pos, 1 * TIL
 bool Encimera::receiveIngrediente(Ingrediente* ingr)
 {
 	//Si ya tiene objeto, no recoge objeto
-	if (ingr_ == nullptr && paella_ == nullptr && arroz_ == nullptr && herramienta == nullptr)
+	if (paella_ != nullptr) {
+		if (paella_->ingrValido(ingr) && paella_->conArroz() && ingr->getProcesado()) {
+
+			paella_->anadeIngr(ingr);
+			if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::dejarIngredientePaella) {
+				if (paella_->ingredientesEnPaella() == 3)
+					game->getCurrentScene()->changeState(States::pausaDejarIngredientes);
+			}
+			ingr->setActive(false);
+
+			return true;
+		}
+
+		return false;
+	}
+
+
+	if (ingr_ == nullptr && arroz_ == nullptr && herramienta_ == nullptr)
 	{
 		ingr_ = ingr;
 
@@ -24,20 +41,7 @@ bool Encimera::receiveIngrediente(Ingrediente* ingr)
 		return true;
 	}
 
-	else if (paella_ != nullptr) {
-
-		if (paella_->ingrValido(ingr) && paella_->conArroz() && ingr->getProcesado()) {
-
-			paella_->anadeIngr(ingr);
-			if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState()==States::dejarIngredientePaella) {
-				if (paella_->ingredientesEnPaella() == 3)
-					game->getCurrentScene()->changeState(States::pausaDejarIngredientes);
-			}
-			ingr->setActive(false);
-
-			return true;
-		}
-	}
+	
 
 	return false;
 }
@@ -45,7 +49,7 @@ bool Encimera::receiveIngrediente(Ingrediente* ingr)
 bool Encimera::receivePaella(Paella* pa)
 {
 	//Si ya tiene objeto, no recoge objeto
-	if (ingr_ == nullptr && paella_ == nullptr && arroz_ == nullptr && herramienta == nullptr)
+	if (ingr_ == nullptr && paella_ == nullptr && arroz_ == nullptr && herramienta_ == nullptr)
 	{
 		sdlutils().soundEffects().at("paellaMesa").play(0, game->UI);
 		if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::dejaPaellera)
@@ -65,7 +69,7 @@ bool Encimera::receivePaella(Paella* pa)
 bool Encimera::receiveArroz(Arroz* arr)
 {
 	//Si ya tiene objeto, no recoge objeto
-	if (paella_ != nullptr && paella_->getContenido() == Limpia)
+	if (paella_ != nullptr)
 	{
 		if (paella_->getContenido() == Limpia) {
 
@@ -75,12 +79,11 @@ bool Encimera::receiveArroz(Arroz* arr)
 
 			return true;
 		}
-		else
-		{
-			return false;
-		}
+
+		return false;
 	}
-	else if (ingr_ == nullptr && arroz_ == nullptr && paella_==nullptr && herramienta == nullptr) {
+
+	if (ingr_ == nullptr && arroz_ == nullptr && herramienta_ == nullptr) {
 
 		arroz_ = arr;
 		arroz_->setPosition(getRectCenter(getOverlap()));
@@ -94,11 +97,10 @@ bool Encimera::receiveArroz(Arroz* arr)
 bool Encimera::receiveHerramienta(Herramienta* h)
 {
 	//Si ya tiene objeto, no recoge objeto
-	if (ingr_ == nullptr && paella_ == nullptr && arroz_ == nullptr && herramienta == nullptr)
+	if (ingr_ == nullptr && paella_ == nullptr && arroz_ == nullptr && herramienta_ == nullptr)
 	{
-		herramienta = h;
-
-		herramienta->setPosition(getRectCenter(getOverlap()));
+		herramienta_ = h;
+		herramienta_->setPosition(getRectCenter(getOverlap()));
 
 		return true;
 	}
@@ -110,38 +112,43 @@ bool Encimera::returnObject(Player* p)
 {
 	if (ingr_ != nullptr)
 	{
-		//TOCHECK: Podr�amos hacer un return del objeto y que el player se lo guarde a s� mismo
 		p->setPickedObject(ingr_, INGREDIENTE);
-
 		ingr_ = nullptr;
+
+		cout << "Objeto devuelto por: " << id << endl;
 
 		return true;
 	}
 	else if (paella_ != nullptr)
 	{
 		p->setPickedObject(paella_, PAELLA);
-
 		paella_ = nullptr;
+
+		cout << "Objeto devuelto por: " << id << endl;
 
 		return true;
 	}
 	else if (arroz_ != nullptr)
 	{
 		p->setPickedObject(arroz_, ARROZ);
-
 		arroz_ = nullptr;
 
+		cout << "Objeto devuelto por: " << id << endl;
+
 		return true;
 	}
-	else if (herramienta != nullptr)
+	else if (herramienta_ != nullptr)
 	{
-		p->setPickedObject(herramienta, HERRAMIENTA);
+		p->setPickedObject(herramienta_, HERRAMIENTA);
+		herramienta_ = nullptr;
 
-		herramienta = nullptr;
+		cout << "Objeto devuelto por: " << id << endl;
 
 		return true;
 	}
-	else
-		return false;
+
+	
+
+	return false;
 }
 

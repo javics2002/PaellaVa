@@ -2,10 +2,11 @@
 #include "../../Data/Comanda.h"
 #include "UIManager.h"
 
-NumeroButton::NumeroButton(UIManager* uim, Game* game, string texturename, int x, int y, int w, int h) :UiButton(game, texturename, x, y, w, h)
+NumeroButton::NumeroButton(UIManager* uim, Game* game, string texturename, int x, int y, int w, int h, int id) :UiButton(game, texturename, x, y, w, h)
 {
 	c = uim->getComanda();
 	textura = texturename;
+	idonline = id;
 }
 
 NumeroButton::~NumeroButton()

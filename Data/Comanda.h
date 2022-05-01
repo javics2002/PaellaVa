@@ -29,8 +29,8 @@ public:
     Comanda(Game* game, int numMesa, vector<int> tamPaellas, vector<int> ingPedidos);
 
     ~Comanda();//No se puede definir todavia y no compila NO LO BORREIS/
-    void añadiraPedido(string i);
-    void anadirNumeromesa(string n);
+    void añadiraPedido(string i,int j);
+    void anadirNumeromesa(string n,int j);
     UiButton* getNumeromesa();
     void randomizaIconos();
     //void abrirComanda(int x,int y);
@@ -76,6 +76,10 @@ public:
     void setActiveTeclado(vector<UiButton*> a);
     vector<UiButton*> getTecladoing() { return teclado; };
     void setTexturecoords(int nx, int ny);
+    int getNumeroMesaWeb();
+    vector<int> getTamanosWeb();
+    vector<int> getIngredientesWeb();
+
 
 private:
     vector<Point2D<double> >posicionesBotones;//vas seleccionando y vas borrando las ya usadas
@@ -97,6 +101,7 @@ private:
     int altoini;
     int maxingrendientes=3;
     int maxpaellas = 4;
+    
     bool enVentanilla = false;
     uint numeroMesa;
     uint numeroPaellas = 0;
@@ -126,6 +131,10 @@ private:
     void changeActiveTeclado();
     bool comparaX(UiButton u1, UiButton u2);
     bool comparaY(UiButton u1, UiButton u2);
+    //QUE EL ONLINE SOLO PASA NUMEROS 
+    int numeromesaweb;
+    vector<int> tamanosweb;
+    vector<int>ingredientesweb;
     //float calculaPuntuacion(Paella paella) ; definicion pendiente de la creacion e paella
    
 };
