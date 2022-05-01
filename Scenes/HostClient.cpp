@@ -4,6 +4,7 @@
 #include "../Scenes/Jornada.h"
 #include "../GameObjects/UI/ShowText.h"
 #include "IntroduceIP.h"
+#include "../Scenes/Menu.h"
 
 HostClient::HostClient(Game* game) : Scene(game)
 {
@@ -16,6 +17,14 @@ HostClient::HostClient(Game* game) : Scene(game)
 	light = new ParticleExample();
 	light->setRenderer(sdlutils().renderer());
 	light->setStyle(ParticleExample::NONE);
+
+	UiButton* regresar = new UiButton(game, "back", 70, 50, 125, 60);
+	regresar->setInitialDimension(regresar->getWidth(), regresar->getHeight());
+	regresar->setAction([](Game* game, bool& exit) {
+		game->sendMessageScene(new Menu(game));
+		});
+
+	uiManager->addButton(regresar);
 
 	hostButton = new UiButton(game, "cocinera",
 		sdlutils().width() / 2 - offsetX, sdlutils().height() - 350, 500, 700);
@@ -61,6 +70,8 @@ HostClient::HostClient(Game* game) : Scene(game)
 		});
 
 	uiManager->addButton(clientButton);
+
+	
 }
 
 bool HostClient::esValida(string ipText)

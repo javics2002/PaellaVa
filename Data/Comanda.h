@@ -26,6 +26,7 @@ public:
     enum Tamaño { Pequeña, Mediana, Grande };
     Comanda(Game* game, uint escala, UIManager* uim,bool enVentanilla_);//crear comanda
     Comanda( Comanda& c);//NECESARIO PARA QUE LA LIST DE COMANDAS FUNCIONE
+    Comanda(Game* game, int numMesa, vector<int> tamPaellas, vector<int> ingPedidos);
 
     ~Comanda();//No se puede definir todavia y no compila NO LO BORREIS/
     void añadiraPedido(string i);
@@ -63,7 +64,7 @@ public:
     void toggleactive();
     virtual bool onClick(int mx, int my, bool& exit) override;
     bool  OnClick(int mx, int my);
-        Comanda *seleccionaComanda();
+    Comanda *seleccionaComanda();
     void deseleccionaComanda();
     void pressSelectedButton();
     void cambiazonafoco();

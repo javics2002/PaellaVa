@@ -6,6 +6,8 @@
 #include "../GameObjects/Muebles/Puerta.h"
 #include "../Control/ObjectManager.h"
 
+#include "../Data/ListaComandas.h"
+
 #include "../Scenes/Lobby.h"
 #include "../Scenes/Jornada.h"
 
@@ -144,6 +146,9 @@ void NetworkManager::receivePlayers()
 				case EPT_SYNCPAUSE:
 					dynamic_cast<Jornada*>(game->getCurrentScene())->togglePause();
 					break;
+				case EPT_SYNCCOMANDA:
+					// sincronizar comanda
+					break;
 				case EPT_QUIT:
 					std::cout << ("Client disconnected: ID(%d)\n", i) << std::endl;
 
@@ -163,49 +168,6 @@ void NetworkManager::receivePlayers()
 		SDL_Delay(recv_frequency);
 	}
 }
-
-
-// Función que se encarga de mandar la información de todos los jugadores a todos los jugadores (se encuentra en un hilo)
-// Problemas que da: ---
-void NetworkManager::sendPlayers()
-{
-	//while (!exitThread) {
-	//	// UPDATE CLIENTS
-	//	Player* p;
-	//	Packet packet;
-	//	packet.packet_type = EPT_UPDATE;
-
-	//	// Send each player to the other players
-	//	for (int i = 0u; i < game_->getObjectManager()->getPlayers().size(); i++) {
-	//		p = game_->getObjectManager()->getPlayers()[i];
-
-	//		int currentId = 0;
-
-	//		// recorrer vector de ids hasta que i == player_ids[j]
-	//		for (int j = 0u; j < player_ids.size(); j++) {
-	//			if (i == player_ids[j]) currentId = player_ids[j];
-	//		}
-
-	//		packet.player_id = currentId;
-	//		packet.player_horizontal = p->getAxis().getX();
-	//		packet.player_vertical = p->getAxis().getY();
-
-	//		for (int j = 1u; j < game_->getObjectManager()->getPlayers().size(); j++) { // Empezamos en uno porque el servidor ya tiene su propio hilo
-	//																					// que recibe los datos de los clientes, por tanto no hace falta mandar nada.
-	//			if (i != j) {
-	//				if (SDLNet_TCP_Send(player_sockets[j], &packet, sizeof(PacketSend)) < sizeof(PacketSend))
-	//				{
-	//					std::cout << (stderr, "SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
-	//					exit(EXIT_FAILURE);
-	//				}
-	//			}
-	//		}
-	//	}
-
-	//	SDL_Delay(send_frequency);
-	//}
-}
-
 
 // Función que tienen los clientes (se encuentra en un hilo)
 // Problemas que da: ---
@@ -341,6 +303,13 @@ void NetworkManager::updateClient()
 
 			case EPT_SYNCPAUSE:
 				dynamic_cast<Jornada*>(game->getCurrentScene())->togglePause();
+				break;
+
+			case EPT_SYNCCOMANDA:
+				// sincronizar comanda
+				//Comanda* com;
+				//
+				//game->getUIManager()->getBarra()->AñadeComanda(com);
 				break;
 			}
 
@@ -496,27 +465,6 @@ void NetworkManager::update() // SINCRONIZAR ESTADO DE JUEGO
 		// Sync Players
 		syncPlayers();
 	}
-	
-	
-	//PacketSyncPlayer pkt_send;
-	// Send status
-	//for (int i = 0; i < id_count; i++) {
-	//	
-	//	pkt_send.packet_type = EPT_SYNCPLAYER;
-	//	pkt_send.player_id = players[i]->getId();
-	//	pkt_send.posX = players[i]->getPosition().getX();
-	//	pkt_send.posY = players[i]->getPosition().getY();
-	//	
-	//	for (int j = 0; j < id_count; j++) {
-	//		if (i != j) {
-	//			if (SDLNet_TCP_Send(player_sockets[j], (void*)&pkt_send, sizeof(PacketSyncPlayer)) < sizeof(PacketSyncPlayer))
-	//			{
-	//				fprintf(stderr, "SDLNet_TCP_Send: %s\n", SDLNet_GetError());
-	//				exit(EXIT_FAILURE);
-	//			}
-	//		}
-	//	}
-	//}
 
 }
 
@@ -853,6 +801,38 @@ void NetworkManager::syncPedido(int idGrupoCliente, int numPaellas, std::vector<
 void NetworkManager::syncPause() {
 	Packet pkt;
 	pkt.packet_type = EPT_SYNCPAUSE;
+
+	if (nType == 'h') {
+		for (int i = 1u; i < player_sockets.size(); i++) {
+			if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+			{
+				std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+				exit(EXIT_FAILURE);
+			}
+		}
+	}
+	else {
+		if (SDLNet_TCP_Send(socket, &pkt, sizeof(Packet)) < sizeof(Packet))
+		{
+			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+			exit(EXIT_FAILURE);
+		}
+	}
+}
+
+void NetworkManager::syncComanda(int numMesa, vector<int> tamPaella, vector<int> ingPedidos) {
+	Packet pkt;
+
+	pkt.packet_type = EPT_SYNCCOMANDA;
+	pkt.syncComanda.numMesa = numMesa;
+
+	for (int i = 0; i < tamPaella.size(); i++) {
+		pkt.syncComanda.paella_size[i] = tamPaella[i];
+	}
+
+	for (int i = 0; i < ingPedidos.size(); i++) {
+		pkt.syncComanda.ing_pedidos[i] = ingPedidos[i];
+	}
 
 	if (nType == 'h') {
 		for (int i = 1u; i < player_sockets.size(); i++) {
