@@ -7,13 +7,20 @@ Reloj::Reloj(Game* game, int numeroJornada) : GameObject(game)
 	setDimension(w, h);
 	setPosition(sdlutils().width() - getWidth(), getHeight());
 	setActive(true);
-	mLastUpdate = SDL_GetTicks();
+	mLastUpdate = 0;
 
 	relojTexture = &sdlutils().images().at("reloj");
 
+	if (numeroJornada != 0) {
+		hourIni--;
+		minuteIni += 50;	
+	}
+
 	currentTime.hours = hourIni;
 	currentTime.minutes = minuteIni;
-	string timeText = parseTimeToString(hourIni, minuteIni);
+		
+	
+	string timeText = parseTimeToString(currentTime.hours, currentTime.minutes);
 	setTexture(timeText, string("paella"), fgColor, bgColor);
 
 	ultimaHora = false;
@@ -45,7 +52,7 @@ void Reloj::update()
 		return;
 	}
 
-	mLastUpdate = sdlutils().virtualTimer().currTime();
+	
 
 	if (finDia())
 	{
@@ -58,6 +65,8 @@ void Reloj::update()
 	}
 	else
 	{
+		mLastUpdate = sdlutils().virtualTimer().currTime();
+
 		//1 minuto en Ticks = 1 hora en el juego
 		currentTime.minutes += addedMinutes;
 
@@ -77,6 +86,8 @@ void Reloj::update()
 		}
 		string timeText = parseTimeToString(currentTime.hours, currentTime.minutes);
 		setTexture(timeText, string("paella"), fgColor, bgColor);
+
+		
 
 	}
 
