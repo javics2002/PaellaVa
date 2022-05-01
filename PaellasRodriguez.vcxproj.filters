@@ -72,6 +72,10 @@
     <ClCompile Include="GameObjects\Muebles\CajaHerramientas.cpp" />
     <ClCompile Include="GameObjects\Herramienta.cpp" />
     <ClCompile Include="sdlutils\InputHandler.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Sillas\SillaN.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Sillas\SillaS.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Sillas\SillaE.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Sillas\SillaO.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
@@ -169,6 +173,10 @@
     <ClInclude Include="GameObjects\Muebles\Encimera.h" />
     <ClInclude Include="GameObjects\Muebles\CajaHerramientas.h" />
     <ClInclude Include="naming_conventions.h" />
+    <ClInclude Include="GameObjects\Muebles\Sillas\SillaN.h" />
+    <ClInclude Include="GameObjects\Muebles\Sillas\SillaS.h" />
+    <ClInclude Include="GameObjects\Muebles\Sillas\SillaE.h" />
+    <ClInclude Include="GameObjects\Muebles\Sillas\SillaO.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />

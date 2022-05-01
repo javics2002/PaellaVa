@@ -230,11 +230,6 @@ void GrupoClientes::setState(EstadoClientes est)
 			i->setAnim(2);
 		}
 		break;
-	case PIDIENDO:
-		for (auto i : clientes) {
-			i->setAnim(4);
-		}
-		break;
 	default:
 		break;
 	}

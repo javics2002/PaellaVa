@@ -4,10 +4,8 @@
 
 #include "Mesa.h"
 
-Silla::Silla(Game* game, Vector2D<double> pos, string texture, int d) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, texture)
+Silla::Silla(Game* game, Vector2D<double> pos, string texture) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, texture)
 {
-	clientDepth = d;
-
 	mMesa = nullptr;
 
 	//Siempre tiene que funcionar
@@ -42,6 +40,24 @@ bool Silla::returnObject(Player* p)
 	}
 }
 
+void Silla::decirPedido()
+{
+	mMesa->decirPedido();
+}
+
+SDL_Rect Silla::getCollider()
+{
+	SDL_Rect rect = getTexBox();
+
+	if (isActive()) return {
+		rect.x,
+		rect.y + rect.h / 2,
+		rect.w,
+		rect.h / 2
+	};
+	return { 0,0,0,0 };
+}
+
 SDL_Rect Silla::getOverlap()
 {
 	SDL_Rect rect = getTexBox();
@@ -54,28 +70,5 @@ SDL_Rect Silla::getOverlap()
 		rect.w + incr * 2,
 		rect.h + incr * 2
 	};
-}
-
-void Silla::decirPedido()
-{
-	mMesa->decirPedido();
-}
-
-SDL_Rect Silla::getCollider()
-{
-	SDL_Rect rect = getTexBox();
-
-	if (isActive())return {
-		rect.x,
-		rect.y + rect.h / 2,
-		rect.w,
-		rect.h / 2
-	};
-	return { 0,0,0,0 };
-}
-
-Vector2D<double> Silla::setClientPos()
-{
-	return Vector2D<double>(getX(), getY() + clientDepth - h / 4);
 }
 

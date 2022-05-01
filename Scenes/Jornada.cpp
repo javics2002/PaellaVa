@@ -349,20 +349,26 @@ void Jornada::loadMap(string const& path)
 					idCount++;
 					getObjectManager()->addMueble(m);
 				}
-				else if (name == "sillaIz" || name == "sillaDer") {
-					Silla* s = new Silla(game, position, name, +2);
+				else if (name == "sillaDer") {
+					Silla* s = new SillaE(game, position, name);
+					s->setId(idCount);
+					idCount++;
+					getObjectManager()->addMueble(s);
+				}
+				else if (name == "sillaIz") {
+					Silla* s = new SillaO(game, position, name);
 					s->setId(idCount);
 					idCount++;
 					getObjectManager()->addMueble(s);
 				}
 				else if (name == "sillaAr") {
-					Silla* s = new Silla(game, position, name, -2);
+					Silla* s = new SillaS(game, position, name);
 					s->setId(idCount);
 					idCount++;
 					getObjectManager()->addMueble(s);
 				}
 				else if (name == "sillaAb") {
-					Silla* s = new Silla(game, position, name, +2);
+					Silla* s = new SillaN(game, position, name);
 					s->setId(idCount);
 					idCount++;
 					getObjectManager()->addMueble(s);

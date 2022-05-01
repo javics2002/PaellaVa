@@ -19,13 +19,13 @@ Cliente::Cliente(Game* game) : GameObject(game)
 	currAnim = 0;
 
 	gosht = false;
+
+	flip = SDL_FLIP_NONE;
 }
 
 void Cliente::update()
 {
 	setPosition(pos+vel);
-
-	animUpdate(Vector2D<double>(1, 0));
 }
 
 void Cliente::render(SDL_Rect* cameraRect)
@@ -45,9 +45,9 @@ void Cliente::render(SDL_Rect* cameraRect)
 	}	
 }
 
-void Cliente::cambiaTextura(string textureN)
+void Cliente::setFlip(SDL_RendererFlip f)
 {
-	setTexture(textureN);
+	flip = f;
 }
 
 void Cliente::setAnimResources(int clientType)
@@ -95,21 +95,14 @@ void Cliente::animUpdate(Vector2D<double> axis)
 
 	if (sdlutils().currRealTime() - lastFrameTime > frameRate) {
 	
-		//bool para saber si hay que cambiar el flip
-	bool flipH = false;
-	if (flip == SDL_FLIP_HORIZONTAL) flipH = true;
+		lastFrameTime = sdlutils().currRealTime();
 
-	lastFrameTime = sdlutils().currRealTime();
+		clip.x = frameCounter * clip.w;
+		frameCounter++;
 
-	clip.x = frameCounter * clip.w;
-	frameCounter++;
-
-	if (frameCounter * clip.w > anims[currAnim]->width() - 10)
-		frameCounter = 0;
-
+		if (frameCounter * clip.w > anims[currAnim]->width() - 10)
+			frameCounter = 0;
 	}
-
-
 }
 
 void Cliente::setAnim(int animNum)
@@ -129,11 +122,6 @@ Texture* Cliente::getAnim()
 SDL_Rect Cliente::getClip()
 {
 	return clip;
-}
-
-SDL_RendererFlip Cliente::getFlip()
-{
-	return flip;
 }
 
 void Cliente::drawPickedClient(SDL_Rect* cameraRect, SDL_Rect rect)

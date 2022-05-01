@@ -169,6 +169,10 @@
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
     <ClInclude Include="Scenes\Tutorial.h" />
     <ClInclude Include="Control\TextManager.h" />
+    <ClInclude Include="GameObjects\Muebles\Sillas\SillaN.h" />
+    <ClInclude Include="GameObjects\Muebles\Sillas\SillaS.h" />
+    <ClInclude Include="GameObjects\Muebles\Sillas\SillaE.h" />
+    <ClInclude Include="GameObjects\Muebles\Sillas\SillaO.h" />
     <ClInclude Include="Utils\Collider.h" />
     <ClInclude Include="Data\Comanda.h" />
     <ClInclude Include="GameObjects\Cliente.h" />
@@ -307,6 +311,10 @@
     <ClCompile Include="GameObjects\UI\ShowText.cpp" />
     <ClCompile Include="Scenes\Tutorial.cpp" />
     <ClCompile Include="Control\TextManager.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Sillas\SillaN.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Sillas\SillaS.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Sillas\SillaE.cpp" />
+    <ClCompile Include="GameObjects\Muebles\Sillas\SillaO.cpp" />
     <ClCompile Include="Utils\Collider.cpp" />
     <ClCompile Include="Utils\ParticleExample.cpp" />
     <ClCompile Include="Utils\ParticleSystem.cpp" />

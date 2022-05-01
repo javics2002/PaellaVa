@@ -395,20 +395,26 @@ void Tutorial::loadMap(string const& path)
 					getObjectManager()->addMesa(m);
 					m->setActive(false);
 				}
-				else if (name == "sillaIz" || name == "sillaDer") {
-					Silla* s = new Silla(game, position, name, +1);
+				else if (name == "sillaIz") {
+					Silla* s = new SillaE(game, position, name);
+					getObjectManager()->addMueble(s);
+					getObjectManager()->addSilla(s);
+					s->setActive(false);
+				}
+				else if (name == "sillaIz") {
+					Silla* s = new SillaO(game, position, name);;
 					getObjectManager()->addMueble(s);
 					getObjectManager()->addSilla(s);
 					s->setActive(false);
 				}
 				else if (name == "sillaAr") {
-					Silla* s = new Silla(game, position, name, -1);;
+					Silla* s = new SillaS(game, position, name);;
 					getObjectManager()->addMueble(s);
 					getObjectManager()->addSilla(s);
 					s->setActive(false);
 				}
 				else if (name == "sillaAb") {
-					Silla* s = new Silla(game, position, name, +1);
+					Silla* s = new SillaN(game, position, name);
 					getObjectManager()->addMueble(s);
 					getObjectManager()->addSilla(s);
 					s->setActive(false);
