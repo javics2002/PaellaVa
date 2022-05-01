@@ -46,6 +46,9 @@ HostClient::HostClient(Game* game) : Scene(game)
 	ip = new ShowText(game, " ", "ip", clientButton->getX() + 20, posYNotOver);
 	ip->setActive(true);
 
+	ipNoValida = new ShowText(game, "IP NO VALIDA", "ipCursor", clientButton->getX() + 20, 225);
+	ipNoValida->setActive(false);
+
 	cursor = new ShowText(game, "|", "ipCursor", clientButton->getX() + 20, posYNotOver);
 	cursor->setActive(false);
 
@@ -64,14 +67,13 @@ HostClient::HostClient(Game* game) : Scene(game)
 			}
 
 			else {
-				cout << "Ip no valida so zorra";
+				ipNoValida->setActive(true);
+				tiempoIpNV = sdlutils().currRealTime();
 			}
 		}
 		});
 
-	uiManager->addButton(clientButton);
-
-	
+	uiManager->addButton(clientButton);	
 }
 
 bool HostClient::esValida(string ipText)
@@ -155,6 +157,10 @@ void HostClient::update()
 		light->setPosition(hostButton->getX(), sdlutils().height());
 	}
 
+	if (sdlutils().currRealTime() - tiempoIpNV > frameRateIpNV) {
+		ipNoValida->setActive(false);
+	}
+
 }
 
 vector<string> HostClient::split(string ipText)
@@ -180,11 +186,13 @@ vector<string> HostClient::split(string ipText)
 }
 
 void HostClient::render() {
+
 	fondo->render(camara->renderRect());
 	objectManager->render(camara->renderRect());
 	light->draw(camara->renderRect());
 	uiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
 	ip->render(nullptr);
+	ipNoValida->render(nullptr);
 
 	if (!escrito && sdlutils().currRealTime() - tiempo > frameRate) {
 		cursor->render(nullptr);

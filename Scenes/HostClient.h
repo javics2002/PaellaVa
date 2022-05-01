@@ -10,6 +10,7 @@ class HostClient : public Scene
 
 	ShowText* ip;
 	ShowText* cursor;
+	ShowText* ipNoValida;
 	UiButton* clientButton;
 	UiButton* hostButton;
 
@@ -21,6 +22,9 @@ class HostClient : public Scene
 
 	float frameRate = 800;
 	float tiempo;
+
+	float frameRateIpNV = 500;
+	float tiempoIpNV;
 
 	bool esValida(string ipText);
 	vector<string>split(string ipText);
