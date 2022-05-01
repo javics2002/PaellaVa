@@ -49,7 +49,7 @@ void GrupoClientes::initGrupo(Cola* cola_, vector<Cliente*> clientes_)
 	for (auto i : clientes)
 		i->setVel(vel);
 
-	setState(CAMINANDO);
+	estado_ = CAMINANDO;
 }
 
 void GrupoClientes::update()
@@ -64,9 +64,15 @@ void GrupoClientes::update()
 	else if (estado_ == ENCOLA) {
 
 		int n = clientes.size() - 1;
-		SDL_Rect col = clientes[n]->getCollider();
+
+		SDL_Rect col;
+		if (clientes[0]->getVel().getX() < 0)
+			col = clientes[0]->getCollider();
+		else col = clientes[n]->getCollider();
 
 		SDL_Rect rect = { col.x - col.w / 2, col.y - col.h / 2, col.w * (n + 2), col.h * (n + 2) };
+
+		
 
 		for (auto i : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getCollisions(rect)) 
 			i->colisionClientes();
@@ -220,14 +226,14 @@ void GrupoClientes::setState(EstadoClientes est)
 
 	switch (estado_)
 	{
-	case CAMINANDO:
-		for (auto i : clientes) {
-			i->setAnim(0);
-		}
-		break;
 	case ENCOLA:
 		for (auto i : clientes) {
-			i->setAnim(2);
+			i->clientePara();
+		}
+		break;
+	case CAMINANDO:
+		for (auto i : clientes) {
+			i->clienteCamina();
 		}
 		break;
 	default:

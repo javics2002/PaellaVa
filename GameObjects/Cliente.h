@@ -40,6 +40,9 @@ public:
 	void drawPickedClient(SDL_Rect* cameraRect, SDL_Rect rect);
 
 	void setFlip(SDL_RendererFlip f);
+
+	void clientePara();
+	void clienteCamina();
 };
 
 

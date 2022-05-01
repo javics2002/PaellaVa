@@ -7,6 +7,8 @@
 
 class Game;
 
+class Cliente;
+
 class Puerta : public Mueble
 {
 	int maxTamGrupo = 0;
@@ -16,6 +18,8 @@ class Puerta : public Mueble
 	bool vertical;
 
 	Cola* cola;
+
+	Uint8 orientacion;
 
 public:
 	Puerta(Game* game, Vector2D<double> pos, int t_Max, int maxTamGrupo_);
@@ -28,6 +32,11 @@ public:
 	SDL_Rect getOverlap() override;
 
 	Cola* getCola();
+
+	void setVel(Vector2D<double> vel_) override;
+	
+
+	void setOrientation(Cliente* c);
 };
 
 

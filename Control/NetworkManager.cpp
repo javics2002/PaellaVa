@@ -264,6 +264,7 @@ void NetworkManager::updateClient()
 					Cliente* c = game->getObjectManager()->getPool<Cliente>(_p_CLIENTE)->add();
 					c->setPosition(pos);
 					c->setAnimResources(server_pkt.grupoCliente.textCliente[i]);
+					puerta->setOrientation(c);
 
 					pos = pos - distancia;
 
