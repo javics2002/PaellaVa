@@ -100,6 +100,17 @@ Comanda::Comanda(Comanda& c) : GameObject(c.game)
 
 	}
 }
+Comanda::Comanda(Game* game, int numMesa, vector<int> tamPaellas, vector<int> ingPedidos) : GameObject(game)
+{
+	//for (int i = 0; i < tamPaellas.size(); i++) {
+	//	paellas.push_back(vector<UiButton*>());
+	//	paellas[i].push_back(tamPaellas[i]);
+	//	for (int j = 0; j < tamPaellas.size(); j++) {
+
+	//	}
+	//}
+}
+
 Comanda::~Comanda()
 {
 	//si hay leaks esq aqui tengo qeu borrar algun puntero de botone spero creo que el uimanager ya los borra todos
@@ -451,11 +462,13 @@ void Comanda::eC()
 	ih().setFocused(true);
 	//uiManager->getBarra()->setBarraActive(false);
 	//uiManager->getBarra()->toggleBarra();
+	
+
+	// game->getNetworkManager()->syncComanda();
 
 }
 void Comanda::renderizaPaellas()
 {
-
 	if (numeroPaellas > 0)
 	{
 		for (int i = 0; i < numeroPaellas; i++)

@@ -28,6 +28,7 @@ enum EPacketType {
 	EPT_SYNCPEDIDO,
 	EPT_SYNCMUEBLEROTO,
 	EPT_SYNCPAUSE,
+	EPT_SYNCCOMANDA,
 	EPT_QUIT
 };
 
@@ -129,6 +130,13 @@ struct PacketSyncMuebleRoto {
 	Uint8 mueble_id;
 };
 
+struct PacketSyncComanda {
+	Uint8 numMesa;
+
+	Uint8 paella_size[4];
+	Uint8 ing_pedidos[12]; // 9 ingredientes
+};
+
 struct Packet {
 	Uint8 packet_type;
 
@@ -147,6 +155,7 @@ struct Packet {
 		PacketSyncDropObject syncDropObject;
 		PacketSyncPedido syncPedido;
 		PacketSyncMuebleRoto syncMuebleRoto;
+		PacketSyncComanda syncComanda;
 	};
 
 };
@@ -168,7 +177,6 @@ private:
 
 	void acceptPlayers();
 	void receivePlayers();
-	void sendPlayers();
 
 	// CLIENT
 
@@ -249,6 +257,7 @@ public:
 	void syncPedido(int idGrupoCliente, int numPaellas, std::vector<int> tamPaella, std::vector<int> ingPedidos);
 	void syncMuebleRoto(int muebleId);
 	void syncPause();
+	void syncComanda(int numMesa, std::vector<int> tamPaella, std::vector<int> ingPedidos);
 
 	void setGameStarted(bool gameStarted_) { gameStarted = gameStarted_; }
 };

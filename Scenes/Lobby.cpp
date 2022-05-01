@@ -20,7 +20,7 @@ Lobby::Lobby(Game* game) : Scene(game)
 	//Nombre cocinera
 	
 	ShowText* NombreCocinera = new ShowText(game, game->getNombre(), "lobby",
-		(int)cocinera->getX(), 100);
+		(int)cocinera->getX(), sdlutils().height()- 165);
 
 	uiManager->addInterfaz(NombreCocinera);
 
@@ -30,7 +30,7 @@ Lobby::Lobby(Game* game) : Scene(game)
 	uiManager->addInterfaz(camarero);
 
 	//IP ??
-	ShowText* buscando = new ShowText(game, "ESPERANDO JUGADORES...", "lobby", sdlutils().width() / 2, sdlutils().height() - 165);
+	ShowText* buscando = new ShowText(game, "ESPERANDO JUGADORES...", "lobby", sdlutils().width() / 2, sdlutils().height() - 100);
 
 	uiManager->addInterfaz(buscando);
 
