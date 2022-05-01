@@ -46,7 +46,6 @@ public:
 
 private:
 	vector<pedidoPaella> paellas;
-	vector<bool> ingredientesPedidos;
 
 	Game* game;
 
