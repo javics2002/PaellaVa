@@ -1,5 +1,4 @@
 #include "Comanda.h"
-#include "../GameObjects/Muebles/Ventanilla.h"
 #include "../GameObjects/UI/Ingredientebutton.h"
 #include "../GameObjects/UI/Numerobutton.h"
 #include "../GameObjects/UI/Tamanobutton.h"
@@ -163,11 +162,6 @@ void Comanda::anadirNumeromesa(string n)
 {
 	ih().setKey(false, InputHandler::A);
 	numeromesa = new UiButton(game, n, x + anchobotones, anchobotones, anchobotones / 2, anchobotones / 2);
-	if (enVentanilla) {
-		vector<Ventanilla*> v = game->getObjectManager()->getVentanilla();
-		for (auto i : v)
-			i->receiveNumeroMesa(&sdlutils().images().at(n));
-	}
 	toggleTecladonum(false);
 	toggleTecaldotam(true);
 	activeTeclado = tecladotam;

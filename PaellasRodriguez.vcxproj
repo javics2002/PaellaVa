@@ -147,6 +147,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\IngredienteLetal.h" />
+    <ClInclude Include="GameObjects\UI\Numerobutton.h" />
     <ClInclude Include="GameObjects\UI\OcultabarraButton.h" />
     <ClInclude Include="GameObjects\Muebles\CajaHerramientas.h" />
     <ClInclude Include="GameObjects\Muebles\Encimera.h" />
@@ -194,7 +195,6 @@
     <ClInclude Include="GameObjects\Ingrediente.h" />
     <ClInclude Include="GameObjects\Muebles\InicioCinta.h" />
     <ClInclude Include="GameObjects\UI\IngredienteButton.h" />
-    <ClInclude Include="GameObjects\UI\NumeroButton.h" />
     <ClInclude Include="GameObjects\UI\RedactaComandaButton.h" />
     <ClInclude Include="GameObjects\UI\TamanoButton.h" />
     <ClInclude Include="GameObjects\UI\UiButton.h" />
@@ -243,11 +243,11 @@
     <ClInclude Include="Utils\Singleton.h" />
     <ClInclude Include="Utils\Texture.h" />
     <ClInclude Include="Utils\Vector2D.h" />
-    <ClInclude Include="GameObjects\Muebles\Ventanilla.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObjects\Herramienta.cpp" />
     <ClCompile Include="GameObjects\IngredienteLetal.cpp" />
+    <ClCompile Include="GameObjects\UI\Numerobutton.cpp" />
     <ClCompile Include="GameObjects\UI\OcultabarraButton.cpp" />
     <ClCompile Include="GameObjects\Muebles\CajaHerramientas.cpp" />
     <ClCompile Include="GameObjects\Muebles\Encimera.cpp" />
@@ -288,7 +288,6 @@
     <ClCompile Include="GameObjects\Muebles\Silla.cpp" />
     <ClCompile Include="GameObjects\Muebles\TablaProcesado.cpp" />
     <ClCompile Include="GameObjects\UI\IngredienteButton.cpp" />
-    <ClCompile Include="GameObjects\UI\NumeroButton.cpp" />
     <ClCompile Include="GameObjects\UI\RedactaComandaButton.cpp" />
     <ClCompile Include="GameObjects\UI\TamanoButton.cpp" />
     <ClCompile Include="GameObjects\UI\UiButton.cpp" />
@@ -319,7 +318,6 @@
     <ClCompile Include="Utils\ParticleExample.cpp" />
     <ClCompile Include="Utils\ParticleSystem.cpp" />
     <ClCompile Include="Utils\Texture.cpp" />
-    <ClCompile Include="GameObjects\Muebles\Ventanilla.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />

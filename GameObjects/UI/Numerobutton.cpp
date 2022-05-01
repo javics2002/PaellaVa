@@ -15,7 +15,6 @@ NumeroButton::~NumeroButton()
 void NumeroButton::execute(bool& exit)
 {
 	c->anadirNumeromesa(textura);
-	cout << "numerocomanda" + textura;
 	//Sonido de escribir aleatorio
 	sdlutils().soundEffects().at("escribir" + std::to_string(sdlutils().rand().nextInt(2, 5))).play(0, game->UI);
 }
