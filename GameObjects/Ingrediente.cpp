@@ -7,6 +7,8 @@ Ingrediente::Ingrediente(Game* game) : ObjetoPortable(game) {
 	setDimension(DIMENSION, DIMENSION);
 
 	setDepth(2);
+
+	
 }
 
 void Ingrediente::update()
@@ -25,6 +27,8 @@ void Ingrediente::onActivate()
 	miTipo = tipoIngrediente(n);
 
 	setTexture(texturaIngrediente[n]);
+
+	wasPicked = false;
 }
 
 
@@ -68,10 +72,24 @@ tipoIngrediente Ingrediente::getTipo()
 void Ingrediente::onObjectPicked()
 {
 	vel = { 0,0 };
+	wasPicked = true;
 }
 
 void Ingrediente::onObjectDropped()
 {
+}
+
+SDL_Rect Ingrediente::getOverlap()
+{
+	if (!wasPicked)
+		return getTexBox();
+	else 
+		return SDL_Rect();
+}
+
+SDL_Rect Ingrediente::getCollider()
+{
+	return getTexBox();
 }
 
 
