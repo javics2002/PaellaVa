@@ -39,7 +39,7 @@ overlapDim(Vector2D<int>(50, 50))
 
 	frameCounter = 0;
 	lastFrameTime = sdlutils().currRealTime();
-	frameRate = 5000 / 60;
+	frameRate = 1000 / 50;
 
 	currAnim = 0;
 
@@ -395,18 +395,30 @@ void Player::animUpdate(Vector2D<double> axis)
 		switch (orientation_)
 		{
 		case N:
-			currAnim = 2;
+			if (pickedObject_ != nullptr)
+				currAnim = 8;
+			else 
+				currAnim = 2;
 			break;
 		case S:
-			currAnim = 0;
+			if (pickedObject_ != nullptr)
+				currAnim = 6;
+			else
+				currAnim = 0;
 			break;
 		case E:
-			currAnim = 1;
+			if (pickedObject_ != nullptr)
+				currAnim = 7;
+			else
+				currAnim = 1;
 			flip = SDL_FLIP_NONE;
 			break;
 		case O:
+			if (pickedObject_ != nullptr)
+				currAnim = 7;
+			else
 			currAnim = 1;
-			flip = SDL_FLIP_HORIZONTAL;
+				flip = SDL_FLIP_HORIZONTAL;
 			break;
 		default:
 			break;
@@ -417,21 +429,33 @@ void Player::animUpdate(Vector2D<double> axis)
 
 			if (axis.getY() > .1f && !enComanda) {
 				// Andar Abajo
-				currAnim = 3;
+				if (pickedObject_ != nullptr)
+					currAnim = 9;
+				else
+					currAnim = 3;
 			}
 			else if (axis.getY() < -.1f && !enComanda) {
 				// Andar Arriba
-				currAnim = 5;
+				if (pickedObject_ != nullptr)
+					currAnim = 11;
+				else
+					currAnim = 5;
 			}
 
 			// Horizontal va segundo para tener prioridad
 			if (axis.getX() > .1f && !enComanda) {
 				// Andar der
-				currAnim = 4;
+				if (pickedObject_ != nullptr)
+					currAnim = 10;
+				else
+					currAnim = 4;
 			}
 			else if (axis.getX() < -.1f && !enComanda) {
 				// Andar izq
-				currAnim = 4;
+				if (pickedObject_ != nullptr)
+					currAnim = 10;
+				else
+					currAnim = 4;
 			}
 		}
 	
@@ -447,6 +471,14 @@ void Player::setAnimResources()
 		anims.push_back(&sdlutils().images().at("cocineraWalkDown"));
 		anims.push_back(&sdlutils().images().at("cocineraWalkSide"));
 		anims.push_back(&sdlutils().images().at("cocineraWalkUp"));
+
+		anims.push_back(&sdlutils().images().at("cocineraIdleDownCarry"));
+		anims.push_back(&sdlutils().images().at("cocineraIdleSideCarry"));
+		anims.push_back(&sdlutils().images().at("cocineraIdleUpCarry"));
+
+		anims.push_back(&sdlutils().images().at("cocineraWalkDownCarry"));
+		anims.push_back(&sdlutils().images().at("cocineraWalkSideCarry"));
+		anims.push_back(&sdlutils().images().at("cocineraWalkUpCarry"));
 	}
 
 	else {
@@ -457,6 +489,14 @@ void Player::setAnimResources()
 		anims.push_back(&sdlutils().images().at("camareroWalkDown"));
 		anims.push_back(&sdlutils().images().at("camareroWalkSide"));
 		anims.push_back(&sdlutils().images().at("camareroWalkUp"));
+
+		anims.push_back(&sdlutils().images().at("camareroIdleDownCarry"));
+		anims.push_back(&sdlutils().images().at("camareroIdleSideCarry"));
+		anims.push_back(&sdlutils().images().at("camareroIdleUpCarry"));
+
+		anims.push_back(&sdlutils().images().at("camareroWalkDownCarry"));
+		anims.push_back(&sdlutils().images().at("camareroWalkSideCarry"));
+		anims.push_back(&sdlutils().images().at("camareroWalkUpCarry"));
 	}
 }
 
@@ -480,6 +520,14 @@ void Player::changePlayer(bool c)
 		anims.push_back(&sdlutils().images().at("cocineraWalkDown"));
 		anims.push_back(&sdlutils().images().at("cocineraWalkSide"));
 		anims.push_back(&sdlutils().images().at("cocineraWalkUp"));
+
+		anims.push_back(&sdlutils().images().at("cocineraIdleDownCarry"));
+		anims.push_back(&sdlutils().images().at("cocineraIdleSideCarry"));
+		anims.push_back(&sdlutils().images().at("cocineraIdleUpCarry"));
+
+		anims.push_back(&sdlutils().images().at("cocineraWalkDownCarry"));
+		anims.push_back(&sdlutils().images().at("cocineraWalkSideCarry"));
+		anims.push_back(&sdlutils().images().at("cocineraWalkUpCarry"));
 	}
 
 	else {
@@ -490,6 +538,14 @@ void Player::changePlayer(bool c)
 		anims.push_back(&sdlutils().images().at("camareroWalkDown"));
 		anims.push_back(&sdlutils().images().at("camareroWalkSide"));
 		anims.push_back(&sdlutils().images().at("camareroWalkUp"));
+
+		anims.push_back(&sdlutils().images().at("camareroIdleDownCarry"));
+		anims.push_back(&sdlutils().images().at("camareroIdleSideCarry"));
+		anims.push_back(&sdlutils().images().at("camareroIdleUpCarry"));
+
+		anims.push_back(&sdlutils().images().at("camareroWalkDownCarry"));
+		anims.push_back(&sdlutils().images().at("camareroWalkSideCarry"));
+		anims.push_back(&sdlutils().images().at("camareroWalkUpCarry"));
 	}
 }
 
