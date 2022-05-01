@@ -25,6 +25,8 @@ protected:
 	bool procesado = false;
 	bool letal = false;
 
+
+	bool wasPicked;
 	
 
 public:
@@ -49,5 +51,8 @@ public:
 
 	void onObjectPicked() override;
 	void onObjectDropped() override;
+
+	SDL_Rect getOverlap() override;
+	SDL_Rect getCollider() override;
 };
 
