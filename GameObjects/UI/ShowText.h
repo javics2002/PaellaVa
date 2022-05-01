@@ -8,11 +8,12 @@ class ShowText : public GameObject
 	int x_;
 	int y_;
 
-	const SDL_Color& bgColor = { 0, 0, 0, 0 };
-	const SDL_Color& fgColor = { 255, 255, 255, 255 };
+	SDL_Color bgColor_ ;
+	SDL_Color fgColor_ ;
 
 public:
 	ShowText(Game* game,  string text,  string font, int x = 0, int y = 0, int w = 0, int h = 0);
+	ShowText(Game* game, string text, string font, SDL_Color fgColor, SDL_Color bgColor, int x = 0, int y = 0, int w = 0, int h = 0);
 
 	~ShowText();
 

@@ -161,6 +161,7 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 
 		else if (estado_ == CUENTA) {
 			drawRender(cameraRect, { (int)mesa->getCenterMesa().getX() - bocadilloX / 2, (int)mesa->getCenterMesa().getY() - bocadilloY, bocadilloX, bocadilloY }, texTolerancia);
+			sdlutils().soundEffects().at("cuenta").play();
 		}
 	}
 }
