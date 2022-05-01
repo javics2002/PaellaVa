@@ -79,8 +79,8 @@ struct PacketGrupoCliente {
 	Uint16 group_id;
 	Uint16 door_id;
 
-	Uint8 velX;
-	Uint8 velY;
+	Sint8 velX;
+	Sint8 velY;
 
 	Sint16 dirX;
 	Sint16 dirY;
