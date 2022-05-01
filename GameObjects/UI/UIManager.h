@@ -144,7 +144,7 @@ public:
 
 	bool getEnAjustes() { return enAjustes; };
 	void setEnJornada(bool b);
-	vector<string> getIngredientesTextures() { return texturaIngrediente; };
+	vector<string> getIngredientesTextures() { return texturasIngredienes; };
 	vector<string> getNumerosTextures() { return texturasNumeros; };
 	vector<string> getTamanosTrxtures() { return texturasTamanos; };
 };
