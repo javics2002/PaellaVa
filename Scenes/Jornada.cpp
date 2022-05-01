@@ -327,24 +327,28 @@ void Jornada::loadMap(string const& path)
 				}
 				if (name == "mesaS") { // 1 tile
 					Mesa* m = new Mesa(game, position, { 1, 2 }, { 1 , 1 }, name);
+					m->setTiles(21, 1);
 					m->setId(idCount);
 					idCount++;
 					getObjectManager()->addMueble(m);
 				}
 				else if (name == "mesaMH") { // 2 tiles horizontal
 					Mesa* m = new Mesa(game, position, { 2, 2 }, { 2 , 1 }, name);
+					m->setTiles(22, 1);
 					m->setId(idCount);
 					idCount++;
 					getObjectManager()->addMueble(m);
 				}
 				else if (name == "mesaMV") { // 2 tiles vertical
 					Mesa* m = new Mesa(game, position, { 1, 3 }, { 1 , 2 }, name);
+					m->setTiles(38, 0.85);
 					m->setId(idCount);
 					idCount++;
 					getObjectManager()->addMueble(m);
 				}
 				else if (name == "mesaL") { // 4 tiles
 					Mesa* m = new Mesa(game, position, { 2, 3 }, { 2 , 2 }, name);
+					m->setTiles(36, 0.85);
 					m->setId(idCount);
 					idCount++;
 					getObjectManager()->addMueble(m);

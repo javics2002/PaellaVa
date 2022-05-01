@@ -9,9 +9,6 @@ Mesa::Mesa(Game* game, Vector2D<double> pos, Vector2D<int> dim, Vector2D<int> ti
 	mWidth = tiles.getX();
 	mHeight = tiles.getY();
 
-	setTiles();
-
-
 	mGrupo = nullptr;
 
 	nSillas = 0;
@@ -20,16 +17,17 @@ Mesa::Mesa(Game* game, Vector2D<double> pos, Vector2D<int> dim, Vector2D<int> ti
 	funcionando = true;
 }
 
-void Mesa::setTiles() {
+void Mesa::setTiles(int tileOffset, double incr) {
 	Vector2D<double> supIzq = Vector2D<double>(getTexBox().x, getTexBox().y);
 
 	int dist = getTexBox().w / (2 * mWidth);
 
 	//cout << dist << endl;
 
+
 	for (int i = 0; i < mWidth; i++) {
 		for (int j = 0; j < mHeight; j++) {
-			tiles[i][j].first = Vector2D<double>(supIzq.getX() + dist + dist * 2 * i, supIzq.getY() + dist + dist * 2 *j);
+			tiles[i][j].first = Vector2D<double>(supIzq.getX() + dist + dist * 2 * i, supIzq.getY() + dist * incr + dist * incr * 2 * j + tileOffset);
 			tiles[i][j].second = true;
 		}
 	}
@@ -228,6 +226,7 @@ Vector2D<double> Mesa::getCenterMesa()
 
 	return Vector2D<double>(getTexBox().x + (tileSize * mWidth) / 2, getTexBox().y + (tileSize * mHeight) / 2);
 }
+
 
 
 

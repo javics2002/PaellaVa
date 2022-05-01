@@ -373,27 +373,23 @@ void Tutorial::loadMap(string const& path)
 				}
 				if (name == "mesaS") { // 1 tile
 					Mesa* m = new Mesa(game, position, { 1, 2 }, { 1 , 1 }, name);
+					m->setTiles(21, 1);
 					getObjectManager()->addMueble(m);
-					getObjectManager()->addMesa(m);
-					m->setActive(false);
 				}
 				else if (name == "mesaMH") { // 2 tiles horizontal
 					Mesa* m = new Mesa(game, position, { 2, 2 }, { 2 , 1 }, name);
+					m->setTiles(22, 1);
 					getObjectManager()->addMueble(m);
-					getObjectManager()->addMesa(m);
-					m->setActive(false);
 				}
 				else if (name == "mesaMV") { // 2 tiles vertical
 					Mesa* m = new Mesa(game, position, { 1, 3 }, { 1 , 2 }, name);
+					m->setTiles(38, 0.85);
 					getObjectManager()->addMueble(m);
-					getObjectManager()->addMesa(m);
-					m->setActive(false);
 				}
 				else if (name == "mesaL") { // 4 tiles
-					Mesa* m = new Mesa(game, position, { 2, 4 }, { 2 , 2 }, name);
+					Mesa* m = new Mesa(game, position, { 2, 3 }, { 2 , 2 }, name);
+					m->setTiles(36, 0.85);
 					getObjectManager()->addMueble(m);
-					getObjectManager()->addMesa(m);
-					m->setActive(false);
 				}
 				else if (name == "sillaIz") {
 					Silla* s = new SillaE(game, position, name);

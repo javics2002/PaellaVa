@@ -16,11 +16,11 @@ Paella::Paella(Game* game, int tipo) : ObjetoPortable(game), miTipo(tipo)
 		setDimension(40, 40);
 		break;
 	case Mediana:
-		setDimension(55, 55);
+		setDimension(52, 52);
 		mSumaIntervalo = 5000;
 		break;
 	case Grande:
-		setDimension(70, 70);
+		setDimension(65, 65);
 		mSumaIntervalo = 10000;
 		break;
 	default:

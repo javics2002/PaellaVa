@@ -22,7 +22,7 @@ class Mesa : public Mueble
 	pair<Vector2D<double>, bool> tiles[2][2];
 
 
-	void setTiles();
+	
 	Vector2D<double> getProxPos(Vector2D<double> pos);
 	
 
@@ -49,5 +49,7 @@ public:
 	void decirPedido() override;
 
 	Vector2D<double> getCenterMesa();
+	void setTiles(int tileOffset, double incr);
+	
 };
 
