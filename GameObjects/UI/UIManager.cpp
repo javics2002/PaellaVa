@@ -549,7 +549,7 @@ void UIManager::creaTeclado()
 	for (auto i : texturasNumeros)
 	{
 		//Comanda comanda,Game* game, TextureName texturename, int x, int y, int w, int h
-		NumeroButton* a = new NumeroButton(this, game, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), uiscale * anchobotones, uiscale * anchobotones);
+		NumeroButton* a = new NumeroButton(this, game, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), uiscale * anchobotones, uiscale * anchobotones,j);
 		tecladonum.push_back(a);
 		uicomandas.push_back(a);
 		j++;
@@ -562,7 +562,7 @@ void UIManager::creaTeclado()
 		for (auto i : texturasIngredienes)
 		{
 			//Comanda comanda,Game* game, TextureName texturename, int x, int y, int w, int h
-			IngredienteButton* a = new IngredienteButton(this, game, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), uiscale * anchobotones, uiscale * anchobotones);
+			IngredienteButton* a = new IngredienteButton(this, game, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), uiscale * anchobotones, uiscale * anchobotones,j);
 			teclado.push_back(a);
 			//  objectmanager->creaTeclado(a);
 
@@ -575,7 +575,7 @@ void UIManager::creaTeclado()
 		vector <UiButton*> tecladotam;
 		for (auto i : texturasTamanos)
 		{
-			TamanoButton* a = new TamanoButton(this, game, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), uiscale * anchobotones, uiscale * anchobotones);
+			TamanoButton* a = new TamanoButton(this, game, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), uiscale * anchobotones, uiscale * anchobotones,j);
 
 			tecladotam.push_back(a);
 			uicomandas.push_back(a);

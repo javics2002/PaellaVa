@@ -22,6 +22,7 @@
     { "id": "barra", "file": "Assets/Images/barracomandas.png"},
     { "id": "barraboton", "file": "Assets/Images/ocultabarraboton.png"},
     { "id": "redactaboton", "file": "Assets/Images/redactaboton.png"},
+     { "id": "redactabotonup", "file": "Assets/Images/redactabotonarriba.png"},
     { "id": "uno", "file": "Assets/Images/uno.png"},
     { "id": "dos", "file": "Assets/Images/dos.png"},
     { "id": "tres", "file": "Assets/Images/tres.png"},
