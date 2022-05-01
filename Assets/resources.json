@@ -358,7 +358,6 @@
     { "id": "sacarComandas", "file": "Assets/Sounds/SacarLibretaComandas.mp3" },
     { "id": "tirarBasura1", "file": "Assets/Sounds/TirarIngredienteBasura1.mp3" },
     { "id": "tirarBasura2", "file": "Assets/Sounds/TirarIngredienteBasura2.mp3" },
-    { "id": "fuego", "file": "Assets/Sounds/Fuego.mp3" },
     { "id": "pageTurn", "file": "Assets/Sounds/PageTurn.mp3" }
   ],
 

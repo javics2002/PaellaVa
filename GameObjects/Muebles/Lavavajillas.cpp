@@ -107,6 +107,8 @@ bool Lavavajillas::receivePaella(Paella* paella_)
 			paella_->setPosition(Vector2D<double>(-500, 0));
 			paella_->iniLavado();
 
+			sdlutils().soundEffects().at("paellaLavavajillas").play();
+
 			return true;
 		}
 	}
