@@ -77,8 +77,8 @@ public:
     vector<UiButton*> getTecladoing() { return teclado; };
     void setTexturecoords(int nx, int ny);
     int getNumeroMesaWeb();
-    int * getTamanosWeb();
-    int* getIngredientesWeb();
+    vector<int> getTamanosWeb();
+    vector<int> getIngredientesWeb();
 
 
 private:

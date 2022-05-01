@@ -153,6 +153,7 @@ Comanda::Comanda(Game* game, int numMesa, vector<int> tamPaellas, vector<int> in
 			aceptaPaella();
 		}
 	}
+	uiManager->getBarra()->AñadeComanda(this);
 }
 
 Comanda::~Comanda()
@@ -225,7 +226,7 @@ void Comanda::anadirNumeromesa(string n,int j)
 	toggleTecaldotam(true);
 	activeTeclado = tecladotam;
 	changeActiveTeclado();
-	
+	numeromesaweb = j;
 }
 UiButton* Comanda::getNumeromesa()
 {
@@ -533,12 +534,14 @@ void Comanda::enviaComanda()
 void Comanda::eC()
 {
 	uiManager->getBarra()->AñadeComanda(this);
+	game->getNetworkManager()->syncComanda(getNumeroMesaWeb(), getTamanosWeb(), getIngredientesWeb());
 	cancelaPedido();
 	toggleTecaldotam(false);
 	toggleTeclado(false);
 	toggleTecladonum(true);
 	toggleactive();
 	ih().setFocused(true);
+	
 	//llenar con 9 el vector de  ingredientes hasat 12;
 	//uiManager->getBarra()->setBarraActive(false);
 	//uiManager->getBarra()->toggleBarra();
@@ -905,38 +908,23 @@ int Comanda::getNumeroMesaWeb()
 {
 	return numeromesaweb;
 }
-int* Comanda::getTamanosWeb()
+vector<int> Comanda::getTamanosWeb()
 {
-	int t[4];
-	int i = 0;
-	int huecos = maxpaellas - tamanosweb.size();//aqui last es 3
-	for (int j = 0; j < huecos; j++)
-	{
-		tamanosweb.push_back(3);
-	}
-	for (auto ti : tamanosweb)
-	{
-		t[i] = ti;
-		i++;
-	}
 	
-	return t;
+	
+	return tamanosweb;
 }
-int* Comanda::getIngredientesWeb()
+vector<int> Comanda::getIngredientesWeb()
 {
-	const int sice = maxingrendientes * maxpaellas;
+	//const int sice = maxingrendientes * maxpaellas;
 	
-	int ing[12];
+	vector<int> ing;
 		int i = 0;
 		int huecos = maxingrendientes * maxpaellas - ingredientesweb.size();//aqui last es 9
 		for (int j = 0; j < huecos; j++)
 		{
 			ingredientesweb.push_back(9);
 		}
-		for (auto ingi : ingredientesweb)
-		{
-			ing[i] = ingi;
-				i++;
-		}
-	return nullptr;
+		
+	return ingredientesweb;
 }
