@@ -7,7 +7,9 @@
     { "id": "paella", "file": "Assets/Fonts/Paella.ttf", "size": 64},
     { "id": "ip", "file": "Assets/Fonts/CocoBubble.ttf", "size": 15},
     { "id": "ipCursor", "file": "Assets/Fonts/CocoBubble.ttf", "size": 30},
-    { "id": "lobby", "file": "Assets/Fonts/CocoBubble.ttf", "size": 50}
+    { "id": "lobby", "file": "Assets/Fonts/CocoBubble.ttf", "size": 50},
+    { "id": "creditsName", "file": "Assets/Fonts/Arco.otf", "size": 30}
+
 
   ],
 
