@@ -102,13 +102,13 @@ Comanda::Comanda(Comanda& c) : GameObject(c.game)
 }
 Comanda::Comanda(Game* game, int numMesa, vector<int> tamPaellas, vector<int> ingPedidos) : GameObject(game)
 {
-	for (int i = 0; i < tamPaellas.size(); i++) {
-		paellas.push_back(vector<UiButton*>());
-		paellas[i].push_back(tamPaellas[i]);
-		for (int j = 0; j < tamPaellas.size(); j++) {
+	//for (int i = 0; i < tamPaellas.size(); i++) {
+	//	paellas.push_back(vector<UiButton*>());
+	//	paellas[i].push_back(tamPaellas[i]);
+	//	for (int j = 0; j < tamPaellas.size(); j++) {
 
-		}
-	}
+	//	}
+	//}
 }
 
 Comanda::~Comanda()
