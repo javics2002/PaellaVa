@@ -708,15 +708,15 @@ void UIManager::creaMenuPausa() {
 void UIManager::creaMenuOpciones()
 {
 	//Fondo De las opciones
-	Imagen* opcPant = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2, sdlutils().width() - 100, sdlutils().height()-100, "fondoOpc");
+	Imagen* opcPant = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2, sdlutils().width(), sdlutils().height(), "fondoOpc");
 	opcPant->setInitialPosition(sdlutils().width() / 2, sdlutils().height() / 2);
 	opcPant->setActive(false);
 
 	optionsMenu.push_back(opcPant);
 
 	//Boton salir
-	UiButton* botonSalir = new UiButton(game, "cerrarOpc", opcPant->getWidth(), 100, 100, 100);
-	botonSalir->setInitialPosition(opcPant->getWidth(), 100);
+	UiButton* botonSalir = new UiButton(game, "cerrarOpc", opcPant->getWidth()-90, 75, 100, 100);
+	botonSalir->setInitialPosition(opcPant->getWidth()-90, 75);
 	botonSalir->setActive(false);
 	botonSalir->setAction([this, botonSalir](Game* game, bool& exit) {
 		sdlutils().soundEffects().at("botonesMenu").play(0, game->UI);
@@ -735,8 +735,8 @@ void UIManager::creaMenuOpciones()
 	optionsButtons.push_back(botonSalir);
 
 	//Boton pantalla completa
-	UiButton* pantCompleta = new UiButton(game, "fondoMadera", sdlutils().width() / 2 + sdlutils().width()/5, opcPant->getHeight() - 100, 100, 100);
-	pantCompleta->setInitialPosition(sdlutils().width() / 2 + sdlutils().width() / 5, opcPant->getHeight() - 100);
+	UiButton* pantCompleta = new UiButton(game, "fondoMadera", sdlutils().width() / 2 + sdlutils().width() / 4 +30, opcPant->getHeight() - 200, 100, 100);
+	pantCompleta->setInitialPosition(sdlutils().width() / 2 + sdlutils().width() / 4 + 30, opcPant->getHeight() - 200);
 	pantCompleta->setActive(false);
 
 	pantCompleta->setAction([this, pantCompleta](Game* game, bool& exit) {
@@ -754,8 +754,8 @@ void UIManager::creaMenuOpciones()
 	botonesMando.push_back(botPantCompl);
 
 	//Texto pantalla completa
-	Imagen* textoPCompleta = new Imagen(game, pantCompleta->getX() - pantCompleta->getWidth() / 2 - 75, pantCompleta->getY(), 125, 50, "PCompleta");
-	textoPCompleta->setInitialPosition(pantCompleta->getX() - pantCompleta->getWidth() / 2 - 75, pantCompleta->getY());
+	Imagen* textoPCompleta = new Imagen(game, pantCompleta->getX() - pantCompleta->getWidth() / 2 - 135, pantCompleta->getY(), 280, 80, "PCompleta");
+	textoPCompleta->setInitialPosition(pantCompleta->getX() - pantCompleta->getWidth() / 2 - 135, pantCompleta->getY());
 	textoPCompleta->setActive(false);
 
 	optionsMenu.push_back(textoPCompleta);
@@ -779,8 +779,8 @@ void UIManager::creaMenuOpciones()
 	botonesMando.push_back(botMusicaDer);
 
 	//Texto barra musica
-	Imagen* textoMusica = new Imagen(game, barraVol_musica->getX() - barraVol_musica->getWidth()/2 - 75, barraVol_musica->getY(), 125, 50, "musica");
-	textoMusica->setInitialPosition(barraVol_musica->getX() - barraVol_musica->getWidth() / 2 - 75, barraVol_musica->getY());
+	Imagen* textoMusica = new Imagen(game, barraVol_musica->getX() - barraVol_musica->getWidth() / 2 - 100, barraVol_musica->getY(), 200, 80, "musica");
+	textoMusica->setInitialPosition(barraVol_musica->getX() - barraVol_musica->getWidth() / 2 - 100, barraVol_musica->getY());
 	textoMusica->setActive(false);
 
 	optionsMenu.push_back(textoMusica);
@@ -789,9 +789,9 @@ void UIManager::creaMenuOpciones()
 	Imagen* barraVol_sonido = new Imagen(game, sdlutils().width() / 2 + 75, sdlutils().height() / 2, 700, 30, "barraVol");
 	barraVol_sonido->setInitialPosition(sdlutils().width() / 2 + 75, sdlutils().height() / 2);
 	barraVol_sonido->setActive(false);
-	
+
 	optionsMenu.push_back(barraVol_sonido);
-	
+
 	//Bontes para sonido
 	Imagen* botSonidoIzq = new Imagen(game, barraVol_sonido->getX() - barraVol_sonido->getWidth() / 2 + 35,
 		barraVol_sonido->getY() - barraVol_sonido->getHeight() - 15, 60, 50, "LB");
@@ -804,8 +804,8 @@ void UIManager::creaMenuOpciones()
 	botonesMando.push_back(botSonidoDer);
 
 	//Texto barra sonido
-	Imagen* textoSonido = new Imagen(game, barraVol_sonido->getX() - barraVol_sonido->getWidth() / 2 - 75, barraVol_sonido->getY(), 125, 50, "sonido");
-	textoSonido->setInitialPosition(barraVol_sonido->getX() - barraVol_sonido->getWidth() / 2 - 75, barraVol_sonido->getY());
+	Imagen* textoSonido = new Imagen(game, barraVol_sonido->getX() - barraVol_sonido->getWidth() / 2 - 100, barraVol_sonido->getY(), 200, 80, "sonido");
+	textoSonido->setInitialPosition(barraVol_sonido->getX() - barraVol_sonido->getWidth() / 2 - 100, barraVol_sonido->getY());
 	textoSonido->setActive(false);
 
 	optionsMenu.push_back(textoSonido);
@@ -894,16 +894,16 @@ void UIManager::creaMenuOpciones()
 
 
 	//Caja de texto del nombre
-	Imagen* fondoNombre = new Imagen(game, sdlutils().width() / 2 - 100, opcPant->getHeight() - 100, 210, 50, "fondoMadera");
-	fondoNombre->setInitialPosition(sdlutils().width() / 2 - 100, opcPant->getHeight() - 100);
+	Imagen* fondoNombre = new Imagen(game, sdlutils().width() / 2 - 120, opcPant->getHeight() - 200, 210, 50, "fondoMadera");
+	fondoNombre->setInitialPosition(sdlutils().width() / 2 - 120, opcPant->getHeight() - 200);
 	fondoNombre->setActive(false);
 
 	optionsMenu.push_back(fondoNombre);
 
 	//Boton para escribir el nombre
-	nombre = new UiButton(game, game->getNombre(), "abadiNombre", { 255, 255, 255, 255 }, { 0, 0, 0, 0 }, sdlutils().width() / 2 - 100, opcPant->getHeight() - 100);
+	nombre = new UiButton(game, game->getNombre(), "ip", { 255, 255, 255, 255 }, { 0, 0, 0, 0 }, sdlutils().width() / 2 - 120, opcPant->getHeight() - 200);
 	cursor_ = new GameObject(game);
-	nombre->setInitialPosition(sdlutils().width() / 2 - 100, opcPant->getHeight() - 100);
+	nombre->setInitialPosition(sdlutils().width() / 2 - 120, opcPant->getHeight() - 200);
 	nombre->setActive(false);
 	
 	nombre->setAction([this](Game* game, bool& exit) {
@@ -940,8 +940,8 @@ void UIManager::creaMenuOpciones()
 	optionsMenu.push_back(nombre);
 
 	//Texto nombre
-	Imagen* textoNombre = new Imagen(game, fondoNombre->getX() - fondoNombre->getWidth() / 2 - 75, fondoNombre->getY(), 125, 50, "nombre");
-	textoNombre->setInitialPosition(fondoNombre->getX() - fondoNombre->getWidth() / 2 - 75, fondoNombre->getY());
+	Imagen* textoNombre = new Imagen(game, fondoNombre->getX() - fondoNombre->getWidth() / 2 - 120, fondoNombre->getY(), 170, 80, "nombre");
+	textoNombre->setInitialPosition(fondoNombre->getX() - fondoNombre->getWidth() / 2 - 120, fondoNombre->getY());
 	textoNombre->setActive(false);
 
 	optionsMenu.push_back(textoNombre);

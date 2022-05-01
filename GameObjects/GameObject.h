@@ -53,7 +53,8 @@ public:
 
     virtual void update() {};
 
-    void setVel(Vector2D<double> vel_) { vel = vel_; };
+    virtual void setVel(Vector2D<double> vel_) { vel = vel_; };
+    Vector2D<double> getVel() { return vel; };
 
     virtual void init(ObjectManager* objectManager) {};
 

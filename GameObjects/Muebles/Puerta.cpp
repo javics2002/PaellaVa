@@ -12,6 +12,8 @@ Puerta::Puerta(Game* game, Vector2D<double> pos, int t_Max, int tamMaxGrupo_) : 
 
 	//Siempre tiene que funcionar
 	funcionando = true;
+
+	orientacion = E;
 }
 
 void Puerta::update()
@@ -50,6 +52,8 @@ void Puerta::update()
 			initTime = sdlutils().virtualTimer().currTime();
 		}	
 	}
+
+
 	else if (sdlutils().virtualTimer().currTime() - initTime >= SPAWN_DELAY && isActive()) {
 		int integrantes = 1 + rand() % maxTamGrupo;
 
@@ -71,6 +75,7 @@ void Puerta::update()
 			c->setAnimResources(t);
 			clientes.push_back(c);
 			texturas.push_back(t);
+			setOrientation(c);
 		
 			for (int i = 1; i < integrantes; i++) {
 				pos = pos - dist;
@@ -82,6 +87,7 @@ void Puerta::update()
 				c->setAnimResources(t);
 				clientes.push_back(c);
 				texturas.push_back(t);
+				setOrientation(c);				
 			}
 
 			GrupoClientes* g = game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->add();
@@ -130,3 +136,32 @@ SDL_Rect Puerta::getOverlap()
 Cola* Puerta::getCola() {
 	return cola;
 }
+
+void Puerta::setVel(Vector2D<double> vel_)
+{
+	vel = vel_;
+
+	if (vel_.getX() < 0)
+		orientacion = O;
+	else if (vel_.getY() > 0)
+		orientacion = S;
+}
+
+void Puerta::setOrientation(Cliente* c)
+{
+	switch (orientacion)
+	{
+	case E:
+		c->setAnim(0);
+		break;
+	case O:
+		c->setAnim(0);
+		c->setFlip(SDL_FLIP_HORIZONTAL);
+		break;
+	case S:
+		c->setAnim(5);
+	default:
+		break;
+	}
+}
+

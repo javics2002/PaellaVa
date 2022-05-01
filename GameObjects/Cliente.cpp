@@ -1,6 +1,10 @@
 #include "Cliente.h"
 #include "../../Control/game.h"
 
+#include <iostream>
+
+using namespace std;
+
 Cliente::Cliente(Game* game) : GameObject(game)
 {
 	setDimension(DIMENSION, DIMENSION);
@@ -62,6 +66,7 @@ void Cliente::setAnimResources(int clientType)
 		anims.push_back(&sdlutils().images().at("cliente1SittingDown"));
 		anims.push_back(&sdlutils().images().at("cliente1SittingSide"));
 
+		anims.push_back(&sdlutils().images().at("cliente1WalkDown"));
 	}
 	else if (clientType == 1) {
 
@@ -73,6 +78,8 @@ void Cliente::setAnimResources(int clientType)
 		anims.push_back(&sdlutils().images().at("cliente2SittingDown"));
 		anims.push_back(&sdlutils().images().at("cliente2SittingSide"));
 
+		anims.push_back(&sdlutils().images().at("cliente2WalkDown"));
+
 	}
 	else if (clientType == 2) {
 
@@ -83,6 +90,8 @@ void Cliente::setAnimResources(int clientType)
 
 		anims.push_back(&sdlutils().images().at("cliente3SittingDown"));
 		anims.push_back(&sdlutils().images().at("cliente3SittingSide"));
+
+		anims.push_back(&sdlutils().images().at("cliente3WalkSide"));
 
 	}
 }
@@ -126,7 +135,7 @@ SDL_Rect Cliente::getClip()
 
 void Cliente::drawPickedClient(SDL_Rect* cameraRect, SDL_Rect rect)
 {
-	drawRender(cameraRect, rect, anims[anims.size() - 1], clip, flip);
+	drawRender(cameraRect, rect, anims[4], clip, flip);
 }
 
 SDL_Rect Cliente::getCollider()
@@ -151,3 +160,22 @@ void Cliente::setGoshtClient(bool b)
 	gosht = b;
 }
 
+void Cliente::clientePara()
+{
+	//if (currAnim == 5)
+	//	currAnim = 1;
+	//else currAnim = 2;
+
+	if (currAnim == 0)
+		currAnim = 2;
+	else if (currAnim == 5)
+		currAnim = 1;
+}
+
+void Cliente::clienteCamina()
+{
+	if (currAnim == 2)
+		currAnim = 0;
+	else if (currAnim == 1)
+		currAnim = 5;
+}
