@@ -144,15 +144,22 @@ SDL_Rect Cliente::getCollider()
 
 	return {
 		rect.x + rect.w / 4,
-		rect.y + rect.h / 4,
+		rect.y + rect.h * 2 / 3,
 		rect.w / 2,
-		rect.h * 3 / 4
+		rect.h / 3
 	};
 }
 
 SDL_Rect Cliente::getOverlap()
 {
-	return getCollider();
+	SDL_Rect rect = getTexBox();
+
+	return {
+		rect.x + rect.w / 4,
+		rect.y + rect.h / 4,
+		rect.w / 2,
+		rect.h * 3 / 4
+	};
 }
 
 void Cliente::setGoshtClient(bool b)
