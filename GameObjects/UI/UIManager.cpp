@@ -636,12 +636,12 @@ void UIManager::creaMenuPausa() {
 	bg->setActive(false);
 	pauseMenu.push_back(bg);
 
-	Imagen* pauseImage = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2, 300, 300, "pause1");
+	Imagen* pauseImage = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2, 500, 360, "pause1");
 	pauseImage->setActive(false);
 	pauseMenu.push_back(pauseImage);
 
-	UiButton* resumeButton = new UiButton(game, "resumeBoton", sdlutils().width() / 2, sdlutils().height() / 2 - 25, 200, 100);
-	resumeButton->setInitialDimension(200, 100);
+	UiButton* resumeButton = new UiButton(game, "resumeBoton", sdlutils().width() / 2, sdlutils().height() / 2 - 40, 320, 130);
+	resumeButton->setInitialDimension(320, 130);
 	resumeButton->setActive(false);
 
 	resumeButton->setAction([this, resumeButton](Game* game, bool& exit) {
@@ -679,8 +679,8 @@ void UIManager::creaMenuPausa() {
 
 	pauseButtons.push_back(resumeButton);
 
-	UiButton* exitButton = new UiButton(game, "exitBoton", sdlutils().width() / 2, sdlutils().height() / 2 + 30, 200, 100);
-	exitButton->setInitialDimension(200, 100);
+	UiButton* exitButton = new UiButton(game, "exitBoton", sdlutils().width() / 2, sdlutils().height() / 2 + 60, 320, 130);
+	exitButton->setInitialDimension(320, 130);
 	exitButton->setActive(false);
 
 	exitButton->setAction([this, exitButton](Game* game, bool& exit) mutable {
