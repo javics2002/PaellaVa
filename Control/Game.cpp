@@ -35,7 +35,7 @@ void Game::init()
 	setNombre(texturaIngrediente[sdlutils().rand().nextInt(0, texturaIngrediente.size())]);
 
 	//currentScene = new Menu(this);
-	currentScene = new Jornada(this, "Jornada7", 7);
+	currentScene = new Menu(this);
 }
 
 void Game::start()
