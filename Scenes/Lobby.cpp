@@ -10,21 +10,16 @@ Lobby::Lobby(Game* game) : Scene(game)
 	//fondo
 	fondo->setTexture("lobbyBg");
 	fondo->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
-	fondo->setDimension(sdlutils().width(), sdlutils().height() + 100);
+	fondo->setDimension(sdlutils().width(), sdlutils().height()+100);
 
 	//Cocinera
-	Imagen* cocinera = new Imagen(game, sdlutils().width() / 2 - 300, sdlutils().height() / 2, 450, 450, "cocinera");
+	Imagen* cocinera = new Imagen(game, sdlutils().width() / 2 - 300, sdlutils().height() / 2, 450, 450, "cocineraLobby");
 
 	uiManager->addInterfaz(cocinera);
 
-	//IP ??
-	ShowText* buscando = new ShowText(game, "ESPERANDO JUGADORES...", "abadiNombre", sdlutils().width()/2, sdlutils().height() - 165);
-
-	uiManager->addInterfaz(buscando);
-
 	//Nombre cocinera
 	
-	ShowText* NombreCocinera = new ShowText(game, game->getNombre(), "abadiNombre",
+	ShowText* NombreCocinera = new ShowText(game, game->getNombre(), "lobby",
 		(int)cocinera->getX(), 100);
 
 	uiManager->addInterfaz(NombreCocinera);
@@ -33,6 +28,11 @@ Lobby::Lobby(Game* game) : Scene(game)
 	camarero = new Imagen(game, sdlutils().width() / 2 + 300, sdlutils().height() / 2, 450, 450, "CamareroConect");
 
 	uiManager->addInterfaz(camarero);
+
+	//IP ??
+	ShowText* buscando = new ShowText(game, "ESPERANDO JUGADORES...", "lobby", sdlutils().width() / 2, sdlutils().height() - 165);
+
+	uiManager->addInterfaz(buscando);
 
 	////Nombre del camarero
 	//ShowText* NombreCamarero = new ShowText(game, "elvergalarga", "abadiNombre",
@@ -73,7 +73,7 @@ Lobby::Lobby(Game* game, string nombreHost) : Scene(game)
 	//fondo
 	fondo->setTexture("lobbyBg");
 	fondo->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
-	fondo->setDimension(sdlutils().width(), sdlutils().height() + 100);
+	fondo->setDimension(sdlutils().width(), sdlutils().height()-100);
 
 	//Cocinera
 	Imagen* cocinera = new Imagen(game, sdlutils().width() / 2 - 300, sdlutils().height() / 2, 450, 450, "cocinera");

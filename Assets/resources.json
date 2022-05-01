@@ -6,7 +6,9 @@
     { "id": "abadiNombre", "file": "Assets/Fonts/Abadi.otf", "size": 30},
     { "id": "paella", "file": "Assets/Fonts/Paella.ttf", "size": 64},
     { "id": "ip", "file": "Assets/Fonts/CocoBubble.ttf", "size": 15},
-    { "id": "ipCursor", "file": "Assets/Fonts/CocoBubble.ttf", "size": 30}
+    { "id": "ipCursor", "file": "Assets/Fonts/CocoBubble.ttf", "size": 30},
+    { "id": "lobby", "file": "Assets/Fonts/CocoBubble.ttf", "size": 50}
+
   ],
 
   "images": [
@@ -202,6 +204,7 @@
     { "id": "R", "file": "Assets/Images/R.png" },
     { "id": "ip", "file": "Assets/Images/ip.png" },
     { "id": "camareroLobby", "file": "Assets/Images/camareroLobby.png" },
+    { "id": "cocineraLobby", "file": "Assets/Images/cocineraLobby.png" },
     { "id": "fondoMadera", "file": "Assets/Images/fondoMadera.png" }
 
   ],
