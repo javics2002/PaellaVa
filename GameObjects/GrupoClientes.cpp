@@ -70,7 +70,7 @@ void GrupoClientes::update()
 			col = clientes[0]->getCollider();
 		else col = clientes[n]->getCollider();
 
-		SDL_Rect rect = { col.x - col.w / 2, col.y - col.h / 2, col.w * (n + 2), col.h * (n + 2) };
+		SDL_Rect rect = { col.x - col.w / 2, col.y - col.h, col.w * (n + 2), col.h * (n + 2) };
 
 		
 
@@ -161,6 +161,7 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 
 		else if (estado_ == CUENTA) {
 			drawRender(cameraRect, { (int)mesa->getCenterMesa().getX() - bocadilloX / 2, (int)mesa->getCenterMesa().getY() - bocadilloY, bocadilloX, bocadilloY }, texTolerancia);
+			sdlutils().soundEffects().at("cuenta").play();
 		}
 	}
 }

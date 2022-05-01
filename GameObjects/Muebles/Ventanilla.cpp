@@ -48,7 +48,7 @@ void Ventanilla::render(SDL_Rect* cameraRect)
 }
 bool Ventanilla::returnObject(Player* p)
 {
-	if (mpaella != nullptr && numactex!=nullptr)
+	if (mpaella != nullptr)
 	{
 		p->setPickedObject(mpaella, PAELLA);
 

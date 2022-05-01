@@ -44,7 +44,11 @@ Jornada::Jornada(Game* game, string tilemap, int numeroJornada, bool host_) : Sc
 				//Start game
 				game->getNetworkManager()->setGameStarted(false);
 
-				game->sendMessageScene(new GameOver(game, 0, nJornada));
+				mediaPuntuaciones();
+
+				game->sendMessageScene(new GameOver(game, puntuacionTotal, nJornada));
+
+				game->getNetworkManager()->sendFinishGame(puntuacionTotal, nJornada);
 				
 				return true;
 			}
@@ -173,7 +177,11 @@ void Jornada::mediaPuntuaciones()
 	for (auto i : puntuacionesComandas) {
 		sumaMedia += i;
 	}
-	puntuaciónTotal = sumaMedia / puntuacionesComandas.size();
+
+	if (puntuacionesComandas.size() > 0) {
+		puntuacionTotal = sumaMedia / puntuacionesComandas.size();
+	}
+	else puntuacionTotal = 0;
 }
 
 void Jornada::loadMap(string const& path)

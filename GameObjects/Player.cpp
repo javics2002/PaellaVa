@@ -39,7 +39,7 @@ overlapDim(Vector2D<int>(50, 50))
 
 	frameCounter = 0;
 	lastFrameTime = sdlutils().currRealTime();
-	frameRate = 1000 / 60;
+	frameRate = 5000 / 60;
 
 	currAnim = 0;
 
@@ -112,7 +112,7 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 			{
 				//Ingredientes
 				for (auto i : game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->getOverlaps(getOverlap())) {
-					if (i->isActive() && i->canPick() && nearestObject(i)) {
+					if (i->isActive() && !i->isPicked() && i->canPick() && nearestObject(i)) {
 						objectType_ = INGREDIENTE;
 					}
 
@@ -122,13 +122,13 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 				}
 				//Ingredientes letales
 				for (auto i : game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTELETAL)->getOverlaps(getOverlap())) {
-					if (i->isActive() && i->canPick() && nearestObject(i)) {
+					if (i->isActive() && !i->isPicked() && i->canPick() && nearestObject(i)) {
 						objectType_ = INGREDIENTE;
 					}
 				}
 				//Grupo de Clientes
 				for (auto i : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getOverlaps(getOverlap())) {
-					if (i->isActive() && i->canPick() && !i->isPicked() && nearestObject(i)) {
+					if (i->isActive() && !i->isPicked() && i->canPick() && nearestObject(i)) {
 						objectType_ = CLIENTES;
 						if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::cogerClientes) {
 							game->getCurrentScene()->changeState(States::pausaClientes);
@@ -383,10 +383,6 @@ Mueble* Player::nearestObject(Mueble* m1, Mueble* m2)
 
 void Player::animUpdate(Vector2D<double> axis)
 {
-	//bool para saber si hay que cambiar el flip
-	bool flipH = false;
-	if (flip == SDL_FLIP_HORIZONTAL) flipH = true;
-
 	lastFrameTime = sdlutils().currRealTime();
 
 	clip.x = frameCounter * clip.w;
@@ -406,11 +402,11 @@ void Player::animUpdate(Vector2D<double> axis)
 			break;
 		case E:
 			currAnim = 1;
-			if (flipH) flip = SDL_FLIP_NONE;
+			flip = SDL_FLIP_NONE;
 			break;
 		case O:
 			currAnim = 1;
-			if (!flipH)flip = SDL_FLIP_HORIZONTAL;
+			flip = SDL_FLIP_HORIZONTAL;
 			break;
 		default:
 			break;

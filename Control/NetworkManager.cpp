@@ -10,6 +10,7 @@
 
 #include "../Scenes/Lobby.h"
 #include "../Scenes/Jornada.h"
+#include "../Scenes/GameOver.h"
 
 #include "../Utils/Vector2D.h"
 
@@ -188,7 +189,8 @@ void NetworkManager::updateClient()
 			{
 			case EPT_START:
 				// Start game
-				game->sendMessageScene(new Jornada(game, "Jornada1", 0, false));
+				
+				game->sendMessageScene(new Jornada(game, "Jornada" + to_string(server_pkt.startGame.num_jornada + 1), server_pkt.startGame.num_jornada, false));
 				startGameTimer();
 
 				break;
@@ -311,6 +313,14 @@ void NetworkManager::updateClient()
 				//Comanda* com;
 				//
 				//game->getUIManager()->getBarra()->AñadeComanda(com);
+				break;
+
+			case EPT_FINISHGAME:
+				setGameStarted(false);
+				
+				game->sendMessageScene(new GameOver(game, server_pkt.finishGame.punctuation, server_pkt.finishGame.numJornada));
+				
+				
 				break;
 			}
 
@@ -754,6 +764,23 @@ void NetworkManager::syncMuebleRoto(int muebleId)
 	Packet pkt;
 	pkt.packet_type = EPT_SYNCMUEBLEROTO;
 	pkt.syncMuebleRoto.mueble_id = muebleId;
+
+	for (int i = 1u; i < player_sockets.size(); i++) {
+		if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+		{
+			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+			exit(EXIT_FAILURE);
+		}
+	}
+}
+
+void NetworkManager::sendFinishGame(int finalPunctuation, int nJornada)
+{
+	Packet pkt;
+
+	pkt.packet_type = EPT_FINISHGAME;
+	pkt.finishGame.punctuation = finalPunctuation;
+	pkt.finishGame.numJornada = nJornada;
 
 	for (int i = 1u; i < player_sockets.size(); i++) {
 		if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))

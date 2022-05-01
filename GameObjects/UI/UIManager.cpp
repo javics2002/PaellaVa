@@ -1011,16 +1011,9 @@ void UIManager::creaPantallaCreditos()
 
 	//Título de desarrolladores
 
-	Imagen* fondoTitulo = new Imagen(game, sdlutils().width() / 2, 180, 260, 60, "reloj");
-
-	fondoTitulo->setInitialPosition(sdlutils().width() / 2, 180);
-	fondoTitulo->setActive(false);
-
-	creditsBase.push_back(fondoTitulo);
-
-	ShowText* TituloDev = new ShowText(game, "Desarrolladores", "paella",
-		sdlutils().width() / 2, 190, 0, 0);
-	TituloDev->setInitialPosition(sdlutils().width() / 2, 190);
+	ShowText* TituloDev = new ShowText(game, "Desarrolladores", "paella", { 0, 0, 0, 255 }, { 0, 0, 0, 255 },
+		sdlutils().width() / 2, 120, 0, 0);
+	TituloDev->setInitialPosition(sdlutils().width() / 2, 120);
 	TituloDev->setActive(false);
 
 	creditsScreen[0].push_back(TituloDev);
@@ -1217,10 +1210,10 @@ void UIManager::creaPantallaCreditos()
 
 	ShowText* Tester2 = new ShowText(game, "Ruben Andrade", "abadiNombre",
 		2 * (sdlutils().width()) / 3, posInicialCreditos, 0, 0);
-	Dev2->setInitialPosition(2 * (sdlutils().width()) / 3, posInicialCreditos);
-	Dev2->setActive(false);
+	Tester2->setInitialPosition(2 * (sdlutils().width()) / 3, posInicialCreditos);
+	Tester2->setActive(false);
 
-	creditsScreen[2].push_back(Dev2);
+	creditsScreen[2].push_back(Tester2);
 
 	ShowText* Tester3 = new ShowText(game, "David Andrade", "abadiNombre",
 		sdlutils().width() / 3, posInicialCreditos + avanceCreditos, 0, 0);
