@@ -112,7 +112,7 @@ void Comanda::añadiraPedido(string i)
 	if (Pedido.size() < maxingrendientes+1&&paellas.size()<maxpaellas)
 
 	{
-		UiButton* a = new UiButton(game, i, escritoX, escritoY, anchobotones / 2, anchobotones / 2);
+		UiButton* a = new UiButton(game, i, escritoX, escritoY, anchobotones*0.75, anchobotones*0.75);
 		escritoX += anchobotones / 2 + margenbotones;
 		//gamet->getObjectManager()->creaTeclado(a);
 		Pedido.push_back(a);
