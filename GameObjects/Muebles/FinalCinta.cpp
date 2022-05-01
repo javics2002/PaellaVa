@@ -30,6 +30,8 @@ bool FinalCinta::receiveIngrediente(Ingrediente* ingr)
 {
 	ingr->setActive(false);
 
+	sdlutils().soundEffects().at("tirarBasura" + to_string(sdlutils().rand().nextInt(1, 3))).play();
+
 	return true;
 }
 

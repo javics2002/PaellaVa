@@ -109,14 +109,18 @@ bool TablaProcesado::receiveIngrediente(Ingrediente* ingr)
 	{
 		if (ingr_ == nullptr && !ingr->getProcesado()) 
 		{
-
 			ingr_ = ingr;
 
 			tiempo = sdlutils().virtualTimer().currTime();
 
 			ingr_->setPosition(getRectCenter(getOverlap()));
 
-			canalSonido = sdlutils().soundEffects().at("cortar" + to_string(sdlutils().rand().nextInt(1, 4))).play(-1);
+			if (ingr_->getTipo() != mejillon && ingr_->getTipo() != gamba) {
+				canalSonido = sdlutils().soundEffects().at("cortar" + to_string(sdlutils().rand().nextInt(1, 4))).play(-1);
+			}
+			else {
+				canalSonido = sdlutils().soundEffects().at("cortarMejillones").play(-1);
+			}
 
 			return true;
 		}
