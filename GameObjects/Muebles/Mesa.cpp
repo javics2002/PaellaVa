@@ -91,7 +91,6 @@ bool Mesa::receiveGrupoClientes(GrupoClientes* gc)
 			vector<Cliente*> clientes = gc->getIntegrantes();
 			for (int i = 0; i < n; i++) {
 				sillas[i]->sentarCliente(clientes[i]);
-				//clientes[i]->setPosVertical(20);
 			}
 			return true;
 		}		
@@ -107,7 +106,12 @@ bool Mesa::receivePaella(Paella* paella)
 				if (mGrupo->paellasPedidas()) {
 					paella->setState(Hecha);
 					paellas.push_back(paella);
-					paella->setPosition(getProxPos(paella->getPosition()));
+
+					auto proxPos = getProxPos(paella->getPosition());
+					paella->setPosition(proxPos);
+					paella->setPosVertical(getPosVertical() - proxPos.getY());
+					paella->setDepth(1);
+
 					paella->enLaMesa(true);
 					game->getCurrentScene()->changeState(States::pausaDarDeComer);
 					sdlutils().soundEffects().at("cubiertos").play();
@@ -118,7 +122,12 @@ bool Mesa::receivePaella(Paella* paella)
 		else if(mGrupo->paellasPedidas()){
 			paella->setState(Hecha);
 			paellas.push_back(paella);
-			paella->setPosition(getProxPos(paella->getPosition()));
+			
+			auto proxPos = getProxPos(paella->getPosition());
+			paella->setPosition(proxPos);
+			paella->setPosVertical((int) (getPosVertical() - proxPos.getY() - paella->getHeight() / 2));
+			paella->setDepth(1);
+
 			paella->enLaMesa(true);
 
 			sdlutils().soundEffects().at("cubiertos").play();
@@ -143,6 +152,7 @@ bool Mesa::returnObject(Player* p)
 		p->setPickedObject(paellas.back(), objectType::PAELLA);
 		paellas.back()->enLaMesa(false);
 		paellas.back()->setContenido(Sucia);
+		paellas.back()->setDepth(2);
 		paellas.pop_back();
 
 		if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == recogerMesa)

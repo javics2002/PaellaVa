@@ -34,6 +34,8 @@ Paella::Paella(Game* game, int tipo) : ObjetoPortable(game), miTipo(tipo)
 	humo = new ParticleExample();
 	humo->setRenderer(sdlutils().renderer());
 	humo->setStyle(ParticleExample::NONE);
+
+	currentCoccionSound = "paella";
 }
 
 void Paella::anadeIngr(Ingrediente* ingr_)
@@ -76,8 +78,8 @@ void Paella::setState(EstadoPaellas estado_)
 		canalSonido = sdlutils().soundEffects().at(currentCoccionSound).play(-1);
 
 	}
-	else;
-		//sdlutils().soundEffects().at(currentCoccionSound).haltChannel(canalSonido);
+	else
+		sdlutils().soundEffects().at(currentCoccionSound).haltChannel(canalSonido);
 }
 
 void Paella::paellaRecogida()
