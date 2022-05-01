@@ -5,6 +5,7 @@
 
 
 #include "../Scenes/Menu.h"
+#include "../Scenes/Jornada.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../sdlutils/InputHandler.h"
 #include "../Control/ObjectManager.h"
@@ -33,7 +34,8 @@ void Game::init()
 
 	setNombre(texturaIngrediente[sdlutils().rand().nextInt(0, texturaIngrediente.size())]);
 
-	currentScene = new Menu(this);
+	//currentScene = new Menu(this);
+	currentScene = new Jornada(this, "Jornada7", 7);
 }
 
 void Game::start()

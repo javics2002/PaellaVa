@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="39" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="244">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="39" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="246">
  <tileset firstgid="1" source="Tileset.tsx"/>
  <layer id="1" name="Capa de patrones 1" width="39" height="12">
   <data encoding="csv">
@@ -47,7 +47,7 @@
   <object id="9" name="fogon" x="1728" y="512">
    <point/>
   </object>
-  <object id="10" name="ventanilla" x="1216" y="362">
+  <object id="10" name="encimera" x="1216" y="362">
    <point/>
   </object>
   <object id="11" name="lavavajillas" x="1216" y="234">
@@ -56,10 +56,10 @@
   <object id="12" name="mesaS" x="944" y="144.167">
    <point/>
   </object>
-  <object id="13" name="mesaL" x="192" y="192">
+  <object id="13" name="mesaL" x="192" y="196">
    <point/>
   </object>
-  <object id="14" name="mesaS" x="317.5" y="513">
+  <object id="14" name="mesaS" x="317.5" y="485">
    <point/>
   </object>
   <object id="15" name="fogon" x="1792" y="512">
@@ -80,7 +80,7 @@
   <object id="21" name="sillaIz" x="1008" y="144.5">
    <point/>
   </object>
-  <object id="22" name="sillaAb" x="192" y="128">
+  <object id="22" name="sillaAb" x="192" y="151">
    <point/>
   </object>
   <object id="27" name="puerta" x="0" y="614">
@@ -93,40 +93,34 @@
    </properties>
    <point/>
   </object>
-  <object id="30" name="mesaS" x="944" y="380">
+  <object id="30" name="mesaS" x="944" y="424">
    <point/>
   </object>
-  <object id="31" name="sillaDer" x="880" y="380">
+  <object id="31" name="sillaDer" x="880" y="424">
    <point/>
   </object>
-  <object id="32" name="sillaIz" x="1008" y="380">
+  <object id="32" name="sillaIz" x="1008" y="424">
    <point/>
   </object>
-  <object id="33" name="sillaAb" x="256" y="128">
+  <object id="33" name="sillaAb" x="256" y="151">
    <point/>
   </object>
-  <object id="34" name="sillaDer" x="128" y="192">
+  <object id="34" name="sillaDer" x="128" y="204">
    <point/>
   </object>
   <object id="35" name="sillaDer" x="128" y="256">
    <point/>
   </object>
-  <object id="36" name="sillaAr" x="256" y="320">
-   <point/>
-  </object>
-  <object id="37" name="sillaAr" x="192" y="320">
-   <point/>
-  </object>
-  <object id="38" name="sillaIz" x="320" y="192">
+  <object id="38" name="sillaIz" x="320" y="204">
    <point/>
   </object>
   <object id="39" name="sillaIz" x="320" y="256">
    <point/>
   </object>
-  <object id="41" name="sillaIz" x="381" y="513">
+  <object id="41" name="sillaIz" x="381" y="485">
    <point/>
   </object>
-  <object id="42" name="sillaDer" x="253" y="513">
+  <object id="42" name="sillaDer" x="253" y="485">
    <point/>
   </object>
   <object id="46" name="arroz" x="1408.17" y="101.833">
@@ -139,9 +133,6 @@
    <point/>
   </object>
   <object id="50" name="sillaDer" x="880" y="143.667">
-   <point/>
-  </object>
-  <object id="51" name="sillaAr" x="944" y="444">
    <point/>
   </object>
   <object id="52" name="sillaIz" x="640" y="128.5">
@@ -219,22 +210,22 @@
    </properties>
    <point/>
   </object>
-  <object id="224" name="ventanilla" x="1216" y="298">
+  <object id="224" name="encimera" x="1216" y="298">
    <point/>
   </object>
-  <object id="226" name="sillaAr" x="944" y="207.417">
+  <object id="231" name="mesaS" x="582.667" y="342.333">
    <point/>
   </object>
-  <object id="231" name="mesaS" x="582.667" y="298.333">
+  <object id="232" name="sillaDer" x="518.667" y="342.333">
    <point/>
   </object>
-  <object id="232" name="sillaDer" x="518.667" y="298.333">
+  <object id="233" name="sillaIz" x="646.667" y="342.333">
    <point/>
   </object>
-  <object id="233" name="sillaIz" x="646.667" y="298.333">
+  <object id="244" name="sillaAb" x="582.667" y="294">
    <point/>
   </object>
-  <object id="234" name="sillaAr" x="582.667" y="362.333">
+  <object id="245" name="sillaAb" x="941" y="374">
    <point/>
   </object>
  </objectgroup>
