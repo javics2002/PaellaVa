@@ -102,13 +102,57 @@ Comanda::Comanda(Comanda& c) : GameObject(c.game)
 }
 Comanda::Comanda(Game* game, int numMesa, vector<int> tamPaellas, vector<int> ingPedidos) : GameObject(game)
 {
-	//for (int i = 0; i < tamPaellas.size(); i++) {
-	//	paellas.push_back(vector<UiButton*>());
-	//	paellas[i].push_back(tamPaellas[i]);
-	//	for (int j = 0; j < tamPaellas.size(); j++) {
-
-	//	}
-	//}
+	//crear una comanda normal y rellenar el pedido con los numeritos
+	setTexture("cuadernillo");
+	clip.x = 0;
+	clip.y = 75;
+	clip.w = sdlutils().images().at("cuadernillo").width() / 8;
+	clip.h = sdlutils().images().at("cuadernillo").height();
+	frameCounter = 0;
+	lastFrameTime = sdlutils().currRealTime();
+	frameRate = 1000 / 24;
+	escale = 1;
+	Vector2D<double> p;
+	ancho *= escale;
+	alto *= escale;
+	w = 187;
+	h = 291;
+	margenbotones *= escale;
+	anchobotones *= escale;
+	margenbotones *= escale;
+	margenizquierdo *= escale;
+	margensuperior *= escale;
+	x = 100;//30
+	y = 110;//0
+	tx = 10;
+	p.setX(x);
+	p.setY(y);
+	setPosition(p);
+	setDimension(ancho, alto);
+	altoini = alto;
+	iniy = p.getY();
+	uiManager = game->getUIManager();
+	double ix = p.getX() / 2 + margenbotones + anchobotones / 2;
+	double iy = p.getY() / 2 + 2 * anchobotones;
+	margenizquierdo = ix;
+	margensuperior = iy - anchobotones / 2;
+	escritoX = ix;
+	escritoY = margensuperior;
+	int j = 0;
+	for (int i = 0; i < tamPaellas.size(); i++) 
+	{
+		if (tamPaellas[i] != 3)
+		{
+			añadiraPedido(uiManager->getTamanosTrxtures()[tamPaellas[i]], 0);
+			for (j = i; j < i + maxingrendientes; j++) {
+				if (ingPedidos[i] != 9)
+				{
+					añadiraPedido(uiManager->getIngredientesTextures()[tamPaellas[i]], 0);
+				}
+			}
+			aceptaPaella();
+		}
+	}
 }
 
 Comanda::~Comanda()
@@ -117,12 +161,21 @@ Comanda::~Comanda()
 	if (eliminarboton != nullptr)
 		delete eliminarboton; eliminarboton = nullptr;
 }
-void Comanda::añadiraPedido(string i)
+void Comanda::añadiraPedido(string i,int j)
 {
 	
 	if (Pedido.size() < maxingrendientes+1&&paellas.size()<maxpaellas)
 
 	{
+		if (tecladotam[0]->isActive())//se añade un tamaño
+		{
+			tamanosweb.push_back(j);
+		}
+		else if (teclado[0]->isActive())//añadimos un ingrediente
+		{
+			ingredientesweb.push_back(j);
+		}
+
 		UiButton* a = new UiButton(game, i, escritoX, escritoY, anchobotones*0.75, anchobotones*0.75);
 		escritoX += anchobotones / 2 + margenbotones;
 		//gamet->getObjectManager()->creaTeclado(a);
@@ -159,7 +212,7 @@ void Comanda::añadiraPedido(string i)
 		randomizaIconos();
 	}
 }
-void Comanda::anadirNumeromesa(string n)
+void Comanda::anadirNumeromesa(string n,int j)
 {
 	ih().setKey(false, InputHandler::A);
 	numeromesa = new UiButton(game, n, x + anchobotones, anchobotones, anchobotones / 2, anchobotones / 2);
@@ -225,8 +278,17 @@ void Comanda::dibujaPedido()
 void Comanda::borraPedido()
 {//FALTA SUBIR EL TECLADO DE BOTONES AL BORRAR
 	bool saltolinea = Pedido.size() % 4 == 0;//por si acaso el metodo que escribe ya hace saltos de liena se pueden anular en algunos casos
+	//pedido guarda la paella actual si size es 1 estoy borrando un tamanio y no un ingrediente
 	if (Pedido.size() > 0)
 	{
+		if (Pedido.size() == 1)//borro tamanio
+		{
+			tamanosweb.pop_back();
+		}
+		else//borro ingrediente
+		{
+			ingredientesweb.pop_back();
+		}
 
 		Pedido.erase(Pedido.begin() + Pedido.size() - 1, Pedido.begin() + Pedido.size());
 		escritoX -= anchobotones / 2 + margenbotones;
@@ -276,6 +338,9 @@ void Comanda::cancelaPedido()
 	delete numeromesa; numeromesa = nullptr;
 	toggleTecaldotam(false);
 	toggleTeclado(false);
+	numeromesaweb = -1;
+	tamanosweb.clear();
+	ingredientesweb.clear();
 	if (isActive())
 	{
 		toggleTecladonum(true);
@@ -345,6 +410,20 @@ void Comanda::aceptaPaella()
 	//aqui esta lo dificil el vector de la paella que envias ya no lo podras editar pero deberia seguir siendo visible 
 	//, tendra que mover margenes y vaciar el vector de pedido y que haya un render paellas , lo dificil va  a ser que 
 	//se renderice otdo guay
+	//todos los pedidos con 3 ingredientes y si no pues se rellena con las (un 9)
+	if (ingredientesweb.size() == maxingrendientes * tamanosweb.size())
+	{
+		//paellas llenas y sin huecos
+	}
+	else
+	{
+		//calculamos cuantos huecos hay y los rellenamos 
+		int huecos = maxingrendientes * tamanosweb.size() - ingredientesweb.size();
+		for (int i = 0; i < huecos; i++)
+		{
+			ingredientesweb.push_back(9);
+		}
+	}
 	if (!tecladonum[0]->isActive()&&paellas.size()<maxpaellas&&Pedido.size()>0)
 	{
 		if (!Pedido.empty())
@@ -460,6 +539,7 @@ void Comanda::eC()
 	toggleTecladonum(true);
 	toggleactive();
 	ih().setFocused(true);
+	//llenar con 9 el vector de  ingredientes hasat 12;
 	//uiManager->getBarra()->setBarraActive(false);
 	//uiManager->getBarra()->toggleBarra();
 	
@@ -820,4 +900,43 @@ void Comanda::setTexturecoords(int nx, int ny)
 {
 	tx = nx-w/2;
 	y = ny-h/2;
+}
+int Comanda::getNumeroMesaWeb()
+{
+	return numeromesaweb;
+}
+int* Comanda::getTamanosWeb()
+{
+	int t[4];
+	int i = 0;
+	int huecos = maxpaellas - tamanosweb.size();//aqui last es 3
+	for (int j = 0; j < huecos; j++)
+	{
+		tamanosweb.push_back(3);
+	}
+	for (auto ti : tamanosweb)
+	{
+		t[i] = ti;
+		i++;
+	}
+	
+	return t;
+}
+int* Comanda::getIngredientesWeb()
+{
+	const int sice = maxingrendientes * maxpaellas;
+	
+	int ing[12];
+		int i = 0;
+		int huecos = maxingrendientes * maxpaellas - ingredientesweb.size();//aqui last es 9
+		for (int j = 0; j < huecos; j++)
+		{
+			ingredientesweb.push_back(9);
+		}
+		for (auto ingi : ingredientesweb)
+		{
+			ing[i] = ingi;
+				i++;
+		}
+	return nullptr;
 }

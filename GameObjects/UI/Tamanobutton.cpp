@@ -1,10 +1,11 @@
 #include "Tamanobutton.h"
 #include"UIManager.h"
 
-TamanoButton::TamanoButton(UIManager* uim, Game* game, string texturename, int x, int y, int w, int h) :UiButton(game, texturename, x, y, w, h)
+TamanoButton::TamanoButton(UIManager* uim, Game* game, string texturename, int x, int y, int w, int h,int id) :UiButton(game, texturename, x, y, w, h)
 {
 	c = uim->getComanda();
 	textura = texturename;
+	idonline = id;
 }
 
 TamanoButton::~TamanoButton()
@@ -13,7 +14,7 @@ TamanoButton::~TamanoButton()
 
 void TamanoButton::execute(bool& exit)
 {
-	c->añadiraPedido(textura);
+	c->añadiraPedido(textura,idonline);
 	c->toggleTecaldotam(false);
 	c->toggleTeclado(true);
 	c->setActiveTeclado(c->getTecladoing());

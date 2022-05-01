@@ -24,5 +24,19 @@ void RedactaComandabutton::execute(bool& exit)
 	{
 		uim->getComanda()->toggleactive();
 	}
+	Swichposition();
 }
 
+void RedactaComandabutton::Swichposition()
+{
+	if (getPosition().getY() < 100)
+	{
+		setPosition(100, 260);
+		setTexture("redactabotonup");
+	}
+	else
+	{
+		setPosition(100, 60);
+		setTexture("redactaboton");
+	}
+}

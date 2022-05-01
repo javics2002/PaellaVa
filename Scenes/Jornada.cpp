@@ -88,7 +88,7 @@ Jornada::Jornada(Game* game, string tilemap, int numeroJornada, bool host_) : Sc
 	// camara init
 	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
 
-	uiManager->addInterfaz(new RedactaComandabutton(game, uiManager, "redactaboton", 10, 10, 30, 30));
+	uiManager->addInterfaz(new RedactaComandabutton(game, uiManager, "redactaboton", 100, 20, 130, 60));
 	uiManager->addInterfaz(new Imagen(game, 50, 20, 40, 40, "R"));
 	uiManager->setBarra(new ListaComandas(game, uiManager));
 

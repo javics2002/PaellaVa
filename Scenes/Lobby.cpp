@@ -30,7 +30,7 @@ Lobby::Lobby(Game* game) : Scene(game)
 	uiManager->addInterfaz(camarero);
 
 	//IP ??
-	ShowText* buscando = new ShowText(game, "ESPERANDO JUGADORES...", "lobby", sdlutils().width() / 2, sdlutils().height() - 100);
+	buscando = new ShowText(game, "ESPERANDO             JUGADORES...", "lobby", sdlutils().width() / 2+20, sdlutils().height() - 115);
 
 	uiManager->addInterfaz(buscando);
 
@@ -73,32 +73,32 @@ Lobby::Lobby(Game* game, string nombreHost) : Scene(game)
 	//fondo
 	fondo->setTexture("lobbyBg");
 	fondo->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
-	fondo->setDimension(sdlutils().width(), sdlutils().height()-100);
+	fondo->setDimension(sdlutils().width(), sdlutils().height()+100);
 
 	//Cocinera
-	Imagen* cocinera = new Imagen(game, sdlutils().width() / 2 - 300, sdlutils().height() / 2, 450, 450, "cocinera");
+	Imagen* cocinera = new Imagen(game, sdlutils().width() / 2 - 300, sdlutils().height() / 2, 450, 450, "cocineraLobby");
 
 	uiManager->addInterfaz(cocinera);
 
 	//IP ??
-	ShowText* listo = new ShowText(game, "LISTO PARA COMENZAR", "abadiNombre", sdlutils().width() / 2, sdlutils().height() - 165);
+	ShowText* listo = new ShowText(game, "LISTO PARA COMENZAR", "lobby", sdlutils().width() / 2, sdlutils().height() - 115);
 
 	uiManager->addInterfaz(listo);
 
 	//Nombre cocinera ? recibido de paquete
-	ShowText* NombreCocinera = new ShowText(game, nombreHost, "abadiNombre",
-		(int)cocinera->getX(), 100);
+	ShowText* NombreCocinera = new ShowText(game, nombreHost, "ip",
+		(int)cocinera->getX(), sdlutils().height() - 165);
 
 	uiManager->addInterfaz(NombreCocinera);
 
 	// Imagen del camarero conectandose 
-	camarero = new Imagen(game, sdlutils().width() / 2 + 300, sdlutils().height() / 2, 450, 450, "camarero");
+	camarero = new Imagen(game, sdlutils().width() / 2 + 300, sdlutils().height() / 2, 450, 450, "camareroLobby");
 
 	uiManager->addInterfaz(camarero);
 
 	//Nombre del camarero ? tu propio nombre
-	ShowText* NombreCamarero = new ShowText(game, game->getNombre(), "abadiNombre",
-		(int)camarero->getX(), 100);
+	ShowText* NombreCamarero = new ShowText(game, game->getNombre(), "ip",
+		(int)camarero->getX(), sdlutils().height() - 165);
 
 	uiManager->addInterfaz(NombreCamarero);
 }
@@ -111,8 +111,10 @@ void Lobby::clienteUnido(std::string nombreCliente)
 	uiManager->setEnLobby(false);
 
 	//Nombre del camarero
-	ShowText* NombreCamarero = new ShowText(game, nombreCliente, "abadiNombre",
-		(int)camarero->getX(), 100);
+	ShowText* NombreCamarero = new ShowText(game, nombreCliente, "ip",
+		(int)camarero->getX(), sdlutils().height() - 165);
 
 	uiManager->addInterfaz(NombreCamarero);
+	buscando->setText("LISTO PARA COMENZAR");
+
 }
