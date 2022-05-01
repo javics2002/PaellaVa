@@ -47,7 +47,7 @@ class Jornada : public Scene
 
 	list<double> puntuacionesComandas;
 
-	double puntuaciónTotal;
+	double puntuacionTotal;
 
 	Vector2D<int> tamRestaurante = Vector2D<int>(0, 1216);
 	Vector2D<double> positionCamarero;
@@ -72,5 +72,7 @@ public:
 
 	void loadMap(string const& path);
 	void togglePause();
+
+	int getNumJornada() { return nJornada; }
 };
 
