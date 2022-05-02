@@ -610,7 +610,8 @@ void Player::PickCustomObject(int objectType, int objectId, int muebleId, int ex
 	}
 
 	// pick object
-	pickedObject_->pickObject();
+	if(pickedObject_ != nullptr)
+		pickedObject_->pickObject();
 }
 
 void Player::DropCustomObject(int objectType, int objectId, int muebleId)
