@@ -55,8 +55,7 @@ Player::~Player()
 void Player::handleInput(Vector2D<double> axis, bool playerOne)
 {
 	//El jugador se mueve o se para en ambos ejes
-	if (!ih().getFocus())
-	{
+	
 		if ((axis.getX() > .1f || axis.getX() < -.1f) && !enComanda)
 			vel.setX(vel.getX() + axis.getX() * aceleracion);
 		else
@@ -69,11 +68,8 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 			vel.setY(vel.getY() * deceleracion);
 
 		vel.clamp(-maxVel, maxVel);
-	}
-	else {
-		vel.setX(0);
-		vel.setY(0);
-	}
+	
+	
 
 	if (ih().getKey(InputHandler::A) && playerOne) {
 		//Se prioriza la interaccion con los muebles por encima de otros objetos
@@ -257,8 +253,7 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 	}
 	if (sdlutils().currRealTime() - lastFrameTime > frameRate)
 	{
-		if (ih().getFocus())
-		{ }
+		
 		animUpdate(axis);
 	}
 }
@@ -412,8 +407,7 @@ void Player::animUpdate(Vector2D<double> axis)
 			break;
 		}
 		
-		if (!ih().getFocus())
-		{
+		
 
 			if (axis.getY() > .1f && !enComanda) {
 				// Andar Abajo
@@ -433,7 +427,7 @@ void Player::animUpdate(Vector2D<double> axis)
 				// Andar izq
 				currAnim = 4;
 			}
-		}
+		
 	
 }
 

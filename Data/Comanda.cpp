@@ -540,7 +540,8 @@ void Comanda::eC()
 	toggleTeclado(false);
 	toggleTecladonum(true);
 	toggleactive();
-	ih().setFocused(true);
+	uiManager->getRedactabutton()->Swichposition();
+	//ih().setFocused(true);
 	
 	//llenar con 9 el vector de  ingredientes hasat 12;
 	//uiManager->getBarra()->setBarraActive(false);
@@ -643,9 +644,9 @@ list<Comanda*>::iterator  Comanda::getSitio()
 
 void Comanda::toggleactive()
 {
-	game->getObjectManager()->getPlayerOne()->changeEnComanda(!isActive());
+	//game->getObjectManager()->getPlayerOne()->changeEnComanda(!isActive());
 	setActive(!isActive());
-	ih().setFocused(isActive());
+	//ih().setFocused(isActive());
 
 	if (isActive())//activando comanda
 	{
@@ -836,12 +837,12 @@ void Comanda::update()
 {
 	if (isActive())
 	{
-		if (ih().getKey(ih().RIGHT))
+		if (ih().getKey(ih().FOCUSRIGHT))
 		{
 		
 			siguientebotonfocus(1);
 		}
-		if (ih().getKey(ih().LEFT))
+		if (ih().getKey(ih().FOCUSLEFT))
 		{
 			siguientebotonfocus(-1);
 		}

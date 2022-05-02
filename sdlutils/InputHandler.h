@@ -89,7 +89,7 @@ public:
 	Las flechas de direccion se pueden controlar tanto con WASD, las flechas del teclado,
 	el dpad del mando y el joystick izquierdo
 	Unknown debe ser el �ltimo bot�n para marcar el n�mero de botones*/
-	enum botones { LEFT, RIGHT, UP, DOWN, A, B, X, Y, LB, RB, LT, RT, PAUSE, TAB,UNKNOWN };
+	enum botones { LEFT, RIGHT, UP, DOWN, A, B, X, Y, LB, RB, LT, RT, PAUSE, TAB,FOCUSLEFT,FOCUSRIGHT,UNKNOWN };
 
 	virtual ~InputHandler() {
 	}
@@ -278,13 +278,20 @@ public:
 	void onKeyboardDown(SDL_Scancode key) {
 		switch (key) {
 		case SDL_SCANCODE_A:
-		case SDL_SCANCODE_LEFT:
+		
 			keyJustDown(LEFT);
 		break;
+		case SDL_SCANCODE_LEFT:
+			mKeyPressed[FOCUSLEFT] = true;
+			break;
 		case SDL_SCANCODE_D:
-		case SDL_SCANCODE_RIGHT:
+		
+			
 			keyJustDown(RIGHT);
 		break;
+		case SDL_SCANCODE_RIGHT:
+			mKeyPressed[FOCUSRIGHT] = true;
+			break;
 		case SDL_SCANCODE_W:
 		case SDL_SCANCODE_UP:
 			keyJustDown(UP);
@@ -346,22 +353,30 @@ public:
 	inline void onKeyboardUp(SDL_Scancode key) {
 		switch (key) {
 		case SDL_SCANCODE_A:
-		case SDL_SCANCODE_LEFT:
+		
 			mKeyPressed[LEFT] = false;
+			
 			ejeX = mKeyPressed[RIGHT] ? 1 : 0;
 			break;
+		case SDL_SCANCODE_LEFT:
+			mKeyPressed[FOCUSLEFT] = false;
+			break;
 		case SDL_SCANCODE_D:
-		case SDL_SCANCODE_RIGHT:
+		
 			mKeyPressed[RIGHT] = false;
+			
 			ejeX = mKeyPressed[LEFT] ? -1 : 0;
 			break;
+		case SDL_SCANCODE_RIGHT:
+			mKeyPressed[FOCUSRIGHT] = false;
+			break;
 		case SDL_SCANCODE_W:
-		case SDL_SCANCODE_UP:
+		//case SDL_SCANCODE_UP:
 			mKeyPressed[UP] = false;
 			ejeY = mKeyPressed[DOWN] ? 1 : 0;
 			break;
 		case SDL_SCANCODE_S:
-		case SDL_SCANCODE_DOWN:
+		//case SDL_SCANCODE_DOWN:
 			mKeyPressed[DOWN] = false;
 			ejeY = mKeyPressed[UP] ? -1 : 0;
 			break;
@@ -451,6 +466,20 @@ public:
 				keyJustDown(RT);
 			else
 				mKeyPressed[RT] = false;
+			break;
+		case SDL_CONTROLLER_AXIS_RIGHTX:
+			if (e.caxis.value < -CONTROLLER_DEAD_ZONE) {
+				
+				mKeyPressed[FOCUSLEFT] = true;
+			}
+			else if (e.caxis.value > CONTROLLER_DEAD_ZONE)
+			{
+				mKeyPressed[FOCUSRIGHT] = true;
+			}
+			else {
+				ejeX = 0;
+				mKeyPressed[FOCUSLEFT] = mKeyPressed[FOCUSRIGHT] = false;
+			}
 			break;
 		}
 	}
