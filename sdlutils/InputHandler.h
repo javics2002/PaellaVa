@@ -89,7 +89,7 @@ public:
 	Las flechas de direccion se pueden controlar tanto con WASD, las flechas del teclado,
 	el dpad del mando y el joystick izquierdo
 	Unknown debe ser el �ltimo bot�n para marcar el n�mero de botones*/
-	enum botones { LEFT, RIGHT, UP, DOWN, A, B, X, Y, LB, RB, LT, RT, PAUSE, TAB,FOCUSLEFT,FOCUSRIGHT,UNKNOWN };
+	enum botones { LEFT, RIGHT, UP, DOWN, A, B, X, Y, LB, RB, LT, RT, PAUSE, TAB,FOCUSLEFT,FOCUSRIGHT,FOCUSUP,FOCUSDOWN,UNKNOWN };
 
 	virtual ~InputHandler() {
 	}
@@ -293,14 +293,19 @@ public:
 			mKeyPressed[FOCUSRIGHT] = true;
 			break;
 		case SDL_SCANCODE_W:
-		case SDL_SCANCODE_UP:
+		
 			keyJustDown(UP);
 		break;
+		case SDL_SCANCODE_UP:
+			keyJustDown(FOCUSUP);
+			break;
 		case SDL_SCANCODE_S:
-		case SDL_SCANCODE_DOWN:
+		
 			keyJustDown(DOWN);
 		break;
-
+		case SDL_SCANCODE_DOWN:
+			keyJustDown(FOCUSDOWN);
+			break;
 		case SDL_SCANCODE_E:
 		case SDL_SCANCODE_SPACE:
 		case SDL_SCANCODE_RETURN: //Enter
@@ -371,9 +376,12 @@ public:
 			mKeyPressed[FOCUSRIGHT] = false;
 			break;
 		case SDL_SCANCODE_W:
-		//case SDL_SCANCODE_UP:
+		
 			mKeyPressed[UP] = false;
 			ejeY = mKeyPressed[DOWN] ? 1 : 0;
+			break;
+		case SDL_SCANCODE_UP:
+			mKeyPressed[FOCUSUP] = false;
 			break;
 		case SDL_SCANCODE_S:
 		//case SDL_SCANCODE_DOWN:

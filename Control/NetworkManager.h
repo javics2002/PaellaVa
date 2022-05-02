@@ -30,7 +30,8 @@ enum EPacketType {
 	EPT_SYNCPAUSE,
 	EPT_SYNCCOMANDA,
 	EPT_FINISHGAME,
-	EPT_QUIT
+	EPT_QUIT,
+	EPT_SYNCBARRA
 };
 
 struct PacketSend {
@@ -144,7 +145,9 @@ struct PacketFinishGame {
 	Uint16 punctuation;
 	Uint8 numJornada;
 };
-
+struct PacketSyncBarra {
+	Uint16 idComanda;
+};
 struct Packet {
 	Uint8 packet_type;
 
@@ -165,6 +168,7 @@ struct Packet {
 		PacketSyncPedido syncPedido;
 		PacketSyncMuebleRoto syncMuebleRoto;
 		PacketSyncComanda syncComanda;
+		PacketSyncBarra syncBarra;
 	};
 
 };
@@ -268,6 +272,7 @@ public:
 	void syncMuebleRoto(int muebleId);
 	void syncPause();
 	void syncComanda(int numMesa, std::vector<int> tamPaella, std::vector<int> ingPedidos);
+	void syncBarra(int c);
 
 	void setGameStarted(bool gameStarted_) { gameStarted = gameStarted_; }
 };

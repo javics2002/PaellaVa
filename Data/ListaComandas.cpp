@@ -123,6 +123,9 @@ void ListaComandas::finalizacomanda(Comanda* comanda)
 		game->getCurrentScene()->changeState(pausaBorrarComanda);
 	}
 	else {
+		//int cf;
+		//cf = queComandaBorro();
+		//game->getNetworkManager()->syncBarra(cf);
 		if (comanda == selected)
 		{
 			if (lista.size() > 1)
@@ -350,4 +353,34 @@ void ListaComandas::seleccionasigcomanda(int dir)
 		selected = c;
 	}
 	
+}
+int ListaComandas::queComandaBorro()
+{
+	int pasosdesdebegin = 0;
+		auto it = selected->getSitio();
+		auto itaux = lista.begin();
+		auto itaux2 = lista.begin();
+		auto caux = *itaux;
+		itaux = caux->getSitio();
+		while (it != itaux)
+		{
+			itaux2++;
+			auto caux = *itaux2;
+			itaux = caux->getSitio();
+			pasosdesdebegin++;
+		}
+
+	return pasosdesdebegin;
+}
+void ListaComandas::borralaComandaQueteMandan(int n)
+{
+	auto itaux = lista.begin();
+	for (int k = 0; k < n; k++)
+	{
+		itaux++;
+	}
+	selected->deseleccionaComanda();
+	selected = *itaux;
+	finalizacomanda(selected);
+
 }

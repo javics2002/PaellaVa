@@ -36,11 +36,13 @@ void RedactaComandabutton::Swichposition()
 	if (getPosition().getY() < 100)
 	{
 		setPosition(100, 260);
+		setDimension(130, 60);
 		setTexture("redactabotonup");
 	}
 	else
 	{
 		setPosition(100, 20);
+		setDimension(90,40);
 		setTexture("redactaboton");
 	}
 }

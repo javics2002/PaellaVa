@@ -156,8 +156,9 @@ Comanda::Comanda(Game* game, int numMesa, vector<int> tamPaellas, vector<int> in
 		setDimension(ancho, alto);
 		setPosition(getPosition().getX(), getPosition().getY() + 2 * margenbotones);
 	}
-	
+	if(numMesa>=0&&numMesa<=8)
 	anadirNumeromesa(uiManager->getNumerosTextures()[numMesa],0);
+	
 //	uiManager->getBarra()->AñadeComanda(this);
 }
 
@@ -431,58 +432,58 @@ void Comanda::aceptaPaella()
 
 	
 		
-			if (!Pedido.empty()&& paellas.size() < maxpaellas)
+	if (!Pedido.empty() && paellas.size() < maxpaellas)
+	{
+		paellas.push_back(vector<UiButton*>());
+		for (int j = 0; j < Pedido.size(); j++)
+		{
+			paellas[numeroPaellas].push_back(Pedido[j]);
+			//  string s = Pedido[j]->getTextura();
+
+			  //paellas[numeroPaellas][j].push_back(*s.c_str()); //el vector qeuire chars raros por algun motivo
+			  ///paellas[numeroPaellas].push_back(s);
+			  //esta explotando ahi por algun motivo//el motivo : no se leer
+		}
+		Pedido.erase(Pedido.begin(), Pedido.begin() + Pedido.size());
+		Pedido.clear();
+		numeroPaellas++;
+
+		if (tecladonum.size() > 0) {
+
+			//sangriado
+			if (!tecladonum[0]->isActive())
 			{
-				paellas.push_back(vector<UiButton*>());
-				for (int j = 0; j < Pedido.size(); j++)
+				escritoY += anchobotones / 2 + margenbotones;
+				escritoX = getPosition().getX() / 2 + margenbotones + anchobotones / 2;
+				alto = alto + anchobotones / 2 + 2 * margenbotones;
+				h += anchobotones / 2 + 2 * margenbotones;
+				setDimension(ancho, alto);
+				setPosition(getPosition().getX(), getPosition().getY() + 2 * margenbotones);
+				//y += 2 * margenbotones;
+				vector<Point2D<double>> sangria = uiManager->getPosTeclado();
+				for (int i = 0; i < sangria.size(); i++)
 				{
-					paellas[numeroPaellas].push_back(Pedido[j]);
-					//  string s = Pedido[j]->getTextura();
-
-					  //paellas[numeroPaellas][j].push_back(*s.c_str()); //el vector qeuire chars raros por algun motivo
-					  ///paellas[numeroPaellas].push_back(s);
-					  //esta explotando ahi por algun motivo//el motivo : no se leer
+					int ny = sangria[i].getY() + anchobotones * 0.7f;
+					sangria[i].setY(ny);
+					//en algun lugar vuelven a tener el valor default lo tengo que mirar
+					//bajar teclado
+					//lo bajará en uim?
 				}
-				Pedido.erase(Pedido.begin(), Pedido.begin() + Pedido.size());
-				Pedido.clear();
-				numeroPaellas++;
-			}
-			if (tecladonum.size() > 0) {
-				
-				//sangriado
-				if (!tecladonum[0]->isActive())
+				for (int i = 0; i < tecladotam.size(); i++)
 				{
-					escritoY += anchobotones / 2 + margenbotones;
-					escritoX = getPosition().getX() / 2 + margenbotones + anchobotones / 2;
-					alto = alto + anchobotones / 2 + 2 * margenbotones;
-					h += anchobotones / 2 + 2 * margenbotones;
-					setDimension(ancho, alto);
-					setPosition(getPosition().getX(), getPosition().getY() + 2 * margenbotones);
-					//y += 2 * margenbotones;
-					vector<Point2D<double>> sangria = uiManager->getPosTeclado();
-					for (int i = 0; i < sangria.size(); i++)
-					{
-						int ny = sangria[i].getY() + anchobotones * 0.7f;
-						sangria[i].setY(ny);
-						//en algun lugar vuelven a tener el valor default lo tengo que mirar
-						//bajar teclado
-						//lo bajará en uim?
-					}
-					for (int i = 0; i < tecladotam.size(); i++)
-					{
-						//b->getPosition().setY(b->getPosition().getY()+anchobotones*0.7);
-						int ny = tecladotam[i]->getY() + anchobotones * 0.7f;
+					//b->getPosition().setY(b->getPosition().getY()+anchobotones*0.7);
+					int ny = tecladotam[i]->getY() + anchobotones * 0.7f;
 
-						Point2D<double> np = tecladotam[i]->getPosition();
-						np.setY(ny);
-						tecladotam[i]->setPosition(np);
-					}
-					uiManager->setPosTeclado(sangria);
-					toggleTeclado(false);
-					toggleTecaldotam(true);
+					Point2D<double> np = tecladotam[i]->getPosition();
+					np.setY(ny);
+					tecladotam[i]->setPosition(np);
 				}
+				uiManager->setPosTeclado(sangria);
+				toggleTeclado(false);
+				toggleTecaldotam(true);
 			}
-			
+		}
+	}
 }
 
 void Comanda::enviaComanda()
@@ -542,6 +543,7 @@ void Comanda::enviaComanda()
 }
 void Comanda::eC()
 {
+	//uiManager->getRedactabutton()->Swichposition();
 	aceptaPaella();
 	uiManager->getBarra()->AñadeComanda(this);
 	game->getNetworkManager()->syncComanda(getNumeroMesaWeb(), getTamanosWeb(), getIngredientesWeb());
@@ -550,7 +552,7 @@ void Comanda::eC()
 	toggleTeclado(false);
 	toggleTecladonum(true);
 	toggleactive();
-	uiManager->getRedactabutton()->Swichposition();
+	
 	//ih().setFocused(true);
 	
 	//llenar con 9 el vector de  ingredientes hasat 12;
@@ -656,6 +658,7 @@ void Comanda::toggleactive()
 {
 	//game->getObjectManager()->getPlayerOne()->changeEnComanda(!isActive());
 	setActive(!isActive());
+	uiManager->getRedactabutton()->Swichposition();
 	//ih().setFocused(isActive());
 
 	if(!isActive()) {

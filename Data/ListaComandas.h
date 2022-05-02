@@ -35,6 +35,8 @@ public:
 	void  toggleBarra();
 	bool isBarraActive();
 	void setBarraActive(bool b);
+	int queComandaBorro();
+	void borralaComandaQueteMandan(int n);
 	
 private:
 	int ancho =600;
@@ -47,6 +49,7 @@ private:
 	UIManager* uimt;
 	void pressSelectedComanda();
 	void seleccionasigcomanda(int dir);
+	
 	
 };
 

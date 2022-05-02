@@ -176,6 +176,12 @@ void NetworkManager::receivePlayers()
 					// player_sockets[i] = NULL;
 
 					break;
+				case EPT_SYNCBARRA:
+					if (gameStarted)
+					{
+						game->getUIManager()->getBarra()->borralaComandaQueteMandan(pkt.syncBarra.idComanda);
+					}
+					break;
 				}
 
 				
@@ -376,6 +382,15 @@ void NetworkManager::updateClient()
 				// borrar con iterador su socket y su player
 				// player_sockets[i] = NULL;
 
+				break;
+			case EPT_SYNCBARRA:
+				if (gameStarted) {
+					
+				 
+					game->getUIManager()->getBarra()->borralaComandaQueteMandan(server_pkt.syncBarra.idComanda);
+				
+				
+				}
 				break;
 			}
 
@@ -932,4 +947,28 @@ void NetworkManager::syncComanda(int numMesa, vector<int> tamPaella, vector<int>
 			exit(EXIT_FAILURE);
 		}
 	}
+}
+void NetworkManager::syncBarra(int c)
+{
+	Packet pkt;
+
+	pkt.packet_type = EPT_SYNCBARRA;
+	pkt.syncBarra.idComanda = c;
+	if (nType == 'h') {
+		for (int i = 1u; i < player_sockets.size(); i++) {
+			if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+			{
+				std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+				exit(EXIT_FAILURE);
+			}
+		}
+	}
+	else {
+		if (SDLNet_TCP_Send(socket, &pkt, sizeof(Packet)) < sizeof(Packet))
+		{
+			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+			exit(EXIT_FAILURE);
+		}
+	}
+
 }
