@@ -59,10 +59,6 @@ void Lavavajillas::update()
 	{
 		couldBreak -= seg;
 	}
-
-	if (paellasSucias.empty()) {
-		//sdlutils().soundEffects().at("lavarPaella").haltChannel(canalSonido);
-	}
 }
 
 
@@ -98,7 +94,7 @@ bool Lavavajillas::receivePaella(Paella* paella_)
 	{
 		if (paella_->getContenido() == Sucia) {
 
-			//canalSonido = sdlutils().soundEffects().at("lavarPaella").play(-1);
+			
 
 			if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == dejarLavavajillas)
 				game->getCurrentScene()->changeState(pausaDejarLavavajillas);
@@ -111,7 +107,7 @@ bool Lavavajillas::receivePaella(Paella* paella_)
 			paella_->iniLavado();
 
 			sdlutils().soundEffects().at("paellaLavavajillas").play();
-
+			canalSonido = sdlutils().soundEffects().at("lavarPaella").play(0,-1);
 			return true;
 		}
 	}
@@ -142,8 +138,11 @@ bool Lavavajillas::returnObject(Player* p)
 
 		return true;
 	}
-	else
+	else {
+		sdlutils().soundEffects().at("lavarPaella").haltChannel(canalSonido);
 		return false;
+	}
+		
 }
 
 void Lavavajillas::render(SDL_Rect* camera)
