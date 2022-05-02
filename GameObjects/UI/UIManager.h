@@ -8,6 +8,8 @@ class Comanda;
 class Texture;
 class ListaComandas;
 class Imagen;
+class RedactaComandabutton;
+
 using namespace std;
 using tweeny::easing;
 
@@ -26,6 +28,7 @@ class UIManager
 	vector<Comanda*> comandas;//comandas de la lista de comandas
 	vector<UiButton*> teclado;//iconos que se usan en la comanda qeu esta redactando
 	vector<UiButton*> uicomandas;
+	RedactaComandabutton* redactaboton;
 	//vector <GameObject*> pedido;//pedido que se est� redactando lo lleva la comanda
 
 	float uiscale = 1.1;
@@ -102,6 +105,8 @@ public:
 	Comanda* getComanda();
 	ListaComandas* getBarra();
 	void setBarra(ListaComandas* b);
+	void setRedactaboton(RedactaComandabutton* b) { redactaboton = b;  };
+	RedactaComandabutton* getRedactabutton() { return redactaboton; };
 	vector< Point2D<double>> getPosTeclado();
 	vector<UiButton*> getTeclado() { return teclado; };
 	void setPosTeclado(vector< Point2D<double>> t);

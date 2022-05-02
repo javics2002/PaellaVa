@@ -192,12 +192,12 @@ void ListaComandas::update()
 {
 	if (listaActive&&!lista.empty())
 	{
-		if (ih().getKey(ih().RIGHT))
+		if (ih().getKey(ih().FOCUSRIGHT))
 		{
 
 			seleccionasigcomanda(1);
 		}
-		if (ih().getKey(ih().LEFT))
+		if (ih().getKey(ih().FOCUSLEFT))
 		{
 			seleccionasigcomanda(-1);
 		}

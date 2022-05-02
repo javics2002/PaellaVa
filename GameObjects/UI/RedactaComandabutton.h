@@ -13,6 +13,7 @@ public:
 	RedactaComandabutton(Game* game, UIManager* uiManager, string claveTextura, int x, int y, int w, int h);
 	~RedactaComandabutton();
 	void Swichposition();
+	void seteabutton();
 	void execute(bool& exit) override;
 };
 

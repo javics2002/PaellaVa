@@ -5,6 +5,7 @@
 #include "../UI/Ingredientebutton.h"
 #include "../UI/Numerobutton.h"
 #include "../UI/Tamanobutton.h"
+#include "../UI/RedactaComandabutton.h"
 #include "DescartaCommandaButton.h"
 #include "EnviaComandaButton.h"
 #include "BorrarButton.h"
@@ -524,7 +525,7 @@ ListaComandas* UIManager::getBarra()
 void UIManager::setBarra(ListaComandas* b)
 {
 	barra = b;
-	OcultabarraButton* o = new OcultabarraButton(this, game, "barraboton", b->getX() + b->getWidth()*0.7 + uiscale*anchobotones, b->getY(), uiscale * anchobotones, uiscale * anchobotones, b);
+	OcultabarraButton* o = new OcultabarraButton(this, game, "barraboton", b->getX() + b->getWidth()*0.7 + uiscale*anchobotones, b->getY(), 1.7 * anchobotones, uiscale * anchobotones, b);
 	addInterfaz(o);
 }
 

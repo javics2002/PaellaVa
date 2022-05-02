@@ -6,12 +6,16 @@
 RedactaComandabutton::RedactaComandabutton(Game* game, UIManager* uiManager, string claveTextura, int x, int y, int w, int h) : UiButton(game, claveTextura, x, y, w, h)
 {
 	uim = uiManager;
+	
 }
 
 RedactaComandabutton::~RedactaComandabutton()
 {
 }
-
+void RedactaComandabutton::seteabutton()
+{
+	uim->setRedactaboton(this);
+}
 void RedactaComandabutton::execute(bool& exit)
 {
 	if (uim->getComanda() == nullptr)
@@ -36,7 +40,7 @@ void RedactaComandabutton::Swichposition()
 	}
 	else
 	{
-		setPosition(100, 60);
+		setPosition(100, 20);
 		setTexture("redactaboton");
 	}
 }

@@ -44,11 +44,7 @@ Jornada::Jornada(Game* game, string tilemap, int numeroJornada, bool host_) : Sc
 				//Start game
 				game->getNetworkManager()->setGameStarted(false);
 
-				mediaPuntuaciones();
-
-				game->sendMessageScene(new GameOver(game, puntuacionTotal, nJornada));
-
-				game->getNetworkManager()->sendFinishGame(puntuacionTotal, nJornada);
+				game->sendMessageScene(new GameOver(game, 0, nJornada));
 				
 				return true;
 			}
@@ -87,8 +83,9 @@ Jornada::Jornada(Game* game, string tilemap, int numeroJornada, bool host_) : Sc
 
 	// camara init
 	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
-
-	uiManager->addInterfaz(new RedactaComandabutton(game, uiManager, "redactaboton", 100, 20, 130, 60));
+	auto but = new RedactaComandabutton(game, uiManager, "redactaboton", 100, 20, 130, 60);
+	uiManager->addInterfaz(but);
+	uiManager->setRedactaboton(but);
 	uiManager->addInterfaz(new Imagen(game, 50, 20, 40, 40, "R"));
 	uiManager->setBarra(new ListaComandas(game, uiManager));
 
@@ -177,11 +174,7 @@ void Jornada::mediaPuntuaciones()
 	for (auto i : puntuacionesComandas) {
 		sumaMedia += i;
 	}
-
-	if (puntuacionesComandas.size() > 0) {
-		puntuacionTotal = sumaMedia / puntuacionesComandas.size();
-	}
-	else puntuacionTotal = 0;
+	puntuacionTotal= sumaMedia / puntuacionesComandas.size();
 }
 
 void Jornada::loadMap(string const& path)
