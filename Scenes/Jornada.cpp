@@ -174,7 +174,8 @@ void Jornada::mediaPuntuaciones()
 	for (auto i : puntuacionesComandas) {
 		sumaMedia += i;
 	}
-	puntuacionTotal= sumaMedia / puntuacionesComandas.size();
+	if(puntuacionesComandas.size() > 0)
+		puntuacionTotal= sumaMedia / puntuacionesComandas.size();
 }
 
 void Jornada::loadMap(string const& path)

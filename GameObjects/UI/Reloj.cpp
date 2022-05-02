@@ -1,6 +1,6 @@
 #include "Reloj.h"
 #include "../../Scenes/GameOver.h"
-
+#include "../../Scenes/Jornada.h"
 Reloj::Reloj(Game* game, int numeroJornada) : GameObject(game)
 {
 	this->game = game;
@@ -56,12 +56,10 @@ void Reloj::update()
 
 	if (finDia())
 	{
-#ifndef _DEBUG
-		game->sendMessageScene(new GameOver(game, 100, mNumeroJornada));
-#endif // _DEBUG
-		//game->getNetworkManager()->setGameStarted(false);
+		game->getNetworkManager()->setGameStarted(false);
 
-		//game->sendMessageScene(new GameOver(game, 100, mNumeroJornada));
+		game->sendMessageScene(new GameOver(game, 0, mNumeroJornada));
+		game->getNetworkManager()->sendFinishGame(dynamic_cast<Jornada*>(game->getCurrentScene())->getPunctuationJornada(), mNumeroJornada);
 	}
 	else
 	{

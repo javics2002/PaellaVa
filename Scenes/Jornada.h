@@ -74,5 +74,9 @@ public:
 	void togglePause();
 
 	int getNumJornada() { return nJornada; }
+	int getPunctuationJornada() {
+		mediaPuntuaciones();
+		return puntuacionTotal; }
+
 };
 
