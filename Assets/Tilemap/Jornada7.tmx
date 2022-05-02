@@ -27,7 +27,7 @@
   <object id="265" name="mesaMV" x="334.999" y="257">
    <point/>
   </object>
-  <object id="5" name="cartel" x="114" y="201">
+  <object id="5" name="cartel" x="114" y="649">
    <point/>
   </object>
   <object id="6" name="inicioCinta" x="2368" y="678">
@@ -80,11 +80,11 @@
   <object id="264" name="sillaAb" x="334" y="203">
    <point/>
   </object>
-  <object id="27" name="puerta" x="128" y="678">
+  <object id="27" name="puerta" x="128" y="38">
    <properties>
     <property name="MaxTamGrupo" type="int" value="4"/>
     <property name="VelocidadX" type="float" value="0"/>
-    <property name="VelocidadY" type="float" value="-2"/>
+    <property name="VelocidadY" type="float" value="2"/>
     <property name="t_Max" type="int" value="5"/>
     <property name="vertical" type="bool" value="true"/>
    </properties>

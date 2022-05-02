@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="39" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="248">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="39" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="254">
  <tileset firstgid="1" source="Tileset.tsx"/>
  <layer id="1" name="Capa de patrones 1" width="39" height="12">
   <data encoding="csv">
@@ -8,10 +8,10 @@
 13,11,11,11,11,11,11,11,11,16,11,11,11,11,11,11,11,11,11,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,
 13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
 13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,25,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
-13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
-13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
-13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
-13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
+13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,19,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
+13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,19,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
+13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,19,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
+13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,20,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
 13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
 13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
 13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4
@@ -41,7 +41,7 @@
    </properties>
    <point/>
   </object>
-  <object id="8" name="finalCinta" x="2048" y="678">
+  <object id="8" name="finalCinta" x="1984" y="678">
    <point/>
   </object>
   <object id="9" name="fogon" x="1728" y="364">
@@ -80,7 +80,7 @@
   <object id="21" name="sillaIz" x="896" y="207.166">
    <point/>
   </object>
-  <object id="22" name="sillaAb" x="192" y="150">
+  <object id="22" name="sillaAb" x="192" y="168">
    <point/>
   </object>
   <object id="27" name="puerta" x="576" y="38">
@@ -88,7 +88,7 @@
     <property name="MaxTamGrupo" type="int" value="6"/>
     <property name="VelocidadX" type="float" value="0"/>
     <property name="VelocidadY" type="float" value="2"/>
-    <property name="t_Max" type="int" value="5"/>
+    <property name="t_Max" type="int" value="9"/>
     <property name="vertical" type="bool" value="true"/>
    </properties>
    <point/>
@@ -102,7 +102,7 @@
   <object id="32" name="sillaIz" x="473.833" y="551">
    <point/>
   </object>
-  <object id="33" name="sillaAb" x="256" y="150">
+  <object id="33" name="sillaAb" x="256" y="168">
    <point/>
   </object>
   <object id="34" name="sillaDer" x="128" y="205">
@@ -123,10 +123,10 @@
   <object id="42" name="sillaDer" x="896" y="548">
    <point/>
   </object>
-  <object id="43" name="sillaAb" x="960" y="486">
+  <object id="43" name="sillaAb" x="960" y="504">
    <point/>
   </object>
-  <object id="44" name="sillaAb" x="1024" y="486">
+  <object id="44" name="sillaAb" x="1024" y="504">
    <point/>
   </object>
   <object id="46" name="arroz" x="1472" y="102">
@@ -216,7 +216,39 @@
    </properties>
    <point/>
   </object>
-  <object id="247" name="sillaAb" x="158" y="489.333">
+  <object id="247" name="sillaAb" x="158" y="507.333">
+   <point/>
+  </object>
+  <object id="248" name="cajaHerramientas" x="2368" y="486.333">
+   <point/>
+  </object>
+  <object id="249" name="inicioCinta" x="2305.67" y="98.6667">
+   <properties>
+    <property name="Horizontal" type="bool" value="true"/>
+    <property name="VelocidadX" type="float" value="0"/>
+    <property name="VelocidadY" type="float" value="1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="250" name="cinta" x="2305.67" y="162.667">
+   <properties>
+    <property name="Horizontal" type="bool" value="false"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="251" name="finalCinta" x="2305.67" y="312.667">
+   <point/>
+  </object>
+  <object id="252" name="cinta" x="2305.67" y="226.667">
+   <properties>
+    <property name="Horizontal" type="bool" value="false"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="253" name="cinta" x="2305.67" y="290.667">
+   <properties>
+    <property name="Horizontal" type="bool" value="false"/>
+   </properties>
    <point/>
   </object>
  </objectgroup>

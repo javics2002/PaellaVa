@@ -576,8 +576,9 @@ void UIManager::creaTeclado()
 
 void UIManager::randomizaTeclado()
 {
-	if (!enVentanilla) {
-		vector<Point2D<double>> posdis = posicionesBotones;
+	vector<Point2D<double>> posdis = posicionesBotones;
+	if (!enVentanilla&&posdis.size()>0) {
+		
 		int j = rand() % posdis.size();
 		for (auto i : teclado)
 		{

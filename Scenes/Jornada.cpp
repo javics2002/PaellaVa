@@ -479,8 +479,6 @@ void Jornada::loadMap(string const& path)
 					idCount++;
 					getObjectManager()->addMueble(ch);
 				}
-
-				
 			}
 		}
 		// ordenar render

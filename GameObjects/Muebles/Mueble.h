@@ -27,7 +27,7 @@ protected:
 
     int id;
     bool funcionando;
-    int roto = 50;
+    int roto = 20;
     int randomOptions = 100;
     ParticleExample* humo;
 

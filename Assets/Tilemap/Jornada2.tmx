@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="39" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="264">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="39" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="267">
  <tileset firstgid="1" source="Tileset.tsx"/>
  <layer id="1" name="Capa de patrones 1" width="39" height="12">
   <data encoding="csv">
@@ -9,9 +9,9 @@
 13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
 13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
 13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,25,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
-13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
-13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
-13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
+13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,19,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
+13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,19,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
+13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,20,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
 13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
 13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
 13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4
@@ -82,7 +82,7 @@
     <property name="MaxTamGrupo" type="int" value="4"/>
     <property name="VelocidadX" type="float" value="0"/>
     <property name="VelocidadY" type="float" value="2"/>
-    <property name="t_Max" type="int" value="5"/>
+    <property name="t_Max" type="int" value="9"/>
     <property name="vertical" type="bool" value="true"/>
    </properties>
    <point/>
@@ -90,19 +90,19 @@
   <object id="30" name="mesaS" x="345.855" y="423">
    <point/>
   </object>
-  <object id="31" name="sillaDer" x="282" y="412">
+  <object id="31" name="sillaDer" x="282" y="423">
    <point/>
   </object>
-  <object id="32" name="sillaIz" x="409.833" y="412">
+  <object id="32" name="sillaIz" x="409.833" y="423">
    <point/>
   </object>
-  <object id="34" name="sillaDer" x="576" y="232">
+  <object id="34" name="sillaDer" x="576" y="255">
    <point/>
   </object>
   <object id="35" name="sillaDer" x="576" y="296">
    <point/>
   </object>
-  <object id="38" name="sillaIz" x="768" y="232">
+  <object id="38" name="sillaIz" x="768" y="255">
    <point/>
   </object>
   <object id="39" name="sillaIz" x="768" y="296">
@@ -111,7 +111,7 @@
   <object id="40" name="sillaIz" x="1053" y="517.333">
    <point/>
   </object>
-  <object id="43" name="sillaAb" x="924" y="438">
+  <object id="43" name="sillaAb" x="924" y="473">
    <point/>
   </object>
   <object id="46" name="arroz" x="1472" y="102">
@@ -251,7 +251,16 @@
   <object id="247" name="encimera" x="2048" y="682">
    <point/>
   </object>
-  <object id="263" name="sillaAb" x="989" y="439">
+  <object id="263" name="sillaAb" x="989" y="474">
+   <point/>
+  </object>
+  <object id="264" name="cajaHerramientas" x="2176" y="102">
+   <point/>
+  </object>
+  <object id="265" name="sillaAb" x="641" y="195">
+   <point/>
+  </object>
+  <object id="266" name="sillaAb" x="706" y="196">
    <point/>
   </object>
  </objectgroup>
