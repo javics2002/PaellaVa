@@ -17,6 +17,8 @@ public:
 	const double TIEMPO_LAVADO = 3000.0;
 	double initTime;
 
+	int canalSonido2;
+
 	const int MAX_BREAK_TIME = 18000;
 	const int REDUCE_BREAK_TIME = 500;
 	int couldBreak = MAX_BREAK_TIME;

@@ -975,8 +975,8 @@ void UIManager::creaPantallaCreditos()
 			botonSalir->setDimension(t.peek() * botonSalir->getInitialWidth(), t.peek() * botonSalir->getInitialHeight());
 
 			if (t.progress() > .2f) {
-				activaBot();
 				salirCreditos();
+				activaBot();
 				return true;
 			}
 			return false;
@@ -1220,27 +1220,31 @@ void UIManager::toggleOpciones()
 	enAjustes = !enAjustes;
 
 	for (auto i : optionsMenu) {
-		i->setActive(!i->isActive());
-		tweenSetter(i, enAjustes);
+
+		if (!i->isActive()) {
+			i->setActive(!i->isActive());
+			enterTweenSetter(i, enAjustes);
+		}
+		else {
+			exitTweenSetter(i);
+			activaBot();
+		}
+
 	}
 
 	if (ih().isMandoActive() && enAjustes) {
-		for (auto i:botonesMando) {
+		for (auto i : botonesMando) {
 			i->setActive(true);
 		}
 	}
 
-	else{
+	else {
 		for (auto i : botonesMando) {
 			i->setActive(false);
 		}
 	}
 
 	escribiendoNombre = false;
-
-	if (!optionsMenu[0]->isActive())
-		activaBot();
-	
 }
 
 void UIManager::toggleCreditos(int pagina)
@@ -1250,28 +1254,26 @@ void UIManager::toggleCreditos(int pagina)
 	}
 	for (auto i : creditsScreen[pagina]) {
 		i->setActive(true);
-		tweenSetter(i, enAjustes);
+		enterTweenSetter(i, enAjustes);
 	}
 	for (auto i : creditsBase) {
 		i->setActive(true);
-		tweenSetter(i, enAjustes);
+		enterTweenSetter(i, enAjustes);
 	}
 	paginaCreditos = pagina;
 }
 
 void UIManager::salirCreditos()
 {
-	for (auto i : creditsScreen) {
-		for (auto j : i) {
-			j->setActive(false);
-		}
+	for (auto i : creditsScreen[paginaCreditos]) {
+		exitTweenSetter(i);
 	}
 	for (auto i : creditsBase) {
-		i->setActive(false);
+		exitTweenSetter(i);
 	}
 }
 
-void UIManager::tweenSetter(GameObject* i, bool enAjustes_) {
+void UIManager::enterTweenSetter(GameObject* i, bool enAjustes_) {
 	if (i->isActive() && !enAjustes_) {
 		if (fromMenu) {
 			addTween(2.0f, 1.0f, 600.0f, false).via(easing::exponentialOut).onStep([i](tweeny::tween<float>& t, float) mutable {
@@ -1309,6 +1311,21 @@ void UIManager::tweenSetter(GameObject* i, bool enAjustes_) {
 			i->setPosition(i->getInitialPositionX(), t.peek() * i->getInitialPositionY());
 
 			if (t.progress() == 1.0f) {
+				return true;
+			}
+			return false;
+			});
+	}
+}
+
+void UIManager::exitTweenSetter(GameObject* i)
+{
+	if (i->isActive()){
+		addTween(1.0f, 1.5f, 600.0f, false).via(easing::exponentialOut).onStep([i](tweeny::tween<float>& t, float) mutable {
+			i->setPosition(i->getInitialPositionX(), t.peek() * i->getInitialPositionY());
+
+			if (t.progress() > 0.2f) {
+				i->setActive(false);
 				return true;
 			}
 			return false;
