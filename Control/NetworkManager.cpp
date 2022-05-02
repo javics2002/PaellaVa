@@ -110,9 +110,11 @@ void NetworkManager::receivePlayers()
 					}
 					break;
 				case EPT_SYNCPLAYER:
-					game->getObjectManager()->getPlayerTwo()->setPosition(pkt.syncPlayers.posX, pkt.syncPlayers.posY);
-					game->getObjectManager()->getPlayerTwo()->setVel(Vector2D<double>(pkt.syncPlayers.velX, pkt.syncPlayers.velY));
-
+					if (gameStarted) {
+						game->getObjectManager()->getPlayerTwo()->setPosition(pkt.syncPlayers.posX, pkt.syncPlayers.posY);
+						game->getObjectManager()->getPlayerTwo()->setVel(Vector2D<double>(pkt.syncPlayers.velX, pkt.syncPlayers.velY));
+					}
+					
 					// game_->getObjectManager()->getPlayerTwo()->setPosition(Vector2D<double>(pkt.syncPlayers.posX, pkt.syncPlayers.posY));
 					break;
 
@@ -148,7 +150,18 @@ void NetworkManager::receivePlayers()
 					dynamic_cast<Jornada*>(game->getCurrentScene())->togglePause();
 					break;
 				case EPT_SYNCCOMANDA:
-					// sincronizar comanda
+					{
+					vector<int> tamPaellas;
+
+					for (int i = 0; i < pkt.syncComanda.paella_number; i++) {
+						tamPaellas.push_back(pkt.syncComanda.paella_size[i]);
+					}
+
+					vector<int> ingPedidos(begin(pkt.syncComanda.ing_pedidos), end(pkt.syncComanda.ing_pedidos));
+
+					Comanda* com = new Comanda(game, pkt.syncComanda.numMesa, tamPaellas, ingPedidos);
+					game->getUIManager()->getBarra()->AñadeComanda(com);
+					}
 					break;
 				case EPT_QUIT:
 					std::cout << ("Client disconnected: ID(%d)\n", i) << std::endl;
@@ -262,9 +275,11 @@ void NetworkManager::updateClient()
 
 				break;
 			case EPT_SYNCPLAYER:
-				game->getObjectManager()->getPlayerTwo()->setPosition(server_pkt.syncPlayers.posX, server_pkt.syncPlayers.posY);
-				game->getObjectManager()->getPlayerTwo()->setVel(Vector2D<double>(server_pkt.syncPlayers.velX, server_pkt.syncPlayers.velY));
-
+				if (gameStarted) {
+					game->getObjectManager()->getPlayerTwo()->setPosition(server_pkt.syncPlayers.posX, server_pkt.syncPlayers.posY);
+					game->getObjectManager()->getPlayerTwo()->setVel(Vector2D<double>(server_pkt.syncPlayers.velX, server_pkt.syncPlayers.velY));
+				}
+				
 				break;
 			case EPT_SYNCPICKOBJECT:
 				// recorrer la pool correspondiente a object type, encontrar el objeto con la id correspondiente y coger dicho objeto
@@ -309,12 +324,19 @@ void NetworkManager::updateClient()
 				break;
 
 			case EPT_SYNCCOMANDA:
-				// sincronizar comanda
-				//Comanda* com;
-				//
-				//game->getUIManager()->getBarra()->AñadeComanda(com);
-				break;
+				{
+				vector<int> tamPaellas;
 
+				for (int i = 0; i < server_pkt.syncComanda.paella_number; i++) {
+					tamPaellas.push_back(server_pkt.syncComanda.paella_size[i]);
+				}
+
+				vector<int> ingPedidos(begin(server_pkt.syncComanda.ing_pedidos), end(server_pkt.syncComanda.ing_pedidos));
+
+				Comanda* com = new Comanda(game, server_pkt.syncComanda.numMesa, tamPaellas, ingPedidos);
+				game->getUIManager()->getBarra()->AñadeComanda(com);
+				}
+				break;
 			case EPT_FINISHGAME:
 				setGameStarted(false);
 				
@@ -853,6 +875,7 @@ void NetworkManager::syncComanda(int numMesa, vector<int> tamPaella, vector<int>
 
 	pkt.packet_type = EPT_SYNCCOMANDA;
 	pkt.syncComanda.numMesa = numMesa;
+	pkt.syncComanda.paella_number = tamPaella.size();
 
 	for (int i = 0; i < tamPaella.size(); i++) {
 		pkt.syncComanda.paella_size[i] = tamPaella[i];

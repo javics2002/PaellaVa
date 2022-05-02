@@ -55,7 +55,6 @@
     <ClCompile Include="GameObjects\Muebles\Pila.cpp" />
     <ClCompile Include="Scenes\HostClient.cpp" />
     <ClCompile Include="GameObjects\Arroz.cpp" />
-    <ClCompile Include="Scenes\IntroduceIP.cpp" />
     <ClCompile Include="Scenes\Lobby.cpp" />
     <ClCompile Include="Utils\Collider.cpp" />
     <ClCompile Include="Scenes\Jornada.cpp" />
@@ -155,7 +154,6 @@
     <ClInclude Include="GameObjects\Muebles\Pila.h" />
     <ClInclude Include="Scenes\HostClient.h" />
     <ClInclude Include="GameObjects\Arroz.h" />
-    <ClInclude Include="Scenes\IntroduceIP.h" />
     <ClInclude Include="Scenes\Lobby.h" />
     <ClInclude Include="Utils\Collider.h" />
     <ClInclude Include="Scenes\Jornada.h" />

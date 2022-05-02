@@ -211,7 +211,6 @@
     <ClInclude Include="GameObjects\Player.h" />
     <ClInclude Include="Data\Pool.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="Scenes\IntroduceIP.h" />
     <ClInclude Include="Scenes\Menu.h" />
     <ClInclude Include="GameObjects\Muebles\Silla.h" />
     <ClInclude Include="GameObjects\Muebles\TablaProcesado.h" />
@@ -300,7 +299,6 @@
     <ClCompile Include="Scenes\GameOver.cpp" />
     <ClCompile Include="json\JSON.cpp" />
     <ClCompile Include="json\JSONValue.cpp" />
-    <ClCompile Include="Scenes\IntroduceIP.cpp" />
     <ClCompile Include="Scenes\Menu.cpp" />
     <ClCompile Include="Scenes\Scene.cpp" />
     <ClCompile Include="SDL2-2.0.20\include\SDL_rect.cpp" />

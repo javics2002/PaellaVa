@@ -45,7 +45,7 @@ Jornada::Jornada(Game* game, string tilemap, int numeroJornada, bool host_) : Sc
 				game->getNetworkManager()->setGameStarted(false);
 
 				game->sendMessageScene(new GameOver(game, 0, nJornada));
-				
+				game->getNetworkManager()->sendFinishGame(puntuacionTotal, nJornada);
 				return true;
 			}
 			return false;

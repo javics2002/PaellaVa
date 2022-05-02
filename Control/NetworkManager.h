@@ -134,6 +134,8 @@ struct PacketSyncMuebleRoto {
 struct PacketSyncComanda {
 	Uint8 numMesa;
 
+	Uint8 paella_number; // numero de paellas
+
 	Uint8 paella_size[4];
 	Uint8 ing_pedidos[12]; // 9 ingredientes
 };
