@@ -11,6 +11,7 @@
 #include "../Scenes/Lobby.h"
 #include "../Scenes/Jornada.h"
 #include "../Scenes/GameOver.h"
+#include "../Scenes/Menu.h"
 
 #include "../Utils/Vector2D.h"
 
@@ -164,10 +165,13 @@ void NetworkManager::receivePlayers()
 					}
 					break;
 				case EPT_QUIT:
-					std::cout << ("Client disconnected: ID(%d)\n", i) << std::endl;
+					setGameStarted(false);
 
 					SDLNet_TCP_Close(player_sockets[i]);
 
+					game->sendMessageScene(new Menu(game));
+
+					//close();
 					// borrar con iterador su socket y su player
 					// player_sockets[i] = NULL;
 
@@ -361,6 +365,18 @@ void NetworkManager::updateClient()
 				
 				
 				break;
+			case EPT_QUIT:
+				setGameStarted(false);
+
+				SDLNet_TCP_Close(socket);
+
+				game->sendMessageScene(new Menu(game));
+
+				// close();
+				// borrar con iterador su socket y su player
+				// player_sockets[i] = NULL;
+
+				break;
 			}
 
 		}
@@ -526,7 +542,6 @@ void NetworkManager::close()
 		Packet pkt;
 
 		pkt.packet_type = EPT_QUIT;
-		pkt.send.player_id = 0;
 
 		for (int i = 1u; i < player_sockets.size(); i++) { // empezamos en 1 porque el 0 eres tú mismo
 			if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
@@ -549,7 +564,6 @@ void NetworkManager::close()
 		Packet pkt;
 
 		pkt.packet_type = EPT_QUIT;
-		pkt.send.player_id = client_id;
 
 		if (SDLNet_TCP_Send(socket, &pkt, sizeof(Packet)) < sizeof(Packet))
 		{
