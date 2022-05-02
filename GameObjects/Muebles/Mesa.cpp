@@ -74,64 +74,68 @@ void Mesa::init(ObjectManager* objectManager)
 
 bool Mesa::receiveGrupoClientes(GrupoClientes* gc)
 {
-	if (mGrupo == nullptr && paellas.empty() && gc->canDrop()) {
-		int n = gc->numIntegrantes();
+	if (gc != nullptr) {
+		if (mGrupo == nullptr && paellas.empty() && gc->canDrop()) {
+			int n = gc->numIntegrantes();
 
-		if (dynamic_cast<Tutorial*>(game->getCurrentScene())) {
-			game->getCurrentScene()->changeState(States::pausaPaellas);
-		}
-
-		if (n <= sillas.size()) {
-			mGrupo = gc;
-
-			gc->setPosition(getCenterMesa());
-
-			gc->hacerPedido(mWidth * mHeight, this);
-
-			vector<Cliente*> clientes = gc->getIntegrantes();
-			for (int i = 0; i < n; i++) {
-				sillas[i]->sentarCliente(clientes[i]);
+			if (dynamic_cast<Tutorial*>(game->getCurrentScene())) {
+				game->getCurrentScene()->changeState(States::pausaPaellas);
 			}
-			return true;
-		}		
-	}	
+
+			if (n <= sillas.size()) {
+				mGrupo = gc;
+
+				gc->setPosition(getCenterMesa());
+
+				gc->hacerPedido(mWidth * mHeight, this);
+
+				vector<Cliente*> clientes = gc->getIntegrantes();
+				for (int i = 0; i < n; i++) {
+					sillas[i]->sentarCliente(clientes[i]);
+				}
+				return true;
+			}
+		}
+	}
 	return false;
 }
 
 bool Mesa::receivePaella(Paella* paella)
 {
-	if (mGrupo != nullptr && paella->conArroz() ) {
-		if (dynamic_cast<Tutorial*>(game->getCurrentScene())) {
-			if (game->getCurrentScene()->getState() == States::darDeComer) {
-				if (mGrupo->paellasPedidas()) {
-					paella->setState(Hecha);
-					paellas.push_back(paella);
+	if (paella != nullptr) {
+		if (mGrupo != nullptr && paella->conArroz()) {
+			if (dynamic_cast<Tutorial*>(game->getCurrentScene())) {
+				if (game->getCurrentScene()->getState() == States::darDeComer) {
+					if (mGrupo->paellasPedidas()) {
+						paella->setState(Hecha);
+						paellas.push_back(paella);
 
-					auto proxPos = getProxPos(paella->getPosition());
-					paella->setPosition(proxPos);
-					paella->setPosVertical(getPosVertical() - proxPos.getY());
-					paella->setDepth(1);
+						auto proxPos = getProxPos(paella->getPosition());
+						paella->setPosition(proxPos);
+						paella->setPosVertical(getPosVertical() - proxPos.getY());
+						paella->setDepth(1);
 
-					paella->enLaMesa(true);
-					game->getCurrentScene()->changeState(States::pausaDarDeComer);
-					sdlutils().soundEffects().at("cubiertos").play();
-					return true;
+						paella->enLaMesa(true);
+						game->getCurrentScene()->changeState(States::pausaDarDeComer);
+						sdlutils().soundEffects().at("cubiertos").play();
+						return true;
+					}
 				}
 			}
-		}
-		else if(mGrupo->paellasPedidas()){
-			paella->setState(Hecha);
-			paellas.push_back(paella);
-			
-			auto proxPos = getProxPos(paella->getPosition());
-			paella->setPosition(proxPos);
-			paella->setPosVertical((int) (getPosVertical() - proxPos.getY() /*- paella->getHeight() / 2*/));
-			paella->setDepth(1);
+			else if (mGrupo->paellasPedidas()) {
+				paella->setState(Hecha);
+				paellas.push_back(paella);
 
-			paella->enLaMesa(true);
+				auto proxPos = getProxPos(paella->getPosition());
+				paella->setPosition(proxPos);
+				paella->setPosVertical((int)(getPosVertical() - proxPos.getY() /*- paella->getHeight() / 2*/));
+				paella->setDepth(1);
 
-			sdlutils().soundEffects().at("cubiertos").play();
-			return true;
+				paella->enLaMesa(true);
+
+				sdlutils().soundEffects().at("cubiertos").play();
+				return true;
+			}
 		}
 	}
 	return false;

@@ -90,7 +90,7 @@ void Lavavajillas::lavando()
 
 bool Lavavajillas::receivePaella(Paella* paella_)
 {
-	if (funcionando)
+	if (paella_ != nullptr && funcionando)
 	{
 		if (paella_->getContenido() == Sucia) {
 
