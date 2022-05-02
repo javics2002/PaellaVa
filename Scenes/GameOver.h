@@ -2,8 +2,7 @@
 
 #include "../Scenes/Scene.h"
 
-const vector<string> nombreTilemaps = { "Jornada2", "Jornada3", "Jornada4", "Jornada5",
-	"Jornada6", "Jornada7" };
+const vector<string> nombreTilemaps = { "Jornada2", "Jornada3", "Jornada4", "Jornada5" };
 
 class GameOver : public Scene
 {
