@@ -140,17 +140,14 @@ Comanda::Comanda(Game* game, int numMesa, vector<int> tamPaellas, vector<int> in
 	int j = 0;
 	for (int i = 0; i < tamPaellas.size(); i++) 
 	{
-		if (tamPaellas[i] != 3)
-		{
-			añadiraPedido(uiManager->getTamanosTrxtures()[tamPaellas[i]], 0);
-			for (j = i; j < i + maxingrendientes; j++) {
-				if (ingPedidos[i] != 9)
-				{
-					añadiraPedido(uiManager->getIngredientesTextures()[tamPaellas[i]], 0);
-				}
+		añadiraPedido(uiManager->getTamanosTrxtures()[tamPaellas[i]], 0);
+		for (j = i; j < i + maxingrendientes; j++) {
+			if (ingPedidos[i] != 9)
+			{
+				añadiraPedido(uiManager->getIngredientesTextures()[tamPaellas[i]], 0);
 			}
-			aceptaPaella();
 		}
+		aceptaPaella();
 	}
 	uiManager->getBarra()->AñadeComanda(this);
 }
@@ -161,20 +158,22 @@ Comanda::~Comanda()
 	if (eliminarboton != nullptr)
 		delete eliminarboton; eliminarboton = nullptr;
 }
-void Comanda::añadiraPedido(string i,int j)
+void Comanda::añadiraPedido(string i, int j)
 {
 	
-	if (Pedido.size() < maxingrendientes+1&&paellas.size()<maxpaellas)
-
+	if (Pedido.size() < maxingrendientes+1 && paellas.size()<maxpaellas)
 	{
-		if (tecladotam[0]->isActive())//se añade un tamaño
-		{
-			tamanosweb.push_back(j);
+		if (!tecladotam.empty() && !teclado.empty()) {
+			if (tecladotam[0]->isActive())//se añade un tamaño
+			{
+				tamanosweb.push_back(j);
+			}
+			else if (teclado[0]->isActive())//añadimos un ingrediente
+			{
+				ingredientesweb.push_back(j);
+			}
 		}
-		else if (teclado[0]->isActive())//añadimos un ingrediente
-		{
-			ingredientesweb.push_back(j);
-		}
+		
 
 		UiButton* a = new UiButton(game, i, escritoX, escritoY, anchobotones*0.75, anchobotones*0.75);
 		escritoX += anchobotones / 2 + margenbotones;
@@ -209,7 +208,8 @@ void Comanda::añadiraPedido(string i,int j)
 			}
 			uiManager->setPosTeclado(sangria);
 		}
-		randomizaIconos();
+		if(uiManager->getPosTeclado().size() > 0)
+			randomizaIconos();
 	}
 }
 void Comanda::anadirNumeromesa(string n,int j)
@@ -419,54 +419,57 @@ void Comanda::aceptaPaella()
 			ingredientesweb.push_back(9);
 		}
 	}
-	if (!tecladonum[0]->isActive()&&paellas.size()<maxpaellas&&Pedido.size()>0)
-	{
-		if (!Pedido.empty())
+
+	if (!tecladonum.empty()) {
+		if (!tecladonum[0]->isActive() && paellas.size() < maxpaellas && Pedido.size() > 0)
 		{
-			paellas.push_back(vector<UiButton*>());
-			for (int j = 0; j < Pedido.size(); j++)
+			if (!Pedido.empty())
 			{
-				paellas[numeroPaellas].push_back(Pedido[j]);
-				//  string s = Pedido[j]->getTextura();
+				paellas.push_back(vector<UiButton*>());
+				for (int j = 0; j < Pedido.size(); j++)
+				{
+					paellas[numeroPaellas].push_back(Pedido[j]);
+					//  string s = Pedido[j]->getTextura();
 
-				  //paellas[numeroPaellas][j].push_back(*s.c_str()); //el vector qeuire chars raros por algun motivo
-				  ///paellas[numeroPaellas].push_back(s);
-				  //esta explotando ahi por algun motivo//el motivo : no se leer
+					  //paellas[numeroPaellas][j].push_back(*s.c_str()); //el vector qeuire chars raros por algun motivo
+					  ///paellas[numeroPaellas].push_back(s);
+					  //esta explotando ahi por algun motivo//el motivo : no se leer
+				}
+				Pedido.erase(Pedido.begin(), Pedido.begin() + Pedido.size());
+				Pedido.clear();
+				numeroPaellas++;
 			}
-			Pedido.erase(Pedido.begin(), Pedido.begin() + Pedido.size());
-			Pedido.clear();
-			numeroPaellas++;
-		}
-		//sangriado
+			//sangriado
 
-		escritoY += anchobotones / 2 + margenbotones;
-		escritoX = getPosition().getX() / 2 + margenbotones + anchobotones / 2;
-		alto = alto + anchobotones / 2 + 2 * margenbotones;
-		h+= anchobotones / 2 + 2 * margenbotones;
-		setDimension(ancho, alto);
-		setPosition(getPosition().getX(), getPosition().getY() + 2 * margenbotones);
-		//y += 2 * margenbotones;
-		vector<Point2D<double>> sangria = uiManager->getPosTeclado();
-		for (int i = 0; i < sangria.size(); i++)
-		{
-			int ny = sangria[i].getY() + anchobotones * 0.7f;
-			sangria[i].setY(ny);
-			//en algun lugar vuelven a tener el valor default lo tengo que mirar
-			//bajar teclado
-			//lo bajará en uim?
-		}
-		for (int i = 0; i < tecladotam.size(); i++)
-		{
-			//b->getPosition().setY(b->getPosition().getY()+anchobotones*0.7);
-			int ny = tecladotam[i]->getY() + anchobotones * 0.7f;
+			escritoY += anchobotones / 2 + margenbotones;
+			escritoX = getPosition().getX() / 2 + margenbotones + anchobotones / 2;
+			alto = alto + anchobotones / 2 + 2 * margenbotones;
+			h += anchobotones / 2 + 2 * margenbotones;
+			setDimension(ancho, alto);
+			setPosition(getPosition().getX(), getPosition().getY() + 2 * margenbotones);
+			//y += 2 * margenbotones;
+			vector<Point2D<double>> sangria = uiManager->getPosTeclado();
+			for (int i = 0; i < sangria.size(); i++)
+			{
+				int ny = sangria[i].getY() + anchobotones * 0.7f;
+				sangria[i].setY(ny);
+				//en algun lugar vuelven a tener el valor default lo tengo que mirar
+				//bajar teclado
+				//lo bajará en uim?
+			}
+			for (int i = 0; i < tecladotam.size(); i++)
+			{
+				//b->getPosition().setY(b->getPosition().getY()+anchobotones*0.7);
+				int ny = tecladotam[i]->getY() + anchobotones * 0.7f;
 
-			Point2D<double> np = tecladotam[i]->getPosition();
-			np.setY(ny);
-			tecladotam[i]->setPosition(np);
+				Point2D<double> np = tecladotam[i]->getPosition();
+				np.setY(ny);
+				tecladotam[i]->setPosition(np);
+			}
+			uiManager->setPosTeclado(sangria);
+			toggleTeclado(false);
+			toggleTecaldotam(true);
 		}
-		uiManager->setPosTeclado(sangria);
-		toggleTeclado(false);
-		toggleTecaldotam(true);
 	}
 }
 
