@@ -39,13 +39,13 @@
   </object>
   <object id="7" name="cinta" x="64" y="614">
    <properties>
-    <property name="Horizontal" type="bool" value="true"/>
+    <property name="Horizontal" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
   <object id="265" name="cinta" x="64" y="165">
    <properties>
-    <property name="Horizontal" type="bool" value="true"/>
+    <property name="Horizontal" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
@@ -187,13 +187,13 @@
   </object>
   <object id="226" name="cinta" x="64" y="550">
    <properties>
-    <property name="Horizontal" type="bool" value="true"/>
+    <property name="Horizontal" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
   <object id="263" name="cinta" x="64" y="229">
    <properties>
-    <property name="Horizontal" type="bool" value="true"/>
+    <property name="Horizontal" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
@@ -217,19 +217,19 @@
   </object>
   <object id="242" name="cinta" x="64" y="486">
    <properties>
-    <property name="Horizontal" type="bool" value="true"/>
+    <property name="Horizontal" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
   <object id="278" name="cinta" x="64" y="422">
    <properties>
-    <property name="Horizontal" type="bool" value="true"/>
+    <property name="Horizontal" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
   <object id="262" name="cinta" x="64" y="293">
    <properties>
-    <property name="Horizontal" type="bool" value="true"/>
+    <property name="Horizontal" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
@@ -249,7 +249,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="3" name="Pared">
+ <objectgroup id="3" name="Pared" visible="0">
   <object id="72" name="pared" x="128" y="102">
    <point/>
   </object>

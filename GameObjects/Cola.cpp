@@ -5,6 +5,11 @@ bool Cola::esValido(int tamGrupo)
     return capacidadActual + tamGrupo <= t_Max;
 }
 
+bool Cola::estaLlena()
+{
+    return capacidadActual == t_Max;
+}
+
 void Cola::add(GrupoClientes* grupo, int tam)
 {
     capacidadActual += tam;

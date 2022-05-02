@@ -37,7 +37,7 @@
   </object>
   <object id="265" name="cinta" x="128" y="229">
    <properties>
-    <property name="Horizontal" type="bool" value="true"/>
+    <property name="Horizontal" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
@@ -167,7 +167,7 @@
   </object>
   <object id="263" name="cinta" x="128" y="293">
    <properties>
-    <property name="Horizontal" type="bool" value="true"/>
+    <property name="Horizontal" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
@@ -191,7 +191,7 @@
   </object>
   <object id="262" name="cinta" x="128" y="357">
    <properties>
-    <property name="Horizontal" type="bool" value="true"/>
+    <property name="Horizontal" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
@@ -214,7 +214,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="3" name="Pared">
+ <objectgroup id="3" name="Pared" visible="0">
   <object id="72" name="pared" x="128" y="102">
    <point/>
   </object>

@@ -13,13 +13,20 @@ class Puerta : public Mueble
 {
 	int maxTamGrupo = 0;
 
-	const double SPAWN_DELAY = 8000;
+	const int MAX_SPAWN_TIME = 18000;
+	const int MIN_SPAWN_TIME = 9000;
+
+	const int FAIL_SPAWN_TIME = 5000;
+
+	double spawn_delay = 0;
 	double initTime;
-	bool vertical;
 
 	Cola* cola;
 
 	Uint8 orientacion;
+
+	bool clientSpawn();
+	int numClientSpawn();
 
 public:
 	Puerta(Game* game, Vector2D<double> pos, int t_Max, int maxTamGrupo_);
