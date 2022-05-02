@@ -13,12 +13,14 @@ Cinta::Cinta(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE,  T
 
 	frameCounter = 0;
 	lastFrameTime = sdlutils().currRealTime();
-	frameRate = 1000 / 24;
+	frameRate = 5000 / 60;
 
 	setTexture("cinta");
 
 	//Siempre tiene que funcionar
 	funcionando = true;
+
+	angle = 90;
 }
 
 Cinta::~Cinta()
@@ -34,7 +36,9 @@ SDL_Rect Cinta::getCollider()
 
 void Cinta::setCollider(SDL_Rect r)
 {
-	cintaCollider = r;
+	if (getTexBox().y == r.y)
+		angle = 0;
+	else cintaCollider = r;	
 }
 
 
@@ -53,7 +57,9 @@ void Cinta::render(SDL_Rect* cameraRect)
 {
 	if (isActive()) {
 		SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, w, h };
-		drawRender(cameraRect, dest, texture, clip);
+		cout << angle << endl;
+
+		drawRender(cameraRect, dest, texture, clip, angle);
 	}
 }
 
@@ -67,3 +73,5 @@ void Cinta::animUpdate()
 	if (frameCounter * clip.w > texture->width() - 10)
 		frameCounter = 0;
 }
+
+

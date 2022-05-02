@@ -202,7 +202,7 @@ bool GrupoClientes::ratonEncima(SDL_Rect* cameraRect)
 
 	SDL_GetMouseState(&rect.x, &rect.y);
 
-	rect = { rect.x - cameraRect->x,  rect.y - cameraRect->y, 5, 5 };
+	rect = { rect.x + cameraRect->x,  rect.y + cameraRect->y, 5, 5 };
 
 	return overlap(rect);
 }

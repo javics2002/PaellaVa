@@ -8,6 +8,8 @@ class Cinta : public Mueble
 	SDL_Rect cintaCollider;
 
 	SDL_Rect clip;
+	double angle;
+
 	int frameCounter;
 	float lastFrameTime;
 	float frameRate;

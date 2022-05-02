@@ -37,6 +37,7 @@ protected:
     void drawRender(SDL_Rect rect, Texture* tex);
     void drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex, SDL_Rect clip);
     void drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex, SDL_Rect clip, SDL_RendererFlip flip);
+    void drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex, SDL_Rect clip, double rot);
     void drawRender(SDL_Rect* cameraRect, Uint8 alpha);
 
     void drawDebug(SDL_Rect* cameraRect); 

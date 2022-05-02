@@ -39,7 +39,7 @@ overlapDim(Vector2D<int>(50, 50))
 
 	frameCounter = 0;
 	lastFrameTime = sdlutils().currRealTime();
-	frameRate = 1000 / 50;
+	frameRate = 1000 / 60;
 
 	currAnim = 0;
 

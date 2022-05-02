@@ -136,9 +136,15 @@ void GameObject::drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex, S
 
 void GameObject::drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex, SDL_Rect clip, SDL_RendererFlip flip)
 {
-	const SDL_Point* p = (const SDL_Point*)nullptr;
-	tex->render(clip, { rect.x - cameraRect->x, rect.y - cameraRect->y, rect.w, rect.h }, 0.0, p, flip);
+	tex->render(clip, { rect.x - cameraRect->x, rect.y - cameraRect->y, rect.w, rect.h }, 0.0, nullptr, flip);
 }
+
+void GameObject::drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex, SDL_Rect clip, double angle)
+{
+	tex->render(clip, { rect.x - cameraRect->x, rect.y - cameraRect->y, rect.w, rect.h }, angle, nullptr);
+}
+
+
 
 void GameObject::drawDebug(SDL_Rect* cameraRect)
 {
