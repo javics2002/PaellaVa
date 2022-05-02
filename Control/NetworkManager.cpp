@@ -110,9 +110,11 @@ void NetworkManager::receivePlayers()
 					}
 					break;
 				case EPT_SYNCPLAYER:
-					game->getObjectManager()->getPlayerTwo()->setPosition(pkt.syncPlayers.posX, pkt.syncPlayers.posY);
-					game->getObjectManager()->getPlayerTwo()->setVel(Vector2D<double>(pkt.syncPlayers.velX, pkt.syncPlayers.velY));
-
+					if (gameStarted) {
+						game->getObjectManager()->getPlayerTwo()->setPosition(pkt.syncPlayers.posX, pkt.syncPlayers.posY);
+						game->getObjectManager()->getPlayerTwo()->setVel(Vector2D<double>(pkt.syncPlayers.velX, pkt.syncPlayers.velY));
+					}
+					
 					// game_->getObjectManager()->getPlayerTwo()->setPosition(Vector2D<double>(pkt.syncPlayers.posX, pkt.syncPlayers.posY));
 					break;
 
@@ -273,9 +275,11 @@ void NetworkManager::updateClient()
 
 				break;
 			case EPT_SYNCPLAYER:
-				game->getObjectManager()->getPlayerTwo()->setPosition(server_pkt.syncPlayers.posX, server_pkt.syncPlayers.posY);
-				game->getObjectManager()->getPlayerTwo()->setVel(Vector2D<double>(server_pkt.syncPlayers.velX, server_pkt.syncPlayers.velY));
-
+				if (gameStarted) {
+					game->getObjectManager()->getPlayerTwo()->setPosition(server_pkt.syncPlayers.posX, server_pkt.syncPlayers.posY);
+					game->getObjectManager()->getPlayerTwo()->setVel(Vector2D<double>(server_pkt.syncPlayers.velX, server_pkt.syncPlayers.velY));
+				}
+				
 				break;
 			case EPT_SYNCPICKOBJECT:
 				// recorrer la pool correspondiente a object type, encontrar el objeto con la id correspondiente y coger dicho objeto

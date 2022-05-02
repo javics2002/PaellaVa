@@ -82,7 +82,7 @@ HostClient::HostClient(Game* game) : Scene(game)
 
 bool HostClient::esValida(string ipText)
 {
-	if (ipText == " ") return false;
+	/*if (ipText == " ") return false;
 
 	vector<string> aux = split(ipText);
 
@@ -104,7 +104,7 @@ bool HostClient::esValida(string ipText)
 		if (stoi(digito) >= 256) {
 			return false;
 		}
-	}
+	}*/
 
 	return true;
 }
