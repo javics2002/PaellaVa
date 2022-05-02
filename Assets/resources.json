@@ -222,7 +222,9 @@
     { "id": "ip", "file": "Assets/Images/ip.png" },
     { "id": "camareroLobby", "file": "Assets/Images/camareroLobby.png" },
     { "id": "cocineraLobby", "file": "Assets/Images/cocineraLobby.png" },
-    { "id": "fondoMadera", "file": "Assets/Images/fondoMadera.png" }
+    { "id": "fondoMadera", "file": "Assets/Images/fondoMadera.png" },
+    { "id": "estrellaMolde", "file": "Assets/Images/estrellaMolde.png" }
+
 
   ],
 
