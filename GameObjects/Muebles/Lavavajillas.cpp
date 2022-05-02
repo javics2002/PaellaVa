@@ -107,7 +107,7 @@ bool Lavavajillas::receivePaella(Paella* paella_)
 			paella_->iniLavado();
 
 			sdlutils().soundEffects().at("paellaLavavajillas").play();
-			canalSonido = sdlutils().soundEffects().at("lavarPaella").play(0,-1);
+			sdlutils().soundEffects().at("lavarPaella").play();
 			return true;
 		}
 	}
@@ -138,10 +138,8 @@ bool Lavavajillas::returnObject(Player* p)
 
 		return true;
 	}
-	else {
-		sdlutils().soundEffects().at("lavarPaella").haltChannel(canalSonido);
+	else 
 		return false;
-	}
 		
 }
 

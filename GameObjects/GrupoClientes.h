@@ -8,6 +8,7 @@
 #include "ObjetoPortable.h"
 
 #include "../Data/Comanda.h"
+#include "Imagen.h"
 
 class Cola;
 class Pedido;
@@ -35,6 +36,8 @@ class GrupoClientes : public ObjetoPortable
 	vector<string> texturaTolerancia = {"enfadado", "enfadado_2", "basico", "feliz_2", "feliz", "feliz"};
 
 	Texture* texTolerancia;
+
+	Imagen* dolarCuenta;
 
 	Mesa* mesa;
 

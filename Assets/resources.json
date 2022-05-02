@@ -94,6 +94,7 @@
     { "id": "reloj", "file": "Assets/Images/reloj.png" },
     { "id": "periodico", "file": "Assets/Images/periodico.png" },
     { "id": "estrella", "file": "Assets/Images/estrella.png" },
+    { "id": "dolarCuenta", "file": "Assets/Images/dolarCuenta.png" },
     { "id": "clienteBase", "file": "Assets/Images/clienteBase.png" },
     { "id": "clienteBase2", "file": "Assets/Images/clienteBase2.png" },
     { "id": "clienteBase3", "file": "Assets/Images/clienteBase3.png" },
