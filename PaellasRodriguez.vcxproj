@@ -146,6 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Scenes\Disconnected.h" />
     <ClInclude Include="GameObjects\IngredienteLetal.h" />
     <ClInclude Include="GameObjects\UI\Numerobutton.h" />
     <ClInclude Include="GameObjects\UI\OcultabarraButton.h" />
@@ -244,6 +245,7 @@
     <ClInclude Include="Utils\Vector2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Scenes\Disconnected.cpp" />
     <ClCompile Include="GameObjects\Herramienta.cpp" />
     <ClCompile Include="GameObjects\IngredienteLetal.cpp" />
     <ClCompile Include="GameObjects\UI\Numerobutton.cpp" />
