@@ -42,13 +42,13 @@ Pedido::Pedido(Game* game_, int numComensales, int numeroTiles)
 			pedidoPaella nuevaPaella;
 			paellas.push_back(nuevaPaella);
 			paellas[i].tamanoPaella = tamano;
-			cout << endl << int(tamano) << endl;
+			//cout << endl << int(tamano) << endl;
 		}
 		else if (suma_tamanos == comensales) {
 			pedidoPaella nuevaPaella;
 			paellas.push_back(nuevaPaella);
 			paellas[i].tamanoPaella = tamano;
-			cout << endl << int(tamano) << endl;
+			/*cout << endl << int(tamano) << endl;*/
 			tamanos_escogidos = true;
 		}
 	}
@@ -60,7 +60,7 @@ Pedido::Pedido(Game* game_, int numComensales, int numeroTiles)
 			if (paellas[g].ingredientesPedido.size() < LIMITE_INGR && !ingredientesPedidos[ingredienteRand])
 			{
 				paellas[g].ingredientesPedido.push_back(ingredienteRand);
-				cout << int(ingredienteRand);
+				/*cout << int(ingredienteRand);*/
 				ingredientesPedidos[ingredienteRand] = true;
 			}
 			else
@@ -75,7 +75,7 @@ Pedido::Pedido(Game* game_, int numComensales, int numeroTiles)
 		}
 
 		ingredientesPedidos = vector<bool>(tipoIngrediente::LAST, false); // ??? no sirve de nada xd
-		cout << ingredientesPedidos.size();
+		/*cout << ingredientesPedidos.size();*/
 	}
 }
 

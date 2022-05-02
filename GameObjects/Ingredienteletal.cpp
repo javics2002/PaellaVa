@@ -22,7 +22,9 @@ void IngredienteLetal::setProcesado(bool estadoIngr, Ingrediente* ingr)
 {
 	procesado = estadoIngr;
 
-	setTexture("rataP");
+	string tex = texturaIngrProcesadoLetal[(int)miTipoL];
+
+	setTexture(tex);
 }
 
 void IngredienteLetal::cambiaTipo(int n) {

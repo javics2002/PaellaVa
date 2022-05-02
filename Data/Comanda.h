@@ -101,8 +101,7 @@ private:
     int altoini;
     int maxingrendientes=3;
     int maxpaellas = 4;
-    
-    bool enVentanilla = false;
+
     uint numeroMesa;
     uint numeroPaellas = 0;
     list<Comanda*>::iterator sitiolista;

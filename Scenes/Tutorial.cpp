@@ -40,7 +40,9 @@ Tutorial::Tutorial(Game* game, string tilemap) : Scene(game)
 
 	uiManager->addInterfaz(new Reloj(game, -1));
 	uiManager->addInterfaz(cuadroTexto);
+	uiManager->addInterfaz(cuadradoPlay);
 	cuadroTexto->setActive(false);
+	cuadradoPlay->setActive(false);
 	uiManager->addInterfaz(text);
 	text->setActive(false);
 
@@ -49,7 +51,7 @@ Tutorial::Tutorial(Game* game, string tilemap) : Scene(game)
 
 	changeState(pausaInicio);
 
-	uiManager->addInterfaz(rC);
+	uiManager->setRedactaboton(rC);
 	uiManager->setBarra(lC);
 	rC->setActive(false);
 	lC->setActive(false);
@@ -72,6 +74,13 @@ void Tutorial::handleInput(bool& exit)
 		continua = true;
 	else if (ih().getKey(InputHandler::X) && paused && !textMngr->terminadoParrado() && !textMngr->vaRapido())
 		textMngr->cambiaVelocidad(true);
+	if (ih().getKey(InputHandler::Y) && currentState==abreLibreta) {
+		if (uiManager->getComanda() == nullptr)
+			uiManager->creaComanda(game);
+		else 
+			uiManager->getComanda()->toggleactive();
+		
+	}
 }
 
 void Tutorial::update()
@@ -154,16 +163,18 @@ void Tutorial::changeState(States state_)
 				i->setActive(true);
 			break;
 		}
-		case 28: {
+		case 24: {
+			for (auto i : objectManager->getVentanilla())
+				i->setActive(true);
 			cuadroTexto->setTexture("cuadroTextoCocinera");
 			break;
 		}
-		case 36: {
+		case 30: {
 			objectManager->getLavavajillas()->setActive(true);
 			cuadroTexto->setTexture("cuadroTextoCamarero");
 			break;
 		}
-		case 40: {
+		case 34: {
 			objectManager->getPlayerOne()->changePlayer(true);
 			cuadroTexto->setTexture("cuadroTextoCocinera");
 			break;
@@ -417,6 +428,12 @@ void Tutorial::loadMap(string const& path)
 					f->setActive(false);
 
 				}
+				else if (name == "vEncimera") {
+					Encimera* e = new Encimera(game, position);
+					getObjectManager()->addMueble(e);
+					getObjectManager()->addVentanilla(e);
+					e->setActive(false);
+				}
 				else if (name == "lavavajillas") {
 					Lavavajillas* l = new Lavavajillas(game, position);
 					getObjectManager()->addMueble(l);
@@ -472,7 +489,7 @@ void Tutorial::loadMap(string const& path)
 					getObjectManager()->addMueble(e);
 					getObjectManager()->addEncimera(e);
 					e->setActive(false);
-				}
+				}				
 				else if (name == "arroz") {
 					BolsaArroz* b = new BolsaArroz(game, position);
 					getObjectManager()->addMueble(b);
@@ -578,6 +595,7 @@ void Tutorial::nextStates()
 void Tutorial::desactivaCuadro()
 {
 	textMngr->desactivaTexto();
+	cuadradoPlay->setActive(false);
 	textMngr->cambiaVelocidad(false);
 	cuadroTexto->setActive(false);
 	text->setActive(false);
@@ -587,6 +605,8 @@ void Tutorial::desactivaCuadro()
 void Tutorial::activaCuadro(string texto_)
 {
 	cuadroTexto->setActive(true);
+	if(ih().isMandoActive())
+		cuadradoPlay->setActive(true);
 	if (textMngr->desactivado())textMngr->activaTexto(sdlutils().dialogs().at(texto_));
 	else if (textMngr->terminadoParrado() && !textMngr->esUltimoParrafo() && continua) {
 		textMngr->cambiaVelocidad(false);

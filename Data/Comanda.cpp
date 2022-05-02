@@ -69,7 +69,6 @@ Comanda::Comanda(Game* game, uint escala, UIManager* uim,bool enVentanilla_) :Ga
 	escritoY = margensuperior;
 	//teclado inicial igualq eu lso magenes y eso para resetear la comanda bien
 	 //creamos las psiciones de los botones del teclado
-	enVentanilla = enVentanilla_;
 }
 Comanda::Comanda(Comanda& c) : GameObject(c.game)
 {
@@ -659,14 +658,44 @@ void Comanda::toggleactive()
 	setActive(!isActive());
 	//ih().setFocused(isActive());
 
-	if (isActive())//activando comanda
+	if(!isActive()) {
+		setActive(true);
+		for (auto b : botones)
+		{
+			b->setActive(false);
+		}
+
+		toggleTecaldotam(false);
+		toggleTeclado(false);
+		toggleTecladonum(false);
+		uiManager->addTween(-56.0f, -200.0f, 500.0f, true).via(easing::quadraticOut).onStep(
+			[this](tweeny::tween<float>& t, float) mutable
+			{
+				y = t.peek();
+				if (t.progress() == 1.0f)
+				{  
+					sdlutils().soundEffects().at("guardarComandas").play(0, game->UI);
+
+					setActive(false);
+					cancelaPedido();
+					if (focusedbutton != nullptr)
+						focusedbutton->setunfocused();
+					focusedbutton = nullptr;
+					focusedzone = -1;
+					indexfocus = -1;
+					return true;
+				}
+				return false;
+			});;
+	}
+	else //activando comanda
 	{
 		uiManager->addTween(-200.0f, -56.0f, 500.0f, true).via(easing::quadraticOut).onStep(
 			[ this](tweeny::tween<float>& t, float) mutable {
 				
 					y=t.peek();
 
-				if (t.progress() == 1.0f) {
+				if (t.progress() == 1.0f && isActive()) {
 					
 					sdlutils().soundEffects().at("sacarComandas").play(0, game->UI);
 					for (auto b : botones)
@@ -691,38 +720,6 @@ void Comanda::toggleactive()
 			});;
 		
 	}
-	else//desactivando comanda
-	{
-		setActive(true);
-		for (auto b : botones)
-		{
-			b->setActive(false);
-		}
-
-		toggleTecaldotam(false);
-		toggleTeclado(false);
-		toggleTecladonum(false);
-		uiManager->addTween(-56.0f, -200.0f, 500.0f, true).via(easing::quadraticOut).onStep(
-			[this](tweeny::tween<float>& t, float) mutable 
-			{
-				y = t.peek();
-				if (t.progress() == 1.0f) 
-				{
-					sdlutils().soundEffects().at("guardarComandas").play(0, game->UI);
-				
-					setActive(false);
-					cancelaPedido();
-					if (focusedbutton != nullptr)
-						focusedbutton->setunfocused();
-					focusedbutton = nullptr;
-					focusedzone = -1;
-					indexfocus = -1;
-					return true;
-				}
-				return false;
-			});;
-	}
-
 	
 	//cout << "togleando active"; 
 }
@@ -783,11 +780,11 @@ void Comanda::pressSelectedButton()
 }
 void Comanda::cambiazonafoco()
 {
-	if (focusedzone == 1)//cambio del teclado a la ui comandas
+	if (focusedzone == 0)//cambio del teclado a la ui comandas
 	{
 		activeTeclado = botones;
 		changeActiveTeclado();
-		focusedzone = 0;
+		focusedzone = 1;
 	}
 	else
 	{
@@ -809,7 +806,7 @@ void Comanda::cambiazonafoco()
 			changeActiveTeclado();
 
 		}
-		focusedzone = 1;
+		focusedzone = 0;
 	}
 }
 void Comanda::siguientebotonfocus(int dir)

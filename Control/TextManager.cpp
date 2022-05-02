@@ -1,7 +1,9 @@
-#include "TextManager.h"
+﻿#include "TextManager.h"
 #include "Game.h"
 #include "../sdlutils/VirtualTimer.h"
+#include "../GameObjects/UI/UIManager.h"
 #include "../GameObjects/UI/ShowText.h"
+#include "../sdlutils/InputHandler.h"
 
 TextManager::TextManager(Game* game_, string font) : anchoTexto(1000),anchoLetra(14), alturaLetra(28),
 offsetYLinea(2), tiempoCreaccionLetra(1), ultimoCaracter(""), terminado(true), numeroLinea(0)
@@ -31,6 +33,16 @@ void TextManager::render()
 		Texture text(sdlutils().renderer(), lineas[i], sdlutils().fonts().at(fuenteLetra), build_sdlcolor(0x444444ff));
 		SDL_Rect dest = build_sdlrect(270,sdlutils().height()-135 + ((alturaLetra + offsetYLinea) * i), text.width(), text.height());
 		text.render(dest);
+	}
+	if (ih().isMandoActive() && !desactivado_) {
+		Texture text1(sdlutils().renderer(), "Pulsa", sdlutils().fonts().at(fuenteLetra), build_sdlcolor(0x444444ff));
+		SDL_Rect d = build_sdlrect(925, sdlutils().height() - 45, text1.width(), text1.height());
+		text1.render(d);
+	}
+	else if (!desactivado_) {
+		Texture text1(sdlutils().renderer(), "Pulsa Q", sdlutils().fonts().at(fuenteLetra), build_sdlcolor(0x444444ff));
+		SDL_Rect d = build_sdlrect(925, sdlutils().height() - 45, text1.width(), text1.height());
+		text1.render(d);
 	}
 }
 
@@ -66,7 +78,7 @@ void TextManager::anadeLetra()
 	if (numeroLinea >= lineas.size())
 		lineas.push_back(" ");
 
-	//solo cabe una letra mas, hay m�s de una letra en el dialog
+	//solo cabe una letra mas, hay más de una letra en el dialog
 	if (lineas[numeroLinea].size() * anchoLetra >= anchoTexto - anchoLetra && dialogo_.size() > 1) {//line width
 
 		if (dialogo_[0] == ' ') {

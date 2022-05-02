@@ -4,6 +4,7 @@
 #include "../../sdlutils/Font.h"
 #include "../Utils/Texture.h"
 #include "../sdlutils/SDLUtils.h"
+#include "../GameObjects/Imagen.h"
 #include <vector>
 
 using namespace std;
@@ -39,10 +40,11 @@ public:
 private:
 
 	VirtualTimer* vt;
-
 	Game* game;
 	string fuenteLetra, dialogo_, ultimoCaracter;
 	vector<string> lineas;
+
+
 
 	bool terminado=true, dialogoTerminado=true,ultimoParrafo,desactivado_=true, rapido=false,pausa = false;
 	int offsetYLinea,tiempoCreaccionLetra, numeroLinea,anchoLetra, alturaLetra, anchoTexto;;
