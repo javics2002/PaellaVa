@@ -31,7 +31,7 @@ class Tutorial : public Scene
 	const float LERP_INTERPOLATION = 0.2f;
 
 	vector<string> textos = { "texto1" ,"texto2", "texto3","texto4","texto5","texto6","texto7","texto8","texto9","texto10",
-		"texto11","texto12","texto13","texto14","texto15","texto16","texto17","texto18","texto19","texto20","texto21", "texto22"};
+		"texto11","texto12","texto13","texto14","texto15","texto16","texto17","texto18","texto19","texto20"};
 
 	MapInfo mapInfo;
 
@@ -42,11 +42,13 @@ class Tutorial : public Scene
 	Vector2D<double> positionCocinera;
 
 	Imagen* cuadroTexto = new Imagen(game, sdlutils().width() / 2, sdlutils().height() - 100, sdlutils().width()/1.5, 250, "cuadroTextoCocinera");
+	Imagen* cuadradoPlay = new Imagen(game, 990, sdlutils().height() - 35, 20, 25, "cuadradoPlay");
 
 	RedactaComandabutton* rC = new RedactaComandabutton(game, uiManager, "redactaboton", 10, 10, 30, 30);
 	ListaComandas* lC = new ListaComandas(game, uiManager);
 
 	ShowText* text = new ShowText(game, " ", "abadiNombre", sdlutils().width() / 2, sdlutils().height() - 100);
+	
 
 
 public:
@@ -68,8 +70,6 @@ public:
 	void nextStates();
 	void activaCuadro(string texto_);
 	void desactivaCuadro();
-
-	void cambiaPlayer(bool c);
 
 };
 

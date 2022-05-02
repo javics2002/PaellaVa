@@ -1,4 +1,4 @@
-{
+ {
   "fonts": [
     { "id": "abadi", "file": "Assets/Fonts/Abadi.otf", "size": 16 },
     { "id": "abadiT", "file": "Assets/Fonts/Abadi.otf", "size": 24 },
@@ -223,7 +223,8 @@
     { "id": "camareroLobby", "file": "Assets/Images/camareroLobby.png" },
     { "id": "cocineraLobby", "file": "Assets/Images/cocineraLobby.png" },
     { "id": "fondoMadera", "file": "Assets/Images/fondoMadera.png" },
-    { "id": "estrellaMolde", "file": "Assets/Images/estrellaMolde.png" }
+    { "id": "estrellaMolde", "file": "Assets/Images/estrellaMolde.png" },
+    { "id": "cuadradoPlay", "file": "Assets/Images/cuadradoPlay.png" }
 
 
   ],
@@ -398,16 +399,14 @@
     {"id" : "texto10", "file": "Una vez terminado el procesado del ingrediente,es momento de meterlo  en la paella, asi que anade el ingrediente y haz lo mismo con         los ingredientes que faltan."},
     {"id" : "texto11","file": "Una vez anadidos todos los ingredientes necesarios a la paella,       llega el momento de meterla al fogon."},
     {"id" : "texto12","file": "Listo! Una vez colocada la paella en el fogon, esta comenzara a       cocinarse, entonces nos aparecera una barra de coccion junto con una  flecha, esta nos indicara el estado de coccion de la paella. o ideal  es que nuestras paellas salgan cuando la flecha de coccion este en el color verde, de lo contrario no estara perfecta. Recuerda que despues  de quitar la paella del fogon ya no la podras colocar otra vez!       Asi que intenta que no se te quede cruda y que no se te queme!"},
-    {"id" : "texto13","file": "Muy bien! Ahora que has sacado la paella del fogon, esta lista para   ser entregada al cliente. Para ello, colocala en la ventanilla, junto a la comanda a la que pertenece dicha paella para indicar la mesa.    Es decir, antes de colocar la paella en la ventanilla, haz click en la comanda donde aparece dicha paella para seleccionarla, y una vez      seleccionada, deja la paella en la ventanilla. "},
-    {"id" : "texto14","file": "Una vez dejas la paella en la ventanilla, aparecera una comanda donde tendras que elegir el numero de mesa al que pertenece, para que el    camarero, que es el que ha escrito la comanda y ha asignado las mesas, sirva la paella!"},
-    {"id" : "texto15","file": "Ahora que el cocinero ya te ha dejado la paella en la ventanilla,     tienes que fijarte en el numero de mesa que aparece a su lado y       entregar la paella en la mesa a la que has asignado ese numero.       Asi que ahora que has cogido la paella, srivela en la mesa."},
-    {"id" : "texto16","file": "Una vez le dejas la paella al cliente, este comenzara a comer, a no   ser que tengas que entregar mas paellas en esa mesa. Una vez termine  de comer pedira la cuenta."},
-    {"id" : "texto17","file": "Ahora que los clientes ya han terminado de comer, tienes que echarlos del restaurante, para ello cogelos y dejalos en la puerta del         restaurante para dejar espacio en la mesa para mas clientes."},
-    {"id" : "texto18","file": "Ahora que los clientes ya han abandonado el local, es hora de limpiar la mesa para poder sentar a otro grupo. Asi que coge las paellas que  haya en la mesa para limpiarla."},
-    {"id" : "texto19","file": "Una vez coges una paella sucia de la mesa, llevala al lavavajillas    para lavarla y poder usarla en proximos pedidos."},
-    {"id" : "texto20","file": "Cuando dejas la paella en el lavavajillas,esta comienza a la lavarse. A diferencia de la tabla de ingredientes, aqui puedes colocar mas de  una paella y estas se iran lavando una a una."},
-    {"id" : "texto21","file": "Perfecto! Ya que has lavadao la paella, es hora de devolverla a la    pila de paellas para poder usarla en otro momento."},
-    {"id" : "texto22","file": "Y con todo esto, ya estas preparado para jugar una partida con tu     amigo en cualquiera de los roles. Buena suerte y diviertete!"},
+    {"id" : "texto13","file": "Muy bien! Ahora que has sacado la paella del fogon, esta lista para   ser entregada al cliente. Para ello, colocala en las encimeras        cercanas a la puerta para que el cocinero pueda cogerlas y entregarlas."},
+    {"id" : "texto14","file": "Una vez le dejas la paella al cliente, este comenzara a comer, a no   ser que tengas que entregar mas paellas en esa mesa. Una vez termine  de comer pedira la cuenta."},
+    {"id" : "texto15","file": "Ahora que los clientes ya han terminado de comer, tienes que echarlos del restaurante, para ello cogelos y dejalos en la puerta del         restaurante para dejar espacio en la mesa para mas clientes."},
+    {"id" : "texto16","file": "Ahora que los clientes ya han abandonado el local, es hora de limpiar la mesa para poder sentar a otro grupo. Asi que coge las paellas que  haya en la mesa para limpiarla."},
+    {"id" : "texto17","file": "Una vez coges una paella sucia de la mesa, llevala al lavavajillas    para lavarla y poder usarla en proximos pedidos."},
+    {"id" : "texto18","file": "Cuando dejas la paella en el lavavajillas,esta comienza a la lavarse. A diferencia de la tabla de ingredientes, aqui puedes colocar mas de  una paella y estas se iran lavando una a una."},
+    {"id" : "texto19","file": "Perfecto! Ya que has lavadao la paella, es hora de devolverla a la    pila de paellas para poder usarla en otro momento."},
+    {"id" : "texto20","file": "Y con todo esto, ya estas preparado para jugar una partida con tu     amigo en cualquiera de los roles. Buena suerte y diviertete!"},
     {"id": "textoVentanillaSinComanda","file": "Selecciona la comanda antes de dejar la paella en la ventanilla."},
     {"id" : "textoComandaEquivocada", "file" :  "Lo siento, pero el cliente no ha solicitado esto, vuelve a hacer la     comanda correctamente"},
     {"id" : "textoNoEcharClientes", "file" :  "No eches al cliente, es tu unico comensal."},

@@ -118,7 +118,7 @@ void ListaComandas::finalizacomanda(Comanda* comanda)
 {
 	
 
-	if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState()<cogerPaellaVentanilla){
+	if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState()<darDeComer){
 
 		game->getCurrentScene()->changeState(pausaBorrarComanda);
 	}

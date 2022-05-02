@@ -83,9 +83,9 @@ Jornada::Jornada(Game* game, string tilemap, int numeroJornada, bool host_) : Sc
 
 	// camara init
 	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
-	auto but = new RedactaComandabutton(game, uiManager, "redactaboton", 100, 20, 130, 60);
-	uiManager->addInterfaz(but);
-	uiManager->setRedactaboton(but);
+	redactaBut = new RedactaComandabutton(game, uiManager, "redactaboton", 100, 20, 130, 60);
+	uiManager->addInterfaz(redactaBut);
+	uiManager->setRedactaboton(redactaBut);
 	uiManager->addInterfaz(new Imagen(game, 50, 20, 40, 40, "R"));
 	uiManager->setBarra(new ListaComandas(game, uiManager));
 
@@ -125,13 +125,13 @@ void Jornada::handleInput(bool& exit)
 
 	if (ih().getKey(InputHandler::Y)) {
 		if (uiManager->getComanda() == nullptr) {
+			sdlutils().soundEffects().at("sacarComandas").play(0, game->UI);
 			uiManager->creaComanda(game);
-			getObjectManager()->getPlayerOne()->changeEnComanda(true);
 		}
 		else {
 			uiManager->getComanda()->toggleactive();
 		}
-		
+		redactaBut->Swichposition();
 	}
 }
 

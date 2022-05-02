@@ -54,7 +54,7 @@ class ObjectManager
 	vector<Silla*> sillas;
 	vector<Mesa*> mesas;
 	vector<Encimera*> encimeras;
-	vector<Ventanilla*> ventanillas;
+	vector<Encimera*> ventanillas;
 	vector<Cinta*> cintas;
 	vector<Pila*> pilas;
 	vector<Fogon*> fogones;
@@ -86,7 +86,7 @@ public:
 	void addFinCinta(FinalCinta* f);
 	void addSilla(Silla* s);
 	void addMesa(Mesa* m);
-	void addVentanilla(Ventanilla* v);
+	void addVentanilla(Encimera* v);
 	void addEncimera(Encimera* e);
 	void addCinta(Cinta* c);
 	void addCartel(Cartel* c);
@@ -101,7 +101,7 @@ public:
 	vector<Silla*> getSillas();
 	vector<Mesa*> getMesas();
 	vector<Encimera*> getEncimeras();
-	vector<Ventanilla*> getVentanilla();
+	vector<Encimera*> getVentanilla();
 	vector<Cinta*> getCintas();
 	vector<Pila*> getPilas();
 	vector<Fogon*> getFogones();

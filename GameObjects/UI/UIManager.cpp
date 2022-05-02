@@ -492,24 +492,10 @@ void UIManager::creaComanda(Game* game)
 	actual->guardaBoton(enviaComandaButton);
 	actual->setActive(false);
 	actual->toggleactive();
-	//actual->toggleactive();
 
 	if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::abreLibreta)
 		game->getCurrentScene()->changeState(States::pauasAbreLibreta);
 
-}
-
-void UIManager::creaComandaVentanilla(Game* game) {
-	actual = new Comanda(game, uiscale, this,true);
-	comandas.push_back(actual);
-
-	enVentanilla = true;
-
-	creaTeclado();
-	actual->guardaTeclado();
-
-	actual->toggleactive();
-	actual->toggleactive();
 }
 
 Comanda* UIManager::getComanda()
