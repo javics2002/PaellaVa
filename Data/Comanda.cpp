@@ -137,19 +137,29 @@ Comanda::Comanda(Game* game, int numMesa, vector<int> tamPaellas, vector<int> in
 	margensuperior = iy - anchobotones / 2;
 	escritoX = ix;
 	escritoY = margensuperior;
+	//int aux = 0;
 	int j = 0;
 	for (int i = 0; i < tamPaellas.size(); i++) 
 	{
 		añadiraPedido(uiManager->getTamanosTrxtures()[tamPaellas[i]], 0);
-		for (j = i; j < i + maxingrendientes; j++) {
-			if (ingPedidos[i] != 9)
+		
+		for (j = maxingrendientes*i; j <  maxingrendientes*(i+1); j++) {
+			if (ingPedidos[j] != 9)
 			{
-				añadiraPedido(uiManager->getIngredientesTextures()[tamPaellas[i]], 0);
+				añadiraPedido(uiManager->getIngredientesTextures()[ingPedidos[j]], 0);
 			}
 		}
 		aceptaPaella();
+		escritoY += anchobotones / 2 + margenbotones;
+		escritoX = getPosition().getX() / 2 + margenbotones + anchobotones / 2;
+		alto = alto + anchobotones / 2 + 2 * margenbotones;
+		h += anchobotones / 2 + 2 * margenbotones;
+		setDimension(ancho, alto);
+		setPosition(getPosition().getX(), getPosition().getY() + 2 * margenbotones);
 	}
-	uiManager->getBarra()->AñadeComanda(this);
+	
+	anadirNumeromesa(uiManager->getNumerosTextures()[numMesa],0);
+//	uiManager->getBarra()->AñadeComanda(this);
 }
 
 Comanda::~Comanda()
@@ -420,10 +430,9 @@ void Comanda::aceptaPaella()
 		}
 	}
 
-	if (!tecladonum.empty()) {
-		if (!tecladonum[0]->isActive() && paellas.size() < maxpaellas && Pedido.size() > 0)
-		{
-			if (!Pedido.empty())
+	
+		
+			if (!Pedido.empty()&& paellas.size() < maxpaellas)
 			{
 				paellas.push_back(vector<UiButton*>());
 				for (int j = 0; j < Pedido.size(); j++)
@@ -439,38 +448,42 @@ void Comanda::aceptaPaella()
 				Pedido.clear();
 				numeroPaellas++;
 			}
-			//sangriado
+			if (tecladonum.size() > 0) {
+				
+				//sangriado
+				if (!tecladonum[0]->isActive())
+				{
+					escritoY += anchobotones / 2 + margenbotones;
+					escritoX = getPosition().getX() / 2 + margenbotones + anchobotones / 2;
+					alto = alto + anchobotones / 2 + 2 * margenbotones;
+					h += anchobotones / 2 + 2 * margenbotones;
+					setDimension(ancho, alto);
+					setPosition(getPosition().getX(), getPosition().getY() + 2 * margenbotones);
+					//y += 2 * margenbotones;
+					vector<Point2D<double>> sangria = uiManager->getPosTeclado();
+					for (int i = 0; i < sangria.size(); i++)
+					{
+						int ny = sangria[i].getY() + anchobotones * 0.7f;
+						sangria[i].setY(ny);
+						//en algun lugar vuelven a tener el valor default lo tengo que mirar
+						//bajar teclado
+						//lo bajará en uim?
+					}
+					for (int i = 0; i < tecladotam.size(); i++)
+					{
+						//b->getPosition().setY(b->getPosition().getY()+anchobotones*0.7);
+						int ny = tecladotam[i]->getY() + anchobotones * 0.7f;
 
-			escritoY += anchobotones / 2 + margenbotones;
-			escritoX = getPosition().getX() / 2 + margenbotones + anchobotones / 2;
-			alto = alto + anchobotones / 2 + 2 * margenbotones;
-			h += anchobotones / 2 + 2 * margenbotones;
-			setDimension(ancho, alto);
-			setPosition(getPosition().getX(), getPosition().getY() + 2 * margenbotones);
-			//y += 2 * margenbotones;
-			vector<Point2D<double>> sangria = uiManager->getPosTeclado();
-			for (int i = 0; i < sangria.size(); i++)
-			{
-				int ny = sangria[i].getY() + anchobotones * 0.7f;
-				sangria[i].setY(ny);
-				//en algun lugar vuelven a tener el valor default lo tengo que mirar
-				//bajar teclado
-				//lo bajará en uim?
+						Point2D<double> np = tecladotam[i]->getPosition();
+						np.setY(ny);
+						tecladotam[i]->setPosition(np);
+					}
+					uiManager->setPosTeclado(sangria);
+					toggleTeclado(false);
+					toggleTecaldotam(true);
+				}
 			}
-			for (int i = 0; i < tecladotam.size(); i++)
-			{
-				//b->getPosition().setY(b->getPosition().getY()+anchobotones*0.7);
-				int ny = tecladotam[i]->getY() + anchobotones * 0.7f;
-
-				Point2D<double> np = tecladotam[i]->getPosition();
-				np.setY(ny);
-				tecladotam[i]->setPosition(np);
-			}
-			uiManager->setPosTeclado(sangria);
-			toggleTeclado(false);
-			toggleTecaldotam(true);
-		}
-	}
+			
 }
 
 void Comanda::enviaComanda()
@@ -530,6 +543,7 @@ void Comanda::enviaComanda()
 }
 void Comanda::eC()
 {
+	aceptaPaella();
 	uiManager->getBarra()->AñadeComanda(this);
 	game->getNetworkManager()->syncComanda(getNumeroMesaWeb(), getTamanosWeb(), getIngredientesWeb());
 	cancelaPedido();
