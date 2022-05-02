@@ -33,3 +33,8 @@ void IngredienteLetal::cambiaTipo(int n) {
 
 	setTexture(texturaIngredienteLetal[n]);
 }
+
+tipoIngredienteLetal IngredienteLetal::getTipoLetal()
+{
+	return miTipoL;
+}

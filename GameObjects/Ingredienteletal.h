@@ -15,5 +15,6 @@ public:
 
 	void setProcesado(bool estadoIngr, Ingrediente* ingr) override;
 	void cambiaTipo (int n);
+	tipoIngredienteLetal getTipoLetal();
 };
 
