@@ -22,6 +22,13 @@ GameOver::GameOver(Game* game, int puntuation, int numeroJornada) : Scene(game)
 	int posPuntX = sdlutils().width() / 2 / 2;
 	int posPuntY = sizePuntH * 2;
 
+	GameObject* starMold = new GameObject(game);
+	starMold->setTexture("estrellaMolde");
+	starMold->setInitialDimension(110*5, 110);
+	starMold->setDimension(110*5, 110);
+	starMold->setPosition(sdlutils().width() / 4 + 110, 70 * 2);
+	uiManager->addInterfaz(starMold);
+
 	starTexture = &sdlutils().images().at("estrella");
 	vector<GameObject*> estrellas = vector<GameObject*>(starNumber);
 	for (auto i = 0; i < starNumber; i++) {
