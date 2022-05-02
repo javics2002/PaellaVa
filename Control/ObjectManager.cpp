@@ -200,7 +200,7 @@ void ObjectManager::addMesa(Mesa* m)
 	mesas.push_back(m);
 }
 
-void ObjectManager::addVentanilla(Ventanilla* v)
+void ObjectManager::addVentanilla(Encimera * v)
 {
 	ventanillas.push_back(v);
 }
@@ -271,7 +271,7 @@ vector<Encimera*> ObjectManager::getEncimeras()
 	return encimeras;
 }
 
-vector<Ventanilla*> ObjectManager::getVentanilla()
+vector<Encimera*> ObjectManager::getVentanilla()
 {
 	return ventanillas;
 }

@@ -38,7 +38,8 @@ void Cinta::setCollider(SDL_Rect r)
 {
 	if (getTexBox().y == r.y)
 		angle = 0;
-	else cintaCollider = r;	
+
+	cintaCollider = r;	
 }
 
 

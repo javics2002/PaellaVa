@@ -37,7 +37,7 @@
   </object>
   <object id="7" name="cinta" x="1792" y="232">
    <properties>
-    <property name="Horizontal" type="bool" value="true"/>
+    <property name="Horizontal" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
@@ -149,19 +149,19 @@
   </object>
   <object id="226" name="cinta" x="1792" y="358">
    <properties>
-    <property name="Horizontal" type="bool" value="true"/>
+    <property name="Horizontal" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
   <object id="227" name="cinta" x="1792" y="294">
    <properties>
-    <property name="Horizontal" type="bool" value="true"/>
+    <property name="Horizontal" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
   <object id="228" name="cinta" x="1792" y="166">
    <properties>
-    <property name="Horizontal" type="bool" value="true"/>
+    <property name="Horizontal" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
@@ -190,25 +190,25 @@
   </object>
   <object id="235" name="cinta" x="1664" y="230.068">
    <properties>
-    <property name="Horizontal" type="bool" value="true"/>
+    <property name="Horizontal" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
   <object id="236" name="cinta" x="1664" y="358.068">
    <properties>
-    <property name="Horizontal" type="bool" value="true"/>
+    <property name="Horizontal" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
   <object id="237" name="cinta" x="1664" y="294.068">
    <properties>
-    <property name="Horizontal" type="bool" value="true"/>
+    <property name="Horizontal" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
   <object id="238" name="cinta" x="1664" y="166.068">
    <properties>
-    <property name="Horizontal" type="bool" value="true"/>
+    <property name="Horizontal" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
@@ -223,7 +223,7 @@
   </object>
   <object id="242" name="cinta" x="1664" y="422.068">
    <properties>
-    <property name="Horizontal" type="bool" value="true"/>
+    <property name="Horizontal" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
@@ -235,7 +235,7 @@
   </object>
   <object id="243" name="cinta" x="1792" y="422">
    <properties>
-    <property name="Horizontal" type="bool" value="true"/>
+    <property name="Horizontal" type="bool" value="false"/>
    </properties>
    <point/>
   </object>

@@ -105,7 +105,7 @@ void TablaProcesado::render(SDL_Rect* camera)
 
 bool TablaProcesado::receiveIngrediente(Ingrediente* ingr)
 {
-	if (funcionando)
+	if (ingr != nullptr && funcionando)
 	{
 		if (ingr_ == nullptr && !ingr->getProcesado()) 
 		{
