@@ -208,69 +208,75 @@ void NetworkManager::updateClient()
 
 				break;
 			case EPT_CREATEING:
-				i = game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->add(Vector2D<double>(server_pkt.ingrediente.posX, server_pkt.ingrediente.posY));
-				i->setVel(Vector2D<double>(server_pkt.ingrediente.velX, server_pkt.ingrediente.velY));
-				i->cambiaTipo(server_pkt.ingrediente.tipo_ingrediente);
-				i->setId(server_pkt.ingrediente.ing_id);
-
+				if (gameStarted) {
+					i = game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->add(Vector2D<double>(server_pkt.ingrediente.posX, server_pkt.ingrediente.posY));
+					i->setVel(Vector2D<double>(server_pkt.ingrediente.velX, server_pkt.ingrediente.velY));
+					i->cambiaTipo(server_pkt.ingrediente.tipo_ingrediente);
+					i->setId(server_pkt.ingrediente.ing_id);
+				}
 				break;
 			case EPT_CREATEINGLET:
-				iLetal = game->getObjectManager()->getPool<IngredienteLetal>(_p_INGREDIENTELETAL)->add(Vector2D<double>(server_pkt.ingrediente.posX, server_pkt.ingrediente.posY));
-				iLetal->setVel(Vector2D<double>(server_pkt.ingrediente.velX, server_pkt.ingrediente.velY));
-				iLetal->cambiaTipo(server_pkt.ingrediente.tipo_ingrediente);
-
+				if (gameStarted) {
+					iLetal = game->getObjectManager()->getPool<IngredienteLetal>(_p_INGREDIENTELETAL)->add(Vector2D<double>(server_pkt.ingrediente.posX, server_pkt.ingrediente.posY));
+					iLetal->setVel(Vector2D<double>(server_pkt.ingrediente.velX, server_pkt.ingrediente.velY));
+					iLetal->cambiaTipo(server_pkt.ingrediente.tipo_ingrediente);
+				}
+				
 				break;
 
 			case EPT_CREATECLIENTGROUP:
 				{
-				vector<Cliente*> v;
+				if (gameStarted) {
+					vector<Cliente*> v;
 
-				Puerta* puerta = nullptr;
+					Puerta* puerta = nullptr;
 
-				for (auto m : game->getObjectManager()->getMuebles()) {
-					if (m->getId() == server_pkt.grupoCliente.door_id) {
-						puerta = dynamic_cast<Puerta*>(m);
-						break;
+					for (auto m : game->getObjectManager()->getMuebles()) {
+						if (m->getId() == server_pkt.grupoCliente.door_id) {
+							puerta = dynamic_cast<Puerta*>(m);
+							break;
+						}
 					}
+
+					Vector2D<double> distancia = Vector2D<double>(server_pkt.grupoCliente.dirX, server_pkt.grupoCliente.dirY);
+					Vector2D<double> pos = puerta->getPosition();
+
+					for (int i = 0; i < server_pkt.grupoCliente.tamGrupo; i++) {
+						Cliente* c = game->getObjectManager()->getPool<Cliente>(_p_CLIENTE)->add();
+						c->setPosition(pos);
+						c->setAnimResources(server_pkt.grupoCliente.textCliente[i]);
+						puerta->setOrientation(c);
+
+						pos = pos - distancia;
+
+						v.push_back(c);
+					}
+
+					GrupoClientes* g = game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->add();
+					g->setId(server_pkt.grupoCliente.group_id);
+					g->setVel(Vector2D<double>(server_pkt.grupoCliente.velX, server_pkt.grupoCliente.velY));
+
+					puerta->getCola()->add(g, server_pkt.grupoCliente.tamGrupo);
+					g->initGrupo(puerta->getCola(), v);
+
+					sdlutils().soundEffects().at("puerta").play();
 				}
-
-				Vector2D<double> distancia = Vector2D<double>(server_pkt.grupoCliente.dirX, server_pkt.grupoCliente.dirY);
-				Vector2D<double> pos = puerta->getPosition();
-
-				for (int i = 0; i < server_pkt.grupoCliente.tamGrupo; i++) {
-					Cliente* c = game->getObjectManager()->getPool<Cliente>(_p_CLIENTE)->add();
-					c->setPosition(pos);
-					c->setAnimResources(server_pkt.grupoCliente.textCliente[i]);
-					puerta->setOrientation(c);
-
-					pos = pos - distancia;
-
-					v.push_back(c);
-				}
-
-				GrupoClientes* g = game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->add();
-				g->setId(server_pkt.grupoCliente.group_id);
-				g->setVel(Vector2D<double>(server_pkt.grupoCliente.velX, server_pkt.grupoCliente.velY));
-
-				puerta->getCola()->add(g, server_pkt.grupoCliente.tamGrupo);
-				g->initGrupo(puerta->getCola(), v);
-
-				sdlutils().soundEffects().at("puerta").play();
 				}
 
 				break;
 			case EPT_BUTTONBUFFER:
 				{
-				// Transformar array a vector
-				vector<bool> buffer(4, false);
-				for (int i = 0u; i < ih().getOtherKeyPressed().size(); i++) {
-					buffer[i] = server_pkt.buttonBuffer.buttonBuffer[i];
+				if (gameStarted) {
+					// Transformar array a vector
+					vector<bool> buffer(4, false);
+					for (int i = 0u; i < ih().getOtherKeyPressed().size(); i++) {
+						buffer[i] = server_pkt.buttonBuffer.buttonBuffer[i];
+					}
+
+					// Procesar buffer
+					ih().setOtherKeyPressed(buffer);
+					ih().updateOtherAxis();
 				}
-
-				// Procesar buffer
-				ih().setOtherKeyPressed(buffer);
-				ih().updateOtherAxis();
-
 				}
 
 				break;
@@ -282,59 +288,70 @@ void NetworkManager::updateClient()
 				
 				break;
 			case EPT_SYNCPICKOBJECT:
-				// recorrer la pool correspondiente a object type, encontrar el objeto con la id correspondiente y coger dicho objeto
-				game->getObjectManager()->getPlayerTwo()->PickCustomObject(server_pkt.syncPickObject.object_type, server_pkt.syncPickObject.object_id, server_pkt.syncPickObject.mueble_id, server_pkt.syncPickObject.extra_info);
-
+				if (gameStarted) {
+					// recorrer la pool correspondiente a object type, encontrar el objeto con la id correspondiente y coger dicho objeto
+					game->getObjectManager()->getPlayerTwo()->PickCustomObject(server_pkt.syncPickObject.object_type, server_pkt.syncPickObject.object_id, server_pkt.syncPickObject.mueble_id, server_pkt.syncPickObject.extra_info);
+				}
 				break;
 			case EPT_SYNCDROPOBJECT:
-				game->getObjectManager()->getPlayerTwo()->DropCustomObject(server_pkt.syncDropObject.object_type, server_pkt.syncDropObject.object_id, server_pkt.syncDropObject.mueble_id);
+				if (gameStarted) {
+					game->getObjectManager()->getPlayerTwo()->DropCustomObject(server_pkt.syncDropObject.object_type, server_pkt.syncDropObject.object_id, server_pkt.syncDropObject.mueble_id);
+				}
 				break;
 			case EPT_SYNCPEDIDO:
-				// crear pedido en x grupo de clientes
-				for (int i = 0; i < game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getActiveObjects().size(); i++) {
-					GrupoClientes* gC = game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getActiveObjects()[i];
-					if (gC->getId() == server_pkt.syncPedido.group_id) {
-						vector<int> tamPaellas;
-						vector<int> ingPedidos(12, LAST);
+				if (gameStarted) {
+					// crear pedido en x grupo de clientes
+					for (int i = 0; i < game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getActiveObjects().size(); i++) {
+						GrupoClientes* gC = game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getActiveObjects()[i];
+						if (gC->getId() == server_pkt.syncPedido.group_id) {
+							vector<int> tamPaellas;
+							vector<int> ingPedidos(12, LAST);
 
-						for (int i = 0; i < server_pkt.syncPedido.paella_number; i++) {
-							tamPaellas.push_back(server_pkt.syncPedido.paella_size[i]);
+							for (int i = 0; i < server_pkt.syncPedido.paella_number; i++) {
+								tamPaellas.push_back(server_pkt.syncPedido.paella_size[i]);
+							}
+
+							for (int i = 0; i < ingPedidos.size(); i++) {
+								ingPedidos[i] = server_pkt.syncPedido.ing_pedidos[i];
+							}
+
+							gC->modificaPedido(server_pkt.syncPedido.paella_number, tamPaellas, ingPedidos);
 						}
-
-						for (int i = 0; i < ingPedidos.size(); i++) {
-							ingPedidos[i] = server_pkt.syncPedido.ing_pedidos[i];
-						}
-
-						gC->modificaPedido(server_pkt.syncPedido.paella_number, tamPaellas, ingPedidos);
 					}
 				}
 
 				break;
 			case EPT_SYNCMUEBLEROTO:
-				// romper mueble con la id que toque
-				for (auto m : game->getObjectManager()->getMuebles()) {
-					if (server_pkt.syncMuebleRoto.mueble_id == m->getId()) {
-						m->romperMueble();
+				if (gameStarted) {
+					// romper mueble con la id que toque
+					for (auto m : game->getObjectManager()->getMuebles()) {
+						if (server_pkt.syncMuebleRoto.mueble_id == m->getId()) {
+							m->romperMueble();
+						}
 					}
 				}
 				break;
 
 			case EPT_SYNCPAUSE:
-				dynamic_cast<Jornada*>(game->getCurrentScene())->togglePause();
+				if (gameStarted) {
+					dynamic_cast<Jornada*>(game->getCurrentScene())->togglePause();
+				}
 				break;
 
 			case EPT_SYNCCOMANDA:
 				{
-				vector<int> tamPaellas;
+				if (gameStarted) {
+					vector<int> tamPaellas;
 
-				for (int i = 0; i < server_pkt.syncComanda.paella_number; i++) {
-					tamPaellas.push_back(server_pkt.syncComanda.paella_size[i]);
+					for (int i = 0; i < server_pkt.syncComanda.paella_number; i++) {
+						tamPaellas.push_back(server_pkt.syncComanda.paella_size[i]);
+					}
+
+					vector<int> ingPedidos(begin(server_pkt.syncComanda.ing_pedidos), end(server_pkt.syncComanda.ing_pedidos));
+
+					Comanda* com = new Comanda(game, server_pkt.syncComanda.numMesa, tamPaellas, ingPedidos);
+					game->getUIManager()->getBarra()->AñadeComanda(com);
 				}
-
-				vector<int> ingPedidos(begin(server_pkt.syncComanda.ing_pedidos), end(server_pkt.syncComanda.ing_pedidos));
-
-				Comanda* com = new Comanda(game, server_pkt.syncComanda.numMesa, tamPaellas, ingPedidos);
-				game->getUIManager()->getBarra()->AñadeComanda(com);
 				}
 				break;
 			case EPT_FINISHGAME:

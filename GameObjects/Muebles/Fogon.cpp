@@ -93,7 +93,7 @@ void Fogon::render(SDL_Rect* cameraRect)
 
 bool Fogon::receivePaella(Paella* pa)
 {
-	if (funcionando)
+	if (pa != nullptr && funcionando)
 	{
 		//Si ya tiene objeto, no recoge objeto
 		if (paella_ == nullptr

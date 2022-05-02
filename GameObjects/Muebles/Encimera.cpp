@@ -14,95 +14,99 @@ Encimera::Encimera(Game* game, Vector2D<double> pos) : Mueble(game, pos, 1 * TIL
 
 bool Encimera::receiveIngrediente(Ingrediente* ingr)
 {
-	//Si ya tiene objeto, no recoge objeto
-	if (paella_ != nullptr) {
-		if (paella_->ingrValido(ingr) && paella_->conArroz() && ingr->getProcesado()) {
+	if (ingr != nullptr) {
+		//Si ya tiene objeto, no recoge objeto
+		if (paella_ != nullptr) {
+			if (paella_->ingrValido(ingr) && paella_->conArroz() && ingr->getProcesado()) {
 
-			paella_->anadeIngr(ingr);
-			if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::dejarIngredientePaella) {
-				if (paella_->ingredientesEnPaella() == 3)
-					game->getCurrentScene()->changeState(States::pausaDejarIngredientes);
+				paella_->anadeIngr(ingr);
+				if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::dejarIngredientePaella) {
+					if (paella_->ingredientesEnPaella() == 3)
+						game->getCurrentScene()->changeState(States::pausaDejarIngredientes);
+				}
+				ingr->setActive(false);
+
+				return true;
 			}
-			ingr->setActive(false);
+
+			return false;
+		}
+
+
+		if (ingr_ == nullptr && arroz_ == nullptr && herramienta_ == nullptr)
+		{
+			ingr_ = ingr;
+
+			ingr_->setPosition(getRectCenter(getOverlap()));
 
 			return true;
 		}
-
-		return false;
 	}
-
-
-	if (ingr_ == nullptr && arroz_ == nullptr && herramienta_ == nullptr)
-	{
-		ingr_ = ingr;
-
-		ingr_->setPosition(getRectCenter(getOverlap()));
-
-		return true;
-	}
-
-	
-
 	return false;
 }
 
 bool Encimera::receivePaella(Paella* pa)
 {
-	//Si ya tiene objeto, no recoge objeto
-	if (ingr_ == nullptr && paella_ == nullptr && arroz_ == nullptr && herramienta_ == nullptr)
-	{
-		sdlutils().soundEffects().at("paellaMesa").play(0, game->UI);
-		if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::dejaPaellera)
-			game->getCurrentScene()->changeState(States::pausaDejaPaella);
+	if (pa != nullptr) {
+		//Si ya tiene objeto, no recoge objeto
+		if (ingr_ == nullptr && paella_ == nullptr && arroz_ == nullptr && herramienta_ == nullptr)
+		{
+			sdlutils().soundEffects().at("paellaMesa").play(0, game->UI);
+			if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::dejaPaellera)
+				game->getCurrentScene()->changeState(States::pausaDejaPaella);
 
 
-		paella_ = pa;
+			paella_ = pa;
 
-		paella_->setPosition(getRectCenter(getOverlap()));
+			paella_->setPosition(getRectCenter(getOverlap()));
 
-		return true;
+			return true;
+		}
 	}
-	else
-		return false;
+	return false;
 }
 
 bool Encimera::receiveArroz(Arroz* arr)
 {
-	//Si ya tiene objeto, no recoge objeto
-	if (paella_ != nullptr)
-	{
-		if (paella_->getContenido() == Limpia) {
+	if (arr != nullptr) {
+		//Si ya tiene objeto, no recoge objeto
+		if (paella_ != nullptr)
+		{
+			if (paella_->getContenido() == Limpia) {
 
-			paella_->anadeArroz(arr);
-			if (dynamic_cast<Tutorial*>(game->getCurrentScene()))
-				game->getCurrentScene()->changeState(States::pausaCogerDejarArroz);
+				paella_->anadeArroz(arr);
+				if (dynamic_cast<Tutorial*>(game->getCurrentScene()))
+					game->getCurrentScene()->changeState(States::pausaCogerDejarArroz);
+
+				return true;
+			}
+
+			return false;
+		}
+
+		if (ingr_ == nullptr && arroz_ == nullptr && herramienta_ == nullptr) {
+
+			arroz_ = arr;
+			arroz_->setPosition(getRectCenter(getOverlap()));
 
 			return true;
 		}
-
-		return false;
 	}
-
-	if (ingr_ == nullptr && arroz_ == nullptr && herramienta_ == nullptr) {
-
-		arroz_ = arr;
-		arroz_->setPosition(getRectCenter(getOverlap()));
-
-		return true;
-	}
-
+	
 	return false;
 }
 
 bool Encimera::receiveHerramienta(Herramienta* h)
 {
-	//Si ya tiene objeto, no recoge objeto
-	if (ingr_ == nullptr && paella_ == nullptr && arroz_ == nullptr && herramienta_ == nullptr)
-	{
-		herramienta_ = h;
-		herramienta_->setPosition(getRectCenter(getOverlap()));
+	if (h != nullptr) {
+		//Si ya tiene objeto, no recoge objeto
+		if (ingr_ == nullptr && paella_ == nullptr && arroz_ == nullptr && herramienta_ == nullptr)
+		{
+			herramienta_ = h;
+			herramienta_->setPosition(getRectCenter(getOverlap()));
 
-		return true;
+			return true;
+		}
 	}
 
 	return false;
