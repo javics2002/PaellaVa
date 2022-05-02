@@ -439,11 +439,6 @@ void Jornada::loadMap(string const& path)
 					idCount++;
 					getObjectManager()->addMueble(e);
 				}
-				else if (name == "ventanilla") {
-					Ventanilla* v = new Ventanilla(game, position, camara->renderRect());
-					getObjectManager()->addMueble(v);
-					getObjectManager()->addVentanilla(v);
-				}
 				else if (name == "arroz") {
 					BolsaArroz* b = new BolsaArroz(game, position);
 					b->setId(idCount);

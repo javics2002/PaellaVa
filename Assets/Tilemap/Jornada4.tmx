@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.4" orientation="orthogonal" renderorder="right-down" width="39" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="14" nextobjectid="309">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="39" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="14" nextobjectid="314">
  <tileset firstgid="1" source="Tileset.tsx"/>
  <layer id="1" name="Capa de patrones 1" width="39" height="12">
   <data encoding="csv">
-2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
-2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
-7,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,14,
+2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,14,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,14,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+5,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,17,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,12,
 5,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,12,
 5,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,12,
 5,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,9,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,12,
@@ -70,7 +70,7 @@
   <object id="18" name="tabla" x="704" y="424">
    <point/>
   </object>
-  <object id="19" name="sillaDer" x="1374" y="512">
+  <object id="19" name="sillaDer" x="1374" y="525">
    <point/>
   </object>
   <object id="281" name="cartel" x="1473" y="195">
@@ -116,16 +116,10 @@
   <object id="308" name="camarero" x="2010" y="539">
    <point/>
   </object>
-  <object id="299" name="sillaDer" x="1946" y="347">
+  <object id="299" name="sillaDer" x="1946" y="394">
    <point/>
   </object>
-  <object id="302" name="sillaDer" x="1946" y="411">
-   <point/>
-  </object>
-  <object id="293" name="sillaAr" x="2330" y="412">
-   <point/>
-  </object>
-  <object id="304" name="sillaAr" x="1728" y="412">
+  <object id="302" name="sillaDer" x="1946" y="442">
    <point/>
   </object>
   <object id="32" name="sillaIz" x="1881.83" y="603">
@@ -137,10 +131,10 @@
   <object id="286" name="sillaIz" x="2329.83" y="603">
    <point/>
   </object>
-  <object id="298" name="sillaIz" x="2137.83" y="347">
+  <object id="298" name="sillaIz" x="2137.83" y="394">
    <point/>
   </object>
-  <object id="301" name="sillaIz" x="2137.83" y="411">
+  <object id="301" name="sillaIz" x="2137.83" y="442">
    <point/>
   </object>
   <object id="292" name="sillaAb" x="2329.83" y="284">
@@ -155,10 +149,7 @@
   <object id="47" name="tabla" x="448" y="424">
    <point/>
   </object>
-  <object id="51" name="sillaAr" x="1438" y="606.5">
-   <point/>
-  </object>
-  <object id="52" name="sillaIz" x="1502" y="512">
+  <object id="52" name="sillaIz" x="1502" y="525">
    <point/>
   </object>
   <object id="60" name="encimera" x="640" y="424">
@@ -240,6 +231,21 @@
    <properties>
     <property name="Horizontal" type="bool" value="true"/>
    </properties>
+   <point/>
+  </object>
+  <object id="309" name="sillaDer" x="1665" y="348">
+   <point/>
+  </object>
+  <object id="310" name="sillaDer" x="2273.33" y="348.333">
+   <point/>
+  </object>
+  <object id="311" name="sillaDer" x="2273.33" y="396.333">
+   <point/>
+  </object>
+  <object id="312" name="sillaDer" x="1374" y="575">
+   <point/>
+  </object>
+  <object id="313" name="sillaIz" x="1502" y="575">
    <point/>
   </object>
  </objectgroup>
@@ -586,10 +592,10 @@
   <object id="250" name="lavavajillas" x="1216" y="422">
    <point/>
   </object>
-  <object id="251" name="ventanilla" x="1216" y="294">
+  <object id="251" name="encimera" x="1216" y="294">
    <point/>
   </object>
-  <object id="252" name="ventanilla" x="1216" y="358">
+  <object id="252" name="encimera" x="1216" y="358">
    <point/>
   </object>
  </objectgroup>

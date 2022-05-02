@@ -125,7 +125,7 @@ bool Mesa::receivePaella(Paella* paella)
 			
 			auto proxPos = getProxPos(paella->getPosition());
 			paella->setPosition(proxPos);
-			paella->setPosVertical((int) (getPosVertical() - proxPos.getY() - paella->getHeight() / 2));
+			paella->setPosVertical((int) (getPosVertical() - proxPos.getY() /*- paella->getHeight() / 2*/));
 			paella->setDepth(1);
 
 			paella->enLaMesa(true);

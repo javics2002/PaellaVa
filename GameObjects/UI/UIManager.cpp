@@ -957,7 +957,7 @@ void UIManager::creaPantallaCreditos()
 	creditsButtons.push_back({});
 
 	//Fondo De las opciones
-	Imagen* opcPant = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2, sdlutils().width() - 100, sdlutils().height() - 100, "fondoOpc");
+	Imagen* opcPant = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2, sdlutils().width(), sdlutils().height(), "fondoOpc");
 
 	opcPant->setInitialPosition(sdlutils().width() / 2, sdlutils().height() / 2);
 	opcPant->setActive(false);
@@ -965,9 +965,9 @@ void UIManager::creaPantallaCreditos()
 	creditsBase.push_back(opcPant);
 
 	//Boton salir
-	UiButton* botonSalir = new UiButton(game, "cerrarOpc", opcPant->getWidth(), 100, 100, 100);
+	UiButton* botonSalir = new UiButton(game, "cerrarOpc", opcPant->getWidth() - 90, 75, 100, 100);
 
-	botonSalir->setInitialPosition(opcPant->getWidth(), 100);
+	botonSalir->setInitialPosition(opcPant->getWidth()-90, 75);
 	botonSalir->setActive(false);
 	botonSalir->setAction([this, botonSalir](Game* game, bool& exit) {
 		sdlutils().soundEffects().at("botonesMenu").play(0, game->UI);
@@ -987,8 +987,8 @@ void UIManager::creaPantallaCreditos()
 	creditsButtons[0].push_back(botonSalir);
 
 	//Boton siguiente página
-	UiButton* botonNext = new UiButton(game, "nextCredits", opcPant->getWidth(), sdlutils().height() / 2, 100, 100);
-	botonNext->setInitialPosition(opcPant->getWidth(), sdlutils().height() / 2);
+	UiButton* botonNext = new UiButton(game, "nextCredits", opcPant->getWidth() - 70, sdlutils().height() / 2, 100, 100);
+	botonNext->setInitialPosition(opcPant->getWidth()-70, sdlutils().height() / 2);
 	botonNext->setActive(false);
 	botonNext->setAction([this, botonNext](Game* game, bool& exit) {
 		sdlutils().soundEffects().at("botonesMenu").play(0, game->UI);
@@ -1012,156 +1012,84 @@ void UIManager::creaPantallaCreditos()
 
 	//Título de desarrolladores
 
-	ShowText* TituloDev = new ShowText(game, "Desarrolladores", "paella", { 0, 0, 0, 255 }, { 0, 0, 0, 255 },
-		sdlutils().width() / 2, 120, 0, 0);
-	TituloDev->setInitialPosition(sdlutils().width() / 2, 120);
+	ShowText* TituloDev = new ShowText(game, "Desarrolladores", "lobby",
+		sdlutils().width() / 2, 70, 0, 0);
+	TituloDev->setInitialPosition(sdlutils().width() / 2, 70);
 	TituloDev->setActive(false);
 
 	creditsScreen[0].push_back(TituloDev);
 
 	//Nombres de los desarrolladores
 
-	Imagen* fondoColumna1 = new Imagen(game, sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 2, 360, 360, "reloj");
-
-	fondoColumna1->setInitialPosition(sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 2);
-	fondoColumna1->setActive(false);
-
-	creditsBase.push_back(fondoColumna1);
-
-	Imagen* fondoColumna2 = new Imagen(game, 2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 2, 360, 360, "reloj");
-
-	fondoColumna2->setInitialPosition(2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 2);
-	fondoColumna2->setActive(false);
-
-	creditsBase.push_back(fondoColumna2);
-
-	ShowText* Dev1 = new ShowText(game, "Javier Cano", "abadiNombre",
+	ShowText* Dev1 = new ShowText(game, "Javier Cano", "creditsName",
 		sdlutils().width() / 3, posInicialCreditos,0,0);
 	Dev1->setInitialPosition(sdlutils().width() / 3, posInicialCreditos);
 	Dev1->setActive(false);
 
 	creditsScreen[0].push_back(Dev1);
 
-	ShowText* Dev2 = new ShowText(game, "José Miguel Villacañas", "abadiNombre",
+	ShowText* Dev2 = new ShowText(game, "José Miguel Villacañas", "creditsName",
 		2*(sdlutils().width()) / 3, posInicialCreditos, 0, 0);
 	Dev2->setInitialPosition(2 * (sdlutils().width()) / 3, posInicialCreditos);
 	Dev2->setActive(false);
 
 	creditsScreen[0].push_back(Dev2);
 
-	ShowText* Dev3 = new ShowText(game, "Víctor Manuel Estremera", "abadiNombre",
+	ShowText* Dev3 = new ShowText(game, "Víctor Estremera", "creditsName",
 		sdlutils().width() / 3, posInicialCreditos + avanceCreditos, 0, 0);
 	Dev3->setInitialPosition(sdlutils().width() / 3, posInicialCreditos + avanceCreditos);
 	Dev3->setActive(false);
 
 	creditsScreen[0].push_back(Dev3);
 
-	ShowText* Dev4 = new ShowText(game, "Diego Rol", "abadiNombre",
+	ShowText* Dev4 = new ShowText(game, "Rodrigo Cabello", "creditsName",
 		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos, 0, 0);
 	Dev4->setInitialPosition(2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos);
 	Dev4->setActive(false);
 
 	creditsScreen[0].push_back(Dev4);
 
-	ShowText* Dev5 = new ShowText(game, "Rodrigo Cabello", "abadiNombre",
+	ShowText* Dev5 = new ShowText(game, "Diego Rol", "creditsName",
 		sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 2, 0, 0);
 	Dev5->setInitialPosition(sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 2);
 	Dev5->setActive(false);
 
 	creditsScreen[0].push_back(Dev5);
 
-	ShowText* Dev6 = new ShowText(game, "Rocío Sanchez-Horcajuelo", "abadiNombre",
+	ShowText* Dev6 = new ShowText(game, "Rocío Sanchez-Horcajuelo", "creditsName",
 		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 2, 0, 0);
 	Dev6->setInitialPosition(2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 2);
 	Dev6->setActive(false);
 
 	creditsScreen[0].push_back(Dev6);
 
-	ShowText* Dev7 = new ShowText(game, "Marta Croche", "abadiNombre",
+	ShowText* Dev7 = new ShowText(game, "Marta Croche", "creditsName",
 		sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 3, 0, 0);
 	Dev7->setInitialPosition(sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 3);
 	Dev7->setActive(false);
 
 	creditsScreen[0].push_back(Dev7);
 
-	ShowText* Dev8 = new ShowText(game, "Pablo Arredondo", "abadiNombre",
+	ShowText* Dev8 = new ShowText(game, "Pablo Arredondo", "creditsName",
 		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 3, 0, 0);
 	Dev8->setInitialPosition(2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 3);
 	Dev8->setActive(false);
 
 	creditsScreen[0].push_back(Dev8);
 
-	ShowText* Dev9 = new ShowText(game, "Elena Robert", "abadiNombre",
+	ShowText* Dev9 = new ShowText(game, "Elena Robert", "creditsName",
 		sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 4, 0, 0);
 	Dev9->setInitialPosition(sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 4);
 	Dev9->setActive(false);
 
 	creditsScreen[0].push_back(Dev9);
 
-	ShowText* Dev10 = new ShowText(game, "Alfonso Rodulfo", "abadiNombre",
+	ShowText* Dev10 = new ShowText(game, "Alfonso Rodulfo", "creditsName",
 		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 4, 0, 0);
 	Dev10->setInitialPosition(2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 4);
 	Dev10->setActive(false);
 
 	creditsScreen[0].push_back(Dev10);
-
-	//Página 1 de créditos
-
-	creditsScreen.push_back({});
-	creditsButtons.push_back({});
-	//Boton página siguiente 2
-	UiButton* botonNext2 = new UiButton(game, "nextCredits", opcPant->getWidth(), sdlutils().height() / 2, 100, 100);
-	botonNext2->setInitialPosition(opcPant->getWidth(), sdlutils().height() / 2);
-	botonNext2->setActive(false);
-	botonNext2->setAction([this, botonNext2](Game* game, bool& exit) {
-		sdlutils().soundEffects().at("botonesMenu").play(0, game->UI);
-		addTween(0.9f, 1.0f, 600.0f, false).via(easing::exponentialOut).onStep([botonNext2, this](tweeny::tween<float>& t, float) mutable {
-			botonNext2->setDimension(t.peek() * botonNext2->getInitialWidth(), t.peek() * botonNext2->getInitialHeight());
-
-			if (t.progress() > .2f) {
-				setFromRight(true);
-				toggleCreditos(paginaCreditos + 1);
-
-				return true;
-			}
-			return false;
-			});
-		});
-
-	creditsScreen[1].push_back(botonNext2);
-	creditsButtons[1].push_back(botonNext2);
-
-	//Boton página anterior
-	UiButton* botonPrevious = new UiButton(game, "previousCredits", sdlutils().width() - opcPant->getWidth(), sdlutils().height() / 2, 100, 100);
-	botonPrevious->setInitialPosition(sdlutils().width() - opcPant->getWidth(), sdlutils().height() / 2);
-	botonPrevious->setActive(false);
-	botonPrevious->setAction([this, botonPrevious](Game* game, bool& exit) {
-		sdlutils().soundEffects().at("botonesMenu").play(0, game->UI);
-		addTween(0.9f, 1.0f, 600.0f, false).via(easing::exponentialOut).onStep([botonPrevious, this](tweeny::tween<float>& t, float) mutable {
-			botonPrevious->setDimension(t.peek() * botonPrevious->getInitialWidth(), t.peek() * botonPrevious->getInitialHeight());
-
-			if (t.progress() > .2f) {
-				setFromRight(false);
-				toggleCreditos(paginaCreditos - 1);
-
-				return true;
-			}
-			return false;
-			});
-		
-		});
-
-	creditsScreen[1].push_back(botonPrevious);
-	creditsButtons[1].push_back(botonPrevious);
-
-	//Título de prueba
-
-	ShowText* TituloPrueba = new ShowText(game, "Prueba_1", "paella",
-		sdlutils().width() / 2, 190, 0, 0);
-	TituloPrueba->setInitialPosition(sdlutils().width() / 2, 190);
-	TituloPrueba->setActive(false);
-
-	creditsScreen[1].push_back(TituloPrueba);
 
 	//Página final de créditos.
 
@@ -1169,8 +1097,8 @@ void UIManager::creaPantallaCreditos()
 	creditsButtons.push_back({});
 
 	//Boton página anterior 2
-	UiButton* botonPrevious2 = new UiButton(game, "previousCredits", sdlutils().width() - opcPant->getWidth(), sdlutils().height() / 2, 100, 100);
-	botonPrevious2->setInitialPosition(sdlutils().width() - opcPant->getWidth(), sdlutils().height() / 2);
+	UiButton* botonPrevious2 = new UiButton(game, "previousCredits", 70, sdlutils().height() / 2, 100, 100);
+	botonPrevious2->setInitialPosition(70, sdlutils().height() / 2);
 	botonPrevious2->setActive(false);
 	botonPrevious2->setAction([this, botonPrevious2](Game* game, bool& exit) {
 		sdlutils().soundEffects().at("botonesMenu").play(0, game->UI);
@@ -1188,61 +1116,61 @@ void UIManager::creaPantallaCreditos()
 		
 		});
 
-	creditsScreen[2].push_back(botonPrevious2);
-	creditsButtons[2].push_back(botonPrevious2);
+	creditsScreen[1].push_back(botonPrevious2);
+	creditsButtons[1].push_back(botonPrevious2);
 
 	//Título de testers
 
-	ShowText* TituloPrueba2 = new ShowText(game, "Testing", "paella",
-		sdlutils().width() / 2, 190, 0, 0);
-	TituloPrueba2->setInitialPosition(sdlutils().width() / 2, 190);
+	ShowText* TituloPrueba2 = new ShowText(game, "Testing", "lobby",
+		sdlutils().width() / 2, 70, 0, 0);
+	TituloPrueba2->setInitialPosition(sdlutils().width() / 2, 70);
 	TituloPrueba2->setActive(false);
 
-	creditsScreen[2].push_back(TituloPrueba2);
+	creditsScreen[1].push_back(TituloPrueba2);
 
 	//Nombre de testers
 
-	ShowText* Tester1 = new ShowText(game, "Andrea Otero", "abadiNombre",
+	ShowText* Tester1 = new ShowText(game, "Andrea Otero", "creditsName",
 		sdlutils().width() / 3, posInicialCreditos, 0, 0);
 	Tester1->setInitialPosition(sdlutils().width() / 3, posInicialCreditos);
 	Tester1->setActive(false);
 
-	creditsScreen[2].push_back(Tester1);
+	creditsScreen[1].push_back(Tester1);
 
-	ShowText* Tester2 = new ShowText(game, "Ruben Andrade", "abadiNombre",
+	ShowText* Tester2 = new ShowText(game, "Ruben Andrade", "creditsName",
 		2 * (sdlutils().width()) / 3, posInicialCreditos, 0, 0);
 	Tester2->setInitialPosition(2 * (sdlutils().width()) / 3, posInicialCreditos);
 	Tester2->setActive(false);
 
-	creditsScreen[2].push_back(Tester2);
+	creditsScreen[1].push_back(Tester2);
 
-	ShowText* Tester3 = new ShowText(game, "David Andrade", "abadiNombre",
+	ShowText* Tester3 = new ShowText(game, "David Andrade", "creditsName",
 		sdlutils().width() / 3, posInicialCreditos + avanceCreditos, 0, 0);
 	Tester3->setInitialPosition(sdlutils().width() / 3, posInicialCreditos + avanceCreditos);
 	Tester3->setActive(false);
 
-	creditsScreen[2].push_back(Tester3);
+	creditsScreen[1].push_back(Tester3);
 
-	ShowText* Tester4 = new ShowText(game, "Jaime Benedí", "abadiNombre",
+	ShowText* Tester4 = new ShowText(game, "Jaime Benedí", "creditsName",
 		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos, 0, 0);
 	Tester4->setInitialPosition(2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos);
 	Tester4->setActive(false);
 
-	creditsScreen[2].push_back(Tester4);
+	creditsScreen[1].push_back(Tester4);
 
-	ShowText* Tester5 = new ShowText(game, "Mikele Lopez", "abadiNombre",
+	ShowText* Tester5 = new ShowText(game, "Mikele Lopez", "creditsName",
 		sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 2, 0, 0);
 	Tester5->setInitialPosition(sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 2);
 	Tester5->setActive(false);
 
-	creditsScreen[2].push_back(Tester5);
+	creditsScreen[1].push_back(Tester5);
 
-	ShowText* Tester6 = new ShowText(game, "Andrea Vega", "abadiNombre",
+	ShowText* Tester6 = new ShowText(game, "Andrea Vega", "creditsName",
 		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 2, 0, 0);
 	Tester6->setInitialPosition(2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 2);
 	Tester6->setActive(false);
 
-	creditsScreen[2].push_back(Tester6);
+	creditsScreen[1].push_back(Tester6);
 
 }
 

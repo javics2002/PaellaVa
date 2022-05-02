@@ -154,11 +154,6 @@ void Tutorial::changeState(States state_)
 				i->setActive(true);
 			break;
 		}
-		case 24: {
-			for (auto i : objectManager->getVentanilla())
-				i->setActive(true);
-			break;
-		}
 		case 28: {
 			cuadroTexto->setTexture("cuadroTextoCocinera");
 			break;
@@ -477,12 +472,6 @@ void Tutorial::loadMap(string const& path)
 					getObjectManager()->addMueble(e);
 					getObjectManager()->addEncimera(e);
 					e->setActive(false);
-				}
-				else if (name == "ventanilla") {
-					Ventanilla* v = new Ventanilla(game, position, camara->renderRect());
-					getObjectManager()->addMueble(v);
-					getObjectManager()->addVentanilla(v);
-					v->setActive(false);
 				}
 				else if (name == "arroz") {
 					BolsaArroz* b = new BolsaArroz(game, position);

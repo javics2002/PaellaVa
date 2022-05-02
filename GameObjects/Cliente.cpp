@@ -91,7 +91,7 @@ void Cliente::setAnimResources(int clientType)
 		anims.push_back(&sdlutils().images().at("cliente3SittingDown"));
 		anims.push_back(&sdlutils().images().at("cliente3SittingSide"));
 
-		anims.push_back(&sdlutils().images().at("cliente3WalkSide"));
+		anims.push_back(&sdlutils().images().at("cliente3WalkDown"));
 
 	}
 }

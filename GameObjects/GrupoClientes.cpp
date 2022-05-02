@@ -97,6 +97,7 @@ void GrupoClientes::update()
 		else if (sdlutils().virtualTimer().currTime() - lastTimeComido >= TIEMPO_COMIDA) {
 			mesa->comerPaellas();
 			estado_ = CUENTA;
+			sdlutils().soundEffects().at("cuenta").play();
 		}
 	}
 
@@ -161,7 +162,6 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 
 		else if (estado_ == CUENTA) {
 			drawRender(cameraRect, { (int)mesa->getCenterMesa().getX() - bocadilloX / 2, (int)mesa->getCenterMesa().getY() - bocadilloY, bocadilloX, bocadilloY }, texTolerancia);
-			sdlutils().soundEffects().at("cuenta").play();
 		}
 	}
 }
@@ -311,7 +311,6 @@ void GrupoClientes::onDeactivate()
 		i->setActive(false);
 	}
 		
-
 	if (estado_ == CUENTA) {
 		mesa->clienteSeVa();
 		game->getCurrentScene()->addPuntuaciones(pedido->puntuarPedido(mesa->getPaellasEntregadas()));

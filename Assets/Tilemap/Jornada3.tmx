@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.4" orientation="orthogonal" renderorder="right-down" width="39" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="247">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="39" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="248">
  <tileset firstgid="1" source="Tileset.tsx"/>
  <layer id="1" name="Capa de patrones 1" width="39" height="12">
   <data encoding="csv">
-10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
-10,10,10,10,10,10,10,10,10,16,10,10,10,10,10,10,10,10,10,10,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
-15,11,11,11,11,11,11,11,11,16,11,11,11,11,11,11,11,11,11,14,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,6,
+10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,6,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+10,10,10,10,10,10,10,10,10,16,10,10,10,10,10,10,15,10,10,6,2,2,7,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+13,11,11,11,11,11,11,11,11,16,11,11,11,11,11,11,11,11,11,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,
 13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
-13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
+13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,25,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
 13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
 13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
 13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
@@ -47,7 +47,7 @@
   <object id="9" name="fogon" x="1728" y="364">
    <point/>
   </object>
-  <object id="10" name="ventanilla" x="1216" y="488">
+  <object id="10" name="encimera" x="1216" y="488">
    <point/>
   </object>
   <object id="11" name="lavavajillas" x="1215.83" y="550.417">
@@ -77,13 +77,10 @@
   <object id="19" name="sillaDer" x="94" y="551">
    <point/>
   </object>
-  <object id="21" name="sillaIz" x="896" y="194.166">
+  <object id="21" name="sillaIz" x="896" y="207.166">
    <point/>
   </object>
-  <object id="22" name="sillaAb" x="192" y="128">
-   <point/>
-  </object>
-  <object id="23" name="sillaAr" x="960" y="639.5">
+  <object id="22" name="sillaAb" x="192" y="150">
    <point/>
   </object>
   <object id="27" name="puerta" x="576" y="38">
@@ -105,28 +102,19 @@
   <object id="32" name="sillaIz" x="473.833" y="551">
    <point/>
   </object>
-  <object id="33" name="sillaAb" x="256" y="128">
+  <object id="33" name="sillaAb" x="256" y="150">
    <point/>
   </object>
-  <object id="34" name="sillaDer" x="128" y="192">
+  <object id="34" name="sillaDer" x="128" y="205">
    <point/>
   </object>
   <object id="35" name="sillaDer" x="128" y="256">
    <point/>
   </object>
-  <object id="36" name="sillaAr" x="256" y="320">
-   <point/>
-  </object>
-  <object id="37" name="sillaAr" x="192" y="320">
-   <point/>
-  </object>
-  <object id="38" name="sillaIz" x="320" y="192">
+  <object id="38" name="sillaIz" x="320" y="205">
    <point/>
   </object>
   <object id="39" name="sillaIz" x="320" y="256">
-   <point/>
-  </object>
-  <object id="40" name="sillaAr" x="1024" y="640.333">
    <point/>
   </object>
   <object id="41" name="sillaIz" x="1088" y="548">
@@ -153,10 +141,7 @@
   <object id="246" name="cocinera" x="1472" y="488">
    <point/>
   </object>
-  <object id="50" name="sillaDer" x="767.667" y="193.333">
-   <point/>
-  </object>
-  <object id="51" name="sillaAr" x="410" y="645.5">
+  <object id="50" name="sillaDer" x="767.667" y="206.333">
    <point/>
   </object>
   <object id="52" name="sillaIz" x="222" y="551">
@@ -216,7 +201,7 @@
   <object id="230" name="encimera" x="1664" y="682">
    <point/>
   </object>
-  <object id="231" name="ventanilla" x="1216" y="424">
+  <object id="231" name="encimera" x="1216" y="424">
    <point/>
   </object>
   <object id="232" name="encimera" x="1536" y="102">
@@ -231,8 +216,11 @@
    </properties>
    <point/>
   </object>
+  <object id="247" name="sillaAb" x="158" y="489.333">
+   <point/>
+  </object>
  </objectgroup>
- <objectgroup id="3" name="Pared">
+ <objectgroup id="3" name="Pared" visible="0">
   <object id="72" name="pared" x="128" y="102">
    <point/>
   </object>

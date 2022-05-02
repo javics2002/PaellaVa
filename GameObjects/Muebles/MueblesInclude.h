@@ -10,7 +10,6 @@
 #include "TablaProcesado.h"
 #include "Encimera.h"
 #include "Silla.h"
-#include "Ventanilla.h"
 #include "Pared.h"
 #include "BolsaArroz.h"
 #include "CajaHerramientas.h"
