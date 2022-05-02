@@ -38,7 +38,7 @@ void InicioCinta::update()
 			ingLetal->setVel(vel);
 			initTime = sdlutils().virtualTimer().currTime();
 
-			game->getNetworkManager()->sendCreateIngredienteLetal(ingLetal->getTipo(), getPosition(), vel);
+			game->getNetworkManager()->sendCreateIngredienteLetal(ingLetal->getTipoLetal(), getPosition(), vel);
 		}
 		else {
 			Ingrediente* ing = game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->add(getPosition());

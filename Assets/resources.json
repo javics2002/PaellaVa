@@ -228,7 +228,9 @@
     { "id": "cocineraLobby", "file": "Assets/Images/cocineraLobby.png" },
     { "id": "fondoMadera", "file": "Assets/Images/fondoMadera.png" },
     { "id": "estrellaMolde", "file": "Assets/Images/estrellaMolde.png" },
-    { "id": "cuadradoPlay", "file": "Assets/Images/cuadradoPlay.png" }
+    { "id": "cuadradoPlay", "file": "Assets/Images/cuadradoPlay.png" },
+    { "id": "disconnectedBg", "file": "Assets/Images/disconnectedBg.png" }
+
 
 
   ],
