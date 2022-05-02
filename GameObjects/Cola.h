@@ -22,6 +22,8 @@ public:
 	void remove(list<GrupoClientes*>::const_iterator it, int tam);
 
 	bool esValido(int tamGrupo);	
+
+	bool estaLlena();
 	
 };
 
