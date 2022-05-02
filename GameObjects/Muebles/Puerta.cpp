@@ -10,8 +10,6 @@ Puerta::Puerta(Game* game, Vector2D<double> pos, int t_Max, int tamMaxGrupo_) : 
 	cola = new Cola(t_Max);
 	maxTamGrupo = tamMaxGrupo_;
 
-	cout << maxTamGrupo << endl;
-
 	//Siempre tiene que funcionar
 	funcionando = true;
 
@@ -34,28 +32,8 @@ void Puerta::update()
 		if (sdlutils().virtualTimer().currTime() - initTime >= spawn_delay && isActive()
 			&& cola->esValido(1) && game->getCurrentScene()->getState() == States::cogerClientes) {
 			vector<Cliente*> clientes;
-			Cliente* c = game->getObjectManager()->getPool<Cliente>(_p_CLIENTE)->add();
-
-			Vector2D<double> dist = vel;
-			dist.normalize();
-			dist = Vector2D<double>(dist.getX() * c->getWidth(), dist.getY() * c->getHeight());
-
-			Vector2D<double> pos = getPosition();
-
-			int t = sdlutils().rand().nextInt(0, 3);
-			c->setPosition(getX(), getY());
-			c->setAnimResources(t);
-			clientes.push_back(c);
-
-			pos = pos - dist;
-
-			GrupoClientes* g = game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->add();
-			g->setVel(vel);
-			cola->add(g, 1);
-			g->initGrupo(cola, clientes);
-
-
-			sdlutils().soundEffects().at("puerta").play();
+			
+			clientSpawn();
 
 			initTime = sdlutils().virtualTimer().currTime();
 		}	
