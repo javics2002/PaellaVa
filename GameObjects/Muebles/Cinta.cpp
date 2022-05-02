@@ -57,7 +57,7 @@ void Cinta::render(SDL_Rect* cameraRect)
 {
 	if (isActive()) {
 		SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, w, h };
-		cout << angle << endl;
+		//cout << angle << endl;
 
 		drawRender(cameraRect, dest, texture, clip, angle);
 	}

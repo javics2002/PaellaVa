@@ -1,8 +1,9 @@
 #pragma once
 #include "Ingrediente.h";
 class Game;
-const vector<string> texturaIngredienteLetal = { "rata" };
-enum tipoIngredienteLetal {rata, LEST};
+const vector<string> texturaIngredienteLetal = { "rata", "pimientoVerdeMalo", "pimientoRojoMalo"};
+enum tipoIngredienteLetal {rata, pVMalo, pRMalo, LEST};
+const vector<string> texturaIngrProcesadoLetal = { "rataP", "pimientoVerdeMaloProcesado", "pimientoRojoMaloProcesado"};
 
 class IngredienteLetal : public Ingrediente
 {
