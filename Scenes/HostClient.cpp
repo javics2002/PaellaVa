@@ -3,7 +3,6 @@
 #include "../Control/NetworkManager.h"
 #include "../Scenes/Jornada.h"
 #include "../GameObjects/UI/ShowText.h"
-#include "IntroduceIP.h"
 #include "../Scenes/Menu.h"
 
 HostClient::HostClient(Game* game) : Scene(game)
@@ -63,9 +62,14 @@ HostClient::HostClient(Game* game) : Scene(game)
 
 		else {
 			if (esValida(ip_)) {
-				game->sendMessageScene(new IntroduceIP(game));
-			}
+				// game->sendMessageScene(new IntroduceIP(game));
+				ip_.erase(remove(ip_.begin(), ip_.end(), ' '), ip_.end());
 
+				if (game->getNetworkManager()->init('c', ip_.c_str(), game->getNombre())) {
+					// crear el lobby
+					game->sendMessageScene(new Lobby(game, game->getNetworkManager()->getOtherName()));
+				}
+			}
 			else {
 				ipNoValida->setActive(true);
 				tiempoIpNV = sdlutils().currRealTime();
