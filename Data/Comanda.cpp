@@ -861,9 +861,9 @@ void Comanda::update()
 		{
 			siguientebotonfocus(-1);
 		}
-		if (ih().getKey(ih().A))
+		if (ih().getKey(ih().X))
 		{
-			ih().setKey(false, ih().A);
+			ih().setKey(false, ih().X);
 			pressSelectedButton();
 			
 		}
