@@ -28,7 +28,7 @@ void RedactaComandabutton::execute(bool& exit)
 	{
 		uim->getComanda()->toggleactive();
 	}
-	Swichposition();
+//	Swichposition();
 }
 
 void RedactaComandabutton::Swichposition()
