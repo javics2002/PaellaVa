@@ -322,6 +322,7 @@ void Comanda::borraPedido()
 }
 void Comanda::cancelaPedido()
 {
+	
 	Pedido.clear();
 	escritoX = margenizquierdo;
 	escritoY = margensuperior;
@@ -349,6 +350,7 @@ void Comanda::cancelaPedido()
 	if (isActive())
 	{
 		toggleTecladonum(true);
+		uiManager->getRedactabutton()->resetPosition();
 	}
 	ih().setKey(false, InputHandler::A);
 }
@@ -416,6 +418,7 @@ void Comanda::aceptaPaella()
 	//, tendra que mover margenes y vaciar el vector de pedido y que haya un render paellas , lo dificil va  a ser que 
 	//se renderice otdo guay
 	//todos los pedidos con 3 ingredientes y si no pues se rellena con las (un 9)
+	
 	if (ingredientesweb.size() == maxingrendientes * tamanosweb.size())
 	{
 		//paellas llenas y sin huecos
@@ -434,6 +437,7 @@ void Comanda::aceptaPaella()
 		
 	if (!Pedido.empty() && paellas.size() < maxpaellas)
 	{
+		uiManager->getRedactabutton()->goDown();
 		paellas.push_back(vector<UiButton*>());
 		for (int j = 0; j < Pedido.size(); j++)
 		{

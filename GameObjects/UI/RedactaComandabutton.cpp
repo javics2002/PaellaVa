@@ -46,3 +46,12 @@ void RedactaComandabutton::Swichposition()
 		setTexture("redactaboton");
 	}
 }
+void RedactaComandabutton::goDown()
+{
+	setPosition(100, getPosition().getY() + 30);
+}
+void RedactaComandabutton::resetPosition()
+{
+	setPosition(100, 260);
+
+}

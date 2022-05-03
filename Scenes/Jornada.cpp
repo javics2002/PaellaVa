@@ -131,7 +131,7 @@ void Jornada::handleInput(bool& exit)
 		else {
 			uiManager->getComanda()->toggleactive();
 		}
-		redactaBut->Swichposition();
+	
 	}
 }
 
