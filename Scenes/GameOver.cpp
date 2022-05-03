@@ -26,7 +26,7 @@ GameOver::GameOver(Game* game, int puntuation, int numeroJornada) : Scene(game)
 	starMold->setTexture("estrellaMolde");
 	starMold->setInitialDimension(110*5, 110);
 	starMold->setDimension(110*5, 110);
-	starMold->setPosition(sdlutils().width() / 4 + 110, 70 * 2);
+	starMold->setPosition(sdlutils().width() / 2, 70 * 2);
 	uiManager->addInterfaz(starMold);
 
 	starTexture = &sdlutils().images().at("estrella");
@@ -36,21 +36,21 @@ GameOver::GameOver(Game* game, int puntuation, int numeroJornada) : Scene(game)
 		estrellas[i]->setInitialDimension(110, 100);
 		estrellas[i]->setDimension(0, 0);
 		estrellas[i]->setTexture("estrella");
-		estrellas[i]->setPosition(sdlutils().width() / 4 - estrellas[i]->getInitialWidth() + i * estrellas[i]->getInitialWidth(), 70 * 2);
+		estrellas[i]->setPosition(sdlutils().width() / 2 -110*2 + i * estrellas[i]->getInitialWidth(), 70 * 2);
 		estrellas[i]->setActive(false);
 		uiManager->addInterfaz(estrellas[i]);
 	}
 
 	tweenEstrellas(estrellas);
 	
-	GameObject* puntos = new GameObject(game);
+	/*GameObject* puntos = new GameObject(game);
 	puntos->setTexture(string("Puntuacion: " + to_string(starNumber)), string("paella"), SDL_Color{ 255, 255, 255, 255 }, SDL_Color{ 0, 0, 0, 0 });
 	puntos->setDimension();
 	puntos->setPosition(Vector2D<double>(posPuntX, posPuntY + puntos->getHeight()));
-	uiManager->addInterfaz(puntos);
+	uiManager->addInterfaz(puntos);*/
 
 	auto continueButton = new UiButton(game, "continue",
-		sdlutils().width() / 2 + 350, sdlutils().height() / 2 + 300, 300, 120);
+		sdlutils().width() / 2, sdlutils().height() / 2 + 300, 300, 120);
 	continueButton->setInitialDimension(300, 120);
 
 	continueButton->setAction([this, continueButton](Game* game, bool& exit) {

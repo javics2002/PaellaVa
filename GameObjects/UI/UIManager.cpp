@@ -737,7 +737,7 @@ void UIManager::creaMenuOpciones()
 
 	//Boton Pant Completa
 	Imagen* botPantCompl = new Imagen(game, pantCompleta->getX() + pantCompleta->getWidth() / 2 + 35,
-		pantCompleta->getY(), 60, 50, "Y");
+		pantCompleta->getY(), 50, 50, "Y");
 	botPantCompl->setActive(false);
 	botonesMando.push_back(botPantCompl);
 

@@ -221,7 +221,7 @@
     { "id": "RT", "file": "Assets/Images/Rt.png" },
     { "id": "LB", "file": "Assets/Images/Lb.png" },
     { "id": "RB", "file": "Assets/Images/Rb.png" },
-    { "id": "Y", "file": "Assets/Images/Y.png" },
+    { "id": "Y", "file": "Assets/Images/mandoY.png" },
     { "id": "R", "file": "Assets/Images/R.png" },
     { "id": "ip", "file": "Assets/Images/ip.png" },
     { "id": "camareroLobby", "file": "Assets/Images/camareroLobby.png" },

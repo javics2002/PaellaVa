@@ -12,6 +12,7 @@
 #include "../Scenes/Jornada.h"
 #include "../Scenes/GameOver.h"
 #include "../Scenes/Menu.h"
+#include "../Scenes//Disconnected.h"
 
 #include "../Utils/Vector2D.h"
 
@@ -169,7 +170,7 @@ void NetworkManager::receivePlayers()
 
 					SDLNet_TCP_Close(player_sockets[i]);
 
-					game->sendMessageScene(new Menu(game));
+					game->sendMessageScene(new Disconnected(game));
 
 					//close();
 					// borrar con iterador su socket y su player
@@ -376,7 +377,7 @@ void NetworkManager::updateClient()
 
 				SDLNet_TCP_Close(socket);
 
-				game->sendMessageScene(new Menu(game));
+				game->sendMessageScene(new Disconnected(game));
 
 				// close();
 				// borrar con iterador su socket y su player
