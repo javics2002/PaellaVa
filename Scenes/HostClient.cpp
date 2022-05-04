@@ -61,10 +61,10 @@ HostClient::HostClient(Game* game) : Scene(game)
 		}
 
 		else {
+			
+			ip_.erase(remove(ip_.begin(), ip_.end(), ' '), ip_.end());
 			if (esValida(ip_)) {
 				// game->sendMessageScene(new IntroduceIP(game));
-				ip_.erase(remove(ip_.begin(), ip_.end(), ' '), ip_.end());
-
 				if (game->getNetworkManager()->init('c', ip_.c_str(), game->getNombre())) {
 					// crear el lobby
 					game->sendMessageScene(new Lobby(game, game->getNetworkManager()->getOtherName()));
@@ -82,7 +82,7 @@ HostClient::HostClient(Game* game) : Scene(game)
 
 bool HostClient::esValida(string ipText)
 {
-	/*if (ipText == " ") return false;
+	if (ipText == " ") return false;
 
 	vector<string> aux = split(ipText);
 
@@ -104,7 +104,7 @@ bool HostClient::esValida(string ipText)
 		if (stoi(digito) >= 256) {
 			return false;
 		}
-	}*/
+	}
 
 	return true;
 }
