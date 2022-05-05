@@ -71,8 +71,9 @@ GameOver::GameOver(Game* game, int puntuation, int numeroJornada) : Scene(game)
 					game->getNetworkManager()->sendStartGame(nJornada+1);
 				}
 				else {
-					// game->getNetworkManager()->close();
 					game->sendMessageScene(new FinalScene(game, 100));
+
+					game->getNetworkManager()->sendFinishGame(100, 0, true);
 				}
 				return true;
 			}

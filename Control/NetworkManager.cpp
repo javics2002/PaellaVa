@@ -12,7 +12,8 @@
 #include "../Scenes/Jornada.h"
 #include "../Scenes/GameOver.h"
 #include "../Scenes/Menu.h"
-#include "../Scenes//Disconnected.h"
+#include "../Scenes/Disconnected.h"
+#include "../Scenes/FinalScene.h"
 
 #include "../Utils/Vector2D.h"
 
@@ -367,10 +368,14 @@ void NetworkManager::updateClient()
 				break;
 			case EPT_FINISHGAME:
 				setGameStarted(false);
-				
 				game->sendMessageScene(new GameOver(game, server_pkt.finishGame.punctuation, server_pkt.finishGame.numJornada));
-				
-				
+
+				break;
+
+			case EPT_ENDGAME:
+				setGameStarted(false);
+				game->sendMessageScene(new FinalScene(game, server_pkt.finishGame.punctuation));
+
 				break;
 			case EPT_QUIT:
 				setGameStarted(false);
@@ -386,11 +391,7 @@ void NetworkManager::updateClient()
 				break;
 			case EPT_SYNCBARRA:
 				if (gameStarted) {
-					
-				 
 					game->getUIManager()->getBarra()->borralaComandaQueteMandan(server_pkt.syncBarra.idComanda);
-				
-				
 				}
 				break;
 			}
@@ -555,6 +556,7 @@ void NetworkManager::close()
 	exitThread = true;
 
 	if (nType == 'h') { // si se es host, tienes que mandar a todo el mundo que te has desconectado
+
 		Packet pkt;
 
 		pkt.packet_type = EPT_QUIT;
@@ -577,6 +579,7 @@ void NetworkManager::close()
 
 	}
 	else if (nType == 'c') {
+
 		Packet pkt;
 
 		pkt.packet_type = EPT_QUIT;
@@ -843,11 +846,15 @@ void NetworkManager::syncMuebleRoto(int muebleId)
 	}
 }
 
-void NetworkManager::sendFinishGame(int finalPunctuation, int nJornada)
+void NetworkManager::sendFinishGame(int finalPunctuation, int nJornada, bool gameEnded)
 {
 	Packet pkt;
 
-	pkt.packet_type = EPT_FINISHGAME;
+	if (gameEnded)
+		pkt.packet_type = EPT_ENDGAME;
+	else
+		pkt.packet_type = EPT_FINISHGAME;
+
 	pkt.finishGame.punctuation = finalPunctuation;
 	pkt.finishGame.numJornada = nJornada;
 
