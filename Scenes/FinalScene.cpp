@@ -8,8 +8,6 @@ using tweeny::easing;
 
 FinalScene::FinalScene(Game* game, int mediaPuntuation) : Scene(game)
 {
-	game->getNetworkManager()->close();
-
 	//nJornada = numeroJornada;
 	//points = puntuation;
 	//calculateStarNumber();
@@ -65,6 +63,8 @@ FinalScene::FinalScene(Game* game, int mediaPuntuation) : Scene(game)
 
 				if (t.progress() > .2f) {
 					//Start game
+					game->getNetworkManager()->close(false);
+
 					game->sendMessageScene(new Menu(game));
 
 					return true;

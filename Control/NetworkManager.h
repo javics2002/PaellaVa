@@ -30,6 +30,7 @@ enum EPacketType {
 	EPT_SYNCPAUSE,
 	EPT_SYNCCOMANDA,
 	EPT_FINISHGAME,
+	EPT_ENDGAME,
 	EPT_QUIT,
 	EPT_SYNCBARRA
 };
@@ -258,7 +259,7 @@ public:
 	void startGameTimer();
 
 	void sendStartGame(int numJornada);
-	void sendFinishGame(int finalPunctuation, int nJornada);
+	void sendFinishGame(int finalPunctuation, int nJornada, bool gameEnded = false);
 	void sendCreateIngrediente(int tipoIngrediente, int ingId, Vector2D<double> pos, Vector2D<double> vel);
 	void sendCreateIngredienteLetal(int tipoIngrediente, Vector2D<double> pos, Vector2D<double> vel);
 	
