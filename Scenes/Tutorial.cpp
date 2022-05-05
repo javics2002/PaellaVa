@@ -51,8 +51,10 @@ Tutorial::Tutorial(Game* game, string tilemap) : Scene(game)
 
 	changeState(pausaInicio);
 
+	uiManager->addInterfaz(rC);
 	uiManager->setRedactaboton(rC);
 	uiManager->setBarra(lC);
+
 	rC->setActive(false);
 	lC->setActive(false);
 }
@@ -104,10 +106,11 @@ void Tutorial::changeState(States state_)
 	anteriorEstado = currentState;
 	currentState = state_;
 
-	if (currentState == pausaComandaEquivocada  || currentState % 2 != 0 
+	if (currentState == pausaComandaEquivocada  || currentState % 2 != 0  //Si el estado actual es impar o cualquiera de esas pausas, pausas el juego
 		|| currentState==pausaBorrarComanda || currentState==pausaNoEcharClientes || currentState==pausaInicio)
 	{
 		if (currentState == 13) {
+			//Activas las cintas y haces que deje de funcionar en ese estado
 			for (auto i : objectManager->getCintas())
 				i->setActive(true);
 			getObjectManager()->getIniCinta()->setActive(true);
@@ -115,63 +118,66 @@ void Tutorial::changeState(States state_)
 			getObjectManager()->getFinCinta()->setActive(true);
 
 		}
-
+		//Pausa
 		pauseTutorial();
 	}
-	else switch (currentState){
-		case 0: {
+	else switch (currentState){ // Si no estamos en una pausa
+		case 0: { // Activamos la puerta y el cartel para que entre nuestro cliente
 			objectManager->getPuerta()->setActive(true);
 			objectManager->getCartel()->setActive(true);
 			break;
 		}
-		case 2:{
+		case 2:{ // Activamos las mesas y la silla para que el cliente se pueda sentar
 			for (auto i : objectManager->getMesas())
 				i->setActive(true);
 			for (auto i : objectManager->getSillas())
 				i->setActive(true);
 			break;
 		}
-		case 4:{		
+		case 4:{ // Permitimos al jugador que pueda tomar comandas
 			rC->setActive(true);
 			lC->setActive(true);
 			break;
 		}
-		case 8:{
+		case 8:{ // Ahora pasamos al rol de cocinera ya que vamos a hacer cosas en la cocina
 			objectManager->getPlayerOne()->changePlayer(true);
-			cuadroTexto->setTexture("cuadroTextoCamarero");
+			cuadroTexto->setTexture("cuadroTextoCamarero"); // Cambiamos el cuadro del texto para que ahora te hable el camarero
+			// Activamos las encimeras y las pilas de paellas para que el jugador pueda usarlas
 			for (auto i : objectManager->getEncimeras())
 				i->setActive(true);
 			for (auto i : objectManager->getPilas())
 				i->setActive(true);
 			break;
 		}
-		case 12:{
+		case 12:{ // Activamos la bolsa de arroz para ponerla en la paella
 			getObjectManager()->getBolsa()->setActive(true);
 			break;
 		}
-		case 14:{
+		case 14:{ // Activamos la caja de herramientas para que el jugador pueda arreglar la cinta rota
 			game->getObjectManager()->getCajaHerramientas()->setActive(true);
 			break;
 		}
-		case 18:{
+		case 18:{ // Una vez coge un ingredientes, se habilitan las tablas de procesado
 			for (auto i : objectManager->getTablas())
 				i->setActive(true);
 			break;
 		}
-		case 22: {
+		case 22: { // Una vez hemos colocado todos los ingredientes, se activan los fogones para cocinar la paella
 			for (auto i : objectManager->getFogones())
 				i->setActive(true);
 			break;
 		}
-		case 24: {
+		case 24: { // Activamos otras encimeras que haran de 'ventanillas' y volvemos a cambiar al jugador a camarero
 			for (auto i : objectManager->getVentanilla())
 				i->setActive(true);
+			objectManager->getPlayerOne()->changePlayer(false);
 			cuadroTexto->setTexture("cuadroTextoCocinera");
 			break;
 		}
-		case 30: {
+		case 30: { // Activamos el lavavjillas para que el jugador deje la paella sucia y canmbiamos el rol a cocinera
 			objectManager->getLavavajillas()->setActive(true);
 			cuadroTexto->setTexture("cuadroTextoCamarero");
+			objectManager->getPlayerOne()->changePlayer(true);
 			break;
 		}
 		case 34: {
@@ -180,7 +186,7 @@ void Tutorial::changeState(States state_)
 			break;
 		}
 		case final: {
-			
+			// Volvemos al menú
 			game->getNetworkManager()->close();
 			game->sendMessageScene(new Menu(game));
 		}
@@ -189,22 +195,24 @@ void Tutorial::changeState(States state_)
 	}
 }
 
-States Tutorial::getState()
+States Tutorial::getState() // Returnea el estado actual en el que se encuentra el jugador
 {
 	return currentState;
 }
 
 
-void Tutorial::refresh()
+void Tutorial::refresh() 
 {
 	objectManager->refresh();
 }
 
-void Tutorial::render()
+void Tutorial::render() // Render
 {
  	fondo->render(camara->renderRect());
 	objectManager->render(camara->renderRect());
 	uiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
+
+	// Para ciertos casos necesitamos renderizar un texto, y para el resto de pausas, se van mostrando en orden
 	if (currentState == pausaComandaEquivocada) {
 		activaCuadro("textoComandaEquivocada");
 	}
@@ -219,10 +227,10 @@ void Tutorial::render()
 	else if (currentState % 2 != 0) {
 		activaCuadro(textos[currentState/2]);
 	}
-	else if (currentState % 2 == 0) {
+	else if (currentState % 2 == 0) { // Si no estamos en una pausa desactivamos el texto
 		desactivaCuadro();
 	}
-	textMngr->render();
+	textMngr->render(); // Llamamos al render del TextManager
 }
 
 
@@ -371,6 +379,8 @@ void Tutorial::loadMap(string const& path)
 				/// </Z coords>
 
 
+				//En algunos casos necesitamos meter los muebles en un vector a parte para poder activarlos secuencialmente con lo deseado
+				// Desactivamos todos los muebles ya que los vamos a ir activando poco a poco
 				if (name == "camarero") {
 					positionCamarero = position;
 				}
@@ -520,7 +530,7 @@ void Tutorial::loadMap(string const& path)
 					Pila* p = new Pila(game, position, TipoPaella::Grande, 1);
 					getObjectManager()->addMueble(p);
 					getObjectManager()->addPilas(p);
-					p->setActive(false);
+				p->setActive(false);
 				}
 				else if (name == "cajaHerramientas")
 				{
@@ -543,10 +553,10 @@ void Tutorial::loadMap(string const& path)
 
 void Tutorial::togglePause()
 {
-	uiManager->togglePause();
+	uiManager->togglePause(); // Pausamos el juego cuando hay un dialogo o si hay una pausa
 
 	if (currentState % 2 == 0)paused = !paused;
-	else textMngr->cambiaPausa();
+	else textMngr->cambiaPausa(); // Si se pausa el juego y estamos en un dialogo, paramos el dialogo
 
 	if (paused) {
 
@@ -563,7 +573,7 @@ void Tutorial::togglePause()
 
 void Tutorial::pauseTutorial()
 {
-
+	// Pausa para los dialogos
 	paused = !paused;
 
 	if (paused) {
@@ -571,7 +581,7 @@ void Tutorial::pauseTutorial()
 		sdlutils().virtualTimer().pause();
 		sdlutils().soundEffects().at("cancel").play(0, game->UI);
 	}
-	else {
+	else { // En funcion del estado, pasamos a un estado pero volvemos al anterior
 		sdlutils().virtualTimer().resume();
 		if (currentState == pausaComandaEquivocada)
 			currentState = anteriorEstado;
@@ -587,12 +597,12 @@ void Tutorial::pauseTutorial()
 	}
 }
 
-void Tutorial::nextStates()
+void Tutorial::nextStates() // Pasamos al siguiente estado
 {
 	currentState =(States) (currentState + 1);
 }
 
-void Tutorial::desactivaCuadro()
+void Tutorial::desactivaCuadro() // Desactivamos el cuadro de texto que haya en pantalla
 {
 	textMngr->desactivaTexto();
 	cuadradoPlay->setActive(false);
@@ -602,7 +612,8 @@ void Tutorial::desactivaCuadro()
 }
 
 
-void Tutorial::activaCuadro(string texto_)
+void Tutorial::activaCuadro(string texto_) // Activamos el cuadro de texto y empezamos a escribir el dialogo
+										   // Si estamos jugando con mando renderizamos un boton para indicar como continuar
 {
 	cuadroTexto->setActive(true);
 	if(ih().isMandoActive())

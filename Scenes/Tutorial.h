@@ -42,7 +42,7 @@ class Tutorial : public Scene
 	Vector2D<double> positionCocinera;
 
 	Imagen* cuadroTexto = new Imagen(game, sdlutils().width() / 2, sdlutils().height() - 100, sdlutils().width()/1.5, 250, "cuadroTextoCocinera");
-	Imagen* cuadradoPlay = new Imagen(game, 990, sdlutils().height() - 35, 20, 25, "cuadradoPlay");
+	Imagen* cuadradoPlay = new Imagen(game, 990, sdlutils().height() - 35, 20, 25, "X");
 
 	RedactaComandabutton* rC = new RedactaComandabutton(game, uiManager, "redactaboton", 10, 10, 30, 30);
 	ListaComandas* lC = new ListaComandas(game, uiManager);

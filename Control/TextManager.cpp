@@ -16,43 +16,43 @@ offsetYLinea(2), tiempoCreaccionLetra(1), ultimoCaracter(""), terminado(true), n
 
 void TextManager::update()
 {
-	if (rapido && !pausa) {
+	if (rapido && !pausa) { // Si hemos pulsado el avanzar, recorremos todo el dialogo rapidamente
 		while (!terminado)
 			anadeLetra();
 	}
-	else if (!terminado && vt->currTime() > tiempoCreaccionLetra && !pausa) {
+	else if (!terminado && vt->currTime() > tiempoCreaccionLetra && !pausa) { // Si no estamos pausados y no ha terminado de escribir, escribe letra a letra con cierto tiempo
 
 		anadeLetra();
 		vt->reset();
 	}
 }
 
-void TextManager::render()
+void TextManager::render() // Render del textManager
 {	
-	for (int i = 0; i < lineas.size(); i++) {
+	for (int i = 0; i < lineas.size(); i++) { // Renderizamos lo que llevemos de dialogo
 		Texture text(sdlutils().renderer(), lineas[i], sdlutils().fonts().at(fuenteLetra), build_sdlcolor(0x444444ff));
 		SDL_Rect dest = build_sdlrect(270,sdlutils().height()-135 + ((alturaLetra + offsetYLinea) * i), text.width(), text.height());
 		text.render(dest);
 	}
-	if (ih().isMandoActive() && !desactivado_) {
+	if (ih().isMandoActive() && !desactivado_) { // Si hay un mando, renderizamos el boton para continuar
 		Texture text1(sdlutils().renderer(), "Pulsa", sdlutils().fonts().at(fuenteLetra), build_sdlcolor(0x444444ff));
 		SDL_Rect d = build_sdlrect(925, sdlutils().height() - 45, text1.width(), text1.height());
 		text1.render(d);
 	}
-	else if (!desactivado_) {
+	else if (!desactivado_) { // Si estamos con teclado y raton, la tecla para continuar es la 'Q'
 		Texture text1(sdlutils().renderer(), "Pulsa Q", sdlutils().fonts().at(fuenteLetra), build_sdlcolor(0x444444ff));
 		SDL_Rect d = build_sdlrect(925, sdlutils().height() - 45, text1.width(), text1.height());
 		text1.render(d);
 	}
 }
 
-void TextManager::activaTexto(string dialogo)
+void TextManager::activaTexto(string dialogo) // Activamos el texto
 {
-	terminado = false;
-	desactivado_ = false;
+	terminado = false; // Empieza a escribir por lo q no ha terminado
+	desactivado_ = false; // Esta activo
 	ultimoParrafo = false;
 	dialogoTerminado = false;
-	dialogo_ = dialogo;
+	dialogo_ = dialogo; // Referencia al dialogo que vamos a escribir
 }
 
 void TextManager::desactivaTexto()
