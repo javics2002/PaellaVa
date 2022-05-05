@@ -1,6 +1,7 @@
 #include "GameOver.h"
 #include "../Scenes/Menu.h"
 #include "../Scenes/Jornada.h"
+#include "../Scenes/FinalScene.h"
 #include "../Control/NetworkManager.h"
 #include "../sdlutils/SDLUtils.h"
 
@@ -70,8 +71,8 @@ GameOver::GameOver(Game* game, int puntuation, int numeroJornada) : Scene(game)
 					game->getNetworkManager()->sendStartGame(nJornada+1);
 				}
 				else {
-					game->getNetworkManager()->close();
-					game->sendMessageScene(new Menu(game));
+					// game->getNetworkManager()->close();
+					game->sendMessageScene(new FinalScene(game, 100));
 				}
 				return true;
 			}

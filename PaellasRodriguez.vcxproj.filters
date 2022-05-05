@@ -75,6 +75,7 @@
     <ClCompile Include="GameObjects\Muebles\Sillas\SillaO.cpp" />
     <ClCompile Include="GameObjects\UI\Numerobutton.cpp" />
     <ClCompile Include="Scenes\Disconnected.cpp" />
+    <ClCompile Include="Scenes\FinalScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
@@ -175,6 +176,7 @@
     <ClInclude Include="GameObjects\Muebles\Sillas\SillaO.h" />
     <ClInclude Include="GameObjects\UI\Numerobutton.h" />
     <ClInclude Include="Scenes\Disconnected.h" />
+    <ClInclude Include="Scenes\FinalScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />
