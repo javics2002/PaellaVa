@@ -11,7 +11,7 @@
 class Game;
 class Player;
 
-
+// Tipos de paquete
 enum EPacketType {
 	EPT_START,
 	EPT_ACCEPT,
@@ -33,18 +33,6 @@ enum EPacketType {
 	EPT_ENDGAME,
 	EPT_QUIT,
 	EPT_SYNCBARRA
-};
-
-struct PacketSend {
-	Uint8 player_id;
-	Sint8 player_horizontal;
-	Sint8 player_vertical;
-};
-
-// Paquete que recibe el servidor, lo mandan los clientes
-struct PacketRecv {
-	Sint8 player_horizontal;
-	Sint8 player_vertical;
 };
 
 // Paquete que manda el servidor cuando acepta a un jugador
@@ -90,7 +78,7 @@ struct PacketGrupoCliente {
 	float tolerancia;
 };
 
-// Paquete para input jugador (axis)
+// Paquete para input jugador.
 struct PacketButtonBuffer {
 	bool buttonBuffer[4];
 };
@@ -102,10 +90,10 @@ struct PacketSyncPlayers {
 
 	float velX;
 	float velY;
-
 };
 
-// currently testing
+// Paquete para pickear el objeto
+
 struct PacketSyncPickObject {
 	Uint8 object_type; // 0 - ingredientes, 1 - clientes, 2 - paella, 3 - arroz 4 - herramienta
 	Uint8 extra_info; // additional info
@@ -113,12 +101,16 @@ struct PacketSyncPickObject {
 	Sint16 mueble_id; // id mueble
 };
 
+// Paquete para dropear el objeto
+
 struct PacketSyncDropObject {
 	Uint8 object_type; // 0 - ingredientes, 1 - clientes, 2 - paella, 3 - arroz 4 - herramienta
 	Uint16 object_id; // id
 
 	Sint16 mueble_id; // mueble id
 };
+
+// Paquete para sincornizar el pedido del grupo de clientes
 
 struct PacketSyncPedido {
 	Uint8 group_id; // id del grupo de clientes
@@ -129,9 +121,13 @@ struct PacketSyncPedido {
 	Uint8 ing_pedidos[12]; // 9 ingredientes
 };
 
+// Paquete para sincronizar los muebles rotos
+
 struct PacketSyncMuebleRoto {
 	Uint8 mueble_id;
 };
+
+// Paquete para sincronizar la comanda
 
 struct PacketSyncComanda {
 	Uint8 numMesa;
@@ -142,20 +138,25 @@ struct PacketSyncComanda {
 	Uint8 ing_pedidos[12]; // 9 ingredientes
 };
 
+// Paquete para sincronizar la escena de GameOver
+
 struct PacketFinishGame {
 	Uint16 punctuation;
 	Uint8 numJornada;
 };
+
+// Paquete para sincronizar la barra de comandas
+
 struct PacketSyncBarra {
 	Uint16 idComanda;
 };
+
+
 struct Packet {
 	Uint8 packet_type;
 
 	union
 	{
-		PacketSend send;
-		PacketRecv recieve;
 		PacketAccept accept;
 		PacketName name;
 		PacketStartGame startGame;
@@ -179,9 +180,9 @@ class NetworkManager
 {
 private:
 
-	std::vector<TCPsocket> player_sockets;
-	std::vector<IPaddress> player_ips;
-	std::vector<int> player_ids;
+	std::vector<TCPsocket> mPlayerSockets;
+	std::vector<IPaddress> mPlayerIps;
+	std::vector<int> mPlayerIds;
 
 	// SERVER
 
@@ -194,7 +195,7 @@ private:
 
 	// CLIENT
 
-	int client_id;
+	int mClientId;
 
 	std::thread* updateclient_t;
 
@@ -212,14 +213,14 @@ private:
 
 	const int MAX_PLAYERS = 15;
 
-	int id_count;
-	Game* game;
+	int mIdCount;
+	Game* mGame;
 
-	bool exitThread;
-	bool gameStarted;
+	bool mExitThread;
+	bool mGameStarted;
 
-	std::string myName;
-	std::string otherName;
+	std::string mMyName;
+	std::string mOtherName;
 
 	// For clients ip=server_address, for host ip=local_address
 	IPaddress ip;
@@ -227,18 +228,18 @@ private:
 	// For clients socket=socket_server, for host socket=local_socket
 	TCPsocket socket;
 
-	float accept_frequency;
-	float send_frequency;
-	float recv_frequency;
+	float mAcceptFrequency;
+	float mSendFrequency;
+	float mRecvFrequency;
 
-	float client_frequency;
+	float mClientFrequency;
 
 	// Timer
-	Uint32 lastUpdate_; //tiempo desde el último update
-	Uint32 updateTime_ = 150; //los segundos que tarda en actualizarse el reloj
+	Uint32 mLastUpdate; //tiempo desde el último update
+	Uint32 mUpdateTime = 150; //los segundos que tarda en actualizarse el reloj
 
 	// Host
-	bool host;
+	bool mHost;
 
 public:
 	NetworkManager(Game* game_);
@@ -249,12 +250,10 @@ public:
 
 	void close();
 
-	bool isHost() { return host; }
-	Player* addPlayerHost();
-	Player* addPlayerClient(int id);
+	bool isHost() { return mHost; }
 
-	std::string getOtherName() { return otherName;}
-	std::string getMyName() { return myName; }
+	std::string getOtherName() { return mOtherName;}
+	std::string getMyName() { return mMyName; }
 
 	void startGameTimer();
 
@@ -275,5 +274,5 @@ public:
 	void syncComanda(int numMesa, std::vector<int> tamPaella, std::vector<int> ingPedidos);
 	void syncBarra(int c);
 
-	void setGameStarted(bool gameStarted_) { gameStarted = gameStarted_; }
+	void setGameStarted(bool gameStarted_) { mGameStarted = gameStarted_; }
 };

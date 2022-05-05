@@ -19,11 +19,11 @@
 
 // SERVIDOR
 
-// Función que acepta a los jugadores (se encuentra en un hilo)
-// Problemas que da: ---
+// Función que se encarga de aceptar a los jugadores (se encuentra en un hilo)
+
 void NetworkManager::acceptPlayers()
 {
-	while (!exitThread) {
+	while (!mExitThread) {
 		TCPsocket csd;
 
 		if ((csd = SDLNet_TCP_Accept(socket)))
@@ -40,24 +40,20 @@ void NetworkManager::acceptPlayers()
 			Packet pkt;
 			pkt.packet_type = EPT_ACCEPT;
 
-			strcpy_s(pkt.accept.player_name, myName.c_str());
+			strcpy_s(pkt.accept.player_name, mMyName.c_str());
 			sdlutils().soundEffects().at("connected").play();
 
-			if (player_sockets.size() > MAX_PLAYERS) { // TODO: CHECK IF A PLAYER IS DISCONNECTED
+			if (mPlayerSockets.size() > MAX_PLAYERS) { // TODO: CHECK IF A PLAYER IS DISCONNECTED
 				pkt.packet_type = EPT_DENY;
 			}
 			else {
 				if (id == -1) {
-					id = id_count;
+					id = mIdCount;
 
-					/*Player* p = addPlayerHost();
-
-					game_->getObjectManager()->addPlayer(p);*/
-
-					player_ips.push_back(*remoteIP); // Como eres nuevo, se mete tu IP en el vector
+					mPlayerIps.push_back(*remoteIP); // Como eres nuevo, se mete tu IP en el vector
 				}
 
-				player_sockets.push_back(csd); // Se mete tu socket en el vector
+				mPlayerSockets.push_back(csd); // Se mete tu socket en el vector
 			}
 
 			pkt.accept.player_id = id;
@@ -69,34 +65,31 @@ void NetworkManager::acceptPlayers()
 			}
 		}
 
-		SDL_Delay(accept_frequency);
+		SDL_Delay(mAcceptFrequency);
 	}
 }
 
 // Función que se encarga de actualizar los jugadores (se encuentra en un hilo)
-// Problemas que da: ---
+// Recibe los paquetes de todos los jugadores
+
 void NetworkManager::receivePlayers()
 {
 	Packet pkt;
 	Lobby* lobby;
 
-	while (!exitThread) {
-		for (int i = 1u; i < player_sockets.size(); i++) { // Comenzamos en uno porque el 0 somos nosotros mismos
-			if (SDLNet_TCP_Recv(player_sockets[i], &pkt, sizeof(Packet)) > 0)
+	while (!mExitThread) {
+		for (int i = 1u; i < mPlayerSockets.size(); i++) { // Comenzamos en uno porque el 0 somos nosotros mismos
+			if (SDLNet_TCP_Recv(mPlayerSockets[i], &pkt, sizeof(Packet)) > 0)
 			{
 				switch (pkt.packet_type) {
-				case EPT_UPDATE:
-					// game_->getObjectManager()->getPlayers()[i]->handleInput(Vector2D<double>(packet.player_horizontal, packet.player_vertical));
-					break;
 				case EPT_NAME:
-					/*pkt = *(PacketName*)(void*)&packet;*/
-					// name
-					otherName = pkt.name.player_name;
+					// Asignamos el nombre
+					mOtherName = pkt.name.player_name;
 
-					// actualizar lobby
-					lobby = dynamic_cast<Lobby*>(game->getCurrentScene());
+					// Actualizamos el lobby
+					lobby = dynamic_cast<Lobby*>(mGame->getCurrentScene());
 
-					lobby->clienteUnido(otherName);
+					lobby->clienteUnido(mOtherName);
 					break;
 				case EPT_BUTTONBUFFER:
 					{
@@ -113,26 +106,21 @@ void NetworkManager::receivePlayers()
 					}
 					break;
 				case EPT_SYNCPLAYER:
-					if (gameStarted) {
-						game->getObjectManager()->getPlayerTwo()->setPosition(pkt.syncPlayers.posX, pkt.syncPlayers.posY);
-						game->getObjectManager()->getPlayerTwo()->setVel(Vector2D<double>(pkt.syncPlayers.velX, pkt.syncPlayers.velY));
+					if (mGameStarted) {
+						mGame->getObjectManager()->getPlayerTwo()->setPosition(pkt.syncPlayers.posX, pkt.syncPlayers.posY);
+						mGame->getObjectManager()->getPlayerTwo()->setVel(Vector2D<double>(pkt.syncPlayers.velX, pkt.syncPlayers.velY));
 					}
-					
-					// game_->getObjectManager()->getPlayerTwo()->setPosition(Vector2D<double>(pkt.syncPlayers.posX, pkt.syncPlayers.posY));
 					break;
-
 				case EPT_SYNCPICKOBJECT:
-					// recorrer la pool correspondiente a object type, encontrar el objeto con la id correspondiente y coger dicho objeto
-					game->getObjectManager()->getPlayerTwo()->PickCustomObject(pkt.syncPickObject.object_type, pkt.syncPickObject.object_id, pkt.syncPickObject.mueble_id, pkt.syncPickObject.extra_info);
-
+					mGame->getObjectManager()->getPlayerTwo()->PickCustomObject(pkt.syncPickObject.object_type, pkt.syncPickObject.object_id, pkt.syncPickObject.mueble_id, pkt.syncPickObject.extra_info);
 					break;
 				case EPT_SYNCDROPOBJECT:
-					game->getObjectManager()->getPlayerTwo()->DropCustomObject(pkt.syncDropObject.object_type, pkt.syncDropObject.object_id, pkt.syncDropObject.mueble_id);
+					mGame->getObjectManager()->getPlayerTwo()->DropCustomObject(pkt.syncDropObject.object_type, pkt.syncDropObject.object_id, pkt.syncDropObject.mueble_id);
 					break;
 				case EPT_SYNCPEDIDO:
-					// crear pedido en x grupo de clientes
-					for (int i = 0; i < game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getActiveObjects().size(); i++) {
-						GrupoClientes* gC = game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getActiveObjects()[i];
+					// Crear pedido en el grupo de clientes correspondiente
+					for (int i = 0; i < mGame->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getActiveObjects().size(); i++) {
+						GrupoClientes* gC = mGame->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getActiveObjects()[i];
 						if (gC->getId() == pkt.syncPedido.group_id) {
 							vector<int> tamPaellas;
 							vector<int> ingPedidos(12, LAST);
@@ -150,7 +138,7 @@ void NetworkManager::receivePlayers()
 					}
 					break;
 				case EPT_SYNCPAUSE:
-					dynamic_cast<Jornada*>(game->getCurrentScene())->togglePause();
+					dynamic_cast<Jornada*>(mGame->getCurrentScene())->togglePause();
 					break;
 				case EPT_SYNCCOMANDA:
 					{
@@ -162,41 +150,35 @@ void NetworkManager::receivePlayers()
 
 					vector<int> ingPedidos(begin(pkt.syncComanda.ing_pedidos), end(pkt.syncComanda.ing_pedidos));
 
-					Comanda* com = new Comanda(game, pkt.syncComanda.numMesa, tamPaellas, ingPedidos);
-					game->getUIManager()->getBarra()->AñadeComanda(com);
+					Comanda* com = new Comanda(mGame, pkt.syncComanda.numMesa, tamPaellas, ingPedidos);
+					mGame->getUIManager()->getBarra()->AñadeComanda(com);
 					}
 					break;
 				case EPT_QUIT:
 					setGameStarted(false);
 
-					SDLNet_TCP_Close(player_sockets[i]);
+					SDLNet_TCP_Close(mPlayerSockets[i]);
 
-					game->sendMessageScene(new Disconnected(game));
-
-					//close();
-					// borrar con iterador su socket y su player
-					// player_sockets[i] = NULL;
-
+					mGame->sendMessageScene(new Disconnected(mGame));
 					break;
 				case EPT_SYNCBARRA:
-					if (gameStarted)
+					if (mGameStarted)
 					{
-						game->getUIManager()->getBarra()->borralaComandaQueteMandan(pkt.syncBarra.idComanda);
+						mGame->getUIManager()->getBarra()->borralaComandaQueteMandan(pkt.syncBarra.idComanda);
 					}
 					break;
 				}
 
 				
-			} // TODO: CHECK WHEN TIRAR DEL CABLE
-			  // TODO: SYNC PLAYERS?
+			}
 		}
 
-		SDL_Delay(recv_frequency);
+		SDL_Delay(mRecvFrequency);
 	}
 }
 
 // Función que tienen los clientes (se encuentra en un hilo)
-// Problemas que da: ---
+// Se encarga de recibir los paquetes del servidor
 void NetworkManager::updateClient()
 {
 	Packet server_pkt;
@@ -204,8 +186,7 @@ void NetworkManager::updateClient()
 	Ingrediente* i;
 	IngredienteLetal* iLetal;
 	
-
-	while (!exitThread) {
+	while (!mExitThread) {
 		// Receive info from server
 		if (SDLNet_TCP_Recv(socket, &server_pkt, sizeof(Packet)) > 0) {
 			Player* p = nullptr;
@@ -214,36 +195,32 @@ void NetworkManager::updateClient()
 			{
 			case EPT_START:
 				// Start game
-				
-				game->sendMessageScene(new Jornada(game, "Jornada" + to_string(server_pkt.startGame.num_jornada + 1), server_pkt.startGame.num_jornada, false));
+				mGame->sendMessageScene(new Jornada(mGame, "Jornada" + to_string(server_pkt.startGame.num_jornada + 1), server_pkt.startGame.num_jornada, false));
 				startGameTimer();
-
 				break;
 			case EPT_CREATEING:
-				if (gameStarted) {
-					i = game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->add(Vector2D<double>(server_pkt.ingrediente.posX, server_pkt.ingrediente.posY));
+				if (mGameStarted) {
+					i = mGame->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->add(Vector2D<double>(server_pkt.ingrediente.posX, server_pkt.ingrediente.posY));
 					i->setVel(Vector2D<double>(server_pkt.ingrediente.velX, server_pkt.ingrediente.velY));
 					i->cambiaTipo(server_pkt.ingrediente.tipo_ingrediente);
 					i->setId(server_pkt.ingrediente.ing_id);
 				}
 				break;
 			case EPT_CREATEINGLET:
-				if (gameStarted) {
-					iLetal = game->getObjectManager()->getPool<IngredienteLetal>(_p_INGREDIENTELETAL)->add(Vector2D<double>(server_pkt.ingrediente.posX, server_pkt.ingrediente.posY));
+				if (mGameStarted) {
+					iLetal = mGame->getObjectManager()->getPool<IngredienteLetal>(_p_INGREDIENTELETAL)->add(Vector2D<double>(server_pkt.ingrediente.posX, server_pkt.ingrediente.posY));
 					iLetal->setVel(Vector2D<double>(server_pkt.ingrediente.velX, server_pkt.ingrediente.velY));
 					iLetal->cambiaTipo(server_pkt.ingrediente.tipo_ingrediente);
 				}
-				
 				break;
-
 			case EPT_CREATECLIENTGROUP:
 				{
-				if (gameStarted) {
+				if (mGameStarted) {
 					vector<Cliente*> v;
 
 					Puerta* puerta = nullptr;
 
-					for (auto m : game->getObjectManager()->getMuebles()) {
+					for (auto m : mGame->getObjectManager()->getMuebles()) {
 						if (m->getId() == server_pkt.grupoCliente.door_id) {
 							puerta = dynamic_cast<Puerta*>(m);
 							break;
@@ -254,7 +231,7 @@ void NetworkManager::updateClient()
 					Vector2D<double> pos = puerta->getPosition();
 
 					for (int i = 0; i < server_pkt.grupoCliente.tamGrupo; i++) {
-						Cliente* c = game->getObjectManager()->getPool<Cliente>(_p_CLIENTE)->add();
+						Cliente* c = mGame->getObjectManager()->getPool<Cliente>(_p_CLIENTE)->add();
 						c->setPosition(pos);
 						c->setAnimResources(server_pkt.grupoCliente.textCliente[i]);
 						puerta->setOrientation(c);
@@ -264,7 +241,7 @@ void NetworkManager::updateClient()
 						v.push_back(c);
 					}
 
-					GrupoClientes* g = game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->add();
+					GrupoClientes* g = mGame->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->add();
 					g->setId(server_pkt.grupoCliente.group_id);
 					g->setVel(Vector2D<double>(server_pkt.grupoCliente.velX, server_pkt.grupoCliente.velY));
 
@@ -274,11 +251,10 @@ void NetworkManager::updateClient()
 					sdlutils().soundEffects().at("puerta").play();
 				}
 				}
-
 				break;
 			case EPT_BUTTONBUFFER:
 				{
-				if (gameStarted) {
+				if (mGameStarted) {
 					// Transformar array a vector
 					vector<bool> buffer(4, false);
 					for (int i = 0u; i < ih().getOtherKeyPressed().size(); i++) {
@@ -293,28 +269,28 @@ void NetworkManager::updateClient()
 
 				break;
 			case EPT_SYNCPLAYER:
-				if (gameStarted) {
-					game->getObjectManager()->getPlayerTwo()->setPosition(server_pkt.syncPlayers.posX, server_pkt.syncPlayers.posY);
-					game->getObjectManager()->getPlayerTwo()->setVel(Vector2D<double>(server_pkt.syncPlayers.velX, server_pkt.syncPlayers.velY));
+				if (mGameStarted) {
+					mGame->getObjectManager()->getPlayerTwo()->setPosition(server_pkt.syncPlayers.posX, server_pkt.syncPlayers.posY);
+					mGame->getObjectManager()->getPlayerTwo()->setVel(Vector2D<double>(server_pkt.syncPlayers.velX, server_pkt.syncPlayers.velY));
 				}
 				
 				break;
 			case EPT_SYNCPICKOBJECT:
-				if (gameStarted) {
+				if (mGameStarted) {
 					// recorrer la pool correspondiente a object type, encontrar el objeto con la id correspondiente y coger dicho objeto
-					game->getObjectManager()->getPlayerTwo()->PickCustomObject(server_pkt.syncPickObject.object_type, server_pkt.syncPickObject.object_id, server_pkt.syncPickObject.mueble_id, server_pkt.syncPickObject.extra_info);
+					mGame->getObjectManager()->getPlayerTwo()->PickCustomObject(server_pkt.syncPickObject.object_type, server_pkt.syncPickObject.object_id, server_pkt.syncPickObject.mueble_id, server_pkt.syncPickObject.extra_info);
 				}
 				break;
 			case EPT_SYNCDROPOBJECT:
-				if (gameStarted) {
-					game->getObjectManager()->getPlayerTwo()->DropCustomObject(server_pkt.syncDropObject.object_type, server_pkt.syncDropObject.object_id, server_pkt.syncDropObject.mueble_id);
+				if (mGameStarted) {
+					mGame->getObjectManager()->getPlayerTwo()->DropCustomObject(server_pkt.syncDropObject.object_type, server_pkt.syncDropObject.object_id, server_pkt.syncDropObject.mueble_id);
 				}
 				break;
 			case EPT_SYNCPEDIDO:
-				if (gameStarted) {
+				if (mGameStarted) {
 					// crear pedido en x grupo de clientes
-					for (int i = 0; i < game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getActiveObjects().size(); i++) {
-						GrupoClientes* gC = game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getActiveObjects()[i];
+					for (int i = 0; i < mGame->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getActiveObjects().size(); i++) {
+						GrupoClientes* gC = mGame->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getActiveObjects()[i];
 						if (gC->getId() == server_pkt.syncPedido.group_id) {
 							vector<int> tamPaellas;
 							vector<int> ingPedidos(12, LAST);
@@ -334,9 +310,9 @@ void NetworkManager::updateClient()
 
 				break;
 			case EPT_SYNCMUEBLEROTO:
-				if (gameStarted) {
+				if (mGameStarted) {
 					// romper mueble con la id que toque
-					for (auto m : game->getObjectManager()->getMuebles()) {
+					for (auto m : mGame->getObjectManager()->getMuebles()) {
 						if (server_pkt.syncMuebleRoto.mueble_id == m->getId()) {
 							m->romperMueble();
 						}
@@ -345,14 +321,14 @@ void NetworkManager::updateClient()
 				break;
 
 			case EPT_SYNCPAUSE:
-				if (gameStarted) {
-					dynamic_cast<Jornada*>(game->getCurrentScene())->togglePause();
+				if (mGameStarted) {
+					dynamic_cast<Jornada*>(mGame->getCurrentScene())->togglePause();
 				}
 				break;
 
 			case EPT_SYNCCOMANDA:
 				{
-				if (gameStarted) {
+				if (mGameStarted) {
 					vector<int> tamPaellas;
 
 					for (int i = 0; i < server_pkt.syncComanda.paella_number; i++) {
@@ -361,20 +337,20 @@ void NetworkManager::updateClient()
 
 					vector<int> ingPedidos(begin(server_pkt.syncComanda.ing_pedidos), end(server_pkt.syncComanda.ing_pedidos));
 
-					Comanda* com = new Comanda(game, server_pkt.syncComanda.numMesa, tamPaellas, ingPedidos);
-					game->getUIManager()->getBarra()->AñadeComanda(com);
+					Comanda* com = new Comanda(mGame, server_pkt.syncComanda.numMesa, tamPaellas, ingPedidos);
+					mGame->getUIManager()->getBarra()->AñadeComanda(com);
 				}
 				}
 				break;
 			case EPT_FINISHGAME:
 				setGameStarted(false);
-				game->sendMessageScene(new GameOver(game, server_pkt.finishGame.punctuation, server_pkt.finishGame.numJornada));
+				mGame->sendMessageScene(new GameOver(mGame, server_pkt.finishGame.punctuation, server_pkt.finishGame.numJornada));
 
 				break;
 
 			case EPT_ENDGAME:
 				setGameStarted(false);
-				game->sendMessageScene(new FinalScene(game, server_pkt.finishGame.punctuation));
+				mGame->sendMessageScene(new FinalScene(mGame, server_pkt.finishGame.punctuation));
 
 				break;
 			case EPT_QUIT:
@@ -382,23 +358,18 @@ void NetworkManager::updateClient()
 
 				SDLNet_TCP_Close(socket);
 
-				game->sendMessageScene(new Disconnected(game));
-
-				// close();
-				// borrar con iterador su socket y su player
-				// player_sockets[i] = NULL;
-
+				mGame->sendMessageScene(new Disconnected(mGame));
 				break;
 			case EPT_SYNCBARRA:
-				if (gameStarted) {
-					game->getUIManager()->getBarra()->borralaComandaQueteMandan(server_pkt.syncBarra.idComanda);
+				if (mGameStarted) {
+					mGame->getUIManager()->getBarra()->borralaComandaQueteMandan(server_pkt.syncBarra.idComanda);
 				}
 				break;
 			}
 
 		}
 
-		SDL_Delay(client_frequency);
+		SDL_Delay(mClientFrequency);
 	}
 }
 
@@ -407,8 +378,8 @@ int NetworkManager::getClientID(const IPaddress& addr)
 {
 	int id = -1;
 
-	for (int i = 0u; i < player_ips.size(); i++) {
-		if (compareAddress(player_ips[i], addr)) {
+	for (int i = 0u; i < mPlayerIps.size(); i++) {
+		if (compareAddress(mPlayerIps[i], addr)) {
 			id = i;
 			break;
 		}
@@ -424,23 +395,19 @@ bool NetworkManager::compareAddress(const IPaddress& addr1, const IPaddress& add
 
 NetworkManager::NetworkManager(Game* game_)
 {
-	exitThread = false;
-	gameStarted = false;
+	mExitThread = false;
+	mGameStarted = false;
 
 	nType = '0';
-	id_count = 0;
+	mIdCount = 0;
 
-	game = game_;
+	mGame = game_;
 
-	//player_sockets = vector<TCPsocket>(MAX_PLAYERS);
-	//player_ips = vector<IPaddress>(MAX_PLAYERS);
-	//player_ids = vector<int>(MAX_PLAYERS);
+	mAcceptFrequency = 150;
+	mRecvFrequency = 50;
+	mSendFrequency = 100;
 
-	accept_frequency = 150;
-	recv_frequency = 50;
-	send_frequency = 100;
-
-	client_frequency = 50;
+	mClientFrequency = 50;
 }
 
 NetworkManager::~NetworkManager()
@@ -450,7 +417,6 @@ NetworkManager::~NetworkManager()
 }
 
 // Función que inicializa SDL_Net y tu función (servidor o cliente)
-// Problemas que da: ---
 
 bool NetworkManager::init(char type, const char* ip_addr, std::string name)
 {
@@ -475,38 +441,31 @@ bool NetworkManager::init(char type, const char* ip_addr, std::string name)
 		exit(EXIT_FAILURE);
 	}
 	
-	myName = name;
+	mMyName = name;
 	
 	Packet pkt;
 
 	if (type == 'c') { // Si somos un cliente
-		host = false;
+		mHost = false;
 
 		while (SDLNet_TCP_Recv(socket, &pkt, sizeof(Packet)) == 0); // Esperamos a que el servidor nos acepte
 
-		if (pkt.packet_type == EPT_ACCEPT) { // Cuando nos acepte, se crea el personaje, etc.
+		if (pkt.packet_type == EPT_ACCEPT) { // Cuando nos acepte
 			// recv info
-			otherName = pkt.accept.player_name;
+			mOtherName = pkt.accept.player_name;
 
 			// Mandarle el nombre
 			// Send info
 			Packet namePkt;
 			namePkt.packet_type = EPT_NAME;
 
-			// namePkt.player_name = myName;
-			strcpy_s(namePkt.name.player_name, myName.c_str());
+			strcpy_s(namePkt.name.player_name, mMyName.c_str());
 
 			if (SDLNet_TCP_Send(socket, &namePkt, sizeof(Packet)) < sizeof(Packet))
 			{
 				std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 				exit(EXIT_FAILURE);
 			}
-
-			//game_->getObjectManager()->addPlayer(addPlayerClient(pkt.player_id));
-			//
-			//client_id = pkt.player_id;
-
-			//id_count = MAX_PLAYERS;
 
 			updateclient_t = new std::thread(&NetworkManager::updateClient, this);
 		}
@@ -515,19 +474,17 @@ bool NetworkManager::init(char type, const char* ip_addr, std::string name)
 		}
 	}
 	else { // Si somos un host
-		// game_->getObjectManager()->addPlayer(addPlayerHost());
-		host = true;
-		// Hilos
 
+		mHost = true;
+		
+		// Hilos
 		accept_t = new std::thread(&NetworkManager::acceptPlayers, this);
 		receiveplayers_t = new std::thread(&NetworkManager::receivePlayers, this);
 
-		// sendplayers_t = new std::thread(&NetworkManager::sendPlayers, this);
+		mPlayerSockets.push_back(socket);
+		mPlayerIps.push_back(ip);
 
-		player_sockets.push_back(socket);
-		player_ips.push_back(ip);
-
-		client_id = 0;
+		mClientId = 0;
 	}
 
 	
@@ -535,15 +492,14 @@ bool NetworkManager::init(char type, const char* ip_addr, std::string name)
 }
 
 
-// Currently testing
-void NetworkManager::update() // SINCRONIZAR ESTADO DE JUEGO
+void NetworkManager::update() // HILO PARA SINCRONIZAR ESTADO DE JUEGO (lo tienen los 2 jugadores)
 {
-	if (gameStarted) {
-		if (lastUpdate_ + updateTime_ > sdlutils().currRealTime()) { // si no pasan
+	if (mGameStarted) {
+		if (mLastUpdate + mUpdateTime > sdlutils().currRealTime()) { // Cada 200 ms
 			return;
 		}
 
-		lastUpdate_ = sdlutils().currRealTime();
+		mLastUpdate = sdlutils().currRealTime();
 
 		// Sync Players
 		syncPlayers();
@@ -553,7 +509,7 @@ void NetworkManager::update() // SINCRONIZAR ESTADO DE JUEGO
 
 void NetworkManager::close()
 {
-	exitThread = true;
+	mExitThread = true;
 
 	if (nType == 'h') { // si se es host, tienes que mandar a todo el mundo que te has desconectado
 
@@ -561,8 +517,8 @@ void NetworkManager::close()
 
 		pkt.packet_type = EPT_QUIT;
 
-		for (int i = 1u; i < player_sockets.size(); i++) { // empezamos en 1 porque el 0 eres tú mismo
-			if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+		for (int i = 1u; i < mPlayerSockets.size(); i++) { // empezamos en 1 porque el 0 eres tú mismo
+			if (SDLNet_TCP_Send(mPlayerSockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
 			{
 				std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 				exit(EXIT_FAILURE);
@@ -571,12 +527,9 @@ void NetworkManager::close()
 
 		accept_t->join();
 		receiveplayers_t->join();
-		// sendplayers_t->join();
 
 		delete accept_t;
 		delete receiveplayers_t;
-		// delete sendplayers_t;
-
 	}
 	else if (nType == 'c') {
 
@@ -594,30 +547,11 @@ void NetworkManager::close()
 		delete updateclient_t;
 	}
 
-	player_ids.clear();
-	player_ips.clear();
-	player_sockets.clear();
+	mPlayerIds.clear();
+	mPlayerIps.clear();
+	mPlayerSockets.clear();
 	
 	SDLNet_TCP_Close(socket);
-}
-
-Player* NetworkManager::addPlayerHost()
-{
-	Player* p = new Player(game, true,0,0);
-	
-	player_ids.push_back(id_count);
-	id_count++;
-
-	return p;
-}
-
-Player* NetworkManager::addPlayerClient(int id)
-{
-	Player* p = new Player(game, false,0,0);
-	
-	player_ids.push_back(id);
-
-	return p;
 }
 
 void NetworkManager::sendStartGame(int numJornada) {
@@ -628,8 +562,8 @@ void NetworkManager::sendStartGame(int numJornada) {
 	pkt.packet_type = EPT_START;
 	pkt.startGame.num_jornada = numJornada;
 
-	for (int i = 1u; i < player_sockets.size(); i++) {
-		if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+	for (int i = 1u; i < mPlayerSockets.size(); i++) {
+		if (SDLNet_TCP_Send(mPlayerSockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
 		{
 			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 			exit(EXIT_FAILURE);
@@ -639,8 +573,8 @@ void NetworkManager::sendStartGame(int numJornada) {
 }
 
 void NetworkManager::startGameTimer() {
-	gameStarted = true; // test
-	lastUpdate_ = SDL_GetTicks();
+	mGameStarted = true;
+	mLastUpdate = SDL_GetTicks();
 }
 
 void NetworkManager::sendCreateIngrediente(int tipoIngrediente, int ingId, Vector2D<double> pos, Vector2D<double> vel) {
@@ -656,8 +590,8 @@ void NetworkManager::sendCreateIngrediente(int tipoIngrediente, int ingId, Vecto
 	pkt.ingrediente.velX = vel.getX();
 	pkt.ingrediente.velY = vel.getY();
 
-	for (int i = 1u; i < player_sockets.size(); i++) {
-		if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+	for (int i = 1u; i < mPlayerSockets.size(); i++) {
+		if (SDLNet_TCP_Send(mPlayerSockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
 		{
 			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 			exit(EXIT_FAILURE);
@@ -677,8 +611,8 @@ void NetworkManager::sendCreateIngredienteLetal(int tipoIngrediente, Vector2D<do
 	pkt.ingrediente.velX = vel.getX();
 	pkt.ingrediente.velY = vel.getY();
 
-	for (int i = 1u; i < player_sockets.size(); i++) {
-		if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+	for (int i = 1u; i < mPlayerSockets.size(); i++) {
+		if (SDLNet_TCP_Send(mPlayerSockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
 		{
 			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 			exit(EXIT_FAILURE);
@@ -688,7 +622,7 @@ void NetworkManager::sendCreateIngredienteLetal(int tipoIngrediente, Vector2D<do
 
 void NetworkManager::sendButtonsBuffer(vector<bool> keyPressed)
 {
-	if (gameStarted) {
+	if (mGameStarted) {
 		Packet pkt;
 		pkt.packet_type = EPT_BUTTONBUFFER;
 
@@ -697,8 +631,8 @@ void NetworkManager::sendButtonsBuffer(vector<bool> keyPressed)
 		}
 
 		if (nType == 'h') {
-			for (int i = 1u; i < player_sockets.size(); i++) {
-				if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+			for (int i = 1u; i < mPlayerSockets.size(); i++) {
+				if (SDLNet_TCP_Send(mPlayerSockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
 				{
 					std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 					exit(EXIT_FAILURE);
@@ -720,15 +654,15 @@ void NetworkManager::syncPlayers()
 	Packet pkt;
 	pkt.packet_type = EPT_SYNCPLAYER;
 
-	pkt.syncPlayers.posX = game->getObjectManager()->getPlayerOne()->getPosition().getX();
-	pkt.syncPlayers.posY = game->getObjectManager()->getPlayerOne()->getPosition().getY();
+	pkt.syncPlayers.posX = mGame->getObjectManager()->getPlayerOne()->getPosition().getX();
+	pkt.syncPlayers.posY = mGame->getObjectManager()->getPlayerOne()->getPosition().getY();
 
-	pkt.syncPlayers.velX = game->getObjectManager()->getPlayerOne()->getVel().getX();
-	pkt.syncPlayers.velY = game->getObjectManager()->getPlayerOne()->getVel().getY();
+	pkt.syncPlayers.velX = mGame->getObjectManager()->getPlayerOne()->getVel().getX();
+	pkt.syncPlayers.velY = mGame->getObjectManager()->getPlayerOne()->getVel().getY();
 
 	if (nType == 'h') {
-		for (int i = 1u; i < player_sockets.size(); i++) {
-			if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+		for (int i = 1u; i < mPlayerSockets.size(); i++) {
+			if (SDLNet_TCP_Send(mPlayerSockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
 			{
 				std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 				exit(EXIT_FAILURE);
@@ -755,8 +689,8 @@ void NetworkManager::syncDropObject(int objectType, int objectId, int muebleId)
 	pkt.syncDropObject.mueble_id = muebleId;
 
 	if (nType == 'h') {
-		for (int i = 1u; i < player_sockets.size(); i++) {
-			if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+		for (int i = 1u; i < mPlayerSockets.size(); i++) {
+			if (SDLNet_TCP_Send(mPlayerSockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
 			{
 				std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 				exit(EXIT_FAILURE);
@@ -795,8 +729,8 @@ void NetworkManager::sendGrupoCliente(int tamGrupo, int idPuerta, int idGrupoCli
 
 	pkt.grupoCliente.tolerancia = tolerancia;
 
-	for (int i = 1u; i < player_sockets.size(); i++) {
-		if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+	for (int i = 1u; i < mPlayerSockets.size(); i++) {
+		if (SDLNet_TCP_Send(mPlayerSockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
 		{
 			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 			exit(EXIT_FAILURE);
@@ -814,8 +748,8 @@ void NetworkManager::syncPickObject(int objectType, int objectId, int muebleId, 
 	pkt.syncPickObject.extra_info = extraInfo;
 
 	if (nType == 'h') {
-		for (int i = 1u; i < player_sockets.size(); i++) {
-			if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+		for (int i = 1u; i < mPlayerSockets.size(); i++) {
+			if (SDLNet_TCP_Send(mPlayerSockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
 			{
 				std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 				exit(EXIT_FAILURE);
@@ -837,8 +771,8 @@ void NetworkManager::syncMuebleRoto(int muebleId)
 	pkt.packet_type = EPT_SYNCMUEBLEROTO;
 	pkt.syncMuebleRoto.mueble_id = muebleId;
 
-	for (int i = 1u; i < player_sockets.size(); i++) {
-		if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+	for (int i = 1u; i < mPlayerSockets.size(); i++) {
+		if (SDLNet_TCP_Send(mPlayerSockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
 		{
 			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 			exit(EXIT_FAILURE);
@@ -858,8 +792,8 @@ void NetworkManager::sendFinishGame(int finalPunctuation, int nJornada, bool gam
 	pkt.finishGame.punctuation = finalPunctuation;
 	pkt.finishGame.numJornada = nJornada;
 
-	for (int i = 1u; i < player_sockets.size(); i++) {
-		if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+	for (int i = 1u; i < mPlayerSockets.size(); i++) {
+		if (SDLNet_TCP_Send(mPlayerSockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
 		{
 			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 			exit(EXIT_FAILURE);
@@ -885,8 +819,8 @@ void NetworkManager::syncPedido(int idGrupoCliente, int numPaellas, std::vector<
 	
 
 	if (nType == 'h') {
-		for (int i = 1u; i < player_sockets.size(); i++) {
-			if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+		for (int i = 1u; i < mPlayerSockets.size(); i++) {
+			if (SDLNet_TCP_Send(mPlayerSockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
 			{
 				std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 				exit(EXIT_FAILURE);
@@ -907,8 +841,8 @@ void NetworkManager::syncPause() {
 	pkt.packet_type = EPT_SYNCPAUSE;
 
 	if (nType == 'h') {
-		for (int i = 1u; i < player_sockets.size(); i++) {
-			if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+		for (int i = 1u; i < mPlayerSockets.size(); i++) {
+			if (SDLNet_TCP_Send(mPlayerSockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
 			{
 				std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 				exit(EXIT_FAILURE);
@@ -940,8 +874,8 @@ void NetworkManager::syncComanda(int numMesa, vector<int> tamPaella, vector<int>
 	}
 
 	if (nType == 'h') {
-		for (int i = 1u; i < player_sockets.size(); i++) {
-			if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+		for (int i = 1u; i < mPlayerSockets.size(); i++) {
+			if (SDLNet_TCP_Send(mPlayerSockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
 			{
 				std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 				exit(EXIT_FAILURE);
@@ -963,8 +897,8 @@ void NetworkManager::syncBarra(int c)
 	pkt.packet_type = EPT_SYNCBARRA;
 	pkt.syncBarra.idComanda = c;
 	if (nType == 'h') {
-		for (int i = 1u; i < player_sockets.size(); i++) {
-			if (SDLNet_TCP_Send(player_sockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+		for (int i = 1u; i < mPlayerSockets.size(); i++) {
+			if (SDLNet_TCP_Send(mPlayerSockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
 			{
 				std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
 				exit(EXIT_FAILURE);
