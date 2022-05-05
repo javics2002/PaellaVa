@@ -18,49 +18,43 @@ GameOver::GameOver(Game* mGame, int puntuation, int numeroJornada) : Scene(mGame
 	mBackground->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
 	mBackground->setDimension(sdlutils().width(), sdlutils().height() + 100);
 
-	int sizePuntW = 120;
-	int sizePuntH = 70;
-	int posPuntX = sdlutils().width() / 2 / 2;
-	int posPuntY = sizePuntH * 2;
+	int mSizePuntW = 120;
+	int mSizePuntH = 70;
+	int mPosPuntX = sdlutils().width() / 2 / 2;
+	int mPosPuntY = mSizePuntH * 2;
 
-	GameObject* starMold = new GameObject(mGame);
-	starMold->setTexture("estrellaMolde");
-	starMold->setInitialDimension(110*5, 110);
-	starMold->setDimension(110*5, 110);
-	starMold->setPosition(sdlutils().width() / 2, 70 * 2);
-	mUiManager->addInterfaz(starMold);
+	GameObject* mStarMold = new GameObject(mGame);
+	mStarMold->setTexture("estrellaMolde");
+	mStarMold->setInitialDimension(110*5, 110);
+	mStarMold->setDimension(110*5, 110);
+	mStarMold->setPosition(sdlutils().width() / 2, 70 * 2);
+	mUiManager->addInterfaz(mStarMold);
 
 	mStarTexture = &sdlutils().images().at("estrella");
-	vector<GameObject*> estrellas = vector<GameObject*>(mStarNumber);
+	vector<GameObject*> mStars = vector<GameObject*>(mStarNumber);
 	for (auto i = 0; i < mStarNumber; i++) {
-		estrellas[i] = new GameObject(mGame);
-		estrellas[i]->setInitialDimension(110, 100);
-		estrellas[i]->setDimension(0, 0);
-		estrellas[i]->setTexture("estrella");
-		estrellas[i]->setPosition(sdlutils().width() / 2 -110*2 + i * estrellas[i]->getInitialWidth(), 70 * 2);
-		estrellas[i]->setActive(false);
-		mUiManager->addInterfaz(estrellas[i]);
+		mStars[i] = new GameObject(mGame);
+		mStars[i]->setInitialDimension(110, 100);
+		mStars[i]->setDimension(0, 0);
+		mStars[i]->setTexture("estrella");
+		mStars[i]->setPosition(sdlutils().width() / 2 -110*2 + i * mStars[i]->getInitialWidth(), 70 * 2);
+		mStars[i]->setActive(false);
+		mUiManager->addInterfaz(mStars[i]);
 	}
 
-	tweenEstrellas(estrellas);
-	
-	/*GameObject* puntos = new GameObject(game);
-	puntos->setTexture(string("Puntuacion: " + to_string(starNumber)), string("paella"), SDL_Color{ 255, 255, 255, 255 }, SDL_Color{ 0, 0, 0, 0 });
-	puntos->setDimension();
-	puntos->setPosition(Vector2D<double>(posPuntX, posPuntY + puntos->getHeight()));
-	uiManager->addInterfaz(puntos);*/
+	tweenEstrellas(mStars);
 
-	auto continueButton = new UiButton(mGame, "continue",
+	auto mContinueButton = new UiButton(mGame, "continue",
 		sdlutils().width() / 2, sdlutils().height() / 2 + 300, 300, 120);
-	continueButton->setInitialDimension(300, 120);
+	mContinueButton->setInitialDimension(300, 120);
 
-	continueButton->setAction([this, continueButton](Game* mGame, bool& exit) {
+	mContinueButton->setAction([this, mContinueButton](Game* mGame, bool& exit) {
 		sdlutils().soundEffects().at("select").play(0, mGame->UI);
 
 		mUiManager->addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep(
-			[mGame, continueButton,this](tweeny::tween<float>& t, float) mutable {
-			continueButton->setDimension(t.peek() * continueButton->getInitialWidth(), 
-				t.peek() * continueButton->getInitialHeight());
+			[mGame, mContinueButton,this](tweeny::tween<float>& t, float) mutable {
+			mContinueButton->setDimension(t.peek() * mContinueButton->getInitialWidth(), 
+				t.peek() * mContinueButton->getInitialHeight());
 			
 			if (t.progress() > .2f) {
 				//Start game
@@ -80,7 +74,7 @@ GameOver::GameOver(Game* mGame, int puntuation, int numeroJornada) : Scene(mGame
 			return false;
 			});
 		});
-	mUiManager->addButton(continueButton);
+	mUiManager->addButton(mContinueButton);
 }
 
 void GameOver::calculateStarNumber()
@@ -105,15 +99,15 @@ void GameOver::render()
 void GameOver::createRandomReviews()
 {
 	//coge review random del json segun el numero de estrellas
-	auto& rand = sdlutils().rand();
-	std::vector<int> numReviewsByStar{ 12, 10, 10, 15, 15 }; //pos 0 = 1 star
+	auto& mRand = sdlutils().rand();
+	std::vector<int> mNumReviewsByStar{ 12, 10, 10, 15, 15 }; //pos 0 = 1 star
 
-	int numberOfReviews = 2;
+	int mNumOfReviews = 2;
 
-	for (int i = 0; i < numberOfReviews; i++) {
+	for (int i = 0; i < mNumOfReviews; i++) {
 		string reviewId = "";
 
-		reviewId = to_string(mStarNumber) + "stars" + to_string(rand.nextInt(1, numReviewsByStar[mStarNumber - 1] + 1));
+		reviewId = to_string(mStarNumber) + "stars" + to_string(mRand.nextInt(1, mNumReviewsByStar[mStarNumber - 1] + 1));
 
 		mReviews.push_back(&sdlutils().messages().at(reviewId));
 	}
@@ -122,14 +116,14 @@ void GameOver::createRandomReviews()
 void GameOver::createRandomUsernames()
 {
 	//coge review random del json segun el numero de estrellas
-	auto& rand = sdlutils().rand();
-	int numUsernames = 21;
-	int numberOfReviews = 2; //tiene que ser igual al de arriba
+	auto& mRand = sdlutils().rand();
+	int mNumUsernames = 21;
+	int mNumOfReviews = 2; //tiene que ser igual al de arriba
 
-	for (int i = 0; i < numberOfReviews; i++) {
+	for (int i = 0; i < mNumOfReviews; i++) {
 		string userId = "";
 
-		userId = "username" + to_string(rand.nextInt(1, numUsernames + 1));
+		userId = "username" + to_string(mRand.nextInt(1, mNumUsernames + 1));
 
 		mUsernames.push_back(&sdlutils().messages().at(userId));
 	}

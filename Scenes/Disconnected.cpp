@@ -8,13 +8,13 @@ Disconnected::Disconnected(Game* mGame) : Scene(mGame)
 	mBackground->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
 	mBackground->setDimension(sdlutils().width(), sdlutils().height() + 100);
 
-	UiButton* regresar = new UiButton(mGame, "back", 200, sdlutils().height() - 100, 280, 120);
-	regresar->setInitialDimension(regresar->getWidth(), regresar->getHeight());
-	regresar->setAction([](Game* mGame, bool& exit) {
+	UiButton* mReturn = new UiButton(mGame, "back", 200, sdlutils().height() - 100, 280, 120);
+	mReturn->setInitialDimension(mReturn->getWidth(), mReturn->getHeight());
+	mReturn->setAction([](Game* mGame, bool& exit) {
 		mGame->sendMessageScene(new Menu(mGame));
 		});
 
-	mUiManager->addButton(regresar);
+	mUiManager->addButton(mReturn);
 
 }
 

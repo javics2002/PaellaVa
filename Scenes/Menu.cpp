@@ -18,19 +18,19 @@ Menu::Menu(Game* mGame) : Scene(mGame)
 
 	sdlutils().musics().at("musicaMenuInicio").play();
 
-	int posIni = 500;
-	int aumento = 100;
-	int w = 300;
-	int h = 120;
-	int posIniX = w;
+	int mPosIni = 500;
+	int mAumento = 100;
+	int mWidth = 300;
+	int mHeight = 120;
+	int mPosIniX = mWidth;
 
-	auto startButton = new UiButton(mGame, "start", posIniX, posIni - aumento, w, h);
-	startButton->setInitialDimension(w, h);
-	startButton->setAction([this, startButton](Game* mGame, bool& exit) {
+	auto mStartButton = new UiButton(mGame, "start", mPosIniX, mPosIni - mAumento, mWidth, mHeight);
+	mStartButton->setInitialDimension(mWidth, mHeight);
+	mStartButton->setAction([this, mStartButton](Game* mGame, bool& exit) {
 		sdlutils().soundEffects().at("select").play(0, mGame->UI);
 		
-		mUiManager->addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([mGame, startButton](tweeny::tween<float>& t, float) mutable {
-			startButton->setDimension(t.peek() * startButton->getInitialWidth(), t.peek() * startButton->getInitialHeight());
+		mUiManager->addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([mGame, mStartButton](tweeny::tween<float>& t, float) mutable {
+			mStartButton->setDimension(t.peek() * mStartButton->getInitialWidth(), t.peek() * mStartButton->getInitialHeight());
 
 			if (t.progress() > .2f) {
 				//Start game
@@ -41,15 +41,15 @@ Menu::Menu(Game* mGame) : Scene(mGame)
 			});
 		});
 
-	mUiManager->addButton(startButton);
+	mUiManager->addButton(mStartButton);
 
-	auto tutorial = new UiButton(mGame, "tutorialButton", posIniX, posIni, w, h);
-	tutorial->setInitialDimension(w, h);
-	tutorial->setAction([this, tutorial](Game* mGame, bool& exit) {
+	auto mTutorial = new UiButton(mGame, "tutorialButton", mPosIniX, mPosIni, mWidth, mHeight);
+	mTutorial->setInitialDimension(mWidth, mHeight);
+	mTutorial->setAction([this, mTutorial](Game* mGame, bool& exit) {
 		sdlutils().soundEffects().at("select").play(0, mGame->UI);
 
-		mUiManager->addTween(0.9f, 1.0f, 600.0f, false).via(easing::exponentialOut).onStep([mGame, tutorial](tweeny::tween<float>& t, float) mutable {
-			tutorial->setDimension(t.peek() * tutorial->getInitialWidth(), t.peek() * tutorial->getInitialHeight());
+		mUiManager->addTween(0.9f, 1.0f, 600.0f, false).via(easing::exponentialOut).onStep([mGame, mTutorial](tweeny::tween<float>& t, float) mutable {
+			mTutorial->setDimension(t.peek() * mTutorial->getInitialWidth(), t.peek() * mTutorial->getInitialHeight());
 
 			if (t.progress() > .2f) {
 				//Start game
@@ -61,16 +61,16 @@ Menu::Menu(Game* mGame) : Scene(mGame)
 			});
 		});
 
-	mUiManager->addButton(tutorial);
+	mUiManager->addButton(mTutorial);
 
 	
 
-	auto creditsButton = new UiButton(mGame, "credits", posIniX, posIni + aumento , w, h);
-	creditsButton->setInitialDimension(w, h);
-	creditsButton->setAction([this, creditsButton](Game* mGame, bool& exit) {
+	auto mCreditsButton = new UiButton(mGame, "credits", mPosIniX, mPosIni + mAumento , mWidth, mHeight);
+	mCreditsButton->setInitialDimension(mWidth, mHeight);
+	mCreditsButton->setAction([this, mCreditsButton](Game* mGame, bool& exit) {
 		sdlutils().soundEffects().at("select").play(0, mGame->UI);
-		mUiManager->addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([mGame, creditsButton](tweeny::tween<float>& t, float) mutable {
-			creditsButton->setDimension(t.peek() * creditsButton->getInitialWidth(), t.peek() * creditsButton->getInitialHeight());
+		mUiManager->addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([mGame, mCreditsButton](tweeny::tween<float>& t, float) mutable {
+			mCreditsButton->setDimension(t.peek() * mCreditsButton->getInitialWidth(), t.peek() * mCreditsButton->getInitialHeight());
 
 			if (t.progress() > .2f) {
 				// Credits
@@ -85,17 +85,17 @@ Menu::Menu(Game* mGame) : Scene(mGame)
 			});
 		});
 
-	mUiManager->addButton(creditsButton);
+	mUiManager->addButton(mCreditsButton);
 
 	
-	int posIniXAbajo = sdlutils().width() - h/2;
-	int posIniYAbajo = sdlutils().height() - h/2;
-	auto settingsButton = new UiButton(mGame, "settings", posIniXAbajo - h, posIniYAbajo, h, h);
-	settingsButton->setInitialDimension(h, h);
-	settingsButton->setAction([this, settingsButton](Game* mGame, bool& exit) {
+	int mPosIniAbajo = sdlutils().width() - mHeight / 2;
+	int mPosIniYAbajo = sdlutils().height() - mHeight / 2;
+	auto mSettingsButton = new UiButton(mGame, "settings", mPosIniAbajo - mHeight, mPosIniYAbajo, mHeight, mHeight);
+	mSettingsButton->setInitialDimension(mHeight, mHeight);
+	mSettingsButton->setAction([this, mSettingsButton](Game* mGame, bool& exit) {
 		sdlutils().soundEffects().at("select").play(0, mGame->UI);
-		mUiManager->addTween(0.9f, 1.0f, 600.0f, false).via(easing::exponentialOut).onStep([mGame, settingsButton](tweeny::tween<float>& t, float) mutable {
-			settingsButton->setDimension(t.peek() * settingsButton->getInitialWidth(), t.peek() * settingsButton->getInitialHeight());
+		mUiManager->addTween(0.9f, 1.0f, 600.0f, false).via(easing::exponentialOut).onStep([mGame, mSettingsButton](tweeny::tween<float>& t, float) mutable {
+			mSettingsButton->setDimension(t.peek() * mSettingsButton->getInitialWidth(), t.peek() * mSettingsButton->getInitialHeight());
 
 			if (t.progress() > .2f) {
 				// Settings
@@ -114,15 +114,15 @@ Menu::Menu(Game* mGame) : Scene(mGame)
 			});
 		});
 
-	mUiManager->addButton(settingsButton);
+	mUiManager->addButton(mSettingsButton);
 
-	auto exitButton = new UiButton(mGame, "exit", posIniXAbajo, posIniYAbajo, h, h);
-	exitButton->setInitialDimension(h, h);
-	exitButton->setAction([this, exitButton](Game* mGame, bool& exit) {
+	auto mExitButton = new UiButton(mGame, "exit", mPosIniAbajo, mPosIniYAbajo, mHeight, mHeight);
+	mExitButton->setInitialDimension(mHeight, mHeight);
+	mExitButton->setAction([this, mExitButton](Game* mGame, bool& exit) {
 		sdlutils().soundEffects().at("cancel").play(0, mGame->UI);
 
-		mUiManager->addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([mGame, exitButton, &exit](tweeny::tween<float>& t, float) mutable {
-			exitButton->setDimension(t.peek() * exitButton->getInitialWidth(), t.peek() * exitButton->getInitialHeight());
+		mUiManager->addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([mGame, mExitButton, &exit](tweeny::tween<float>& t, float) mutable {
+			mExitButton->setDimension(t.peek() * mExitButton->getInitialWidth(), t.peek() * mExitButton->getInitialHeight());
 
 			if (t.progress() == 1.0f) {
 				// Exit
@@ -133,7 +133,7 @@ Menu::Menu(Game* mGame) : Scene(mGame)
 			});
 		});
 
-	mUiManager->addButton(exitButton);
+	mUiManager->addButton(mExitButton);
 
 	mUiManager->creaMenuOpciones();
 

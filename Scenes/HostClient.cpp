@@ -11,22 +11,22 @@ HostClient::HostClient(Game* mGame) : Scene(mGame)
 	mBackground->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
 	mBackground->setDimension(sdlutils().width(), sdlutils().height() + 100);
 
-	int offsetX = 300, offsetY = 150;
+	int mOffsetX = 300, mOffsetY = 150;
 
 	mParticles = new ParticleExample();
 	mParticles->setRenderer(sdlutils().renderer());
 	mParticles->setStyle(ParticleExample::NONE);
 
-	UiButton* regresar = new UiButton(mGame, "back", 70, 50, 125, 60);
-	regresar->setInitialDimension(regresar->getWidth(), regresar->getHeight());
-	regresar->setAction([](Game* mGame, bool& exit) {
+	UiButton* mBackButton = new UiButton(mGame, "back", 70, 50, 125, 60);
+	mBackButton->setInitialDimension(mBackButton->getWidth(), mBackButton->getHeight());
+	mBackButton->setAction([](Game* mGame, bool& exit) {
 		mGame->sendMessageScene(new Menu(mGame));
 		});
 
-	mUiManager->addButton(regresar);
+	mUiManager->addButton(mBackButton);
 
 	mHostButton = new UiButton(mGame, "cocinera",
-		sdlutils().width() / 2 - offsetX, sdlutils().height() - 350, 500, 700);
+		sdlutils().width() / 2 - mOffsetX, sdlutils().height() - 350, 500, 700);
 	mHostButton->setInitialDimension(500, 700);
 	mHostButton->setAction([](Game* mGame, bool& exit) {
 		//Host
@@ -37,7 +37,7 @@ HostClient::HostClient(Game* mGame) : Scene(mGame)
 	mUiManager->addButton(mHostButton);
 
 	mClientButton = new UiButton(mGame, "camarero",
-		sdlutils().width() / 2 + offsetX, sdlutils().height() - 350, 500, 700);
+		sdlutils().width() / 2 + mOffsetX, sdlutils().height() - 350, 500, 700);
 	mClientButton->setInitialDimension(500, 700);
 
 	mPosYNotOver = 165;
@@ -169,24 +169,24 @@ void HostClient::update()
 
 vector<string> HostClient::split(string ipText)
 {
-	vector<string> ip;
-	char delimitador = '.';
+	vector<string> mIpText;
+	char mDelimitador = '.';
 
-	string digitos = "";
+	string mDigitos = "";
 
 	for (int i = 0; i < ipText.size(); i++) {
-		if (ipText[i] != delimitador) {
-			digitos += ipText[i];
-			if(i + 1 == ipText.size()) ip.push_back(digitos);
+		if (ipText[i] != mDelimitador) {
+			mDigitos += ipText[i];
+			if(i + 1 == ipText.size()) mIpText.push_back(mDigitos);
 		}
 
 		else {
-			ip.push_back(digitos);
-			digitos = "";
+			mIpText.push_back(mDigitos);
+			mDigitos = "";
 		}
 	}
 
-	return ip;
+	return mIpText;
 }
 
 void HostClient::render() {

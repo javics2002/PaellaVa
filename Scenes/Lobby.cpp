@@ -13,16 +13,16 @@ Lobby::Lobby(Game* mGame) : Scene(mGame)
 	mBackground->setDimension(sdlutils().width(), sdlutils().height()+100);
 
 	//Cocinera
-	Imagen* cocinera = new Imagen(mGame, sdlutils().width() / 2 - 300, sdlutils().height() / 2, 450, 450, "cocineraLobby");
+	Imagen* mCocinera = new Imagen(mGame, sdlutils().width() / 2 - 300, sdlutils().height() / 2, 450, 450, "cocineraLobby");
 
-	mUiManager->addInterfaz(cocinera);
+	mUiManager->addInterfaz(mCocinera);
 
 	//Nombre cocinera
 	
-	ShowText* NombreCocinera = new ShowText(mGame, mGame->getNombre(), "lobby",
-		(int)cocinera->getX(), sdlutils().height()- 165);
+	ShowText* mCocineraName = new ShowText(mGame, mGame->getNombre(), "lobby",
+		(int)mCocinera->getX(), sdlutils().height()- 165);
 
-	mUiManager->addInterfaz(NombreCocinera);
+	mUiManager->addInterfaz(mCocineraName);
 
 	//Imagen del camarero conectandose
 	mCamarero = new Imagen(mGame, sdlutils().width() / 2 + 300, sdlutils().height() / 2, 450, 450, "CamareroConect");
@@ -56,14 +56,14 @@ Lobby::Lobby(Game* mGame) : Scene(mGame)
 
 	mUiManager->addButton(mStart);
 
-	UiButton *regresar = new UiButton(mGame, "back", 100, 50, 125, 60);
-	regresar->setInitialDimension(regresar->getWidth(), regresar->getHeight());
-	regresar->setAction([](Game* mGame, bool& exit) {
+	UiButton *mReturnButton = new UiButton(mGame, "back", 100, 50, 125, 60);
+	mReturnButton->setInitialDimension(mReturnButton->getWidth(), mReturnButton->getHeight());
+	mReturnButton->setAction([](Game* mGame, bool& exit) {
 		mGame->sendMessageScene(new HostClient(mGame));
 		mGame->getNetworkManager()->close();
 	});
 
-	mUiManager->addButton(regresar);
+	mUiManager->addButton(mReturnButton);
 
 	mUiManager->setEnLobby(true);
 }
@@ -76,20 +76,20 @@ Lobby::Lobby(Game* mGame, string nombreHost) : Scene(mGame)
 	mBackground->setDimension(sdlutils().width(), sdlutils().height()+100);
 
 	//Cocinera
-	Imagen* cocinera = new Imagen(mGame, sdlutils().width() / 2 - 300, sdlutils().height() / 2, 450, 450, "cocineraLobby");
+	Imagen* mCocinera = new Imagen(mGame, sdlutils().width() / 2 - 300, sdlutils().height() / 2, 450, 450, "cocineraLobby");
 
-	mUiManager->addInterfaz(cocinera);
+	mUiManager->addInterfaz(mCocinera);
 
 	// Feedback
-	ShowText* listo = new ShowText(mGame, "LISTO PARA COMENZAR", "lobby", sdlutils().width() / 2, sdlutils().height() - 115);
+	ShowText* mReady = new ShowText(mGame, "LISTO PARA COMENZAR", "lobby", sdlutils().width() / 2, sdlutils().height() - 115);
 
-	mUiManager->addInterfaz(listo);
+	mUiManager->addInterfaz(mReady);
 
 	//Nombre cocinera (recibido de paquete)
-	ShowText* NombreCocinera = new ShowText(mGame, nombreHost, "ip",
-		(int)cocinera->getX(), sdlutils().height() - 165);
+	ShowText* mCocineraName = new ShowText(mGame, nombreHost, "ip",
+		(int)mCocinera->getX(), sdlutils().height() - 165);
 
-	mUiManager->addInterfaz(NombreCocinera);
+	mUiManager->addInterfaz(mCocineraName);
 
 	// Imagen del camarero conectandose 
 	mCamarero = new Imagen(mGame, sdlutils().width() / 2 + 300, sdlutils().height() / 2, 450, 450, "camareroLobby");
@@ -97,10 +97,10 @@ Lobby::Lobby(Game* mGame, string nombreHost) : Scene(mGame)
 	mUiManager->addInterfaz(mCamarero);
 
 	//Nombre del camarero (tu propio nombre)
-	ShowText* NombreCamarero = new ShowText(mGame, mGame->getNombre(), "ip",
+	ShowText* mCamareroName = new ShowText(mGame, mGame->getNombre(), "ip",
 		(int)mCamarero->getX(), sdlutils().height() - 165);
 
-	mUiManager->addInterfaz(NombreCamarero);
+	mUiManager->addInterfaz(mCamareroName);
 }
 
 void Lobby::clienteUnido(std::string nombreCliente)
@@ -111,10 +111,10 @@ void Lobby::clienteUnido(std::string nombreCliente)
 	mUiManager->setEnLobby(false);
 
 	//Nombre del camarero
-	ShowText* NombreCamarero = new ShowText(mGame, nombreCliente, "ip",
+	ShowText* mCamareroName = new ShowText(mGame, nombreCliente, "ip",
 		(int)mCamarero->getX(), sdlutils().height() - 165);
 
-	mUiManager->addInterfaz(NombreCamarero);
+	mUiManager->addInterfaz(mCamareroName);
 	mSearching->setText("LISTO PARA COMENZAR");
 
 }

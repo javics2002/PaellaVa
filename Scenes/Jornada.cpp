@@ -32,13 +32,13 @@ Jornada::Jornada(Game* mGame, string tilemap, int numeroJornada, bool host_) : S
 	mHost = host_;
 
 #ifdef _DEBUG
-	auto startButton = new UiButton(mGame, "start", 640, 100, 100, 100);
-	startButton->setInitialDimension(100, 100);
-	startButton->setAction([this, startButton](Game* mGame, bool& exit) {
+	auto mStartButton = new UiButton(mGame, "start", 640, 100, 100, 100);
+	mStartButton->setInitialDimension(100, 100);
+	mStartButton->setAction([this, mStartButton](Game* mGame, bool& exit) {
 		sdlutils().soundEffects().at("select").play(0, mGame->UI);
 
-		mUiManager->addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([mGame, startButton, this](tweeny::tween<float>& t, float) mutable {
-			startButton->setDimension(t.peek() * startButton->getInitialWidth(), t.peek() * startButton->getInitialHeight());
+		mUiManager->addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([mGame, mStartButton, this](tweeny::tween<float>& t, float) mutable {
+			mStartButton->setDimension(t.peek() * mStartButton->getInitialWidth(), t.peek() * mStartButton->getInitialHeight());
 
 			if (t.progress() > .2f) {
 				//Start game
@@ -52,7 +52,7 @@ Jornada::Jornada(Game* mGame, string tilemap, int numeroJornada, bool host_) : S
 			});
 		});
 
-	mUiManager->addInterfaz(startButton);
+	mUiManager->addInterfaz(mStartButton);
 #endif // _DEBUG
 
 	// crear player dependiendo si es cocinera o no
@@ -65,20 +65,20 @@ Jornada::Jornada(Game* mGame, string tilemap, int numeroJornada, bool host_) : S
 	mBackground->setDimension(mMapInfo.mAnchoFondo, mMapInfo.mAltoFondo);
 
 	if (mHost) {
-		Player* p = new Player(mGame, mPositionCocinera.getX(), mPositionCocinera.getY(),true);
-		mObjectManager->addPlayer(p);
+		Player* mPlayer = new Player(mGame, mPositionCocinera.getX(), mPositionCocinera.getY(),true);
+		mObjectManager->addPlayer(mPlayer);
 
 		// Jugador 2
-		Player* p2 = new Player(mGame, mPositionCamarero.getX(), mPositionCamarero.getY(),false);
-		mObjectManager->addPlayer(p2);
+		Player* mPlayer2 = new Player(mGame, mPositionCamarero.getX(), mPositionCamarero.getY(),false);
+		mObjectManager->addPlayer(mPlayer2);
 	}
 	else {
-		Player* p = new Player(mGame, mPositionCamarero.getX(), mPositionCamarero.getY(), false);
-		mObjectManager->addPlayer(p);
+		Player* mPlayer = new Player(mGame, mPositionCamarero.getX(), mPositionCamarero.getY(), false);
+		mObjectManager->addPlayer(mPlayer);
 
 		// Jugador 2
-		Player* p2 = new Player(mGame, mPositionCocinera.getX(), mPositionCocinera.getY(), true);
-		mObjectManager->addPlayer(p2);
+		Player* mPlayer2 = new Player(mGame, mPositionCocinera.getX(), mPositionCocinera.getY(), true);
+		mObjectManager->addPlayer(mPlayer2);
 	}
 
 	// camara init
@@ -140,12 +140,12 @@ void Jornada::update()
 	if (!mPaused) {
 		mObjectManager->update();
 
-		Player* player = mObjectManager->getPlayerOne();
-		if (player != nullptr) {
-			if (player->getX() > mTamRestaurante.getY() + TILE_SIZE) { // tamRestaurante es un rango, no una posición, por eso tengo que hacer getY()
+		Player* mPlayer = mObjectManager->getPlayerOne();
+		if (mPlayer != nullptr) {
+			if (mPlayer->getX() > mTamRestaurante.getY() + TILE_SIZE) { // tamRestaurante es un rango, no una posición, por eso tengo que hacer getY()
 				mCamera->Lerp(Vector2D<float>(mTamRestaurante.getY(), 16), LERP_INTERPOLATION);
 			}
-			else if (player->getX() < mTamRestaurante.getY()) {
+			else if (mPlayer->getX() < mTamRestaurante.getY()) {
 				mCamera->Lerp(Vector2D<float>(mTamRestaurante.getX(), 16), LERP_INTERPOLATION);
 			}
 		}
@@ -170,12 +170,12 @@ void Jornada::addPuntuaciones(double puntosComanda)
 
 void Jornada::mediaPuntuaciones()
 {
-	int sumaMedia = 0;
+	int mSumaMedia = 0;
 	for (auto i : mPuntuacionesComandas) {
-		sumaMedia += i;
+		mSumaMedia += i;
 	}
 	if(mPuntuacionesComandas.size() > 0)
-		mPuntuacionTotal= sumaMedia / mPuntuacionesComandas.size();
+		mPuntuacionTotal= mSumaMedia / mPuntuacionesComandas.size();
 }
 
 void Jornada::loadMap(string const& path)
