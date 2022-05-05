@@ -3,7 +3,7 @@
 #include "../../Scenes/Jornada.h"
 Reloj::Reloj(Game* mGame, int numeroJornada) : GameObject(mGame)
 {
-	this->mGame = game;
+	this->mGame = mGame;
 	setDimension(mWidth, mHeight);
 	setPosition(sdlutils().width() - getWidth(), getHeight());
 	setActive(true);
