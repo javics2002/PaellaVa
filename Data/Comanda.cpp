@@ -48,8 +48,7 @@ Comanda::Comanda(Game* game, uint escala, UIManager* uim,bool enVentanilla_) :Ga
 	x = 100;//30
 	y = 110;//0
 	tx = 10;
-//	x += ancho /2*escale;
-	//y += alto / 4*escale;
+
 	p.setX(x);
 	p.setY(y);
 	setPosition(p);
@@ -58,17 +57,15 @@ Comanda::Comanda(Game* game, uint escala, UIManager* uim,bool enVentanilla_) :Ga
 	altoini = alto;
 	iniy = p.getY();
 	uiManager = uim;
-	//   objectmanager = gamet->getObjectManager();
+	
 	double ix = p.getX() / 2 + margenbotones + anchobotones / 2;
 	double iy = p.getY() / 2 + 2 * anchobotones;
 	margenizquierdo = ix;
 	margensuperior = iy-anchobotones/2;
 	escritoX = ix;
-	//margenizquierdo= getPosition().getX() / 2 + anchobotones / 1*escale;
-	//escritoX = getPosition().getX() / 2 + anchobotones / 1*escale;
+	
 	escritoY = margensuperior;
-	//teclado inicial igualq eu lso magenes y eso para resetear la comanda bien
-	 //creamos las psiciones de los botones del teclado
+	
 }
 Comanda::Comanda(Comanda& c) : GameObject(c.game)
 {
@@ -159,12 +156,12 @@ Comanda::Comanda(Game* game, int numMesa, vector<int> tamPaellas, vector<int> in
 	if(numMesa>=0&&numMesa<=8)
 	anadirNumeromesa(uiManager->getNumerosTextures()[numMesa],0);
 	
-//	uiManager->getBarra()->AñadeComanda(this);
+
 }
 
 Comanda::~Comanda()
 {
-	//si hay leaks esq aqui tengo qeu borrar algun puntero de botone spero creo que el uimanager ya los borra todos
+
 	if (eliminarboton != nullptr)
 		delete eliminarboton; eliminarboton = nullptr;
 }
@@ -187,7 +184,7 @@ void Comanda::añadiraPedido(string i, int j)
 
 		UiButton* a = new UiButton(game, i, escritoX, escritoY, anchobotones*0.75, anchobotones*0.75);
 		escritoX += anchobotones / 2 + margenbotones;
-		//gamet->getObjectManager()->creaTeclado(a);
+		
 		Pedido.push_back(a);
 		if (Pedido.size() % 4 == 0)
 		{
@@ -197,19 +194,17 @@ void Comanda::añadiraPedido(string i, int j)
 			h+= +anchobotones / 2 + 2 * margenbotones;
 			setDimension(ancho, alto);
 			setPosition(getPosition().getX(), getPosition().getY() + 2 * margenbotones);
-			//y += 2 * margenbotones;
+		
 			vector<Point2D<double>> sangria = uiManager->getPosTeclado();
 			for (int i = 0; i < sangria.size(); i++)
 			{
 				int ny = sangria[i].getY() + anchobotones * 0.7f;
 				sangria[i].setY(ny);
-				//en algun lugar vuelven a tener el valor default lo tengo que mirar
-				//bajar teclado
-				//lo bajará en uim?
+				
 			}
 			for (int i = 0; i < tecladotam.size(); i++)
 			{
-				//b->getPosition().setY(b->getPosition().getY()+anchobotones*0.7);
+				
 				int ny = tecladotam[i]->getY() + anchobotones * 0.5f;
 
 				Point2D<double> np = tecladotam[i]->getPosition();
@@ -266,8 +261,7 @@ void Comanda::randomizaIconos()
 
 	
 		
-	//sort(teclado.begin(), teclado.end(), &comparaY);
-	//sort(teclado.begin(), teclado.end(), &comparaX);
+
 
 }
 void Comanda::dibujaPedido()
@@ -281,7 +275,7 @@ void Comanda::dibujaPedido()
 	renderizaPaellas();
 }
 void Comanda::borraPedido()
-{//FALTA SUBIR EL TECLADO DE BOTONES AL BORRAR
+{
 	bool saltolinea = Pedido.size() % 4 == 0;//por si acaso el metodo que escribe ya hace saltos de liena se pueden anular en algunos casos
 	//pedido guarda la paella actual si size es 1 estoy borrando un tamanio y no un ingrediente
 	if (Pedido.size() > 0)
@@ -308,9 +302,7 @@ void Comanda::borraPedido()
 				{
 					int ny = sangria[i].getY() - anchobotones * 0.7f;
 					sangria[i].setY(ny);
-					//en algun lugar vuelven a tener el valor default lo tengo que mirar
-					//bajar teclado
-					//lo bajará en uim?
+				
 				}
 				uiManager->setPosTeclado(sangria);
 				uiManager->randomizaTeclado();
@@ -334,7 +326,7 @@ void Comanda::cancelaPedido()
 	uiManager->randomizaTeclado();
 	for (int i = 0; i < tecladotam.size(); i++)
 	{
-		//b->getPosition().setY(b->getPosition().getY()+anchobotones*0.7);
+		
 		
 
 		tecladotam[i]->setPosition(postecladoini[i]);
@@ -362,15 +354,12 @@ void Comanda::guardaTeclado()
 	{
 		int ny = sangria[i].getY() + anchobotones * 0.7f;
 		sangria[i].setY(ny);
-		//en algun lugar vuelven a tener el valor default lo tengo que mirar
-		//bajar teclado
-		//lo bajará en uim?
+		
 	}
-	//uimt->setPosTeclado(sangria);
+	
 	postecladoini = sangria;
 	teclado = uiManager->getTeclado();
-	//pero al inicial le falta la primera sangria y queda por encima de la primera linea de pedido D:
-   // de momento voy a forzar una sangria aqui s tnego tiempo mirare una manera mejor xd
+	
 }
 
 void Comanda::guardaTecladonum(vector<UiButton*> n)
@@ -416,7 +405,7 @@ void Comanda::aceptaPaella()
 {
 	//aqui esta lo dificil el vector de la paella que envias ya no lo podras editar pero deberia seguir siendo visible 
 	//, tendra que mover margenes y vaciar el vector de pedido y que haya un render paellas , lo dificil va  a ser que 
-	//se renderice otdo guay
+	//se renderice todo guay
 	//todos los pedidos con 3 ingredientes y si no pues se rellena con las (un 9)
 	
 	if (ingredientesweb.size() == maxingrendientes * tamanosweb.size())
@@ -442,11 +431,7 @@ void Comanda::aceptaPaella()
 		for (int j = 0; j < Pedido.size(); j++)
 		{
 			paellas[numeroPaellas].push_back(Pedido[j]);
-			//  string s = Pedido[j]->getTextura();
-
-			  //paellas[numeroPaellas][j].push_back(*s.c_str()); //el vector qeuire chars raros por algun motivo
-			  ///paellas[numeroPaellas].push_back(s);
-			  //esta explotando ahi por algun motivo//el motivo : no se leer
+			
 		}
 		Pedido.erase(Pedido.begin(), Pedido.begin() + Pedido.size());
 		Pedido.clear();
@@ -463,19 +448,17 @@ void Comanda::aceptaPaella()
 				h += anchobotones / 2 + 2 * margenbotones;
 				setDimension(ancho, alto);
 				setPosition(getPosition().getX(), getPosition().getY() + 2 * margenbotones);
-				//y += 2 * margenbotones;
+				
 				vector<Point2D<double>> sangria = uiManager->getPosTeclado();
 				for (int i = 0; i < sangria.size(); i++)
 				{
 					int ny = sangria[i].getY() + anchobotones * 0.7f;
 					sangria[i].setY(ny);
-					//en algun lugar vuelven a tener el valor default lo tengo que mirar
-					//bajar teclado
-					//lo bajará en uim?
+					
 				}
 				for (int i = 0; i < tecladotam.size(); i++)
 				{
-					//b->getPosition().setY(b->getPosition().getY()+anchobotones*0.7);
+					
 					int ny = tecladotam[i]->getY() + anchobotones * 0.7f;
 
 					Point2D<double> np = tecladotam[i]->getPosition();
@@ -547,7 +530,7 @@ void Comanda::enviaComanda()
 }
 void Comanda::eC()
 {
-	//uiManager->getRedactabutton()->Swichposition();
+	
 	aceptaPaella();
 	uiManager->getBarra()->AñadeComanda(this);
 	game->getNetworkManager()->syncComanda(getNumeroMesaWeb(), getTamanosWeb(), getIngredientesWeb());
@@ -557,14 +540,7 @@ void Comanda::eC()
 	toggleTecladonum(true);
 	toggleactive();
 	
-	//ih().setFocused(true);
-	
-	//llenar con 9 el vector de  ingredientes hasat 12;
-	//uiManager->getBarra()->setBarraActive(false);
-	//uiManager->getBarra()->toggleBarra();
-	
 
-	// game->getNetworkManager()->syncComanda();
 
 }
 void Comanda::renderizaPaellas()
@@ -576,7 +552,7 @@ void Comanda::renderizaPaellas()
 
 			for (int j = 0; j < paellas[i].size(); j++)
 			{
-				paellas[i][j]->render(nullptr);//los strings de las texturas no llegan y se muere
+				paellas[i][j]->render(nullptr);
 			}
 		}
 	}
@@ -660,11 +636,10 @@ list<Comanda*>::iterator  Comanda::getSitio()
 
 void Comanda::toggleactive()
 {
-	//game->getObjectManager()->getPlayerOne()->changeEnComanda(!isActive());
+	
 	setActive(!isActive());
 	uiManager->getRedactabutton()->Swichposition();
-	//ih().setFocused(isActive());
-
+	
 	if(!isActive()) {
 		setActive(true);
 		for (auto b : botones)
@@ -728,7 +703,7 @@ void Comanda::toggleactive()
 		
 	}
 	
-	//cout << "togleando active"; 
+	
 }
 bool Comanda::onClick(int mx, int my, bool& exit)
 {
@@ -780,7 +755,7 @@ void Comanda::pressSelectedButton()
 	{
 		bool b= false;
 		
-		//setDimension(ancho, alto);
+		
 		focusedbutton->execute(b);
 
 	}
@@ -932,7 +907,7 @@ vector<int> Comanda::getTamanosWeb()
 }
 vector<int> Comanda::getIngredientesWeb()
 {
-	//const int sice = maxingrendientes * maxpaellas;
+	
 	
 	vector<int> ing;
 		int i = 0;

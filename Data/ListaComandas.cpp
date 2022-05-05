@@ -44,20 +44,18 @@ void ListaComandas::AñadeComanda(Comanda* comanda)
 			Comanda* d=*ic;
 			cX = d->getPosition().getX() - 1.5 * c->getWidth();
 		}
-		//comprobar si la posicion 0 está libre
+		
 		desplazamineto = cX - x;
 		
-		c->desplazacomandas(desplazamineto);//esta la paella anterior en el mismo  vector 
+		c->desplazacomandas(desplazamineto);
 		c->setPosition(cX, cY);
 		c->getPosition().setX(cX);
 		c->setTexturecoords(cX, cY);
-		//c->setSitio();
+	
 		c->setSitio(lista.insert(lista.begin(),c));
-		//c->setSitio(inicx/(1.5 * c->getWidth())-1); AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-		//c->setSitio(numcomandas);
-		//UIManager* u,Comanda* c, Game* game, string texturename, int x, int y, int w, int h
+		
 		EliminaComandaButton* e = new EliminaComandaButton(uimt, c, game, "cancela", cX, cY + c->getHeight()/2, 25, 25);
-		//uimt->addInterfaz(e);
+		
 		if (selected != nullptr)
 		{
 			selected->deseleccionaComanda();
@@ -69,20 +67,20 @@ void ListaComandas::AñadeComanda(Comanda* comanda)
 		selected = c;
 		c->seleccionaComanda();
 		numcomandas++;
-		//cX += 1.5 * c->getWidth();
+		
 		auto ec = lista.end();
 		ec--;
 		Comanda* ed = *ec;
 		if (ed->getPosition().getX() < limit)
 		{
-			for (auto c : lista)//al agregar otra comanda se desplazan topdas y la ultima se sale :(
+			for (auto c : lista)//desplazamos las  comandas
 			{
 
 
 
 				int nx = c->getPosition().getX() + 1.5 * c->getWidth();
 				int dsp = nx - c->getPosition().getX();
-				c->desplazacomandas(dsp);//esta la paella anterior en el mismo  vector 
+				c->desplazacomandas(dsp);
 				c->setPosition(nx, cY);
 				c->setTexturecoords(nx, cY);
 				c->getEliminabutton()->setPosition(nx, cY + c->getHeight() / 2);
@@ -94,7 +92,7 @@ void ListaComandas::AñadeComanda(Comanda* comanda)
 	else 
 	{
 	//se guardan en el buffer de comandas.
-		c->desplazacomandas(-500);//esta la paella anterior en el mismo  vector 
+		c->desplazacomandas(-500);
 		c->setPosition(-500, cY);
 		EliminaComandaButton* e = new EliminaComandaButton(uimt, c, game, "cancela", -500, cY + c->getHeight() / 2, 25, 25);
 	
@@ -109,8 +107,8 @@ void ListaComandas::renderComandas()
 	{
 		if (i->isActive())
 		{
-			i->render(nullptr);//se pasan bien pero los uibutton de la lista de paelas deciden morir aqui xd
-			i->dibujaPedido();//XD son punteros y la comanda hace paella clear y los borra lol
+			i->render(nullptr);
+			i->dibujaPedido();
 		}
 	}
 }
@@ -123,9 +121,7 @@ void ListaComandas::finalizacomanda(Comanda* comanda)
 		game->getCurrentScene()->changeState(pausaBorrarComanda);
 	}
 	else {
-		//int cf;
-		//cf = queComandaBorro();
-		//game->getNetworkManager()->syncBarra(cf);
+		
 		if (comanda == selected)
 		{
 			if (lista.size() > 1)
@@ -136,7 +132,7 @@ void ListaComandas::finalizacomanda(Comanda* comanda)
 			else
 			{
 				selected = *lista.begin();
-				//toggleBarra();
+				
 			}
 		}
 		for (auto c : lista)
@@ -146,7 +142,7 @@ void ListaComandas::finalizacomanda(Comanda* comanda)
 			{
 				int nx = c->getPosition().getX() + 1.5 * c->getWidth();
 				int dsp = nx - c->getPosition().getX();
-				c->desplazacomandas(dsp);//esta la paella anterior en el mismo  vector 
+				c->desplazacomandas(dsp);
 				c->setPosition(nx, cY);
 				c->setTexturecoords(nx, cY);
 				c->getEliminabutton()->setPosition(nx, cY + c->getHeight() / 2);
@@ -166,7 +162,7 @@ void ListaComandas::finalizacomanda(Comanda* comanda)
 			Comanda* c = listanovisibles.back();
 			cX = inicx + 1.5 * c->getWidth();
 			int x = -cX - c->getX();
-			x += 3 * c->getWidth() + anchobotones*4;//4 son los botones qeu caben en una linea
+			x += 3 * c->getWidth() + anchobotones*4;//4 son los botones que caben en una linea
 			c->setPosition(cX, cY);
 			c->setTexturecoords(cX, cY);
 			c->desplazacomandas(x );
@@ -266,7 +262,7 @@ void ListaComandas::setBarraActive(bool b)
 	{
 		i->setActive(listaActive);
 	}
-	if (listaActive)//actiamos la barra y colocamos el foco
+	if (listaActive)//activamos la barra y colocamos el foco
 	{
 		if (selected != nullptr)
 		{
