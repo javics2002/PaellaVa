@@ -2,19 +2,19 @@
 #include "../Control/NetworkManager.h"
 #include "../Scenes/Menu.h"
 
-Disconnected::Disconnected(Game* game) : Scene(game)
+Disconnected::Disconnected(Game* mGame) : Scene(mGame)
 {
-	fondo->setTexture("disconnectedBg");
-	fondo->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
-	fondo->setDimension(sdlutils().width(), sdlutils().height() + 100);
+	mBackground->setTexture("disconnectedBg");
+	mBackground->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
+	mBackground->setDimension(sdlutils().width(), sdlutils().height() + 100);
 
-	UiButton* regresar = new UiButton(game, "back", 200, sdlutils().height() - 100, 280, 120);
+	UiButton* regresar = new UiButton(mGame, "back", 200, sdlutils().height() - 100, 280, 120);
 	regresar->setInitialDimension(regresar->getWidth(), regresar->getHeight());
-	regresar->setAction([](Game* game, bool& exit) {
-		game->sendMessageScene(new Menu(game));
+	regresar->setAction([](Game* mGame, bool& exit) {
+		mGame->sendMessageScene(new Menu(mGame));
 		});
 
-	uiManager->addButton(regresar);
+	mUiManager->addButton(regresar);
 
 }
 

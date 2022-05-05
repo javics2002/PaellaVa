@@ -19,7 +19,7 @@ class Cliente : public GameObject
 	bool gosht;
 
 public:
-	Cliente(Game* game);
+	Cliente(Game* mGame);
 	~Cliente() = default;
 
 	void update() override;

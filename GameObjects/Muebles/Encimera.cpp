@@ -6,7 +6,7 @@
 #include "../../Control/Game.h"
 #include "../../Scenes/Tutorial.h"
 
-Encimera::Encimera(Game* game, Vector2D<double> pos) : Mueble(game, pos, 1 * TILE_SIZE, 2 * TILE_SIZE, "encimera")
+Encimera::Encimera(Game* mGame, Vector2D<double> pos) : Mueble(mGame, pos, 1 * TILE_SIZE, 2 * TILE_SIZE, "encimera")
 {
 	//Siempre tiene que funcionar
 	funcionando = true;
@@ -20,9 +20,9 @@ bool Encimera::receiveIngrediente(Ingrediente* ingr)
 			if (paella_->ingrValido(ingr) && paella_->conArroz() && ingr->getProcesado()) {
 
 				paella_->anadeIngr(ingr);
-				if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::dejarIngredientePaella) {
+				if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == States::dejarIngredientePaella) {
 					if (paella_->ingredientesEnPaella() == 3)
-						game->getCurrentScene()->changeState(States::pausaDejarIngredientes);
+						mGame->getCurrentScene()->changeState(States::pausaDejarIngredientes);
 				}
 				ingr->setActive(false);
 
@@ -51,9 +51,9 @@ bool Encimera::receivePaella(Paella* pa)
 		//Si ya tiene objeto, no recoge objeto
 		if (ingr_ == nullptr && paella_ == nullptr && arroz_ == nullptr && herramienta_ == nullptr)
 		{
-			sdlutils().soundEffects().at("paellaMesa").play(0, game->UI);
-			if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::dejaPaellera)
-				game->getCurrentScene()->changeState(States::pausaDejaPaella);
+			sdlutils().soundEffects().at("paellaMesa").play(0, mGame->UI);
+			if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == States::dejaPaellera)
+				mGame->getCurrentScene()->changeState(States::pausaDejaPaella);
 
 
 			paella_ = pa;
@@ -75,8 +75,8 @@ bool Encimera::receiveArroz(Arroz* arr)
 			if (paella_->getContenido() == Limpia) {
 
 				paella_->anadeArroz(arr);
-				if (dynamic_cast<Tutorial*>(game->getCurrentScene()))
-					game->getCurrentScene()->changeState(States::pausaCogerDejarArroz);
+				if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()))
+					mGame->getCurrentScene()->changeState(States::pausaCogerDejarArroz);
 
 				return true;
 			}

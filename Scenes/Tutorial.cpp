@@ -16,44 +16,44 @@
 using namespace std;
 
 
-Tutorial::Tutorial(Game* game, string tilemap) : Scene(game)
+Tutorial::Tutorial(Game* mGame, string tilemap) : Scene(mGame)
 {
-	this->game = game;
+	this->mGame = mGame;
 
 
 
-	mapInfo.ruta = "Assets\\Tilemap\\" + tilemap + ".tmx";
-	loadMap(mapInfo.ruta);
+	mapInfo.mRuta = "Assets\\Tilemap\\" + tilemap + ".tmx";
+	loadMap(mapInfo.mRuta);
 
-	fondo->setTexture(mapInfo.ruta);
-	fondo->setPosition(mapInfo.anchoFondo / 2, sdlutils().height() / 2);
-	fondo->setDimension(mapInfo.anchoFondo, mapInfo.altoFondo);
+	mBackground->setTexture(mapInfo.mRuta);
+	mBackground->setPosition(mapInfo.mAnchoFondo / 2, sdlutils().height() / 2);
+	mBackground->setDimension(mapInfo.mAnchoFondo, mapInfo.mAltoFondo);
 
-	Player* p = new Player(game, positionCamarero.getX(), positionCamarero.getY(), false);
-	objectManager->addPlayer(p);
+	Player* p = new Player(mGame, positionCamarero.getX(), positionCamarero.getY(), false);
+	mObjectManager->addPlayer(p);
 
 	// camara init
-	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
+	mCamera = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
 
 
-	uiManager->creaMenuPausa();
+	mUiManager->creaMenuPausa();
 
-	uiManager->addInterfaz(new Reloj(game, -1));
-	uiManager->addInterfaz(cuadroTexto);
-	uiManager->addInterfaz(cuadradoPlay);
+	mUiManager->addInterfaz(new Reloj(mGame, -1));
+	mUiManager->addInterfaz(cuadroTexto);
+	mUiManager->addInterfaz(cuadradoPlay);
 	cuadroTexto->setActive(false);
 	cuadradoPlay->setActive(false);
-	uiManager->addInterfaz(text);
+	mUiManager->addInterfaz(text);
 	text->setActive(false);
 
 
-	objectManager->initMuebles();
+	mObjectManager->initMuebles();
 
 	changeState(pausaInicio);
 
-	uiManager->addInterfaz(rC);
-	uiManager->setRedactaboton(rC);
-	uiManager->setBarra(lC);
+	mUiManager->addInterfaz(rC);
+	mUiManager->setRedactaboton(rC);
+	mUiManager->setBarra(lC);
 
 	rC->setActive(false);
 	lC->setActive(false);
@@ -70,48 +70,48 @@ void Tutorial::handleInput(bool& exit)
 
 	if (ih().getKey(InputHandler::B)) 
 		togglePause();
-	if (ih().getKey(InputHandler::X) && paused && textMngr->TerminadoEscribir()) 
+	if (ih().getKey(InputHandler::X) && mPaused && mTextMngr->TerminadoEscribir()) 
 		pauseTutorial();
-	if (ih().getKey(InputHandler::X) && paused && textMngr->terminadoParrado()) 
+	if (ih().getKey(InputHandler::X) && mPaused && mTextMngr->terminadoParrado()) 
 		continua = true;
-	else if (ih().getKey(InputHandler::X) && paused && !textMngr->terminadoParrado() && !textMngr->vaRapido())
-		textMngr->cambiaVelocidad(true);
-	if (ih().getKey(InputHandler::Y) && currentState==abreLibreta) {
-		if (uiManager->getComanda() == nullptr)
-			uiManager->creaComanda(game);
+	else if (ih().getKey(InputHandler::X) && mPaused && !mTextMngr->terminadoParrado() && !mTextMngr->vaRapido())
+		mTextMngr->cambiaVelocidad(true);
+	if (ih().getKey(InputHandler::Y) && mCurrentState==abreLibreta) {
+		if (mUiManager->getComanda() == nullptr)
+			mUiManager->creaComanda(mGame);
 		else 
-			uiManager->getComanda()->toggleactive();
+			mUiManager->getComanda()->toggleactive();
 		
 	}
 }
 
 void Tutorial::update()
 {
-	if (!paused) {
-		objectManager->update();
+	if (!mPaused) {
+		mObjectManager->update();
 
-		if (objectManager->getPlayerOne()->getX() > tamRestaurante.getY() + TILE_SIZE) { // tamRestaurante es un rango, no una posición, por eso tengo que hacer getY()
-			camara->Lerp(Vector2D<float>(tamRestaurante.getY(), 16), LERP_INTERPOLATION);
+		if (mObjectManager->getPlayerOne()->getX() > tamRestaurante.getY() + TILE_SIZE) { // tamRestaurante es un rango, no una posición, por eso tengo que hacer getY()
+			mCamera->Lerp(Vector2D<float>(tamRestaurante.getY(), 16), LERP_INTERPOLATION);
 		}
-		else if (objectManager->getPlayerOne()->getX() < tamRestaurante.getY()) {
-			camara->Lerp(Vector2D<float>(tamRestaurante.getX(), 16), LERP_INTERPOLATION);
+		else if (mObjectManager->getPlayerOne()->getX() < tamRestaurante.getY()) {
+			mCamera->Lerp(Vector2D<float>(tamRestaurante.getX(), 16), LERP_INTERPOLATION);
 		}
 	}
-	textMngr->update();
-	uiManager->update(paused);
+	mTextMngr->update();
+	mUiManager->update(mPaused);
 }
 
 void Tutorial::changeState(States state_)
 {
-	anteriorEstado = currentState;
-	currentState = state_;
+	anteriorEstado = mCurrentState;
+	mCurrentState = state_;
 
-	if (currentState == pausaComandaEquivocada  || currentState % 2 != 0  //Si el estado actual es impar o cualquiera de esas pausas, pausas el juego
-		|| currentState==pausaBorrarComanda || currentState==pausaNoEcharClientes || currentState==pausaInicio)
+	if (mCurrentState == pausaComandaEquivocada  || mCurrentState % 2 != 0  //Si el estado actual es impar o cualquiera de esas pausas, pausas el juego
+		|| mCurrentState==pausaBorrarComanda || mCurrentState==pausaNoEcharClientes || mCurrentState==pausaInicio)
 	{
-		if (currentState == 13) {
+		if (mCurrentState == 13) {
 			//Activas las cintas y haces que deje de funcionar en ese estado
-			for (auto i : objectManager->getCintas())
+			for (auto i : mObjectManager->getCintas())
 				i->setActive(true);
 			getObjectManager()->getIniCinta()->setActive(true);
 			getObjectManager()->getIniCinta()->dejaFuncionar();
@@ -121,16 +121,16 @@ void Tutorial::changeState(States state_)
 		//Pausa
 		pauseTutorial();
 	}
-	else switch (currentState){ // Si no estamos en una pausa
+	else switch (mCurrentState){ // Si no estamos en una pausa
 		case 0: { // Activamos la puerta y el cartel para que entre nuestro cliente
-			objectManager->getPuerta()->setActive(true);
-			objectManager->getCartel()->setActive(true);
+			mObjectManager->getPuerta()->setActive(true);
+			mObjectManager->getCartel()->setActive(true);
 			break;
 		}
 		case 2:{ // Activamos las mesas y la silla para que el cliente se pueda sentar
-			for (auto i : objectManager->getMesas())
+			for (auto i : mObjectManager->getMesas())
 				i->setActive(true);
-			for (auto i : objectManager->getSillas())
+			for (auto i : mObjectManager->getSillas())
 				i->setActive(true);
 			break;
 		}
@@ -140,12 +140,12 @@ void Tutorial::changeState(States state_)
 			break;
 		}
 		case 8:{ // Ahora pasamos al rol de cocinera ya que vamos a hacer cosas en la cocina
-			objectManager->getPlayerOne()->changePlayer(true);
+			mObjectManager->getPlayerOne()->changePlayer(true);
 			cuadroTexto->setTexture("cuadroTextoCamarero"); // Cambiamos el cuadro del texto para que ahora te hable el camarero
 			// Activamos las encimeras y las pilas de paellas para que el jugador pueda usarlas
-			for (auto i : objectManager->getEncimeras())
+			for (auto i : mObjectManager->getEncimeras())
 				i->setActive(true);
-			for (auto i : objectManager->getPilas())
+			for (auto i : mObjectManager->getPilas())
 				i->setActive(true);
 			break;
 		}
@@ -154,41 +154,41 @@ void Tutorial::changeState(States state_)
 			break;
 		}
 		case 14:{ // Activamos la caja de herramientas para que el jugador pueda arreglar la cinta rota
-			game->getObjectManager()->getCajaHerramientas()->setActive(true);
+			mGame->getObjectManager()->getCajaHerramientas()->setActive(true);
 			break;
 		}
 		case 18:{ // Una vez coge un ingredientes, se habilitan las tablas de procesado
-			for (auto i : objectManager->getTablas())
+			for (auto i : mObjectManager->getTablas())
 				i->setActive(true);
 			break;
 		}
 		case 22: { // Una vez hemos colocado todos los ingredientes, se activan los fogones para cocinar la paella
-			for (auto i : objectManager->getFogones())
+			for (auto i : mObjectManager->getFogones())
 				i->setActive(true);
 			break;
 		}
 		case 24: { // Activamos otras encimeras que haran de 'ventanillas' y volvemos a cambiar al jugador a camarero
-			for (auto i : objectManager->getVentanilla())
+			for (auto i : mObjectManager->getVentanilla())
 				i->setActive(true);
-			objectManager->getPlayerOne()->changePlayer(false);
+			mObjectManager->getPlayerOne()->changePlayer(false);
 			cuadroTexto->setTexture("cuadroTextoCocinera");
 			break;
 		}
 		case 30: { // Activamos el lavavjillas para que el jugador deje la paella sucia y canmbiamos el rol a cocinera
-			objectManager->getLavavajillas()->setActive(true);
+			mObjectManager->getLavavajillas()->setActive(true);
 			cuadroTexto->setTexture("cuadroTextoCamarero");
-			objectManager->getPlayerOne()->changePlayer(true);
+			mObjectManager->getPlayerOne()->changePlayer(true);
 			break;
 		}
 		case 34: {
-			objectManager->getPlayerOne()->changePlayer(true);
+			mObjectManager->getPlayerOne()->changePlayer(true);
 			cuadroTexto->setTexture("cuadroTextoCocinera");
 			break;
 		}
 		case final: {
 			// Volvemos al menú
-			game->getNetworkManager()->close();
-			game->sendMessageScene(new Menu(game));
+			mGame->getNetworkManager()->close();
+			mGame->sendMessageScene(new Menu(mGame));
 		}
 		default:
 			break;
@@ -197,68 +197,68 @@ void Tutorial::changeState(States state_)
 
 States Tutorial::getState() // Returnea el estado actual en el que se encuentra el jugador
 {
-	return currentState;
+	return mCurrentState;
 }
 
 
 void Tutorial::refresh() 
 {
-	objectManager->refresh();
+	mObjectManager->refresh();
 }
 
 void Tutorial::render() // Render
 {
- 	fondo->render(camara->renderRect());
-	objectManager->render(camara->renderRect());
-	uiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
+ 	mBackground->render(mCamera->renderRect());
+	mObjectManager->render(mCamera->renderRect());
+	mUiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
 
 	// Para ciertos casos necesitamos renderizar un texto, y para el resto de pausas, se van mostrando en orden
-	if (currentState == pausaComandaEquivocada) {
+	if (mCurrentState == pausaComandaEquivocada) {
 		activaCuadro("textoComandaEquivocada");
 	}
-	else if (currentState == pausaBorrarComanda) {
+	else if (mCurrentState == pausaBorrarComanda) {
 		activaCuadro("textoBorrarComanda");
 	}
-	else if (currentState == pausaNoEcharClientes) {
+	else if (mCurrentState == pausaNoEcharClientes) {
 		activaCuadro("textoNoEcharClientes");
 	}
-	else if (currentState == pausaInicio)
+	else if (mCurrentState == pausaInicio)
 		activaCuadro("texto0");
-	else if (currentState % 2 != 0) {
-		activaCuadro(textos[currentState/2]);
+	else if (mCurrentState % 2 != 0) {
+		activaCuadro(textos[mCurrentState/2]);
 	}
-	else if (currentState % 2 == 0) { // Si no estamos en una pausa desactivamos el texto
+	else if (mCurrentState % 2 == 0) { // Si no estamos en una pausa desactivamos el texto
 		desactivaCuadro();
 	}
-	textMngr->render(); // Llamamos al render del TextManager
+	mTextMngr->render(); // Llamamos al render del TextManager
 }
 
 
 void Tutorial::loadMap(string const& path)
 {
 	//Cargamos el mapa .tmx del archivo indicado
-	mapInfo.tilemap = new tmx::Map();
-	mapInfo.tilemap->load(path);
+	mapInfo.mTilemap = new tmx::Map();
+	mapInfo.mTilemap->load(path);
 
 
 	//Obtenemos las dimensiones del mapa en tiles
-	auto map_dimensions = mapInfo.tilemap->getTileCount();
-	mapInfo.columnas = map_dimensions.x;
-	mapInfo.filas = map_dimensions.y;
+	auto map_dimensions = mapInfo.mTilemap->getTileCount();
+	mapInfo.mColumnas = map_dimensions.x;
+	mapInfo.mFilas = map_dimensions.y;
 
 	//Obtenemos el tamaño de los tiles
-	auto tilesize = mapInfo.tilemap->getTileSize();
-	mapInfo.anchoTile = tilesize.x;
-	mapInfo.altoTile = tilesize.y;
+	auto tilesize = mapInfo.mTilemap->getTileSize();
+	mapInfo.mAnchoTile = tilesize.x;
+	mapInfo.mAltoTile = tilesize.y;
 
 	//Creamos la textura de fondo
 	auto renderer = sdlutils().renderer();
-	mapInfo.anchoFondo = mapInfo.anchoTile * mapInfo.columnas;
-	mapInfo.altoFondo = mapInfo.altoTile * mapInfo.filas;
+	mapInfo.mAnchoFondo = mapInfo.mAnchoTile * mapInfo.mColumnas;
+	mapInfo.mAltoFondo = mapInfo.mAltoTile * mapInfo.mFilas;
 	SDL_Texture* fondo = SDL_CreateTexture(renderer,
 		SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET,
-		mapInfo.anchoFondo,
-		mapInfo.altoFondo
+		mapInfo.mAnchoFondo,
+		mapInfo.mAltoFondo
 	);
 
 	SDL_SetTextureBlendMode(fondo, SDL_BLENDMODE_BLEND);
@@ -271,15 +271,15 @@ void Tutorial::loadMap(string const& path)
 	// (el mapa utiliza el �ndice [gid] del primer tile cargado del tileset como clave)
 	// (para poder cargar los tilesets del archivo .tmx, les ponemos de nombre 
 	// el nombre del archivo sin extension en el .json) 
-	auto& mapTilesets = mapInfo.tilemap->getTilesets();
+	auto& mapTilesets = mapInfo.mTilemap->getTilesets();
 	for (auto& tileset : mapTilesets) {
 		string name = tileset.getName();
 		Texture* texture = &sdlutils().tilesets().find(name)->second;
-		mapInfo.tilesets.insert(pair<uint, Texture*>(tileset.getFirstGID(), texture));
+		mapInfo.mTilesets.insert(pair<uint, Texture*>(tileset.getFirstGID(), texture));
 	}
 
 	// recorremos cada una de las capas (de momento solo las de tiles) del mapa
-	auto& map_layers = mapInfo.tilemap->getLayers();
+	auto& map_layers = mapInfo.mTilemap->getLayers();
 	for (auto& layer : map_layers) {
 		// aqui comprobamos que sea la capa de tiles
 		if (layer->getType() == tmx::Layer::Type::Tile) {
@@ -290,10 +290,10 @@ void Tutorial::loadMap(string const& path)
 			auto& layer_tiles = tile_layer->getTiles();
 
 			// recorremos todos los tiles para obtener su informacion
-			for (auto y = 0; y < mapInfo.filas; ++y) {
-				for (auto x = 0; x < mapInfo.columnas; ++x) {
+			for (auto y = 0; y < mapInfo.mFilas; ++y) {
+				for (auto x = 0; x < mapInfo.mColumnas; ++x) {
 					// obtenemos el indice relativo del tile en el mapa de tiles
-					auto tile_index = x + (y * mapInfo.columnas);
+					auto tile_index = x + (y * mapInfo.mColumnas);
 
 					// con dicho indice obtenemos el indice del tile dentro de su tileset
 					auto cur_gid = layer_tiles[tile_index].ID;
@@ -305,7 +305,7 @@ void Tutorial::loadMap(string const& path)
 					// guardamos el tileset que utiliza este tile (nos quedamos con el tileset cuyo gid sea
 					// el mas cercano, y a la vez menor, al gid del tile)
 					auto tset_gid = -1, tsx_file = 0;;
-					for (auto& ts : mapInfo.tilesets) {
+					for (auto& ts : mapInfo.mTilesets) {
 						if (ts.first <= cur_gid) {
 							tset_gid = ts.first;
 							tsx_file++;
@@ -324,24 +324,24 @@ void Tutorial::loadMap(string const& path)
 					// calculamos dimensiones del tileset
 					auto ts_width = 0;
 					auto ts_height = 0;
-					SDL_QueryTexture(mapInfo.tilesets[tset_gid]->getTexture(),
+					SDL_QueryTexture(mapInfo.mTilesets[tset_gid]->getTexture(),
 						NULL, NULL, &ts_width, &ts_height);
 
 					// calculamos el area del tileset que corresponde al dibujo del tile
-					auto region_x = (cur_gid % (ts_width / mapInfo.anchoTile)) * mapInfo.anchoTile;
-					auto region_y = (cur_gid / (ts_width / mapInfo.anchoTile)) * mapInfo.altoTile;
+					auto region_x = (cur_gid % (ts_width / mapInfo.mAnchoTile)) * mapInfo.mAnchoTile;
+					auto region_y = (cur_gid / (ts_width / mapInfo.mAnchoTile)) * mapInfo.mAltoTile;
 
 					// calculamos la posicion del tile
-					auto x_pos = x * mapInfo.anchoTile;
-					auto y_pos = y * mapInfo.altoTile;
+					auto x_pos = x * mapInfo.mAnchoTile;
+					auto y_pos = y * mapInfo.mAltoTile;
 
 					// metemos el tile
-					auto tileTex = mapInfo.tilesets[tset_gid];
+					auto tileTex = mapInfo.mTilesets[tset_gid];
 
 					SDL_Rect src;
 					src.x = region_x; src.y = region_y;
-					src.w = mapInfo.anchoTile;
-					src.h = mapInfo.altoTile;
+					src.w = mapInfo.mAnchoTile;
+					src.h = mapInfo.mAltoTile;
 
 					SDL_Rect dest;
 					dest.x = x_pos;
@@ -349,7 +349,7 @@ void Tutorial::loadMap(string const& path)
 					dest.w = src.w;
 					dest.h = src.h;
 
-					mapInfo.tilesets[tset_gid]->render(src, dest);
+					mapInfo.mTilesets[tset_gid]->render(src, dest);
 				}
 			}
 		}
@@ -362,7 +362,7 @@ void Tutorial::loadMap(string const& path)
 			for (auto obj : objs) {
 				auto& aabb = obj.getAABB();
 				auto position = Vector2D<double>(aabb.left, aabb.top);
-				auto dimension = Vector2D<int>(mapInfo.anchoTile, mapInfo.altoTile);
+				auto dimension = Vector2D<int>(mapInfo.mAnchoTile, mapInfo.mAltoTile);
 				string name = obj.getName();
 				vector<tmx::Property> p = obj.getProperties();
 
@@ -388,71 +388,71 @@ void Tutorial::loadMap(string const& path)
 					positionCocinera = position;
 				}
 				if (name == "mesaS") { // 1 tile
-					Mesa* m = new Mesa(game, position, { 1, 2 }, { 1 , 1 }, name);
+					Mesa* m = new Mesa(mGame, position, { 1, 2 }, { 1 , 1 }, name);
 					m->setTiles(21, 1);
 					getObjectManager()->addMueble(m);
 				}
 				else if (name == "mesaMH") { // 2 tiles horizontal
-					Mesa* m = new Mesa(game, position, { 2, 2 }, { 2 , 1 }, name);
+					Mesa* m = new Mesa(mGame, position, { 2, 2 }, { 2 , 1 }, name);
 					m->setTiles(22, 1);
 					getObjectManager()->addMueble(m);
 				}
 				else if (name == "mesaMV") { // 2 tiles vertical
-					Mesa* m = new Mesa(game, position, { 1, 3 }, { 1 , 2 }, name);
+					Mesa* m = new Mesa(mGame, position, { 1, 3 }, { 1 , 2 }, name);
 					m->setTiles(38, 0.85);
 					getObjectManager()->addMueble(m);
 				}
 				else if (name == "mesaL") { // 4 tiles
-					Mesa* m = new Mesa(game, position, { 2, 3 }, { 2 , 2 }, name);
+					Mesa* m = new Mesa(mGame, position, { 2, 3 }, { 2 , 2 }, name);
 					m->setTiles(36, 0.85);
 					getObjectManager()->addMueble(m);
 				}
 				else if (name == "sillaIz") {
-					Silla* s = new SillaE(game, position, name);
+					Silla* s = new SillaE(mGame, position, name);
 					getObjectManager()->addMueble(s);
 					getObjectManager()->addSilla(s);
 					s->setActive(false);
 				}
 				else if (name == "sillaIz") {
-					Silla* s = new SillaO(game, position, name);;
+					Silla* s = new SillaO(mGame, position, name);;
 					getObjectManager()->addMueble(s);
 					getObjectManager()->addSilla(s);
 					s->setActive(false);
 				}
 				else if (name == "sillaAr") {
-					Silla* s = new SillaS(game, position, name);;
+					Silla* s = new SillaS(mGame, position, name);;
 					getObjectManager()->addMueble(s);
 					getObjectManager()->addSilla(s);
 					s->setActive(false);
 				}
 				else if (name == "sillaAb") {
-					Silla* s = new SillaN(game, position, name);
+					Silla* s = new SillaN(mGame, position, name);
 					getObjectManager()->addMueble(s);
 					getObjectManager()->addSilla(s);
 					s->setActive(false);
 				}
 				else if (name == "fogon") {
-					Fogon* f = new Fogon(game, position);
+					Fogon* f = new Fogon(mGame, position);
 					getObjectManager()->addMueble(f);
 					getObjectManager()->addFogon(f);
 					f->setActive(false);
 
 				}
 				else if (name == "vEncimera") {
-					Encimera* e = new Encimera(game, position);
+					Encimera* e = new Encimera(mGame, position);
 					getObjectManager()->addMueble(e);
 					getObjectManager()->addVentanilla(e);
 					e->setActive(false);
 				}
 				else if (name == "lavavajillas") {
-					Lavavajillas* l = new Lavavajillas(game, position);
+					Lavavajillas* l = new Lavavajillas(mGame, position);
 					getObjectManager()->addMueble(l);
 					getObjectManager()->addLavavajillas(l);
 					l->setActive(false);
 
 				}
 				else if (name == "cinta") {
-					Cinta* c = new Cinta(game, position);
+					Cinta* c = new Cinta(mGame, position);
 					SDL_Rect aux = c->getTexBox();
 					if (p[0].getBoolValue()) {
 						c->setCollider({ aux.x, aux.y + aux.h / 2 , aux.w, aux.h / 2 });
@@ -463,78 +463,78 @@ void Tutorial::loadMap(string const& path)
 					c->setActive(false);
 				}
 				else if (name == "inicioCinta") {
-					InicioCinta* c = new InicioCinta(game, position);
+					InicioCinta* c = new InicioCinta(mGame, position);
 					c->setVel(Vector2D<double>((double)p[1].getFloatValue(), (double)p[2].getFloatValue()));
 					getObjectManager()->addMueble(c);
 					getObjectManager()->addIniCinta(c);
 					c->setActive(false);
 				}
 				else if (name == "finalCinta") {
-					FinalCinta* c = new FinalCinta(game, position);
+					FinalCinta* c = new FinalCinta(mGame, position);
 					getObjectManager()->addMueble(c);
 					getObjectManager()->addFinCinta(c);
 					c->setActive(false);
 				}
 				else if (name == "puerta") {
-					Puerta* puerta = new Puerta(game, position, p[3].getIntValue(), p[0].getIntValue());
+					Puerta* puerta = new Puerta(mGame, position, p[3].getIntValue(), p[0].getIntValue());
 					puerta->setVel(Vector2D<double>((double)p[1].getFloatValue(), (double)p[2].getFloatValue()));
 					getObjectManager()->addMueble(puerta);
 					getObjectManager()->addPuerta(puerta);
 					puerta->setActive(false);
 				}
 				else if (name == "cartel") {
-					Cartel* c = new Cartel(game, position);
+					Cartel* c = new Cartel(mGame, position);
 					getObjectManager()->addMueble(c);
 					getObjectManager()->addCartel(c);
 					c->setActive(false);
 				}
 				else if (name == "tabla") {
-					TablaProcesado* t = new TablaProcesado(game, position);
+					TablaProcesado* t = new TablaProcesado(mGame, position);
 					getObjectManager()->addMueble(t);
 					getObjectManager()->addTabla(t);
 					t->setActive(false);
 				}
 				else if (name == "encimera") {
-					Encimera* e = new Encimera(game, position);
+					Encimera* e = new Encimera(mGame, position);
 					getObjectManager()->addMueble(e);
 					getObjectManager()->addEncimera(e);
 					e->setActive(false);
 				}				
 				else if (name == "arroz") {
-					BolsaArroz* b = new BolsaArroz(game, position);
+					BolsaArroz* b = new BolsaArroz(mGame, position);
 					getObjectManager()->addMueble(b);
 					getObjectManager()->addBolsa(b);
 					b->setActive(false);
 				}
 				else if (name == "pared") {
-					Pared* p = new Pared(game, position);
+					Pared* p = new Pared(mGame, position);
 					p->setDepth(-5);
 					getObjectManager()->addMueble(p);
 				}
 				else if (name == "pilaS")
 				{
-					Pila* p = new Pila(game, position, TipoPaella::Pequena, 1);
+					Pila* p = new Pila(mGame, position, TipoPaella::Pequena, 1);
 					getObjectManager()->addMueble(p);
 					getObjectManager()->addPilas(p);
 					p->setActive(false);
 				}
 				else if (name == "pilaM")
 				{
-					Pila* p = new Pila(game, position, TipoPaella::Mediana, 1);
+					Pila* p = new Pila(mGame, position, TipoPaella::Mediana, 1);
 					getObjectManager()->addMueble(p);
 					getObjectManager()->addPilas(p);
 					p->setActive(false);
 				}
 				else if (name == "pilaL")
 				{
-					Pila* p = new Pila(game, position, TipoPaella::Grande, 1);
+					Pila* p = new Pila(mGame, position, TipoPaella::Grande, 1);
 					getObjectManager()->addMueble(p);
 					getObjectManager()->addPilas(p);
 				p->setActive(false);
 				}
 				else if (name == "cajaHerramientas")
 				{
-					CajaHerramientas* p = new CajaHerramientas(game, position);
+					CajaHerramientas* p = new CajaHerramientas(mGame, position);
 					getObjectManager()->addMueble(p);
 					getObjectManager()->addCaja(p);
 					p->setActive(false);
@@ -547,66 +547,66 @@ void Tutorial::loadMap(string const& path)
 		SDL_SetRenderTarget(renderer, nullptr);
 
 		if (!sdlutils().images().count(path))
-			sdlutils().images().emplace(path, Texture(renderer, fondo, mapInfo.anchoFondo, mapInfo.altoFondo));
+			sdlutils().images().emplace(path, Texture(renderer, fondo, mapInfo.mAnchoFondo, mapInfo.mAltoFondo));
 	}
 }
 
 void Tutorial::togglePause()
 {
-	uiManager->togglePause(); // Pausamos el juego cuando hay un dialogo o si hay una pausa
+	mUiManager->togglePause(); // Pausamos el juego cuando hay un dialogo o si hay una pausa
 
-	if (currentState % 2 == 0)paused = !paused;
-	else textMngr->cambiaPausa(); // Si se pausa el juego y estamos en un dialogo, paramos el dialogo
+	if (mCurrentState % 2 == 0)mPaused = !mPaused;
+	else mTextMngr->cambiaPausa(); // Si se pausa el juego y estamos en un dialogo, paramos el dialogo
 
-	if (paused) {
+	if (mPaused) {
 
 		sdlutils().virtualTimer().pause();
 
-		sdlutils().soundEffects().at("cancel").play(0, game->UI);
+		sdlutils().soundEffects().at("cancel").play(0, mGame->UI);
 	}
 	else {
 		sdlutils().virtualTimer().resume();
 
-		sdlutils().soundEffects().at("select").play(0, game->UI);
+		sdlutils().soundEffects().at("select").play(0, mGame->UI);
 	}
 }
 
 void Tutorial::pauseTutorial()
 {
 	// Pausa para los dialogos
-	paused = !paused;
+	mPaused = !mPaused;
 
-	if (paused) {
+	if (mPaused) {
 
 		sdlutils().virtualTimer().pause();
-		sdlutils().soundEffects().at("cancel").play(0, game->UI);
+		sdlutils().soundEffects().at("cancel").play(0, mGame->UI);
 	}
 	else { // En funcion del estado, pasamos a un estado pero volvemos al anterior
 		sdlutils().virtualTimer().resume();
-		if (currentState == pausaComandaEquivocada)
-			currentState = anteriorEstado;
-		else if (currentState == pausaBorrarComanda)
-			currentState = anteriorEstado;
-		else if (currentState == pausaNoEcharClientes)
-			currentState = anteriorEstado;
-		else if (currentState == pausaInicio)
-			currentState = cogerClientes;
-		else currentState = (States)(currentState + 1);
-		changeState(currentState);
-		sdlutils().soundEffects().at("select").play(0, game->UI);
+		if (mCurrentState == pausaComandaEquivocada)
+			mCurrentState = anteriorEstado;
+		else if (mCurrentState == pausaBorrarComanda)
+			mCurrentState = anteriorEstado;
+		else if (mCurrentState == pausaNoEcharClientes)
+			mCurrentState = anteriorEstado;
+		else if (mCurrentState == pausaInicio)
+			mCurrentState = cogerClientes;
+		else mCurrentState = (States)(mCurrentState + 1);
+		changeState(mCurrentState);
+		sdlutils().soundEffects().at("select").play(0, mGame->UI);
 	}
 }
 
 void Tutorial::nextStates() // Pasamos al siguiente estado
 {
-	currentState =(States) (currentState + 1);
+	mCurrentState =(States) (mCurrentState + 1);
 }
 
 void Tutorial::desactivaCuadro() // Desactivamos el cuadro de texto que haya en pantalla
 {
-	textMngr->desactivaTexto();
+	mTextMngr->desactivaTexto();
 	cuadradoPlay->setActive(false);
-	textMngr->cambiaVelocidad(false);
+	mTextMngr->cambiaVelocidad(false);
 	cuadroTexto->setActive(false);
 	text->setActive(false);
 }
@@ -618,10 +618,10 @@ void Tutorial::activaCuadro(string texto_) // Activamos el cuadro de texto y emp
 	cuadroTexto->setActive(true);
 	if(ih().isMandoActive())
 		cuadradoPlay->setActive(true);
-	if (textMngr->desactivado())textMngr->activaTexto(sdlutils().dialogs().at(texto_));
-	else if (textMngr->terminadoParrado() && !textMngr->esUltimoParrafo() && continua) {
-		textMngr->cambiaVelocidad(false);
-		textMngr->reiniciaParrafo();
+	if (mTextMngr->desactivado())mTextMngr->activaTexto(sdlutils().dialogs().at(texto_));
+	else if (mTextMngr->terminadoParrado() && !mTextMngr->esUltimoParrafo() && continua) {
+		mTextMngr->cambiaVelocidad(false);
+		mTextMngr->reiniciaParrafo();
 		continua = false;
 	}
 }

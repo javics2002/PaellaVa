@@ -15,7 +15,7 @@ class Cinta : public Mueble
 	float frameRate;
 
 public:
-	Cinta(Game* game, Vector2D<double> pos);
+	Cinta(Game* mGame, Vector2D<double> pos);
 	~Cinta();
 
 	SDL_Rect getCollider() override;

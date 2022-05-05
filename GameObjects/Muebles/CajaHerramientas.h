@@ -6,7 +6,7 @@ class Herramienta;
 class CajaHerramientas : public Mueble
 {
 public:
-	CajaHerramientas(Game* game, Vector2D<double> pos);
+	CajaHerramientas(Game* mGame, Vector2D<double> pos);
 	~CajaHerramientas() = default;
 
 	virtual bool returnObject(Player* p) override;

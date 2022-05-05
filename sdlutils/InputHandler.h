@@ -17,7 +17,7 @@ class InputHandler : public Singleton<InputHandler> {
 
 	friend Singleton<InputHandler>;
 
-	Game* game;
+	Game* mGame;
 	SDL_GameController* mController;
 
 	vector<bool> mKeyPressed;
@@ -351,7 +351,7 @@ public:
 				break;
 			}
 
-			game->getNetworkManager()->sendButtonsBuffer(mKeyPressed);
+			mGame->getNetworkManager()->sendButtonsBuffer(mKeyPressed);
 		}
 	}
 
@@ -411,7 +411,7 @@ public:
 			break;
 		}
 
-		game->getNetworkManager()->sendButtonsBuffer(mKeyPressed);
+		mGame->getNetworkManager()->sendButtonsBuffer(mKeyPressed);
 	}
 
 	inline void updateOtherAxis() {
@@ -605,7 +605,7 @@ public:
 		return mController != nullptr;
 	}
 
-	void setGame(Game* game_) { game = game_; }
+	void setGame(Game* game_) { mGame = game_; }
 	void setFocused(bool b) { focusedcontrols = b; };
 	void setKey(bool b, botones boton) { mKeyPressed[boton] = b; };
 	bool getFocus() { return focusedcontrols; };

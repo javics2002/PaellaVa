@@ -4,33 +4,33 @@
 
 class HostClient : public Scene
 {
-	int maxCaracteres = 16;
-	string ip_ = "";
-	ParticleExample *light;
+	int mMaxCaracteres = 16;
+	string mIp = "";
+	ParticleExample* mParticles;
 
-	ShowText* ip;
-	ShowText* cursor;
-	ShowText* ipNoValida;
-	UiButton* clientButton;
-	UiButton* hostButton;
+	ShowText* mTextIp;
+	ShowText* mCursor;
+	ShowText* mIpNoValida;
+	UiButton* mClientButton;
+	UiButton* mHostButton;
 
-	int posYOver = 0;
-	int posYNotOver = 0;
+	int mPosYOver = 0;
+	int mPosYNotOver = 0;
 
-	bool escribiendo = false;
-	bool escrito = false;
+	bool mEscribiendo = false;
+	bool mEscrito = false;
 
-	float frameRate = 800;
-	float tiempo;
+	float mFrameRate = 800;
+	float mTime;
 
-	float frameRateIpNV = 500;
-	float tiempoIpNV;
+	float mFrameRateIpNV = 500;
+	float mTiempoIpNV;
 
 	bool esValida(string ipText);
-	vector<string>split(string ipText);
+	vector<string> split(string ipText);
 
 public:
-	HostClient(Game* game);
+	HostClient(Game* mGame);
 
 	void update() override;
 	void render() override;

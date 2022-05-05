@@ -23,14 +23,14 @@
 
 #include <iostream>
 
-UIManager::UIManager(Game* game)
+UIManager::UIManager(Game* mGame)
 {
-	this->game = game;
+	this->mGame = mGame;
 	anchobotones *= uiscale;
 
 	barra = nullptr;
 
-	burnEffect = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2, 
+	burnEffect = new Imagen(mGame, sdlutils().width() / 2, sdlutils().height() / 2, 
 		sdlutils().width() * 2, sdlutils().height() * 2, "quemadura");
 	burnEffect->setInitialDimension(sdlutils().width(), sdlutils().height());
 
@@ -292,7 +292,7 @@ void UIManager::update(bool paused)
 			{
 				if (getComanda() == nullptr)
 				{
-					creaComanda(game);
+					creaComanda(mGame);
 				}
 				else
 				{
@@ -337,7 +337,7 @@ void UIManager::update(bool paused)
 		double x = cos(toRadians(alfa));
 		double y = sin(toRadians(alfa));
 
-		Imagen* circulo = new Imagen(game, sdlutils().width()/2 + x*50, sdlutils().height() - 75 + y*50, 16, 16, "circulo");
+		Imagen* circulo = new Imagen(mGame, sdlutils().width()/2 + x*50, sdlutils().height() - 75 + y*50, 16, 16, "circulo");
 
 		circulo->setInitialDimension(16,16);
 
@@ -468,9 +468,9 @@ void UIManager::render(SDL_Rect* rect = nullptr)
 	}
 }
 
-void UIManager::creaComanda(Game* game)
+void UIManager::creaComanda(Game* mGame)
 {
-	actual = new Comanda(game, uiscale, this,false);
+	actual = new Comanda(mGame, uiscale, this,false);
 	comandas.push_back(actual);
 
 	creaTeclado();
@@ -478,23 +478,23 @@ void UIManager::creaComanda(Game* game)
 	actual->toggleTeclado(false);
 	actual->toggleTecaldotam(false);
 
-	AceptaPaellaButton* aceptaPaellaButton = new AceptaPaellaButton(game, actual, "acepta", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones*0.7 , actual->getPosition().getY() + actual->getHeight() / 4, uiscale * anchobotones, uiscale * anchobotones);
+	AceptaPaellaButton* aceptaPaellaButton = new AceptaPaellaButton(mGame, actual, "acepta", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones*0.7 , actual->getPosition().getY() + actual->getHeight() / 4, uiscale * anchobotones, uiscale * anchobotones);
 	interfaz.push_back(aceptaPaellaButton);
 	actual->guardaBoton(aceptaPaellaButton);
-	DescartaCommandaButton* descartaComandaButton = new DescartaCommandaButton(actual, game, "cancela", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones*0.7, actual->getPosition().getY() + actual->getHeight() / 4 - anchobotones, uiscale * anchobotones, uiscale * anchobotones);
+	DescartaCommandaButton* descartaComandaButton = new DescartaCommandaButton(actual, mGame, "cancela", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones*0.7, actual->getPosition().getY() + actual->getHeight() / 4 - anchobotones, uiscale * anchobotones, uiscale * anchobotones);
 	interfaz.push_back(descartaComandaButton);
 	actual->guardaBoton(descartaComandaButton);
-	BorrarButton* borraComandaButton = new BorrarButton(game, actual, "borra", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones*0.7 , actual->getPosition().getY() + actual->getHeight() / 4 - 2 * anchobotones, uiscale * anchobotones, uiscale * anchobotones);
+	BorrarButton* borraComandaButton = new BorrarButton(mGame, actual, "borra", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones*0.7 , actual->getPosition().getY() + actual->getHeight() / 4 - 2 * anchobotones, uiscale * anchobotones, uiscale * anchobotones);
 	interfaz.push_back(borraComandaButton);
 	actual->guardaBoton(borraComandaButton);
-	EnviaComandaButton* enviaComandaButton = new EnviaComandaButton(game, "envia", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones*0.7 , actual->getPosition().getY() + actual->getHeight() / 4 + anchobotones, uiscale * anchobotones, uiscale * anchobotones);
+	EnviaComandaButton* enviaComandaButton = new EnviaComandaButton(mGame, "envia", actual->getPosition().getX() + actual->getWidth() / 2 + anchobotones*0.7 , actual->getPosition().getY() + actual->getHeight() / 4 + anchobotones, uiscale * anchobotones, uiscale * anchobotones);
 	interfaz.push_back(enviaComandaButton);
 	actual->guardaBoton(enviaComandaButton);
 	actual->setActive(false);
 	actual->toggleactive();
 
-	if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::abreLibreta)
-		game->getCurrentScene()->changeState(States::pauasAbreLibreta);
+	if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == States::abreLibreta)
+		mGame->getCurrentScene()->changeState(States::pauasAbreLibreta);
 
 }
 
@@ -511,7 +511,7 @@ ListaComandas* UIManager::getBarra()
 void UIManager::setBarra(ListaComandas* b)
 {
 	barra = b;
-	OcultabarraButton* o = new OcultabarraButton(this, game, "barraboton", b->getX() + b->getWidth()*0.7 + uiscale*anchobotones, b->getY(), 1.7 * anchobotones, uiscale * anchobotones, b);
+	OcultabarraButton* o = new OcultabarraButton(this, mGame, "barraboton", b->getX() + b->getWidth()*0.7 + uiscale*anchobotones, b->getY(), 1.7 * anchobotones, uiscale * anchobotones, b);
 	addInterfaz(o);
 }
 
@@ -536,7 +536,7 @@ void UIManager::creaTeclado()
 	for (auto i : texturasNumeros)
 	{
 		//Comanda comanda,Game* game, TextureName texturename, int x, int y, int w, int h
-		NumeroButton* a = new NumeroButton(this, game, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), uiscale * anchobotones, uiscale * anchobotones,j);
+		NumeroButton* a = new NumeroButton(this, mGame, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), uiscale * anchobotones, uiscale * anchobotones,j);
 		tecladonum.push_back(a);
 		uicomandas.push_back(a);
 		j++;
@@ -549,7 +549,7 @@ void UIManager::creaTeclado()
 		for (auto i : texturasIngredienes)
 		{
 			//Comanda comanda,Game* game, TextureName texturename, int x, int y, int w, int h
-			IngredienteButton* a = new IngredienteButton(this, game, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), uiscale * anchobotones, uiscale * anchobotones,j);
+			IngredienteButton* a = new IngredienteButton(this, mGame, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), uiscale * anchobotones, uiscale * anchobotones,j);
 			teclado.push_back(a);
 			//  objectmanager->creaTeclado(a);
 
@@ -562,7 +562,7 @@ void UIManager::creaTeclado()
 		vector <UiButton*> tecladotam;
 		for (auto i : texturasTamanos)
 		{
-			TamanoButton* a = new TamanoButton(this, game, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), uiscale * anchobotones, uiscale * anchobotones,j);
+			TamanoButton* a = new TamanoButton(this, mGame, i, (int)posicionesBotones[j].getX(), (int)posicionesBotones[j].getY(), uiscale * anchobotones, uiscale * anchobotones,j);
 
 			tecladotam.push_back(a);
 			uicomandas.push_back(a);
@@ -620,22 +620,22 @@ void UIManager::setPosTeclado(vector<Point2D<double>> t)
 
 void UIManager::creaMenuPausa() {
 	// crear menu
-	Imagen* bg = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2, sdlutils().width(), sdlutils().height(), "pause2");
+	Imagen* bg = new Imagen(mGame, sdlutils().width() / 2, sdlutils().height() / 2, sdlutils().width(), sdlutils().height(), "pause2");
 	bg->setActive(false);
 	pauseMenu.push_back(bg);
 
-	Imagen* pauseImage = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2, 500, 360, "pause1");
+	Imagen* pauseImage = new Imagen(mGame, sdlutils().width() / 2, sdlutils().height() / 2, 500, 360, "pause1");
 	pauseImage->setActive(false);
 	pauseMenu.push_back(pauseImage);
 
-	UiButton* resumeButton = new UiButton(game, "resumeBoton", sdlutils().width() / 2, sdlutils().height() / 2 - 40, 320, 130);
+	UiButton* resumeButton = new UiButton(mGame, "resumeBoton", sdlutils().width() / 2, sdlutils().height() / 2 - 40, 320, 130);
 	resumeButton->setInitialDimension(320, 130);
 	resumeButton->setActive(false);
 
-	resumeButton->setAction([this, resumeButton](Game* game, bool& exit) {
+	resumeButton->setAction([this, resumeButton](Game* mGame, bool& exit) {
 		// Pausa
-		if (dynamic_cast<Tutorial*>(game->getCurrentScene())) {
-			Tutorial* currentScene = dynamic_cast<Tutorial*>(game->getCurrentScene());
+		if (dynamic_cast<Tutorial*>(mGame->getCurrentScene())) {
+			Tutorial* currentScene = dynamic_cast<Tutorial*>(mGame->getCurrentScene());
 
 			addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([resumeButton, currentScene](tweeny::tween<float>& t, float) mutable {
 				resumeButton->setDimension(t.peek() * resumeButton->getInitialWidth(), t.peek() * resumeButton->getInitialHeight());
@@ -649,15 +649,15 @@ void UIManager::creaMenuPausa() {
 				});
 		}
 		else {
-			Jornada* currentScene = dynamic_cast<Jornada*>(game->getCurrentScene());
+			Jornada* currentScene = dynamic_cast<Jornada*>(mGame->getCurrentScene());
 
-			addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([game, resumeButton, currentScene](tweeny::tween<float>& t, float) mutable {
+			addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([mGame, resumeButton, currentScene](tweeny::tween<float>& t, float) mutable {
 				resumeButton->setDimension(t.peek() * resumeButton->getInitialWidth(), t.peek() * resumeButton->getInitialHeight());
 
 				if (t.progress() > .2f) { //Busco una respuesta mas rapida
 					// Resume
 					currentScene->togglePause();
-					game->getNetworkManager()->syncPause();
+					mGame->getNetworkManager()->syncPause();
 					return true;
 				}
 				return false;
@@ -667,22 +667,22 @@ void UIManager::creaMenuPausa() {
 
 	pauseButtons.push_back(resumeButton);
 
-	UiButton* exitButton = new UiButton(game, "exitBoton", sdlutils().width() / 2, sdlutils().height() / 2 + 60, 320, 130);
+	UiButton* exitButton = new UiButton(mGame, "exitBoton", sdlutils().width() / 2, sdlutils().height() / 2 + 60, 320, 130);
 	exitButton->setInitialDimension(320, 130);
 	exitButton->setActive(false);
 
-	exitButton->setAction([this, exitButton](Game* game, bool& exit) mutable {
-		sdlutils().soundEffects().at("select").play(0, game->UI);
+	exitButton->setAction([this, exitButton](Game* mGame, bool& exit) mutable {
+		sdlutils().soundEffects().at("select").play(0, mGame->UI);
 
-		addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([this, game, exitButton](tweeny::tween<float>& t, float) mutable {
+		addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([this, mGame, exitButton](tweeny::tween<float>& t, float) mutable {
 			exitButton->setDimension(t.peek() * exitButton->getInitialWidth(), t.peek() * exitButton->getInitialHeight());
 
 			
 			if (t.progress() == 1.0f) {
 				// Exit
-				game->getNetworkManager()->setGameStarted(false);
-				game->getNetworkManager()->close();
-				game->sendMessageScene(new Menu(game));
+				mGame->getNetworkManager()->setGameStarted(false);
+				mGame->getNetworkManager()->close();
+				mGame->sendMessageScene(new Menu(mGame));
 
 				return true;
 			}
@@ -696,18 +696,18 @@ void UIManager::creaMenuPausa() {
 void UIManager::creaMenuOpciones()
 {
 	//Fondo De las opciones
-	Imagen* opcPant = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2, sdlutils().width(), sdlutils().height(), "fondoOpc");
+	Imagen* opcPant = new Imagen(mGame, sdlutils().width() / 2, sdlutils().height() / 2, sdlutils().width(), sdlutils().height(), "fondoOpc");
 	opcPant->setInitialPosition(sdlutils().width() / 2, sdlutils().height() / 2);
 	opcPant->setActive(false);
 
 	optionsMenu.push_back(opcPant);
 
 	//Boton salir
-	UiButton* botonSalir = new UiButton(game, "cerrarOpc", opcPant->getWidth()-90, 75, 100, 100);
+	UiButton* botonSalir = new UiButton(mGame, "cerrarOpc", opcPant->getWidth()-90, 75, 100, 100);
 	botonSalir->setInitialPosition(opcPant->getWidth()-90, 75);
 	botonSalir->setActive(false);
-	botonSalir->setAction([this, botonSalir](Game* game, bool& exit) {
-		sdlutils().soundEffects().at("botonesMenu").play(0, game->UI);
+	botonSalir->setAction([this, botonSalir](Game* mGame, bool& exit) {
+		sdlutils().soundEffects().at("botonesMenu").play(0, mGame->UI);
 		addTween(0.9f, 1.0f, 600.0f, false).via(easing::exponentialOut).onStep([botonSalir, this](tweeny::tween<float>& t, float) mutable {
 			botonSalir->setDimension(t.peek() * botonSalir->getInitialWidth(), t.peek() * botonSalir->getInitialHeight());
 
@@ -723,12 +723,12 @@ void UIManager::creaMenuOpciones()
 	optionsButtons.push_back(botonSalir);
 
 	//Boton pantalla completa
-	UiButton* pantCompleta = new UiButton(game, "fondoMadera", sdlutils().width() / 2 + sdlutils().width() / 4 +30, opcPant->getHeight() - 200, 100, 100);
+	UiButton* pantCompleta = new UiButton(mGame, "fondoMadera", sdlutils().width() / 2 + sdlutils().width() / 4 +30, opcPant->getHeight() - 200, 100, 100);
 	pantCompleta->setInitialPosition(sdlutils().width() / 2 + sdlutils().width() / 4 + 30, opcPant->getHeight() - 200);
 	pantCompleta->setActive(false);
 
-	pantCompleta->setAction([this, pantCompleta](Game* game, bool& exit) {
-		sdlutils().soundEffects().at("botonesMenu").play(0, game->UI);
+	pantCompleta->setAction([this, pantCompleta](Game* mGame, bool& exit) {
+		sdlutils().soundEffects().at("botonesMenu").play(0, mGame->UI);
 		sdlutils().toggleFullScreen();
 		});
 
@@ -736,63 +736,63 @@ void UIManager::creaMenuOpciones()
 	optionsMenu.push_back(pantCompleta);
 
 	//Boton Pant Completa
-	Imagen* botPantCompl = new Imagen(game, pantCompleta->getX() + pantCompleta->getWidth() / 2 + 35,
+	Imagen* botPantCompl = new Imagen(mGame, pantCompleta->getX() + pantCompleta->getWidth() / 2 + 35,
 		pantCompleta->getY(), 50, 50, "Y");
 	botPantCompl->setActive(false);
 	botonesMando.push_back(botPantCompl);
 
 	//Texto pantalla completa
-	Imagen* textoPCompleta = new Imagen(game, pantCompleta->getX() - pantCompleta->getWidth() / 2 - 135, pantCompleta->getY(), 280, 80, "PCompleta");
+	Imagen* textoPCompleta = new Imagen(mGame, pantCompleta->getX() - pantCompleta->getWidth() / 2 - 135, pantCompleta->getY(), 280, 80, "PCompleta");
 	textoPCompleta->setInitialPosition(pantCompleta->getX() - pantCompleta->getWidth() / 2 - 135, pantCompleta->getY());
 	textoPCompleta->setActive(false);
 
 	optionsMenu.push_back(textoPCompleta);
 
 	//Barra Musica
-	Imagen* barraVol_musica = new Imagen(game, sdlutils().width() / 2 + 75, sdlutils().height() / 2 - 100, 700, 30, "barraVol");
+	Imagen* barraVol_musica = new Imagen(mGame, sdlutils().width() / 2 + 75, sdlutils().height() / 2 - 100, 700, 30, "barraVol");
 	barraVol_musica->setInitialPosition(sdlutils().width() / 2 + 75, sdlutils().height() / 2 - 100);
 	barraVol_musica->setActive(false);
 
 	optionsMenu.push_back(barraVol_musica);
 
 	//Bontes para Musica
-	Imagen* botMusicaIzq = new Imagen(game, barraVol_musica->getX() - barraVol_musica->getWidth() / 2 + 35,
+	Imagen* botMusicaIzq = new Imagen(mGame, barraVol_musica->getX() - barraVol_musica->getWidth() / 2 + 35,
 		barraVol_musica->getY() - barraVol_musica->getHeight() - 15, 60, 50, "LT");
 	botMusicaIzq->setActive(false);
 	botonesMando.push_back(botMusicaIzq);
 
-	Imagen* botMusicaDer = new Imagen(game, barraVol_musica->getX() + barraVol_musica->getWidth() / 2 - 35,
+	Imagen* botMusicaDer = new Imagen(mGame, barraVol_musica->getX() + barraVol_musica->getWidth() / 2 - 35,
 		barraVol_musica->getY() - barraVol_musica->getHeight() - 15, 60, 50, "RT");
 	botMusicaDer->setActive(false);
 	botonesMando.push_back(botMusicaDer);
 
 	//Texto barra musica
-	Imagen* textoMusica = new Imagen(game, barraVol_musica->getX() - barraVol_musica->getWidth() / 2 - 100, barraVol_musica->getY(), 200, 80, "musica");
+	Imagen* textoMusica = new Imagen(mGame, barraVol_musica->getX() - barraVol_musica->getWidth() / 2 - 100, barraVol_musica->getY(), 200, 80, "musica");
 	textoMusica->setInitialPosition(barraVol_musica->getX() - barraVol_musica->getWidth() / 2 - 100, barraVol_musica->getY());
 	textoMusica->setActive(false);
 
 	optionsMenu.push_back(textoMusica);
 
 	//Barra sonido
-	Imagen* barraVol_sonido = new Imagen(game, sdlutils().width() / 2 + 75, sdlutils().height() / 2, 700, 30, "barraVol");
+	Imagen* barraVol_sonido = new Imagen(mGame, sdlutils().width() / 2 + 75, sdlutils().height() / 2, 700, 30, "barraVol");
 	barraVol_sonido->setInitialPosition(sdlutils().width() / 2 + 75, sdlutils().height() / 2);
 	barraVol_sonido->setActive(false);
 
 	optionsMenu.push_back(barraVol_sonido);
 
 	//Bontes para sonido
-	Imagen* botSonidoIzq = new Imagen(game, barraVol_sonido->getX() - barraVol_sonido->getWidth() / 2 + 35,
+	Imagen* botSonidoIzq = new Imagen(mGame, barraVol_sonido->getX() - barraVol_sonido->getWidth() / 2 + 35,
 		barraVol_sonido->getY() - barraVol_sonido->getHeight() - 15, 60, 50, "LB");
 	botSonidoIzq->setActive(false);
 	botonesMando.push_back(botSonidoIzq);
 
-	Imagen* botSonidoDer = new Imagen(game, barraVol_sonido->getX() + barraVol_sonido->getWidth() / 2 - 35,
+	Imagen* botSonidoDer = new Imagen(mGame, barraVol_sonido->getX() + barraVol_sonido->getWidth() / 2 - 35,
 		barraVol_sonido->getY() - barraVol_sonido->getHeight() - 15, 60, 50, "RB");
 	botSonidoDer->setActive(false);
 	botonesMando.push_back(botSonidoDer);
 
 	//Texto barra sonido
-	Imagen* textoSonido = new Imagen(game, barraVol_sonido->getX() - barraVol_sonido->getWidth() / 2 - 100, barraVol_sonido->getY(), 200, 80, "sonido");
+	Imagen* textoSonido = new Imagen(mGame, barraVol_sonido->getX() - barraVol_sonido->getWidth() / 2 - 100, barraVol_sonido->getY(), 200, 80, "sonido");
 	textoSonido->setInitialPosition(barraVol_sonido->getX() - barraVol_sonido->getWidth() / 2 - 100, barraVol_sonido->getY());
 	textoSonido->setActive(false);
 
@@ -801,15 +801,15 @@ void UIManager::creaMenuOpciones()
 	//Slide musica
 	int x = barraVol_musica->getX(), y = barraVol_musica->getY();
 
-	if (game->getSlideMus().getX() != 0) {
-		x = game->getSlideMus().getX();
-		y = game->getSlideMus().getY();
+	if (mGame->getSlideMus().getX() != 0) {
+		x = mGame->getSlideMus().getX();
+		y = mGame->getSlideMus().getY();
 	}
 
-	slideMusica = new UiButton(game, "paella", x, y, 80, 80);
+	slideMusica = new UiButton(mGame, "paella", x, y, 80, 80);
 	slideMusica->setInitialPosition(x, y);
 	slideMusica->setActive(false);
-	slideMusica->setAction([this, barraVol_musica](Game* game, bool& exit) {
+	slideMusica->setAction([this, barraVol_musica](Game* mGame, bool& exit) {
 
 		int newPos = ih().getmx() - slideMusica->getWidth();
 		int extremoIzq = barraVol_musica->getX() - (barraVol_musica->getWidth() / 2) - slideMusica->getWidth();
@@ -832,7 +832,7 @@ void UIManager::creaMenuOpciones()
 			++it;
 		}
 
-		game->setSlidesMus(slideMusica->getPosition());
+		mGame->setSlidesMus(slideMusica->getPosition());
 
 		});
 
@@ -842,15 +842,15 @@ void UIManager::creaMenuOpciones()
 	//Slide sonido
 	x = barraVol_sonido->getX(), y = barraVol_sonido->getY();
 
-	if (game->getSlideSon().getX() != 0) {
-		x = game->getSlideSon().getX();
-		y = game->getSlideSon().getY();
+	if (mGame->getSlideSon().getX() != 0) {
+		x = mGame->getSlideSon().getX();
+		y = mGame->getSlideSon().getY();
 	}
 
-	slideSonido = new UiButton(game, "paella", x, y, 80, 80);
+	slideSonido = new UiButton(mGame, "paella", x, y, 80, 80);
 	slideSonido->setInitialPosition(x, y);
 	slideSonido->setActive(false);
-	slideSonido->setAction([this, barraVol_sonido](Game* game, bool& exit) {
+	slideSonido->setAction([this, barraVol_sonido](Game* mGame, bool& exit) {
 
 	int newPos = ih().getmx() - slideSonido->getWidth();
 	int extremoIzq = barraVol_sonido->getX() - (barraVol_sonido->getWidth() / 2) - slideSonido->getWidth();
@@ -873,7 +873,7 @@ void UIManager::creaMenuOpciones()
 		++it;
 	}
 
-	game->setSlidesSon(slideSonido->getPosition());
+	mGame->setSlidesSon(slideSonido->getPosition());
 
 	});
 
@@ -882,22 +882,22 @@ void UIManager::creaMenuOpciones()
 
 
 	//Caja de texto del nombre
-	Imagen* fondoNombre = new Imagen(game, sdlutils().width() / 2 - 120, opcPant->getHeight() - 200, 210, 50, "fondoMadera");
+	Imagen* fondoNombre = new Imagen(mGame, sdlutils().width() / 2 - 120, opcPant->getHeight() - 200, 210, 50, "fondoMadera");
 	fondoNombre->setInitialPosition(sdlutils().width() / 2 - 120, opcPant->getHeight() - 200);
 	fondoNombre->setActive(false);
 
 	optionsMenu.push_back(fondoNombre);
 
 	//Boton para escribir el nombre
-	nombre = new UiButton(game, game->getNombre(), "ip", { 255, 255, 255, 255 }, { 0, 0, 0, 0 }, sdlutils().width() / 2 - 120, opcPant->getHeight() - 200);
-	cursor_ = new GameObject(game);
+	nombre = new UiButton(mGame, mGame->getNombre(), "ip", { 255, 255, 255, 255 }, { 0, 0, 0, 0 }, sdlutils().width() / 2 - 120, opcPant->getHeight() - 200);
+	cursor_ = new GameObject(mGame);
 	nombre->setInitialPosition(sdlutils().width() / 2 - 120, opcPant->getHeight() - 200);
 	nombre->setActive(false);
 	
-	nombre->setAction([this](Game* game, bool& exit) {
+	nombre->setAction([this](Game* mGame, bool& exit) {
 
 		char c = ih().getTypedKey();
-		string nombrePlayer = game->getNombre();
+		string nombrePlayer = mGame->getNombre();
 
 		if (c != ' ')
 		{
@@ -917,7 +917,7 @@ void UIManager::creaMenuOpciones()
 			if (nombrePlayer.empty())
 				nombrePlayer = ' ';
 
-			game->setNombre(nombrePlayer);
+			mGame->setNombre(nombrePlayer);
 
 			nombre->setTexture(nombrePlayer, string("abadiNombre"), { 255, 255, 255, 255 }, { 0, 0, 0, 0 });
 			nombre->setDimension();
@@ -928,7 +928,7 @@ void UIManager::creaMenuOpciones()
 	optionsMenu.push_back(nombre);
 
 	//Texto nombre
-	Imagen* textoNombre = new Imagen(game, fondoNombre->getX() - fondoNombre->getWidth() / 2 - 120, fondoNombre->getY(), 170, 80, "nombre");
+	Imagen* textoNombre = new Imagen(mGame, fondoNombre->getX() - fondoNombre->getWidth() / 2 - 120, fondoNombre->getY(), 170, 80, "nombre");
 	textoNombre->setInitialPosition(fondoNombre->getX() - fondoNombre->getWidth() / 2 - 120, fondoNombre->getY());
 	textoNombre->setActive(false);
 
@@ -944,7 +944,7 @@ void UIManager::creaPantallaCreditos()
 	creditsButtons.push_back({});
 
 	//Fondo De las opciones
-	Imagen* opcPant = new Imagen(game, sdlutils().width() / 2, sdlutils().height() / 2, sdlutils().width(), sdlutils().height(), "fondoOpc");
+	Imagen* opcPant = new Imagen(mGame, sdlutils().width() / 2, sdlutils().height() / 2, sdlutils().width(), sdlutils().height(), "fondoOpc");
 
 	opcPant->setInitialPosition(sdlutils().width() / 2, sdlutils().height() / 2);
 	opcPant->setActive(false);
@@ -952,12 +952,12 @@ void UIManager::creaPantallaCreditos()
 	creditsBase.push_back(opcPant);
 
 	//Boton salir
-	UiButton* botonSalir = new UiButton(game, "cerrarOpc", opcPant->getWidth() - 90, 75, 100, 100);
+	UiButton* botonSalir = new UiButton(mGame, "cerrarOpc", opcPant->getWidth() - 90, 75, 100, 100);
 
 	botonSalir->setInitialPosition(opcPant->getWidth()-90, 75);
 	botonSalir->setActive(false);
-	botonSalir->setAction([this, botonSalir](Game* game, bool& exit) {
-		sdlutils().soundEffects().at("botonesMenu").play(0, game->UI);
+	botonSalir->setAction([this, botonSalir](Game* mGame, bool& exit) {
+		sdlutils().soundEffects().at("botonesMenu").play(0, mGame->UI);
 		addTween(0.9f, 1.0f, 600.0f, false).via(easing::exponentialOut).onStep([botonSalir, this](tweeny::tween<float>& t, float) mutable {
 			botonSalir->setDimension(t.peek() * botonSalir->getInitialWidth(), t.peek() * botonSalir->getInitialHeight());
 
@@ -974,11 +974,11 @@ void UIManager::creaPantallaCreditos()
 	creditsButtons[0].push_back(botonSalir);
 
 	//Boton siguiente página
-	UiButton* botonNext = new UiButton(game, "nextCredits", opcPant->getWidth() - 70, sdlutils().height() / 2, 100, 100);
+	UiButton* botonNext = new UiButton(mGame, "nextCredits", opcPant->getWidth() - 70, sdlutils().height() / 2, 100, 100);
 	botonNext->setInitialPosition(opcPant->getWidth()-70, sdlutils().height() / 2);
 	botonNext->setActive(false);
-	botonNext->setAction([this, botonNext](Game* game, bool& exit) {
-		sdlutils().soundEffects().at("botonesMenu").play(0, game->UI);
+	botonNext->setAction([this, botonNext](Game* mGame, bool& exit) {
+		sdlutils().soundEffects().at("botonesMenu").play(0, mGame->UI);
 		addTween(0.9f, 1.0f, 600.0f, false).via(easing::exponentialOut).onStep([botonNext, this](tweeny::tween<float>& t, float) mutable {
 			botonNext->setDimension(t.peek() * botonNext->getInitialWidth(), t.peek() * botonNext->getInitialHeight());
 
@@ -999,7 +999,7 @@ void UIManager::creaPantallaCreditos()
 
 	//Título de desarrolladores
 
-	ShowText* TituloDev = new ShowText(game, "Desarrolladores", "lobby",
+	ShowText* TituloDev = new ShowText(mGame, "Desarrolladores", "lobby",
 		sdlutils().width() / 2, 70, 0, 0);
 	TituloDev->setInitialPosition(sdlutils().width() / 2, 70);
 	TituloDev->setActive(false);
@@ -1008,70 +1008,70 @@ void UIManager::creaPantallaCreditos()
 
 	//Nombres de los desarrolladores
 
-	ShowText* Dev1 = new ShowText(game, "Javier Cano", "creditsName",
+	ShowText* Dev1 = new ShowText(mGame, "Javier Cano", "creditsName",
 		sdlutils().width() / 3, posInicialCreditos,0,0);
 	Dev1->setInitialPosition(sdlutils().width() / 3, posInicialCreditos);
 	Dev1->setActive(false);
 
 	creditsScreen[0].push_back(Dev1);
 
-	ShowText* Dev2 = new ShowText(game, "José Miguel Villacañas", "creditsName",
+	ShowText* Dev2 = new ShowText(mGame, "José Miguel Villacañas", "creditsName",
 		2*(sdlutils().width()) / 3, posInicialCreditos, 0, 0);
 	Dev2->setInitialPosition(2 * (sdlutils().width()) / 3, posInicialCreditos);
 	Dev2->setActive(false);
 
 	creditsScreen[0].push_back(Dev2);
 
-	ShowText* Dev3 = new ShowText(game, "Víctor Estremera", "creditsName",
+	ShowText* Dev3 = new ShowText(mGame, "Víctor Estremera", "creditsName",
 		sdlutils().width() / 3, posInicialCreditos + avanceCreditos, 0, 0);
 	Dev3->setInitialPosition(sdlutils().width() / 3, posInicialCreditos + avanceCreditos);
 	Dev3->setActive(false);
 
 	creditsScreen[0].push_back(Dev3);
 
-	ShowText* Dev4 = new ShowText(game, "Rodrigo Cabello", "creditsName",
+	ShowText* Dev4 = new ShowText(mGame, "Rodrigo Cabello", "creditsName",
 		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos, 0, 0);
 	Dev4->setInitialPosition(2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos);
 	Dev4->setActive(false);
 
 	creditsScreen[0].push_back(Dev4);
 
-	ShowText* Dev5 = new ShowText(game, "Diego Rol", "creditsName",
+	ShowText* Dev5 = new ShowText(mGame, "Diego Rol", "creditsName",
 		sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 2, 0, 0);
 	Dev5->setInitialPosition(sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 2);
 	Dev5->setActive(false);
 
 	creditsScreen[0].push_back(Dev5);
 
-	ShowText* Dev6 = new ShowText(game, "Rocío Sanchez-Horcajuelo", "creditsName",
+	ShowText* Dev6 = new ShowText(mGame, "Rocío Sanchez-Horcajuelo", "creditsName",
 		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 2, 0, 0);
 	Dev6->setInitialPosition(2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 2);
 	Dev6->setActive(false);
 
 	creditsScreen[0].push_back(Dev6);
 
-	ShowText* Dev7 = new ShowText(game, "Marta Croche", "creditsName",
+	ShowText* Dev7 = new ShowText(mGame, "Marta Croche", "creditsName",
 		sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 3, 0, 0);
 	Dev7->setInitialPosition(sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 3);
 	Dev7->setActive(false);
 
 	creditsScreen[0].push_back(Dev7);
 
-	ShowText* Dev8 = new ShowText(game, "Pablo Arredondo", "creditsName",
+	ShowText* Dev8 = new ShowText(mGame, "Pablo Arredondo", "creditsName",
 		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 3, 0, 0);
 	Dev8->setInitialPosition(2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 3);
 	Dev8->setActive(false);
 
 	creditsScreen[0].push_back(Dev8);
 
-	ShowText* Dev9 = new ShowText(game, "Elena Robert", "creditsName",
+	ShowText* Dev9 = new ShowText(mGame, "Elena Robert", "creditsName",
 		sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 4, 0, 0);
 	Dev9->setInitialPosition(sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 4);
 	Dev9->setActive(false);
 
 	creditsScreen[0].push_back(Dev9);
 
-	ShowText* Dev10 = new ShowText(game, "Alfonso Rodulfo", "creditsName",
+	ShowText* Dev10 = new ShowText(mGame, "Alfonso Rodulfo", "creditsName",
 		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 4, 0, 0);
 	Dev10->setInitialPosition(2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 4);
 	Dev10->setActive(false);
@@ -1084,11 +1084,11 @@ void UIManager::creaPantallaCreditos()
 	creditsButtons.push_back({});
 
 	//Boton página anterior 2
-	UiButton* botonPrevious2 = new UiButton(game, "previousCredits", 70, sdlutils().height() / 2, 100, 100);
+	UiButton* botonPrevious2 = new UiButton(mGame, "previousCredits", 70, sdlutils().height() / 2, 100, 100);
 	botonPrevious2->setInitialPosition(70, sdlutils().height() / 2);
 	botonPrevious2->setActive(false);
-	botonPrevious2->setAction([this, botonPrevious2](Game* game, bool& exit) {
-		sdlutils().soundEffects().at("botonesMenu").play(0, game->UI);
+	botonPrevious2->setAction([this, botonPrevious2](Game* mGame, bool& exit) {
+		sdlutils().soundEffects().at("botonesMenu").play(0, mGame->UI);
 		addTween(0.9f, 1.0f, 600.0f, false).via(easing::exponentialOut).onStep([botonPrevious2, this](tweeny::tween<float>& t, float) mutable {
 			botonPrevious2->setDimension(t.peek() * botonPrevious2->getInitialWidth(), t.peek() * botonPrevious2->getInitialHeight());
 
@@ -1108,7 +1108,7 @@ void UIManager::creaPantallaCreditos()
 
 	//Título de testers
 
-	ShowText* TituloPrueba2 = new ShowText(game, "Testing", "lobby",
+	ShowText* TituloPrueba2 = new ShowText(mGame, "Testing", "lobby",
 		sdlutils().width() / 2, 70, 0, 0);
 	TituloPrueba2->setInitialPosition(sdlutils().width() / 2, 70);
 	TituloPrueba2->setActive(false);
@@ -1117,42 +1117,42 @@ void UIManager::creaPantallaCreditos()
 
 	//Nombre de testers
 
-	ShowText* Tester1 = new ShowText(game, "Andrea Otero", "creditsName",
+	ShowText* Tester1 = new ShowText(mGame, "Andrea Otero", "creditsName",
 		sdlutils().width() / 3, posInicialCreditos, 0, 0);
 	Tester1->setInitialPosition(sdlutils().width() / 3, posInicialCreditos);
 	Tester1->setActive(false);
 
 	creditsScreen[1].push_back(Tester1);
 
-	ShowText* Tester2 = new ShowText(game, "Ruben Andrade", "creditsName",
+	ShowText* Tester2 = new ShowText(mGame, "Ruben Andrade", "creditsName",
 		2 * (sdlutils().width()) / 3, posInicialCreditos, 0, 0);
 	Tester2->setInitialPosition(2 * (sdlutils().width()) / 3, posInicialCreditos);
 	Tester2->setActive(false);
 
 	creditsScreen[1].push_back(Tester2);
 
-	ShowText* Tester3 = new ShowText(game, "David Andrade", "creditsName",
+	ShowText* Tester3 = new ShowText(mGame, "David Andrade", "creditsName",
 		sdlutils().width() / 3, posInicialCreditos + avanceCreditos, 0, 0);
 	Tester3->setInitialPosition(sdlutils().width() / 3, posInicialCreditos + avanceCreditos);
 	Tester3->setActive(false);
 
 	creditsScreen[1].push_back(Tester3);
 
-	ShowText* Tester4 = new ShowText(game, "Jaime Benedí", "creditsName",
+	ShowText* Tester4 = new ShowText(mGame, "Jaime Benedí", "creditsName",
 		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos, 0, 0);
 	Tester4->setInitialPosition(2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos);
 	Tester4->setActive(false);
 
 	creditsScreen[1].push_back(Tester4);
 
-	ShowText* Tester5 = new ShowText(game, "Mikele Lopez", "creditsName",
+	ShowText* Tester5 = new ShowText(mGame, "Mikele Lopez", "creditsName",
 		sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 2, 0, 0);
 	Tester5->setInitialPosition(sdlutils().width() / 3, posInicialCreditos + avanceCreditos * 2);
 	Tester5->setActive(false);
 
 	creditsScreen[1].push_back(Tester5);
 
-	ShowText* Tester6 = new ShowText(game, "Andrea Vega", "creditsName",
+	ShowText* Tester6 = new ShowText(mGame, "Andrea Vega", "creditsName",
 		2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 2, 0, 0);
 	Tester6->setInitialPosition(2 * (sdlutils().width()) / 3, posInicialCreditos + avanceCreditos * 2);
 	Tester6->setActive(false);

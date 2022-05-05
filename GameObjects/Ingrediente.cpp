@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-Ingrediente::Ingrediente(Game* game) : ObjetoPortable(game) {
+Ingrediente::Ingrediente(Game* mGame) : ObjetoPortable(mGame) {
 	setDimension(DIMENSION, DIMENSION);
 
 	setDepth(2);
@@ -19,7 +19,7 @@ void Ingrediente::update()
 void Ingrediente::onActivate()
 {
 	int n = 0;
-	if(dynamic_cast<Tutorial*>(game->getCurrentScene()))
+	if(dynamic_cast<Tutorial*>(mGame->getCurrentScene()))
 		n= rand() % (tipoIngrediente::gamba);
 	else n = rand() % (tipoIngrediente::LAST) ;
 

@@ -4,7 +4,7 @@
 class Disconnected : public Scene
 {
 public:
-	Disconnected(Game* game);
+	Disconnected(Game* mGame);
 
 };
 

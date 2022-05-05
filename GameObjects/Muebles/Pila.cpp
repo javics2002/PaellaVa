@@ -6,8 +6,8 @@
 #include "../../Control/ObjectManager.h"
 #include "../../Scenes/Tutorial.h"
 
-Pila::Pila(Game* game, Vector2D<double> pos, int miTipo_, int nPaellas) 
-	: Mueble(game, pos, 1 * TILE_SIZE, 2 * TILE_SIZE, "pilaPaellas")
+Pila::Pila(Game* mGame, Vector2D<double> pos, int miTipo_, int nPaellas) 
+	: Mueble(mGame, pos, 1 * TILE_SIZE, 2 * TILE_SIZE, "pilaPaellas")
 {
 	miTipo = miTipo_;
 	numPaellas = nPaellas;
@@ -22,8 +22,8 @@ bool Pila::returnObject(Player* p)
 {
 	if (!paellas.empty())
 	{
-		if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState()==States::cogePaellera)
-			game->getCurrentScene()->changeState(States::pausaCogePaellera);
+		if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState()==States::cogePaellera)
+			mGame->getCurrentScene()->changeState(States::pausaCogePaellera);
 		Paella* pa = paellas.front();
 		p->setPickedObject(pa, PAELLA);
 		paellas.pop_front();
@@ -53,8 +53,8 @@ bool Pila::receivePaella(Paella* pa)
 		paellas.push_back(pa);
 		pa->setPosition(getRectCenter(getOverlap()));
 
-		if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::dejarPaellaPila)
-			game->getCurrentScene()->changeState(States::pausaFinal);
+		if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == States::dejarPaellaPila)
+			mGame->getCurrentScene()->changeState(States::pausaFinal);
 
 		return true;
 	}
@@ -67,7 +67,7 @@ void Pila::init(ObjectManager* objectManager)
 	for (int i = 0; i < numPaellas; i++) {
 		Paella* pa = objectManager->addPaella(miTipo);
 		pa->setPosition(getRectCenter(getOverlap()));
-		if (dynamic_cast<Tutorial*>(game->getCurrentScene()))
+		if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()))
 			pa->setActive(false);
 		paellas.push_back(pa);
 	}		

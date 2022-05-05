@@ -1,69 +1,69 @@
 #include "Scene.h"
 
-Scene::Scene(Game* game) 
+Scene::Scene(Game* mGame) 
 {
-	this->game = game;
+	this->mGame = mGame;
 
-	objectManager = new ObjectManager(game);
-	uiManager = new UIManager(game);
-	textMngr = new TextManager(game, "abadiT");
-	fondo = new Imagen(game);
-	fondo->setTexture("menufondo");
-	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
+	mObjectManager = new ObjectManager(mGame);
+	mUiManager = new UIManager(mGame);
+	mTextMngr = new TextManager(mGame, "abadiT");
+	mBackground = new Imagen(mGame);
+	mBackground->setTexture("menufondo");
+	mCamera = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
 }
 
 Scene::~Scene()
 {
-	delete uiManager;
-	delete objectManager;
-	delete textMngr;
-	delete fondo;
-	delete camara;
+	delete mUiManager;
+	delete mObjectManager;
+	delete mTextMngr;
+	delete mBackground;
+	delete mCamera;
 
 }
 
 void Scene::handleInput(bool& exit)
 {
-	if(!paused)objectManager->handleInput(exit);
-	uiManager->handleInput(exit, paused);
+	if(!mPaused)mObjectManager->handleInput(exit);
+	mUiManager->handleInput(exit, mPaused);
 
 	if (ih().getKey(InputHandler::A))
-		uiManager->focoExecute(exit);
+		mUiManager->focoExecute(exit);
 
 	if (ih().getKey(InputHandler::RIGHT) || ih().getKey(InputHandler::DOWN))
-		uiManager->avanzaFoco();
+		mUiManager->avanzaFoco();
 	if (ih().getKey(InputHandler::LEFT) || ih().getKey(InputHandler::UP))
-		uiManager->retrocedeFoco();
+		mUiManager->retrocedeFoco();
 }
 
 void Scene::update()
 {
-	objectManager->update();
-	uiManager->update(paused);
-	textMngr->update();
+	mObjectManager->update();
+	mUiManager->update(mPaused);
+	mTextMngr->update();
 }
 
 void Scene::render()
 {
-	fondo->render(camara->renderRect());
-	objectManager->render(camara->renderRect());
-	uiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
-	textMngr->render();
+	mBackground->render(mCamera->renderRect());
+	mObjectManager->render(mCamera->renderRect());
+	mUiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
+	mTextMngr->render();
 }
 
 
 void Scene::debug()
 {
-	fondo->renderDebug(camara->renderRect());
-	objectManager->debug(camara->renderRect());
+	mBackground->renderDebug(mCamera->renderRect());
+	mObjectManager->debug(mCamera->renderRect());
 }
 
 ObjectManager* Scene::getObjectManager()
 {
-	return objectManager;
+	return mObjectManager;
 }
 
 UIManager* Scene::getUIManager()
 {
-	return uiManager;
+	return mUiManager;
 }

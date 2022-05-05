@@ -9,7 +9,7 @@
 
 using tweeny::easing;
 
-Fogon::Fogon(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, "fogon")
+Fogon::Fogon(Game* mGame, Vector2D<double> pos) : Mueble(mGame, pos, TILE_SIZE, 2 * TILE_SIZE, "fogon")
 {
 	funcionando = true;
 	paella_ = nullptr;
@@ -35,7 +35,7 @@ void Fogon::update()
 		paella_->setState(Hecha);
 	}
 
-	if (!game->getNetworkManager()->isHost())
+	if (!mGame->getNetworkManager()->isHost())
 		return;
 
 ;	if (funcionando && couldBreak <= 0)
@@ -100,7 +100,7 @@ bool Fogon::receivePaella(Paella* pa)
 			&& pa->getState() == Preparacion
 			&& pa->conArroz())
 		{
-			sdlutils().soundEffects().at("paellaMesa").play(0, game->UI);
+			sdlutils().soundEffects().at("paellaMesa").play(0, mGame->UI);
 			paella_ = pa;
 
 			paella_->setPosition(getRectCenter(getOverlap()));
@@ -110,10 +110,10 @@ bool Fogon::receivePaella(Paella* pa)
 
 			barra = true;
 
-			if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == cocinarPaella)
-				game->getCurrentScene()->changeState(pausaCocinarPaella);
+			if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == cocinarPaella)
+				mGame->getCurrentScene()->changeState(pausaCocinarPaella);
 
-			game->getUIManager()->addTween((float)(getX() - barraCoccionX / 2 - flechaCoccionX / 2), (float)(getX() + barraCoccionX / 2 - flechaCoccionX / 2), tiempoDeCoccion, true)
+			mGame->getUIManager()->addTween((float)(getX() - barraCoccionX / 2 - flechaCoccionX / 2), (float)(getX() + barraCoccionX / 2 - flechaCoccionX / 2), tiempoDeCoccion, true)
 				.onStep(
 					[this](tweeny::tween<float>& t, float) mutable {
 						dest_1.x = t.peek();
@@ -144,11 +144,11 @@ bool Fogon::returnObject(Player* p)
 
 		//Si nos hemos pasado, nos quemamos
 		if (paella_->getCoccion() >= Quemada) {
-			game->getUIManager()->quemarse();
+			mGame->getUIManager()->quemarse();
 		}
 
-		if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == States::recogerPaellaCocinada)
-			game->getCurrentScene()->changeState(States::pausaRecogerPaellaCocinada);
+		if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == States::recogerPaellaCocinada)
+			mGame->getCurrentScene()->changeState(States::pausaRecogerPaellaCocinada);
 
 		p->setPickedObject(paella_, PAELLA);
 

@@ -2,7 +2,7 @@
 #include "../../Control/Game.h"
 #include "../../Control/ObjectManager.h"
 
-Pared::Pared(Game* game, Vector2D<double> position) : Mueble(game, position, TILE_SIZE, TILE_SIZE, "cartel")
+Pared::Pared(Game* mGame, Vector2D<double> position) : Mueble(mGame, position, TILE_SIZE, TILE_SIZE, "cartel")
 {
 	setDimension(64, 64);
 }

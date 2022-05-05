@@ -8,7 +8,7 @@ class ObjetoPortable : public GameObject
 	bool isPicked_;
 
 public:
-	ObjetoPortable(Game* game);
+	ObjetoPortable(Game* mGame);
 	~ObjetoPortable() {};
 
 	void pickObject();

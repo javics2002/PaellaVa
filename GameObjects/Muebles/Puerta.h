@@ -29,7 +29,7 @@ class Puerta : public Mueble
 	int numClientSpawn();
 
 public:
-	Puerta(Game* game, Vector2D<double> pos, int t_Max, int maxTamGrupo_);
+	Puerta(Game* mGame, Vector2D<double> pos, int t_Max, int maxTamGrupo_);
 	~Puerta() = default;
 
 	void update() override;

@@ -6,96 +6,59 @@
 
 using tweeny::easing;
 
-FinalScene::FinalScene(Game* game, int mediaPuntuation) : Scene(game)
+FinalScene::FinalScene(Game* mGame) : Scene(mGame)
 {
-	fondo->setTexture("hostClientBg");
-	fondo->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
-	fondo->setDimension(sdlutils().width(), sdlutils().height() + 100);
+	mBackground->setTexture("hostClientBg");
+	mBackground->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
+	mBackground->setDimension(sdlutils().width(), sdlutils().height() + 100);
 
 	int sizePuntW = 120;
 	int sizePuntH = 70;
 	int posPuntX = sdlutils().width() / 2 / 2;
 	int posPuntY = sizePuntH * 2;
 
-	GameObject* medalla = new GameObject(game);
+	GameObject* medalla = new GameObject(mGame);
 	medalla->setTexture("medalla");
 	medalla->setInitialDimension(200, 200);
 	medalla->setDimension(200, 200);
 	medalla->setPosition(sdlutils().width() - 200, 70 * 2);
-	uiManager->addInterfaz(medalla);
+	mUiManager->addInterfaz(medalla);
 
-	//starTexture = &sdlutils().images().at("estrella");
-	//vector<GameObject*> estrellas = vector<GameObject*>(starNumber);
-	//for (auto i = 0; i < starNumber; i++) {
-	//	estrellas[i] = new GameObject(game);
-	//	estrellas[i]->setInitialDimension(110, 100);
-	//	estrellas[i]->setDimension(0, 0);
-	//	estrellas[i]->setTexture("estrella");
-	//	estrellas[i]->setPosition(sdlutils().width() / 2 - 110 * 2 + i * estrellas[i]->getInitialWidth(), 70 * 2);
-	//	estrellas[i]->setActive(false);
-	//	uiManager->addInterfaz(estrellas[i]);
-	//}
-
-	//tweenEstrellas(estrellas);
-
-	GameObject* puntos = new GameObject(game);
+	GameObject* puntos = new GameObject(mGame);
 	puntos->setTexture("GRACIAS POR JUGAR!", string("finalScene"), SDL_Color{ 255, 255, 255, 255 }, SDL_Color{ 0, 0, 0, 0 });
 	puntos->setDimension();
 	puntos->setPosition(Vector2D<double>(posPuntX + 50, posPuntY + puntos->getHeight()));
-	uiManager->addInterfaz(puntos);
+	mUiManager->addInterfaz(puntos);
 
-	auto continueButton = new UiButton(game, "continue",
+	auto continueButton = new UiButton(mGame, "continue",
 		sdlutils().width() / 2, sdlutils().height() / 2 + 300, 300, 120);
 	continueButton->setInitialDimension(300, 120);
 
-	continueButton->setAction([this, continueButton](Game* game, bool& exit) {
-		sdlutils().soundEffects().at("select").play(0, game->UI);
+	continueButton->setAction([this, continueButton](Game* mGame, bool& exit) {
+		sdlutils().soundEffects().at("select").play(0, mGame->UI);
 
-		uiManager->addTween(0.9f, 1.0f, 600.0f, false).via(easing::exponentialOut).onStep(
-			[game, continueButton, this](tweeny::tween<float>& t, float) mutable {
+		mUiManager->addTween(0.9f, 1.0f, 600.0f, false).via(easing::exponentialOut).onStep(
+			[mGame, continueButton, this](tweeny::tween<float>& t, float) mutable {
 				continueButton->setDimension(t.peek() * continueButton->getInitialWidth(),
 					t.peek() * continueButton->getInitialHeight());
 
 				if (t.progress() > .2f) {
 					//Start game
-					game->getNetworkManager()->close();
+					mGame->getNetworkManager()->close();
 
-					game->sendMessageScene(new Menu(game));
+					mGame->sendMessageScene(new Menu(mGame));
 
 					return true;
 				}
 				return false;
 			});
 		});
-	uiManager->addButton(continueButton);
+	mUiManager->addButton(continueButton);
 }
 
 void FinalScene::render()
 {
-	fondo->render(camara->renderRect());
-	objectManager->render(camara->renderRect());
-	uiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
+	mBackground->render(mCamera->renderRect());
+	mObjectManager->render(mCamera->renderRect());
+	mUiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
 }
-
-//void GameOver::tweenEstrellas(vector<GameObject*> estrellas, int i)
-//{
-//	estrellas[i]->setActive(true);
-//	uiManager->addTween(0.0f, 1.0f, 1100.0f, false).via(easing::bounceOut).onStep([=](tweeny::tween<float>& t, float) mutable {
-//		estrellas[i]->setDimension(t.peek() * estrellas[i]->getInitialWidth(), t.peek() * estrellas[i]->getInitialHeight());
-//		if (t.progress() == 1) {
-//			cout << "estrella " << i + 1 << endl;
-//			return true;
-//		}
-//		else if (t.progress() > 0.3f) {
-//			//Si quedan m�s estrellas, empezamos su tween
-//			if (i + 1 < estrellas.size() && !estrellas[i + 1]->isActive())
-//			{
-//				tweenEstrellas(estrellas, i + 1);
-//			}
-//		}
-//		return false;
-//		});
-//
-//	//Sonido
-//	sdlutils().soundEffects().at(to_string(i + 1) + "star").play(0, -1);
-//}

@@ -6,7 +6,7 @@
 #include "../Utils/ParticleExample.h"
 #include <map>
 
-Paella::Paella(Game* game, int tipo) : ObjetoPortable(game), miTipo(tipo)
+Paella::Paella(Game* mGame, int tipo) : ObjetoPortable(mGame), miTipo(tipo)
 {
 	setDepth(2);
 
@@ -43,7 +43,7 @@ void Paella::anadeIngr(Ingrediente* ingr_)
 	//Si ya he echado arroz
 	if (mArroz) {
 		//Añadimos el ingrediente
-		sdlutils().soundEffects().at("dejarIngrediente2").play(0, game->UI);
+		sdlutils().soundEffects().at("dejarIngrediente2").play(0, mGame->UI);
 		if (ingr_->esLetal())
 			contaminada = true;
 		ingredientes.push_back(ingr_->getTipo());
@@ -57,7 +57,7 @@ void Paella::anadeArroz(Arroz* arroz)
 	//Si aun no tengo arroz
 	if (!mArroz) {
 		//Añadimos arroz a la paella
-		sdlutils().soundEffects().at("dejarIngrediente2").play(0, game->UI);
+		sdlutils().soundEffects().at("dejarIngrediente2").play(0, mGame->UI);
 		mArroz = true;
 		estadoCoccion = Cruda;
 		setContenido(Entera);

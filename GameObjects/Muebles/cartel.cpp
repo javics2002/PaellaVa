@@ -2,7 +2,7 @@
 #include "../../Control/game.h"
 #include "../../Control/ObjectManager.h"
 
-Cartel::Cartel(Game* game, Vector2D<double> position) : Mueble(game, position, TILE_SIZE, TILE_SIZE * 1.8, "cartel")
+Cartel::Cartel(Game* mGame, Vector2D<double> position) : Mueble(mGame, position, TILE_SIZE, TILE_SIZE * 1.8, "cartel")
 {
 	//Siempre tiene que funcionar
 	funcionando = true;
@@ -10,7 +10,7 @@ Cartel::Cartel(Game* game, Vector2D<double> position) : Mueble(game, position, T
 
 void Cartel::update()
 {
-	for (auto i : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getCollisions(getCollider())) 
+	for (auto i : mGame->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getCollisions(getCollider())) 
 		i->colisionClientes();	
 }
 

@@ -13,7 +13,7 @@ private:
 	Herramienta* herramienta_ = nullptr;
 
 public:
-	Encimera(Game* game, Vector2D<double> pos);
+	Encimera(Game* mGame, Vector2D<double> pos);
 	~Encimera() = default;
 
 	virtual bool receiveIngrediente(Ingrediente* ingr) override;

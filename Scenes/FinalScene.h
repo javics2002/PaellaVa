@@ -5,7 +5,7 @@
 class FinalScene : public Scene
 {
 public:
-	FinalScene(Game* game, int mediaPuntuacion);
+	FinalScene(Game* mGame);
 
 private:
 	void render() override;

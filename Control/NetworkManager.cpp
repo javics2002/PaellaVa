@@ -350,7 +350,7 @@ void NetworkManager::updateClient()
 
 			case EPT_ENDGAME:
 				setGameStarted(false);
-				mGame->sendMessageScene(new FinalScene(mGame, server_pkt.finishGame.punctuation));
+				mGame->sendMessageScene(new FinalScene(mGame));
 
 				break;
 			case EPT_QUIT:

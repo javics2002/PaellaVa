@@ -25,7 +25,7 @@ protected:
     int z; // para el render por capas
     int posVertical; // mi posicion proyectada al suelo
 
-    Game* game;
+    Game* mGame;
     Texture* texture;
    
     int canalSonido;
@@ -45,10 +45,10 @@ protected:
 
 public:
 
-    GameObject(Game* game) 
-        : game(game), texture(nullptr), w(0), h(0), z(1) {};
-    GameObject(Game* game, string claveTextura) 
-        : game(game), texture(&sdlutils().images().at(claveTextura)), w(0), h(0), z(1) {};
+    GameObject(Game* mGame) 
+        : mGame(mGame), texture(nullptr), w(0), h(0), z(1) {};
+    GameObject(Game* mGame, string claveTextura) 
+        : mGame(mGame), texture(&sdlutils().images().at(claveTextura)), w(0), h(0), z(1) {};
 
     virtual ~GameObject() {};
 

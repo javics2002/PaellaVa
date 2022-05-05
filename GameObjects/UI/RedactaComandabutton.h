@@ -10,7 +10,7 @@ class RedactaComandabutton : public UiButton
 	UIManager* uim;
 	
 public:
-	RedactaComandabutton(Game* game, UIManager* uiManager, string claveTextura, int x, int y, int w, int h);
+	RedactaComandabutton(Game* mGame, UIManager* uiManager, string claveTextura, int x, int y, int w, int h);
 	~RedactaComandabutton();
 	void Swichposition();
 	void goDown();

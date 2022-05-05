@@ -1,5 +1,5 @@
 #include "IngredienteLetal.h"
-IngredienteLetal::IngredienteLetal(Game* game) : Ingrediente(game)
+IngredienteLetal::IngredienteLetal(Game* mGame) : Ingrediente(mGame)
 {
 	setDimension(DIMENSION, DIMENSION);
 	setDepth(2);

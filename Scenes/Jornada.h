@@ -20,22 +20,22 @@ class Mueble;
 class NetworkManager;
 
 struct MapInfo {
-	Map* tilemap;
-	string ruta;
-	int filas, columnas;
-	int anchoTile, altoTile;
-	int anchoFondo, altoFondo;
-	bool tutorial = false;
-	unordered_map<uint, Texture*> tilesets;
+	Map* mTilemap;
+	string mRuta;
+	int mFilas, mColumnas;
+	int mAnchoTile, mAltoTile;
+	int mAnchoFondo, mAltoFondo;
+
+	unordered_map<uint, Texture*> mTilesets;
 
 	MapInfo() {
-		tilemap = nullptr;
-		ruta = "";
-		filas = columnas = anchoTile = altoTile = 0;
+		mTilemap = nullptr;
+		mRuta = "";
+		mFilas = mColumnas = mAnchoTile = mAltoTile = 0;
 	}
 	~MapInfo() {
-		if (tilemap != nullptr)
-			delete tilemap;
+		if (mTilemap != nullptr)
+			delete mTilemap;
 	}
 };
 
@@ -43,26 +43,26 @@ class Jornada : public Scene
 {
 	const float LERP_INTERPOLATION = 0.2f;
 
-	MapInfo mapInfo;
+	MapInfo mMapInfo;
 
-	list<double> puntuacionesComandas;
+	list<double> mPuntuacionesComandas;
 
-	double puntuacionTotal;
+	double mPuntuacionTotal;
 
-	RedactaComandabutton* redactaBut;
+	RedactaComandabutton* mRedactaBut;
 
-	Vector2D<int> tamRestaurante = Vector2D<int>(0, 1216);
-	Vector2D<double> positionCamarero;
-	Vector2D<double> positionCocinera;
+	Vector2D<int> mTamRestaurante = Vector2D<int>(0, 1216);
+	Vector2D<double> mPositionCamarero;
+	Vector2D<double> mPositionCocinera;
 
-	int nJornada = 0;
+	int mNumJornada = 0;
 
-	bool host;
+	bool mHost;
 
-	int idCount = 0;
+	int mIdCount = 0;
 
 public:
-	Jornada(Game* game, string tilemap, int numeroJornada, bool cocinera = true);
+	Jornada(Game* mGame, string tilemap, int numeroJornada, bool cocinera = true);
 	~Jornada();
 
 	void handleInput(bool& exit)  override;
@@ -75,10 +75,10 @@ public:
 	void loadMap(string const& path);
 	void togglePause();
 
-	int getNumJornada() { return nJornada; }
-	int getPunctuationJornada() {
+	int getNumJornada() { return mNumJornada; }
+	double getPunctuationJornada() {
 		mediaPuntuaciones();
-		return puntuacionTotal; }
+		return mPuntuacionTotal; }
 
 };
 

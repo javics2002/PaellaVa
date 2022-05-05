@@ -9,7 +9,7 @@ class Arroz : public ObjetoPortable
     const unsigned int DIMENSION = 70;
 
 public:
-    Arroz(Game* game);
+    Arroz(Game* mGame);
     ~Arroz() = default;
 
     void onObjectPicked() override {};

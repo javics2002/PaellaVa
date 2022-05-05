@@ -6,7 +6,7 @@
 #include "../../Scenes/Tutorial.h"
 
 
-Mueble::Mueble(Game* game, Vector2D<double> position, int width, int height, string claveTextura) : GameObject(game)
+Mueble::Mueble(Game* mGame, Vector2D<double> position, int width, int height, string claveTextura) : GameObject(mGame)
 {
 	setDimension(width, height);
 	setPosition(position.getX() + getWidth() / 2, position.getY() + getHeight() / 2);
@@ -64,7 +64,7 @@ bool Mueble::receiveHerramienta(Herramienta* h)
 
 bool Mueble::testMueble()
 {
-	if (!dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getNetworkManager()->isHost()) {
+	if (!dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getNetworkManager()->isHost()) {
 		float rnd = rand() % randomOptions + 1;
 
 		if (rnd <= roto)
@@ -72,7 +72,7 @@ bool Mueble::testMueble()
 			romperMueble();
 
 			// Mandar mensaje de que se rompe el mueble
-			game->getNetworkManager()->syncMuebleRoto(getId());
+			mGame->getNetworkManager()->syncMuebleRoto(getId());
 		}
 		return funcionando;
 	}
@@ -84,5 +84,5 @@ void Mueble::romperMueble() {
 	funcionando = false;
 	roto -= 5; //Para que cada vez sea más difícil que se rompa
 
-	game->getObjectManager()->resetMueblesCounter();
+	mGame->getObjectManager()->resetMueblesCounter();
 }

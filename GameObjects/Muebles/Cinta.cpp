@@ -1,6 +1,6 @@
 #include "Cinta.h"
 
-Cinta::Cinta(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE,  TILE_SIZE, "cinta")
+Cinta::Cinta(Game* mGame, Vector2D<double> pos) : Mueble(mGame, pos, TILE_SIZE,  TILE_SIZE, "cinta")
 {
 	//Este sonido es m�s bajo
 	sdlutils().soundEffects().at("cinta").setVolume(2);

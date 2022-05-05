@@ -53,7 +53,7 @@ class UIManager
 	int anchobotones = 25;
 	float volumenMusica;
 	float volumenSonido;
-	Game* game;
+	Game* mGame;
 	Comanda* actual;
 	ListaComandas* barra;
 
@@ -89,7 +89,7 @@ class UIManager
 	bool enJornada = false, enVentanilla=false;
 
 public:
-	UIManager(Game* game);
+	UIManager(Game* mGame);
 	~UIManager();
 	void uiEvent(int mx, int my, bool& exit, bool paused = false);
 	void slideEvent(int mx, int my, bool& exit, bool paused = false);
@@ -100,8 +100,8 @@ public:
 	// void render();
 	void render(SDL_Rect* rect);
 
-	void creaComanda(Game* game);
-	void creaComandaVentanilla(Game* game);
+	void creaComanda(Game* mGame);
+	void creaComandaVentanilla(Game* mGame);
 	Comanda* getComanda();
 	ListaComandas* getBarra();
 	void setBarra(ListaComandas* b);

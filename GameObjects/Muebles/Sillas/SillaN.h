@@ -3,7 +3,7 @@
 class SillaN : public Silla
 {
 public:
-	SillaN(Game* game, Vector2D<double> pos, string texture);
+	SillaN(Game* mGame, Vector2D<double> pos, string texture);
 	~SillaN() = default;
 
 	void sentarCliente(Cliente * c) override;

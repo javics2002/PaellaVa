@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Cliente::Cliente(Game* game) : GameObject(game)
+Cliente::Cliente(Game* mGame) : GameObject(mGame)
 {
 	setDimension(DIMENSION, DIMENSION);
 

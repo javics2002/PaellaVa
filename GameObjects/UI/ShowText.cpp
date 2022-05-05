@@ -1,6 +1,6 @@
 #include "ShowText.h"
 
-ShowText::ShowText(Game* game,  string text, string font, int x, int y,  int w, int h) : GameObject(game)
+ShowText::ShowText(Game* mGame,  string text, string font, int x, int y,  int w, int h) : GameObject(mGame)
 {
 	text_ = text;
 	font_ = font;
@@ -15,7 +15,7 @@ ShowText::ShowText(Game* game,  string text, string font, int x, int y,  int w, 
 	setDimension();
 }
 
-ShowText::ShowText(Game* game, string text, string font, SDL_Color fgColor, SDL_Color bgColor, int x, int y, int w, int h) : GameObject(game)
+ShowText::ShowText(Game* mGame, string text, string font, SDL_Color fgColor, SDL_Color bgColor, int x, int y, int w, int h) : GameObject(mGame)
 {
 	text_ = text;
 	font_ = font;

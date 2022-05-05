@@ -3,8 +3,8 @@
 #include "../../Control/ObjectManager.h"
 #include "../../Scenes/Tutorial.h"
 
-Mesa::Mesa(Game* game, Vector2D<double> pos, Vector2D<int> dim, Vector2D<int> tiles, string texture)
-	: Mueble(game, pos, dim.getX() * TILE_SIZE, dim.getY() * TILE_SIZE, texture) 
+Mesa::Mesa(Game* mGame, Vector2D<double> pos, Vector2D<int> dim, Vector2D<int> tiles, string texture)
+	: Mueble(mGame, pos, dim.getX() * TILE_SIZE, dim.getY() * TILE_SIZE, texture) 
 {
 	mWidth = tiles.getX();
 	mHeight = tiles.getY();
@@ -78,8 +78,8 @@ bool Mesa::receiveGrupoClientes(GrupoClientes* gc)
 		if (mGrupo == nullptr && paellas.empty() && gc->canDrop()) {
 			int n = gc->numIntegrantes();
 
-			if (dynamic_cast<Tutorial*>(game->getCurrentScene())) {
-				game->getCurrentScene()->changeState(States::pausaPaellas);
+			if (dynamic_cast<Tutorial*>(mGame->getCurrentScene())) {
+				mGame->getCurrentScene()->changeState(States::pausaPaellas);
 			}
 
 			if (n <= sillas.size()) {
@@ -104,8 +104,8 @@ bool Mesa::receivePaella(Paella* paella)
 {
 	if (paella != nullptr) {
 		if (mGrupo != nullptr && paella->conArroz()) {
-			if (dynamic_cast<Tutorial*>(game->getCurrentScene())) {
-				if (game->getCurrentScene()->getState() == States::darDeComer) {
+			if (dynamic_cast<Tutorial*>(mGame->getCurrentScene())) {
+				if (mGame->getCurrentScene()->getState() == States::darDeComer) {
 					if (mGrupo->paellasPedidas()) {
 						paella->setState(Hecha);
 						paellas.push_back(paella);
@@ -116,7 +116,7 @@ bool Mesa::receivePaella(Paella* paella)
 						paella->setDepth(1);
 
 						paella->enLaMesa(true);
-						game->getCurrentScene()->changeState(States::pausaDarDeComer);
+						mGame->getCurrentScene()->changeState(States::pausaDarDeComer);
 						sdlutils().soundEffects().at("cubiertos").play();
 						return true;
 					}
@@ -146,8 +146,8 @@ bool Mesa::returnObject(Player* p)
 	if (mGrupo != nullptr ) {
 		if (mGrupo->canPick()) {
 			p->setPickedObject(mGrupo, objectType::CLIENTES);
-			if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == sacarCuenta)
-				game->getCurrentScene()->changeState(pausaSacarCuenta);
+			if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == sacarCuenta)
+				mGame->getCurrentScene()->changeState(pausaSacarCuenta);
 
 			return true;
 		}
@@ -159,8 +159,8 @@ bool Mesa::returnObject(Player* p)
 		paellas.back()->setDepth(2);
 		paellas.pop_back();
 
-		if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == recogerMesa)
-			game->getCurrentScene()->changeState(pausaRecogerMesa);
+		if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == recogerMesa)
+			mGame->getCurrentScene()->changeState(pausaRecogerMesa);
 
 
 		if (paellas.empty()) {

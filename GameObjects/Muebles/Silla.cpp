@@ -4,7 +4,7 @@
 
 #include "Mesa.h"
 
-Silla::Silla(Game* game, Vector2D<double> pos, string texture) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, texture)
+Silla::Silla(Game* mGame, Vector2D<double> pos, string texture) : Mueble(mGame, pos, TILE_SIZE, 2 * TILE_SIZE, texture)
 {
 	mMesa = nullptr;
 

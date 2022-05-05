@@ -1,7 +1,7 @@
 #include "OcultabarraButton.h"
 #include "../../Data/ListaComandas.h"
 
-OcultabarraButton::OcultabarraButton(UIManager* uim, Game* game, string texturename, int x, int y, int w, int h, ListaComandas* l) :UiButton(game, texturename, x, y, w, h)
+OcultabarraButton::OcultabarraButton(UIManager* uim, Game* mGame, string texturename, int x, int y, int w, int h, ListaComandas* l) :UiButton(mGame, texturename, x, y, w, h)
 {
 	mlista = l;
 }

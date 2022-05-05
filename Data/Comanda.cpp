@@ -20,7 +20,7 @@ bool comparaY(T u1,T u2)
 	return  u1.getPosition().getY() < u2.getPosition().getY();
 }
 
-Comanda::Comanda(Game* game, uint escala, UIManager* uim,bool enVentanilla_) :GameObject(game)
+Comanda::Comanda(Game* mGame, uint escala, UIManager* uim,bool enVentanilla_) :GameObject(mGame)
 {
 	setTexture("cuadernillo");
 
@@ -67,7 +67,7 @@ Comanda::Comanda(Game* game, uint escala, UIManager* uim,bool enVentanilla_) :Ga
 	escritoY = margensuperior;
 	
 }
-Comanda::Comanda(Comanda& c) : GameObject(c.game)
+Comanda::Comanda(Comanda& c) : GameObject(c.mGame)
 {
 	clip.x = 0;
 	clip.y = 0;
@@ -80,7 +80,7 @@ Comanda::Comanda(Comanda& c) : GameObject(c.game)
 	setTexture("cuadernillo");
 	setPosition(c.x, c.y);
 	paellas = c.copyPaellas();
-	game = c.game;
+	mGame = c.mGame;
 	setDimension(c.ancho, c.alto);
 	numeroPaellas = c.numeroPaellas;
 	uiManager = c.uiManager;
@@ -90,12 +90,12 @@ Comanda::Comanda(Comanda& c) : GameObject(c.game)
 	}
 	if (c.numeromesa != nullptr)
 	{
-		UiButton* nm = new UiButton(game, c.numeromesa->getTextura(), c.numeromesa->getPosition().getX(), c.numeromesa->getPosition().getY(), c.numeromesa->getWidth(), c.numeromesa->getHeight());
+		UiButton* nm = new UiButton(mGame, c.numeromesa->getTextura(), c.numeromesa->getPosition().getX(), c.numeromesa->getPosition().getY(), c.numeromesa->getWidth(), c.numeromesa->getHeight());
 		numeromesa = nm;
 
 	}
 }
-Comanda::Comanda(Game* game, int numMesa, vector<int> tamPaellas, vector<int> ingPedidos) : GameObject(game)
+Comanda::Comanda(Game* mGame, int numMesa, vector<int> tamPaellas, vector<int> ingPedidos) : GameObject(mGame)
 {
 	//crear una comanda normal y rellenar el pedido con los numeritos
 	setTexture("cuadernillo");
@@ -126,7 +126,7 @@ Comanda::Comanda(Game* game, int numMesa, vector<int> tamPaellas, vector<int> in
 	setDimension(ancho, alto);
 	altoini = alto;
 	iniy = p.getY();
-	uiManager = game->getUIManager();
+	uiManager = mGame->getUIManager();
 	double ix = p.getX() / 2 + margenbotones + anchobotones / 2;
 	double iy = p.getY() / 2 + 2 * anchobotones;
 	margenizquierdo = ix;
@@ -182,7 +182,7 @@ void Comanda::añadiraPedido(string i, int j)
 		}
 		
 
-		UiButton* a = new UiButton(game, i, escritoX, escritoY, anchobotones*0.75, anchobotones*0.75);
+		UiButton* a = new UiButton(mGame, i, escritoX, escritoY, anchobotones*0.75, anchobotones*0.75);
 		escritoX += anchobotones / 2 + margenbotones;
 		
 		Pedido.push_back(a);
@@ -220,7 +220,7 @@ void Comanda::añadiraPedido(string i, int j)
 void Comanda::anadirNumeromesa(string n,int j)
 {
 	ih().setKey(false, InputHandler::A);
-	numeromesa = new UiButton(game, n, x + anchobotones, anchobotones, anchobotones / 2, anchobotones / 2);
+	numeromesa = new UiButton(mGame, n, x + anchobotones, anchobotones, anchobotones / 2, anchobotones / 2);
 	toggleTecladonum(false);
 	toggleTecaldotam(true);
 	activeTeclado = tecladotam;
@@ -475,20 +475,20 @@ void Comanda::aceptaPaella()
 
 void Comanda::enviaComanda()
 {
-	if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState()==apuntaPedido) {
+	if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState()==apuntaPedido) {
 
 		if (numeroPaellas == 1 && paellas[0].size()==4 && paellas[0][0]->getTextura() == "small") {
 			if (paellas[0][1]->getTextura() == "alcachofa") {
 				if (paellas[0][2]->getTextura() == "calamar") {
 					if (paellas[0][3]->getTextura() == "cangrejo") {
 						eC();
-						game->getCurrentScene()->changeState(States::pausaPedido);
+						mGame->getCurrentScene()->changeState(States::pausaPedido);
 					}
 				}
 				else if (paellas[0][2]->getTextura() == "cangrejo") {
 					if (paellas[0][3]->getTextura() == "calamar") {
 						eC();
-						game->getCurrentScene()->changeState(States::pausaPedido);
+						mGame->getCurrentScene()->changeState(States::pausaPedido);
 					}
 				}
 			}
@@ -496,13 +496,13 @@ void Comanda::enviaComanda()
 				if (paellas[0][2]->getTextura() == "alcachofa") {
 					if (paellas[0][3]->getTextura() == "cangrejo") {
 						eC();
-						game->getCurrentScene()->changeState(States::pausaPedido);
+						mGame->getCurrentScene()->changeState(States::pausaPedido);
 					}
 				}
 				else if (paellas[0][2]->getTextura() == "cangrejo") {
 					if (paellas[0][3]->getTextura() == "alcachofa") {
 						eC();
-						game->getCurrentScene()->changeState(States::pausaPedido);
+						mGame->getCurrentScene()->changeState(States::pausaPedido);
 					}
 				}
 			}
@@ -510,19 +510,19 @@ void Comanda::enviaComanda()
 				if (paellas[0][2]->getTextura() == "calamar") {
 					if (paellas[0][3]->getTextura() == "alcachofa") {
 						eC();
-						game->getCurrentScene()->changeState(States::pausaPedido);
+						mGame->getCurrentScene()->changeState(States::pausaPedido);
 					}
 				}
 				else if (paellas[0][2]->getTextura() == "alcachofa") {
 					if (paellas[0][3]->getTextura() == "calamar") {
 						eC();
-						game->getCurrentScene()->changeState(States::pausaPedido);
+						mGame->getCurrentScene()->changeState(States::pausaPedido);
 					}
 				}
 			}
-			else game->getCurrentScene()->changeState(States::pausaComandaEquivocada);
+			else mGame->getCurrentScene()->changeState(States::pausaComandaEquivocada);
 		}
-		else game->getCurrentScene()->changeState(States::pausaComandaEquivocada);
+		else mGame->getCurrentScene()->changeState(States::pausaComandaEquivocada);
 	}
 	else {
 		eC();
@@ -533,7 +533,7 @@ void Comanda::eC()
 	
 	aceptaPaella();
 	uiManager->getBarra()->AñadeComanda(this);
-	game->getNetworkManager()->syncComanda(getNumeroMesaWeb(), getTamanosWeb(), getIngredientesWeb());
+	mGame->getNetworkManager()->syncComanda(getNumeroMesaWeb(), getTamanosWeb(), getIngredientesWeb());
 	cancelaPedido();
 	toggleTecaldotam(false);
 	toggleTeclado(false);
@@ -616,7 +616,7 @@ vector<vector<UiButton*>> Comanda::copyPaellas()
 		for (int j = 0; j < paellas[i].size(); j++)
 		{
 			UiButton u = *paellas[i][j];
-			UiButton* up = new UiButton(game, u.getTextura(), u.getPosition().getX(), u.getPosition().getY(), u.getWidth(), u.getHeight());
+			UiButton* up = new UiButton(mGame, u.getTextura(), u.getPosition().getX(), u.getPosition().getY(), u.getWidth(), u.getHeight());
 			paellascopiadas[i].push_back(up);
 		}
 	}
@@ -656,7 +656,7 @@ void Comanda::toggleactive()
 				y = t.peek();
 				if (t.progress() == 1.0f)
 				{  
-					sdlutils().soundEffects().at("guardarComandas").play(0, game->UI);
+					sdlutils().soundEffects().at("guardarComandas").play(0, mGame->UI);
 
 					setActive(false);
 					cancelaPedido();
@@ -679,7 +679,7 @@ void Comanda::toggleactive()
 
 				if (t.progress() == 1.0f && isActive()) {
 					
-					sdlutils().soundEffects().at("sacarComandas").play(0, game->UI);
+					sdlutils().soundEffects().at("sacarComandas").play(0, mGame->UI);
 					for (auto b : botones)
 					{
 						b->setActive(true);

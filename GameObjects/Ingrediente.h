@@ -32,7 +32,7 @@ protected:
 public:
 
 
-	Ingrediente(Game* game);
+	Ingrediente(Game* mGame);
 	~Ingrediente() = default;
 
 	void update() override;	

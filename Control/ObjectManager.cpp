@@ -7,19 +7,19 @@
 #include "../GameObjects/Herramienta.h"
 
 
-ObjectManager::ObjectManager(Game* game) : game(game)
+ObjectManager::ObjectManager(Game* mGame) : mGame(mGame)
 {
-	if (dynamic_cast<Tutorial*>(game->getCurrentScene())) {
-		pools.emplace_back((Pool<GameObject>*) new Pool<Ingrediente>(game, 50));
+	if (dynamic_cast<Tutorial*>(mGame->getCurrentScene())) {
+		pools.emplace_back((Pool<GameObject>*) new Pool<Ingrediente>(mGame, 50));
 	}
 	else {
-		pools.emplace_back((Pool<GameObject>*) new Pool<IngredienteLetal>(game, 10));
-		pools.emplace_back((Pool<GameObject>*) new Pool<Ingrediente>(game, 50));
+		pools.emplace_back((Pool<GameObject>*) new Pool<IngredienteLetal>(mGame, 10));
+		pools.emplace_back((Pool<GameObject>*) new Pool<Ingrediente>(mGame, 50));
 	}
-	pools.emplace_back((Pool<GameObject>*) new Pool<Herramienta>(game, 20));
-	pools.emplace_back((Pool<GameObject>*) new Pool<Arroz>(game, 20));
-	pools.emplace_back((Pool<GameObject>*) new Pool<GrupoClientes>(game, 20));
-	pools.emplace_back((Pool<GameObject>*) new Pool<Cliente>(game, 50));
+	pools.emplace_back((Pool<GameObject>*) new Pool<Herramienta>(mGame, 20));
+	pools.emplace_back((Pool<GameObject>*) new Pool<Arroz>(mGame, 20));
+	pools.emplace_back((Pool<GameObject>*) new Pool<GrupoClientes>(mGame, 20));
+	pools.emplace_back((Pool<GameObject>*) new Pool<Cliente>(mGame, 50));
 }
 
 ObjectManager::~ObjectManager()
@@ -126,7 +126,7 @@ void ObjectManager::addPlayer(Player* player)
 
 Paella* ObjectManager::addPaella(int n)
 {
-	Paella* p = new Paella(game, n);
+	Paella* p = new Paella(mGame, n);
 
 	paellas.push_back(p);
 

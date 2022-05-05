@@ -24,9 +24,9 @@ class Comanda :public GameObject
     //hay 8 ingredientes distintos
 public:
     enum Tamaño { Pequeña, Mediana, Grande };
-    Comanda(Game* game, uint escala, UIManager* uim,bool enVentanilla_);//crear comanda
+    Comanda(Game* mGame, uint escala, UIManager* uim,bool enVentanilla_);//crear comanda
     Comanda( Comanda& c);//NECESARIO PARA QUE LA LIST DE COMANDAS FUNCIONE
-    Comanda(Game* game, int numMesa, vector<int> tamPaellas, vector<int> ingPedidos);
+    Comanda(Game* mGame, int numMesa, vector<int> tamPaellas, vector<int> ingPedidos);
 
     ~Comanda();//No se puede definir todavia y no compila NO LO BORREIS/
     void añadiraPedido(string i,int j);

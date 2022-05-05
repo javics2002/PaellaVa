@@ -9,7 +9,7 @@ class IngredienteLetal : public Ingrediente
 {
 	tipoIngredienteLetal miTipoL;
 public:
-	IngredienteLetal(Game* game);
+	IngredienteLetal(Game* mGame);
 	~IngredienteLetal();
 	void onActivate() override;
 

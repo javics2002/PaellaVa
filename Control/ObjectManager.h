@@ -49,7 +49,7 @@ class ObjectManager
 
 	vector<GameObject*> renderAll;
 
-	Game* game;
+	Game* mGame;
 
 	vector<Silla*> sillas;
 	vector<Mesa*> mesas;
@@ -70,7 +70,7 @@ class ObjectManager
 
 
 public:
-	ObjectManager(Game* game);
+	ObjectManager(Game* mGame);
 	~ObjectManager();
 
 	void handleInput(bool& exit);

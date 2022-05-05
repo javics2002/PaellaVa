@@ -5,34 +5,34 @@
 #include "../GameObjects/UI/ShowText.h"
 #include "../Scenes/HostClient.h"
 
-Lobby::Lobby(Game* game) : Scene(game)
+Lobby::Lobby(Game* mGame) : Scene(mGame)
 {
 	//fondo
-	fondo->setTexture("lobbyBg");
-	fondo->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
-	fondo->setDimension(sdlutils().width(), sdlutils().height()+100);
+	mBackground->setTexture("lobbyBg");
+	mBackground->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
+	mBackground->setDimension(sdlutils().width(), sdlutils().height()+100);
 
 	//Cocinera
-	Imagen* cocinera = new Imagen(game, sdlutils().width() / 2 - 300, sdlutils().height() / 2, 450, 450, "cocineraLobby");
+	Imagen* cocinera = new Imagen(mGame, sdlutils().width() / 2 - 300, sdlutils().height() / 2, 450, 450, "cocineraLobby");
 
-	uiManager->addInterfaz(cocinera);
+	mUiManager->addInterfaz(cocinera);
 
 	//Nombre cocinera
 	
-	ShowText* NombreCocinera = new ShowText(game, game->getNombre(), "lobby",
+	ShowText* NombreCocinera = new ShowText(mGame, mGame->getNombre(), "lobby",
 		(int)cocinera->getX(), sdlutils().height()- 165);
 
-	uiManager->addInterfaz(NombreCocinera);
+	mUiManager->addInterfaz(NombreCocinera);
 
 	//Imagen del camarero conectandose
-	camarero = new Imagen(game, sdlutils().width() / 2 + 300, sdlutils().height() / 2, 450, 450, "CamareroConect");
+	mCamarero = new Imagen(mGame, sdlutils().width() / 2 + 300, sdlutils().height() / 2, 450, 450, "CamareroConect");
 
-	uiManager->addInterfaz(camarero);
+	mUiManager->addInterfaz(mCamarero);
 
 	//IP ??
-	buscando = new ShowText(game, "ESPERANDO             JUGADORES...", "lobby", sdlutils().width() / 2+20, sdlutils().height() - 115);
+	mSearching = new ShowText(mGame, "ESPERANDO             JUGADORES...", "lobby", sdlutils().width() / 2+20, sdlutils().height() - 115);
 
-	uiManager->addInterfaz(buscando);
+	mUiManager->addInterfaz(mSearching);
 
 	////Nombre del camarero
 	//ShowText* NombreCamarero = new ShowText(game, "elvergalarga", "abadiNombre",
@@ -41,80 +41,80 @@ Lobby::Lobby(Game* game) : Scene(game)
 	//uiManager->addInterfaz(NombreCamarero);
 
 	//Boton comenzar
-	comenzar = new UiButton(game, "start2", sdlutils().width()/2, sdlutils().height()/2, 200, 70);
-	comenzar->setInitialDimension(comenzar->getWidth(), comenzar->getHeight());
-	comenzar->setAction([this](Game* game, bool& exit) {
+	mStart = new UiButton(mGame, "start2", sdlutils().width()/2, sdlutils().height()/2, 200, 70);
+	mStart->setInitialDimension(mStart->getWidth(), mStart->getHeight());
+	mStart->setAction([this](Game* mGame, bool& exit) {
 		// crear player
 		
-		game->sendMessageScene(new Jornada(game, "Jornada1", 0 , true));
+		mGame->sendMessageScene(new Jornada(mGame, "Jornada1", 0 , true));
 
 		sdlutils().virtualTimer().reset();
 		// send info 
-		game->getNetworkManager()->sendStartGame(0);
-		uiManager->setEnJornada(true);
+		mGame->getNetworkManager()->sendStartGame(0);
+		mUiManager->setEnJornada(true);
 		});
 
-	uiManager->addButton(comenzar);
+	mUiManager->addButton(mStart);
 
-	UiButton *regresar = new UiButton(game, "back", 100, 50, 125, 60);
+	UiButton *regresar = new UiButton(mGame, "back", 100, 50, 125, 60);
 	regresar->setInitialDimension(regresar->getWidth(), regresar->getHeight());
-	regresar->setAction([](Game* game, bool& exit) {
-		game->sendMessageScene(new HostClient(game));
-		game->getNetworkManager()->close();
+	regresar->setAction([](Game* mGame, bool& exit) {
+		mGame->sendMessageScene(new HostClient(mGame));
+		mGame->getNetworkManager()->close();
 	});
 
-	uiManager->addButton(regresar);
+	mUiManager->addButton(regresar);
 
-	uiManager->setEnLobby(true);
+	mUiManager->setEnLobby(true);
 }
 
-Lobby::Lobby(Game* game, string nombreHost) : Scene(game)
+Lobby::Lobby(Game* mGame, string nombreHost) : Scene(mGame)
 {
 	//fondo
-	fondo->setTexture("lobbyBg");
-	fondo->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
-	fondo->setDimension(sdlutils().width(), sdlutils().height()+100);
+	mBackground->setTexture("lobbyBg");
+	mBackground->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
+	mBackground->setDimension(sdlutils().width(), sdlutils().height()+100);
 
 	//Cocinera
-	Imagen* cocinera = new Imagen(game, sdlutils().width() / 2 - 300, sdlutils().height() / 2, 450, 450, "cocineraLobby");
+	Imagen* cocinera = new Imagen(mGame, sdlutils().width() / 2 - 300, sdlutils().height() / 2, 450, 450, "cocineraLobby");
 
-	uiManager->addInterfaz(cocinera);
+	mUiManager->addInterfaz(cocinera);
 
-	//IP ??
-	ShowText* listo = new ShowText(game, "LISTO PARA COMENZAR", "lobby", sdlutils().width() / 2, sdlutils().height() - 115);
+	// Feedback
+	ShowText* listo = new ShowText(mGame, "LISTO PARA COMENZAR", "lobby", sdlutils().width() / 2, sdlutils().height() - 115);
 
-	uiManager->addInterfaz(listo);
+	mUiManager->addInterfaz(listo);
 
-	//Nombre cocinera ? recibido de paquete
-	ShowText* NombreCocinera = new ShowText(game, nombreHost, "ip",
+	//Nombre cocinera (recibido de paquete)
+	ShowText* NombreCocinera = new ShowText(mGame, nombreHost, "ip",
 		(int)cocinera->getX(), sdlutils().height() - 165);
 
-	uiManager->addInterfaz(NombreCocinera);
+	mUiManager->addInterfaz(NombreCocinera);
 
 	// Imagen del camarero conectandose 
-	camarero = new Imagen(game, sdlutils().width() / 2 + 300, sdlutils().height() / 2, 450, 450, "camareroLobby");
+	mCamarero = new Imagen(mGame, sdlutils().width() / 2 + 300, sdlutils().height() / 2, 450, 450, "camareroLobby");
 
-	uiManager->addInterfaz(camarero);
+	mUiManager->addInterfaz(mCamarero);
 
-	//Nombre del camarero ? tu propio nombre
-	ShowText* NombreCamarero = new ShowText(game, game->getNombre(), "ip",
-		(int)camarero->getX(), sdlutils().height() - 165);
+	//Nombre del camarero (tu propio nombre)
+	ShowText* NombreCamarero = new ShowText(mGame, mGame->getNombre(), "ip",
+		(int)mCamarero->getX(), sdlutils().height() - 165);
 
-	uiManager->addInterfaz(NombreCamarero);
+	mUiManager->addInterfaz(NombreCamarero);
 }
 
 void Lobby::clienteUnido(std::string nombreCliente)
 {
-	comenzar->setTexture("start");
-	camarero->setTexture("camareroLobby");
+	mStart->setTexture("start");
+	mCamarero->setTexture("camareroLobby");
 
-	uiManager->setEnLobby(false);
+	mUiManager->setEnLobby(false);
 
 	//Nombre del camarero
-	ShowText* NombreCamarero = new ShowText(game, nombreCliente, "ip",
-		(int)camarero->getX(), sdlutils().height() - 165);
+	ShowText* NombreCamarero = new ShowText(mGame, nombreCliente, "ip",
+		(int)mCamarero->getX(), sdlutils().height() - 165);
 
-	uiManager->addInterfaz(NombreCamarero);
-	buscando->setText("LISTO PARA COMENZAR");
+	mUiManager->addInterfaz(NombreCamarero);
+	mSearching->setText("LISTO PARA COMENZAR");
 
 }

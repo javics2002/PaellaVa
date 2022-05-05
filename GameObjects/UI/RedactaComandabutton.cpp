@@ -3,7 +3,7 @@
 #include "../../Control/ObjectManager.h";
 #include "../../GameObjects/UI/UIManager.h"
 
-RedactaComandabutton::RedactaComandabutton(Game* game, UIManager* uiManager, string claveTextura, int x, int y, int w, int h) : UiButton(game, claveTextura, x, y, w, h)
+RedactaComandabutton::RedactaComandabutton(Game* mGame, UIManager* uiManager, string claveTextura, int x, int y, int w, int h) : UiButton(mGame, claveTextura, x, y, w, h)
 {
 	uim = uiManager;
 	
@@ -20,8 +20,8 @@ void RedactaComandabutton::execute(bool& exit)
 {
 	if (uim->getComanda() == nullptr)
 	{
-		sdlutils().soundEffects().at("sacarComandas").play(0, game->UI);
-		uim->creaComanda(game);
+		sdlutils().soundEffects().at("sacarComandas").play(0, mGame->UI);
+		uim->creaComanda(mGame);
 
 	}
 	else

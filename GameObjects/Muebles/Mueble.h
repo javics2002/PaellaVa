@@ -33,7 +33,7 @@ protected:
 
 
 public:
-	Mueble(Game* game, Vector2D<double> position, int width, int height, string claveTextura);
+	Mueble(Game* mGame, Vector2D<double> position, int width, int height, string claveTextura);
     ~Mueble() { delete humo; };
 
 

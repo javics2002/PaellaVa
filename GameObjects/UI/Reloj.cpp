@@ -1,9 +1,9 @@
 #include "Reloj.h"
 #include "../../Scenes/GameOver.h"
 #include "../../Scenes/Jornada.h"
-Reloj::Reloj(Game* game, int numeroJornada) : GameObject(game)
+Reloj::Reloj(Game* mGame, int numeroJornada) : GameObject(mGame)
 {
-	this->game = game;
+	this->mGame = mGame;
 	setDimension(w, h);
 	setPosition(sdlutils().width() - getWidth(), getHeight());
 	setActive(true);
@@ -34,7 +34,7 @@ Reloj::~Reloj()
 
 bool Reloj::finDia()
 {
-	if (!game->getNetworkManager()->isHost())
+	if (!mGame->getNetworkManager()->isHost())
 		return false;
 	//return SDL_TICKS_PASSED(SDL_GetTicks(), totalJornada);
 	return (hourFin <= currentTime.hours && minuteFin <= currentTime.minutes);
@@ -58,10 +58,10 @@ void Reloj::update()
 
 	if (finDia())
 	{
-		game->getNetworkManager()->setGameStarted(false);
+		mGame->getNetworkManager()->setGameStarted(false);
 
-		game->sendMessageScene(new GameOver(game, 0, mNumeroJornada));
-		game->getNetworkManager()->sendFinishGame(dynamic_cast<Jornada*>(game->getCurrentScene())->getPunctuationJornada(), mNumeroJornada);
+		mGame->sendMessageScene(new GameOver(mGame, 0, mNumeroJornada));
+		mGame->getNetworkManager()->sendFinishGame(dynamic_cast<Jornada*>(mGame->getCurrentScene())->getPunctuationJornada(), mNumeroJornada);
 	}
 	else
 	{

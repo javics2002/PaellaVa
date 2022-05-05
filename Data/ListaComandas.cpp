@@ -5,7 +5,7 @@
 #include "../GameObjects/UI/UIManager.h"
 #include "../sdlutils/InputHandler.h"
 #include "../Scenes/Tutorial.h"
-ListaComandas::ListaComandas(Game* game,UIManager* m) :GameObject(game)
+ListaComandas::ListaComandas(Game* mGame,UIManager* m) :GameObject(mGame)
 {
 
 	setTexture("barra");
@@ -54,7 +54,7 @@ void ListaComandas::AñadeComanda(Comanda* comanda)
 	
 		c->setSitio(lista.insert(lista.begin(),c));
 		
-		EliminaComandaButton* e = new EliminaComandaButton(uimt, c, game, "cancela", cX, cY + c->getHeight()/2, 25, 25);
+		EliminaComandaButton* e = new EliminaComandaButton(uimt, c, mGame, "cancela", cX, cY + c->getHeight()/2, 25, 25);
 		
 		if (selected != nullptr)
 		{
@@ -94,7 +94,7 @@ void ListaComandas::AñadeComanda(Comanda* comanda)
 	//se guardan en el buffer de comandas.
 		c->desplazacomandas(-500);
 		c->setPosition(-500, cY);
-		EliminaComandaButton* e = new EliminaComandaButton(uimt, c, game, "cancela", -500, cY + c->getHeight() / 2, 25, 25);
+		EliminaComandaButton* e = new EliminaComandaButton(uimt, c, mGame, "cancela", -500, cY + c->getHeight() / 2, 25, 25);
 	
 		c->setEliminabutton(e);
 		listanovisibles.push_front(c);
@@ -116,9 +116,9 @@ void ListaComandas::finalizacomanda(Comanda* comanda)
 {
 	
 
-	if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState()<darDeComer){
+	if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState()<darDeComer){
 
-		game->getCurrentScene()->changeState(pausaBorrarComanda);
+		mGame->getCurrentScene()->changeState(pausaBorrarComanda);
 	}
 	else {
 		

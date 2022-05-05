@@ -7,7 +7,7 @@ class Reloj : public GameObject
 	//Funcionamiento del reloj: tiene que actualizarse cada X segundos de la vida real con un 
 	//equivalente de Y minutos del juego
 public:
-	Reloj(Game* game, int numeroJornada);
+	Reloj(Game* mGame, int numeroJornada);
 	~Reloj();
 	bool finDia();
 	void render(SDL_Rect* cameraRect) override;
@@ -17,7 +17,7 @@ public:
 	virtual double getTime() { return mLastUpdate; }
 
 private:
-	Game* game;
+	Game* mGame;
 	Texture* relojTexture;
 	
 	double mLastUpdate; //tiempo desde el �ltimo update

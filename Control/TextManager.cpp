@@ -8,7 +8,7 @@
 TextManager::TextManager(Game* game_, string font) : anchoTexto(1000),anchoLetra(14), alturaLetra(28),
 offsetYLinea(2), tiempoCreaccionLetra(1), ultimoCaracter(""), terminado(true), numeroLinea(0)
 {
-	game = game_;
+	mGame = game_;
 	fuenteLetra = font;
 	vt = new VirtualTimer();
 }

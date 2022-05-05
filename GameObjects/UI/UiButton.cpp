@@ -2,7 +2,7 @@
 #include "../../sdlutils/InputHandler.h"
 #include "../../GameObjects/UI/UIManager.h"
 
-UiButton::UiButton(Game* game, string claveTextura, int x, int y, int w, int h) : GameObject(game)
+UiButton::UiButton(Game* mGame, string claveTextura, int x, int y, int w, int h) : GameObject(mGame)
 {
 	Vector2D<double> p;
 	p.setX(x);
@@ -18,8 +18,8 @@ UiButton::UiButton(Game* game, string claveTextura, int x, int y, int w, int h) 
 	isHover = false;
 }
 
-UiButton::UiButton(Game* game, string texto, const string font, const SDL_Color& fgColor, const SDL_Color& bgColor,
-	int x, int y) : GameObject(game)
+UiButton::UiButton(Game* mGame, string texto, const string font, const SDL_Color& fgColor, const SDL_Color& bgColor,
+	int x, int y) : GameObject(mGame)
 {
 	setPosition(Vector2D<double>(x, y));
 	setTexture(texto, font, fgColor, bgColor);
@@ -32,7 +32,7 @@ UiButton::~UiButton()
 
 void UiButton::execute(bool& exit)
 {
-	callback(game, exit);
+	callback(mGame, exit);
 }
 
 bool UiButton::onClick(int mx, int my, bool& exit)
@@ -53,17 +53,17 @@ void UiButton::update()
 	//Hover con el raton
 	if (canHover) {
 		if (!isHover && hover()) {
-			game->getUIManager()->cambiaFoco(botonIterador);
+			mGame->getUIManager()->cambiaFoco(botonIterador);
 			isHover = true;
 		}
 		else if (isHover && !hover()) {
-			game->getUIManager()->quitaFoco();
+			mGame->getUIManager()->quitaFoco();
 			isHover = false;
 		}
 	}
 }
 
-void UiButton::setAction(function<void(Game* game, bool& exit)> action)
+void UiButton::setAction(function<void(Game* mGame, bool& exit)> action)
 {
 	callback = action;
 }

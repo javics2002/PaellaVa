@@ -22,7 +22,7 @@ class ListaComandas :public GameObject
 	bool listaActive = false;
 public:
 	//Añade la comanda que escribe el camarero a la lista
-	ListaComandas(Game* game, UIManager* m);
+	ListaComandas(Game* mGame, UIManager* m);
 	~ListaComandas();
 	void AñadeComanda(Comanda* comanda);
 	void finalizacomanda(Comanda* comanda);

@@ -18,7 +18,7 @@ private:
 
 public:
 
-	Pila(Game* game, Vector2D<double> pos, int miTipo_, int numPaellas);
+	Pila(Game* mGame, Vector2D<double> pos, int miTipo_, int numPaellas);
 	~Pila() = default;
 
 	virtual bool returnObject(Player * p) override;

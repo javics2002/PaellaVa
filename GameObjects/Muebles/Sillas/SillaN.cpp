@@ -2,8 +2,8 @@
 
 #include"../../Cliente.h"
 
-SillaN::SillaN(Game* game, Vector2D<double> pos, string texture)
-	: Silla(game, pos, texture)
+SillaN::SillaN(Game* mGame, Vector2D<double> pos, string texture)
+	: Silla(mGame, pos, texture)
 {
 }
 

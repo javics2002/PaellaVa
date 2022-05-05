@@ -3,7 +3,7 @@
 #include "../../Control/ObjectManager.h"
 #include "../Ingrediente.h"
 
-FinalCinta::FinalCinta(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, "basura")
+FinalCinta::FinalCinta(Game* mGame, Vector2D<double> pos) : Mueble(mGame, pos, TILE_SIZE, 2 * TILE_SIZE, "basura")
 {
 	//Siempre tiene que funcionar
 	funcionando = true;
@@ -12,8 +12,8 @@ FinalCinta::FinalCinta(Game* game, Vector2D<double> pos) : Mueble(game, pos, TIL
 void FinalCinta::update()
 {
 	if (isActive()) {
-		vector<Ingrediente*> ingredientes = game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->getCollisions(getCollider());
-		vector<Ingrediente*> ingredientesletales = game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTELETAL)->getCollisions(getCollider());
+		vector<Ingrediente*> ingredientes = mGame->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->getCollisions(getCollider());
+		vector<Ingrediente*> ingredientesletales = mGame->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTELETAL)->getCollisions(getCollider());
 		for (auto i : ingredientes) {
 			if (!i->isPicked())
 				i->setActive(false);

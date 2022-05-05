@@ -4,16 +4,15 @@
 class UIButton;
 class Imagen;
 
-class Lobby:public Scene
+class Lobby : public Scene
 {
+	UiButton* mStart;
+	Imagen* mCamarero;
+	ShowText* mSearching;
 
-	UiButton* comenzar;
-	Imagen* camarero;
-	ShowText* buscando;
 public:
-	Lobby(Game *game);
-
-	Lobby(Game* game, string nombreHost);
+	Lobby(Game *mGame);
+	Lobby(Game* mGame, string nombreHost);
 
 	void clienteUnido(std::string nombreCliente);
 };

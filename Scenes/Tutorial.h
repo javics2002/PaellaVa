@@ -41,18 +41,18 @@ class Tutorial : public Scene
 	Vector2D<double> positionCamarero;
 	Vector2D<double> positionCocinera;
 
-	Imagen* cuadroTexto = new Imagen(game, sdlutils().width() / 2, sdlutils().height() - 100, sdlutils().width()/1.5, 250, "cuadroTextoCocinera");
-	Imagen* cuadradoPlay = new Imagen(game, 990, sdlutils().height() - 35, 20, 25, "X");
+	Imagen* cuadroTexto = new Imagen(mGame, sdlutils().width() / 2, sdlutils().height() - 100, sdlutils().width()/1.5, 250, "cuadroTextoCocinera");
+	Imagen* cuadradoPlay = new Imagen(mGame, 990, sdlutils().height() - 35, 20, 25, "X");
 
-	RedactaComandabutton* rC = new RedactaComandabutton(game, uiManager, "redactaboton", 10, 10, 30, 30);
-	ListaComandas* lC = new ListaComandas(game, uiManager);
+	RedactaComandabutton* rC = new RedactaComandabutton(mGame, mUiManager, "redactaboton", 10, 10, 30, 30);
+	ListaComandas* lC = new ListaComandas(mGame, mUiManager);
 
-	ShowText* text = new ShowText(game, " ", "abadiNombre", sdlutils().width() / 2, sdlutils().height() - 100);
+	ShowText* text = new ShowText(mGame, " ", "abadiNombre", sdlutils().width() / 2, sdlutils().height() - 100);
 	
 
 
 public:
-	Tutorial(Game* game, string tilemap);
+	Tutorial(Game* mGame, string tilemap);
 	~Tutorial();
 
 	void handleInput(bool& exit)  override;

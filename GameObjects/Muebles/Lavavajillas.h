@@ -32,7 +32,7 @@ public:
 	SDL_Rect clip;
 
 public:
-	Lavavajillas(Game* game, Vector2D<double> pos);
+	Lavavajillas(Game* mGame, Vector2D<double> pos);
 	~Lavavajillas() = default;
 
 	void update() override;

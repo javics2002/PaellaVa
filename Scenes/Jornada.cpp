@@ -20,82 +20,82 @@
 
 using namespace std;
 
-Jornada::Jornada(Game* game, string tilemap, int numeroJornada, bool host_) : Scene(game)
+Jornada::Jornada(Game* mGame, string tilemap, int numeroJornada, bool host_) : Scene(mGame)
 {
 	sdlutils().musics().at("musicaMenuInicio").haltMusic();
 
 	sdlutils().musics().at("musicaJugando").play();
 
-	this->game = game;
-	nJornada = numeroJornada;
+	this->mGame = mGame;
+	mNumJornada = numeroJornada;
 
-	host = host_;
+	mHost = host_;
 
 #ifdef _DEBUG
-	auto startButton = new UiButton(game, "start", 640, 100, 100, 100);
+	auto startButton = new UiButton(mGame, "start", 640, 100, 100, 100);
 	startButton->setInitialDimension(100, 100);
-	startButton->setAction([this, startButton](Game* game, bool& exit) {
-		sdlutils().soundEffects().at("select").play(0, game->UI);
+	startButton->setAction([this, startButton](Game* mGame, bool& exit) {
+		sdlutils().soundEffects().at("select").play(0, mGame->UI);
 
-		uiManager->addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([game, startButton, this](tweeny::tween<float>& t, float) mutable {
+		mUiManager->addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep([mGame, startButton, this](tweeny::tween<float>& t, float) mutable {
 			startButton->setDimension(t.peek() * startButton->getInitialWidth(), t.peek() * startButton->getInitialHeight());
 
 			if (t.progress() > .2f) {
 				//Start game
-				game->getNetworkManager()->setGameStarted(false);
+				mGame->getNetworkManager()->setGameStarted(false);
 
-				game->sendMessageScene(new GameOver(game, 0, nJornada));
-				game->getNetworkManager()->sendFinishGame(puntuacionTotal, nJornada);
+				mGame->sendMessageScene(new GameOver(mGame, 0, mNumJornada));
+				mGame->getNetworkManager()->sendFinishGame(mPuntuacionTotal, mNumJornada);
 				return true;
 			}
 			return false;
 			});
 		});
 
-	uiManager->addInterfaz(startButton);
+	mUiManager->addInterfaz(startButton);
 #endif // _DEBUG
 
 	// crear player dependiendo si es cocinera o no
 	
-	mapInfo.ruta = "Assets\\Tilemap\\" + tilemap + ".tmx";
-	loadMap(mapInfo.ruta);
+	mMapInfo.mRuta = "Assets\\Tilemap\\" + tilemap + ".tmx";
+	loadMap(mMapInfo.mRuta);
 
-	fondo->setTexture(mapInfo.ruta);
-	fondo->setPosition(mapInfo.anchoFondo / 2, sdlutils().height() / 2);
-	fondo->setDimension(mapInfo.anchoFondo, mapInfo.altoFondo);
+	mBackground->setTexture(mMapInfo.mRuta);
+	mBackground->setPosition(mMapInfo.mAnchoFondo / 2, sdlutils().height() / 2);
+	mBackground->setDimension(mMapInfo.mAnchoFondo, mMapInfo.mAltoFondo);
 
-	if (host) {
-		Player* p = new Player(game, positionCocinera.getX(), positionCocinera.getY(),true);
-		objectManager->addPlayer(p);
+	if (mHost) {
+		Player* p = new Player(mGame, mPositionCocinera.getX(), mPositionCocinera.getY(),true);
+		mObjectManager->addPlayer(p);
 
 		// Jugador 2
-		Player* p2 = new Player(game, positionCamarero.getX(), positionCamarero.getY(),false);
-		objectManager->addPlayer(p2);
+		Player* p2 = new Player(mGame, mPositionCamarero.getX(), mPositionCamarero.getY(),false);
+		mObjectManager->addPlayer(p2);
 	}
 	else {
-		Player* p = new Player(game, positionCamarero.getX(), positionCamarero.getY(), false);
-		objectManager->addPlayer(p);
+		Player* p = new Player(mGame, mPositionCamarero.getX(), mPositionCamarero.getY(), false);
+		mObjectManager->addPlayer(p);
 
 		// Jugador 2
-		Player* p2 = new Player(game, positionCocinera.getX(), positionCocinera.getY(), true);
-		objectManager->addPlayer(p2);
+		Player* p2 = new Player(mGame, mPositionCocinera.getX(), mPositionCocinera.getY(), true);
+		mObjectManager->addPlayer(p2);
 	}
 
 	// camara init
-	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
-	redactaBut = new RedactaComandabutton(game, uiManager, "redactaboton", 100, 20, 130, 60);
-	uiManager->addInterfaz(redactaBut);
-	uiManager->setRedactaboton(redactaBut);
-	uiManager->addInterfaz(new Imagen(game, 50, 20, 40, 40, "R"));
-	uiManager->setBarra(new ListaComandas(game, uiManager));
+	mCamera = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
+	mRedactaBut = new RedactaComandabutton(mGame, mUiManager, "redactaboton", 100, 20, 130, 60);
+	mUiManager->addInterfaz(mRedactaBut);
+	mUiManager->setRedactaboton(mRedactaBut);
+	mUiManager->addInterfaz(new Imagen(mGame, 50, 20, 40, 40, "R"));
+	mUiManager->setBarra(new ListaComandas(mGame, mUiManager));
 
-	uiManager->creaMenuPausa();
+	mUiManager->creaMenuPausa();
 
-	uiManager->addInterfaz(new Reloj(game, nJornada));
+	mUiManager->addInterfaz(new Reloj(mGame, mNumJornada));
 
-	objectManager->initMuebles();
+	mObjectManager->initMuebles();
 
-	uiManager->setEnJornada(true);
+	mUiManager->setEnJornada(true);
 }
 
 Jornada::~Jornada()
@@ -106,12 +106,12 @@ void Jornada::handleInput(bool& exit)
 {
 	Scene::handleInput(exit);
 
-	if (paused) {
+	if (mPaused) {
 		if (ih().getKey(InputHandler::A)) {
-			uiManager->getPauseButtons()[1]->execute(exit);
+			mUiManager->getPauseButtons()[1]->execute(exit);
 		}
 		else if (ih().getKey(InputHandler::B)) {
-			uiManager->getPauseButtons()[0]->execute(exit);
+			mUiManager->getPauseButtons()[0]->execute(exit);
 		}
 			
 	}
@@ -120,16 +120,16 @@ void Jornada::handleInput(bool& exit)
 		togglePause();
 
 		// Mandar mensaje para pausar el juego
-		game->getNetworkManager()->syncPause();
+		mGame->getNetworkManager()->syncPause();
 	}
 
 	if (ih().getKey(InputHandler::Y)) {
-		if (uiManager->getComanda() == nullptr) {
-			sdlutils().soundEffects().at("sacarComandas").play(0, game->UI);
-			uiManager->creaComanda(game);
+		if (mUiManager->getComanda() == nullptr) {
+			sdlutils().soundEffects().at("sacarComandas").play(0, mGame->UI);
+			mUiManager->creaComanda(mGame);
 		}
 		else {
-			uiManager->getComanda()->toggleactive();
+			mUiManager->getComanda()->toggleactive();
 		}
 	
 	}
@@ -137,72 +137,72 @@ void Jornada::handleInput(bool& exit)
 
 void Jornada::update()
 {
-	if (!paused) {
-		objectManager->update();
+	if (!mPaused) {
+		mObjectManager->update();
 
-		Player* player = objectManager->getPlayerOne();
+		Player* player = mObjectManager->getPlayerOne();
 		if (player != nullptr) {
-			if (player->getX() > tamRestaurante.getY() + TILE_SIZE) { // tamRestaurante es un rango, no una posición, por eso tengo que hacer getY()
-				camara->Lerp(Vector2D<float>(tamRestaurante.getY(), 16), LERP_INTERPOLATION);
+			if (player->getX() > mTamRestaurante.getY() + TILE_SIZE) { // tamRestaurante es un rango, no una posición, por eso tengo que hacer getY()
+				mCamera->Lerp(Vector2D<float>(mTamRestaurante.getY(), 16), LERP_INTERPOLATION);
 			}
-			else if (player->getX() < tamRestaurante.getY()) {
-				camara->Lerp(Vector2D<float>(tamRestaurante.getX(), 16), LERP_INTERPOLATION);
+			else if (player->getX() < mTamRestaurante.getY()) {
+				mCamera->Lerp(Vector2D<float>(mTamRestaurante.getX(), 16), LERP_INTERPOLATION);
 			}
 		}
 	}
 
-	uiManager->update(paused);
+	mUiManager->update(mPaused);
 }
 
 
 void Jornada::refresh()
 {
-	if (!paused) {
-		objectManager->refresh();
+	if (!mPaused) {
+		mObjectManager->refresh();
 	}
 }
 
 void Jornada::addPuntuaciones(double puntosComanda)
 {
-	puntuacionesComandas.push_back(puntosComanda);
-	cout << "puntos paella" << puntuacionesComandas.back() << endl;
+	mPuntuacionesComandas.push_back(puntosComanda);
+	cout << "puntos paella" << mPuntuacionesComandas.back() << endl;
 }
 
 void Jornada::mediaPuntuaciones()
 {
 	int sumaMedia = 0;
-	for (auto i : puntuacionesComandas) {
+	for (auto i : mPuntuacionesComandas) {
 		sumaMedia += i;
 	}
-	if(puntuacionesComandas.size() > 0)
-		puntuacionTotal= sumaMedia / puntuacionesComandas.size();
+	if(mPuntuacionesComandas.size() > 0)
+		mPuntuacionTotal= sumaMedia / mPuntuacionesComandas.size();
 }
 
 void Jornada::loadMap(string const& path)
 {
 	//Cargamos el mapa .tmx del archivo indicado
-	mapInfo.tilemap = new tmx::Map();
-	mapInfo.tilemap->load(path);
+	mMapInfo.mTilemap = new tmx::Map();
+	mMapInfo.mTilemap->load(path);
 
 
 	//Obtenemos las dimensiones del mapa en tiles
-	auto map_dimensions = mapInfo.tilemap->getTileCount();
-	mapInfo.columnas = map_dimensions.x;
-	mapInfo.filas = map_dimensions.y;
+	auto map_dimensions = mMapInfo.mTilemap->getTileCount();
+	mMapInfo.mColumnas = map_dimensions.x;
+	mMapInfo.mFilas = map_dimensions.y;
 
 	//Obtenemos el tamaño de los tiles
-	auto tilesize = mapInfo.tilemap->getTileSize();
-	mapInfo.anchoTile = tilesize.x;
-	mapInfo.altoTile = tilesize.y;
+	auto tilesize = mMapInfo.mTilemap->getTileSize();
+	mMapInfo.mAnchoTile = tilesize.x;
+	mMapInfo.mAltoTile = tilesize.y;
 
 	//Creamos la textura de fondo
 	auto renderer = sdlutils().renderer();
-	mapInfo.anchoFondo = mapInfo.anchoTile * mapInfo.columnas;
-	mapInfo.altoFondo = mapInfo.altoTile * mapInfo.filas;
+	mMapInfo.mAnchoFondo = mMapInfo.mAnchoTile * mMapInfo.mColumnas;
+	mMapInfo.mAltoFondo = mMapInfo.mAltoTile * mMapInfo.mFilas;
 	SDL_Texture* fondo = SDL_CreateTexture(renderer,
 		SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET,
-		mapInfo.anchoFondo,
-		mapInfo.altoFondo
+		mMapInfo.mAnchoFondo,
+		mMapInfo.mAltoFondo
 	);
 
 	SDL_SetTextureBlendMode(fondo, SDL_BLENDMODE_BLEND);
@@ -215,15 +215,15 @@ void Jornada::loadMap(string const& path)
 	// (el mapa utiliza el �ndice [gid] del primer tile cargado del tileset como clave)
 	// (para poder cargar los tilesets del archivo .tmx, les ponemos de nombre 
 	// el nombre del archivo sin extension en el .json) 
-	auto& mapTilesets = mapInfo.tilemap->getTilesets();
+	auto& mapTilesets = mMapInfo.mTilemap->getTilesets();
 	for (auto& tileset : mapTilesets) {
 		string name = tileset.getName();
 		Texture* texture = &sdlutils().tilesets().find(name)->second;
-		mapInfo.tilesets.insert(pair<uint, Texture*>(tileset.getFirstGID(), texture));
+		mMapInfo.mTilesets.insert(pair<uint, Texture*>(tileset.getFirstGID(), texture));
 	}
 
 	// recorremos cada una de las capas (de momento solo las de tiles) del mapa
-	auto& map_layers = mapInfo.tilemap->getLayers();
+	auto& map_layers = mMapInfo.mTilemap->getLayers();
 	for (auto& layer : map_layers) {
 		// aqui comprobamos que sea la capa de tiles
 		if (layer->getType() == tmx::Layer::Type::Tile) {
@@ -234,10 +234,10 @@ void Jornada::loadMap(string const& path)
 			auto& layer_tiles = tile_layer->getTiles();
 
 			// recorremos todos los tiles para obtener su informacion
-			for (auto y = 0; y < mapInfo.filas; ++y) {
-				for (auto x = 0; x < mapInfo.columnas; ++x) {
+			for (auto y = 0; y < mMapInfo.mFilas; ++y) {
+				for (auto x = 0; x < mMapInfo.mColumnas; ++x) {
 					// obtenemos el indice relativo del tile en el mapa de tiles
-					auto tile_index = x + (y * mapInfo.columnas);
+					auto tile_index = x + (y * mMapInfo.mColumnas);
 
 					// con dicho indice obtenemos el indice del tile dentro de su tileset
 					auto cur_gid = layer_tiles[tile_index].ID;
@@ -249,7 +249,7 @@ void Jornada::loadMap(string const& path)
 					// guardamos el tileset que utiliza este tile (nos quedamos con el tileset cuyo gid sea
 					// el mas cercano, y a la vez menor, al gid del tile)
 					auto tset_gid = -1, tsx_file = 0;;
-					for (auto& ts : mapInfo.tilesets) {
+					for (auto& ts : mMapInfo.mTilesets) {
 						if (ts.first <= cur_gid) {
 							tset_gid = ts.first;
 							tsx_file++;
@@ -268,24 +268,24 @@ void Jornada::loadMap(string const& path)
 					// calculamos dimensiones del tileset
 					auto ts_width = 0;
 					auto ts_height = 0;
-					SDL_QueryTexture(mapInfo.tilesets[tset_gid]->getTexture(),
+					SDL_QueryTexture(mMapInfo.mTilesets[tset_gid]->getTexture(),
 						NULL, NULL, &ts_width, &ts_height);
 
 					// calculamos el area del tileset que corresponde al dibujo del tile
-					auto region_x = (cur_gid % (ts_width / mapInfo.anchoTile)) * mapInfo.anchoTile;
-					auto region_y = (cur_gid / (ts_width / mapInfo.anchoTile)) * mapInfo.altoTile;
+					auto region_x = (cur_gid % (ts_width / mMapInfo.mAnchoTile)) * mMapInfo.mAnchoTile;
+					auto region_y = (cur_gid / (ts_width / mMapInfo.mAnchoTile)) * mMapInfo.mAltoTile;
 
 					// calculamos la posicion del tile
-					auto x_pos = x * mapInfo.anchoTile;
-					auto y_pos = y * mapInfo.altoTile;
+					auto x_pos = x * mMapInfo.mAnchoTile;
+					auto y_pos = y * mMapInfo.mAltoTile;
 
 					// metemos el tile
-					auto tileTex = mapInfo.tilesets[tset_gid];
+					auto tileTex = mMapInfo.mTilesets[tset_gid];
 
 					SDL_Rect src;
 					src.x = region_x; src.y = region_y;
-					src.w = mapInfo.anchoTile;
-					src.h = mapInfo.altoTile;
+					src.w = mMapInfo.mAnchoTile;
+					src.h = mMapInfo.mAltoTile;
 
 					SDL_Rect dest;
 					dest.x = x_pos;
@@ -293,7 +293,7 @@ void Jornada::loadMap(string const& path)
 					dest.w = src.w;
 					dest.h = src.h;
 
-					mapInfo.tilesets[tset_gid]->render(src, dest);
+					mMapInfo.mTilesets[tset_gid]->render(src, dest);
 				}
 			}
 		}
@@ -306,7 +306,7 @@ void Jornada::loadMap(string const& path)
 			for (auto obj : objs) {
 				auto& aabb = obj.getAABB();
 				auto position = Vector2D<double>(aabb.left, aabb.top);
-				auto dimension = Vector2D<int>(mapInfo.anchoTile, mapInfo.altoTile);
+				auto dimension = Vector2D<int>(mMapInfo.mAnchoTile, mMapInfo.mAltoTile);
 				string name = obj.getName();
 				vector<tmx::Property> p = obj.getProperties();
 
@@ -322,77 +322,77 @@ void Jornada::loadMap(string const& path)
 				/// 
 				/// </Z coords>
 				if (name == "camarero") {
-					positionCamarero = position;
+					mPositionCamarero = position;
 				}
 				if (name == "cocinera") {
-					positionCocinera = position;
+					mPositionCocinera = position;
 				}
 				if (name == "mesaS") { // 1 tile
-					Mesa* m = new Mesa(game, position, { 1, 2 }, { 1 , 1 }, name);
+					Mesa* m = new Mesa(mGame, position, { 1, 2 }, { 1 , 1 }, name);
 					m->setTiles(21, 1);
-					m->setId(idCount);
-					idCount++;
+					m->setId(mIdCount);
+					mIdCount++;
 					getObjectManager()->addMueble(m);
 				}
 				else if (name == "mesaMH") { // 2 tiles horizontal
-					Mesa* m = new Mesa(game, position, { 2, 2 }, { 2 , 1 }, name);
+					Mesa* m = new Mesa(mGame, position, { 2, 2 }, { 2 , 1 }, name);
 					m->setTiles(22, 1);
-					m->setId(idCount);
-					idCount++;
+					m->setId(mIdCount);
+					mIdCount++;
 					getObjectManager()->addMueble(m);
 				}
 				else if (name == "mesaMV") { // 2 tiles vertical
-					Mesa* m = new Mesa(game, position, { 1, 3 }, { 1 , 2 }, name);
+					Mesa* m = new Mesa(mGame, position, { 1, 3 }, { 1 , 2 }, name);
 					m->setTiles(38, 0.85);
-					m->setId(idCount);
-					idCount++;
+					m->setId(mIdCount);
+					mIdCount++;
 					getObjectManager()->addMueble(m);
 				}
 				else if (name == "mesaL") { // 4 tiles
-					Mesa* m = new Mesa(game, position, { 2, 3 }, { 2 , 2 }, name);
+					Mesa* m = new Mesa(mGame, position, { 2, 3 }, { 2 , 2 }, name);
 					m->setTiles(36, 0.85);
-					m->setId(idCount);
-					idCount++;
+					m->setId(mIdCount);
+					mIdCount++;
 					getObjectManager()->addMueble(m);
 				}
 				else if (name == "sillaDer") {
-					Silla* s = new SillaE(game, position, name);
-					s->setId(idCount);
-					idCount++;
+					Silla* s = new SillaE(mGame, position, name);
+					s->setId(mIdCount);
+					mIdCount++;
 					getObjectManager()->addMueble(s);
 				}
 				else if (name == "sillaIz") {
-					Silla* s = new SillaO(game, position, name);
-					s->setId(idCount);
-					idCount++;
+					Silla* s = new SillaO(mGame, position, name);
+					s->setId(mIdCount);
+					mIdCount++;
 					getObjectManager()->addMueble(s);
 				}
 				else if (name == "sillaAr") {
-					Silla* s = new SillaS(game, position, name);
-					s->setId(idCount);
-					idCount++;
+					Silla* s = new SillaS(mGame, position, name);
+					s->setId(mIdCount);
+					mIdCount++;
 					getObjectManager()->addMueble(s);
 				}
 				else if (name == "sillaAb") {
-					Silla* s = new SillaN(game, position, name);
-					s->setId(idCount);
-					idCount++;
+					Silla* s = new SillaN(mGame, position, name);
+					s->setId(mIdCount);
+					mIdCount++;
 					getObjectManager()->addMueble(s);
 				}
 				else if (name == "fogon") {
-					Fogon* f = new Fogon(game, position);
-					f->setId(idCount);
-					idCount++;
+					Fogon* f = new Fogon(mGame, position);
+					f->setId(mIdCount);
+					mIdCount++;
 					getObjectManager()->addMueble(f);
 				}
 				else if (name == "lavavajillas") {
-					Lavavajillas* l = new Lavavajillas(game, position);
-					l->setId(idCount);
-					idCount++;
+					Lavavajillas* l = new Lavavajillas(mGame, position);
+					l->setId(mIdCount);
+					mIdCount++;
 					getObjectManager()->addMueble(l);
 				}
 				else if (name == "cinta") {
-					Cinta* c = new Cinta(game, position);
+					Cinta* c = new Cinta(mGame, position);
 					SDL_Rect aux = c->getTexBox();
 					if (p[0].getBoolValue()) {
 						c->setCollider({ aux.x, aux.y + aux.h / 2 , aux.w, aux.h / 2 });
@@ -401,82 +401,82 @@ void Jornada::loadMap(string const& path)
 					getObjectManager()->addMueble(c);
 				}
 				else if (name == "inicioCinta") {
-					InicioCinta* c = new InicioCinta(game, position);
+					InicioCinta* c = new InicioCinta(mGame, position);
 					c->setVel(Vector2D<double>((double)p[1].getFloatValue(), (double)p[2].getFloatValue()));
 
-					c->setId(idCount);
-					idCount++;
+					c->setId(mIdCount);
+					mIdCount++;
 
 					getObjectManager()->addMueble(c);
 				}
 				else if (name == "finalCinta") {
-					FinalCinta* c = new FinalCinta(game, position);
-					c->setId(idCount);
-					idCount++;
+					FinalCinta* c = new FinalCinta(mGame, position);
+					c->setId(mIdCount);
+					mIdCount++;
 					getObjectManager()->addMueble(c);
 				}
 				else if (name == "puerta") { 
-					Puerta* puerta = new Puerta(game, position, p[3].getIntValue(), p[0].getIntValue());
+					Puerta* puerta = new Puerta(mGame, position, p[3].getIntValue(), p[0].getIntValue());
 					puerta->setVel(Vector2D<double>((double)p[1].getFloatValue(), (double)p[2].getFloatValue()));
 
-					puerta->setId(idCount);
-					idCount++;
+					puerta->setId(mIdCount);
+					mIdCount++;
 
 					getObjectManager()->addMueble(puerta);
 				}
 				else if (name == "cartel") {
-					Cartel* c = new Cartel(game, position);
+					Cartel* c = new Cartel(mGame, position);
 					getObjectManager()->addMueble(c);
 				}
 				else if (name == "tabla") {
-					TablaProcesado* t = new TablaProcesado(game, position);
-					t->setId(idCount);
-					idCount++;
+					TablaProcesado* t = new TablaProcesado(mGame, position);
+					t->setId(mIdCount);
+					mIdCount++;
 					getObjectManager()->addMueble(t);
 				}
 				else if (name == "encimera") {
-					Encimera* e = new Encimera(game, position);
-					e->setId(idCount);
-					idCount++;
+					Encimera* e = new Encimera(mGame, position);
+					e->setId(mIdCount);
+					mIdCount++;
 					getObjectManager()->addMueble(e);
 				}
 				else if (name == "arroz") {
-					BolsaArroz* b = new BolsaArroz(game, position);
-					b->setId(idCount);
-					idCount++;
+					BolsaArroz* b = new BolsaArroz(mGame, position);
+					b->setId(mIdCount);
+					mIdCount++;
 					getObjectManager()->addMueble(b);
 				}
 				else if (name == "pared") {
-					Pared* p = new Pared(game, position);
+					Pared* p = new Pared(mGame, position);
 					p->setDepth(-5);
 					getObjectManager()->addMueble(p);
 				}
 				else if (name == "pilaS")
 				{
-					Pila* p = new Pila(game, position, TipoPaella::Pequena, 4);
-					p->setId(idCount);
-					idCount++;
+					Pila* p = new Pila(mGame, position, TipoPaella::Pequena, 4);
+					p->setId(mIdCount);
+					mIdCount++;
 					getObjectManager()->addMueble(p);
 				}
 				else if (name == "pilaM")
 				{
-					Pila* p = new Pila(game, position, TipoPaella::Mediana, 5);
-					p->setId(idCount);
-					idCount++;
+					Pila* p = new Pila(mGame, position, TipoPaella::Mediana, 5);
+					p->setId(mIdCount);
+					mIdCount++;
 					getObjectManager()->addMueble(p);
 				}
 				else if (name == "pilaL")
 				{
-					Pila* p = new Pila(game, position, TipoPaella::Grande, 3);
-					p->setId(idCount);
-					idCount++;
+					Pila* p = new Pila(mGame, position, TipoPaella::Grande, 3);
+					p->setId(mIdCount);
+					mIdCount++;
 					getObjectManager()->addMueble(p);
 				}
 				else if (name == "cajaHerramientas")
 				{
-					CajaHerramientas* ch = new CajaHerramientas(game, position);
-					ch->setId(idCount);
-					idCount++;
+					CajaHerramientas* ch = new CajaHerramientas(mGame, position);
+					ch->setId(mIdCount);
+					mIdCount++;
 					getObjectManager()->addMueble(ch);
 				}
 			}
@@ -487,27 +487,27 @@ void Jornada::loadMap(string const& path)
 		SDL_SetRenderTarget(renderer, nullptr);
 
 		if (!sdlutils().images().count(path))
-			sdlutils().images().emplace(path, Texture(renderer, fondo, mapInfo.anchoFondo, mapInfo.altoFondo));
+			sdlutils().images().emplace(path, Texture(renderer, fondo, mMapInfo.mAnchoFondo, mMapInfo.mAltoFondo));
 
 	}
 }
 
 void Jornada::togglePause()
 {
-	uiManager->togglePause();
+	mUiManager->togglePause();
 
-	paused = !paused;
+	mPaused = !mPaused;
 
-	if (paused) {
+	if (mPaused) {
 
 		sdlutils().virtualTimer().pause();
 
-		sdlutils().soundEffects().at("cancel").play(0, game->UI);
+		sdlutils().soundEffects().at("cancel").play(0, mGame->UI);
 	}
 	else {
 		sdlutils().virtualTimer().resume();
 
 
-		sdlutils().soundEffects().at("select").play(0, game->UI);
+		sdlutils().soundEffects().at("select").play(0, mGame->UI);
 	}
 }

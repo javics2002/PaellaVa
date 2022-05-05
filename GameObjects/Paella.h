@@ -17,7 +17,7 @@ class Paella : public ObjetoPortable
 {	
 public:
 	
-	Paella(Game* game, int volumen_);
+	Paella(Game* mGame, int volumen_);
 	
 	~Paella() {
 		delete humo;

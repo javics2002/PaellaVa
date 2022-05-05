@@ -40,7 +40,7 @@ public:
 private:
 
 	VirtualTimer* vt;
-	Game* game;
+	Game* mGame;
 	string fuenteLetra, dialogo_, ultimoCaracter;
 	vector<string> lineas;
 

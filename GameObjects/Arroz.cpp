@@ -1,7 +1,7 @@
 #include "Arroz.h"
 #include "../Control/Game.h"
 
-Arroz::Arroz(Game* game) : ObjetoPortable(game)
+Arroz::Arroz(Game* mGame) : ObjetoPortable(mGame)
 {
     setDimension(DIMENSION, DIMENSION);
     setTexture("arroz");

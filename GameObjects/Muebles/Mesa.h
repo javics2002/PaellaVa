@@ -27,7 +27,7 @@ class Mesa : public Mueble
 	
 
 public:
-	Mesa(Game* game, Vector2D<double> pos, Vector2D<int> dim, Vector2D<int> tiles, string texture);
+	Mesa(Game* mGame, Vector2D<double> pos, Vector2D<int> dim, Vector2D<int> tiles, string texture);
 	~Mesa() = default;
 
 	void init(ObjectManager* objectManager) override;

@@ -26,7 +26,7 @@ private:
 	flechaCoccionX, flechaCoccionY };
 
 public:
-	Fogon(Game* game, Vector2D<double> pos);
+	Fogon(Game* mGame, Vector2D<double> pos);
 	~Fogon() = default;
 	void render(SDL_Rect* cameraRect)override;
 	void update();

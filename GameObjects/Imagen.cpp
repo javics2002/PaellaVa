@@ -1,10 +1,10 @@
 #include "Imagen.h"
 
-Imagen::Imagen(Game* game) : GameObject (game)
+Imagen::Imagen(Game* mGame) : GameObject (mGame)
 {
 }
 
-Imagen::Imagen(Game* game, Vector2D<double> pos, int w, int h, string clave) : GameObject(game)
+Imagen::Imagen(Game* mGame, Vector2D<double> pos, int w, int h, string clave) : GameObject(mGame)
 {
 	setPosition(pos);
 	setDimension(w, h);
@@ -12,7 +12,7 @@ Imagen::Imagen(Game* game, Vector2D<double> pos, int w, int h, string clave) : G
 	setTexture(clave);
 }
 
-Imagen::Imagen(Game* game, double posX, double posY, int w, int h, string clave) : GameObject(game)
+Imagen::Imagen(Game* mGame, double posX, double posY, int w, int h, string clave) : GameObject(mGame)
 {
 	setInitialPosition(posX, posY);
 	setPosition(posX, posY);

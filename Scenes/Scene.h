@@ -35,19 +35,19 @@ enum States { cogerClientes, pausaClientes, dejarClientesMesa,
 class Scene {
 
 protected:
-	Game* game;
-	ObjectManager* objectManager;
-	Camera* camara;
+	Game* mGame;
+	ObjectManager* mObjectManager;
+	Camera* mCamera;
 
-	States currentState = cogerClientes, anteriorEstado;
-	UIManager* uiManager;
+	States mCurrentState = cogerClientes, anteriorEstado;
+	UIManager* mUiManager;
 
-	Imagen* fondo;
-	bool paused = false,pausedTutorial=false;
-	TextManager* textMngr;
+	Imagen* mBackground;
+	bool mPaused = false;
+	TextManager* mTextMngr;
 
 public:
-	Scene(Game* game);
+	Scene(Game* mGame);
 	virtual ~Scene();
 
 	virtual void handleInput(bool& exit);
@@ -58,7 +58,7 @@ public:
 	virtual void debug();
 	virtual void addPuntuaciones(double puntosComanda) {};
 	virtual void changeState(States state) {};
-	virtual States getState() { return currentState; };
+	virtual States getState() { return mCurrentState; };
 
 
 	ObjectManager* getObjectManager();

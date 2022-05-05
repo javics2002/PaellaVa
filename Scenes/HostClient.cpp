@@ -5,79 +5,79 @@
 #include "../GameObjects/UI/ShowText.h"
 #include "../Scenes/Menu.h"
 
-HostClient::HostClient(Game* game) : Scene(game)
+HostClient::HostClient(Game* mGame) : Scene(mGame)
 {
-	fondo->setTexture("hostClientBg");
-	fondo->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
-	fondo->setDimension(sdlutils().width(), sdlutils().height() + 100);
+	mBackground->setTexture("hostClientBg");
+	mBackground->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
+	mBackground->setDimension(sdlutils().width(), sdlutils().height() + 100);
 
 	int offsetX = 300, offsetY = 150;
 
-	light = new ParticleExample();
-	light->setRenderer(sdlutils().renderer());
-	light->setStyle(ParticleExample::NONE);
+	mParticles = new ParticleExample();
+	mParticles->setRenderer(sdlutils().renderer());
+	mParticles->setStyle(ParticleExample::NONE);
 
-	UiButton* regresar = new UiButton(game, "back", 70, 50, 125, 60);
+	UiButton* regresar = new UiButton(mGame, "back", 70, 50, 125, 60);
 	regresar->setInitialDimension(regresar->getWidth(), regresar->getHeight());
-	regresar->setAction([](Game* game, bool& exit) {
-		game->sendMessageScene(new Menu(game));
+	regresar->setAction([](Game* mGame, bool& exit) {
+		mGame->sendMessageScene(new Menu(mGame));
 		});
 
-	uiManager->addButton(regresar);
+	mUiManager->addButton(regresar);
 
-	hostButton = new UiButton(game, "cocinera",
+	mHostButton = new UiButton(mGame, "cocinera",
 		sdlutils().width() / 2 - offsetX, sdlutils().height() - 350, 500, 700);
-	hostButton->setInitialDimension(500, 700);
-	hostButton->setAction([](Game* game, bool& exit) {
+	mHostButton->setInitialDimension(500, 700);
+	mHostButton->setAction([](Game* mGame, bool& exit) {
 		//Host
-		game->getNetworkManager()->init('h', nullptr, game->getNombre());
+		mGame->getNetworkManager()->init('h', nullptr, mGame->getNombre());
 
-		game->sendMessageScene(new Lobby(game));
+		mGame->sendMessageScene(new Lobby(mGame));
 		});
-	uiManager->addButton(hostButton);
+	mUiManager->addButton(mHostButton);
 
-	clientButton = new UiButton(game, "camarero",
+	mClientButton = new UiButton(mGame, "camarero",
 		sdlutils().width() / 2 + offsetX, sdlutils().height() - 350, 500, 700);
-	clientButton->setInitialDimension(500, 700);
+	mClientButton->setInitialDimension(500, 700);
 
-	posYNotOver = 165;
-	posYOver = 145;
-	ip = new ShowText(game, " ", "ip", clientButton->getX() + 20, posYNotOver);
-	ip->setActive(true);
+	mPosYNotOver = 165;
+	mPosYOver = 145;
+	mTextIp = new ShowText(mGame, " ", "ip", mClientButton->getX() + 20, mPosYNotOver);
+	mTextIp->setActive(true);
 
-	ipNoValida = new ShowText(game, "IP NO VALIDA", "ipCursor", clientButton->getX() + 20, 225);
-	ipNoValida->setActive(false);
+	mIpNoValida = new ShowText(mGame, "IP NO VALIDA", "ipCursor", mClientButton->getX() + 20, 225);
+	mIpNoValida->setActive(false);
 
-	cursor = new ShowText(game, "|", "ipCursor", clientButton->getX() + 20, posYNotOver);
-	cursor->setActive(false);
+	mCursor = new ShowText(mGame, "|", "ipCursor", mClientButton->getX() + 20, mPosYNotOver);
+	mCursor->setActive(false);
 
-	clientButton->setAction([this](Game* game, bool& exit) {
+	mClientButton->setAction([this](Game* mGame, bool& exit) {
 		//Client
-		if (!escribiendo) {
-			escribiendo = true;
+		if (!mEscribiendo) {
+			mEscribiendo = true;
 			ih().clearInputBuffer();
-			cursor->setActive(true);
-			tiempo = sdlutils().currRealTime();
+			mCursor->setActive(true);
+			mTime = sdlutils().currRealTime();
 		}
 
 		else {
 			
-			ip_.erase(remove(ip_.begin(), ip_.end(), ' '), ip_.end());
-			if (esValida(ip_)) {
+			mIp.erase(remove(mIp.begin(), mIp.end(), ' '), mIp.end());
+			if (esValida(mIp)) {
 				// game->sendMessageScene(new IntroduceIP(game));
-				if (game->getNetworkManager()->init('c', ip_.c_str(), game->getNombre())) {
+				if (mGame->getNetworkManager()->init('c', mIp.c_str(), mGame->getNombre())) {
 					// crear el lobby
-					game->sendMessageScene(new Lobby(game, game->getNetworkManager()->getOtherName()));
+					mGame->sendMessageScene(new Lobby(mGame, mGame->getNetworkManager()->getOtherName()));
 				}
 			}
 			else {
-				ipNoValida->setActive(true);
-				tiempoIpNV = sdlutils().currRealTime();
+				mIpNoValida->setActive(true);
+				mTiempoIpNV = sdlutils().currRealTime();
 			}
 		}
 		});
 
-	uiManager->addButton(clientButton);	
+	mUiManager->addButton(mClientButton);	
 }
 
 bool HostClient::esValida(string ipText)
@@ -112,57 +112,57 @@ bool HostClient::esValida(string ipText)
 void HostClient::update()
 {
 	Scene::update();
-	light->update();
+	mParticles->update();
 
-	if (escribiendo) {
+	if (mEscribiendo) {
 
 		char c = ih().getTypedKey();
 
 		if (c != ' ' && c != '\r')
 		{
-			if (!escrito) escrito = true;
+			if (!mEscrito) mEscrito = true;
 
 			if (c == '\b')
 			{
-				if (!ip_.empty())
-					ip_.pop_back();
+				if (!mIp.empty())
+					mIp.pop_back();
 				else
-					ip_ = ' ';
+					mIp = ' ';
 			}
 
-			else if (ip_.size() < maxCaracteres) {
-				ip_ += c;
+			else if (mIp.size() < mMaxCaracteres) {
+				mIp += c;
 			}
 
-			if (ip_.empty())
-				ip_ = ' ';
+			if (mIp.empty())
+				mIp = ' ';
 
-			ip->setTexture(ip_, string("ip"), {255,255,255,0}, { 0, 0, 0, 0 });
-			ip->setDimension();
+			mTextIp->setTexture(mIp, string("ip"), {255,255,255,0}, { 0, 0, 0, 0 });
+			mTextIp->setDimension();
 
 		}
-		ip->render(nullptr);
+		mTextIp->render(nullptr);
 	}
 	//Preguntar isHover y 
-	if (clientButton->hover()) {
-		ip->setPosition(ip->getX(), posYOver);
-		cursor->setPosition(cursor->getX(), posYOver);
-		light->setStyle(ParticleExample::LIGHT);
-		light->setPosition(clientButton->getX(), sdlutils().height());
+	if (mClientButton->hover()) {
+		mTextIp->setPosition(mTextIp->getX(), mPosYOver);
+		mCursor->setPosition(mCursor->getX(), mPosYOver);
+		mParticles->setStyle(ParticleExample::LIGHT);
+		mParticles->setPosition(mClientButton->getX(), sdlutils().height());
 	}
 
 	else {
-		ip->setPosition(ip->getX(), posYNotOver);
-		cursor->setPosition(cursor->getX(), posYNotOver);	
+		mTextIp->setPosition(mTextIp->getX(), mPosYNotOver);
+		mCursor->setPosition(mCursor->getX(), mPosYNotOver);	
 	}
 
-	if (hostButton->hover()) {
-		light->setStyle(ParticleExample::LIGHT);
-		light->setPosition(hostButton->getX(), sdlutils().height());
+	if (mHostButton->hover()) {
+		mParticles->setStyle(ParticleExample::LIGHT);
+		mParticles->setPosition(mHostButton->getX(), sdlutils().height());
 	}
 
-	if (sdlutils().currRealTime() - tiempoIpNV > frameRateIpNV) {
-		ipNoValida->setActive(false);
+	if (sdlutils().currRealTime() - mTiempoIpNV > mFrameRateIpNV) {
+		mIpNoValida->setActive(false);
 	}
 
 }
@@ -191,19 +191,19 @@ vector<string> HostClient::split(string ipText)
 
 void HostClient::render() {
 
-	fondo->render(camara->renderRect());
-	objectManager->render(camara->renderRect());
-	light->draw(camara->renderRect());
-	uiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
-	ip->render(nullptr);
-	ipNoValida->render(nullptr);
+	mBackground->render(mCamera->renderRect());
+	mObjectManager->render(mCamera->renderRect());
+	mParticles->draw(mCamera->renderRect());
+	mUiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
+	mTextIp->render(nullptr);
+	mIpNoValida->render(nullptr);
 
-	if (!escrito && sdlutils().currRealTime() - tiempo > frameRate) {
-		cursor->render(nullptr);
-		tiempo = sdlutils().currRealTime();
+	if (!mEscrito && sdlutils().currRealTime() - mTime > mFrameRate) {
+		mCursor->render(nullptr);
+		mTime = sdlutils().currRealTime();
 	}
 
-	textMngr->render();
+	mTextMngr->render();
 }
 
 

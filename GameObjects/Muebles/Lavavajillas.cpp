@@ -2,7 +2,7 @@
 #include "../../Utils/ParticleExample.h"
 #include "../../Scenes/Tutorial.h"
 
-Lavavajillas::Lavavajillas(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, TILE_SIZE, "lavavajillas")
+Lavavajillas::Lavavajillas(Game* mGame, Vector2D<double> pos) : Mueble(mGame, pos, TILE_SIZE, TILE_SIZE, "lavavajillas")
 {
 	clip.w = timerTexture->width() / 8;
 	clip.h = timerTexture->height();
@@ -37,7 +37,7 @@ void Lavavajillas::update()
 	}
 
 
-	if (!game->getNetworkManager()->isHost())
+	if (!mGame->getNetworkManager()->isHost())
 		return;
 
 	if (funcionando && couldBreak <= 0 )
@@ -96,8 +96,8 @@ bool Lavavajillas::receivePaella(Paella* paella_)
 
 			
 
-			if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == dejarLavavajillas)
-				game->getCurrentScene()->changeState(pausaDejarLavavajillas);
+			if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == dejarLavavajillas)
+				mGame->getCurrentScene()->changeState(pausaDejarLavavajillas);
 
 			initTime = sdlutils().currRealTime();
 
@@ -128,8 +128,8 @@ bool Lavavajillas::returnObject(Player* p)
 			paellasLimpias.front()->setPosition(getRectCenter(getOverlap()));
 
 
-		if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == cogerLavavajillas)
-			game->getCurrentScene()->changeState(pausaCogerLavavajillas);
+		if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == cogerLavavajillas)
+			mGame->getCurrentScene()->changeState(pausaCogerLavavajillas);
 
 
 		i = 0;

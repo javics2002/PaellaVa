@@ -5,7 +5,7 @@
 #include "../../Control/NetworkManager.h"
 #include "../../Scenes/Tutorial.h"
 
-Puerta::Puerta(Game* game, Vector2D<double> pos, int t_Max, int tamMaxGrupo_) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, "puerta")
+Puerta::Puerta(Game* mGame, Vector2D<double> pos, int t_Max, int tamMaxGrupo_) : Mueble(mGame, pos, TILE_SIZE, 2 * TILE_SIZE, "puerta")
 {
 	cola = new Cola(t_Max);
 	maxTamGrupo = tamMaxGrupo_;
@@ -22,13 +22,13 @@ Puerta::Puerta(Game* game, Vector2D<double> pos, int t_Max, int tamMaxGrupo_) : 
 
 void Puerta::update()
 {
-	if (!game->getNetworkManager()->isHost())
+	if (!mGame->getNetworkManager()->isHost())
 		return;
 
-	if (dynamic_cast<Tutorial*>(game->getCurrentScene())) {
+	if (dynamic_cast<Tutorial*>(mGame->getCurrentScene())) {
 
 		if (sdlutils().virtualTimer().currTime() - initTime >= spawn_delay && isActive()
-			&& cola->esValido(1) && game->getCurrentScene()->getState() == States::cogerClientes) {
+			&& cola->esValido(1) && mGame->getCurrentScene()->getState() == States::cogerClientes) {
 			vector<Cliente*> clientes;
 			
 			clientSpawn();
@@ -79,7 +79,7 @@ bool Puerta::clientSpawn()
 		vector<Cliente*> clientes;
 		vector<int> texturas;
 
-		Cliente* c = game->getObjectManager()->getPool<Cliente>(_p_CLIENTE)->add();
+		Cliente* c = mGame->getObjectManager()->getPool<Cliente>(_p_CLIENTE)->add();
 
 		Vector2D<double> dist = vel;
 		dist.normalize();
@@ -97,7 +97,7 @@ bool Puerta::clientSpawn()
 		for (int i = 1; i < integrantes; i++) {
 			pos = pos - dist;
 
-			c = game->getObjectManager()->getPool<Cliente>(_p_CLIENTE)->add();
+			c = mGame->getObjectManager()->getPool<Cliente>(_p_CLIENTE)->add();
 
 			t = sdlutils().rand().nextInt(0, 3);
 			c->setPosition(pos);
@@ -107,7 +107,7 @@ bool Puerta::clientSpawn()
 			setOrientation(c);
 		}
 
-		GrupoClientes* g = game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->add();
+		GrupoClientes* g = mGame->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->add();
 		g->setVel(vel);
 		cola->add(g, integrantes);
 		g->initGrupo(cola, clientes);
@@ -115,7 +115,7 @@ bool Puerta::clientSpawn()
 
 		sdlutils().soundEffects().at("puerta").play();
 
-		game->getNetworkManager()->sendGrupoCliente(integrantes, getId(), g->getId(), vel, dist, texturas, 100);
+		mGame->getNetworkManager()->sendGrupoCliente(integrantes, getId(), g->getId(), vel, dist, texturas, 100);
 
 		return true;
 	}
@@ -125,14 +125,14 @@ bool Puerta::clientSpawn()
 
 bool Puerta::receiveGrupoClientes(GrupoClientes* gc)
 {
-	if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == echarClientes) {
-		game->getCurrentScene()->changeState(pausaEcharClientes);
+	if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == echarClientes) {
+		mGame->getCurrentScene()->changeState(pausaEcharClientes);
 	}
-	else if (dynamic_cast<Tutorial*>(game->getCurrentScene())) {
-		game->getCurrentScene()->changeState(pausaNoEcharClientes);
+	else if (dynamic_cast<Tutorial*>(mGame->getCurrentScene())) {
+		mGame->getCurrentScene()->changeState(pausaNoEcharClientes);
 		return false;
 	}
-	sdlutils().soundEffects().at("echarComensales").play(0, game->UI);
+	sdlutils().soundEffects().at("echarComensales").play(0, mGame->UI);
 	gc->setActive(false);
 
 	return true;

@@ -15,7 +15,7 @@ class Game;
 template<typename T>
 class Pool
 {
-	Game* game;
+	Game* mGame;
 
 	//lista con solo los objetos de la pool que est�n activos
 	list<T*> aliveObjects;
@@ -43,7 +43,7 @@ class Pool
 		//si no encuentra ninguno, se duplica el tama�o de la pool
 		if (cont == numElems) {
 			for (int i = 0; i < numElems; i++) {
-				T* o = new T(game);
+				T* o = new T(mGame);
 				o->setActive(false);
 				o->setId(mNextId);
 				mNextId++;
@@ -61,9 +61,9 @@ class Pool
 	}
 
 public:
-	Pool(Game* game, int n) : game(game), numElems(n), nextElem(-1) {
+	Pool(Game* mGame, int n) : mGame(mGame), numElems(n), nextElem(-1) {
 		for (int i = 0; i < n; i++) {
-			T* o = new T(game);
+			T* o = new T(mGame);
 			o->setActive(false);
 			o->setId(mNextId);
 			mNextId++;

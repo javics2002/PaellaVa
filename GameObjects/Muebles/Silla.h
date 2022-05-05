@@ -1,7 +1,7 @@
 #pragma once
 #include "Mueble.h"
 
-class game;
+class mGame;
 
 class Cliente;
 
@@ -13,7 +13,7 @@ class Silla : public Mueble
 	Mesa* mMesa;
 
 public:
-	Silla(Game* game, Vector2D<double> pos, string texture);
+	Silla(Game* mGame, Vector2D<double> pos, string texture);
 	~Silla() = default;
 
 	Silla* initMesa(Mesa* mesa) override;

@@ -3,7 +3,7 @@
 #include "../../Control/Game.h"
 #include "../../Control/NetworkManager.h"
 #include "../../Data/ListaComandas.h"
-EliminaComandaButton::EliminaComandaButton(UIManager* u,Comanda* c, Game* game, string texturename, int x, int y, int w, int h) : UiButton(game, texturename, x, y, w, h)
+EliminaComandaButton::EliminaComandaButton(UIManager* u,Comanda* c, Game* mGame, string texturename, int x, int y, int w, int h) : UiButton(mGame, texturename, x, y, w, h)
 {
 	comandat = c;
 	uimt = u;
@@ -16,10 +16,10 @@ void EliminaComandaButton::execute(bool& exit)
 	if (isActive())
 	{
 		//uimt->getBarra()->borralaComandaQueteMandan(uimt->getBarra()->queComandaBorro());
-		game->getNetworkManager()->syncBarra(uimt->getBarra()->queComandaBorro());
+		mGame->getNetworkManager()->syncBarra(uimt->getBarra()->queComandaBorro());
 		uimt->getBarra()->finalizacomanda(comandat);
 		
-		sdlutils().soundEffects().at("comandaDescartada").play(0, game->UI);
+		sdlutils().soundEffects().at("comandaDescartada").play(0, mGame->UI);
 	}
 }
 void EliminaComandaButton::update()

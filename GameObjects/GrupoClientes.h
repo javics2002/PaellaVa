@@ -66,7 +66,7 @@ class GrupoClientes : public ObjetoPortable
 	bool ratonEncima(SDL_Rect* cameraRect);
 
 public:
-	GrupoClientes(Game* game);	
+	GrupoClientes(Game* mGame);	
 	~GrupoClientes();
 
 	void initGrupo(Cola* cola_, vector<Cliente*> clientes_);

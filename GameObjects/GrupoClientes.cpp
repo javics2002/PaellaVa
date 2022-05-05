@@ -11,7 +11,7 @@
 
 #include "../Scenes/Jornada.h"
 
-GrupoClientes::GrupoClientes(Game* game) : ObjetoPortable(game), pedido(nullptr), cola(nullptr), estado_(CAMINANDO) , nPaellas(0)
+GrupoClientes::GrupoClientes(Game* mGame) : ObjetoPortable(mGame), pedido(nullptr), cola(nullptr), estado_(CAMINANDO) , nPaellas(0)
 {
 	setDimension(DIMENSION, DIMENSION);
 
@@ -30,7 +30,7 @@ GrupoClientes::GrupoClientes(Game* game) : ObjetoPortable(game), pedido(nullptr)
 	comidoMitad = false;
 	lastTimeComido = 0;
 
-	dolarCuenta = new Imagen(game, 500, 500, 30, 40, "dolarCuenta");
+	dolarCuenta = new Imagen(mGame, 500, 500, 30, 40, "dolarCuenta");
 
 	setDepth(3);
 }
@@ -76,7 +76,7 @@ void GrupoClientes::update()
 
 		
 
-		for (auto i : game->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getCollisions(rect)) 
+		for (auto i : mGame->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getCollisions(rect)) 
 			i->colisionClientes();
 		
 		bajaTolerancia();
@@ -318,7 +318,7 @@ void GrupoClientes::onDeactivate()
 		
 	if (estado_ == CUENTA) {
 		mesa->clienteSeVa();
-		game->getCurrentScene()->addPuntuaciones(pedido->puntuarPedido(mesa->getPaellasEntregadas()));
+		mGame->getCurrentScene()->addPuntuaciones(pedido->puntuarPedido(mesa->getPaellasEntregadas()));
 	}	
 }
 
@@ -338,7 +338,7 @@ void GrupoClientes::hacerPedido(int tamMesa, Mesa* m)
 	mesa = m;
 
 	if (estado_ != CUENTA) {
-		pedido = new Pedido(game, clientes.size(), tamMesa);
+		pedido = new Pedido(mGame, clientes.size(), tamMesa);
 
 		texPedido = pedido->getPedidoTex();
 	}
@@ -347,7 +347,7 @@ void GrupoClientes::hacerPedido(int tamMesa, Mesa* m)
 void GrupoClientes::modificaPedido(int numPaellas, vector<int> tamPaellas, vector<int> ingPedidos) {
 	delete pedido; // borramos el anterior pedido
 
-	pedido = new Pedido(game, numPaellas, tamPaellas, ingPedidos);
+	pedido = new Pedido(mGame, numPaellas, tamPaellas, ingPedidos);
 
 	texPedido = pedido->getPedidoTex();
 }

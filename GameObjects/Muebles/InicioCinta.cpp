@@ -6,7 +6,7 @@
 #include "../../Utils/ParticleExample.h"
 #include "../Herramienta.h"
 
-InicioCinta::InicioCinta(Game* game, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, TILE_SIZE, "inicioCinta")
+InicioCinta::InicioCinta(Game* mGame, Vector2D<double> pos) : Mueble(mGame, pos, TILE_SIZE, TILE_SIZE, "inicioCinta")
 {
 	initTime = 0;
 	funcionando = true;
@@ -26,33 +26,33 @@ void InicioCinta::update()
 	humo->setPosition(getX(), getY());
 	humo->update();
 
-	if (!game->getNetworkManager()->isHost())
+	if (!mGame->getNetworkManager()->isHost())
 		return;
 
 	int i = rand() % 1000;
 	if (sdlutils().virtualTimer().currTime() - initTime >= SPAWN_DELAY && isActive() && funcionando)
 	{
-		if (i < porcentajeLetal && !dynamic_cast<Tutorial*>(game->getCurrentScene()))
+		if (i < porcentajeLetal && !dynamic_cast<Tutorial*>(mGame->getCurrentScene()))
 		{
-			IngredienteLetal* ingLetal = game->getObjectManager()->getPool<IngredienteLetal>(_p_INGREDIENTELETAL)->add(getPosition());
+			IngredienteLetal* ingLetal = mGame->getObjectManager()->getPool<IngredienteLetal>(_p_INGREDIENTELETAL)->add(getPosition());
 			ingLetal->setVel(vel);
 			initTime = sdlutils().virtualTimer().currTime();
 
-			game->getNetworkManager()->sendCreateIngredienteLetal(ingLetal->getTipoLetal(), getPosition(), vel);
+			mGame->getNetworkManager()->sendCreateIngredienteLetal(ingLetal->getTipoLetal(), getPosition(), vel);
 		}
 		else {
-			Ingrediente* ing = game->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->add(getPosition());
+			Ingrediente* ing = mGame->getObjectManager()->getPool<Ingrediente>(_p_INGREDIENTE)->add(getPosition());
 			ing->setVel(vel);
 			initTime = sdlutils().virtualTimer().currTime();
 
 			ing->setId(idCont);
 			idCont++;
 
-			game->getNetworkManager()->sendCreateIngrediente(ing->getTipo(), ing->getId(), getPosition(), vel);
+			mGame->getNetworkManager()->sendCreateIngrediente(ing->getTipo(), ing->getId(), getPosition(), vel);
 		}
 	}
 
-	if(!dynamic_cast<Tutorial*>(game->getCurrentScene())){
+	if(!dynamic_cast<Tutorial*>(mGame->getCurrentScene())){
 		if (funcionando && couldBreak <= 0)
 		{
 			testMueble();
@@ -107,8 +107,8 @@ bool InicioCinta::receiveHerramienta(Herramienta* h)
 {
 	if (!funcionando)
 	{
-		if (dynamic_cast<Tutorial*>(game->getCurrentScene()) && game->getCurrentScene()->getState() == arreglarCinta)
-			game->getCurrentScene()->changeState(pausaArreglarCinta);
+		if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == arreglarCinta)
+			mGame->getCurrentScene()->changeState(pausaArreglarCinta);
 
 		funcionando = true;
 		h->setActive(false);

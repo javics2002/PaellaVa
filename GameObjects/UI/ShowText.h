@@ -12,8 +12,8 @@ class ShowText : public GameObject
 	SDL_Color fgColor_ ;
 
 public:
-	ShowText(Game* game,  string text,  string font, int x = 0, int y = 0, int w = 0, int h = 0);
-	ShowText(Game* game, string text, string font, SDL_Color fgColor, SDL_Color bgColor, int x = 0, int y = 0, int w = 0, int h = 0);
+	ShowText(Game* mGame,  string text,  string font, int x = 0, int y = 0, int w = 0, int h = 0);
+	ShowText(Game* mGame, string text, string font, SDL_Color fgColor, SDL_Color bgColor, int x = 0, int y = 0, int w = 0, int h = 0);
 
 	~ShowText();
 
