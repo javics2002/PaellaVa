@@ -4,63 +4,62 @@
 
 Pedido::Pedido(Game* game_, int numComensales, int numeroTiles)
 {
-	game = game_;
-	comensales = numComensales;
-	tilesMesa = numeroTiles;
+	mGame = game_;
+	mComensales = numComensales;
+	mTilesMesa = numeroTiles;
 
 	vector<bool> ingredientesPedidos = vector<bool>(tipoIngrediente::LAST, false);
 	TipoPaella tamano;
 	int suma_tamanos = 0;
 	tipoIngrediente ingredienteRand;
-	if (comensales <= LIMITE_TAMANO) {
-		max_rand = comensales;
+
+	//Se determina los tamaños que se podrán elegir para las diferentes paellas.
+	if (mComensales <= LIMITE_TAMANO) {
+		mMaxRand = mComensales;
 	}
 	else {
-		max_rand = LIMITE_TAMANO;
+		mMaxRand = LIMITE_TAMANO;
 	}
-
-	for (int i = 0; i < tilesMesa && !tamanos_escogidos; i++)
+	//El numero de tiles determina la cantidad de paellas como máximo que se podrán servir en una mesa, pero se puede alimentar a todos los comensales con menos paellas.
+	for (int i = 0; i < mTilesMesa && !mTamanosEscogidos; i++)
 	{
-		int tamano_elegido;
-		if ((0 < comensales <= 3) && (tilesMesa == 1)) {
-			int t = comensales;
+		int tamanoElegido;
+		if ((0 < mComensales <= 3) && (mTilesMesa == 1)) {
+			int t = mComensales;
 			tamano = TipoPaella(t - 1);
-			tamano_elegido = t;
+			tamanoElegido = t;
 		}
 		else {
-			int t_random = rand() % max_rand + 1;
+			int t_random = rand() % mMaxRand + 1;
 			tamano = TipoPaella(t_random - 1);
-			tamano_elegido = t_random;
+			tamanoElegido = t_random;
 		}
-		suma_tamanos += tamano_elegido;
+		suma_tamanos += tamanoElegido;
 
-		if (suma_tamanos > comensales) {
-			suma_tamanos -= tamano_elegido;
+		if (suma_tamanos > mComensales) {
+			suma_tamanos -= tamanoElegido;
 			i--;
 		}
-		else if (suma_tamanos < comensales) {
+		else if (suma_tamanos < mComensales) {
 			pedidoPaella nuevaPaella;
-			paellas.push_back(nuevaPaella);
-			paellas[i].tamanoPaella = tamano;
-			//cout << endl << int(tamano) << endl;
+			mPaellas.push_back(nuevaPaella);
+			mPaellas[i].tamanoPaella = tamano;
 		}
-		else if (suma_tamanos == comensales) {
+		else if (suma_tamanos == mComensales) {
 			pedidoPaella nuevaPaella;
-			paellas.push_back(nuevaPaella);
-			paellas[i].tamanoPaella = tamano;
-			/*cout << endl << int(tamano) << endl;*/
-			tamanos_escogidos = true;
+			mPaellas.push_back(nuevaPaella);
+			mPaellas[i].tamanoPaella = tamano;
+			mTamanosEscogidos = true;
 		}
 	}
-	for (int g = 0; g < paellas.size(); g++) {
+	for (int g = 0; g < mPaellas.size(); g++) {
 		int c = rand() % (LIMITE_INGR + 1);
 		for (int j = 0; j < c; j++) {
 			int n = rand() % (tipoIngrediente::LAST);
 			ingredienteRand = tipoIngrediente(n);
-			if (paellas[g].ingredientesPedido.size() < LIMITE_INGR && !ingredientesPedidos[ingredienteRand])
+			if (mPaellas[g].ingredientesPedido.size() < LIMITE_INGR && !ingredientesPedidos[ingredienteRand])
 			{
-				paellas[g].ingredientesPedido.push_back(ingredienteRand);
-				/*cout << int(ingredienteRand);*/
+				mPaellas[g].ingredientesPedido.push_back(ingredienteRand);
 				ingredientesPedidos[ingredienteRand] = true;
 			}
 			else
@@ -69,29 +68,28 @@ Pedido::Pedido(Game* game_, int numComensales, int numeroTiles)
 			}
 		}
 
-		while (paellas[g].ingredientesPedido.size() < 3)
+		while (mPaellas[g].ingredientesPedido.size() < 3)
 		{
-			paellas[g].ingredientesPedido.push_back(LAST);
+			mPaellas[g].ingredientesPedido.push_back(LAST);
 		}
 
 		ingredientesPedidos = vector<bool>(tipoIngrediente::LAST, false); // ??? no sirve de nada xd
-		/*cout << ingredientesPedidos.size();*/
 	}
 }
 
 Pedido::Pedido(Game* game_, int numPaellas, vector<int> tamPaellas, vector<int> ingPedidos)
 {
-	game = game_;
+	mGame = game_;
 
 	int cont = 0;
 
 	for (int i = 0; i < numPaellas; i++) {
 		pedidoPaella nuevaPaella;
-		paellas.push_back(nuevaPaella);
-		paellas[i].tamanoPaella = tamPaellas[i];
+		mPaellas.push_back(nuevaPaella);
+		mPaellas[i].tamanoPaella = tamPaellas[i];
 
 		for (int j = 0; j < 3; j++) { // 3 ing por pedido
-			paellas[i].ingredientesPedido.push_back(ingPedidos[cont]);
+			mPaellas[i].ingredientesPedido.push_back(ingPedidos[cont]);
 			cont++;
 		}
 	}
@@ -100,26 +98,26 @@ Pedido::Pedido(Game* game_, int numPaellas, vector<int> tamPaellas, vector<int> 
 
 vector<pedidoPaella> Pedido::getPedido()
 {
-	return paellas;
+	return mPaellas;
 }
 
 double Pedido::puntuarPedido(vector<Paella*> comanda)
 {
 	//quitar pedido ->
-	penalizacionTamano valorarT;
-	penalizacionIngredientes valorarI;
-	penalizacionCoccion valorarC;
+	PenalizacionTamano valorarT;
+	PenalizacionIngredientes valorarI;
+	PenalizacionCoccion valorarC;
 	
-	for (int i = 0; i < paellas.size(); i++) {
+	for (int i = 0; i < mPaellas.size(); i++) {
 
 		//Variar puntuacion en funcion de la diferencia de tamaños
 		
-		int tamanoPaella1 = int(paellas[i].tamanoPaella +1);
+		int tamanoPaella1 = int(mPaellas[i].tamanoPaella +1);
 		int tamanoPaella2 = int(comanda[i]->getTipo() + 1);
 		int diferencia = tamanoPaella1 - tamanoPaella2;
 		if (comanda[i]->estaContaminada())
 		{
-			getPedido()[i].puntuacionPaella = 0;
+			mPaellaSuspensa = true;
 		}
 		else {
 			switch (diferencia) {
@@ -143,7 +141,7 @@ double Pedido::puntuarPedido(vector<Paella*> comanda)
 
 			switch (comanda[i]->getCoccion()) {
 			case Cruda:
-				variarPuntuacion(valorarC.cruda, i);
+				mPaellaSuspensa = true;
 				break;
 			case PocoHecha:
 				variarPuntuacion(valorarC.pocoHecha, i);
@@ -158,15 +156,15 @@ double Pedido::puntuarPedido(vector<Paella*> comanda)
 				variarPuntuacion(valorarC.quemada, i);
 				break;
 			case Incomestible:
-				variarPuntuacion(valorarC.incomestible, i);
+				mPaellaSuspensa = true;
 				break;
 			}
 
 			//Variar puntuaciones en funcion de la diferencia de ingredientes.
 
 			int cantidadIngr1 = 0;
-			for (int j = 0; j < paellas[i].ingredientesPedido.size(); j++) {
-				if (int(paellas[i].ingredientesPedido[j]) != 9) {
+			for (int j = 0; j < mPaellas[i].ingredientesPedido.size(); j++) {
+				if (int(mPaellas[i].ingredientesPedido[j]) != 9) {
 					cantidadIngr1++;
 				}
 				
@@ -177,23 +175,25 @@ double Pedido::puntuarPedido(vector<Paella*> comanda)
 		}
 		//Variar puntuaciones en funcion de los ingredientes que no se han cocinado.
 
-		for (int j = 0; j < paellas[i].ingredientesPedido.size(); j++) {
-			cout << "tamano" << comanda[i]->getIngrPaella().size() << endl;
-			cout << paellas[i].ingredientesPedido[j] << endl;
-			if (paellas[i].ingredientesPedido[j] != 9  && !comanda[i]->getIngrPaella()[paellas[i].ingredientesPedido[j]]) {
+		for (int j = 0; j < mPaellas[i].ingredientesPedido.size(); j++) {
+			if (mPaellas[i].ingredientesPedido[j] != 9  && !comanda[i]->getIngrPaella()[mPaellas[i].ingredientesPedido[j]]) {
 				variarPuntuacion(valorarI.faltaIngr, i);
 			}
 		}
-		cout << paellas[i].puntuacionPaella << endl;
-		if (paellas[i].puntuacionPaella > 10) {
-			paellas[i].puntuacionPaella = 10;
-		}
-		sumaMedia += getPedido()[i].puntuacionPaella;
-	}
-	puntuacionPedido = sumaMedia / getPedido().size();
 
-	cout << puntuacionPedido << endl;
-	return puntuacionPedido;
+		if (mPaellaSuspensa) {
+			mPaellas[i].puntuacionPaella = 0;
+		}
+		cout << mPaellas[i].puntuacionPaella << endl;
+		if (mPaellas[i].puntuacionPaella > 10) {
+			mPaellas[i].puntuacionPaella = 10;
+		}
+		mSumaMedia += getPedido()[i].puntuacionPaella;
+	}
+	mPuntuacionPedido = mSumaMedia / getPedido().size();
+
+	cout << mPuntuacionPedido << endl;
+	return mPuntuacionPedido;
 }
 
 
@@ -201,24 +201,25 @@ double Pedido::puntuarPedido(vector<Paella*> comanda)
 
 void Pedido::variarPuntuacion(double variacion, int pos)
 {
+	//Método que se encarga de ir cambiando la puntuación que recibe un pedido en funcion de diversas variables.
 	double puntos = getPedido()[pos].puntuacionPaella + variacion; 
-	paellas[pos].puntuacionPaella = puntos;
+	mPaellas[pos].puntuacionPaella = puntos;
 }
 
 vector<string> Pedido::getPedidoTex()
 {
 	vector<string> v;
 
-	if(dynamic_cast<Tutorial*>(game->getCurrentScene())){
-		v.push_back(paellasTamTex[0]);
+	if(dynamic_cast<Tutorial*>(mGame->getCurrentScene())){
+		v.push_back(PAELLAS_TAM_TEX[0]);
 		v.push_back(texturaIngrediente[0]);
 		v.push_back(texturaIngrediente[1]);
 		v.push_back(texturaIngrediente[2]);
 		v.push_back("finPedido");
 	}
 	else {
-		for (auto i : paellas) {
-			v.push_back(paellasTamTex[i.tamanoPaella]);
+		for (auto i : mPaellas) {
+			v.push_back(PAELLAS_TAM_TEX[i.tamanoPaella]);
 			if (!i.ingredientesPedido.empty()) {
 				for (auto j : i.ingredientesPedido) {
 					if(j != LAST)

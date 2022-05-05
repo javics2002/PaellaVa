@@ -2,23 +2,25 @@
 #include "../GameObjects/Ingrediente.h"
 #include "../GameObjects/Paella.h"
 
+//Struct que contiene el tamaño y los ingredientes propios de una paella.
 struct pedidoPaella {
 	int tamanoPaella;
 	vector<int> ingredientesPedido;
 	double puntuacionPaella = 10;
 };
 
-struct penalizacionTamano {
+//Diversas penalizaciones que recibirá un pedido si no cumple lo requerido por un cliente.
+struct PenalizacionTamano {
 	double pequenaUno = -1;
 	double pequenaDos = -2;
 	double grandeUno = -1;
 	double grandeDos = -2;
 };
-struct penalizacionIngredientes {
+struct PenalizacionIngredientes {
 	double sobraIngr = -1;
 	double faltaIngr = -1;
 };
-struct penalizacionCoccion {
+struct PenalizacionCoccion {
 	double cruda = -3;
 	double pocoHecha = 0;
 	double perfecta = 1;
@@ -27,12 +29,29 @@ struct penalizacionCoccion {
 	double incomestible = -4;
 };
 
-const vector<string> paellasTamTex{ "small", "medium", "large" };
+const vector<string> PAELLAS_TAM_TEX{ "small", "medium", "large" };
 
 class Game;
 
 class Pedido 
 {
+private:
+	vector<pedidoPaella> mPaellas;
+
+	Game* mGame;
+
+	int mComensales, mTilesMesa, mMaxRand;
+
+	bool mTamanosEscogidos = false;
+	bool mPaellaSuspensa = false;
+
+	//Habrá un máximo de 3 tamaños(pequeña, mediana y grande) y un máximo de tres ingredientes por paella.
+	const int LIMITE_TAMANO = 3;
+	const int LIMITE_INGR = 3;
+
+	double mSumaMedia = 0;
+	double mPuntuacionPedido;
+
 public:
 	Pedido(Game* game, int numComensales, int numeroTiles);
 	Pedido(Game* game, int numPaellas, vector<int> tamPaellas, vector<int> ingPedidos);
@@ -41,40 +60,4 @@ public:
 	vector<string> getPedidoTex();
 	double puntuarPedido(vector<Paella*> comanda);
 	void variarPuntuacion(double variacion, int pos);
-	//No se hasta que punto merece la pena crear otro m�todo que sea ejecutado en la constructora.
-	//void crearPedido(int numCmensales)
-
-private:
-	vector<pedidoPaella> paellas;
-
-	Game* game;
-
-	int comensales, tilesMesa, max_rand;
-
-	bool tamanos_escogidos = false;
-
-	const int LIMITE_TAMANO = 3;
-	const int LIMITE_INGR = 3;
-	
-	double sumaMedia = 0;
-	double puntuacionPedido;
 };
-
-/*
-
-struct con volumen y vector de ingredientes
-
-vector de struct
-
-vector de booleanos
-
-enums de paella e ingrediente
-
-
-
-
-constructora(num comensales)
-
-int comparar(vector de paellas){puntos}
-
-*/
