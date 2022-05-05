@@ -7,7 +7,7 @@ class Reloj : public GameObject
 	//Funcionamiento del reloj: tiene que actualizarse cada X segundos de la vida real con un 
 	//equivalente de Y minutos del juego
 public:
-	Reloj(Game* game, int numeroJornada);
+	Reloj(Game* game, int numJornada);
 	~Reloj();
 	bool finDia();
 	void render(SDL_Rect* cameraRect) override;
@@ -17,36 +17,36 @@ public:
 	virtual double getTime() { return mLastUpdate; }
 
 private:
-	Game* game;
-	Texture* relojTexture;
+	Game* mGame;
+	Texture* mRelojTexture;
 	
 	double mLastUpdate; //tiempo desde el �ltimo update
-	bool ultimaHora;
+	bool mUltimaHora;
 
-	Sint32 updateTime_ = 10000; // los milisegundos que tarda en actualizarse el reloj
+	Sint32 mUpdateTime = 10000; // los milisegundos que tarda en actualizarse el reloj
 
-	int hourIni = 12; //la hora del d�a a la que empieza la jornada
-	int minuteIni = 0; //los minutos de la hora a la que empieza el juego
-	int hourFin = 18; //la hora del dia a la que termina la jornada
-	int minuteFin = 0; //los minutos de la hora del dia a la que termina la jornada
+	int mHourIni = 12; //la hora del d�a a la que empieza la jornada
+	int mMinuteIni = 0; //los minutos de la hora a la que empieza el juego
+	int mHourFin = 18; //la hora del dia a la que termina la jornada
+	int mMinuteFin = 0; //los minutos de la hora del dia a la que termina la jornada
 
-	int addedMinutes = 10; //los minutos a�adidos en cada update 
+	int mAddedMinutes = 10; //los minutos a�adidos en cada update 
 
 	unsigned int tInit = 0;
 
 	const unsigned int MIN_TICKS = 1000; //ticks en un min (1 hora en el juego)
 
-	struct time { int hours = 0; int minutes = 0; };
-	time currentTime;
+	struct Time { int hours = 0; int minutes = 0; };
+	Time mCurrentTime;
 
 	//Text* hourText = new Text(game, string("hola"), string("paella"));
 
 	string parseTimeToString(int hours, int minutes);
-	int h = 50;
-	int w = 120;
+	int mHeight = 50;
+	int mWidth = 120;
 
-	const SDL_Color& fgColor = { 255, 255, 255, 255 };
-	const SDL_Color& bgColor = { 0, 0, 0, 0 };
+	const SDL_Color& FG_COLOR = { 255, 255, 255, 255 };
+	const SDL_Color& BG_COLOR = { 0, 0, 0, 0 };
 
 	int mNumeroJornada;
 };
