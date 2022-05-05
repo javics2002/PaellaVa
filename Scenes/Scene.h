@@ -13,12 +13,21 @@
 
 class Player;
 
-
-enum States {
-	cogerClientes,pausaClientes, dejarClientesMesa,pausaPaellas,abreLibreta,pauasAbreLibreta,apuntaPedido ,pausaPedido, cogePaellera,pausaCogePaellera, dejaPaellera,pausaDejaPaella,cogerDejarArroz,pausaCogerDejarArroz,arreglarCinta,pausaArreglarCinta, cogerIngrediente,pausaCogerIngrediente,
-	procesarIngrediente,pausaProcesarIngrediente, dejarIngredientePaella,pausaDejarIngredientes, cocinarPaella,pausaCocinarPaella, recogerPaellaCocinada,pausaRecogerPaellaCocinada,
-	darDeComer,pausaDarDeComer,sacarCuenta,pausaSacarCuenta,echarClientes,pausaEcharClientes,recogerMesa,pausaRecogerMesa,dejarLavavajillas,pausaDejarLavavajillas,
-	cogerLavavajillas,pausaCogerLavavajillas,dejarPaellaPila,pausaFinal,final, pausaComandaEquivocada,pausaBorrarComanda,pausaNoEcharClientes,pausaInicio
+// Estados para el tutorial
+enum States { cogerClientes, pausaClientes, dejarClientesMesa,
+	pausaPaellas, abreLibreta, pauasAbreLibreta,
+	apuntaPedido ,pausaPedido, cogePaellera,pausaCogePaellera, 
+	dejaPaellera,pausaDejaPaella,cogerDejarArroz,
+	pausaCogerDejarArroz, arreglarCinta, pausaArreglarCinta,
+	cogerIngrediente, pausaCogerIngrediente, procesarIngrediente, 
+	pausaProcesarIngrediente, dejarIngredientePaella, pausaDejarIngredientes, 
+	cocinarPaella, pausaCocinarPaella, recogerPaellaCocinada, 
+	pausaRecogerPaellaCocinada, darDeComer, pausaDarDeComer, 
+	sacarCuenta, pausaSacarCuenta, echarClientes,
+	pausaEcharClientes, recogerMesa, pausaRecogerMesa,
+	dejarLavavajillas, pausaDejarLavavajillas, cogerLavavajillas,
+	pausaCogerLavavajillas, dejarPaellaPila, pausaFinal,final, 
+	pausaComandaEquivocada, pausaBorrarComanda, pausaNoEcharClientes, pausaInicio
 };
 
 

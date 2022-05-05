@@ -67,6 +67,8 @@ void Pila::init(ObjectManager* objectManager)
 	for (int i = 0; i < numPaellas; i++) {
 		Paella* pa = objectManager->addPaella(miTipo);
 		pa->setPosition(getRectCenter(getOverlap()));
+		if (dynamic_cast<Tutorial*>(game->getCurrentScene()))
+			pa->setActive(false);
 		paellas.push_back(pa);
 	}		
 }
