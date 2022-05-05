@@ -22,12 +22,12 @@ FinalScene::FinalScene(Game* game, int mediaPuntuation) : Scene(game)
 	int posPuntX = sdlutils().width() / 2 / 2;
 	int posPuntY = sizePuntH * 2;
 
-	GameObject* starMold = new GameObject(game);
-	starMold->setTexture("estrellaMolde");
-	starMold->setInitialDimension(110 * 5, 110);
-	starMold->setDimension(110 * 5, 110);
-	starMold->setPosition(sdlutils().width() / 2, 70 * 2);
-	uiManager->addInterfaz(starMold);
+	GameObject* medalla = new GameObject(game);
+	medalla->setTexture("medalla");
+	medalla->setInitialDimension(200, 200);
+	medalla->setDimension(200, 200);
+	medalla->setPosition(sdlutils().width() - 200, 70 * 2);
+	uiManager->addInterfaz(medalla);
 
 	//starTexture = &sdlutils().images().at("estrella");
 	//vector<GameObject*> estrellas = vector<GameObject*>(starNumber);
@@ -43,11 +43,11 @@ FinalScene::FinalScene(Game* game, int mediaPuntuation) : Scene(game)
 
 	//tweenEstrellas(estrellas);
 
-	/*GameObject* puntos = new GameObject(game);
-	puntos->setTexture(string("Puntuacion: " + to_string(starNumber)), string("paella"), SDL_Color{ 255, 255, 255, 255 }, SDL_Color{ 0, 0, 0, 0 });
+	GameObject* puntos = new GameObject(game);
+	puntos->setTexture("GRACIAS POR JUGAR!", string("finalScene"), SDL_Color{ 255, 255, 255, 255 }, SDL_Color{ 0, 0, 0, 0 });
 	puntos->setDimension();
-	puntos->setPosition(Vector2D<double>(posPuntX, posPuntY + puntos->getHeight()));
-	uiManager->addInterfaz(puntos);*/
+	puntos->setPosition(Vector2D<double>(posPuntX + 50, posPuntY + puntos->getHeight()));
+	uiManager->addInterfaz(puntos);
 
 	auto continueButton = new UiButton(game, "continue",
 		sdlutils().width() / 2, sdlutils().height() / 2 + 300, 300, 120);
@@ -63,7 +63,7 @@ FinalScene::FinalScene(Game* game, int mediaPuntuation) : Scene(game)
 
 				if (t.progress() > .2f) {
 					//Start game
-					game->getNetworkManager()->close(false);
+					game->getNetworkManager()->close();
 
 					game->sendMessageScene(new Menu(game));
 

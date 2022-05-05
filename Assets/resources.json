@@ -8,7 +8,9 @@
     { "id": "ip", "file": "Assets/Fonts/CocoBubble.ttf", "size": 15},
     { "id": "ipCursor", "file": "Assets/Fonts/CocoBubble.ttf", "size": 30},
     { "id": "lobby", "file": "Assets/Fonts/CocoBubble.ttf", "size": 50},
-    { "id": "creditsName", "file": "Assets/Fonts/Arco.otf", "size": 30}
+    { "id": "creditsName", "file": "Assets/Fonts/Arco.otf", "size": 30},
+    { "id": "finalScene", "file": "Assets/Fonts/Arco.otf", "size": 60}
+
 
 
   ],
@@ -230,6 +232,7 @@
     { "id": "fondoMadera", "file": "Assets/Images/fondoMadera.png" },
     { "id": "estrellaMolde", "file": "Assets/Images/estrellaMolde.png" },
     { "id": "cuadradoPlay", "file": "Assets/Images/cuadradoPlay.png" },
+    { "id": "medalla", "file": "Assets/Images/medalla.png" },
     { "id": "disconnectedBg", "file": "Assets/Images/disconnectedBg.png" }
 
 
