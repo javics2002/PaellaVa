@@ -15,9 +15,7 @@ Puerta::Puerta(Game* game, Vector2D<double> pos, int t_Max, int tamMaxGrupo_) : 
 
 	orientacion = E;
 
-	initTime = sdlutils().virtualTimer().currTime();
-
-	cout << initTime << endl;
+	initTime = 0;
 	
 	spawn_delay = 0;
 }
@@ -38,8 +36,6 @@ void Puerta::update()
 			initTime = sdlutils().virtualTimer().currTime();
 		}	
 	}
-
-	
 	
 	else if (sdlutils().virtualTimer().currTime() - initTime >= spawn_delay) {
 		
