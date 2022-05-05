@@ -13,7 +13,7 @@ DescartaCommandaButton::~DescartaCommandaButton()
 
 void DescartaCommandaButton::execute(bool& exit)
 {
-	cout << "CANCELADO";
+	
 	comanda->cancelaPedido();
 
 	sdlutils().soundEffects().at("comandaDescartada").play(0, game->UI);

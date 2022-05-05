@@ -18,7 +18,7 @@ class ListaComandas :public GameObject
 	list<Comanda*> lista;
 	list<Comanda*> listanovisibles;
 	Comanda* selected = nullptr;
-	//bool active=true;
+	
 	bool listaActive = false;
 public:
 	//Añade la comanda que escribe el camarero a la lista
