@@ -493,8 +493,8 @@ void UIManager::creaComanda(Game* mGame)
 	actual->setActive(false);
 	actual->toggleactive();
 
-	if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == States::abreLibreta)
-		mGame->getCurrentScene()->changeState(States::pauasAbreLibreta);
+	if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == States::TUTORIALSTATE_ABRE_COMANDA)
+		mGame->getCurrentScene()->changeState(States::TUTORIALSTATE_PAUSA_ABRE_COMANDA);
 
 }
 

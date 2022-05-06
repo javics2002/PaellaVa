@@ -22,8 +22,8 @@ bool Pila::returnObject(Player* p)
 {
 	if (!paellas.empty())
 	{
-		if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState()==States::cogePaellera)
-			mGame->getCurrentScene()->changeState(States::pausaCogePaellera);
+		if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState()==States::TUTORIALSTATE_COGE_PAELLA)
+			mGame->getCurrentScene()->changeState(States::TUTORIALSTATE_PAUSA_COGE_PAELLA);
 		Paella* pa = paellas.front();
 		p->setPickedObject(pa, PAELLA);
 		paellas.pop_front();
@@ -53,8 +53,8 @@ bool Pila::receivePaella(Paella* pa)
 		paellas.push_back(pa);
 		pa->setPosition(getRectCenter(getOverlap()));
 
-		if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == States::dejarPaellaPila)
-			mGame->getCurrentScene()->changeState(States::pausaFinal);
+		if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == States::TUTORIALSTATE_DEJAR_PAELLA_PILA)
+			mGame->getCurrentScene()->changeState(States::TUTORIALSTATE_PAUSA_FINAL);
 
 		return true;
 	}

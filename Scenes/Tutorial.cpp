@@ -180,11 +180,6 @@ void Tutorial::changeState(States state_)
 			mObjectManager->getPlayerOne()->changePlayer(true);
 			break;
 		}
-		case 34: {
-			mObjectManager->getPlayerOne()->changePlayer(true);
-			mCuadroDeDialogo->setTexture("cuadroTextoCocinera");
-			break;
-		}
 		case TUTORIALSTATE_FINAL: {
 			// Volvemos al menú
 			mGame->getNetworkManager()->close();

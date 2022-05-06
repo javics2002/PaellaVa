@@ -107,8 +107,8 @@ bool InicioCinta::receiveHerramienta(Herramienta* h)
 {
 	if (!funcionando)
 	{
-		if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == arreglarCinta)
-			mGame->getCurrentScene()->changeState(pausaArreglarCinta);
+		if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == TUTORIALSTATE_ARREGLAR_CINTA)
+			mGame->getCurrentScene()->changeState(TUTORIALSTATE_PAUSA_ARREGLAR_CINTA);
 
 		funcionando = true;
 		h->setActive(false);

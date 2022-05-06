@@ -135,8 +135,8 @@ bool TablaProcesado::returnObject(Player* p)
 	{
 		//TOCHECK: Podr�amos hacer un return del objeto y que el player se lo guarde a s� mismo
 		p->setPickedObject(ingr_, INGREDIENTE);
-		if (ingr_->getProcesado() && dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == States::procesarIngrediente)
-			mGame->getCurrentScene()->changeState(States::pausaProcesarIngrediente);
+		if (ingr_->getProcesado() && dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == States::TUTORIALSTATE_PROCESAR_INGREDIENTE)
+			mGame->getCurrentScene()->changeState(States::TUTORIALSTATE_PAUSA_PROCESAR_INGREDIENTE);
 
 		ingr_ = nullptr;
 

@@ -5,42 +5,42 @@
 #include "../GameObjects/UI/ShowText.h"
 #include "../sdlutils/InputHandler.h"
 
-TextManager::TextManager(Game* game_, string font) : anchoTexto(1000),anchoLetra(14), alturaLetra(28),
-offsetYLinea(2), tiempoCreaccionLetra(1), ultimoCaracter(""), terminado(true), numeroLinea(0)
+TextManager::TextManager(Game* game_, string font) : mAnchoTexto(1000),mAnchoLetra(14), mAlturaLetra(28),
+mOffsetYLinea(2), mTiempoCreaccionLetra(1), mUltimoCaracter(""), mTerminado(true), mNumeroLinea(0)
 {
 	mGame = game_;
-	fuenteLetra = font;
-	vt = new VirtualTimer();
+	mFuenteLetra = font;
+	mVirtualTimer = new VirtualTimer();
 }
 
 
 void TextManager::update()
 {
-	if (rapido && !pausa) { // Si hemos pulsado el avanzar, recorremos todo el dialogo rapidamente
-		while (!terminado)
+	if (mRapido && !mPausa) { // Si hemos pulsado el avanzar, recorremos todo el dialogo rapidamente
+		while (!mTerminado)
 			anadeLetra();
 	}
-	else if (!terminado && vt->currTime() > tiempoCreaccionLetra && !pausa) { // Si no estamos pausados y no ha terminado de escribir, escribe letra a letra con cierto tiempo
+	else if (!mTerminado && mVirtualTimer->currTime() > mTiempoCreaccionLetra && !mPausa) { // Si no estamos pausados y no ha terminado de escribir, escribe letra a letra con cierto tiempo
 
 		anadeLetra();
-		vt->reset();
+		mVirtualTimer->reset();
 	}
 }
 
 void TextManager::render() // Render del textManager
 {	
-	for (int i = 0; i < lineas.size(); i++) { // Renderizamos lo que llevemos de dialogo
-		Texture text(sdlutils().renderer(), lineas[i], sdlutils().fonts().at(fuenteLetra), build_sdlcolor(0x444444ff));
-		SDL_Rect dest = build_sdlrect(270,sdlutils().height()-135 + ((alturaLetra + offsetYLinea) * i), text.width(), text.height());
+	for (int i = 0; i < mLineasDeDialogo.size(); i++) { // Renderizamos lo que llevemos de dialogo
+		Texture text(sdlutils().renderer(), mLineasDeDialogo[i], sdlutils().fonts().at(mFuenteLetra), build_sdlcolor(0x444444ff));
+		SDL_Rect dest = build_sdlrect(270,sdlutils().height()-135 + ((mAlturaLetra + mOffsetYLinea) * i), text.width(), text.height());
 		text.render(dest);
 	}
-	if (ih().isMandoActive() && !desactivado_) { // Si hay un mando, renderizamos el boton para continuar
-		Texture text1(sdlutils().renderer(), "Pulsa", sdlutils().fonts().at(fuenteLetra), build_sdlcolor(0x444444ff));
+	if (ih().isMandoActive() && !mDesactivado) { // Si hay un mando, renderizamos el boton para continuar
+		Texture text1(sdlutils().renderer(), "Pulsa", sdlutils().fonts().at(mFuenteLetra), build_sdlcolor(0x444444ff));
 		SDL_Rect d = build_sdlrect(925, sdlutils().height() - 45, text1.width(), text1.height());
 		text1.render(d);
 	}
-	else if (!desactivado_) { // Si estamos con teclado y raton, la tecla para continuar es la 'Q'
-		Texture text1(sdlutils().renderer(), "Pulsa Q", sdlutils().fonts().at(fuenteLetra), build_sdlcolor(0x444444ff));
+	else if (!mDesactivado) { // Si estamos con teclado y raton, la tecla para continuar es la 'Q'
+		Texture text1(sdlutils().renderer(), "Pulsa Q", sdlutils().fonts().at(mFuenteLetra), build_sdlcolor(0x444444ff));
 		SDL_Rect d = build_sdlrect(925, sdlutils().height() - 45, text1.width(), text1.height());
 		text1.render(d);
 	}
@@ -48,63 +48,63 @@ void TextManager::render() // Render del textManager
 
 void TextManager::activaTexto(string dialogo) // Activamos el texto
 {
-	terminado = false; // Empieza a escribir por lo q no ha terminado
-	desactivado_ = false; // Esta activo
-	ultimoParrafo = false;
-	dialogoTerminado = false;
-	dialogo_ = dialogo; // Referencia al dialogo que vamos a escribir
+	mTerminado = false; // Empieza a escribir por lo q no ha terminado
+	mDesactivado = false; // Esta activo
+	mUltimoParrafo = false;
+	mDialogoTerminado = false;
+	mDialogo = dialogo; // Referencia al dialogo que vamos a escribir
 }
 
 void TextManager::desactivaTexto()
 {
-	desactivado_ = true;
-	terminado = true;
-	ultimoParrafo = true;
-	lineas.clear(); 
-	numeroLinea = 0; 
+	mDesactivado = true;
+	mTerminado = true;
+	mUltimoParrafo = true;
+	mLineasDeDialogo.clear(); 
+	mNumeroLinea = 0; 
 }
 
 
 void TextManager::anadeLetra()
 {
 	//dialogo ha terminado
-	if (dialogo_ == "") {
-		terminado = true;
-		dialogoTerminado = true;
-		ultimoParrafo = true;
+	if (mDialogo == "") {
+		mTerminado = true;
+		mDialogoTerminado = true;
+		mUltimoParrafo = true;
 		return;
 	}
 
-	if (numeroLinea >= lineas.size())
-		lineas.push_back(" ");
+	if (mNumeroLinea >= mLineasDeDialogo.size())
+		mLineasDeDialogo.push_back(" ");
 
 	//solo cabe una letra mas, hay más de una letra en el dialog
-	if (lineas[numeroLinea].size() * anchoLetra >= anchoTexto - anchoLetra && dialogo_.size() > 1) {//line width
+	if (mLineasDeDialogo[mNumeroLinea].size() * mAnchoLetra >= mAnchoTexto - mAnchoLetra && mDialogo.size() > 1) {//line width
 
-		if (dialogo_[0] == ' ') {
-			lineas[numeroLinea] += dialogo_[0];
-			dialogo_.erase(0, 1);
+		if (mDialogo[0] == ' ') {
+			mLineasDeDialogo[mNumeroLinea] += mDialogo[0];
+			mDialogo.erase(0, 1);
 		}
-		else if (ultimoCaracter != " ")
-			lineas[numeroLinea] += "-";
+		else if (mUltimoCaracter != " ")
+			mLineasDeDialogo[mNumeroLinea] += "-";
 
 
-		numeroLinea++;
+		mNumeroLinea++;
 
-		if (numeroLinea * (alturaLetra + offsetYLinea) >= 64)
-			terminado = true;
+		if (mNumeroLinea * (mAlturaLetra + mOffsetYLinea) >= 64)
+			mTerminado = true;
 
-		ultimoCaracter = "";
+		mUltimoCaracter = "";
 	}
 	else {
-		lineas[numeroLinea] += dialogo_[0];
-		dialogo_.erase(0, 1);
-		ultimoCaracter = lineas[numeroLinea].back();
+		mLineasDeDialogo[mNumeroLinea] += mDialogo[0];
+		mDialogo.erase(0, 1);
+		mUltimoCaracter = mLineasDeDialogo[mNumeroLinea].back();
 	}
 }
 
 void TextManager::cambiaVelocidad(bool r)
 {
-	rapido = r;
+	mRapido = r;
 ;}
 

@@ -51,6 +51,8 @@ class ObjectManager
 
 	Game* mGame;
 
+
+	// Varibales necesarias para que vayan apareciendo poco a poco en el tutorial
 	vector<Silla*> mSillas;
 	vector<Mesa*> mMesas;
 	vector<Encimera*> mEncimeras;
@@ -81,6 +83,8 @@ public:
 	void debug(SDL_Rect* rect);
 
 	void addMueble(Mueble* mueble);
+
+	//Metodos para anadir por separado los muebles para hacerlos aparecer segun el estado en el que se encuentre el jugador
 
 	void addIniCinta(InicioCinta* i) { mIniCinta = i; };
 	void addFinCinta(FinalCinta* f) {mFinCinta = f;};
