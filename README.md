@@ -520,6 +520,12 @@ El diseño de sonido consta de una gama de sonidos realistas, que representan ca
 
 
 ### Ingredientes: <a name="ingredientes"></a>
+
+| Nombre       | Normal | Procesado | Comida(50%) | Comida(25%) | Sucia |
+|--------------|--------------|-------------|-------------|-------------|-------|
+| Normal       |              |             |             |             |       |
+| Incomestible |              |             |             |             |       |
+
 <img src="images_gdd/45gamba.PNG">
 <img src="images_gdd/46gamba.PNG">
 <img src="images_gdd/47calamar.PNG">
@@ -628,17 +634,15 @@ Del comedor:
 ## 7. UI <a name="ui"></a>
 
 * Menú inicio
-    * (imagen)
+    * <img src="images_gdd/79menu.PNG">
 
 * Interfaz
-    * (libreta sacada)
-    * (libreta “guardada”)
-    * (comandas arriba)
-    * (comandas arriba si ya se han acumulado demasiadas comandas)
+    * <img src="images_gdd/80interfaz.PNG">
+    * <img src="images_gdd/37comandas.PNG">
+    * <img src="images_gdd/81interfaz.PNG">
 
 * Menú puntuación final
-    * (imagen)
-
+    * <img src="images_gdd/82over.PNG">
 ## 8. UML <a name="uml"></a>
 
 <img src="images_gdd/83uml.PNG">
