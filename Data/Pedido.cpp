@@ -181,6 +181,7 @@ double Pedido::puntuarPedido(vector<Paella*> comanda)
 			}
 		}
 
+		//Una vez hechas las penalizaciones a la paella se añade a la puntuación media de las paellas entregadas as cada mesa.
 		if (mPaellaSuspensa) {
 			mPaellas[i].puntuacionPaella = 0;
 		}

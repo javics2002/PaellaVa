@@ -16,7 +16,7 @@ void Lavavajillas::update()
 	else
 		humo->setStyle(ParticleExample::NONE);
 
-	humo->setPosition(getX(), getY());
+	humo->setPosition(getRectCenter(getOverlap()).getX(), getRectCenter(getOverlap()).getY());
 	humo->update();
 
 	if (funcionando && !mPaellasSucias.empty() && isActive()) // Si hay paellas sucias, empiezas a lavar la que se ha metido primero

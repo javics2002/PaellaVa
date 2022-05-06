@@ -60,7 +60,7 @@ void TablaProcesado::update()
 		}
 	}
 
-	humo->setPosition(getX(), getY());
+	humo->setPosition(getRectCenter(getOverlap()).getX(), getRectCenter(getOverlap()).getY());
 	humo->update();
 }
 

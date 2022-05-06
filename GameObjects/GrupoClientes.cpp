@@ -98,9 +98,17 @@ void GrupoClientes::update()
 		}
 		else if (sdlutils().virtualTimer().currTime() - lastTimeComido >= TIEMPO_COMIDA) {
 			mesa->comerPaellas();
-			sdlutils().soundEffects().at("cuenta").play();
 			estado_ = CUENTA;
-			
+			sdlutils().soundEffects().at("cuenta").play();
+			float dolarCuentaY = mesa->getCenterMesa().getY() - 3 * 80 / 5;
+			mGame->getUIManager()->addTween(dolarCuentaY + 50.0f, dolarCuentaY, 600.0f, false).via(easing::exponentialOut).onStep([this](tweeny::tween<float>& t, float) mutable {
+				dolarCuenta->setPosition((int)mesa->getCenterMesa().getX(), t.peek());
+
+				if (t.progress() == 1.0f) {
+					return true;
+				}
+				return false;
+				});
 		}
 	}
 
@@ -165,7 +173,6 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 
 		else if (estado_ == CUENTA) {
 			drawRender(cameraRect, { (int)mesa->getCenterMesa().getX() - bocadilloX / 2, (int)mesa->getCenterMesa().getY() - bocadilloY, bocadilloX, bocadilloY }, texTolerancia);
-			dolarCuenta->setPosition((int)mesa->getCenterMesa().getX(), (int)mesa->getCenterMesa().getY() - 3*bocadilloY/5);
 			dolarCuenta->render(cameraRect);
 		}
 	}

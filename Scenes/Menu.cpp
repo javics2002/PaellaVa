@@ -24,6 +24,7 @@ Menu::Menu(Game* mGame) : Scene(mGame)
 	int mHeight = 120;
 	int mPosIniX = mWidth;
 
+	//Bot�n de inicio del juego.
 	auto mStartButton = new UiButton(mGame, "start", mPosIniX, mPosIni - mAumento, mWidth, mHeight);
 	mStartButton->setInitialDimension(mWidth, mHeight);
 	mStartButton->setAction([this, mStartButton](Game* mGame, bool& exit) {
@@ -43,6 +44,7 @@ Menu::Menu(Game* mGame) : Scene(mGame)
 
 	mUiManager->addButton(mStartButton);
 
+	//Bot�n de acceso al tutorial del juego.
 	auto mTutorial = new UiButton(mGame, "tutorialButton", mPosIniX, mPosIni, mWidth, mHeight);
 	mTutorial->setInitialDimension(mWidth, mHeight);
 	mTutorial->setAction([this, mTutorial](Game* mGame, bool& exit) {
@@ -63,6 +65,7 @@ Menu::Menu(Game* mGame) : Scene(mGame)
 
 	mUiManager->addButton(mTutorial);
 
+	//Bot�n de acceso al men� de cr�ditos.
 	auto mCreditsButton = new UiButton(mGame, "credits", mPosIniX, mPosIni + mAumento , mWidth, mHeight);
 	mCreditsButton->setInitialDimension(mWidth, mHeight);
 	mCreditsButton->setAction([this, mCreditsButton](Game* mGame, bool& exit) {
@@ -88,6 +91,8 @@ Menu::Menu(Game* mGame) : Scene(mGame)
 	
 	int mPosIniAbajo = sdlutils().width() - mHeight / 2;
 	int mPosIniYAbajo = sdlutils().height() - mHeight / 2;
+
+	//Bot�n de acceso al men� de opciones.
 	auto mSettingsButton = new UiButton(mGame, "settings", mPosIniAbajo - mHeight, mPosIniYAbajo, mHeight, mHeight);
 	mSettingsButton->setInitialDimension(mHeight, mHeight);
 	mSettingsButton->setAction([this, mSettingsButton](Game* mGame, bool& exit) {
@@ -111,6 +116,7 @@ Menu::Menu(Game* mGame) : Scene(mGame)
 
 	mUiManager->addButton(mSettingsButton);
 
+	//Bot�n de salida del juego.
 	auto mExitButton = new UiButton(mGame, "exit", mPosIniAbajo, mPosIniYAbajo, mHeight, mHeight);
 	mExitButton->setInitialDimension(mHeight, mHeight);
 	mExitButton->setAction([this, mExitButton](Game* mGame, bool& exit) {
