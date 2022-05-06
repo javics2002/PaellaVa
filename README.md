@@ -421,18 +421,20 @@ De esta forma, podemos enseñar al jugador, el orden principal de hacer las cosa
 ### **Comandas:**
 * Los jugadores podrán escribir comandas siempre que quieran. 
 * Al seleccionar el botón de Nueva Comanada (+) se desplegará un nuevo menú (libreta). 
-* La libreta ocupa la mitad inferior de la interfaz del camarero.
+* La libreta ocupa la mitad superior de la interfaz de los jugadores.
 * La comanda contará con varios botones con los que podrá podrá seleccionar:
     * El número de la mesa (el número se escribirá por teclado)
     * Apuntar una nueva paella
     * Tamaño de la nueva paella
     * Los ingredientes que llevará
+    * Botón para terminar de escribir una paella
     * Cancelar comanda
     * Descartar la comanda (se crea una comanda en blanco)
     * Finalizar comanda
 * Al añadir un nuevo ingrediente en la comanda todos los botones de los ingredientes se reorganizarán aleatoriamente.
-* Si el jugador se equivoca al escribir la comanda y quiere corregirla, tendrá que descartarla y volver a escribir una nueva.
+* Si el jugador se equivoca al escribir la comanda y quiere corregirla, tendrá que descartarla y volver a escribir una nueva o podrá mandar dicha comanda mal escrita sabiendo que perderá puntuación.
 * El jugador puede moverse mientras escribe una comanda.
+
 
 <img src="images_gdd/36comandas.PNG">
 <img src="images_gdd/37comandas.PNG">
@@ -448,6 +450,7 @@ De esta forma, podemos enseñar al jugador, el orden principal de hacer las cosa
 * Si los jugadores eliminan una comanda, no la podrán volver a recuperar.
 * En el caso de que en pantalla haya más comandas que el número máximo que se pueden acumular, aparecerá un número en la esquina superior derecha con las comandas extra que aún le quedan por atender los jugadores.
 * Cuando los jugadores eliminen una comanda, aparecerá en pantalla la siguiente acumulada.
+
 
 <img src="images_gdd/39comandas.PNG">
 
