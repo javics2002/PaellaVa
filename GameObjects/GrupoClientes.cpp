@@ -325,7 +325,7 @@ void GrupoClientes::onDeactivate()
 		
 	if (estado_ == CUENTA) {
 		mesa->clienteSeVa();
-		mGame->getCurrentScene()->addPuntuaciones(pedido->puntuarPedido(mesa->getPaellasEntregadas()));
+		mGame->getCurrentScene()->addPuntuaciones(pedido->puntuarPedido(mesa->getPaellasEntregadas()) * ((tolerancia + 50) / 100));
 	}	
 }
 
