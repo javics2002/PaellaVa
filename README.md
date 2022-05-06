@@ -227,20 +227,19 @@ La paella podrá tener de 0 a 3 ingredientes, independientemente de que los clie
 * **Equivocarse de Paella:**
     * Si la paella pedida no coincide con la entregada, el cliente se la comerá igualmente, pero la puntuación bajará considerablemente dependiendo de lo que falle.
 
-|Diferencia de la original (niv. tam.)|2 veces + grande|1 vez + grande|   | 1 vez + pequeña| 2 veces + pequeña |
-|---|---|---|---|---|---|
-|**Tamaño**| -1  |  -0.5 ||  -1 | -2  |
-|**Ingrediente Sobrante**||  -0.1 (por cada ingrediente) |
-|**Ingrediente Ausente**||  -0.25 (por cada ingrediente) |
+|Diferencia de la original (niv. tam.)|2 veces + grande|1 vez + grande|  1 vez + pequeña| 2 veces + pequeña |
+|---|---|---|---|---|
+|**Tamaño**| -1  |  -0.5 |  -1 | -2  |
+|**Ingrediente Sobrante**|  -0.1 (por cada ingrediente) |
+|**Ingrediente Ausente**| -0.25 (por cada ingrediente) |
 
 * **Barra de cocción:**
     * Durante el tiempo de cocinado de la paella la barra subirá. 
     * Si el cocinero consigue sacar la paella en el momento justo el restaurante conseguirá más puntos a la hora de vender el plato.
     * En contrapartida, perderá puntos si el plato sale crudo o muy hecho.
 
-
-    <img src="images_gdd/17paella.PNG">
-    <img src="images_gdd/18paella.PNG">
+<img src="images_gdd/17paella.PNG">
+<img src="images_gdd/18paella.PNG">
 
 * **Estado de la paellera:**
     * Durante el ciclo de vida de la paella esta tendrá aspectos:
@@ -434,9 +433,8 @@ De esta forma, podemos enseñar al jugador, el orden principal de hacer las cosa
 * Si el jugador se equivoca al escribir la comanda y quiere corregirla, tendrá que descartarla y volver a escribir una nueva.
 * El jugador puede moverse mientras escribe una comanda.
 
-<img src="images_gdd/36comandas.PNG">
+<img src="images_gdd/36comandas.PNG">  <img src="images_gdd/38comandas.PNG">
 <img src="images_gdd/37comandas.PNG">
-<img src="images_gdd/38comandas.PNG">
 
 * Cuando el jugador le dé al botón de finalizar comanda, esta se moverá a la parte superior de la pantalla de ambos jugadores, pero tendrá otro formato.
 * Se podrán acumular un máximo de 6 comandas encima de la pantalla.
@@ -515,8 +513,7 @@ El diseño de sonido consta de una gama de sonidos realistas, que representan ca
 
 ### Personajes: <a name="personajes"></a>
 
-<img src="images_gdd/43personajes.PNG">
-<img src="images_gdd/44personajes.PNG">
+<img src="images_gdd/43personajes.PNG"> <img src="images_gdd/44personajes.PNG">
 
 
 ### Ingredientes: <a name="ingredientes"></a>
@@ -533,56 +530,30 @@ El diseño de sonido consta de una gama de sonidos realistas, que representan ca
 | Langosta       | <img src="images_gdd/59langosta.PNG"> | <img src="images_gdd/60langosta.PNG">            |  <img src="images_gdd/8.png">            |               
 | Alcachofa      | <img src="images_gdd/61alcachofa.PNG"> | <img src="images_gdd/61alcachofa.PNG">            | <img src="images_gdd/9.png">          |                        
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ### Restaurante: <a name="restaurante"></a>
 Sprites ligados al entorno de juego:
 
-De la cocina:
-<img src="images_gdd/63pared.PNG">
-<img src="images_gdd/64losa.PNG">
-<img src="images_gdd/65fogon.PNG">
-<img src="images_gdd/66procesado.PNG">
-<img src="images_gdd/67cinta.PNG">
-<img src="images_gdd/68lavavajillas.PNG">
-<img src="images_gdd/69pila.PNG">
-<img src="images_gdd/70basura.PNG">
-<img src="images_gdd/71pared.PNG">
-<img src="images_gdd/72losa.PNG">
+| Cocina |      |
+|----------------|--------------|
+| Pared         | <img src="images_gdd/63pared.PNG"> |
+| Losa 1         | <img src="images_gdd/64losa.PNG"> |
+| Fogón         | <img src="images_gdd/65fogon.PNG"> |
+| Mesa de Procesado | <img src="images_gdd/66procesado.PNG"> |
+| Cinta Transportadora         | <img src="images_gdd/67cinta.PNG"> |
+| Lavavajillas         | <img src="images_gdd/68lavavajillas.PNG"> |
+| Pila de Paelleras         | <img src="images_gdd/69pila.PNG"> |
+| Basura         | <img src="images_gdd/70basura.PNG"> |
 
-
-Del comedor:
-* Pared
-* Esquina Pared
-* Losa 1
-* Losa 2
-* Ventanilla
-* Borde Ventanilla
-* Puerta (comensales)
-* Puerta (jugadores)
-* Valla Terciopelo
-* Mesa (1 x 1)
-* Mesa (2 x 1)
-* Mesa (2 x 2)
-* Silla
-* Lavavajillas
+| Comedor |      |
+|----------------|--------------|
+| Pared         | <img src="images_gdd/71pared.PNG"> |
+| Losa 1         | <img src="images_gdd/72losa.PNG"> |
+| Puerta (comensales)         | <img src="images_gdd/73puerta.PNG"> |
+| Puerta (jugadores) | <img src="images_gdd/74puerta.PNG"> |
+| Mesa (1 x 1)         | <img src="images_gdd/75mesa.PNG"> |
+| Mesa (2 x 1)         | <img src="images_gdd/76mesa.PNG"> |
+| Mesa (2 x 2)         | <img src="images_gdd/77mesa.PNG"> |
+| Silla         | <img src="images_gdd/78silla.PNG"> |
 
 ### Efectos de sonido: <a name="sonido"></a>
 
