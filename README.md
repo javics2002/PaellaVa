@@ -325,39 +325,98 @@ Los comensales irán en grupos de 1 a 6 personas. Cada grupo estará separado de
 
 <img src="images_gdd/21comensal.PNG">
 
-
-| Tolerancia | Puntuación |
-|------------|------------|
-| >75        |     +1     |
-| <=75 y >50 |    +0.5    |
-| <=50 y >25 |     +0     |
-| <=25 y >0  | -1         |
+<img src="images_gdd/22comensal.PNG">
+<img src="images_gdd/23comensal.PNG">
 
 Esta puntuación por servicio se sumará a la puntuación por la paella. Estas puntuaciones se sumarán en el momento que los clientes salgan por la puerta.
 
 ### **Interacciones (con los comensales):**
 * **Fila de comensales:**
-    * El camarero podrá coger a un grupo de comensales de la cola y pasará a llevarlo encima en la cabeza, siempre y cuando no lleve ya algo en la cabeza (cuando pase el cursor por encima, el grupo de comensales resaltará).
-    * Cuando el camarero coja a un grupo de comensales, los comensales se quedarán en la cola pero en modo “fantasma”.
-    * Si el camarero lleva a un grupo de comensales consigo, las mesas posibles a las que puedan ir los comensales quedarán resaltadas (es decir, mesas no ocupadas, mesas con un número de sillas >= número de comensales del grupo y mesas sin ninguna paellera por recoger) .
+    * El camarero podrá coger a un grupo de comensales de la cola y pasará a llevarlo encima en la cabeza, siempre y cuando no lleve ya algo en la cabeza.
+    * Cuando el camarero coja a un grupo de comensales, los comensales se quedarán en la cola pero en modo “fantasma (opacidad bajada)”.
     * El camarero podrá interactuar con las mesas posibles, para sentar a los comensales en las sillas.
     * Al ponerlos en sus sillas, los sprites fantasma de la cola desaparecerán.
     * Los comensales que se encontrasen detrás del grupo fantasma comenzarán a caminar hasta que no queden huecos en la cola.
     * No podrás seleccionar a un grupo de comensales que esté caminando.  
-    * El camarero podrá coger a cualquier grupo de la cola (es decir, tiene total libertad de “colar” a gente).
-    * El camarero tendrá libertad de echar a un grupo de comensales del restaurante si lleva al grupo de comensales interactuando con la puerta (la puerta quedará resaltada).
-    * El jugador podrá devolver al grupo de comensales a la cola interactuando con el grupo fantasma (el grupo fantasma quedará resaltado).
-    * Echar a un grupo de comensales en la cola tendrá una penalización de 0,5 puntos.
+    * El camarero podrá coger a cualquier grupo de la cola (es decir, tiene total libertad de “colar” a gente siempre que hayan dejado de caminar).
+    * El camarero podrá echar a un grupo de comensales del restaurante si lleva al grupo de comensales interactuando con la puerta si el grupo estaba en la cola o había terminado de comer.
+    * El jugador podrá devolver al grupo de comensales a la cola interactuando con el grupo fantasma (lugar donde se encontraban antes de interactuar).
+    * Echar a un grupo de comensales en la cola puntuará como 0 a una nueva paella.
+
 
 * **Mesas:**
-    * En este caso el cocinero podrá interactuar con las mesas cuando colisione con alguna de las sillas asociadas a esta (o con la mesa misma).
-    * Si los clientes están a la espera de que les tomen el pedido, al interactuar comenzarán a contarle al camarero lo que quieren (ciclo de vida de un grupo de comensales → apartado 6).
+    * Si los clientes están a la espera de que les tomen el pedido, al colisionar con las mesas, comenzarán a contarle al camarero lo que quieren (descrito anteriormente).
     * Si, durante este estado, el camarero se aleja, los clientes dejarán de contarle el pedido al camarero (dejarán de salir bocadillos).
     * Si, durante este estado, el camarero vuelve a interactuar con la mesa, los clientes volverán a decirle el pedido desde el principio.
-    * Si, durante este estado, otro camarero interactúa con tu misma mesa, los clientes también volverán a repetir el pedido desde el principio. 
-    * Si están a la espera de la comida (teniendo en cuenta que pueden estar comiendo, pero a la espera de más paellas) y el camarero lleva una paella recién hecha en la cabeza, podrá elegir en qué tile poner la paellera, siempre y cuando el tile no esté ocupado (el tile seleccionado quedará resaltado, siempre y cuando sea un tile válido). 
-    * Si ya han terminado de comer, podrás volver a coger al grupo de comensales, para llevarlos encima hasta la puerta (los sprites resaltarán cuando pases el ratón por encima y la puerta, cuando cojas al grupo).
-    * Cuando hayas “acompañado” al grupo de comensales a la puerta, las mesas quedarán sin limpiar, el camarero podrá interactuar con estas para recoger las paelleras sucias (las paellas resaltará cuando el jugador pase el ratón por encima).
+    * Si están a la espera de la comida y el camarero lleva una paella recién hecha en la cabeza, podrá elegir en qué tile poner la paellera, siempre y cuando el tile no esté ocupado, sino se colocará en el siguiente más cercano. 
+    * Si ya han terminado de comer, podrás volver a coger al grupo de comensales, para llevarlos encima hasta la puerta.
+    * Cuando hayas “acompañado” al grupo de comensales a la puerta, las mesas quedarán sin limpiar, el camarero podrá interactuar con estas para recoger las paelleras sucias.
+
+### **Jornadas:**
+
+El juego se desarrolla durante 5 jornadas distintas, cada uno de ellos  se jugará en un restaurante completamente distinto al anterior, cambiando la disposición general de todos los muebles  de las 2 salas (cocina y comedor) así como su posición en el mapa global. Los diseños se encuentran en el juego en el siguiente orden: 
+
+#### **JORNADA 1**
+
+<img src="images_gdd/24jornada.PNG">
+<img src="images_gdd/25jornada.PNG">
+
+El comedor se encuentra en  sala izquierda del mapa , los clientes entraran por la zona inferior izquierda de la sala , sentar a todos los grupos será sencillo ya que todas la mesas están accesibles directamente .En la pared derecha se encuentra el acceso a al cocina y la ventanilla , la acción más perjudicada en esta sala será servir las paellas a las mesas de la parte izquierda de la sala.
+
+La cocina se encuentra en la sala derecha del mapa la cinta de alimentos está en la esquina superior derecha y es fácilmente accesible ya que está contra la pared. Muy cerca de la cinta encontramos  la isla de encimeras con los fogones y las tablas.
+
+#### **JORNADA 2**
+
+<img src="images_gdd/26jornada2.PNG">
+<img src="images_gdd/27jornada2.PNG">
+
+El comedor se encuentra en la sala izquierda del mapa y las mesas disponen de modo que el camarero debe rodear antes de poder acceder a la ventanilla y a la puerta que comunica con la  cocina.
+
+La cocina se encuentra en la sala derecha y encontramos 2 cintas de alimentos accesibles en todas las direcciones  , en las paredes laterales hay encimeras para proporcionar espacios de almacenamiento .
+
+
+#### **JORNADA 3**
+
+<img src="images_gdd/28jornada3.PNG">
+<img src="images_gdd/29jornada3.PNG">
+
+El comedor se encuentra en la sala izquierda del mapa, la ventanilla está al lado de la puerta y tiene mesas cercanas que serán fáciles de servir pero otras que están lejos.  Los clientes entrarán por la parte central superior del restaurante hasta llegar al cartel.
+
+La cocina se encuentra en la sala derecha del mapa  con dos cintas de alimentos en la parte superior derecha de la habitación y otra en la parte inferior derecha parcialmente, con una isla de muebles en el medio y las pilas de paella cerca de la misma.
+
+
+#### **JORNADA 4**
+
+<img src="images_gdd/30jornada4.PNG">
+<img src="images_gdd/31jornada4.PNG">
+
+El comedor  se encuentra en la sala derecha del mapa, a diferencia de los comedores del resto de jornadas . Con las mesas situadas debajo de la fila de clientes. Estos entrarán al restaurante por la esquina superior derecha.
+
+La cocina  se encuentra en la sala izquierda del mapa , Esta tiene dos cintas en la parte izquierda del mapa, con distinta orientación, una isla de encimeras con dos tablas para dejar ingredientes y paellas, y encontramos 4 fogones divididos de dos en dos.
+
+
+#### **JORNADA 5**
+
+<img src="images_gdd/32jornada5.PNG">
+<img src="images_gdd/33jornada5.PNG">
+
+El comedor se encuentra en la sala derecha del mapa,como el anterior, este contiene varias mesas  y esta vez los clientes harán cola en la parte derecha del mapa, un mapa más complicado para servir y sentar clientes de manera rápida.
+
+La cocina se encuentra en la sala izquierda del mapa , similar a la cocina anterior, pero con una distribución algo distinta pero más que suficiente para preparar muchas paellas.
+
+### **Tutorial:**
+
+El tutorial es un apartado extra dentro del juego, en el que enseñamos a los jugadores las mecánicas y dinámicas principales de nuestro juego. Sin embargo, no obligamos a ningún jugador a completarlo porque se haría aburrido tener que completar el tutorial cada vez que alguien entre al juego. Aunque, no por eso,  es menos útil, cumple todas las funcionalidades de un tutorial. Para acceder tenemos un botón en el menú principal el cual nos llevará al tutorial. Este se basa en una máquina de estados, en la que el jugador se verá “obligado” a realizar las acciones que se le mandan en los diálogos. Aunque si que tiene cierta libertad, pero haga lo que haga al final lo único que podrá hacer será lo correcto. 
+
+<img src="images_gdd/34tutorial.PNG">
+
+Este se basa en una serie de diálogos entre acciones, en los cuales te indican cual será tu siguiente misión dentro del restaurante, por ejemplo, al colocar una paellera vacía en la mesa, aparecerá un diálogo diciendo que sólo puedes colocar arroz y que no podrás colocar ingredientes si no hay arroz. El jugador deberá seguir todos los pasos indicados en los diálogos hasta llegar al final, y en caso de haber leído todos los diálogos, cortos y explicativos, habrá aprendido a jugar de ambos roles.
+
+<img src="images_gdd/35tutorial.PNG">
+
+Para llevar a cabo esto, los muebles van apareciendo de forma progresiva, para que el jugador no pueda anticiparse a las misiones que tiene que realizar, por lo que no podrá cocinar una paella, hasta que no haya preparado la paella que ha pedido el cliente.
+
+De esta forma, podemos enseñar al jugador, el orden principal de hacer las cosas, aunque luego él pueda hacerlo a su gusto.
 
 ### **Comandas:**
 * Los jugadores podrán escribir comandas siempre que quieran. 
@@ -375,7 +434,9 @@ Esta puntuación por servicio se sumará a la puntuación por la paella. Estas p
 * Si el jugador se equivoca al escribir la comanda y quiere corregirla, tendrá que descartarla y volver a escribir una nueva.
 * El jugador puede moverse mientras escribe una comanda.
 
-<img src="images_gdd/comanda.PNG">
+<img src="images_gdd/36comandas.PNG">
+<img src="images_gdd/37comandas.PNG">
+<img src="images_gdd/38comandas.PNG">
 
 * Cuando el jugador le dé al botón de finalizar comanda, esta se moverá a la parte superior de la pantalla de ambos jugadores, pero tendrá otro formato.
 * Se podrán acumular un máximo de 6 comandas encima de la pantalla.
@@ -388,7 +449,7 @@ Esta puntuación por servicio se sumará a la puntuación por la paella. Estas p
 * En el caso de que en pantalla haya más comandas que el número máximo que se pueden acumular, aparecerá un número en la esquina superior derecha con las comandas extra que aún le quedan por atender los jugadores.
 * Cuando los jugadores eliminen una comanda, aparecerá en pantalla la siguiente acumulada.
 
-<img src="images_gdd/comandasacumuladas.PNG">
+<img src="images_gdd/39comandas.PNG">
 
 ### **Eventos del Juego:**
 
