@@ -639,7 +639,7 @@ Del comedor:
 
 ## 8. UML <a name="uml"></a>
 
-<img src="images_gdd/42controles.PNG">
+<img src="images_gdd/83uml.PNG">
 
 ## 9. Comunicación <a name="comunicacion"></a>
 Tenemos cuenta de Twitter en la que hacemos memes, revisiones semanales de como va en Spaces. Hemos usado Github tanto para la gestión de versiones como gestor de desarrollo y Discord para la comunicación interna del equipo y con los testers.
