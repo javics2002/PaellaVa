@@ -444,6 +444,10 @@ De esta forma, podemos enseñar al jugador, el orden principal de hacer las cosa
 * En el caso de que en pantalla haya más comandas que el número máximo que se pueden acumular, aparecerá un número en la esquina superior derecha con las comandas extra que aún le quedan por atender los jugadores.
 * Cuando los jugadores eliminen una comanda, aparecerá en pantalla la siguiente acumulada.
 
+sghdh
+
+shjdj
+
 
 <img src="images_gdd/39comandas.PNG">
 
