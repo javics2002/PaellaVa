@@ -361,9 +361,9 @@ El juego se desarrolla durante 5 jornadas distintas, cada uno de ellos  se jugar
 <img src="images_gdd/24jornada.PNG">
 <img src="images_gdd/25jornada.PNG">
 
-El comedor se encuentra en  sala izquierda del mapa , los clientes entraran por la zona inferior izquierda de la sala , sentar a todos los grupos será sencillo ya que todas la mesas están accesibles directamente .En la pared derecha se encuentra el acceso a al cocina y la ventanilla , la acción más perjudicada en esta sala será servir las paellas a las mesas de la parte izquierda de la sala.
+El comedor se encuentra en  sala izquierda del mapa, los clientes entraran por la zona inferior izquierda de la sala, sentar a todos los grupos será sencillo ya que todas la mesas están accesibles directamente. En la pared derecha se encuentra el acceso a al cocina y la ventanilla, la acción más perjudicada en esta sala será servir las paellas a las mesas de la parte izquierda de la sala.
 
-La cocina se encuentra en la sala derecha del mapa la cinta de alimentos está en la esquina superior derecha y es fácilmente accesible ya que está contra la pared. Muy cerca de la cinta encontramos  la isla de encimeras con los fogones y las tablas.
+La cocina se encuentra en la sala derecha del mapa la cinta de alimentos está en la esquina superior derecha y es fácilmente accesible ya que está contra la pared. Muy cerca de la cinta encontramos la isla de encimeras con los fogones y las tablas.
 
 #### **JORNADA 2**
 
@@ -372,7 +372,7 @@ La cocina se encuentra en la sala derecha del mapa la cinta de alimentos está e
 
 El comedor se encuentra en la sala izquierda del mapa y las mesas disponen de modo que el camarero debe rodear antes de poder acceder a la ventanilla y a la puerta que comunica con la  cocina.
 
-La cocina se encuentra en la sala derecha y encontramos 2 cintas de alimentos accesibles en todas las direcciones  , en las paredes laterales hay encimeras para proporcionar espacios de almacenamiento .
+La cocina se encuentra en la sala derecha y encontramos 2 cintas de alimentos accesibles en todas las direcciones, en las paredes laterales hay encimeras para proporcionar espacios de almacenamiento.
 
 
 #### **JORNADA 3**
@@ -380,9 +380,9 @@ La cocina se encuentra en la sala derecha y encontramos 2 cintas de alimentos ac
 <img src="images_gdd/28jornada3.PNG">
 <img src="images_gdd/29jornada3.PNG">
 
-El comedor se encuentra en la sala izquierda del mapa, la ventanilla está al lado de la puerta y tiene mesas cercanas que serán fáciles de servir pero otras que están lejos.  Los clientes entrarán por la parte central superior del restaurante hasta llegar al cartel.
+El comedor se encuentra en la sala izquierda del mapa, la ventanilla está al lado de la puerta y tiene mesas cercanas que serán fáciles de servir pero otras que están lejos. Los clientes entrarán por la parte central superior del restaurante hasta llegar al cartel.
 
-La cocina se encuentra en la sala derecha del mapa  con dos cintas de alimentos en la parte superior derecha de la habitación y otra en la parte inferior derecha parcialmente, con una isla de muebles en el medio y las pilas de paella cerca de la misma.
+La cocina se encuentra en la sala derecha del mapa con dos cintas de alimentos en la parte superior derecha de la habitación y otra en la parte inferior derecha parcialmente, con una isla de muebles en el medio y las pilas de paella cerca de la misma.
 
 
 #### **JORNADA 4**
@@ -390,9 +390,9 @@ La cocina se encuentra en la sala derecha del mapa  con dos cintas de alimentos 
 <img src="images_gdd/30jornada4.PNG">
 <img src="images_gdd/31jornada4.PNG">
 
-El comedor  se encuentra en la sala derecha del mapa, a diferencia de los comedores del resto de jornadas . Con las mesas situadas debajo de la fila de clientes. Estos entrarán al restaurante por la esquina superior derecha.
+El comedor se encuentra en la sala derecha del mapa, a diferencia de los comedores del resto de jornadas. Con las mesas situadas debajo de la fila de clientes. Estos entrarán al restaurante por la esquina superior derecha.
 
-La cocina  se encuentra en la sala izquierda del mapa , Esta tiene dos cintas en la parte izquierda del mapa, con distinta orientación, una isla de encimeras con dos tablas para dejar ingredientes y paellas, y encontramos 4 fogones divididos de dos en dos.
+La cocina se encuentra en la sala izquierda del mapa, Esta tiene dos cintas en la parte izquierda del mapa, con distinta orientación, una isla de encimeras con dos tablas para dejar ingredientes y paellas, y encontramos 4 fogones divididos de dos en dos.
 
 
 #### **JORNADA 5**
@@ -400,9 +400,9 @@ La cocina  se encuentra en la sala izquierda del mapa , Esta tiene dos cintas en
 <img src="images_gdd/32jornada5.PNG">
 <img src="images_gdd/33jornada5.PNG">
 
-El comedor se encuentra en la sala derecha del mapa,como el anterior, este contiene varias mesas  y esta vez los clientes harán cola en la parte derecha del mapa, un mapa más complicado para servir y sentar clientes de manera rápida.
+El comedor se encuentra en la sala derecha del mapa, como el anterior, este contiene varias mesas y esta vez los clientes harán cola en la parte derecha del mapa, un mapa más complicado para servir y sentar clientes de manera rápida.
 
-La cocina se encuentra en la sala izquierda del mapa , similar a la cocina anterior, pero con una distribución algo distinta pero más que suficiente para preparar muchas paellas.
+La cocina se encuentra en la sala izquierda del mapa, similar a la cocina anterior, pero con una distribución algo distinta pero más que suficiente para preparar muchas paellas.
 
 ### **Tutorial:**
 
@@ -665,7 +665,7 @@ Fue agradable descubrir que nadie se aburrió durante la jornada ni consideró e
 
 * La puerta entre salon y cocina realmente no es una puerta , es un cuadrado blanco y noo se ve bien molaria poner una flechita en el suelo o algo indicando que puedes andar por ahi hacia otra habitacion
 
-* El signo de prohibido como , paella solo de arroz confunde a  bastante gente.
+* El signo de prohibido como, paella solo de arroz confunde a  bastante gente.
 
 * Ui de muebles mal colocaba o solapada: cuando hay 2 fogones juntos si colocas una paella en cada uno la barra de cocción de una tapara a la  otra , en un mapa donde las tablas de  procesados están abajo del todo y el circulo rojo este de progreso no se ve.
  
