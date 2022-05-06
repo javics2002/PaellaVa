@@ -165,9 +165,9 @@ La cocina contará con:
     * El jugador podrá detener el procesamiento una vez empezado.
     * Cuando el jugador termine de procesar el alimento, este se quedará procesado en la tabla a la espera de que el jugador lo coja.
 
-<img src="images_gdd/4procesar.PNG">
-<img src="images_gdd/5procesar.PNG">
-<img src="images_gdd/6procesar.PNG">
+<img src="images_gdd/4procesar.PNG"> <img src="images_gdd/5procesar.PNG"> <img src="images_gdd/6procesar.PNG">
+
+
 
 
 * **Fogones:**
@@ -175,8 +175,8 @@ La cocina contará con:
     * Cuando el jugador ponga una paellera en un fogón desocupado las llamas comenzarán a salir.
     * Solo se pueden poner paellas con arroz en los fogones.
 
-<img src="images_gdd/7fogon.PNG">
-<img src="images_gdd/8fogon.PNG">
+<img src="images_gdd/7fogon.PNG"> <img src="images_gdd/8fogon.PNG">
+
 
 * **Lavavajillas:**
     * Ocupa 1 tile.
@@ -186,9 +186,9 @@ La cocina contará con:
     * Se podrán tirar paelleras sucias desde la cocina y desde el comedor.
     * No se pueden tirar paelleras limpias ni enteras al lavavajillas. 
 
-    <img src="images_gdd/9lavavajillas.PNG">
-    <img src="images_gdd/10lavavajillas.PNG">
-    <img src="images_gdd/11lavavajillas.PNG">
+    <img src="images_gdd/9lavavajillas.PNG"> <img src="images_gdd/10lavavajillas.PNG"> <img src="images_gdd/11lavavajillas.PNG">
+    
+    
 
 
 * **“Puerta” (espacio entre cocina y comedor):**
@@ -197,8 +197,8 @@ La cocina contará con:
     * Si te encuentras en la cocina aparecerás delante de la puerta del comedor y viceversa.
     * Si llevas algo encima de la cabeza seguirás llevándolo en la cabeza cuando traspases la puerta.
 
-    <img src="images_gdd/12puerta.PNG">
-    <img src="images_gdd/13puerta.PNG">
+    <img src="images_gdd/12puerta.PNG">  <img src="images_gdd/13puerta.PNG">
+   
 
 
 
