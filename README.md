@@ -289,42 +289,41 @@ El comedor contará con:
 **Sillas:** estarán asociadas a las mesas (no puede existir una silla sin una mesa delante). El camarero se encargará de coger a los comensales y sentarlos en la mesa que crea conveniente. Ocupan 1 tile. En una mesa solamente podrá sentarse un único grupo de comensales independientemente de si hay sillas de sobra para otro grupo en esa misma mesa.
 
 ### **Comensales:**
-Los comensales irán en grupos de 1 a 8 personas. Todos los comensales que pertenezcan al mismo grupo tendrán el mismo sprite (o sprites muy similares con los cuales el jugador entienda que pertenecen al mismo grupo). 
 
-Cada grupo de comensales tendrá un **nivel de tolerancia:**
-* Empieza al 100%. 
-* El nivel de tolerancia irá bajando poco a poco cuando el grupo se encuentre en estado de espera. 
-* El jugador podrá ver el nivel de tolerancia de los comensales siempre que quiera, pasando el ratón por encima del grupo (o de la mesa en la que están sentados). 
-* El nivel de tolerancia será representado por un bocadillo con un emoticono.
-* Cada grupo de comensales tendrá un factor de bajada de nivel de tolerancia distinto (aleatorio).
-* Máximo: -0,5%/s
-* Mínimo: -0,2%/s
+Los comensales irán en grupos de 1 a 6 personas. Cada grupo estará separado del siguiente por medio tile para remarcar quien pertenece a cada grupo.
 
-Ciclo de vida típico de un grupo de comensales:
-1. Entran por la puerta y se ponen al final de la cola (espera: OFF)
-2. Esperan en la cola (espera: ON)
-3. El camarero coge al grupo de comensales y los lleva en la cabeza hasta su mesa (espera: OFF)
-4. Esperan en la mesa a que el camarero les tome nota (espera: ON)
-5. El camarero les toma nota (espera: ON). Durante este proceso aparecerá un bocadillo encima del grupo de comensales con un icono que hará referencia a una característica de la/las paella/paellas que quieran comer, el icono cambiará cada 0,5 segundos. Estos iconos saldrán en el siguiente orden:
-    1. Para cuántas persona es la paella (1 - 3)
-    2. Ingrediente nº 1
-    3. Ingrediente nº 2
-    4. Ingrediente nº 3
-    5. Siguiente paella (vuelta al punto 1)
-    6. …
-    7. Check de confirmación (pedido completado)
-6. Esperan en la mesa a que el camarero les traiga la comida (espera: ON)
-7. El camarero les trae la paella:
-    1. Si no quedan paellas por traer → espera: OFF
-    2. Si quedan paellas por traer → espera: ON
-8. Comensales comiendo:
-    1. Si están comiendo todos los comensales → espera: OFF
-    2. Si algún comensal ya ha terminado de comer (existe, al menos una paella sin acabar) → espera: ON
-9. Todos los comensales del grupo han terminado de comer y esperan la cuenta (espera: ON)
-10. El camarero les toma la cuenta (espera: OFF)
-11. El camarero coge al grupo de comensales y los lleva hasta la puerta (espera: OFF)
+* Cada grupo de comensales tendrá un nivel de tolerancia:
+    * Empieza al 100%. 
+    * El nivel de tolerancia irá bajando poco a poco cuando el grupo se encuentre en estado de espera (mientras esperan en la cola, esperan para pedir o esperan la cuenta).
+    * El jugador podrá ver el nivel de tolerancia de los comensales siempre que quiera, pasando el ratón por encima del grupo.
+    * El nivel de tolerancia será representado por un bocadillo con un emoticono.
 
-Si se llega a completar el ciclo de vida típico la puntuación podrá subir o bajar dependiendo de su nivel de tolerancia final:
+
+* Ciclo de vida típico de un grupo de comensales:
+
+    * Entran por la puerta y se ponen al final de la cola (espera: OFF)
+    * Esperan en la cola (espera: ON)
+    * El camarero coge al grupo de comensales y los lleva en la cabeza hasta su mesa (espera: ON)
+    * Esperan en la mesa a que el camarero les tome nota (espera: ON)
+    * El camarero les toma nota (espera: ON). Durante este proceso aparecerá un bocadillo encima del grupo de comensales con un icono que hará referencia a una característica de la/las paella/paellas que quieran comer, el icono cambiará cada 0,5 segundos. Estos iconos saldrán en el siguiente orden:
+        * Tamaño de la paella (S, M, L)
+        * Ingrediente nº 1
+        * Ingrediente nº 2
+        * Ingrediente nº 3
+        * Siguiente paella (vuelta al punto 1) en caso de haber pedido más de una
+        * Check de confirmación
+        * Una vez se completa un ciclo vuelve a empezar.
+    *  Esperan en la mesa a que el camarero les traiga la comida (espera: ON)
+    * El camarero les trae la paella:
+        * Si no quedan paellas por traer → espera: OFF
+        * Si quedan paellas por traer → espera: ON
+    * Comensales comiendo (no empezarán a comer hasta que les hayas traído todas las paellas) (espera: OFF)
+    * Todos los comensales del grupo han terminado de comer y esperan la cuenta (espera: ON)
+    * El camarero los toma la cuenta, cogiendo al grupo de comensales y los llevándolos hasta la puerta (espera: ON)
+    * Si se llega a completar el ciclo de vida típico la puntuación a la puntuación de la paella se le multiplicará el nivel de tolerancia final, como se ha explicado en la fórmula anterior. Esta suma se realizará cuando el cliente lleve a los clientes a la puerta. 
+
+<img src="images_gdd/21comensal.PNG">
+
 
 | Tolerancia | Puntuación |
 |------------|------------|
