@@ -532,6 +532,24 @@ El diseño de sonido consta de una gama de sonidos realistas, que representan ca
 | Langosta       | <img src="images_gdd/59langosta.PNG"> | <img src="images_gdd/60langosta.PNG">            |  <img src="images_gdd/8.png">            |               
 | Alcachofa      | <img src="images_gdd/61alcachofa.PNG"> | <img src="images_gdd/61alcachofa.PNG">            | <img src="images_gdd/9.png">          |                        
 
+### Paellas: <a name="paellas"></a>
+
+La paellas tendrán distintos sprites dependiendo de la cocción del arroz:
+
+|  | Paella Completa | Paella Mitad |
+|----------------|--------------|--------------|
+| Cruda        | <img src="images_gdd/paellaCruda.png"> | <img src="images_gdd/paellaCrudaMitad.png"> |
+| Poco Hecho        | <img src="images_gdd/paellaPocoHecha.png"> | <img src="images_gdd/paellaPocoHechaMitad.png"> |
+| Paella Perfecta         | <img src="images_gdd/paellaCompleta.png"> | <img src="images_gdd/paellaMitad.png"> |
+| Paella Muy Hecha | <img src="images_gdd/paellaMuyHecha.png"> | <img src="images_gdd/paellaMuyHechaMitad.png"> |
+| Paella Quemada        | <img src="images_gdd/paellaQuemada.png"> | <img src="images_gdd/paellaQuemadaMitad.png"> |
+| Paella Incomestible         | <img src="images_gdd/paellaIncomestible.png"> | <img src="images_gdd/paellaIncomestibleMitad.png"> |
+
+Paellera Limpia:
+<img src="images_gdd/paellaVacia.png">
+Paellara Sucia:
+<img src="images_gdd/paellaSucia.png">
+
 ### Restaurante: <a name="restaurante"></a>
 Sprites ligados al entorno de juego:
 
