@@ -451,6 +451,9 @@ De esta forma, podemos enseñar al jugador, el orden principal de hacer las cosa
 
 sghdh
 
+shjdj
+
+
 <img src="images_gdd/39comandas.PNG">
 
 ### **Eventos del Juego:**
