@@ -21,14 +21,16 @@ FinalScene::FinalScene(Game* mGame) : Scene(mGame)
 	mReward->setTexture("medalla");
 	mReward->setInitialDimension(200, 200);
 	mReward->setDimension(200, 200);
-	mReward->setPosition(sdlutils().width() - 200, 70 * 2);
+	mReward->setPosition(sdlutils().width() - 200, 70 * 3);
 	mUiManager->addInterfaz(mReward);
 
-	GameObject* mText = new GameObject(mGame);
-	mText->setTexture("GRACIAS POR JUGAR!", string("finalScene"), SDL_Color{ 255, 255, 255, 255 }, SDL_Color{ 0, 0, 0, 0 });
-	mText->setDimension();
-	mText->setPosition(Vector2D<double>(mPosPuntX + 50, mPosPuntY + mText->getHeight()));
-	mUiManager->addInterfaz(mText);
+	GameObject* mFinalImage = new GameObject(mGame);
+	mFinalImage->setTexture("final");
+	mFinalImage->setInitialDimension(sdlutils().width(), sdlutils().height());
+	mFinalImage->setDimension(sdlutils().width(), sdlutils().height());
+	mFinalImage->setPosition(sdlutils().width()/2, sdlutils().height()/2);
+	mUiManager->addInterfaz(mFinalImage);
+
 
 	auto mContinueButton = new UiButton(mGame, "continue",
 		sdlutils().width() / 2, sdlutils().height() / 2 + 300, 300, 120);

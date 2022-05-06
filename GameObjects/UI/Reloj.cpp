@@ -36,7 +36,6 @@ bool Reloj::finDia()
 {
 	if (!mGame->getNetworkManager()->isHost())
 		return false;
-	//return SDL_TICKS_PASSED(SDL_GetTicks(), totalJornada);
 	return (mHourFin <= mCurrentTime.hours && mMinuteFin <= mCurrentTime.minutes);
 }
 
@@ -50,16 +49,13 @@ void Reloj::render(SDL_Rect* cameraRect)
 
 void Reloj::update()
 {
-	if (mLastUpdate + mUpdateTime > sdlutils().virtualTimer().currTime()) { //si no pasan
+	if (mLastUpdate + mUpdateTime > sdlutils().virtualTimer().currTime()) { //si no pasa el tiempo indicado no se actualiza
 		return;
 	}
-
-	
 
 	if (finDia())
 	{
 		mGame->getNetworkManager()->setGameStarted(false);
-
 		mGame->sendMessageScene(new GameOver(mGame, 0, mNumeroJornada));
 		mGame->getNetworkManager()->sendFinishGame(dynamic_cast<Jornada*>(mGame->getCurrentScene())->getPunctuationJornada(), mNumeroJornada);
 	}
@@ -67,7 +63,7 @@ void Reloj::update()
 	{
 		mLastUpdate = sdlutils().virtualTimer().currTime();
 
-		//1 minuto en Ticks = 1 hora en el juego
+		//se anaden los minutos a cada hora que pasa
 		mCurrentTime.minutes += mAddedMinutes;
 
 		if (mCurrentTime.minutes >= 60) {
@@ -80,10 +76,11 @@ void Reloj::update()
 			mUltimaHora = true;
 			sdlutils().soundEffects().at("ultimaHora").play();
 		}
-
+		//si pasa de las doce de la noche, para que se sume bien
 		if (mCurrentTime.hours >= 24) {
 			mCurrentTime.hours = mCurrentTime.hours % 24;
 		}
+		//ponemos la textura de la hora
 		string timeText = parseTimeToString(mCurrentTime.hours, mCurrentTime.minutes);
 		setTexture(timeText, string("paella"), FG_COLOR, BG_COLOR);
 

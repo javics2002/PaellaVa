@@ -233,6 +233,7 @@
     { "id": "estrellaMolde", "file": "Assets/Images/estrellaMolde.png" },
     { "id": "cuadradoPlay", "file": "Assets/Images/cuadradoPlay.png" },
     { "id": "medalla", "file": "Assets/Images/medalla.png" },
+    { "id": "final", "file": "Assets/Images/final.png" },
     { "id": "disconnectedBg", "file": "Assets/Images/disconnectedBg.png" }
 
 
