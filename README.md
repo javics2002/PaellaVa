@@ -520,6 +520,9 @@ El diseño de sonido consta de una gama de sonidos realistas, que representan ca
 
 
 ### Ingredientes: <a name="ingredientes"></a>
+
+Los ingredientes pueden estar en su forma de salir de la cinta o procesados:
+
 <img src="images_gdd/45gamba.PNG">
 <img src="images_gdd/46gamba.PNG">
 <img src="images_gdd/47calamar.PNG">
@@ -532,50 +535,28 @@ El diseño de sonido consta de una gama de sonidos realistas, que representan ca
 <img src="images_gdd/54pimiento2.PNG">
 <img src="images_gdd/55pollo.PNG">
 <img src="images_gdd/56pollo.PNG">
-
-
-
-
-### Paellas: <a name="paellas"></a>
-
-Dependiendo de cómo esté el de arroz y del estado de la paella (menos para la paellera limpia, que tendrá un único sprite), podremos encontrar diferentes sprites:
-
-| Arroz        | Recién hecha | Comida(75%) | Comida(50%) | Comida(25%) | Sucia |
-|--------------|--------------|-------------|-------------|-------------|-------|
-| Normal       |              |             |             |             |       |
-| Incomestible |              |             |             |             |       |
-
-Dependiendo del nivel de cocción de la paella (o de si se ha quedado fría o no) aparecerán unas partículas u otras en la paella:
-
-| Nivel de cocción     | Partículas |
-|----------------------|------------|
-| Cruda                |            |
-| Bien                 |            |
-| Perfecta             |            |
-| Quemada/Incomestible |            |
-| Fría                 |            |
-
-Si la paella se ha quedado fría las anteriores partículas se sustituirán independientemente del nivel de cocción.
+<img src="images_gdd/57cangrejo.PNG">
+<img src="images_gdd/58cangrejo.PNG">
+<img src="images_gdd/59langosta.PNG">
+<img src="images_gdd/60langosta.PNG">
+<img src="images_gdd/61alcahofa.PNG">
+<img src="images_gdd/62alcahofa.PNG">
 
 ### Restaurante: <a name="restaurante"></a>
 Sprites ligados al entorno de juego:
 
 De la cocina:
-* Pared
-* Esquina Pared
-* Ventanilla
-* Borde Ventanilla
-* Losa 1
-* Losa 2
-* Fogón
-* Fogón Encendido
-* Mesa de Procesado de Alimentos
-* Cinta Transportadora
-* Cinta Transportadora Esquina
-* Pared con Entrada de Cinta Transportadora
-* Lavavajillas
-* Mesa de Pila de Paelleras
-* Basura
+<img src="images_gdd/63pared.PNG">
+<img src="images_gdd/64losa.PNG">
+<img src="images_gdd/65fogon.PNG">
+<img src="images_gdd/66procesado.PNG">
+<img src="images_gdd/67cinta.PNG">
+<img src="images_gdd/68lavavajillas.PNG">
+<img src="images_gdd/69pila.PNG">
+<img src="images_gdd/70basura.PNG">
+<img src="images_gdd/71pared.PNG">
+<img src="images_gdd/72losa.PNG">
+
 
 Del comedor:
 * Pared
