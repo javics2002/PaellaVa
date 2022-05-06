@@ -79,6 +79,7 @@ void UiButton::setunfocused()
 
 bool UiButton::hover()
 {
+	//Devuelve si el raton esta encima del boton
 	SDL_Rect z = getCollider();
 	SDL_Rect d = { ih().getmx(), ih().getmy(), 1, 1 };
 	

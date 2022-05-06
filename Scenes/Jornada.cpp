@@ -488,7 +488,6 @@ void Jornada::loadMap(string const& path)
 
 		if (!sdlutils().images().count(path))
 			sdlutils().images().emplace(path, Texture(renderer, fondo, mMapInfo.mAnchoFondo, mMapInfo.mAltoFondo));
-
 	}
 }
 
@@ -499,14 +498,12 @@ void Jornada::togglePause()
 	mPaused = !mPaused;
 
 	if (mPaused) {
-
 		sdlutils().virtualTimer().pause();
 
 		sdlutils().soundEffects().at("cancel").play(0, mGame->UI);
 	}
 	else {
 		sdlutils().virtualTimer().resume();
-
 
 		sdlutils().soundEffects().at("select").play(0, mGame->UI);
 	}

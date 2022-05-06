@@ -57,9 +57,6 @@ void Fogon::update()
 	{
 		couldBreak -= seg;
 	}
-
-	
-
 }
 
 void Fogon::render(SDL_Rect* cameraRect)
@@ -68,16 +65,6 @@ void Fogon::render(SDL_Rect* cameraRect)
 	getHeight() };
 
 	if (isActive()) {
-
-		//if (funcionando)
-		//{
-		//	drawRender(cameraRect, dest, &sdlutils().images().at("fogon"));
-		//}
-		//else 
-		//{
-		//	/*drawRender(cameraRect, dest, &sdlutils().images().at("berenjena"));*/
-		//	drawRender(cameraRect, dest, &sdlutils().images().at("fogon"));
-		//}
 		drawRender(cameraRect, dest, &sdlutils().images().at("fogon"));
 
 		if (paella_ != nullptr && barra) {

@@ -198,10 +198,7 @@ void ListaComandas::update()
 		if (ih().getKey(ih().X))
 		{
 			pressSelectedComanda();
-
 		}
-
-
 	}
 }
 void ListaComandas::seleccionaComanda(Comanda* comanda)

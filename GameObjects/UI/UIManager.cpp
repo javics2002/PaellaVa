@@ -602,6 +602,9 @@ void UIManager::addInterfaz(GameObject* elementoInterfaz)
 
 void UIManager::addButton(UiButton* button)
 {
+	//Agrega un boton a la lista de botones. 
+	//Los botones que pertenecen a esta lista pueden ser navegados y pulsados por el foco
+
 	botones.push_back(button);
 	button->setIterador(--botones.end());
 
@@ -1334,8 +1337,12 @@ void UIManager::activaBot()
 	}
 }
 
-tweeny::tween<float>& UIManager::addTween(float from, float to, float during,bool activeTweens_) {
+tweeny::tween<float>& UIManager::addTween(float from, float to, float during, bool activeTweens_) {
+	//Añadimos los tweens a una lista para que se actualicen en cada frame
+	//El bool indica si estos tweens se deben pausar cuando el juego se pause o no
+
 	tweeny::tween<float> tween = tweeny::tween<float>::from(from).to(to).during(during);
+
 	if (activeTweens_) {
 		activeTweens.push_front(tween);
 		return activeTweens.front();
@@ -1350,7 +1357,6 @@ void UIManager::setEnLobby(bool enLobby_)
 {
 	enLobby = enLobby_;
 }
-
 
 void UIManager::setFromRight(bool fromRight_)
 {

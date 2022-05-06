@@ -63,8 +63,6 @@ Menu::Menu(Game* mGame) : Scene(mGame)
 
 	mUiManager->addButton(mTutorial);
 
-	
-
 	auto mCreditsButton = new UiButton(mGame, "credits", mPosIniX, mPosIni + mAumento , mWidth, mHeight);
 	mCreditsButton->setInitialDimension(mWidth, mHeight);
 	mCreditsButton->setAction([this, mCreditsButton](Game* mGame, bool& exit) {
@@ -104,9 +102,6 @@ Menu::Menu(Game* mGame) : Scene(mGame)
 
 				mGame->getUIManager()->toggleOpciones();
 				mGame->getUIManager()->desactivaBot();
-
-				// -Poner pantalla completa (sdlutils().toggleFullScreen();)
-				// -Volumen de musica y sonido (slides separados)
 
 				return true;
 			}
