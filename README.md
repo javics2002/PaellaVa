@@ -472,8 +472,13 @@ A lo largo de la partida surgirán eventos durante las jornadas de forma aleator
 
 | Acción                     | Teclado          |
 |----------------------------|------------------|
-| Moverse                    |       WASD / Joystick izquierdo      |
-| Interactuar:
+| Moverse                    |       WASDJoystickizquierdo  |              
+| Cancelar | Tecla “ESC”  Botón B |
+| Escribir comanda | Tecla ‘Q’ / Botón X |
+| Abrir libreta de comandas | Tab / Botón Y |
+| Sacar y meter la libreta | Shift Izquierdo / LT |
+| Ocultar lista de comandas | Click Izquierdo / RT |
+| Interactuar: | Tecla ‘E’ / Botón A |
 * Coger ingrediente
 * Procesar ingrediente en la tabla de procesado
 * Echar ingrediente procesado  / arroz a la paella
@@ -487,13 +492,6 @@ A lo largo de la partida surgirán eventos durante las jornadas de forma aleator
 * Botones de las interfaces
 * Coger grupo de comensales
 * Echar grupo de comensales por la puerta
-              | Tecla ‘E’ / Botón A |
-| Cancelar | Tecla “ESC” / Botón B |
-| Escribir comanda | Tecla ‘Q’ / Botón X |
-| Abrir libreta de comandas | Tab / Botón Y |
-| Sacar y meter la libreta | Shift Izquierdo / LT |
-| Ocultar lista de comandas | Click Izquierdo / RT |
-
 
 <img src="images_gdd/41controles.PNG">
 <img src="images_gdd/42controles.PNG">
