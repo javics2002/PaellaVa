@@ -9,6 +9,7 @@ class Lobby : public Scene
 	UiButton* mStart;
 	Imagen* mCamarero;
 	ShowText* mSearching;
+	bool mConnected;
 
 public:
 	Lobby(Game *mGame);

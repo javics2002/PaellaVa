@@ -7,6 +7,8 @@
 
 Lobby::Lobby(Game* mGame) : Scene(mGame)
 {
+	mConnected = false;
+
 	//fondo
 	mBackground->setTexture("lobbyBg");
 	mBackground->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
@@ -29,24 +31,23 @@ Lobby::Lobby(Game* mGame) : Scene(mGame)
 
 	mUiManager->addInterfaz(mCamarero);
 
-	//IP ??
+	//Feedback
 	mSearching = new ShowText(mGame, "ESPERANDO             JUGADORES...", "lobby", sdlutils().width() / 2+20, sdlutils().height() - 115);
 
 	mUiManager->addInterfaz(mSearching);
-
-	////Nombre del camarero
-	//ShowText* NombreCamarero = new ShowText(game, "elvergalarga", "abadiNombre",
-	//	(int)camarero->getX(), 100);
-
-	//uiManager->addInterfaz(NombreCamarero);
 
 	//Boton comenzar
 	mStart = new UiButton(mGame, "start2", sdlutils().width()/2, sdlutils().height()/2, 200, 70);
 	mStart->setInitialDimension(mStart->getWidth(), mStart->getHeight());
 	mStart->setAction([this](Game* mGame, bool& exit) {
+#ifndef _DEBUG
+		//No podemos empezar el juego hasta que no se conecte nuestro amigo
+		if (!mConnected)
+			return;
+#endif // !_DEBUG
+
 		// crear player
-		
-		mGame->sendMessageScene(new Jornada(mGame, "Jornada1", 0 , true));
+		mGame->sendMessageScene(new Jornada(mGame, "Jornada1", 0, true));
 
 		sdlutils().virtualTimer().reset();
 		// send info 
@@ -117,4 +118,5 @@ void Lobby::clienteUnido(std::string nombreCliente)
 	mUiManager->addInterfaz(mCamareroName);
 	mSearching->setText("LISTO PARA COMENZAR");
 
+	mConnected = true;
 }
