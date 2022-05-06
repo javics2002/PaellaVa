@@ -578,47 +578,33 @@ Del comedor:
 
 * Nuevo grupo de comensales entrando por la puerta (campanita)
 * Abrir puerta del comedor / cocina
-* Clientes caminando
-* Jugadores caminando
-* Coger comensales
-* Dejar comensales
 * Comensales comiendo
-* Dejar paella en una mesa (ventanilla / mesas normales)
-* Grito del número de la mesa (uno por cada mesa)
+* Dejar paella en una mesa 
 * Meter paellera sucia en el lavavajillas
-* Sacar paellera del lavavajillas
 * Ruido del lavavajillas
 * Sacar a clientes (sonido de caja registradora)
-* Echar a clientes de la cola (?)
-* Sonido fogón encendiéndose
 * Sonido de paella friéndose
 * Ruido cinta transportadora
 * Sonido mientras procesas un ingrediente (cuchillo troceando)
 * Sonido cuando echas un ingrediente a la paella
 * Sonido cuando tiras algo a la papelera
-* Sonido para cuando sacas una pallera de los fogones
-(podría ser el mismo que cuando enciendes un fogón)
 * Sonido cuando abres la libreta de comandas
 * Sonido cuando escribes una nueva comanda
 * Sonido cuando tachas un ingredientes / paella de la comanda
-* Sonido cuando eliminas una comanda
-* Un sonido distinto dependiendo de la puntuación obtenida
-* Sonido para los botones de la interfaz
-
+* Sonido cuando eliminas una comanda*
 
 ## 7. UI <a name="ui"></a>
 
 * Menú inicio
-    * (imagen)
+<img src="images_gdd/79menu.PNG">
 
 * Interfaz
-    * (libreta sacada)
-    * (libreta “guardada”)
-    * (comandas arriba)
-    * (comandas arriba si ya se han acumulado demasiadas comandas)
+<img src="images_gdd/80interfaz.PNG">
+<img src="images_gdd/81interfaz.PNG">
+
 
 * Menú puntuación final
-    * (imagen)
+<img src="images_gdd/82over.PNG">
 
 ## 8. UML <a name="uml"></a>
 
