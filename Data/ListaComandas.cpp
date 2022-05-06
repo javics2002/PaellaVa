@@ -75,19 +75,14 @@ void ListaComandas::AñadeComanda(Comanda* comanda)
 		{
 			for (auto c : lista)//desplazamos las  comandas
 			{
-
-
-
 				int nx = c->getPosition().getX() + 1.5 * c->getWidth();
 				int dsp = nx - c->getPosition().getX();
 				c->desplazacomandas(dsp);
 				c->setPosition(nx, cY);
 				c->setTexturecoords(nx, cY);
 				c->getEliminabutton()->setPosition(nx, cY + c->getHeight() / 2);
-
 			}
 		}
-
 	}
 	else 
 	{
@@ -200,7 +195,7 @@ void ListaComandas::update()
 		{
 			seleccionasigcomanda(-1);
 		}
-		if (ih().getKey(ih().A))
+		if (ih().getKey(ih().X))
 		{
 			pressSelectedComanda();
 
