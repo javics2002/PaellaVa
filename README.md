@@ -622,48 +622,6 @@ Sprites ligados al entorno de juego:
 ## 9. Comunicación <a name="comunicacion"></a>
 Tenemos cuenta de Twitter en la que hacemos memes, revisiones semanales de como va en Spaces. Hemos usado Github tanto para la gestión de versiones como gestor de desarrollo y Discord para la comunicación interna del equipo y con los testers.
 
-## 10. QA <a name="qa"></a>
-Se desarrollaron pruebas de testeo en las que contamos con 7 usuarios distintos.
-Recogimos los siguientes datos:
-
-
-* Ritmo del Juego 
-Pedimos  a los testers que analizasen la velocidad de varios elementos del juego.
-<img src="images_gdd/velocidadstats.png">
-Es muy llamativo el conses respecto a lo rápido que funcionaba gran parte del juego.Algo que estresaba a los usuarios y a lo que eramos completamente ajenos ya que habiamos trabajado progresivamente con los elemento y estabamos acostumbrados al accelerado ritmo de juego.
-<img src="images_gdd/velocidadstats2.png">
-
-* Ciclo de Juego 
-Saber como funcionan todos los elementos del juego al unisono también es muy importante y pedimos a los testers que se  centrasen en visualizar el juego como un entrenimiento casual para loq eu incialmente habiamos propuesto jornadas de  10 minutos.
-<img src="images_gdd/jornadastats.png">
-Fue agradable descubrir que nadie se aburrió durante la jornada ni consideró el juego repetitivo.
-
- * Apredizaje de mecánicas
- Al ser un juego muy similar a otros titúlos como el Overcooked suponiamos que la mayoria de las mecánicas resultarian intuitivas y los testers comprenderian el juego rapidamente.Esto era cierto para el movimiento o la interaccion con objetos pero para otras cosas:
- <img src="images_gdd/puntuacionstats.png">
- Era muy evidente que ciertos aspectos mecánicos no se apreciaban correctamente y enfatizamos su presencia en el tutorial.
- 
- 
- * Feedback subjetivo 
- A parte de preguntas limitadas que ofrecian datos cuantificables en las estadisticas que se muestran en los parrafos anteriores  pregúntamos libremente a los testers acerca de  dificultades que hubieran podido tener a lo largo de su sesión .La fiabilidad de estas declaraciones es cuestionable ya que la gente no es muy propensa a  admitir cuando se  equivoca asi que usamos esta informacion para contrastar las observaciones de las personas de nuestro equipo de  desarrollo que supervisaban a los testers.
- 
- * Observaciones
-  A partir de la informacion libre enviada por los testers y las observaciones realizadas pudimos concluir que algunos cambios serian necesarios:
-  (se usan comillas para emplear palabras textuales de lso testers)
-  +"Añadir ingredientes a la paella es raro. Tener que poner siempre el arroz primero te quita libertad. También tener que cocinar todos los ingredientes a la vez te resta de poder autogestionarte."
-
-* "Las mesas deberían venir enumeradas ya."( el numero de mesa ha causado bastante confusión)
-
-* Las pilas de paelleras podrian tener un cartelito abajo para indicar el tamaño
-
-* Literalmente TODO va demasiado rapido especialmente  las paellas se concinan muy muy muy rapido y no te da tiempo a hacer otra cosa , los clientes empiezan desde el minuto 0 a  venir a  full molaria que al principio hubiera menos y que fuera acelerando y en general menos clientes por minuto se agradeceria.
-
-* La puerta entre salon y cocina realmente no es una puerta , es un cuadrado blanco y noo se ve bien molaria poner una flechita en el suelo o algo indicando que puedes andar por ahi hacia otra habitacion
-
-* El signo de prohibido como, paella solo de arroz confunde a  bastante gente.
-
-* Ui de muebles mal colocaba o solapada: cuando hay 2 fogones juntos si colocas una paella en cada uno la barra de cocción de una tapara a la  otra , en un mapa donde las tablas de  procesados están abajo del todo y el circulo rojo este de progreso no se ve.
- 
 ## 11. Plan de pruebas <a name="planpruebas"></a>
 * En Paella Va!, los jugadores deberán hacer uso de los controles y de la estrategia para llevar un restaurante de la manera más positiva posible, de manera que todos los comensales queden satisfechos.
 
@@ -821,7 +779,171 @@ Espera un tiempo y comprueba que dicha flecha no se pasa del final de la barra, 
 Comprueba que conforme va pasando el tiempo de cocción, va cambiando el sprite de la paella y por último comprueba que una vez que retiras una paella del fogón, ya no puedes volver a meterla a cocinar.
 
 
+## 10. QA <a name="qa"></a>
+
+Hemos realizado pruebas de testing a cinco personas diferentes para recibir feedback, además de corregir bugs que fuesen descubriendo a la hora de jugar. 
+
+A lo largo de la primera parte de este documento describiremos las diferentes pruebas que hemos realizado, además de los resultados de todos los testers.
+
+Por último, cada pregunta tendrá su apartado de conclusiones tomadas en base al feedback recibido.
+
+**Pregunta 1.**
+
+<img src="images_gdd/1qa.PNG">
+
+Observando los resultados, podemos ver que la mayoría de personas opinan que la velocidad de tanto el camarero como la cocinera es normal, mientras que la minoría opina que es rápida. 
+
+Además, podemos observar que nadie opina que la velocidad sea exageradamente rápida ni muy lenta para el tipo de juego que tenemos.
+
+Conclusiones:
+
+Debido a que buscamos una fórmula de juego rápida y caótica, que la mayoría opine que la velocidad es normal/rápida es el resultado que esperamos y no será modificado a la hora de hacer la versión final del juego.
+
+**Pregunta 2.**
+
+<img src="images_gdd/2qa.PNG">
+
+En esta segunda pregunta vemos el mismo patrón que en la primera; la mayoría opina que la velocidad de los ingredientes en la cinta es normal, mientras que la minoría opina que la velocidad de dichos ingredientes es rápida.
+
+Como en el apartado anterior, nadie ha opinado que esta velocidad sea muy rápida o muy lenta.
+
+Conclusiones:
+
+Respecto a esta pregunta, hemos modificado la velocidad de los ingredientes en la cinta para que fuese un poco más lenta, debido a que no queremos que exista más dificultad a la hora de cocinar (ya que el azar es bastante dificultoso por sí solo).
+
+**Pregunta 3.**
+
+<img src="images_gdd/3qa.PNG">
+
+En este apartado, hemos observado que la mayoría de los testers opina que la velocidad de aparición de los ingredientes en la cinta es lenta. Por otra parte, la minoría opina que esta velocidad es normal.
+
+
+Conclusiones:
+
+Ya que hemos reducido la velocidad de los ingredientes en la cinta, este apartado no será modificado. Aunque la mayoría opina que la velocidad de aparición es lenta, es el resultado que esperamos para que el juego sea más fácil y entretenido a la hora de jugar.
+
+
+**Pregunta 4.**
+
+<img src="images_gdd/4qa.PNG">
+
+En esta pregunta podemos observar que la gran mayoría de personas opina que la velocidad a la que los grupo de clientes entran al restaurante es demasiado rápida, mientras que una minoría opina que es rápida.
+
+Conclusiones:
+
+Respecto al tema de grupos de clientes, hemos recibido el feedback y tomado medidas sobre la velocidad de aparición. Efectivamente, la velocidad era demasiado rápida y se juntaban muchos en poco tiempo, haciendo imposible intentar conseguir una puntuación alta.
+Para solucionar esto hemos hecho que el primer grupo de clientes salgan instantáneamente, y que los demás tarden bastante más (pero el mismo tiempo entre uno y otro). Con esta solución conseguimos que todo sea más ameno para el camarero y mejoramos la experiencia sin perder ese caos que buscamos.
+
+
+
+**Pregunta 5.**
+
+<img src="images_gdd/5qa.PNG">
+
+En esta pregunta, todos los encuestados han tenido opiniones diferentes. Juntando casos, podemos observar que los jugadores no entienden las puntuaciones/no saben de su existencia, incluso podemos ver que las puntuaciones no funcionaban. 
+Todos salvo un jugador han tenido problemas con este apartado.
+
+Conclusiones: 
+
+El apartado de puntuaciones de la paella era bastante confuso y casi nadie lo entendió o no les funcionaban. Respecto a esto, hemos arreglado los bugs con las puntuaciones para que no den ningún fallo y añadido feedback al final de cada jornada. 
+
+La escena al final de cada jornada muestra tu puntuación en forma de estrellas (de 1 a 5), además de “reviews” de clientes que se ajustarán dependiendo de tu actuación durante la partida.
+
+Con estos cambios esperamos que todo lo que respecta a la puntuación quede claro y lo entienda todo el mundo.
+
+
+
+**Pregunta 6.**
+
+<img src="images_gdd/6qa.PNG">
+
+Preguntando sobre la velocidad de cocción de las paellas, podemos ver que la mayoría piensan que es rápida, mientras que el resto de opiniones están divididas entre muy rápida y normal. Con estos resultados podemos deducir que la mayoría opinan que dicha velocidad es rápida.
+
+Conclusiones: 
+
+En cuanto a la velocidad de cocción de las paellas, la mayoría opina que es rápida, resultado esperado ya que no queremos frenar el frenetismo y el caos al poner una paella en el fogón. La velocidad tampoco es excesiva ya que si lo fuese se quemarían super rápido y la gente se hubiese quejado sobre esto.
+
+**Pregunta 7.**
+
+<img src="images_gdd/7qa.PNG">
+
+Sobre la velocidad de lavado de las paellas, los datos muestran que la mayoría piensa que es una velocidad rápida, y la minoría que es una velocidad normal. Al igual que en otros apartados anteriores, nadie opina que dicha velocidad sea muy rápida o muy lenta.
+
+Conclusiones:
+
+De la misma forma que la velocidad de cocción de las paellas, este es un resultado que esperamos y que vamos a mantener en la versión final del juego, por exactamente las mismas razones que en el caso anterior.
+
+
+**Pregunta 8.**
+
+<img src="images_gdd/8qa.PNG">
+
+Esta pregunta abarca la manera y velocidad de pedir de los grupos de clientes una vez los sientas en la mesa.
+La mayoría de los testers opina que la velocidad es correcta, mientras que una minoría opina que es un poco rápida.
+En cuanto a la manera de pedir de los clientes, no llega a quedar claro cuando aparece el signo de prohibido (paella sin ingredientes), cuando piden varias paellas o cuando terminan su pedido (ya que no hay nada que lo muestre). 
+
+Conclusiones:
+
+La manera de pedir de los clientes ha sido mejorada en general gracias a las opiniones de todos los jugadores. 
+
+
+Ahora cuando terminan de pedir aparece un signo verde (a modo de “he terminado de pedir”). Si piden varias paellas te las pedirán en el mismo orden siempre, además de poniendo sus respectivos tamaños e ingredientes.
+Hemos arreglado todos los bugs encontrados respecto a los grupos de clientes (es decir, ya no existe el bug de que no comían que se encontró algún jugador).
+
+Además, cuando terminan de comer aparecerá un símbolo de dinero, que indica que los puedes echar para cobrarles y así sentar a otro grupo.
+
+
+**Pregunta 9.**
+
+<img src="images_gdd/9qa.PNG">
+
+Observando los resultados, podemos ver que la mayoría opina que la duración de las jornadas (es decir, de cada “mapa”) es aceptable, mientras que la opinión de la minoría está dividida en demasiado largas o demasiado cortas. 
+
+Conclusiones:
+
+La mayoría de personas opina que la duración de cada jornada es aceptable, así que la hemos mantenido. Hemos arreglado bugs en el multijugador respecto a la sincronización y velocidad del reloj y ahora funciona como esperamos.
+
+
+**Pregunta 10.**
+
+<img src="images_gdd/10qa.PNG">
+
+En esta pregunta queríamos saber qué opinaban los testers sobre nuestro ciclo de juego, ya que es una pregunta importante para ver si vamos consiguiendo nuestro objetivo o no. Como podemos ver en los resultados, la mayoría opina que nuestro ciclo es muy caótico y la minoría que es suficientemente variado.
+Estas respuestas están muy en consonancia con nuestras previas expectativas. Sin embargo, es cierto que el juego puede ser caótico de más, y esto puede causar frustruación, por lo que vamos a centrarnos en pausar más las llegadas de los clientes y aumentar el tiempo de las jornadas.
+
+
+**Pregunta 11.**
+
+<img src="images_gdd/11qa.PNG">
+
+En este apartado preguntamos por posibles aspectos poco intuitivos. Es necesario tener estos aspectos bien localizados para poder solucionarlos.
+Encontramos muchos problemas de aspectos anti intuitivos, a destacar el feedback sobre los clientes. El resto creemos que se podrán solucionar con el tutorial y los sprites finales.
+
+
+
+
+**Pregunta 12.**
+
+<img src="images_gdd/12qa.PNG">
+
+En este apartado, preguntamos si les parecía divertida la dinámica del juego, información que es importante en cuanto a desarrollar un videojuego (ya que no sirve de nada si no es divertido).
+
+Todos opinan que la fórmula del juego es divertida debido al caos, la rapidez a la que tienes que hacer todas las cosas, los elementos que introduce el mapa (como que se rompan los muebles), el azar, etc…
+
+Esto es exactamente el efecto que se pretendía conseguir.
+
+
+**Pregunta 13.**
+
+<img src="images_gdd/13qa.PNG">
+
+Este apartado del QA está dispuesto completamente hacia los bugs que se hayan encontrado jugando los testers. Podemos observar que los más destacados son que los muebles dejaban de funcionar, el introducir nombre no iba (multijugador) y que los clientes no se comían el plato que les ponías en la mesa. Todos estos bugs han sido apuntados y se solucionarán próximamente. Algunos de estos reportes son intencionados, como que se rompan algunos muebles, solo que en este estado aún no existe feedback que lo transmita.
+
+
+
+
 ## 12. Referencias y contexto cultural <a name="referencias"></a>
+
 
 * Pesadilla en la cocina
 * Overcooked
