@@ -477,7 +477,7 @@ A lo largo de la partida surgirán eventos durante las jornadas de forma aleator
 | Abrir libreta de comandas | Tab / Botón Y |
 | Sacar y meter la libreta | Shift Izquierdo / LT |
 | Ocultar lista de comandas | Click Izquierdo / RT |
-<!-- | Interactuar: | Tecla ‘E’ / Botón A |
+| Interactuar: | Tecla ‘E’ / Botón A |
 * Coger ingrediente
 * Procesar ingrediente en la tabla de procesado
 * Echar ingrediente procesado  / arroz a la paella
@@ -490,7 +490,7 @@ A lo largo de la partida surgirán eventos durante las jornadas de forma aleator
 * Echar paellera al lavavajillas
 * Botones de las interfaces
 * Coger grupo de comensales
-* Echar grupo de comensales por la puerta -->
+* Echar grupo de comensales por la puerta
 
 <img src="images_gdd/41controles.PNG">
 <img src="images_gdd/42controles.PNG">
