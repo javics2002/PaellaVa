@@ -218,9 +218,9 @@ La paella podrá tener de 0 a 3 ingredientes, independientemente de que los clie
     8. Esperar a que la paella se cocine.
     9. Quitar la paella de los fogones (una vez sacada la paella de los fogones esta no se podrá volver a calentar)
 
-        <img src="images_gdd/14paella.PNG">
-        <img src="images_gdd/15paella.PNG">
-        <img src="images_gdd/16paella.PNG">
+        <img src="images_gdd/14paella.PNG"> <img src="images_gdd/15paella.PNG"> <img src="images_gdd/16paella.PNG">
+        
+        
 
 
 
@@ -238,8 +238,8 @@ La paella podrá tener de 0 a 3 ingredientes, independientemente de que los clie
     * Si el cocinero consigue sacar la paella en el momento justo el restaurante conseguirá más puntos a la hora de vender el plato.
     * En contrapartida, perderá puntos si el plato sale crudo o muy hecho.
 
-<img src="images_gdd/17paella.PNG">
-<img src="images_gdd/18paella.PNG">
+<img src="images_gdd/17paella.PNG"> <img src="images_gdd/18paella.PNG">
+
 
 * **Estado de la paellera:**
     * Durante el ciclo de vida de la paella esta tendrá aspectos:
