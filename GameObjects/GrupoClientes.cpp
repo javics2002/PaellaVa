@@ -115,7 +115,7 @@ void GrupoClientes::render(SDL_Rect* cameraRect)
 		for (int i = 0; i < numIntegrantes(); i++) {
 			SDL_Rect rect = pickedClientsPos[i];
 			rect.x = rect.x + getPosition().getX() - getWidth() / 2;
-			rect.y = rect.y + getPosition().getY() - getWidth() / 2;
+			rect.y = rect.y + getPosition().getY() - (13 * getHeight() / 16);
 			clientes[i]->drawPickedClient(cameraRect, rect);
 		}
 	}	
