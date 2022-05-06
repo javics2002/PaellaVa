@@ -390,6 +390,21 @@ Esta puntuación por servicio se sumará a la puntuación por la paella. Estas p
 
 <img src="images_gdd/comandasacumuladas.PNG">
 
+### **Eventos del Juego:**
+
+A lo largo de la partida surgirán eventos durante las jornadas de forma aleatoria para añadir espontaneidad y algo de “chispa” al gameplay. En el juego encontraremos los siguientes eventos:
+
+* Ingredientes falsos: En la cinta de alimentos aparecerán elementos que no están
+
+<img src="images_gdd/40eventos.PNG">
+
+* Los muebles se rompen: Cada cierto tiempo los muebles tendrán la probabilidad de romperse. Adicionalmente, se incluirá un nuevo mueble: la caja de herramientas. En cada restaurante habrá una y se situará en la cocina. Si interactúas con ella te dará una llave inglesa, la cual podrás utilizar para arreglar muebles. La llave inglesa también se podrá colocar en las encimeras. Los muebles que se podrán romper serán:
+    * Lavavajillas: no puedes meter paellas en ella.
+    * Mesa de procesado: no podrás procesar ingredientes.
+    * Cinta: dejarán de salir ingredientes.
+    * Fogón: no podrás poner paellas.
+
+
 ## 3. Controles <a name="controles"></a>
 
 | Acción                     | Teclado          |
@@ -413,7 +428,9 @@ Interactuar* incluye:
 * Coger grupo de comensales
 * Echar grupo de comensales por la puerta
 
-<img src="images_gdd/comandasacumuladas.PNG">
+<img src="images_gdd/41controles.PNG">
+<img src="images_gdd/42controles.PNG">
+
 
 ## 4. Dinámica <a name="dinamica"></a>
 
