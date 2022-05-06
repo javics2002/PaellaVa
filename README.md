@@ -238,6 +238,7 @@ La paella podrá tener de 0 a 3 ingredientes, independientemente de que los clie
     * Si el cocinero consigue sacar la paella en el momento justo el restaurante conseguirá más puntos a la hora de vender el plato.
     * En contrapartida, perderá puntos si el plato sale crudo o muy hecho.
 
+
 <img src="images_gdd/17paella.PNG"> <img src="images_gdd/18paella.PNG">
 
 
@@ -470,11 +471,8 @@ A lo largo de la partida surgirán eventos durante las jornadas de forma aleator
 
 | Acción                     | Teclado          |
 |----------------------------|------------------|
-| Moverse                    |       WASD       |
-| Interactuar*               |  Click izquierdo |
-| Escribir número de la mesa | Teclado numérico |
-
-Interactuar* incluye:
+| Moverse                    |       WASD / Joystick izquierdo      |
+| Interactuar:
 * Coger ingrediente
 * Procesar ingrediente en la tabla de procesado
 * Echar ingrediente procesado  / arroz a la paella
@@ -488,6 +486,13 @@ Interactuar* incluye:
 * Botones de las interfaces
 * Coger grupo de comensales
 * Echar grupo de comensales por la puerta
+              | Tecla ‘E’ / Botón A |
+| Cancelar | Tecla “ESC” / Botón B |
+| Escribir comanda | Tecla ‘Q’ / Botón X |
+| Abrir libreta de comandas | Tab / Botón Y |
+| Sacar y meter la libreta | Shift Izquierdo / LT |
+| Ocultar lista de comandas | Click Izquierdo / RT |
+
 
 <img src="images_gdd/41controles.PNG">
 <img src="images_gdd/42controles.PNG">
