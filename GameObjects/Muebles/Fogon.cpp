@@ -27,7 +27,7 @@ void Fogon::update()
 		humo->setStyle(ParticleExample::NONE);
 	}
 
-	humo->setPosition(getX(), getY());
+	humo->setPosition(getRectCenter(getOverlap()).getX(), getRectCenter(getOverlap()).getY());
 	humo->update();
 
 	if(!funcionando && paella_!=nullptr)
