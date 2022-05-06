@@ -56,7 +56,7 @@ void Reloj::update()
 	if (finDia())
 	{
 		mGame->getNetworkManager()->setGameStarted(false);
-		mGame->sendMessageScene(new GameOver(mGame, 0, mNumeroJornada));
+		mGame->sendMessageScene(new GameOver(mGame, dynamic_cast<Jornada*>(mGame->getCurrentScene())->getPunctuationJornada(), mNumeroJornada));
 		mGame->getNetworkManager()->sendFinishGame(dynamic_cast<Jornada*>(mGame->getCurrentScene())->getPunctuationJornada(), mNumeroJornada);
 	}
 	else

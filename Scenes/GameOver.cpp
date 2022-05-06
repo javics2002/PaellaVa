@@ -9,6 +9,8 @@ using tweeny::easing;
 
 GameOver::GameOver(Game* mGame, int puntuation, int numeroJornada) : Scene(mGame)
 {
+	cout << "Puntuacion total: " << puntuation << endl;
+
 	mNumJornada = numeroJornada;
 	mPoints = puntuation;
 	calculateStarNumber();

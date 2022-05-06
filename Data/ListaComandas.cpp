@@ -367,7 +367,10 @@ void ListaComandas::borralaComandaQueteMandan(int n)
 	{
 		itaux++;
 	}
-	selected->deseleccionaComanda();
+	
+	if(selected != nullptr)
+		selected->deseleccionaComanda();
+
 	selected = *itaux;
 	finalizacomanda(selected);
 

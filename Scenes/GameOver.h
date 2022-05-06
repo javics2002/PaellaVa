@@ -14,7 +14,7 @@ private:
 	int mNumJornada = 0;
 	int mPoints = 0;
 	int mMaxStars = 5; //maximo de estrellas
-	int mPointStarValue = 20; //num de puntos que vale una estrella
+	int mPointStarValue = 2; //num de puntos que vale una estrella
 	int mNumStarsAdded = 0;
 
 	Texture* mStarTexture;

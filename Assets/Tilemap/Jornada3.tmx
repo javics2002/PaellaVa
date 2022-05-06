@@ -50,7 +50,7 @@
   <object id="10" name="encimera" x="1216" y="488">
    <point/>
   </object>
-  <object id="11" name="lavavajillas" x="1215.83" y="550.417">
+  <object id="11" name="lavavajillas" x="1215.83" y="422.417">
    <point/>
   </object>
   <object id="12" name="mesaMV" x="831.667" y="193.833">
@@ -201,7 +201,7 @@
   <object id="230" name="encimera" x="1664" y="682">
    <point/>
   </object>
-  <object id="231" name="encimera" x="1216" y="424">
+  <object id="231" name="encimera" x="1216" y="552">
    <point/>
   </object>
   <object id="232" name="encimera" x="1536" y="102">
