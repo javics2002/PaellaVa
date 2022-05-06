@@ -358,8 +358,7 @@ El juego se desarrolla durante 5 jornadas distintas, cada uno de ellos  se jugar
 
 #### **JORNADA 1**
 
-<img src="images_gdd/24jornada.PNG">
-<img src="images_gdd/25jornada.PNG">
+<img src="images_gdd/24jornada.PNG"> <img src="images_gdd/25jornada.PNG">
 
 El comedor se encuentra en  sala izquierda del mapa, los clientes entraran por la zona inferior izquierda de la sala, sentar a todos los grupos será sencillo ya que todas la mesas están accesibles directamente. En la pared derecha se encuentra el acceso a al cocina y la ventanilla, la acción más perjudicada en esta sala será servir las paellas a las mesas de la parte izquierda de la sala.
 
@@ -367,8 +366,7 @@ La cocina se encuentra en la sala derecha del mapa la cinta de alimentos está e
 
 #### **JORNADA 2**
 
-<img src="images_gdd/26jornada2.PNG">
-<img src="images_gdd/27jornada2.PNG">
+<img src="images_gdd/26jornada2.PNG"> <img src="images_gdd/27jornada2.PNG">
 
 El comedor se encuentra en la sala izquierda del mapa y las mesas disponen de modo que el camarero debe rodear antes de poder acceder a la ventanilla y a la puerta que comunica con la  cocina.
 
@@ -377,8 +375,7 @@ La cocina se encuentra en la sala derecha y encontramos 2 cintas de alimentos ac
 
 #### **JORNADA 3**
 
-<img src="images_gdd/28jornada3.PNG">
-<img src="images_gdd/29jornada3.PNG">
+<img src="images_gdd/28jornada3.PNG"> <img src="images_gdd/29jornada3.PNG">
 
 El comedor se encuentra en la sala izquierda del mapa, la ventanilla está al lado de la puerta y tiene mesas cercanas que serán fáciles de servir pero otras que están lejos. Los clientes entrarán por la parte central superior del restaurante hasta llegar al cartel.
 
@@ -387,8 +384,7 @@ La cocina se encuentra en la sala derecha del mapa con dos cintas de alimentos e
 
 #### **JORNADA 4**
 
-<img src="images_gdd/30jornada4.PNG">
-<img src="images_gdd/31jornada4.PNG">
+<img src="images_gdd/30jornada4.PNG"> <img src="images_gdd/31jornada4.PNG">
 
 El comedor se encuentra en la sala derecha del mapa, a diferencia de los comedores del resto de jornadas. Con las mesas situadas debajo de la fila de clientes. Estos entrarán al restaurante por la esquina superior derecha.
 
@@ -397,8 +393,7 @@ La cocina se encuentra en la sala izquierda del mapa, Esta tiene dos cintas en l
 
 #### **JORNADA 5**
 
-<img src="images_gdd/32jornada5.PNG">
-<img src="images_gdd/33jornada5.PNG">
+<img src="images_gdd/32jornada5.PNG"> <img src="images_gdd/33jornada5.PNG">
 
 El comedor se encuentra en la sala derecha del mapa, como el anterior, este contiene varias mesas y esta vez los clientes harán cola en la parte derecha del mapa, un mapa más complicado para servir y sentar clientes de manera rápida.
 
