@@ -9,6 +9,7 @@
     { "id": "ipCursor", "file": "Assets/Fonts/CocoBubble.ttf", "size": 30},
     { "id": "lobby", "file": "Assets/Fonts/CocoBubble.ttf", "size": 50},
     { "id": "creditsName", "file": "Assets/Fonts/Arco.otf", "size": 30},
+    { "id": "thanksBody", "file": "Assets/Fonts/Arco.otf", "size": 25},
     { "id": "finalScene", "file": "Assets/Fonts/Arco.otf", "size": 60}
 
 

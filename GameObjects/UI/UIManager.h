@@ -115,18 +115,22 @@ public:
 
 	void addInterfaz(GameObject* comanda);
 	void addButton(UiButton* button);
-
+	
+	//Se añaden los distintos elementos de UI a los diversos menús del juego.
 	void creaMenuPausa();
 	void creaMenuOpciones();
 	void creaPantallaCreditos();
+	//Se activan o desactivan las distitnas partes de cada menu en función de cual necesita verse.
 	void togglePause();
 	void toggleOpciones();
 	void toggleCreditos(int pagina);
 	void salirCreditos();
 
+	//Creación de los tweens respectivos del menú de opciones y de los créditos.
 	void enterTweenSetter(GameObject* i, bool enAjustes_);
 	void exitTweenSetter(GameObject* i);
 
+	//Activa/desactiva los botones del menú principal.
 	void desactivaBot();
 	void activaBot();
 
@@ -136,8 +140,9 @@ public:
 	//string getNombre() { return nombrePlayer; };
 
 	tweeny::tween<float>& addTween(float from, float to, float during,bool activeTweens_);
-
+	
 	void setEnLobby(bool enLobby_);
+	//Método del menú de créditos usado para establecer que tweens se usan cuando.
 	void setFromMenu(bool fromMenu_);
 	void setFromRight(bool fromRight_);
 
