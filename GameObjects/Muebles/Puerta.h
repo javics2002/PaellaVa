@@ -13,8 +13,8 @@ class Puerta : public Mueble
 {
 	int maxTamGrupo = 0;
 
-	const int MAX_SPAWN_TIME = 18000;
-	const int MIN_SPAWN_TIME = 9000;
+	const int MAX_SPAWN_TIME = 30000;
+	const int MIN_SPAWN_TIME = 17500;
 
 	const int FAIL_SPAWN_TIME = 5000;
 

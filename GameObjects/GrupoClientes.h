@@ -27,8 +27,8 @@ class GrupoClientes : public ObjetoPortable
 	list<GrupoClientes*>::const_iterator posCola;
 	Cola* cola;
 
-	const float DIMIN_TIME = 3000;
-	const float DIMIN_TOLERANCIA = 2;
+	const float DIMIN_TIME = 6000;
+	const float DIMIN_TOLERANCIA = 1;
 		
 	float lastTimeTol;
 	float tolerancia;
