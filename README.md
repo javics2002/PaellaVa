@@ -71,7 +71,8 @@ Personajes: 2
 8. [UML](#uml)
 9. [Plataformas de gestión y comunicación](#comunicacion)
 10. [QA](#qa)
-11. [Referencias y contexto cultural](#referencias)
+11. [Plan de pruebas](#planpruebas)
+12. [Referencias y contexto cultural](#referencias)
 
 
 ## 1. Relato breve y parcial de una partida típica <a name="relatobreve"></a>
@@ -324,39 +325,98 @@ Los comensales irán en grupos de 1 a 6 personas. Cada grupo estará separado de
 
 <img src="images_gdd/21comensal.PNG">
 
-
-| Tolerancia | Puntuación |
-|------------|------------|
-| >75        |     +1     |
-| <=75 y >50 |    +0.5    |
-| <=50 y >25 |     +0     |
-| <=25 y >0  | -1         |
+<img src="images_gdd/22comensal.PNG">
+<img src="images_gdd/23comensal.PNG">
 
 Esta puntuación por servicio se sumará a la puntuación por la paella. Estas puntuaciones se sumarán en el momento que los clientes salgan por la puerta.
 
 ### **Interacciones (con los comensales):**
 * **Fila de comensales:**
-    * El camarero podrá coger a un grupo de comensales de la cola y pasará a llevarlo encima en la cabeza, siempre y cuando no lleve ya algo en la cabeza (cuando pase el cursor por encima, el grupo de comensales resaltará).
-    * Cuando el camarero coja a un grupo de comensales, los comensales se quedarán en la cola pero en modo “fantasma”.
-    * Si el camarero lleva a un grupo de comensales consigo, las mesas posibles a las que puedan ir los comensales quedarán resaltadas (es decir, mesas no ocupadas, mesas con un número de sillas >= número de comensales del grupo y mesas sin ninguna paellera por recoger) .
+    * El camarero podrá coger a un grupo de comensales de la cola y pasará a llevarlo encima en la cabeza, siempre y cuando no lleve ya algo en la cabeza.
+    * Cuando el camarero coja a un grupo de comensales, los comensales se quedarán en la cola pero en modo “fantasma (opacidad bajada)”.
     * El camarero podrá interactuar con las mesas posibles, para sentar a los comensales en las sillas.
     * Al ponerlos en sus sillas, los sprites fantasma de la cola desaparecerán.
     * Los comensales que se encontrasen detrás del grupo fantasma comenzarán a caminar hasta que no queden huecos en la cola.
     * No podrás seleccionar a un grupo de comensales que esté caminando.  
-    * El camarero podrá coger a cualquier grupo de la cola (es decir, tiene total libertad de “colar” a gente).
-    * El camarero tendrá libertad de echar a un grupo de comensales del restaurante si lleva al grupo de comensales interactuando con la puerta (la puerta quedará resaltada).
-    * El jugador podrá devolver al grupo de comensales a la cola interactuando con el grupo fantasma (el grupo fantasma quedará resaltado).
-    * Echar a un grupo de comensales en la cola tendrá una penalización de 0,5 puntos.
+    * El camarero podrá coger a cualquier grupo de la cola (es decir, tiene total libertad de “colar” a gente siempre que hayan dejado de caminar).
+    * El camarero podrá echar a un grupo de comensales del restaurante si lleva al grupo de comensales interactuando con la puerta si el grupo estaba en la cola o había terminado de comer.
+    * El jugador podrá devolver al grupo de comensales a la cola interactuando con el grupo fantasma (lugar donde se encontraban antes de interactuar).
+    * Echar a un grupo de comensales en la cola puntuará como 0 a una nueva paella.
+
 
 * **Mesas:**
-    * En este caso el cocinero podrá interactuar con las mesas cuando colisione con alguna de las sillas asociadas a esta (o con la mesa misma).
-    * Si los clientes están a la espera de que les tomen el pedido, al interactuar comenzarán a contarle al camarero lo que quieren (ciclo de vida de un grupo de comensales → apartado 6).
+    * Si los clientes están a la espera de que les tomen el pedido, al colisionar con las mesas, comenzarán a contarle al camarero lo que quieren (descrito anteriormente).
     * Si, durante este estado, el camarero se aleja, los clientes dejarán de contarle el pedido al camarero (dejarán de salir bocadillos).
     * Si, durante este estado, el camarero vuelve a interactuar con la mesa, los clientes volverán a decirle el pedido desde el principio.
-    * Si, durante este estado, otro camarero interactúa con tu misma mesa, los clientes también volverán a repetir el pedido desde el principio. 
-    * Si están a la espera de la comida (teniendo en cuenta que pueden estar comiendo, pero a la espera de más paellas) y el camarero lleva una paella recién hecha en la cabeza, podrá elegir en qué tile poner la paellera, siempre y cuando el tile no esté ocupado (el tile seleccionado quedará resaltado, siempre y cuando sea un tile válido). 
-    * Si ya han terminado de comer, podrás volver a coger al grupo de comensales, para llevarlos encima hasta la puerta (los sprites resaltarán cuando pases el ratón por encima y la puerta, cuando cojas al grupo).
-    * Cuando hayas “acompañado” al grupo de comensales a la puerta, las mesas quedarán sin limpiar, el camarero podrá interactuar con estas para recoger las paelleras sucias (las paellas resaltará cuando el jugador pase el ratón por encima).
+    * Si están a la espera de la comida y el camarero lleva una paella recién hecha en la cabeza, podrá elegir en qué tile poner la paellera, siempre y cuando el tile no esté ocupado, sino se colocará en el siguiente más cercano. 
+    * Si ya han terminado de comer, podrás volver a coger al grupo de comensales, para llevarlos encima hasta la puerta.
+    * Cuando hayas “acompañado” al grupo de comensales a la puerta, las mesas quedarán sin limpiar, el camarero podrá interactuar con estas para recoger las paelleras sucias.
+
+### **Jornadas:**
+
+El juego se desarrolla durante 5 jornadas distintas, cada uno de ellos  se jugará en un restaurante completamente distinto al anterior, cambiando la disposición general de todos los muebles  de las 2 salas (cocina y comedor) así como su posición en el mapa global. Los diseños se encuentran en el juego en el siguiente orden: 
+
+#### **JORNADA 1**
+
+<img src="images_gdd/24jornada.PNG">
+<img src="images_gdd/25jornada.PNG">
+
+El comedor se encuentra en  sala izquierda del mapa , los clientes entraran por la zona inferior izquierda de la sala , sentar a todos los grupos será sencillo ya que todas la mesas están accesibles directamente .En la pared derecha se encuentra el acceso a al cocina y la ventanilla , la acción más perjudicada en esta sala será servir las paellas a las mesas de la parte izquierda de la sala.
+
+La cocina se encuentra en la sala derecha del mapa la cinta de alimentos está en la esquina superior derecha y es fácilmente accesible ya que está contra la pared. Muy cerca de la cinta encontramos  la isla de encimeras con los fogones y las tablas.
+
+#### **JORNADA 2**
+
+<img src="images_gdd/26jornada2.PNG">
+<img src="images_gdd/27jornada2.PNG">
+
+El comedor se encuentra en la sala izquierda del mapa y las mesas disponen de modo que el camarero debe rodear antes de poder acceder a la ventanilla y a la puerta que comunica con la  cocina.
+
+La cocina se encuentra en la sala derecha y encontramos 2 cintas de alimentos accesibles en todas las direcciones  , en las paredes laterales hay encimeras para proporcionar espacios de almacenamiento .
+
+
+#### **JORNADA 3**
+
+<img src="images_gdd/28jornada3.PNG">
+<img src="images_gdd/29jornada3.PNG">
+
+El comedor se encuentra en la sala izquierda del mapa, la ventanilla está al lado de la puerta y tiene mesas cercanas que serán fáciles de servir pero otras que están lejos.  Los clientes entrarán por la parte central superior del restaurante hasta llegar al cartel.
+
+La cocina se encuentra en la sala derecha del mapa  con dos cintas de alimentos en la parte superior derecha de la habitación y otra en la parte inferior derecha parcialmente, con una isla de muebles en el medio y las pilas de paella cerca de la misma.
+
+
+#### **JORNADA 4**
+
+<img src="images_gdd/30jornada4.PNG">
+<img src="images_gdd/31jornada4.PNG">
+
+El comedor  se encuentra en la sala derecha del mapa, a diferencia de los comedores del resto de jornadas . Con las mesas situadas debajo de la fila de clientes. Estos entrarán al restaurante por la esquina superior derecha.
+
+La cocina  se encuentra en la sala izquierda del mapa , Esta tiene dos cintas en la parte izquierda del mapa, con distinta orientación, una isla de encimeras con dos tablas para dejar ingredientes y paellas, y encontramos 4 fogones divididos de dos en dos.
+
+
+#### **JORNADA 5**
+
+<img src="images_gdd/32jornada5.PNG">
+<img src="images_gdd/33jornada5.PNG">
+
+El comedor se encuentra en la sala derecha del mapa,como el anterior, este contiene varias mesas  y esta vez los clientes harán cola en la parte derecha del mapa, un mapa más complicado para servir y sentar clientes de manera rápida.
+
+La cocina se encuentra en la sala izquierda del mapa , similar a la cocina anterior, pero con una distribución algo distinta pero más que suficiente para preparar muchas paellas.
+
+### **Tutorial:**
+
+El tutorial es un apartado extra dentro del juego, en el que enseñamos a los jugadores las mecánicas y dinámicas principales de nuestro juego. Sin embargo, no obligamos a ningún jugador a completarlo porque se haría aburrido tener que completar el tutorial cada vez que alguien entre al juego. Aunque, no por eso,  es menos útil, cumple todas las funcionalidades de un tutorial. Para acceder tenemos un botón en el menú principal el cual nos llevará al tutorial. Este se basa en una máquina de estados, en la que el jugador se verá “obligado” a realizar las acciones que se le mandan en los diálogos. Aunque si que tiene cierta libertad, pero haga lo que haga al final lo único que podrá hacer será lo correcto. 
+
+<img src="images_gdd/34tutorial.PNG">
+
+Este se basa en una serie de diálogos entre acciones, en los cuales te indican cual será tu siguiente misión dentro del restaurante, por ejemplo, al colocar una paellera vacía en la mesa, aparecerá un diálogo diciendo que sólo puedes colocar arroz y que no podrás colocar ingredientes si no hay arroz. El jugador deberá seguir todos los pasos indicados en los diálogos hasta llegar al final, y en caso de haber leído todos los diálogos, cortos y explicativos, habrá aprendido a jugar de ambos roles.
+
+<img src="images_gdd/35tutorial.PNG">
+
+Para llevar a cabo esto, los muebles van apareciendo de forma progresiva, para que el jugador no pueda anticiparse a las misiones que tiene que realizar, por lo que no podrá cocinar una paella, hasta que no haya preparado la paella que ha pedido el cliente.
+
+De esta forma, podemos enseñar al jugador, el orden principal de hacer las cosas, aunque luego él pueda hacerlo a su gusto.
 
 ### **Comandas:**
 * Los jugadores podrán escribir comandas siempre que quieran. 
@@ -374,7 +434,9 @@ Esta puntuación por servicio se sumará a la puntuación por la paella. Estas p
 * Si el jugador se equivoca al escribir la comanda y quiere corregirla, tendrá que descartarla y volver a escribir una nueva.
 * El jugador puede moverse mientras escribe una comanda.
 
-<img src="images_gdd/comanda.PNG">
+<img src="images_gdd/36comandas.PNG">
+<img src="images_gdd/37comandas.PNG">
+<img src="images_gdd/38comandas.PNG">
 
 * Cuando el jugador le dé al botón de finalizar comanda, esta se moverá a la parte superior de la pantalla de ambos jugadores, pero tendrá otro formato.
 * Se podrán acumular un máximo de 6 comandas encima de la pantalla.
@@ -387,7 +449,7 @@ Esta puntuación por servicio se sumará a la puntuación por la paella. Estas p
 * En el caso de que en pantalla haya más comandas que el número máximo que se pueden acumular, aparecerá un número en la esquina superior derecha con las comandas extra que aún le quedan por atender los jugadores.
 * Cuando los jugadores eliminen una comanda, aparecerá en pantalla la siguiente acumulada.
 
-<img src="images_gdd/comandasacumuladas.PNG">
+<img src="images_gdd/39comandas.PNG">
 
 ### **Eventos del Juego:**
 
@@ -624,7 +686,164 @@ Fue agradable descubrir que nadie se aburrió durante la jornada ni consideró e
 
 * Ui de muebles mal colocaba o solapada: cuando hay 2 fogones juntos si colocas una paella en cada uno la barra de cocción de una tapara a la  otra , en un mapa donde las tablas de  procesados están abajo del todo y el circulo rojo este de progreso no se ve.
  
-## 11. Referencias y contexto cultural <a name="referencias"></a>
+## 11. Plan de pruebas <a name="planpruebas"></a>
+* En Paella Va!, los jugadores deberán hacer uso de los controles y de la estrategia para llevar un restaurante de la manera más positiva posible, de manera que todos los comensales queden satisfechos.
+
+<img src="images_gdd/controleskeyboardpaellava.png">
+
+* MENÚS DEL JUEGO
+
+Se desea probar el correcto funcionamiento del menú de lobby, menú principal, menú de pausa, y menú de ajustes del juego.
+
+Para comenzar se abrirá el menú principal, donde deberá haber tres botones, uno para comenzar partida, otro para ir al menú de ajustes y otro para salir del juego. Primero de todo comprueba que al entrar en este menú suena una canción.
+Una vez comprobado esto comprueba que al pulsar el botón de “Salir” se sale del juego y emite un sonido al tocar el botón.
+
+Ahora reinicia el juego y comprueba que al pulsar en el botón de “Ajustes” suena el mismo sonido que en el botón de salir y en este caso nos lleva a un escena con los ajustes del juego.
+Una vez en esta escena, encontramos cuatro posibles interacciones, para empezar, comprueba que puedes mover los sliders con el emoticono de paella mientras tienes el ratón encima del icono de paella, mantienes pulsado el clic izquierdo y te deslizas a los lados. Comprueba que con el slider de arriba la música disminuye si avanzas hacia la izquierda y aumenta si avanzas hacia la derecha. Y comprueba qué ocurre lo mismo con el slider de abajo pero con los sonidos, es decir, bajalo al tope y dale al botón de la cruz arriba a la derecha, este botón debería llevarte al menú principal y emitir un sonido, pero si has bajado el slider a tope no debería de sonar. Ahora vuelve a entrar al menú de ajustes, sube el sonido y vuelve a pulsar el botón de la cruz, comprueba que ahora si emite un sonido.
+
+Por último, vuelve al menú de ajustes y pulsa el botón que hay en la parte inferior en el centro, este botón debería colocar el juego en pantalla completa. 
+Una vez comprobado todo el menú de ajustes, vuelve al menú principal y dale al botón “Comenzar”, este debería de emitir un sonido similar al resto de botones y debería llevarnos al menú de lobby.
+
+En este menú deberíamos de encontrar dos botones, uno para ser el host de la partida (“ABRIR RESTAURANTE”) y otro para unirnos a la partida de otra persona (“BUSCAR RESTAURANTE”).
+A continuación, vamos a comprobar que podemos abrir el menú de pausa, para ello pulsa la tecla “ESC” y comprueba que todo lo que había en escena se ha parado y han aparecido tres botones en pantalla., el botón de “Resume”, para volver a la partida, el botón de “Ajustes” y el botón “Exit”.
+
+Para empezar prueba que el botón de “Resume” nos devuelve a la partida y esta avanza con normalidad. Ahora vuelve al menú de pausa y comprueba que al pulsar el botón de “Ajustes” nos lleva a un menú similar al visto anteriormente. Por último, pulsa el botón “Exit” y comprueba que nos lleve al menú principal. Todos estos botones deberían de emitir el mismo sonido que los anteriores.
+
+* MECÁNICAS BÁSICAS
+
+Se desea probar el correcto funcionamiento del jugador y de las mecánicas principales del mismo y su interacción con los elementos del escenario.
+
+En primer lugar, prueba a moverte con las teclas WASD para comprobar que nos podemos mover en todas las direcciones.
+
+A continuación, acércate a la cinta de ingredientes y prueba a colocarte en frente de un ingrediente y cogerlo. Prueba a dejarlo en la cinta otra vez y verás que no se puede. La cinta debería de estar emitiendo un sonido constante.
+
+Después vuelve a coger otro ingrediente y prueba a dejarlo en cualquier encimera para comprobar que se coloca, sin embargo, intenta colocarlo en el fogón o lavavajillas y verás que no se puede.
+Prueba a coger una paellera vacía y a dejarla en cualquier encimera, verás que puedes, lo mismo con el arroz.
+
+A continuación, ve a la cola de clientes y prueba a coger un grupo de clientes. A continuación intenta dejarlo en el mismo sitio donde los has cogido, verás que es posible. Sin embargo, no podrás colocarlos en cualquier sitio, solo en las mesas y en la posición que ocupaban en la cola.
+Por último, comprueba que el personaje es capaz de colisionar con todos los objetos del juego, sin que traspase ninguno, eso si, comprueba que existe un orden de capas, es decir, el personaje si pasa por detrás de una mesa se verá la mesa primero pero si pasa por delante se verá el personaje.
+
+* TABLA  DE PROCESADOS
+
+Se desea probar el correcto funcionamiento de las tablas de procesado con respecto a todos los ingredientes.
+
+Empecemos por coger un ingrediente de la cinta y colocarlo en la tabla de procesados, debemos comprobar que aparece un círculo que indica lo que le falta para procesarse y lo que lleva procesado. Una vez colocado el ingrediente comprueba que puedes escuchar un sonido mientras se procesa, ahora vuelve a cogerlo aunque no se haya terminado de procesar y comprueba que el sonido se para.
+
+Ahora comprueba que al volver a colocar el ingrediente en la tabla de procesados se reinicia el tiempo para procesarse, lo que significa que el círculo debería de empezar desde el principio.
+Una vez colocado el ingrediente, comprueba que el círculo se completa correctamente y que una vez llega al final el ingrediente cambia de sprite, el círculo desaparece y el sonido para. Y por último, coge el ingrediente procesado y comprueba que no puedes volver a dejarlo en la tabla si ya está procesado.
+
+Ahora, tendrás que repetir estos últimos pasos con cada uno de los ingredientes del juego, para comprobar que el funcionamiento es el mismo en todos y que ninguno tiene un bug en ese aspecto.
+Sin embargo, comprobar que el arroz aunque sea un ingrediente no se puede colocar en la tabla de procesados.
+
+Una vez probado que se puede introducir ingredientes no procesados a la tabla y los ingredientes ya procesados no se pueden volver a introducir ni se puede meter el arroz, vamos a comprobar que no se puede introducir ningún otro elemento del escenario que no sean ingredientes sin procesar.
+Para ello vamos a empezar por comprobar que las paelleras, tanto limpia como sucia como con comida no se puede meter, para ello te hemos dejado cada una de ellas en la escena para que puedas probarlo con las tres.
+
+Ahora, dirígete a la cola de clientes, coge un grupo y comprueba que no lo puedes colocar en la tabla de procesados y con esto ya habremos comprobado todo.
+
+* GRUPO DE CLIENTES 
+
+Se desea probar el correcto funcionamiento de los grupos de clientes que hay en la cola del restaurante y su interacción con los elementos del escenario.
+
+Para comenzar, prueba a coger un grupo de clientes y dejarlos en una mesa, verás que sólo puedes colocar a dicho grupo de clientes en una mesa que tenga más sillas que clientes en el grupo.
+A continuación, prueba a coger otro grupo de clientes e intenta dejarlo en la mesa en la que has dejado al anterior grupo de clientes, verás que esto no es posible, aunque haya espacio suficiente en la mesa como para colocar al grupo que has cogido.
+
+Ya que no has podido dejarlos en esa mesa, prueba a dejarlos en la puerta del restaurante para comprobar que puedes echar a los clientes de la cola si no tienes espacio suficiente para colocarlos o por gusto.
+
+Vale, ahora vamos a probar los distintos estados de los clientes. Prueba a coger un grupo mientras están caminando hacia el final de la cola, observarás que no puedes coger un grupo de clientes mientras están en estado “CAMINANDO”. Una vez estos llegan al final de la cola, pasan al estado “COLA” donde ya pueden ser recogidos y dejados en una mesa, echados del restaurante, o se pueden quedar ahí infinitamente. 
+
+Antes de nada, prueba a colocar el ratón encima de un grupo, y observarás que aparece un emoticono que representa la tolerancia del grupo, una vez un grupo llega al estado “COLA”, la tolerancia empieza a bajar. Espera un rato con el ratón encima de un grupo en “COLA” para comprobar que la tolerancia baja y los emoticonos cambian.
+
+Después, vamos a pasar a testear a los comensales en el estado “PIDIENDO”, para llegar a dicho estado, coge un grupo de clientes y siéntalos en una mesa en la que puedan comer. Ahora, prueba que al acercarte a la mesa de los clientes, estos empiezan a decirte lo que quieren (mediante emoticonos encima de la mesa), y prueba que si te alejas, estos dejan de decírtelo. Además, si te alejas y vuelves a acercarte, estos empezarán desde el principio.
+
+Los comensales no van a parar de decirte su pedido mientras que estés cerca de la mesa y no le hayas entregado ninguna paella. Una vez les hayas entregado una paella, estos pasarán al estado de “ESPERANDO” , en caso de que hayan pedido más de una paella y estén esperando a que entregues todas, o al estado “COMIENDO”, en caso de que ya estén todas entregadas. 
+
+Hay dos posibles casos, vamos a probar para cada uno:
+En caso de que haya pedido más de una paella el grupo, vamos a comprobar el estado “ESPERANDO” , prueba a dejar una paella hecha de las que hay en escena en la mesa, y comprueba que los clientes dejan de mostrar su pedido encima de la mesa, en ese momento el grupo ha pasado al estado “ESPERANDO” , y en este estado, la tolerancia también baja conforme pasa el tiempo, así que coloca el ratón encima del grupo y comprueba lo mismo que anteriormente, que la tolerancia baja y que los emoticonos cambian. Además , comprueba que no puedes quitarle las paellas que ya has entregado. Una vez comprobado esto ya podemos darle el resto de paellas que hayan pedido para que cambien de estado.
+
+En caso de que te hayan pedido una sola paella o ya hayas entregado todas las paellas que han pedido, vamos a comprobar el estado “COMIENDO” , coloca las paellas necesarias que hay en escena en la mesa, ahora pasarán al estado “COMIENDO” y empezarán a comerse la paella, comprueba que cada poco tiempo el sprite de la paella que hay en la mesa va cambiando, hasta acabar con una paella sucia. Comprueba también que no puedes quitarles las paellas de la mesa.  
+
+Una vez los clientes han terminado de comer, pasarán al estado “CUENTA”, donde se harán los cálculos necesarios para obtener la puntuación que deja este grupo. Ahora, deberás coger al grupo de clientes y dejarlos en la misma mesa, verás que es posible. Ahora intenta dejarlos en cualquier otro sitio, verás que no es posible. Por último, prueba a dejarlos en la puerta del restaurante, comprueba que desaparecen de la mesa , es decir, los has echado del restaurante porque ya han terminado de comer. 
+
+Sin haber quitado las paellas sucias de la mesa, comprueba que no puedes dejar otro grupo en dicha mesa hasta que no esté limpia, para ello ,coge las paellas sucias de las mesa y prueba a dejarlas en las encimeras , de esta manera quedará la mesa limpia y volverá a ser útil.
+
+* LAVAVAJILLAS
+
+Se desea probar el correcto funcionamiento del lavavajillas y sus diversas interacciones con las paellas y el resto de elementos del escenario.
+
+Empezaremos por comprobar que una paella limpia o con ingredientes no pueden ser lavadas.
+Empieza por dirigirte a la cocina del restaurante y coge una paella limpia. Trata de introducirla en el lavavajillas y comprueba que no se puede. 
+
+A continuación, deposita la paella en una de las encimeras, coge arroz y añádelo a la paella. Coge la paella y de nuevo, trata de meterla en el lavavajillas y comprueba que no es posible tampoco.
+
+Lleva la paella a la papelera, vacía de ingredientes la paella para que su estado sea sucio. Dirígete de nuevo al lavavajillas e introduce la paella en el lavavajillas y comprueba que pasados 3 segundos la paella se habrá limpiado y será posible sacarla ya limpia (con el mismo aspecto que tenía antes de añadirle ingredientes). Además, debería de haber aparecido un círculo que te indica el tiempo que falta para que se lave una paella.
+
+Ahora, prueba a meter otra paella sucia al lavavajillas, y comprueba que no puedes quitar la paella mientras se está lavando, sin embargo, una vez el círculo se haya completado y ya se haya lavado la paella, si podrás cogerla.
+
+Una vez probado que sólo se puede introducir una paella sucia (ni limpia ni con ingredientes), pasaremos a probar que no se puede introducir ninguna otra cosa en el lavavajillas.
+Para ello, coge un ingrediente de la cinta transportadora y trata de introducirlo, sin procesar, en el lavavajillas, lo cual no debe de ser posible. Repite lo mismo pero tratando de introducir un ingrediente procesado en el lavavajillas esta vez.
+
+Coge arroz de la bolsa de arroz y trata de introducirlo en el lavavajillas, observa que no es posible.
+Coge un grupo de clientes y trata de introducirlo en el lavavajillas, observa que no es posible.
+
+* PAPELERA
+
+Se desea probar el correcto funcionamiento de la papelera y su correcta interacción con el arroz, los ingredientes y paellas.
+
+Empezaremos por coger un ingrediente de la cinta transportadora y lo tiraremos a la papelera, observa cómo desaparece de tus manos.
+A continuación, coge otro ingrediente y procésalo, introdúcelo en la papelera y observa que también desaparece. 
+
+Para concluir con los ingredientes coge arroz de la bolsa de arroz e introdúcelo también en la papelera, observa que como el resto de ingredientes desaparece.
+Para seguir, coge una paella limpia y trata de introducirla en la papelera, no debería ocurrir nada en absoluto , se queda como una paella limpia. A continuación, deposita la paella en una encimera y añádele arroz. Coge de nuevo la paella, interactúa con la papelera y comprueba que ,en este caso, la paella pasa de tener contenido a estar sucia. 
+
+Comprueba que si interactúas con la papelera mientras llevas una paella sucia, tampoco debería de pasar nada, se queda como está, sucia.
+Por último, coge un grupo de clientes y de nuevo introduce el grupo en la papelera. Comprueba que no es posible.
+
+* COMANDAS
+
+Se desea probar el correcto funcionamiento de las comandas y sus botones, así como la interacción entre el jugador y ellas.
+
+Para comenzar, en la parte superior izquierda de la pantalla, verás que hay un pequeño botón con un lápiz, este hace referencia a la libreta de comandas, prueba a abrirlo y cerrarlo haciendo clic sobre ese botón. 
+Ahora, comprueba que cua
+ndo abres la libreta de comandas para hacer una nueva, lo primero que aparecen son botones para elegir el número de mesa que está haciendo este pedido, elige el número de mesa y verás que en la comanda aparece el número de mesa que has elegido en la parte superior derecha.
+
+A continuación, una vez elegido el número de mesa, empezamos a apuntar las paellas, para ello deben de haber aparecido 3 botones que hacen referencia al tamaño de la paella que se va a apuntar, “S”, “M” o “L”. Elige el tamaño de la paella y verás que debajo del número de mesa a la izquierda, aparece el tamaño de la paella que hemos elegido.
+
+Una vez elegido el tamaño de la paella, observarás que han aparecido muchos botones, cada uno con emoticono de un ingrediente, por ello procederemos a añadir los ingredientes pedidos por los clientes en la comanda (el arroz se da por hecho que lo tienen todas las paellas aunque no tengan ingredientes). Pulsa un ingrediente y observa que se coloca a la derecha del tamaño de la paella. Además , el orden en el que estaban todos los botones ha tenido que cambiar por completo, para dar más dificultad.
+
+Las paellas pueden tener solo el arroz, o tener hasta tres ingredientes, por lo que cada vez que pulsemos un ingrediente se colocará a la derecha del anteriormente pulsado. Una vez finalizado el pedido de una paella, podemos realizar varias operaciones. A la derecha de lo que es la libreta , podemos ver cuatro botones. Con el de más arriba podemos podremos borrar lo último que hayamos apuntado, comprobar que si apuntas un ingrediente y pulsas el botón, este ingrediente desaparece.
+
+Vuelve a hacer un pedido como quieras y pulsar el botón contiguo al anteriormente nombrado, el que tiene una cruz roja, este lo que hace es desechar la comanda que hayamos apuntado, antes de comprobar nada, apunta una paella y dale al botón del tick verde, este lo que hace es completar el pedido de una paella y empezar a pedir otra nueva para la misma mesa, comprueba que cuando lo pulsas aparecen los botones del tamaño de la paella y cuando vuelves a apuntar se apunta de la misma manera pero debajo de la paella anterior. Una vez apuntado dos paellas, prueba a darle al botón con la cruz roja, y verás que debería de borrar todo lo que hayamos apuntado. 
+Por último, crea una comanda a tu gusto, y vamos a probar el botón situado más abajo, una vez hayas creado la comanda deseada, pulsa a probar este botón y comprueba que se coloca a la derecha de la libreta de comandas. Si pulsamos este botón con una comanda vacía, se coloca a la derecha una comanda vacía. 
+
+Conforme se van apuntando comandas, las primeras que se han apuntado van moviéndose hacia la derecha, y las nuevas aparecen a la derecha de la libreta de comandas. Prueba a crear varias comandas y ver que las más viejas se mueven hacia la derecha de la pantalla, mientras que las nuevas más a la izquierda.
+
+Por último pero no menos importante, una vez has terminado una comanda y la has enviado a la parte derecha de la pantalla, aparece un botón igual que la cruz roja en la parte inferior en el medio, comprueba que si pulsas ese botón desaparece la comanda. 
+Además, en caso de haber más de una comanda en pantalla, si borras las que se encuentran más a la izquierda, comprueba que las comandas que haya por la derecha de la que acabas de borrar, se mueven una posición hacia la izquierda.
+
+*  PREPARACIÓN Y COCINADO DE PAELLAS
+
+Se desea probar el correcto funcionamiento de la creación de paellas así como su estado de cocción.
+
+Para empezar, vamos a coger una de las paelleras limpias que hemos dejado en la escena. Comprueba que puedes colocarla sin problema en las encimeras. Una vez colocada, coge un ingrediente de la cinta de ingredientes, y comprueba que no puedes colocarlo en la paellera limpia.
+Ahora lleva el ingrediente a procesar, y comprueba que una vez procesado tampoco podrás introducirlo a la paellera, esto es por que para hacer una paella lo primero de todo tiene que haber arroz.
+
+Por ello, dirígete a la bolsa de arroz y coge arroz, ahora llévalo a la paellera limpia y comprueba que sí que podemos colocarlo ya que el arroz desaparece de nuestras manos y el sprite de la paella cambia.
+Antes de nada comprueba que no puedes volver a colocar arroz en una paella con arroz.
+Ahora , coge otro ingrediente de la cinta, y comprueba que no puedes introducirlo en la paella ya que este todavía no está procesado. 
+Ahora, coge el ingrediente que habías procesado con anterioridad y comprueba que si que puedes colocarlo en la paella.
+
+A continuación, realiza estos dos últimos pasos hasta haber metido tres ingredientes en la paella, y que ninguno de ellos haya podido ser un ingrediente sin procesar.
+Una vez realizado esto, comprueba que no se puede meter ni un ingrediente procesado ni uno sin procesar, esto viene a ser ya que las paellas tienen un máximo de tres ingredientes por paella.
+Ahora vamos a pasar a cocinar una paella, para empezar, comprueba que una paellera limpia no la puedes meter en el fogón, ya que no tiene sentido. Además, coge una paellera sucia y verás que tampoco se puede meter al fogón, ya que tampoco tiene sentido.
+
+Ahora coge una paella limpia y agregale arroz, comprueba que solo con el arroz una paella ya puede cocinarse. 
+Una vez metas la paella en el fogón, comprueba que aparece una barra encima de ella que indica lo hecha que está, comprueba que conforme va pasando el tiempo la flecha que hay encima de la barra se va moviendo hacia la derecha. 
+Espera un tiempo y comprueba que dicha flecha no se pasa del final de la barra, una vez llega al final se queda ahí.
+
+Comprueba que conforme va pasando el tiempo de cocción, va cambiando el sprite de la paella y por último comprueba que una vez que retiras una paella del fogón, ya no puedes volver a meterla a cocinar.
+
+
+## 12. Referencias y contexto cultural <a name="referencias"></a>
 
 * Pesadilla en la cocina
 * Overcooked
