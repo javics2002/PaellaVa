@@ -11,6 +11,7 @@ class HostClient : public Scene
 	ShowText* mTextIp;
 	ShowText* mCursor;
 	ShowText* mIpNoValida;
+	ShowText* mRestauranteNoEncontrado;
 	UiButton* mClientButton;
 	UiButton* mHostButton;
 
@@ -23,7 +24,7 @@ class HostClient : public Scene
 	float mFrameRate = 800;
 	float mTime;
 
-	float mFrameRateIpNV = 500;
+	float mFrameRateIpNV = 2000;
 	float mTiempoIpNV;
 
 	bool esValida(string ipText);

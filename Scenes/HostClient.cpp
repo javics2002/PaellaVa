@@ -48,6 +48,9 @@ HostClient::HostClient(Game* mGame) : Scene(mGame)
 	mIpNoValida = new ShowText(mGame, "IP NO VALIDA", "ipCursor", mClientButton->getX() + 20, 225);
 	mIpNoValida->setActive(false);
 
+	mRestauranteNoEncontrado = new ShowText(mGame, "Restaurante no encontrado", "ipCursor", mClientButton->getX() + 20, 225);
+	mRestauranteNoEncontrado->setActive(false);
+
 	mCursor = new ShowText(mGame, "|", "ipCursor", mClientButton->getX() + 20, mPosYNotOver);
 	mCursor->setActive(false);
 
@@ -64,10 +67,13 @@ HostClient::HostClient(Game* mGame) : Scene(mGame)
 			
 			mIp.erase(remove(mIp.begin(), mIp.end(), ' '), mIp.end());
 			if (esValida(mIp)) {
-				// game->sendMessageScene(new IntroduceIP(game));
 				if (mGame->getNetworkManager()->init('c', mIp.c_str(), mGame->getNombre())) {
 					// crear el lobby
 					mGame->sendMessageScene(new Lobby(mGame, mGame->getNetworkManager()->getOtherName()));
+				}
+				else {
+					mTiempoIpNV = sdlutils().currRealTime();
+					mRestauranteNoEncontrado->setActive(true);
 				}
 			}
 			else {
@@ -197,6 +203,7 @@ void HostClient::render() {
 	mUiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
 	mTextIp->render(nullptr);
 	mIpNoValida->render(nullptr);
+	mRestauranteNoEncontrado->render(nullptr);
 
 	if (!mEscrito && sdlutils().currRealTime() - mTime > mFrameRate) {
 		mCursor->render(nullptr);

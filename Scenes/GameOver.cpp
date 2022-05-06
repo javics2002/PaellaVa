@@ -46,37 +46,40 @@ GameOver::GameOver(Game* mGame, int puntuation, int numeroJornada) : Scene(mGame
 
 	tweenEstrellas(mStars);
 
-	auto mContinueButton = new UiButton(mGame, "continue",
-		sdlutils().width() / 2, sdlutils().height() / 2 + 300, 300, 120);
-	mContinueButton->setInitialDimension(300, 120);
+	if (mGame->getNetworkManager()->isHost())
+	{
+		auto mContinueButton = new UiButton(mGame, "continue",
+			sdlutils().width() / 2, sdlutils().height() / 2 + 300, 300, 120);
+		mContinueButton->setInitialDimension(300, 120);
 
-	mContinueButton->setAction([this, mContinueButton](Game* mGame, bool& exit) {
-		sdlutils().soundEffects().at("select").play(0, mGame->UI);
+		mContinueButton->setAction([this, mContinueButton](Game* mGame, bool& exit) {
+			sdlutils().soundEffects().at("select").play(0, mGame->UI);
 
-		mUiManager->addTween(0.9f, 1.0f, 600.0f,false).via(easing::exponentialOut).onStep(
-			[mGame, mContinueButton,this](tweeny::tween<float>& t, float) mutable {
-			mContinueButton->setDimension(t.peek() * mContinueButton->getInitialWidth(), 
-				t.peek() * mContinueButton->getInitialHeight());
-			
-			if (t.progress() > .2f) {
-				//Start game
-				if (nombreTilemaps.size() > mNumJornada) {
-					mGame->sendMessageScene(new Jornada(mGame, nombreTilemaps[mNumJornada], mNumJornada+1, true));
+			mUiManager->addTween(0.9f, 1.0f, 600.0f, false).via(easing::exponentialOut).onStep(
+				[mGame, mContinueButton, this](tweeny::tween<float>& t, float) mutable {
+					mContinueButton->setDimension(t.peek() * mContinueButton->getInitialWidth(),
+						t.peek() * mContinueButton->getInitialHeight());
 
-					// send info 
-					mGame->getNetworkManager()->sendStartGame(mNumJornada+1);
-				}
-				else {
-					mGame->sendMessageScene(new FinalScene(mGame));
+					if (t.progress() > .2f) {
+						//Start game
+						if (nombreTilemaps.size() > mNumJornada) {
+							mGame->sendMessageScene(new Jornada(mGame, nombreTilemaps[mNumJornada], mNumJornada + 1, true));
 
-					mGame->getNetworkManager()->sendFinishGame(100, 0, true);
-				}
-				return true;
-			}
-			return false;
+							// send info 
+							mGame->getNetworkManager()->sendStartGame(mNumJornada + 1);
+						}
+						else {
+							mGame->sendMessageScene(new FinalScene(mGame));
+
+							mGame->getNetworkManager()->sendFinishGame(100, 0, true);
+						}
+						return true;
+					}
+					return false;
+				});
 			});
-		});
-	mUiManager->addButton(mContinueButton);
+		mUiManager->addButton(mContinueButton);
+	}
 }
 
 void GameOver::calculateStarNumber()

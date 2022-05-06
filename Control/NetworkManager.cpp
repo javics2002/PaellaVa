@@ -423,7 +423,7 @@ bool NetworkManager::init(char type, const char* ip_addr, std::string name)
 	if (SDLNet_Init() < 0)
 	{
 		std::cout << ("SDLNet_Init: %s\n", SDLNet_GetError()) << std::endl;
-		exit(EXIT_FAILURE);
+		return false;
 	}
 
 	nType = type;
@@ -432,13 +432,13 @@ bool NetworkManager::init(char type, const char* ip_addr, std::string name)
 	if (SDLNet_ResolveHost(&ip, ip_addr, 2000) < 0)
 	{
 		std::cout << "SDLNet_ResolveHost: " <<  SDLNet_GetError() << std::endl;
-		exit(EXIT_FAILURE);
+		return false;
 	}
 
 	if (!(socket = SDLNet_TCP_Open(&ip)))
 	{
 		std::cout << ("SDLNet_TCP_Open: %s\n", SDLNet_GetError()) << std::endl;
-		exit(EXIT_FAILURE);
+		return false;
 	}
 	
 	mMyName = name;
