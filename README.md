@@ -14,7 +14,7 @@ Autores:
 
 <table>
 <tr>
-    <td colspan = "2"> <b>Descripción:</b> Juego donde los jugadores se organizan como camarero y cocinero para sacar adelante su restaurante de paellas. </td>
+    <td colspan = "2"> <b>Descripción:</b> Una cocinera y un camarero aúnan sus fuerzas para sacar adelante su restaurante de paellas. </td>
         
     
 </tr>
