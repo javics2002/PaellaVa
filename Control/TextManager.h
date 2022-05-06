@@ -26,28 +26,28 @@ public:
 	void activaTexto(string dialogo);
 	void desactivaTexto();
 
-	bool desactivado() { return desactivado_; }
+	bool desactivado() { return mDesactivado; }
 
-	bool esUltimoParrafo() { return ultimoParrafo; }
-	void reiniciaParrafo() { terminado = false; lineas.clear(); numeroLinea = 0; rapido = false; };
-	bool TerminadoEscribir() { return dialogoTerminado; }
-	bool terminadoParrado() { return terminado; }
+	bool esUltimoParrafo() { return mUltimoParrafo; }
+	void reiniciaParrafo() { mTerminado = false; mLineasDeDialogo.clear(); mNumeroLinea = 0; mRapido = false; };
+	bool TerminadoEscribir() { return mDialogoTerminado; }
+	bool terminadoParrado() { return mTerminado; }
 	void anadeLetra();
 	void cambiaVelocidad(bool r);
-	bool vaRapido() { return rapido; };
-	void cambiaPausa() { pausa = !pausa; };
+	bool vaRapido() { return mRapido; };
+	void cambiaPausa() { mPausa = !mPausa; };
 
 private:
 
-	VirtualTimer* vt;
+	VirtualTimer* mVirtualTimer;
 	Game* mGame;
-	string fuenteLetra, dialogo_, ultimoCaracter;
-	vector<string> lineas;
+	string mFuenteLetra, mDialogo, mUltimoCaracter;
+	vector<string> mLineasDeDialogo;
 
 
 
-	bool terminado=true, dialogoTerminado=true,ultimoParrafo,desactivado_=true, rapido=false,pausa = false;
-	int offsetYLinea,tiempoCreaccionLetra, numeroLinea,anchoLetra, alturaLetra, anchoTexto;;
+	bool mTerminado=true, mDialogoTerminado=true,mUltimoParrafo,mDesactivado=true, mRapido=false,mPausa = false;
+	int mOffsetYLinea,mTiempoCreaccionLetra, mNumeroLinea,mAnchoLetra, mAlturaLetra, mAnchoTexto;;
 
 };
 

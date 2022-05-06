@@ -15,20 +15,19 @@ public:
 	const unsigned int DIMENSION_H = 1;
 
 	const double TIEMPO_LAVADO = 3000.0;
-	double initTime;
+	double mInitTime;
 
 	int canalSonido2;
 
 	const int MAX_BREAK_TIME = 18000;
 	const int REDUCE_BREAK_TIME = 500;
-	int couldBreak = MAX_BREAK_TIME;
+	int mCouldBreak = MAX_BREAK_TIME;
 	int seg = 10;
 
-	deque<Paella*> paellasSucias;
-	deque<Paella*> paellasLimpias;
+	deque<Paella*> mPaellasSucias;
+	deque<Paella*> mPaellasLimpias;
 
 	int i = 0;
-
 	SDL_Rect clip;
 
 public:

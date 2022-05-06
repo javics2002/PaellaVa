@@ -97,8 +97,8 @@ bool Fogon::receivePaella(Paella* pa)
 
 			barra = true;
 
-			if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == cocinarPaella)
-				mGame->getCurrentScene()->changeState(pausaCocinarPaella);
+			if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == TUTORIALSTATE_COCINAR_PAELLA)
+				mGame->getCurrentScene()->changeState(TUTORIALSTATE_PAUSA_COCINAR_PAELLA);
 
 			mGame->getUIManager()->addTween((float)(getX() - barraCoccionX / 2 - flechaCoccionX / 2), (float)(getX() + barraCoccionX / 2 - flechaCoccionX / 2), tiempoDeCoccion, true)
 				.onStep(
@@ -134,8 +134,8 @@ bool Fogon::returnObject(Player* p)
 			mGame->getUIManager()->quemarse();
 		}
 
-		if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == States::recogerPaellaCocinada)
-			mGame->getCurrentScene()->changeState(States::pausaRecogerPaellaCocinada);
+		if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == States::TUTORIALSTATE_RECOGER_PAELLA_COCINADA)
+			mGame->getCurrentScene()->changeState(States::TUTORIALSTATE_PAUSA_RECOGER_PAELLA_COCINADA);
 
 		p->setPickedObject(paella_, PAELLA);
 

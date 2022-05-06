@@ -20,7 +20,7 @@ public:
 	Paella(Game* mGame, int volumen_);
 	
 	~Paella() {
-		delete humo;
+		delete mHumo;
 	};
 
 	bool ingrValido(Ingrediente* ingr);
@@ -65,8 +65,8 @@ public:
 	void render(SDL_Rect* cameraRect);
 
 private:
-	vector<string> coccionTex = { "paellaCruda", "paellaPocoHecha", "paella", "paellaMuyHecha", "paellaQuemada", "paellaIncomestible" };
-	vector<int> tiemposDeCoccion = { 3000, 6000, 9000, 12000, 15000 };
+	vector<string> mCoccionTex = { "paellaCruda", "paellaPocoHecha", "paella", "paellaMuyHecha", "paellaQuemada", "paellaIncomestible" };
+	vector<int> mTiemposDeCoccion = { 3000, 6000, 9000, 12000, 15000 };
 
 	const int MAX_INGR = 3;
 	double mTiempoCoccion = 0.0, mTiempo = 0.0, mTiempoHumo = 2000.0;
@@ -75,21 +75,21 @@ private:
 	bool mArroz = false;
 
 	EstadoPaellas estado = Preparacion;
-	int estadoCoccion = 0;
-	int contenido = Limpia;
+	int mEstadoCoccion = 0;
+	int mContenido = Limpia;
 
 	int miTipo;
 	
-	int initCocTime = 0;
-	int initHumoTime = 0;
+	int mInitCocTime = 0;
+	int mInitHumoTime = 0;
 
-	list<tipoIngrediente> ingredientes;
+	list<tipoIngrediente> mIngredientes;
 
-	vector<bool> ingrEnPaella;
-	bool contaminada = false;
+	vector<bool> mIngrEnPaella;
+	bool mContaminada = false;
 
-	string currentCoccionSound;
+	string mCurrentCoccionSound;
 
-	ParticleExample* humo;
+	ParticleExample* mHumo;
 };
 

@@ -51,21 +51,21 @@ class ObjectManager
 
 	Game* mGame;
 
-	vector<Silla*> sillas;
-	vector<Mesa*> mesas;
-	vector<Encimera*> encimeras;
-	vector<Encimera*> ventanillas;
-	vector<Cinta*> cintas;
-	vector<Pila*> pilas;
-	vector<Fogon*> fogones;
-	vector<TablaProcesado*> tablasProcesados;
-	Cartel* cartel;
-	Puerta* puerta;
-	BolsaArroz* bolsaDeArroz;
-	InicioCinta* iniCinta;
-	FinalCinta* finCinta;
-	Lavavajillas* lavavajillas;
-	CajaHerramientas* cajaHerramientas;
+	vector<Silla*> mSillas;
+	vector<Mesa*> mMesas;
+	vector<Encimera*> mEncimeras;
+	vector<Encimera*> mVentanillas;
+	vector<Cinta*> mCintas;
+	vector<Pila*> mPilas;
+	vector<Fogon*> mFogones;
+	vector<TablaProcesado*> mTablasProcesados;
+	Cartel* mCartel;
+	Puerta* mPuerta;
+	BolsaArroz* mBolsaDeArroz;
+	InicioCinta* mIniCinta;
+	FinalCinta* mFinCinta;
+	Lavavajillas* mLavavajillas;
+	CajaHerramientas* mCajaHerramientas;
 
 
 
@@ -82,37 +82,37 @@ public:
 
 	void addMueble(Mueble* mueble);
 
-	void addIniCinta(InicioCinta* i);
-	void addFinCinta(FinalCinta* f);
-	void addSilla(Silla* s);
-	void addMesa(Mesa* m);
-	void addVentanilla(Encimera* v);
-	void addEncimera(Encimera* e);
-	void addCinta(Cinta* c);
-	void addCartel(Cartel* c);
-	void addPuerta(Puerta* p);
-	void addPilas(Pila* p);
-	void addBolsa(BolsaArroz* b);
-	void addFogon(Fogon* f);
-	void addTabla(TablaProcesado* t);
-	void addLavavajillas(Lavavajillas* l);
-	void addCaja(CajaHerramientas* c);
+	void addIniCinta(InicioCinta* i) { mIniCinta = i; };
+	void addFinCinta(FinalCinta* f) {mFinCinta = f;};
+	void addSilla(Silla* s) { mSillas.push_back(s); };
+	void addMesa(Mesa* m){ mMesas.push_back(m); };
+	void addVentanilla(Encimera* v){ mVentanillas.push_back(v); };
+	void addEncimera(Encimera* e){ mEncimeras.push_back(e); };
+	void addCinta(Cinta* c) { mCintas.push_back(c); };
+	void addCartel(Cartel* c) { mCartel = c; };
+	void addPuerta(Puerta* p) { mPuerta = p; };
+	void addPilas(Pila* p) { mPilas.push_back(p); };
+	void addBolsa(BolsaArroz* b) { mBolsaDeArroz = b; };
+	void addFogon(Fogon* f) { mFogones.push_back(f); };
+	void addTabla(TablaProcesado* t) { mTablasProcesados.push_back(t); };
+	void addLavavajillas(Lavavajillas* l) { mLavavajillas = l; };
+	void addCaja(CajaHerramientas* c) { mCajaHerramientas = c; };
 
-	vector<Silla*> getSillas();
-	vector<Mesa*> getMesas();
-	vector<Encimera*> getEncimeras();
-	vector<Encimera*> getVentanilla();
-	vector<Cinta*> getCintas();
-	vector<Pila*> getPilas();
-	vector<Fogon*> getFogones();
-	vector<TablaProcesado*> getTablas();
-	Cartel* getCartel();
-	Puerta* getPuerta();
-	BolsaArroz* getBolsa();
-	InicioCinta* getIniCinta();
-	FinalCinta* getFinCinta();
-	Lavavajillas* getLavavajillas();
-	CajaHerramientas* getCajaHerramientas();
+	vector<Silla*> getSillas() { return mSillas; };
+	vector<Mesa*> getMesas() { return mMesas; };
+	vector<Encimera*> getEncimeras() { return mEncimeras; };
+	vector<Encimera*> getVentanilla() { return mVentanillas; };
+	vector<Cinta*> getCintas() { return mCintas; };
+	vector<Pila*> getPilas() { return mPilas; };
+	vector<Fogon*> getFogones() { return mFogones; };
+	vector<TablaProcesado*> getTablas() { return mTablasProcesados; };
+	Cartel* getCartel() { return mCartel; };
+	Puerta* getPuerta() { return mPuerta; };
+	BolsaArroz* getBolsa() { return mBolsaDeArroz; };
+	InicioCinta* getIniCinta() { return mIniCinta; };
+	FinalCinta* getFinCinta() { return mFinCinta; };
+	Lavavajillas* getLavavajillas() { return mLavavajillas; };
+	CajaHerramientas* getCajaHerramientas() { return mCajaHerramientas; };
 
 
 

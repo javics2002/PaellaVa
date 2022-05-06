@@ -111,9 +111,9 @@ void ListaComandas::finalizacomanda(Comanda* comanda)
 {
 	
 
-	if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState()<darDeComer){
+	if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState()<TUTORIALSTATE_DAR_DE_COMER){
 
-		mGame->getCurrentScene()->changeState(pausaBorrarComanda);
+		mGame->getCurrentScene()->changeState(TUTORIALSTATE_PAUSA_BORRAR_COMANDA);
 	}
 	else {
 		

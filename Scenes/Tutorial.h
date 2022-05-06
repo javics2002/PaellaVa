@@ -30,24 +30,24 @@ class Tutorial : public Scene
 
 	const float LERP_INTERPOLATION = 0.2f;
 
-	vector<string> textos = { "texto1" ,"texto2", "texto3","texto4","texto5","texto6","texto7","texto8","texto9","texto10",
+	vector<string> mTextosDialogos = { "texto1" ,"texto2", "texto3","texto4","texto5","texto6","texto7","texto8","texto9","texto10",
 		"texto11","texto12","texto13","texto14","texto15","texto16","texto17","texto18","texto19","texto20"};
 
-	MapInfo mapInfo;
+	MapInfo mMapInfo;
 
-	bool continua = false;
+	bool mContinua = false;
 
-	Vector2D<int> tamRestaurante = Vector2D<int>(0, 1216);
-	Vector2D<double> positionCamarero;
-	Vector2D<double> positionCocinera;
+	Vector2D<int> mTamanoRestaurante = Vector2D<int>(0, 1216);
+	Vector2D<double> mPosicionCamarero;
+	Vector2D<double> mPosicionCocinera;
 
-	Imagen* cuadroTexto = new Imagen(mGame, sdlutils().width() / 2, sdlutils().height() - 100, sdlutils().width()/1.5, 250, "cuadroTextoCocinera");
-	Imagen* cuadradoPlay = new Imagen(mGame, 990, sdlutils().height() - 35, 20, 25, "X");
+	Imagen* mCuadroDeDialogo = new Imagen(mGame, sdlutils().width() / 2, sdlutils().height() - 100, sdlutils().width()/1.5, 250, "cuadroTextoCocinera");
+	Imagen* mXboxBoton = new Imagen(mGame, 990, sdlutils().height() - 35, 20, 25, "X");
 
-	RedactaComandabutton* rC = new RedactaComandabutton(mGame, mUiManager, "redactaboton", 10, 10, 30, 30);
-	ListaComandas* lC = new ListaComandas(mGame, mUiManager);
+	RedactaComandabutton* mRedactaComandaBotonTutorial = new RedactaComandabutton(mGame, mUiManager, "redactaboton", 10, 10, 30, 30);
+	ListaComandas* mListaComandasTutorial = new ListaComandas(mGame, mUiManager);
 
-	ShowText* text = new ShowText(mGame, " ", "abadiNombre", sdlutils().width() / 2, sdlutils().height() - 100);
+	ShowText* mTexto = new ShowText(mGame, " ", "abadiNombre", sdlutils().width() / 2, sdlutils().height() - 100);
 	
 
 
