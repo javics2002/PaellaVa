@@ -132,6 +132,9 @@ bool Puerta::receiveGrupoClientes(GrupoClientes* gc)
 		mGame->getCurrentScene()->changeState(TUTORIALSTATE_PAUSA_NO_ECHAR_CLIENTES);
 		return false;
 	}
+	if (gc->getState() != CUENTA) {
+		dynamic_cast<Jornada*>(mGame->getCurrentScene())->addPuntuaciones(0);
+	}
 	sdlutils().soundEffects().at("echarComensales").play(0, mGame->UI);
 	gc->setActive(false);
 
