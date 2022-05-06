@@ -28,7 +28,7 @@ void Puerta::update()
 	if (dynamic_cast<Tutorial*>(mGame->getCurrentScene())) {
 
 		if (sdlutils().virtualTimer().currTime() - initTime >= spawn_delay && isActive()
-			&& cola->esValido(1) && mGame->getCurrentScene()->getState() == States::cogerClientes) {
+			&& cola->esValido(1) && mGame->getCurrentScene()->getState() == States::TUTORIALSTATE_COGER_CLIENTES) {
 			vector<Cliente*> clientes;
 			
 			clientSpawn();
@@ -125,11 +125,11 @@ bool Puerta::clientSpawn()
 
 bool Puerta::receiveGrupoClientes(GrupoClientes* gc)
 {
-	if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == echarClientes) {
-		mGame->getCurrentScene()->changeState(pausaEcharClientes);
+	if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == TUTORIALSTATE_ECHAR_CLIENTES) {
+		mGame->getCurrentScene()->changeState(TUTORIALSTATE_PAUSA_ECHAR_CLIENTES);
 	}
 	else if (dynamic_cast<Tutorial*>(mGame->getCurrentScene())) {
-		mGame->getCurrentScene()->changeState(pausaNoEcharClientes);
+		mGame->getCurrentScene()->changeState(TUTORIALSTATE_PAUSA_NO_ECHAR_CLIENTES);
 		return false;
 	}
 	sdlutils().soundEffects().at("echarComensales").play(0, mGame->UI);

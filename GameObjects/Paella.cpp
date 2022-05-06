@@ -29,13 +29,13 @@ Paella::Paella(Game* mGame, int tipo) : ObjetoPortable(mGame), miTipo(tipo)
 
 	setTexture("paellaLimpia");
 
-	ingrEnPaella = vector<bool>(tipoIngrediente::LAST, false);
+	mIngrEnPaella = vector<bool>(tipoIngrediente::LAST, false);
 
-	humo = new ParticleExample();
-	humo->setRenderer(sdlutils().renderer());
-	humo->setStyle(ParticleExample::NONE);
+	mHumo = new ParticleExample();
+	mHumo->setRenderer(sdlutils().renderer());
+	mHumo->setStyle(ParticleExample::NONE);
 
-	currentCoccionSound = "paella";
+	mCurrentCoccionSound = "paella";
 }
 
 void Paella::anadeIngr(Ingrediente* ingr_)
@@ -45,9 +45,9 @@ void Paella::anadeIngr(Ingrediente* ingr_)
 		//Añadimos el ingrediente
 		sdlutils().soundEffects().at("dejarIngrediente2").play(0, mGame->UI);
 		if (ingr_->esLetal())
-			contaminada = true;
-		ingredientes.push_back(ingr_->getTipo());
-		ingrEnPaella[ingr_->getTipo()] = true;
+			mContaminada = true;
+		mIngredientes.push_back(ingr_->getTipo());
+		mIngrEnPaella[ingr_->getTipo()] = true;
 		ingr_->setActive(false);
 	}
 }
@@ -59,7 +59,7 @@ void Paella::anadeArroz(Arroz* arroz)
 		//Añadimos arroz a la paella
 		sdlutils().soundEffects().at("dejarIngrediente2").play(0, mGame->UI);
 		mArroz = true;
-		estadoCoccion = Cruda;
+		mEstadoCoccion = Cruda;
 		setContenido(Entera);
 		setTexture("paellaCruda");
 		arroz->setActive(false);
@@ -73,13 +73,13 @@ void Paella::setState(EstadoPaellas estado_)
 
 	//Sonido
 	if (estado == Coccion) {
-		currentCoccionSound = "paellaCociendo";
-		initCocTime = sdlutils().virtualTimer().currTime();
-		canalSonido = sdlutils().soundEffects().at(currentCoccionSound).play(-1);
+		mCurrentCoccionSound = "paellaCociendo";
+		mInitCocTime = sdlutils().virtualTimer().currTime();
+		canalSonido = sdlutils().soundEffects().at(mCurrentCoccionSound).play(-1);
 
 	}
 	else
-		sdlutils().soundEffects().at(currentCoccionSound).haltChannel(canalSonido);
+		sdlutils().soundEffects().at(mCurrentCoccionSound).haltChannel(canalSonido);
 }
 
 void Paella::paellaRecogida()
@@ -93,41 +93,41 @@ void Paella::update()
 	{
 	case Preparacion:
 		break;
-	case Coccion:
-		if (estadoCoccion < tiemposDeCoccion.size() && sdlutils().virtualTimer().currTime() - initCocTime >= tiemposDeCoccion[estadoCoccion]) {
-			estadoCoccion++;
-			setTexture(coccionTex[estadoCoccion]);
+	case Coccion: // Cuando esta en coccion, se va sumando un contador y se quema si llega a cierto tiempo
+		if (mEstadoCoccion < mTiemposDeCoccion.size() && sdlutils().virtualTimer().currTime() - mInitCocTime >= mTiemposDeCoccion[mEstadoCoccion]) {
+			mEstadoCoccion++;
+			setTexture(mCoccionTex[mEstadoCoccion]);
 
-			if (estadoCoccion == MuyHecha) {
-				sdlutils().soundEffects().at(currentCoccionSound).haltChannel(canalSonido);
-				currentCoccionSound = "paella";
-				canalSonido = sdlutils().soundEffects().at(currentCoccionSound).play(-1);
+			if (mEstadoCoccion == MuyHecha) {
+				sdlutils().soundEffects().at(mCurrentCoccionSound).haltChannel(canalSonido);
+				mCurrentCoccionSound = "paella";
+				canalSonido = sdlutils().soundEffects().at(mCurrentCoccionSound).play(-1);
 			}
-			if (estadoCoccion == Quemada) {
-				humo->setStyle(ParticleExample::FIRE);
+			if (mEstadoCoccion == Quemada) {
+				mHumo->setStyle(ParticleExample::FIRE);
 				sdlutils().soundEffects().at("fuego").play();
 			}
-			if (estadoCoccion == Incomestible) {
-				humo->setStyle(ParticleExample::SMOKE);
+			if (mEstadoCoccion == Incomestible) {
+				mHumo->setStyle(ParticleExample::SMOKE);
 			}
 		}
 		break;
 	case Hecha:
-		if (sdlutils().virtualTimer().currTime() - initHumoTime >= mTiempoHumo) {
-			humo->setStyle(ParticleExample::NONE);
+		if (sdlutils().virtualTimer().currTime() - mInitHumoTime >= mTiempoHumo) {
+			mHumo->setStyle(ParticleExample::NONE);
 		}
 		break;
 	}
 
-	humo->setPosition(getX(), getY());
-	humo->update();
+	mHumo->setPosition(getX(), getY());
+	mHumo->update();
 }
 
-void Paella::finLavado()
+void Paella::finLavado() // Se termina de lavar
 {
-	contenido = Limpia;
+	mContenido = Limpia;
 	estado = Preparacion;
-	contaminada = false;
+	mContaminada = false;
 	setTexture("paellaLimpia");
 }
 
@@ -136,15 +136,15 @@ void Paella::iniLavado()
 	estado = Lavandose;
 }
 
-void Paella::onObjectPicked()
+void Paella::onObjectPicked() // Si se estaba cocinando pasa a estar hecha, y si esta hecha y esta quemada te quemas
 {
 	if (estado == Coccion) {
 		setState(Hecha);
 	}
 	else if(estado == Hecha)
-		if (estadoCoccion >= Quemada) {
+		if (mEstadoCoccion >= Quemada) {
 			//humo->setStyle(ParticleExample::SMOKE);
-			initHumoTime = sdlutils().virtualTimer().currTime();
+			mInitHumoTime = sdlutils().virtualTimer().currTime();
 		}
 }
 
@@ -154,7 +154,7 @@ void Paella::onObjectDropped()
 
 bool Paella::canPick()
 {
-	return contenido == Limpia && !mEnMesa;
+	return mContenido == Limpia && !mEnMesa;
 }
 
 bool Paella::conArroz()
@@ -169,11 +169,11 @@ void Paella::enLaMesa(bool estaEnLaMesa)
 
 list<tipoIngrediente> Paella::getVIngredientes()
 {
-	return ingredientes;
+	return mIngredientes;
 }
 vector<bool> Paella::getIngrPaella()
 {
-	return ingrEnPaella;
+	return mIngrEnPaella;
 }
 
 int Paella::getTipo()
@@ -182,32 +182,32 @@ int Paella::getTipo()
 }
 int Paella::getContenido()
 {
-	return contenido;
+	return mContenido;
 }
 
 int Paella::getCoccion()
 {
-	return estadoCoccion;
+	return mEstadoCoccion;
 }
 
-void Paella::setEnsuciada()
+void Paella::setEnsuciada() // Se ensucia la paella al tirarla a la basura
 {
-	ingredientes.clear();
+	mIngredientes.clear();
 	mArroz = false;
-	for (int i : ingrEnPaella) {
-		ingrEnPaella[i] = false;
+	for (int i : mIngrEnPaella) {
+		mIngrEnPaella[i] = false;
 	}
 }
 
-void Paella::setContenido(Contenido contenidoP)
+void Paella::setContenido(Contenido contenidoP) // Actualiza el contenido
 {
-	contenido = contenidoP;
-	humo->setStyle(ParticleExample::NONE);
+	mContenido = contenidoP;
+	mHumo->setStyle(ParticleExample::NONE);
 }
 
 bool Paella::ingrValido(Ingrediente* ingr)
 {
-	return ingredientes.size() < MAX_INGR && estado == Cruda && !ingrEnPaella[ingr->getTipo()];
+	return mIngredientes.size() < MAX_INGR && estado == Cruda && !mIngrEnPaella[ingr->getTipo()];
 }
 
 EstadoPaellas Paella::getState()
@@ -215,12 +215,12 @@ EstadoPaellas Paella::getState()
 	return estado;
 }
 
-void Paella::comerPaella()
+void Paella::comerPaella() // Cambia los sprites de la paella segun su estado
 {
-	contenido++;
+	mContenido++;
 
-	if (contenido == Mitad) 
-		setTexture(coccionTex[estadoCoccion] + "Mitad");
+	if (mContenido == Mitad) 
+		setTexture(mCoccionTex[mEstadoCoccion] + "Mitad");
 	else {
 		setTexture("paellaSucia");
 		mArroz = false;
@@ -228,34 +228,34 @@ void Paella::comerPaella()
 }
 void Paella::contaminaPaella()
 {
-	contaminada = true;
+	mContaminada = true;
 }
 bool Paella::estaContaminada()
 {
-	return contaminada;
+	return mContaminada;
 }
 
-int Paella::ingredientesEnPaella()
+int Paella::ingredientesEnPaella() // Devuelve el numero de ingredientes que se han metido en la paella
 {
-	return ingredientes.size();
+	return mIngredientes.size();
 }
 
 void Paella::render(SDL_Rect* cameraRect)
 {
-	if (estado != Lavandose) {
+	if (estado != Lavandose) { // Si no se esta lavando se renderiza, sino no se renderiza para dar la sensacion de estar dentro del lavavajillas
 		drawRender(cameraRect);
 
-		if (contenido == Entera) {
-			for (auto i : ingredientes) {
+		if (mContenido == Entera) { // Se renderiza la paella en funcion de su estado
+			for (auto i : mIngredientes) {
 				drawRender(cameraRect, getTexBox(), &sdlutils().images().at(texturaIngrediente[i] + "C"));
 			}
 		}
-		else if (contenido == Mitad) {
-			for (auto i : ingredientes) {
+		else if (mContenido == Mitad) {
+			for (auto i : mIngredientes) {
 				drawRender(cameraRect, getTexBox(), &sdlutils().images().at(texturaIngrediente[i] + "M"));
 			}
 		}
-
-		humo->draw(cameraRect);
+		// Se renderiaz el humo en caso de haber
+		mHumo->draw(cameraRect);
 	}	
 }

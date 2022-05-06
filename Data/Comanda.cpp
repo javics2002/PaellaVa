@@ -475,20 +475,20 @@ void Comanda::aceptaPaella()
 
 void Comanda::enviaComanda()
 {
-	if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState()==apuntaPedido) {
+	if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState()==TUTORIALSTATE_APUNTA_PEDIDO) {
 
 		if (numeroPaellas == 1 && paellas[0].size()==4 && paellas[0][0]->getTextura() == "small") {
 			if (paellas[0][1]->getTextura() == "alcachofa") {
 				if (paellas[0][2]->getTextura() == "calamar") {
 					if (paellas[0][3]->getTextura() == "cangrejo") {
 						eC();
-						mGame->getCurrentScene()->changeState(States::pausaPedido);
+						mGame->getCurrentScene()->changeState(States::TUTORIALSTATE_PAUSA_APUNTA_PEDIDO);
 					}
 				}
 				else if (paellas[0][2]->getTextura() == "cangrejo") {
 					if (paellas[0][3]->getTextura() == "calamar") {
 						eC();
-						mGame->getCurrentScene()->changeState(States::pausaPedido);
+						mGame->getCurrentScene()->changeState(States::TUTORIALSTATE_PAUSA_APUNTA_PEDIDO);
 					}
 				}
 			}
@@ -496,13 +496,13 @@ void Comanda::enviaComanda()
 				if (paellas[0][2]->getTextura() == "alcachofa") {
 					if (paellas[0][3]->getTextura() == "cangrejo") {
 						eC();
-						mGame->getCurrentScene()->changeState(States::pausaPedido);
+						mGame->getCurrentScene()->changeState(States::TUTORIALSTATE_PAUSA_APUNTA_PEDIDO);
 					}
 				}
 				else if (paellas[0][2]->getTextura() == "cangrejo") {
 					if (paellas[0][3]->getTextura() == "alcachofa") {
 						eC();
-						mGame->getCurrentScene()->changeState(States::pausaPedido);
+						mGame->getCurrentScene()->changeState(States::TUTORIALSTATE_PAUSA_APUNTA_PEDIDO);
 					}
 				}
 			}
@@ -510,19 +510,19 @@ void Comanda::enviaComanda()
 				if (paellas[0][2]->getTextura() == "calamar") {
 					if (paellas[0][3]->getTextura() == "alcachofa") {
 						eC();
-						mGame->getCurrentScene()->changeState(States::pausaPedido);
+						mGame->getCurrentScene()->changeState(States::TUTORIALSTATE_PAUSA_APUNTA_PEDIDO);
 					}
 				}
 				else if (paellas[0][2]->getTextura() == "alcachofa") {
 					if (paellas[0][3]->getTextura() == "calamar") {
 						eC();
-						mGame->getCurrentScene()->changeState(States::pausaPedido);
+						mGame->getCurrentScene()->changeState(States::TUTORIALSTATE_PAUSA_APUNTA_PEDIDO);
 					}
 				}
 			}
-			else mGame->getCurrentScene()->changeState(States::pausaComandaEquivocada);
+			else mGame->getCurrentScene()->changeState(States::TUTORIALSTATE_PAUSA_COMANDA_EQUIVOCADA);
 		}
-		else mGame->getCurrentScene()->changeState(States::pausaComandaEquivocada);
+		else mGame->getCurrentScene()->changeState(States::TUTORIALSTATE_PAUSA_COMANDA_EQUIVOCADA);
 	}
 	else {
 		eC();

@@ -112,8 +112,8 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 						objectType_ = INGREDIENTE;
 					}
 
-					if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == States::cogerIngrediente) {
-						mGame->getCurrentScene()->changeState(States::pausaCogerIngrediente);
+					if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == States::TUTORIALSTATE_COGER_INGREDIENTE) {
+						mGame->getCurrentScene()->changeState(States::TUTORIALSTATE_PAUSA_COGER_INGREDIENTE);
 					}
 				}
 				//Ingredientes letales
@@ -126,8 +126,8 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 				for (auto i : mGame->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getOverlaps(getOverlap())) {
 					if (i->isActive() && !i->isPicked() && i->canPick() && nearestObject(i)) {
 						objectType_ = CLIENTES;
-						if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == States::cogerClientes) {
-							mGame->getCurrentScene()->changeState(States::pausaClientes);
+						if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == States::TUTORIALSTATE_COGER_CLIENTES) {
+							mGame->getCurrentScene()->changeState(States::TUTORIALSTATE_PAUSA_COGER_CLIENTES);
 						}
 					}
 				}
@@ -210,7 +210,7 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 					if (dynamic_cast<Tutorial*>(mGame->getCurrentScene())) {
 						if (dynamic_cast<Mesa*>(m))
 						{
-							if (mGame->getCurrentScene()->getState() == States::pausaDarDeComer) {
+							if (mGame->getCurrentScene()->getState() == States::TUTORIALSTATE_PAUSA_DAR_DE_COMER) {
 								pickedObject_->dropObject();
 								pickedObject_ = nullptr;
 							}

@@ -22,14 +22,14 @@ Tutorial::Tutorial(Game* mGame, string tilemap) : Scene(mGame)
 
 
 
-	mapInfo.mRuta = "Assets\\Tilemap\\" + tilemap + ".tmx";
-	loadMap(mapInfo.mRuta);
+	mMapInfo.mRuta = "Assets\\Tilemap\\" + tilemap + ".tmx";
+	loadMap(mMapInfo.mRuta);
 
-	mBackground->setTexture(mapInfo.mRuta);
-	mBackground->setPosition(mapInfo.mAnchoFondo / 2, sdlutils().height() / 2);
-	mBackground->setDimension(mapInfo.mAnchoFondo, mapInfo.mAltoFondo);
+	mBackground->setTexture(mMapInfo.mRuta);
+	mBackground->setPosition(mMapInfo.mAnchoFondo / 2, sdlutils().height() / 2);
+	mBackground->setDimension(mMapInfo.mAnchoFondo, mMapInfo.mAltoFondo);
 
-	Player* p = new Player(mGame, positionCamarero.getX(), positionCamarero.getY(), false);
+	Player* p = new Player(mGame, mPosicionCamarero.getX(), mPosicionCamarero.getY(), false);
 	mObjectManager->addPlayer(p);
 
 	// camara init
@@ -39,24 +39,24 @@ Tutorial::Tutorial(Game* mGame, string tilemap) : Scene(mGame)
 	mUiManager->creaMenuPausa();
 
 	mUiManager->addInterfaz(new Reloj(mGame, -1));
-	mUiManager->addInterfaz(cuadroTexto);
-	mUiManager->addInterfaz(cuadradoPlay);
-	cuadroTexto->setActive(false);
-	cuadradoPlay->setActive(false);
-	mUiManager->addInterfaz(text);
-	text->setActive(false);
+	mUiManager->addInterfaz(mCuadroDeDialogo);
+	mUiManager->addInterfaz(mXboxBoton);
+	mCuadroDeDialogo->setActive(false);
+	mXboxBoton->setActive(false);
+	mUiManager->addInterfaz(mTexto);
+	mTexto->setActive(false);
 
 
 	mObjectManager->initMuebles();
 
-	changeState(pausaInicio);
+	changeState(TUTORIALSTATE_PAUSA_INICIO);
 
-	mUiManager->addInterfaz(rC);
-	mUiManager->setRedactaboton(rC);
-	mUiManager->setBarra(lC);
+	mUiManager->addInterfaz(mRedactaComandaBotonTutorial);
+	mUiManager->setRedactaboton(mRedactaComandaBotonTutorial);
+	mUiManager->setBarra(mListaComandasTutorial);
 
-	rC->setActive(false);
-	lC->setActive(false);
+	mRedactaComandaBotonTutorial->setActive(false);
+	mListaComandasTutorial->setActive(false);
 }
 
 Tutorial::~Tutorial(){
@@ -73,10 +73,10 @@ void Tutorial::handleInput(bool& exit)
 	if (ih().getKey(InputHandler::X) && mPaused && mTextMngr->TerminadoEscribir()) 
 		pauseTutorial();
 	if (ih().getKey(InputHandler::X) && mPaused && mTextMngr->terminadoParrado()) 
-		continua = true;
+		mContinua = true;
 	else if (ih().getKey(InputHandler::X) && mPaused && !mTextMngr->terminadoParrado() && !mTextMngr->vaRapido())
 		mTextMngr->cambiaVelocidad(true);
-	if (ih().getKey(InputHandler::Y) && mCurrentState==abreLibreta) {
+	if (ih().getKey(InputHandler::Y) && mCurrentState==TUTORIALSTATE_ABRE_COMANDA) {
 		if (mUiManager->getComanda() == nullptr)
 			mUiManager->creaComanda(mGame);
 		else 
@@ -90,11 +90,11 @@ void Tutorial::update()
 	if (!mPaused) {
 		mObjectManager->update();
 
-		if (mObjectManager->getPlayerOne()->getX() > tamRestaurante.getY() + TILE_SIZE) { // tamRestaurante es un rango, no una posición, por eso tengo que hacer getY()
-			mCamera->Lerp(Vector2D<float>(tamRestaurante.getY(), 16), LERP_INTERPOLATION);
+		if (mObjectManager->getPlayerOne()->getX() > mTamanoRestaurante.getY() + TILE_SIZE) { // tamRestaurante es un rango, no una posición, por eso tengo que hacer getY()
+			mCamera->Lerp(Vector2D<float>(mTamanoRestaurante.getY(), 16), LERP_INTERPOLATION);
 		}
-		else if (mObjectManager->getPlayerOne()->getX() < tamRestaurante.getY()) {
-			mCamera->Lerp(Vector2D<float>(tamRestaurante.getX(), 16), LERP_INTERPOLATION);
+		else if (mObjectManager->getPlayerOne()->getX() < mTamanoRestaurante.getY()) {
+			mCamera->Lerp(Vector2D<float>(mTamanoRestaurante.getX(), 16), LERP_INTERPOLATION);
 		}
 	}
 	mTextMngr->update();
@@ -106,8 +106,8 @@ void Tutorial::changeState(States state_)
 	anteriorEstado = mCurrentState;
 	mCurrentState = state_;
 
-	if (mCurrentState == pausaComandaEquivocada  || mCurrentState % 2 != 0  //Si el estado actual es impar o cualquiera de esas pausas, pausas el juego
-		|| mCurrentState==pausaBorrarComanda || mCurrentState==pausaNoEcharClientes || mCurrentState==pausaInicio)
+	if (mCurrentState == TUTORIALSTATE_PAUSA_COMANDA_EQUIVOCADA  || mCurrentState % 2 != 0  //Si el estado actual es impar o cualquiera de esas pausas, pausas el juego
+		|| mCurrentState==TUTORIALSTATE_PAUSA_BORRAR_COMANDA || mCurrentState==TUTORIALSTATE_PAUSA_NO_ECHAR_CLIENTES || mCurrentState==TUTORIALSTATE_PAUSA_INICIO)
 	{
 		if (mCurrentState == 13) {
 			//Activas las cintas y haces que deje de funcionar en ese estado
@@ -135,13 +135,13 @@ void Tutorial::changeState(States state_)
 			break;
 		}
 		case 4:{ // Permitimos al jugador que pueda tomar comandas
-			rC->setActive(true);
-			lC->setActive(true);
+			mRedactaComandaBotonTutorial->setActive(true);
+			mListaComandasTutorial->setActive(true);
 			break;
 		}
 		case 8:{ // Ahora pasamos al rol de cocinera ya que vamos a hacer cosas en la cocina
 			mObjectManager->getPlayerOne()->changePlayer(true);
-			cuadroTexto->setTexture("cuadroTextoCamarero"); // Cambiamos el cuadro del texto para que ahora te hable el camarero
+			mCuadroDeDialogo->setTexture("cuadroTextoCamarero"); // Cambiamos el cuadro del texto para que ahora te hable el camarero
 			// Activamos las encimeras y las pilas de paellas para que el jugador pueda usarlas
 			for (auto i : mObjectManager->getEncimeras())
 				i->setActive(true);
@@ -171,21 +171,16 @@ void Tutorial::changeState(States state_)
 			for (auto i : mObjectManager->getVentanilla())
 				i->setActive(true);
 			mObjectManager->getPlayerOne()->changePlayer(false);
-			cuadroTexto->setTexture("cuadroTextoCocinera");
+			mCuadroDeDialogo->setTexture("cuadroTextoCocinera");
 			break;
 		}
 		case 30: { // Activamos el lavavjillas para que el jugador deje la paella sucia y canmbiamos el rol a cocinera
 			mObjectManager->getLavavajillas()->setActive(true);
-			cuadroTexto->setTexture("cuadroTextoCamarero");
+			mCuadroDeDialogo->setTexture("cuadroTextoCamarero");
 			mObjectManager->getPlayerOne()->changePlayer(true);
 			break;
 		}
-		case 34: {
-			mObjectManager->getPlayerOne()->changePlayer(true);
-			cuadroTexto->setTexture("cuadroTextoCocinera");
-			break;
-		}
-		case final: {
+		case TUTORIALSTATE_FINAL: {
 			// Volvemos al menú
 			mGame->getNetworkManager()->close();
 			mGame->sendMessageScene(new Menu(mGame));
@@ -213,19 +208,19 @@ void Tutorial::render() // Render
 	mUiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
 
 	// Para ciertos casos necesitamos renderizar un texto, y para el resto de pausas, se van mostrando en orden
-	if (mCurrentState == pausaComandaEquivocada) {
+	if (mCurrentState == TUTORIALSTATE_PAUSA_COMANDA_EQUIVOCADA) {
 		activaCuadro("textoComandaEquivocada");
 	}
-	else if (mCurrentState == pausaBorrarComanda) {
+	else if (mCurrentState == TUTORIALSTATE_PAUSA_BORRAR_COMANDA) {
 		activaCuadro("textoBorrarComanda");
 	}
-	else if (mCurrentState == pausaNoEcharClientes) {
+	else if (mCurrentState == TUTORIALSTATE_PAUSA_NO_ECHAR_CLIENTES) {
 		activaCuadro("textoNoEcharClientes");
 	}
-	else if (mCurrentState == pausaInicio)
+	else if (mCurrentState == TUTORIALSTATE_PAUSA_INICIO)
 		activaCuadro("texto0");
 	else if (mCurrentState % 2 != 0) {
-		activaCuadro(textos[mCurrentState/2]);
+		activaCuadro(mTextosDialogos[mCurrentState/2]);
 	}
 	else if (mCurrentState % 2 == 0) { // Si no estamos en una pausa desactivamos el texto
 		desactivaCuadro();
@@ -237,28 +232,28 @@ void Tutorial::render() // Render
 void Tutorial::loadMap(string const& path)
 {
 	//Cargamos el mapa .tmx del archivo indicado
-	mapInfo.mTilemap = new tmx::Map();
-	mapInfo.mTilemap->load(path);
+	mMapInfo.mTilemap = new tmx::Map();
+	mMapInfo.mTilemap->load(path);
 
 
 	//Obtenemos las dimensiones del mapa en tiles
-	auto map_dimensions = mapInfo.mTilemap->getTileCount();
-	mapInfo.mColumnas = map_dimensions.x;
-	mapInfo.mFilas = map_dimensions.y;
+	auto map_dimensions = mMapInfo.mTilemap->getTileCount();
+	mMapInfo.mColumnas = map_dimensions.x;
+	mMapInfo.mFilas = map_dimensions.y;
 
 	//Obtenemos el tamaño de los tiles
-	auto tilesize = mapInfo.mTilemap->getTileSize();
-	mapInfo.mAnchoTile = tilesize.x;
-	mapInfo.mAltoTile = tilesize.y;
+	auto tilesize = mMapInfo.mTilemap->getTileSize();
+	mMapInfo.mAnchoTile = tilesize.x;
+	mMapInfo.mAltoTile = tilesize.y;
 
 	//Creamos la textura de fondo
 	auto renderer = sdlutils().renderer();
-	mapInfo.mAnchoFondo = mapInfo.mAnchoTile * mapInfo.mColumnas;
-	mapInfo.mAltoFondo = mapInfo.mAltoTile * mapInfo.mFilas;
+	mMapInfo.mAnchoFondo = mMapInfo.mAnchoTile * mMapInfo.mColumnas;
+	mMapInfo.mAltoFondo = mMapInfo.mAltoTile * mMapInfo.mFilas;
 	SDL_Texture* fondo = SDL_CreateTexture(renderer,
 		SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET,
-		mapInfo.mAnchoFondo,
-		mapInfo.mAltoFondo
+		mMapInfo.mAnchoFondo,
+		mMapInfo.mAltoFondo
 	);
 
 	SDL_SetTextureBlendMode(fondo, SDL_BLENDMODE_BLEND);
@@ -271,15 +266,15 @@ void Tutorial::loadMap(string const& path)
 	// (el mapa utiliza el �ndice [gid] del primer tile cargado del tileset como clave)
 	// (para poder cargar los tilesets del archivo .tmx, les ponemos de nombre 
 	// el nombre del archivo sin extension en el .json) 
-	auto& mapTilesets = mapInfo.mTilemap->getTilesets();
+	auto& mapTilesets = mMapInfo.mTilemap->getTilesets();
 	for (auto& tileset : mapTilesets) {
 		string name = tileset.getName();
 		Texture* texture = &sdlutils().tilesets().find(name)->second;
-		mapInfo.mTilesets.insert(pair<uint, Texture*>(tileset.getFirstGID(), texture));
+		mMapInfo.mTilesets.insert(pair<uint, Texture*>(tileset.getFirstGID(), texture));
 	}
 
 	// recorremos cada una de las capas (de momento solo las de tiles) del mapa
-	auto& map_layers = mapInfo.mTilemap->getLayers();
+	auto& map_layers = mMapInfo.mTilemap->getLayers();
 	for (auto& layer : map_layers) {
 		// aqui comprobamos que sea la capa de tiles
 		if (layer->getType() == tmx::Layer::Type::Tile) {
@@ -290,10 +285,10 @@ void Tutorial::loadMap(string const& path)
 			auto& layer_tiles = tile_layer->getTiles();
 
 			// recorremos todos los tiles para obtener su informacion
-			for (auto y = 0; y < mapInfo.mFilas; ++y) {
-				for (auto x = 0; x < mapInfo.mColumnas; ++x) {
+			for (auto y = 0; y < mMapInfo.mFilas; ++y) {
+				for (auto x = 0; x < mMapInfo.mColumnas; ++x) {
 					// obtenemos el indice relativo del tile en el mapa de tiles
-					auto tile_index = x + (y * mapInfo.mColumnas);
+					auto tile_index = x + (y * mMapInfo.mColumnas);
 
 					// con dicho indice obtenemos el indice del tile dentro de su tileset
 					auto cur_gid = layer_tiles[tile_index].ID;
@@ -305,7 +300,7 @@ void Tutorial::loadMap(string const& path)
 					// guardamos el tileset que utiliza este tile (nos quedamos con el tileset cuyo gid sea
 					// el mas cercano, y a la vez menor, al gid del tile)
 					auto tset_gid = -1, tsx_file = 0;;
-					for (auto& ts : mapInfo.mTilesets) {
+					for (auto& ts : mMapInfo.mTilesets) {
 						if (ts.first <= cur_gid) {
 							tset_gid = ts.first;
 							tsx_file++;
@@ -324,24 +319,24 @@ void Tutorial::loadMap(string const& path)
 					// calculamos dimensiones del tileset
 					auto ts_width = 0;
 					auto ts_height = 0;
-					SDL_QueryTexture(mapInfo.mTilesets[tset_gid]->getTexture(),
+					SDL_QueryTexture(mMapInfo.mTilesets[tset_gid]->getTexture(),
 						NULL, NULL, &ts_width, &ts_height);
 
 					// calculamos el area del tileset que corresponde al dibujo del tile
-					auto region_x = (cur_gid % (ts_width / mapInfo.mAnchoTile)) * mapInfo.mAnchoTile;
-					auto region_y = (cur_gid / (ts_width / mapInfo.mAnchoTile)) * mapInfo.mAltoTile;
+					auto region_x = (cur_gid % (ts_width / mMapInfo.mAnchoTile)) * mMapInfo.mAnchoTile;
+					auto region_y = (cur_gid / (ts_width / mMapInfo.mAnchoTile)) * mMapInfo.mAltoTile;
 
 					// calculamos la posicion del tile
-					auto x_pos = x * mapInfo.mAnchoTile;
-					auto y_pos = y * mapInfo.mAltoTile;
+					auto x_pos = x * mMapInfo.mAnchoTile;
+					auto y_pos = y * mMapInfo.mAltoTile;
 
 					// metemos el tile
-					auto tileTex = mapInfo.mTilesets[tset_gid];
+					auto tileTex = mMapInfo.mTilesets[tset_gid];
 
 					SDL_Rect src;
 					src.x = region_x; src.y = region_y;
-					src.w = mapInfo.mAnchoTile;
-					src.h = mapInfo.mAltoTile;
+					src.w = mMapInfo.mAnchoTile;
+					src.h = mMapInfo.mAltoTile;
 
 					SDL_Rect dest;
 					dest.x = x_pos;
@@ -349,7 +344,7 @@ void Tutorial::loadMap(string const& path)
 					dest.w = src.w;
 					dest.h = src.h;
 
-					mapInfo.mTilesets[tset_gid]->render(src, dest);
+					mMapInfo.mTilesets[tset_gid]->render(src, dest);
 				}
 			}
 		}
@@ -362,7 +357,7 @@ void Tutorial::loadMap(string const& path)
 			for (auto obj : objs) {
 				auto& aabb = obj.getAABB();
 				auto position = Vector2D<double>(aabb.left, aabb.top);
-				auto dimension = Vector2D<int>(mapInfo.mAnchoTile, mapInfo.mAltoTile);
+				auto dimension = Vector2D<int>(mMapInfo.mAnchoTile, mMapInfo.mAltoTile);
 				string name = obj.getName();
 				vector<tmx::Property> p = obj.getProperties();
 
@@ -382,10 +377,10 @@ void Tutorial::loadMap(string const& path)
 				//En algunos casos necesitamos meter los muebles en un vector a parte para poder activarlos secuencialmente con lo deseado
 				// Desactivamos todos los muebles ya que los vamos a ir activando poco a poco
 				if (name == "camarero") {
-					positionCamarero = position;
+					mPosicionCamarero = position;
 				}
 				if (name == "cocinera") {
-					positionCocinera = position;
+					mPosicionCocinera = position;
 				}
 				if (name == "mesaS") { // 1 tile
 					Mesa* m = new Mesa(mGame, position, { 1, 2 }, { 1 , 1 }, name);
@@ -547,7 +542,7 @@ void Tutorial::loadMap(string const& path)
 		SDL_SetRenderTarget(renderer, nullptr);
 
 		if (!sdlutils().images().count(path))
-			sdlutils().images().emplace(path, Texture(renderer, fondo, mapInfo.mAnchoFondo, mapInfo.mAltoFondo));
+			sdlutils().images().emplace(path, Texture(renderer, fondo, mMapInfo.mAnchoFondo, mMapInfo.mAltoFondo));
 	}
 }
 
@@ -583,14 +578,14 @@ void Tutorial::pauseTutorial()
 	}
 	else { // En funcion del estado, pasamos a un estado pero volvemos al anterior
 		sdlutils().virtualTimer().resume();
-		if (mCurrentState == pausaComandaEquivocada)
+		if (mCurrentState == TUTORIALSTATE_PAUSA_COMANDA_EQUIVOCADA)
 			mCurrentState = anteriorEstado;
-		else if (mCurrentState == pausaBorrarComanda)
+		else if (mCurrentState == TUTORIALSTATE_PAUSA_BORRAR_COMANDA)
 			mCurrentState = anteriorEstado;
-		else if (mCurrentState == pausaNoEcharClientes)
+		else if (mCurrentState == TUTORIALSTATE_PAUSA_NO_ECHAR_CLIENTES)
 			mCurrentState = anteriorEstado;
-		else if (mCurrentState == pausaInicio)
-			mCurrentState = cogerClientes;
+		else if (mCurrentState == TUTORIALSTATE_PAUSA_INICIO)
+			mCurrentState = TUTORIALSTATE_COGER_CLIENTES;
 		else mCurrentState = (States)(mCurrentState + 1);
 		changeState(mCurrentState);
 		sdlutils().soundEffects().at("select").play(0, mGame->UI);
@@ -605,23 +600,23 @@ void Tutorial::nextStates() // Pasamos al siguiente estado
 void Tutorial::desactivaCuadro() // Desactivamos el cuadro de texto que haya en pantalla
 {
 	mTextMngr->desactivaTexto();
-	cuadradoPlay->setActive(false);
+	mXboxBoton->setActive(false);
 	mTextMngr->cambiaVelocidad(false);
-	cuadroTexto->setActive(false);
-	text->setActive(false);
+	mCuadroDeDialogo->setActive(false);
+	mTexto->setActive(false);
 }
 
 
 void Tutorial::activaCuadro(string texto_) // Activamos el cuadro de texto y empezamos a escribir el dialogo
 										   // Si estamos jugando con mando renderizamos un boton para indicar como continuar
 {
-	cuadroTexto->setActive(true);
+	mCuadroDeDialogo->setActive(true);
 	if(ih().isMandoActive())
-		cuadradoPlay->setActive(true);
+		mXboxBoton->setActive(true);
 	if (mTextMngr->desactivado())mTextMngr->activaTexto(sdlutils().dialogs().at(texto_));
-	else if (mTextMngr->terminadoParrado() && !mTextMngr->esUltimoParrafo() && continua) {
+	else if (mTextMngr->terminadoParrado() && !mTextMngr->esUltimoParrafo() && mContinua) {
 		mTextMngr->cambiaVelocidad(false);
 		mTextMngr->reiniciaParrafo();
-		continua = false;
+		mContinua = false;
 	}
 }

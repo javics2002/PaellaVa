@@ -11,74 +11,68 @@ Lavavajillas::Lavavajillas(Game* mGame, Vector2D<double> pos) : Mueble(mGame, po
 
 void Lavavajillas::update()
 {
-	if (!funcionando)
-	{
+	if (!funcionando) // Si deja de funcionar se activa el humo
 		humo->setStyle(ParticleExample::SMOKE);
-	}
 	else
-	{
 		humo->setStyle(ParticleExample::NONE);
-	}
 
 	humo->setPosition(getX(), getY());
 	humo->update();
 
-	if (funcionando && !paellasSucias.empty() && isActive())
-	{
+	if (funcionando && !mPaellasSucias.empty() && isActive()) // Si hay paellas sucias, empiezas a lavar la que se ha metido primero
 		lavando();
-	}
-	else if (!funcionando && !paellasSucias.empty() && isActive()) 
+	else if (!funcionando && !mPaellasSucias.empty() && isActive()) // Si ya se ha lavado se desactiva la animacion y se resetea el contador
 	{
 		i = 0;
 		clip.x = 0;
 		rellenoTimer = 0;
 
-		initTime = sdlutils().currRealTime();
+		mInitTime = sdlutils().currRealTime();
 	}
 
 
 	if (!mGame->getNetworkManager()->isHost())
 		return;
 
-	if (funcionando && couldBreak <= 0 )
+	if (funcionando && mCouldBreak <= 0 ) // Si esta funcionando
 	{
 		testMueble();
 		if (funcionando)
 		{
 			//se reduce cuando se podr�a romper
-			couldBreak = MAX_BREAK_TIME - REDUCE_BREAK_TIME;
+			mCouldBreak = MAX_BREAK_TIME - REDUCE_BREAK_TIME;
 		}
 		else
 		{
 			//se resetea cuando se podr�a romper
-			couldBreak = MAX_BREAK_TIME;
+			mCouldBreak = MAX_BREAK_TIME;
 			humo->setStyle(ParticleExample::EXPLOSION);
 		}
 	}
-	else if (funcionando && couldBreak > 0)
+	else if (funcionando && mCouldBreak > 0)
 	{
-		couldBreak -= seg;
+		mCouldBreak -= seg;
 	}
 }
 
 
-void Lavavajillas::lavando()
+void Lavavajillas::lavando() // Mientras no haya acabado el tiempo de lavado, suma al contador y avanza la animacion
 {
-	if (sdlutils().currRealTime() - initTime >= TIEMPO_LAVADO) {
-		if (paellasLimpias.empty()) {
-			paellasSucias.front()->setPosition(getRectCenter(getOverlap()));
+	if (sdlutils().currRealTime() - mInitTime >= TIEMPO_LAVADO) { // Cuando ha terminado de lavarse, pasa de estar sucia a limpia y aparece arriba
+		if (mPaellasLimpias.empty()) {
+			mPaellasSucias.front()->setPosition(getRectCenter(getOverlap()));
 		}
-		paellasSucias.front()->finLavado();
-		paellasLimpias.push_back(paellasSucias.front());
-		paellasSucias.pop_front();
+		mPaellasSucias.front()->finLavado();
+		mPaellasLimpias.push_back(mPaellasSucias.front());
+		mPaellasSucias.pop_front();
 
 		i = 0;
 		clip.x = 0;
 		rellenoTimer = 0;
 
-		initTime = sdlutils().currRealTime();
+		mInitTime = sdlutils().currRealTime();
 	}
-	else if (sdlutils().currRealTime() - initTime >= rellenoTimer + TIEMPO_LAVADO / 8) {
+	else if (sdlutils().currRealTime() - mInitTime >= rellenoTimer + TIEMPO_LAVADO / 8) {
 
 		clip.x = i * clip.w;
 
@@ -90,18 +84,18 @@ void Lavavajillas::lavando()
 
 bool Lavavajillas::receivePaella(Paella* paella_)
 {
-	if (paella_ != nullptr && funcionando)
+	if (paella_ != nullptr && funcionando) // SI no hay paella y funciona
 	{
-		if (paella_->getContenido() == Sucia) {
+		if (paella_->getContenido() == Sucia) { // Si la paella esta sucia
 
 			
+			//Para el tutorial, cambiamos de estado
+			if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == TUTORIALSTATE_DEJAR_LAVAVAJILLAS)
+				mGame->getCurrentScene()->changeState(TUTORIALSTATE_PAUSA_DEJAR_LAVAVAJILLAS);
 
-			if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == dejarLavavajillas)
-				mGame->getCurrentScene()->changeState(pausaDejarLavavajillas);
+			mInitTime = sdlutils().currRealTime();
 
-			initTime = sdlutils().currRealTime();
-
-			paellasSucias.push_back(paella_);
+			mPaellasSucias.push_back(paella_);
 
 			paella_->setPosition(Vector2D<double>(-500, 0));
 			paella_->iniLavado();
@@ -117,19 +111,19 @@ bool Lavavajillas::receivePaella(Paella* paella_)
 
 bool Lavavajillas::returnObject(Player* p)
 {
-	if (!paellasLimpias.empty())
+	if (!mPaellasLimpias.empty()) // Si hay paellas limpias
 	{
-		//TOCHECK: Podr�amos hacer un return del objeto y que el player se lo guarde a s� mismo
-		p->setPickedObject(paellasLimpias.front(), PAELLA);
+		p->setPickedObject(mPaellasLimpias.front(), PAELLA);
 
-		paellasLimpias.pop_front();
+		mPaellasLimpias.pop_front();
 
-		if (!paellasLimpias.empty())
-			paellasLimpias.front()->setPosition(getRectCenter(getOverlap()));
+		if (!mPaellasLimpias.empty())
+			mPaellasLimpias.front()->setPosition(getRectCenter(getOverlap()));
 
 
-		if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == cogerLavavajillas)
-			mGame->getCurrentScene()->changeState(pausaCogerLavavajillas);
+		// Cambiamos el estado en el tutorial
+		if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == TUTORIALSTATE_COGER_LAVAVAJILLAS)
+			mGame->getCurrentScene()->changeState(TUTORIALSTATE_PAUSA_COGER_LAVAVAJILLAS);
 
 
 		i = 0;
@@ -149,19 +143,18 @@ void Lavavajillas::render(SDL_Rect* camera)
 		SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, getWidth(),
 			getHeight() };
 
-		/*if(funcionando)*/
 		drawRender(camera, dest, &sdlutils().images().at("lavavajillas"));
 		//else drawRender(camera, dest, &sdlutils().images().at("berenjena"));
 
-		if (!paellasSucias.empty() && paellasSucias.front()->getContenido() == Sucia && i != 0) {
+		if (!mPaellasSucias.empty() && mPaellasSucias.front()->getContenido() == Sucia && i != 0) {
 
 			SDL_Rect dest_ = { getX() + getWidth() / 2, getY() - getHeight() / 2, timerDimension, timerDimension };
 
 			drawRender(camera, dest_, &sdlutils().images().at("timer"), clip);
 		}
 
-		if (!paellasLimpias.empty()) {
-			(*paellasLimpias.begin())->render(camera);
+		if (!mPaellasLimpias.empty()) {
+			(*mPaellasLimpias.begin())->render(camera);
 		}
 		humo->draw(camera);
 	}
@@ -181,7 +174,7 @@ SDL_Rect Lavavajillas::getCollider()
 
 bool Lavavajillas::resetCounter()
 {
-	couldBreak = MAX_BREAK_TIME;
+	mCouldBreak = MAX_BREAK_TIME;
 	return true;
 }
 

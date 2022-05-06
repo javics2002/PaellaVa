@@ -79,7 +79,7 @@ bool Mesa::receiveGrupoClientes(GrupoClientes* gc)
 			int n = gc->numIntegrantes();
 
 			if (dynamic_cast<Tutorial*>(mGame->getCurrentScene())) {
-				mGame->getCurrentScene()->changeState(States::pausaPaellas);
+				mGame->getCurrentScene()->changeState(States::TUTORIALSTATE_PAUSA_DEJAR_CLIENTES_MESA);
 			}
 
 			if (n <= sillas.size()) {
@@ -105,7 +105,7 @@ bool Mesa::receivePaella(Paella* paella)
 	if (paella != nullptr) {
 		if (mGrupo != nullptr && paella->conArroz()) {
 			if (dynamic_cast<Tutorial*>(mGame->getCurrentScene())) {
-				if (mGame->getCurrentScene()->getState() == States::darDeComer) {
+				if (mGame->getCurrentScene()->getState() == States::TUTORIALSTATE_DAR_DE_COMER) {
 					if (mGrupo->paellasPedidas()) {
 						paella->setState(Hecha);
 						paellas.push_back(paella);
@@ -116,7 +116,7 @@ bool Mesa::receivePaella(Paella* paella)
 						paella->setDepth(1);
 
 						paella->enLaMesa(true);
-						mGame->getCurrentScene()->changeState(States::pausaDarDeComer);
+						mGame->getCurrentScene()->changeState(States::TUTORIALSTATE_PAUSA_DAR_DE_COMER);
 						sdlutils().soundEffects().at("cubiertos").play();
 						return true;
 					}
@@ -146,8 +146,8 @@ bool Mesa::returnObject(Player* p)
 	if (mGrupo != nullptr ) {
 		if (mGrupo->canPick()) {
 			p->setPickedObject(mGrupo, objectType::CLIENTES);
-			if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == sacarCuenta)
-				mGame->getCurrentScene()->changeState(pausaSacarCuenta);
+			if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == TUTORIALSTATE_SACAR_CUENTA)
+				mGame->getCurrentScene()->changeState(TUTORIALSTATE_PAUSA_SACAR_CUENTA);
 
 			return true;
 		}
@@ -159,8 +159,8 @@ bool Mesa::returnObject(Player* p)
 		paellas.back()->setDepth(2);
 		paellas.pop_back();
 
-		if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == recogerMesa)
-			mGame->getCurrentScene()->changeState(pausaRecogerMesa);
+		if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == TUTORIALSTATE_RECOGER_MESA)
+			mGame->getCurrentScene()->changeState(TUTORIALSTATE_PAUSA_RECOGER_MESA);
 
 
 		if (paellas.empty()) {

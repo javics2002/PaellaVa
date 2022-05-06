@@ -20,9 +20,9 @@ bool Encimera::receiveIngrediente(Ingrediente* ingr)
 			if (paella_->ingrValido(ingr) && paella_->conArroz() && ingr->getProcesado()) {
 
 				paella_->anadeIngr(ingr);
-				if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == States::dejarIngredientePaella) {
+				if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == States::TUTORIALSTATE_DEJAR_INGREDIENTE) {
 					if (paella_->ingredientesEnPaella() == 3)
-						mGame->getCurrentScene()->changeState(States::pausaDejarIngredientes);
+						mGame->getCurrentScene()->changeState(States::TUTORIALSTATE_PAUSA_DEJAR_INGREDIENTE);
 				}
 				ingr->setActive(false);
 
@@ -52,8 +52,8 @@ bool Encimera::receivePaella(Paella* pa)
 		if (ingr_ == nullptr && paella_ == nullptr && arroz_ == nullptr && herramienta_ == nullptr)
 		{
 			sdlutils().soundEffects().at("paellaMesa").play(0, mGame->UI);
-			if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == States::dejaPaellera)
-				mGame->getCurrentScene()->changeState(States::pausaDejaPaella);
+			if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == States::TUTORIALSTATE_DEJA_PAELLA)
+				mGame->getCurrentScene()->changeState(States::TUTORIALSTATE_PAUSA_DEJA_PAELLA);
 
 
 			paella_ = pa;
@@ -76,7 +76,7 @@ bool Encimera::receiveArroz(Arroz* arr)
 
 				paella_->anadeArroz(arr);
 				if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()))
-					mGame->getCurrentScene()->changeState(States::pausaCogerDejarArroz);
+					mGame->getCurrentScene()->changeState(States::TUTORIALSTATE_PAUSA_COGER_DEJAR_ARROZ);
 
 				return true;
 			}
