@@ -41,7 +41,11 @@ Personajes: 2
  </td>
     <td> <b>Hitos:</b>
 
-Fecha de propuesta del concepto: 04/2/2022
+0. Propuesta del concepto: 2 de febrero de 2022
+1. Arquitectura base: 23 de febrero de 2022
+2. Ciclo de juego: 23 de marzo de 2022
+3. Release: 4 de mayo de 2022
+
 
  </td>
         
@@ -71,53 +75,71 @@ Fecha de propuesta del concepto: 04/2/2022
 
 
 ## 1. Relato breve y parcial de una partida típica <a name="relatobreve"></a>
-En el comedor, los clientes entran al restaurante, los jugadores les indican en qué mesa han de sentarse y les toman la comanda.
+Dos jugadores se conectan a una red local, usando Hamachi, ZeroTier o similar; abren el juego y comienzan una partida.
 
-En la cocina, los jugadores empiezan a preparar la paella: colocan la paellera en los fogones, echan los ingredientes apuntados en la comanda y sacan la paella en el momento preciso para que salga más rica.
+Uno de ellos (host) abre un restaurante y espera al otro jugador (client), que busca un restaurante en la dirección IP del primero. Ahora el client espera a que el host comience la partida.
 
-Llevan la paella a la mesa, esperan a que los comensales se la coman, les cobran la cuenta y recogen las paelleras para limpiarlas en el lavavajillas.
+El host es la cocinera y comienza en la cocina, y el client es el camarero y comienza en el comedor.
 
-Evidentemente este proceso no será tan sencillo, ya que se empezarán a acumular clientes en la cola. Cuantos más clientes hayas atendido y mejor lo hayas hecho (has atendido rápido a los clientes y les has cocinado una buena paella), mayor puntuación conseguirás al final de la partida. 
+En el comedor, los clientes entran al restaurante y el camarero lleva los grupos a las mesas y apunta su pedido en la libreta de comandas. Las comandas aparecerán en la lista de comandas en la parte superior de la pantalla.
 
-## 2. Mecánica <a name="mecanica"></a>
-### **Restaurante  (mecánicas elementales):**
-El juego se basa en un cooperativo online de dos personas llevan un restaurante. Ambos jugadores tienen total libertad de encarnar el rol de cocinero y camarero en cualquier momento de la partida; pudiendo, por ejemplo, ser ambos cocineros o ambos camareros en medio de la misma, si la situación lo requiere. 
+En la cocina, la cocinera empieza a preparar las paellas que ha pedido el camarero en las comandas. Coloca la paella en la encimera, le echa el arroz, recoge los ingredientes de la cinta, los procesa, los echa a la paella, la coloca en un fogón, y saca la paella en el momento preciso para que salga más rica. Selecciona cuál es la comanda que está haciendo para decirle al camarero a qué mesa tiene que llevar la paella cuando la coloque en la ventanilla.
 
-El rol de camarero se encarga de gestionar el comedor y el de cocinero, la cocina. La vista de la cocina será totalmente diferente a la del comedor. Cocina y comedor estarán conectados tanto por una puerta, por donde se podrá cambiar de localización, como por una ventanilla, desde la cual ir sacando los platos que vayan saliendo.
+El camarero lleva las paellas a la mesa indicada y espera a que los clientes terminen. Entonces los echa amablemente por la puerta y recoge las paellas sucias y las mete al lavavajillas. Cuando salgan, la cocinera podría cogerlas y reutilizarlas para las siguientes paellas.
 
-### **Jugadores:**
-El movimiento será continuo en 8 direcciones, sin aceleración.
+Este ciclo continuará hasta que se acabe la jornada. Momento en el que se pasa a una pantalla intermedia en la que los jugadores reciben las reviews que han dejado los clientes y serán mejores cuanto más clientes hayan atendido y mejor lo hayan hecho. Ahora el client espera a que el host continúe y comienzan la siguiente jornada.
+
+Cuando acabe la última jornada, la pareja conseguirá una puntuación final, y obtendrán un final, que varía entre el cierre del restaurante y ganar una estrella Michelín. El host terminará la partida y ambos jugadores se desconectarán y volverán al menú principal.
+
+
+## 2. Mecánicas <a name="mecanica"></a>
+### **Restaurante**
+El juego se basa en un cooperativo online de dos personas llevan un restaurante. Ambos jugadores eligen su rol al principio de la partida, esto se traduce en que si el cocinero realiza las acciones que típicamente están empeñadas y viceversa, habrá penalización. 
+
+El rol de camarero está diseñado para encargarse de gestionar el comedor y el de cocinera que debería gestionar  la cocina. A la vista de la cocina será totalmente diferente a la del comedor. Cocina y comedor estarán conectados tanto por una puerta, por donde se podrá cambiar de localización, como por una ventanilla, desde la cual ir sacando los platos que vayan saliendo.
+
+### **Jugadores**
+El movimiento será continuo en 8 direcciones, con aceleración y velocidad máxima. Tardará 300 ms en llegar a la velocidad máxima y 150 ms en pararse desde la velocidad máxima.
 
 Los jugadores podrán coger y transportar en su cabeza objetos y personajes.
 
-Para recoger un ingrediente de la cinta, el jugador deberá interactuar estando al lado de la posición donde se encuentra en ese momento el ingrediente.
-Para recoger un grupo de comensales, el jugador deberá estar posicionado adyacente a este.
-Para dejar un grupo de comensales en una mesa, deberá estar al lado de la mesa donde quiera sentarles.
+* Para recoger un ingrediente de la cinta, el jugador deberá interactuar estando al lado de la posición donde se encuentra en ese momento el ingrediente.
+
+* Para recoger un grupo de comensales, el jugador deberá estar posicionado adyacente a este.
+
+* Para dejar un grupo de comensales en una mesa, deberá estar al lado de la mesa donde quiera sentarles.
 
 Los jugadores solo podrán llevar una paellera, un ingrediente o un grupo de comensales encima de la cabeza a la vez.
 
-Los jugadores podrán interactuar con los diferentes objetos de la cocina y el comedor, siempre y cuando estén lo suficientemente cerca de estos (cuando están colisionando con ellos). Se entiende que no pueden traspasar ninguno de los elementos que se explicarán a continuación. Se interactúa principalmente con el clic izquierdo del ratón.
+Los jugadores podrán interactuar con los diferentes objetos de la cocina y el comedor, siempre y cuando estén lo suficientemente cerca de estos. Se interactúa principalmente con la tecla ‘e’.
 
-* Al estar en colisión con un fogón que tenga una paella sobre él y llevar un ingrediente, si el jugador interactua con el fogón, podrá echar el ingrediente en la paella.
-* Para procesar un ingrediente, deberá interactuar con el ingrediente, estando al lado de la tabla de procesado.
+* Para dejar un ingrediente, paella, etc, debemos acercarnos al mueble en cuestión y pulsar la tecla ‘e’.
 
-Los jugadores colisionan entre ellos.
+* Para procesar un ingrediente, deberemos acercarnos a la tabla de procesados con un ingrediente y pulsar la tecla ‘e’.
 
-La cámara será fija y ocupará toda la pantalla.
+* Para limpiar una paella, deberemos acercarnos al lavavajillas con una paella sucia y pulsar la tecla ‘e’.
+
+* Para dejar una paella, tendremos que acercarnos a un fogón e interactuar con él con la tecla ‘e’. Sin embargo, no podremos colocar la paella si esta no contiene como mínimo el arroz, o si se encuentra sucia.
+
+La cámara será fija y ocupará todo el comedor o cocina, pero habrá una interpolación lineal horizontal que permita a la cámara alternar su posición dependiendo de la habitación en la que te encuentres.
+
 
 ### **Cocina:**
-La cocina ocupará un total de 16 x 12 tiles.
+La cocina ocupará un total de 18 x 9 tiles.
 
-<img src="images_gdd/cocina.PNG">
+<img src="images_gdd/1cocina.PNG">
 
 La cocina contará con:
-* **Cinta Transportadora:** 
-    * Por ella aparecerán ingredientes cada 0.5 segundos. 
+* **Cinta Transportadora:**
+    * Por ella aparecerán ingredientes cada 2 segundos. 
     * Los ingredientes ocupan 1 tile.
     * Todos los ingredientes aparecerán con la misma probabilidad. 
-    * También cabrá la posibilidad de que no aparezcan ingredientes en ese intervalo de 0.5 segundos (25%). 
     * No se pueden devolver ingredientes a la cinta transportadora. 
-    * Si el jugador está lo suficientemente cerca de un ingrediente y pasa su ratón por encima de este, el sprite quedará resaltado (siempre y cuando no lleve ya algo en la cabeza). 
+    * Los ingredientes aparecerán al inicio de la cinta y se desactivan al final de esta.
+    * El final de la cinta también podrá ser utilizada como papelera por el jugador:
+        * Si el jugador lleva consigo un ingrediente no deseado, podrá desecharlo por aquí (el sprite de la basura queda resaltado). 
+        * En el caso de que lleve una paellera (que no esté limpia), podrá tirarla también por la basura, en cuyo caso pasará a llevar una paellera sucia (tendrá que limpiarla en el lavavajillas). 
+
  
 * **Basura:** 
     * Ocupa 1 tile.
