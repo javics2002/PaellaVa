@@ -514,25 +514,27 @@ El diseño de sonido consta de una gama de sonidos realistas, que representan ca
 ## 6. Contenido <a name="contenido"></a>
 
 ### Personajes: <a name="personajes"></a>
-* Spritesheet base personaje
-(tiene que ser blanco para multiplicar por el tono de piel)
-* Spritesheet pelo masculino default (tiene que ser blanco y sombras grises para multiplicar por el color de pelo) y que se pueda superponer con la base
-* Spritesheet pelo femenino default (tiene que ser blanco y sombras grises para multiplicar por el color de pelo) y que se pueda superponer con la base
-* Spritesheet traje camarero y cocinero default y que se pueda superponer con la base
-* Spritesheet camiseta cliente 1 y 2 default y que se pueda superponer con la base
+
+<img src="images_gdd/43personajes.PNG">
+<img src="images_gdd/44personajes.PNG">
+
 
 ### Ingredientes: <a name="ingredientes"></a>
-Los sprites serán:
-* Gambas
-* Calamares
-* Mejillones
-* Pimiento Verde
-* Pimiento Rojo
-* Pollo
-* Cangrejo
-* Langosta
+<img src="images_gdd/45gamba.PNG">
+<img src="images_gdd/46gamba.PNG">
+<img src="images_gdd/47calamar.PNG">
+<img src="images_gdd/48calamar.PNG">
+<img src="images_gdd/49almeja.PNG">
+<img src="images_gdd/50almeja.PNG">
+<img src="images_gdd/51pimiento.PNG">
+<img src="images_gdd/52pimiento.PNG">
+<img src="images_gdd/53pimiento2.PNG">
+<img src="images_gdd/54pimiento2.PNG">
+<img src="images_gdd/55pollo.PNG">
+<img src="images_gdd/56pollo.PNG">
 
-Tendrán una versión del ingrediente normal y otra para cuando estén procesador/en paella
+
+
 
 ### Paellas: <a name="paellas"></a>
 
