@@ -1,37 +1,217 @@
 #include "HostClient.h"
-#include "../Scenes/Restaurante.h"
+#include "../Scenes/Lobby.h"
 #include "../Control/NetworkManager.h"
+#include "../Scenes/Jornada.h"
+#include "../GameObjects/UI/ShowText.h"
+#include "../Scenes/Menu.h"
 
-HostClient::HostClient(Game* game) : Scene(game)
+HostClient::HostClient(Game* mGame) : Scene(mGame)
 {
-	int offsetX = 300, offsetY = 150;
+	mBackground->setTexture("hostClientBg");
+	mBackground->setPosition(sdlutils().width() / 2, sdlutils().height() / 2);
+	mBackground->setDimension(sdlutils().width(), sdlutils().height() + 100);
 
-	auto cocineraSprite = new GameObject(game), camareroSprite = new GameObject(game);
-	cocineraSprite->setTexture("cocinera");
-	cocineraSprite->setPosition(Vector2D<double>(sdlutils().width() / 2 - offsetX, sdlutils().height() / 2 + offsetY));
-	cocineraSprite->setDimension(1024, 1024);
-	camareroSprite->setTexture("camarero");
-	camareroSprite->setPosition(Vector2D<double>(sdlutils().width() / 2 + offsetX, sdlutils().height() / 2 + offsetY));
-	camareroSprite->setDimension(1024, 1024);
+	int mOffsetX = 300, mOffsetY = 150;
 
-	uiManager->addInterfaz(cocineraSprite);
-	uiManager->addInterfaz(camareroSprite);
+	mParticles = new ParticleExample();
+	mParticles->setRenderer(sdlutils().renderer());
+	mParticles->setStyle(ParticleExample::NONE);
 
-	auto hostButton = new UiButton(game, "Abrir restaurante", "paella", { 255, 255, 255, 255 }, { 0, 0, 0, 0 },
-		sdlutils().width() / 2 - offsetX, sdlutils().height() / 2 - offsetY);
-	hostButton->setAction([](Game* game, bool& exit) {
+	UiButton* mBackButton = new UiButton(mGame, "back", 70, 50, 125, 60);
+	mBackButton->setInitialDimension(mBackButton->getWidth(), mBackButton->getHeight());
+	mBackButton->setAction([](Game* mGame, bool& exit) {
+		mGame->sendMessageScene(new Menu(mGame));
+		});
+
+	mUiManager->addButton(mBackButton);
+
+	mHostButton = new UiButton(mGame, "cocinera",
+		sdlutils().width() / 2 - mOffsetX, sdlutils().height() - 350, 500, 700);
+	mHostButton->setInitialDimension(500, 700);
+	mHostButton->setAction([](Game* mGame, bool& exit) {
 		//Host
-		game->changeScene(new Restaurante(game));
-		game->getNetworkManager()->init('h');
-		});
-	uiManager->addInterfaz(hostButton);
+		mGame->getNetworkManager()->init('h', nullptr, mGame->getNombre());
 
-	auto clientButton = new UiButton(game, "Buscar restaurante", "paella", { 255, 255, 255, 255 }, { 0, 0, 0, 0 },
-		sdlutils().width() / 2 + offsetX, sdlutils().height() / 2 - offsetY);
-	clientButton->setAction([](Game* game, bool& exit) {
-		//Client
-		game->changeScene(new Restaurante(game));
-		game->getNetworkManager()->init('c', "localhost");
+		mGame->sendMessageScene(new Lobby(mGame));
 		});
-	uiManager->addInterfaz(clientButton);
+	mUiManager->addButton(mHostButton);
+
+	mClientButton = new UiButton(mGame, "camarero",
+		sdlutils().width() / 2 + mOffsetX, sdlutils().height() - 350, 500, 700);
+	mClientButton->setInitialDimension(500, 700);
+
+	mPosYNotOver = 165;
+	mPosYOver = 145;
+	mTextIp = new ShowText(mGame, " ", "ip", mClientButton->getX() + 20, mPosYNotOver);
+	mTextIp->setActive(true);
+
+	mIpNoValida = new ShowText(mGame, "IP NO VALIDA", "ipCursor", mClientButton->getX() + 20, 225);
+	mIpNoValida->setActive(false);
+
+	mRestauranteNoEncontrado = new ShowText(mGame, "Restaurante no encontrado", "ipCursor", mClientButton->getX() + 20, 225);
+	mRestauranteNoEncontrado->setActive(false);
+
+	mCursor = new ShowText(mGame, "|", "ipCursor", mClientButton->getX() + 20, mPosYNotOver);
+	mCursor->setActive(false);
+
+	mClientButton->setAction([this](Game* mGame, bool& exit) {
+		//Client
+		if (!mEscribiendo) {
+			mEscribiendo = true;
+			ih().clearInputBuffer();
+			mCursor->setActive(true);
+			mTime = sdlutils().currRealTime();
+		}
+
+		else {
+			
+			mIp.erase(remove(mIp.begin(), mIp.end(), ' '), mIp.end());
+			if (esValida(mIp)) {
+				if (mGame->getNetworkManager()->init('c', mIp.c_str(), mGame->getNombre())) {
+					// crear el lobby
+					mGame->sendMessageScene(new Lobby(mGame, mGame->getNetworkManager()->getOtherName()));
+				}
+				else {
+					mTiempoIpNV = sdlutils().currRealTime();
+					mRestauranteNoEncontrado->setActive(true);
+				}
+			}
+			else {
+				mIpNoValida->setActive(true);
+				mTiempoIpNV = sdlutils().currRealTime();
+			}
+		}
+		});
+
+	mUiManager->addButton(mClientButton);	
 }
+
+bool HostClient::esValida(string ipText)
+{
+	if (ipText == " ") return false;
+
+	vector<string> aux = split(ipText);
+
+	if (aux.size() < 4) return false;
+
+	for (int i = 0; i < aux.size(); i++) {
+
+		string digito = aux[i];
+
+		if (digito.size() == 0) return false;
+
+		for (int j = 0; j < digito.size(); j++) {
+			
+			if (!std::isdigit(digito[j])) {
+				return false;
+			}
+		}
+
+		if (stoi(digito) >= 256) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
+void HostClient::update()
+{
+	Scene::update();
+	mParticles->update();
+
+	if (mEscribiendo) {
+
+		char c = ih().getTypedKey();
+
+		if (c != ' ' && c != '\r')
+		{
+			if (!mEscrito) mEscrito = true;
+
+			if (c == '\b')
+			{
+				if (!mIp.empty())
+					mIp.pop_back();
+				else
+					mIp = ' ';
+			}
+
+			else if (mIp.size() < mMaxCaracteres) {
+				mIp += c;
+			}
+
+			if (mIp.empty())
+				mIp = ' ';
+
+			mTextIp->setTexture(mIp, string("ip"), {255,255,255,0}, { 0, 0, 0, 0 });
+			mTextIp->setDimension();
+
+		}
+		mTextIp->render(nullptr);
+	}
+	//Preguntar isHover y 
+	if (mClientButton->hover()) {
+		mTextIp->setPosition(mTextIp->getX(), mPosYOver);
+		mCursor->setPosition(mCursor->getX(), mPosYOver);
+		mParticles->setStyle(ParticleExample::LIGHT);
+		mParticles->setPosition(mClientButton->getX(), sdlutils().height());
+	}
+
+	else {
+		mTextIp->setPosition(mTextIp->getX(), mPosYNotOver);
+		mCursor->setPosition(mCursor->getX(), mPosYNotOver);	
+	}
+
+	if (mHostButton->hover()) {
+		mParticles->setStyle(ParticleExample::LIGHT);
+		mParticles->setPosition(mHostButton->getX(), sdlutils().height());
+	}
+
+	if (sdlutils().currRealTime() - mTiempoIpNV > mFrameRateIpNV) {
+		mIpNoValida->setActive(false);
+	}
+
+}
+
+vector<string> HostClient::split(string ipText)
+{
+	vector<string> mIpText;
+	char mDelimitador = '.';
+
+	string mDigitos = "";
+
+	for (int i = 0; i < ipText.size(); i++) {
+		if (ipText[i] != mDelimitador) {
+			mDigitos += ipText[i];
+			if(i + 1 == ipText.size()) mIpText.push_back(mDigitos);
+		}
+
+		else {
+			mIpText.push_back(mDigitos);
+			mDigitos = "";
+		}
+	}
+
+	return mIpText;
+}
+
+void HostClient::render() {
+
+	mBackground->render(mCamera->renderRect());
+	mObjectManager->render(mCamera->renderRect());
+	mParticles->draw(mCamera->renderRect());
+	mUiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
+	mTextIp->render(nullptr);
+	mIpNoValida->render(nullptr);
+	mRestauranteNoEncontrado->render(nullptr);
+
+	if (!mEscrito && sdlutils().currRealTime() - mTime > mFrameRate) {
+		mCursor->render(nullptr);
+		mTime = sdlutils().currRealTime();
+	}
+
+	mTextMngr->render();
+}
+
+
+

@@ -6,6 +6,6 @@
 class Menu : public Scene
 {
 public:
-	Menu(Game* game);
+	Menu(Game* mGame);
 	void handleInput(bool& exit) override;
 };

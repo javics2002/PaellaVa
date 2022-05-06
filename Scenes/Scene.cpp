@@ -1,55 +1,69 @@
 #include "Scene.h"
 
-Scene::Scene(Game* game) 
+Scene::Scene(Game* mGame) 
 {
-	this->game = game;
+	this->mGame = mGame;
 
-	objectManager = new ObjectManager(game);
-	uiManager = new UIManager(game);
-	fondo = new Fondo(game);
-	fondo->setTexture("menufondo");
-	camara = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
+	mObjectManager = new ObjectManager(mGame);
+	mUiManager = new UIManager(mGame);
+	mTextMngr = new TextManager(mGame, "abadiT");
+	mBackground = new Imagen(mGame);
+	mBackground->setTexture("menufondo");
+	mCamera = new Camera(*new Vector2D<float>(0, 16), sdlutils().width(), sdlutils().height());
 }
 
 Scene::~Scene()
 {
-	delete uiManager;
-	delete objectManager;
-	delete fondo;
-	delete camara;
+	delete mUiManager;
+	delete mObjectManager;
+	delete mTextMngr;
+	delete mBackground;
+	delete mCamera;
+
 }
 
 void Scene::handleInput(bool& exit)
 {
-	objectManager->handleInput(exit);
-	uiManager->handleInput(exit);
+	if(!mPaused)mObjectManager->handleInput(exit);
+	mUiManager->handleInput(exit, mPaused);
+
+	if (ih().getKey(InputHandler::A))
+		mUiManager->focoExecute(exit);
+
+	if (ih().getKey(InputHandler::RIGHT) || ih().getKey(InputHandler::DOWN))
+		mUiManager->avanzaFoco();
+	if (ih().getKey(InputHandler::LEFT) || ih().getKey(InputHandler::UP))
+		mUiManager->retrocedeFoco();
 }
 
 void Scene::update()
 {
-	objectManager->update();
-	uiManager->update();
+	mObjectManager->update();
+	mUiManager->update(mPaused);
+	mTextMngr->update();
 }
 
 void Scene::render()
 {
-	fondo->render(camara->renderRect());
-	objectManager->render(camara->renderRect());
-	uiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
+	mBackground->render(mCamera->renderRect());
+	mObjectManager->render(mCamera->renderRect());
+	mUiManager->render(nullptr); // ponemos nullptr para que se mantenga en la pantalla siempre
+	mTextMngr->render();
 }
+
 
 void Scene::debug()
 {
-	fondo->renderDebug(camara->renderRect());
-	objectManager->debug(camara->renderRect());
+	mBackground->renderDebug(mCamera->renderRect());
+	mObjectManager->debug(mCamera->renderRect());
 }
 
 ObjectManager* Scene::getObjectManager()
 {
-	return objectManager;
+	return mObjectManager;
 }
 
 UIManager* Scene::getUIManager()
 {
-	return uiManager;
+	return mUiManager;
 }

@@ -6,7 +6,8 @@
 #include <memory>
 
 #include "../../json/JSON.h"
-
+//bool SDLUtils::sound_initialized = false;
+bool Music::sound_initialized = false;
 SDLUtils::SDLUtils() :
 		SDLUtils("SDL Demo", 600, 400) {
 }
@@ -91,16 +92,23 @@ void SDLUtils::initSDLExtensions() {
 	assert(imgInit_ret != 0);
 
 #ifdef _DEBUG
-	std::cout << "Initializing SEL_Mixer" << std::endl;
+	std::cout << "Initializing SDL_Mixer" << std::endl;
 #endif
 	// initialize SDL_Mixer
 	int mixOpenAudio = Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
-	assert(mixOpenAudio == 0);
-	int mixInit_ret = Mix_Init(
+	if (mixOpenAudio == 0) {
+		int mixInit_ret = Mix_Init(
 			MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG);
-	assert(mixInit_ret != 0);
-	SoundEffect::setNumberofChannels(8); // we start with 8 channels
-
+		if (mixInit_ret != 0) {
+			//sound_initialized = true;
+			SoundEffect::sound_initialized = true;
+			Music::sound_initialized = true;
+			SoundEffect::setNumberofChannels(8); // we start with 8 channels
+		}
+	
+	}
+	
+		
 }
 
 void SDLUtils::loadReasources(std::string filename) {
@@ -279,6 +287,30 @@ void SDLUtils::loadReasources(std::string filename) {
 			}
 		} else {
 			throw "'musics' is not an array";
+		}
+	}
+
+	jValue = root["dialogs"];
+	if (jValue != nullptr) {
+		if (jValue->IsArray()) {
+			for (auto& v : jValue->AsArray()) {
+				if (v->IsObject()) {
+					JSONObject vObj = v->AsObject();
+					std::string key = vObj["id"]->AsString();
+					std::string file = vObj["file"]->AsString();
+#ifdef _DEBUG
+					std::cout << "Loading dialog with id: " << key << std::endl;
+#endif
+					dialogos.emplace(key, file);
+				}
+				else {
+					throw "'dialogs' array in '" + filename
+						+ "' includes and invalid value";
+				}
+			}
+		}
+		else {
+			throw "'dialogs' is not an array in '" + filename + "'";
 		}
 	}
 

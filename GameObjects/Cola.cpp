@@ -2,7 +2,12 @@
 
 bool Cola::esValido(int tamGrupo)
 {
-    return capacidadActual + tamGrupo <= T_Max;
+    return capacidadActual + tamGrupo <= t_Max;
+}
+
+bool Cola::estaLlena()
+{
+    return capacidadActual == t_Max;
 }
 
 void Cola::add(GrupoClientes* grupo, int tam)
@@ -25,7 +30,9 @@ list<GrupoClientes*>::const_iterator Cola::getPos()
 
 void Cola::colaAvanza()
 {
-    for (auto it : cola)
-        it->setState(estado::CAMINANDO);
+    for (auto it : cola) {
+        it->setState(EstadoClientes::CAMINANDO);
+    }
+        
 }
 

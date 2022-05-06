@@ -1,6 +1,6 @@
 #include "ObjetoPortable.h"
 
-ObjetoPortable::ObjetoPortable(Game* game) : GameObject(game), isPicked_(false)
+ObjetoPortable::ObjetoPortable(Game* mGame) : GameObject(mGame), isPicked_(false)
 {
 }
 

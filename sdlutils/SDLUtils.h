@@ -13,12 +13,13 @@
 #include "SoundEffect.h"
 #include "../Utils/Texture.h"
 #include "VirtualTimer.h"
+#include "tweeny-3.2.0.h"
 
 
 class SDLUtils: public Singleton<SDLUtils> {
 
 	friend Singleton<SDLUtils> ; // needed to give access to private constructors
-
+	//static bool sound_initialized;
 public:
 
 	// we abstract away the actual data structure we use for
@@ -33,13 +34,14 @@ public:
 	using sdl_resource_table = std::map<std::string,T>;
 
 	virtual ~SDLUtils();
-
+	
 	// cannot copy/move
 	SDLUtils(SDLUtils&) = delete;
 	SDLUtils(SDLUtils&&) = delete;
 	SDLUtils& operator=(SDLUtils&) = delete;
 	SDLUtils& operator=(SDLUtils&&) = delete;
 
+	//static bool isSoundInitialized() { return sound_initialized; }
 	// access to the underlying SDL_Window -- in principle not needed
 	inline SDL_Window* window() {
 		return window_;
@@ -52,7 +54,7 @@ public:
 	}
 
 	// clear the renderer with a given SDL_Color
-	inline void clearRenderer(SDL_Color bg = build_sdlcolor(0xAAAAAFF)) {
+	inline void clearRenderer(SDL_Color bg = build_sdlcolor(0x7F7F7F)) {
 		SDL_SetRenderDrawColor(renderer_, COLOREXP(bg));
 		SDL_RenderClear(renderer_);
 	}
@@ -106,7 +108,7 @@ public:
 	}
 
 	// messages map
-	inline sdl_resource_table<Texture>& msgs() {
+	inline sdl_resource_table<Texture>& messages() {
 		return msgs_;
 	}
 
@@ -123,6 +125,10 @@ public:
 	// musics maps
 	inline sdl_resource_table<Music>& musics() {
 		return musics_;
+	}
+
+	inline sdl_resource_table<std::string>& dialogs() {
+		return dialogos;
 	}
 
 	/*
@@ -175,6 +181,7 @@ private:
 	sdl_resource_table<Texture> msgs_; // textures map (string -> texture)
 	sdl_resource_table<SoundEffect> sounds_; // sounds map (string -> sound)
 	sdl_resource_table<Music> musics_; // musics map (string -> music)
+	sdl_resource_table<std::string> dialogos; // dialogos map (string -> string)
 	// sdl_resource_table<Texture> anims_; // anims map (string -> anim)
 
 	RandomNumberGenerator random_; // (pseudo) random numbers generator

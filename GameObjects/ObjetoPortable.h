@@ -6,10 +6,9 @@ class Game;
 class ObjetoPortable : public GameObject
 {
 	bool isPicked_;
-public:
-	
 
-	ObjetoPortable(Game* game);
+public:
+	ObjetoPortable(Game* mGame);
 	~ObjetoPortable() {};
 
 	void pickObject();
@@ -24,6 +23,4 @@ public:
 protected:
 	virtual void onObjectPicked() = 0;
 	virtual void onObjectDropped() = 0;
-
 };
-

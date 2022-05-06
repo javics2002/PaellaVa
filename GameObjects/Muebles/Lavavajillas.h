@@ -15,21 +15,37 @@ public:
 	const unsigned int DIMENSION_H = 1;
 
 	const double TIEMPO_LAVADO = 3000.0;
+	double mInitTime;
 
-	double tiempo = 0.0;
+	int canalSonido2;
 
-	deque<Paella*> pilaPaellas;
-	deque<Paella*> paellasLimpias;
+	const int MAX_BREAK_TIME = 18000;
+	const int REDUCE_BREAK_TIME = 500;
+	int mCouldBreak = MAX_BREAK_TIME;
+	int seg = 10;
+
+	deque<Paella*> mPaellasSucias;
+	deque<Paella*> mPaellasLimpias;
+
+	int i = 0;
+	SDL_Rect clip;
 
 public:
-	Lavavajillas(Game* game, Vector2D<double> pos);
+	Lavavajillas(Game* mGame, Vector2D<double> pos);
 	~Lavavajillas() = default;
 
-	void update();
+	void update() override;
 	void lavando();
 
 	bool receivePaella(Paella* paella_) override;
-	bool returnObject(Player* p);
+	bool returnObject(Player* p)override; 
+
+	void render(SDL_Rect* camera) override;
+
+	SDL_Rect getOverlap() override;
+	SDL_Rect getCollider() override;
+
+	virtual bool resetCounter() override;
 };
 
 

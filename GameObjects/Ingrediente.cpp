@@ -1,36 +1,46 @@
 #include "Ingrediente.h"
-#include "../Control/Game.h"
+#include "../Scenes/Tutorial.h"
 
 #include <iostream>
 
-Ingrediente::Ingrediente(Game* game) :  PoolObject(game) {
+Ingrediente::Ingrediente(Game* mGame) : ObjetoPortable(mGame) {
 	setDimension(DIMENSION, DIMENSION);
+
+	setDepth(2);
+
+	
 }
 
 void Ingrediente::update()
 {
-	setPosition(getX(), getY() + vel.getY());
-}
-
-pair<bool, std::list<PoolObject*>::const_iterator> Ingrediente::ingredientCollide()
-{
-	return { !isPicked(), getIterator() };
+	setPosition(pos+vel);
 }
 
 void Ingrediente::onActivate()
 {
-	int n = rand() % (tipoIngrediente::LAST);
+	int n = 0;
+	if(dynamic_cast<Tutorial*>(mGame->getCurrentScene()))
+		n= rand() % (tipoIngrediente::gamba);
+	else n = rand() % (tipoIngrediente::LAST) ;
 
-	vel = { 0, 1.3 };
-	
+
 	miTipo = tipoIngrediente(n);
 
 	setTexture(texturaIngrediente[n]);
+
+	wasPicked = false;
 }
 
-void Ingrediente::onDesactivate()
-{
 
+void Ingrediente::onDeactivate()
+{
+}
+
+void Ingrediente::cambiaTipo(int n) {
+
+	miTipo = tipoIngrediente(n);
+
+	setTexture(texturaIngrediente[n]);
 }
 
 void Ingrediente::ingredienteRecogido()
@@ -45,6 +55,15 @@ void Ingrediente::setProcesado(bool estadoIngr, Ingrediente *ingr)
 }
 
 
+bool Ingrediente::getProcesado()
+{
+	return procesado;
+}
+bool Ingrediente::esLetal()
+{
+	return letal;
+}
+
 tipoIngrediente Ingrediente::getTipo()
 {
 	return miTipo;
@@ -53,10 +72,24 @@ tipoIngrediente Ingrediente::getTipo()
 void Ingrediente::onObjectPicked()
 {
 	vel = { 0,0 };
+	wasPicked = true;
 }
 
 void Ingrediente::onObjectDropped()
 {
+}
+
+SDL_Rect Ingrediente::getOverlap()
+{
+	if (!wasPicked)
+		return getTexBox();
+	else 
+		return SDL_Rect();
+}
+
+SDL_Rect Ingrediente::getCollider()
+{
+	return getTexBox();
 }
 
 

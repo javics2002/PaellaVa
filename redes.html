@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Heels Running</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css\redes.css">
+  <link rel="icon" href="./assets/images/webIcon.png">
+</head>
+
+
+<body>
+  <!-- Image and text -->
+  <nav id="menu" class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="./index.html">
+      <img src="./assets/images/logoNegro.png" width="170" height="50" class="d-inline-block align-top" alt="">
+    </a> 
+    <form class="form-inline">
+      <a class="btn btn-outline-success" type="button" href="./index.html">Inicio</a>
+    </form>
+  </nav>
+<!-- 
+  <div class="container">
+      <div><a href='https://github.com/josemiguelvdz/PVLI'><img src="./assets/images/github.png" width="100" height="100"></a>
+      <p>Github</p>
+      </div>
+      <div><a href='https://www.pivotaltracker.com/projects/2532298'><img src="./assets/images/pivotal.png" width="100" height="100"></a>
+      <p>Pivotal</p>
+      </div>
+      <div><a href='https://twitter.com/Hitch_Corp'><img src="./assets/images/twitter.png" width="100" height="100"></a>
+      <p>Twitter</p>
+      </div>
+  </div> -->
+
+
+<main>
+  <div class="cards"><a class="stack" href="https://www.github.com/josemiguelvdz/PVLI">
+      <div class="card top">
+        <div class="contents">
+          <h2><strong>HITCH</strong>CORP
+          </h2>
+          <h3>Github</h3><span><img src="./assets/images/github.png" width="50" height="50"></span>www.github.com/josemiguelvdz/PVLI<br/>
+        </div>
+      </div>
+      <div class="card mid-top">
+      </div>
+      <div class="card mid-bottom">
+      </div>
+      <div class="card bottom">
+        <div class="contents">
+          <div class="city">guille ponme un 10</div>
+        </div>
+      </div>
+      <div class="card shadow"></div></a><a class="stack" href="https://twitter.com/Hitch_Corp">
+      <div class="card top">
+        <div class="contents">
+          <h2><strong>HITCH</strong>CORP
+          </h2>
+          <h3>Twitter</h3><span><img src="./assets/images/twitter.png" width="70" height="70"></span>Hitch_corp<br/>
+        </div>
+      </div>
+      <div class="card mid-top">
+      </div>
+      <div class="card mid-bottom">
+      </div>
+      <div class="card bottom">
+      </div>
+      <div class="card shadow"></div></a><a class="stack" href="https://www.pivotaltracker.com/projects/2532298">
+      <div class="card top">
+        <div class="contents">
+          <h2><strong>HITCH</strong>CORP
+          </h2>
+          <h3>Pivotal</h3><span><img src="./assets/images/pivotal.png" width="50" height="50"></span>pivotaltracker.com/n/projects/2532298<br/>
+        </div>
+      </div>
+      <div class="card mid-top">
+      </div>
+      <div class="card mid-bottom">
+      </div>
+      <div class="card bottom">
+      </div>
+      <div class="card shadow"></div></a><a class="stack" href="#"></a>
+    </div>
+  </div>
+</main>
+
+
+<ul class="box-area" style="z-index: -1;">
+  <li></li>
+  <li>uwu</li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+</ul>
+
+<script>
+  window.addEventListener("resize",scrollGrid);
+  window.addEventListener("scroll",scrollGrid);
+
+function scrollGrid() {
+let bodyHeight = document.body.offsetHeight,
+mainHeight = document.querySelector("main").offsetHeight,
+cards = document.querySelector(".cards"),
+transY = (window.pageYOffset / (mainHeight - bodyHeight));
+
+cards.style.setProperty("--scroll",transY + "%");
+}
+scrollGrid();
+</script>
+
+</body>
+</html>

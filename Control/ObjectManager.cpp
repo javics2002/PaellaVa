@@ -1,19 +1,25 @@
 #include "ObjectManager.h"
-#include "../GameObjects/Muebles/InicioCinta.h"
-#include "../GameObjects/Muebles/FinalCinta.h"
-#include "../GameObjects/Muebles/Puerta.h"
 #include  "../GameObjects/UI/RedactaComandabutton.h"
 #include "../Data/Comanda.h"
-#include "../GameObjects/Muebles/cartel.h"
+#include "../GameObjects/Muebles/MueblesInclude.h"
 #include "../Utils/Vector2D.h"
-#include "../GameObjects/Ingrediente.h"
-#include "../Scenes/Restaurante.h"
+#include "../Scenes/Tutorial.h"
+#include "../GameObjects/Herramienta.h"
 
-ObjectManager::ObjectManager(Game* game)
+
+ObjectManager::ObjectManager(Game* mGame) : mGame(mGame)
 {
-	ingredientes = new Pool<Ingrediente>(game, 1);
-	clientes = new Pool<Cliente>(game, 50);
-	grupoClientes = new Pool<GrupoClientes>(game, 20);
+	if (dynamic_cast<Tutorial*>(mGame->getCurrentScene())) {
+		pools.emplace_back((Pool<GameObject>*) new Pool<Ingrediente>(mGame, 50));
+	}
+	else {
+		pools.emplace_back((Pool<GameObject>*) new Pool<IngredienteLetal>(mGame, 10));
+		pools.emplace_back((Pool<GameObject>*) new Pool<Ingrediente>(mGame, 50));
+	}
+	pools.emplace_back((Pool<GameObject>*) new Pool<Herramienta>(mGame, 20));
+	pools.emplace_back((Pool<GameObject>*) new Pool<Arroz>(mGame, 20));
+	pools.emplace_back((Pool<GameObject>*) new Pool<GrupoClientes>(mGame, 20));
+	pools.emplace_back((Pool<GameObject>*) new Pool<Cliente>(mGame, 50));
 }
 
 ObjectManager::~ObjectManager()
@@ -28,32 +34,29 @@ ObjectManager::~ObjectManager()
 		i = nullptr;
 	}
 
-	delete ingredientes;
+	for (auto i : pools) {
+		delete i;
+		i = nullptr;
+	}
 }
 
 void ObjectManager::render(SDL_Rect* rect)
 {
-	for (auto m : muebles)
-		m->render(rect);
-
-	for (auto i : paellas)
-		i->render(rect);
-
-	for (auto p : players)
-		p->render(rect);
+	vector<GameObject*> aux = renderAll;
 	
+	for (auto i : pools) {
+		for (auto o : i->getActiveObjects()) {
+			renderAll.emplace_back(o);
+		}
+	}
 
-	/*for (auto c : comandas)
-		c->render(rect);
+	sortAllGO();
 
-	for (auto i : interfaz)
-		i->render(rect);*/
+	for (auto i : renderAll) {
+		i->render(rect);
+	}
 
-	ingredientes->render(rect);
-
-	grupoClientes->render(rect);
-
-
+	renderAll = aux;	
 }
 
 void ObjectManager::debug(SDL_Rect* rect)
@@ -67,76 +70,74 @@ void ObjectManager::debug(SDL_Rect* rect)
 	for (auto i : paellas)
 		i->renderDebug(rect);
 
-	ingredientes->debug(rect);
-
-	clientes->debug(rect);
+	for (auto i : pools)
+		i->debug(rect);
 }
+
+
 
 void ObjectManager::handleInput(bool& exit)
 {
+
 	// solo se handlea tu propio input
-	Player* p = getHost();
+	Player* p = getPlayerOne();
 	if (p != nullptr)
-		p->handleInput();
+		p->handleInput(ih().getAxis(), true); // Handle input del primer jugador
+
+	Player* p2 = getPlayerTwo();
+	if (p2 != nullptr)
+		p2->handleInput(ih().getOtherAxis(), false); // Handle input del segundo jugador
 }
 
 void ObjectManager::update()
 {
-	for (auto i : muebles)
+	for (auto i : players)
 		i->update();
 
-	for (auto i : players)
+	for (auto i : muebles)
 		i->update();
 
 	for (auto i : paellas)
 		i->update();
 
-	ingredientes->update();	
-
-	grupoClientes->update();
-
-	SDL_GetMouseState(&x, &y);
-
-	SDL_Rect rect = SDL_Rect{ x, y, range, range };
-
-	for (auto i : grupoClientes->getCollisions(rect)) {
-		i->ratonEncima();
-	}
+	for (int i = 0; i < pools.size() - 1; i++)
+		pools[i]->update();
 }
 
-void ObjectManager::addMueble(GameObject* mueble)
+void ObjectManager::refresh()
+{
+	for (auto i : pools)
+		i->refresh();
+}
+
+void ObjectManager::addMueble(Mueble* mueble)
 {
 	muebles.push_back(mueble);
+	
+	renderAll.push_back(mueble);
 }
 
 void ObjectManager::addPlayer(Player* player)
 {
 	players.push_back(player);
+
+	renderAll.push_back(player);
 }
 
-void ObjectManager::addComanda(GameObject* comanda)
+Paella* ObjectManager::addPaella(int n)
 {
-	interfaz.push_back(comanda);
+	Paella* p = new Paella(mGame, n);
+
+	paellas.push_back(p);
+
+	renderAll.push_back(p);
+
+	return p;
 }
 
-void ObjectManager::addPaella(GameObject* paella)
+vector<Mueble*> ObjectManager::getMueblesCollisions(SDL_Rect collider)
 {
-	paellas.push_back(paella);
-}
-
-vector<Collider*> ObjectManager::getMueblesCollider()
-{
-	vector<Collider*> c;
-
-	for (auto i : muebles)
-		c.push_back(i);
-
-	return c;
-}
-
-vector<Collider*> ObjectManager::getMueblesCollider(SDL_Rect collider)
-{
-	vector<Collider*> c;
+	vector<Mueble*> c;
 
 	for (auto i : muebles) {
 		if (i->collide(collider))
@@ -146,16 +147,31 @@ vector<Collider*> ObjectManager::getMueblesCollider(SDL_Rect collider)
 	return c;
 }
 
-vector<Collider*> ObjectManager::getPaellasCollider(SDL_Rect collider)
+vector<Mueble*> ObjectManager::getMueblesOverlaps(SDL_Rect collider)
 {
-	vector<Collider*> c;
+	vector<Mueble*> c;
 
-	for (auto i : paellas) {
-		if (i->collide(collider))
+	for (auto i : muebles) {
+		if (i->overlap(collider))
 			c.push_back(i);
 	}
 
 	return c;
+}
+
+void ObjectManager::sortAllGO() {
+	std::sort(renderAll.begin(), renderAll.end(), [](GameObject* a, GameObject* b) {
+		return a->getDepth() < b->getDepth() || 
+			(a->getDepth() == b->getDepth() && a->getPosVertical() < b->getPosVertical());
+		});
+}
+
+void ObjectManager::resetMueblesCounter()
+{
+	for (auto i : muebles)
+	{
+		i->resetCounter();
+	}
 }
 
 void ObjectManager::initMuebles()
@@ -163,4 +179,5 @@ void ObjectManager::initMuebles()
 	for (auto i : muebles)
 		i->init(this);
 }
+
 

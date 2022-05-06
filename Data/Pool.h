@@ -4,9 +4,9 @@
 #include <List>
 
 #include "../GameObjects/Ingrediente.h"
-#include "../GameObjects/PoolObject.h"
-#include "../GameObjects/Collider.h"
-
+#include "../GameObjects/Ingredienteletal.h"
+#include "../GameObjects/Arroz.h"
+#include "../Utils/Collider.h"
 
 using namespace std;
 
@@ -15,33 +15,40 @@ class Game;
 template<typename T>
 class Pool
 {
-	Game* game;
+	Game* mGame;
 
-	//lista con solo los objetos de la pool que están activos
-	list<PoolObject*> activeObjects;
+	//lista con solo los objetos de la pool que estï¿½n activos
+	list<T*> aliveObjects;
 
 	//vector con toda la pool
 	vector<T*> v;
-	//número de objetos en la Pool
+	//numero de objetos en la Pool
 	int numElems;
-	//siguiente objeto a añadir al juego (o último en haberse añadido)
+	//siguiente objeto a aÃ±adir al juego (o ultimo en haberse aï¿½adido)
 	int nextElem;
+
+	int mNextId;
 
 	void findNextElem() {
 		nextElem = (nextElem + 1) % numElems;
 		int cont = 0;
 
-		//el bucle no itera ninguna vez en la mayoría de casos, sobre todo en los ingredientes
-		//(es posible que en el caso de los clientes o paellas tarde más en encontrar al siguiente)
+		//el bucle no itera ninguna vez en la mayorï¿½a de casos, sobre todo en los ingredientes
+		//(es posible que en el caso de los clientes o paellas tarde mï¿½s en encontrar al siguiente)
 		while (cont < numElems && v[nextElem]->isActive())
 		{
 			cont++;
 			nextElem = (nextElem + 1) % numElems;
 		}
-		//si no encuentra ninguno, se duplica el tamaño de la pool
+		//si no encuentra ninguno, se duplica el tamaï¿½o de la pool
 		if (cont == numElems) {
-			for (int i = 0; i < numElems; i++)
-				v.push_back(new T(game));
+			for (int i = 0; i < numElems; i++) {
+				T* o = new T(mGame);
+				o->setActive(false);
+				o->setId(mNextId);
+				mNextId++;
+				v.push_back(o);
+			}			
 		
 			numElems *= 2;
 
@@ -54,9 +61,15 @@ class Pool
 	}
 
 public:
-	Pool(Game* game, int n) : game(game), numElems(n), nextElem(-1) {
-		for (int i = 0; i < n; i++)
-			v.push_back(new T(game));
+	Pool(Game* mGame, int n) : mGame(mGame), numElems(n), nextElem(-1) {
+		for (int i = 0; i < n; i++) {
+			T* o = new T(mGame);
+			o->setActive(false);
+			o->setId(mNextId);
+			mNextId++;
+			v.push_back(o);
+		}
+			
 	}
 
 	~Pool() {
@@ -66,14 +79,15 @@ public:
 		}
 	};
 
-	//método que busca el siguiente objeto y lo activa
+	//metodo que busca el siguiente objeto y lo activa
 	T* add(Vector2D<double> pos) {
 		findNextElem();
 
 		auto& elem = v[nextElem];
-		activeObjects.push_front(elem);
-		elem->activate(activeObjects.begin());
-		elem->setPosition(pos);		
+		aliveObjects.push_front(elem);
+		elem->setPosition(pos);
+		elem->setActive(true);
+		elem->onActivate();
 
 		return elem;
 	}
@@ -82,64 +96,84 @@ public:
 		findNextElem();
 
 		auto& elem = v[nextElem];
-		activeObjects.push_front(elem);
-		elem->activate(activeObjects.begin());
+		aliveObjects.push_front(elem);
+		elem->setActive(true);
+		elem->onActivate();
 
 		return elem;
 	}
 
-	//borra el objeto de la lista de activos
-	void remove(list<PoolObject*>::const_iterator it) {
-		(*it)->desactivate();
-		activeObjects.erase(it);
-	}
+	vector<T*> getOverlaps(SDL_Rect GOcollider) {
+		vector<T*> c;
 
-	vector<Collider*> getColliders() {
-		vector<Collider*> c;
-
-		for (auto it : activeObjects) {
-			c.push_back(it);
-		}
-
-		return c;
-	}
-
-	vector<Collider*> getCollisions(SDL_Rect GOcollider) {
-		vector<Collider*> c;
-
-		for (auto it : activeObjects) {
-			if (it->collide(GOcollider))
+		for (auto it : aliveObjects) {
+			if (it->overlap(GOcollider))
 				c.push_back(it);
 		}
 
 		return c;
 	}
 
+	vector<T*> getCollisions(SDL_Rect GOcollider) {
+		vector<T*> c;
+
+		for (auto it : aliveObjects) {
+			if (it->collide(GOcollider))
+				c.push_back(it);
+		}
+
+		return c;
+	}
+	
+	vector<T*> getActiveObjects() {
+		vector<T*> c;
+
+		for (auto it : aliveObjects) {
+				c.push_back(it);
+		}
+
+		return c;
+	}
+
+
 	void render() {	
-		for (auto it : activeObjects)
+		for (auto it : aliveObjects)
 			it->render();
 	}
 
 	void render(SDL_Rect* rect) {
-		for (auto it : activeObjects)
+		for (auto it : aliveObjects)
 			it->render(rect);
 	}
 
+	void refresh() {
+		//Sacamos los objetos desactivados
+		auto it = aliveObjects.begin();
+		while (it != aliveObjects.end()) {
+			if (!(*it)->isActive()) {
+				(*it)->onDeactivate();
+				it = aliveObjects.erase(it);
+			}
+			else
+				it++;
+		}
+	}
+
 	void debug() {
-		for (auto it : activeObjects) {
+		for (auto it : aliveObjects) {
 			it->renderDebug();
 		}
 	}
 
 	void debug(SDL_Rect* rect) {
-		for (auto it : activeObjects) {
+		for (auto it : aliveObjects) {
 			it->renderDebug(rect);
 		}
 	}
 
 	void update() {
-		for (auto it : activeObjects) {
-			it->update();
+		for (auto object : aliveObjects) {
+			object->update();
 		}
 	}
 };

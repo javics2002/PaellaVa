@@ -4,59 +4,92 @@
 #include "../Control/ObjectManager.h"
 #include <list>
 
-
-enum Estado { Preparacion, Coccion, Preparada };
+enum EstadoPaellas { Preparacion, Coccion, Hecha, Lavandose };
 enum Resultado { Cruda, PocoHecha, Perfecta, MuyHecha, Quemada, Incomestible };
 enum Contenido { Limpia, Entera, Mitad, Sucia };
-enum TipoPaella { Minima, Mediana, Grande };
+enum TipoPaella { Pequena, Mediana, Grande };
 
 class Game;
+class Arroz;
+class ParticleExample;
 
 class Paella : public ObjetoPortable
 {	
-
 public:
 	
-	Paella(Game* game, TipoPaella volumen_);
+	Paella(Game* mGame, int volumen_);
 	
-	~Paella() {};
+	~Paella() {
+		delete mHumo;
+	};
 
 	bool ingrValido(Ingrediente* ingr);
 	void anadeIngr(Ingrediente* ingr_);
-	void eliminarIngr();
+	void anadeArroz(Arroz* arroz);
 
-	void setState(Estado estado_);
 	void paellaRecogida();
 	void update() override;
-	void setLavado(Contenido contenidoPaella,string texturaPaella);
 
-	void changeTexture(string clave);
+	void finLavado();
+	void iniLavado();
+
+	void setEnsuciada();
 
 	void onObjectPicked() override;
 	void onObjectDropped() override;
 
 	bool canPick() override;
+	bool conArroz();
+	void enLaMesa(bool estaEnLaMesa);
 
-	Estado getState();
-	TipoPaella getTipo();
-	Contenido getContenido();
+	list<tipoIngrediente> getVIngredientes();
+	vector<bool> getIngrPaella();
+
+	EstadoPaellas getState();
+	void setState(EstadoPaellas estado);
+
+	int getContenido();
+	void setContenido(Contenido contenidoP);
+
+	int getTipo();
+	
+	int getCoccion();
+
+	void comerPaella();
+
+	void contaminaPaella();
+	bool estaContaminada();
+
+	int ingredientesEnPaella();
+
+	void render(SDL_Rect* cameraRect);
 
 private:
+	vector<string> mCoccionTex = { "paellaCruda", "paellaPocoHecha", "paella", "paellaMuyHecha", "paellaQuemada", "paellaIncomestible" };
+	vector<int> mTiemposDeCoccion = { 3000, 6000, 9000, 12000, 15000 };
+
 	const int MAX_INGR = 3;
-	double tiempoCoccion = 0.0, tiempo = 0.0;
-	int sumaIntervalo = 0, i = 0;
+	double mTiempoCoccion = 0.0, mTiempo = 0.0, mTiempoHumo = 2000.0;
+	int mSumaIntervalo = 0, i = 0;
+	bool mEnMesa = false;
+	bool mArroz = false;
 
-	Estado estado = Preparacion;
-	Resultado estadoFinal = Cruda;
-	Contenido contenido = Limpia;
+	EstadoPaellas estado = Preparacion;
+	int mEstadoCoccion = 0;
+	int mContenido = Limpia;
 
-	TipoPaella miTipo;
+	int miTipo;
+	
+	int mInitCocTime = 0;
+	int mInitHumoTime = 0;
 
-	vector<int> tiemposDeCoccion = { 14000, 20000, 25000, 28000, 33000, 38000 };
+	list<tipoIngrediente> mIngredientes;
 
-	list<tipoIngrediente> ingredientes;
+	vector<bool> mIngrEnPaella;
+	bool mContaminada = false;
 
-	vector<bool> ingrEnPaella;
+	string mCurrentCoccionSound;
 
+	ParticleExample* mHumo;
 };
 

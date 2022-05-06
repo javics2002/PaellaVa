@@ -91,7 +91,17 @@ public:
 		render(src, dest, rotation);
 	}
 
+	inline void render(const SDL_Rect& dest, Uint8 alpha) {
+		SDL_SetTextureAlphaMod(texture_, alpha);
+		render(dest);
+	}
+	
+
 	inline SDL_Texture* getTexture() {
+		return texture_;
+	}
+
+	SDL_Texture* getSdlTexture() {
 		return texture_;
 	}
 

@@ -3,19 +3,20 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 
+
 #include "../Scenes/Menu.h"
-#ifdef _DEBUG
-#include "../Scenes/Restaurante.h"
-#include "../Scenes/GameOver.h"
-#include "../Scenes/HostClient.h"
-#endif // _DEBUG
+#include "../Scenes/Jornada.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../sdlutils/InputHandler.h"
 #include "../Control/ObjectManager.h"
 #include "../GameObjects/UI/UIManager.h"
 #include "../Control/NetworkManager.h"
+#include "../Control/TextManager.h"
 
-Game::Game() {
+#include "../GameObjects/Ingrediente.h"
+
+
+Game::Game() {	
 	srand(time(NULL));
 }
 
@@ -25,16 +26,16 @@ Game::~Game() {
 
 void Game::init()
 {
-	SDLUtils::init("Paellas", 1280, 720, "../../../Assets/resources.json");
+	SDLUtils::init("Paella va!", 1280, 720, "Assets/resources.json");
 	SDLUtils::instance()->showCursor();
 
-#ifdef _DEBUG
-	currentScene = new Menu(this);
-#else
-	currentScene = new Menu(this);
-#endif // _DEBUG
-
+	ih().setGame(this);
 	nm = new NetworkManager(this);
+
+	setNombre(texturaIngrediente[sdlutils().rand().nextInt(0, texturaIngrediente.size())]);
+
+	//currentScene = new Menu(this);
+	currentScene = new Menu(this);
 }
 
 void Game::start()
@@ -43,7 +44,7 @@ void Game::start()
 	SDL_Event event;
 
 #ifndef _DEBUG
-	sdlutils().toggleFullScreen();
+	//sdlutils().toggleFullScreen();
 #endif // _DEBUG
 
 
@@ -53,26 +54,23 @@ void Game::start()
 		handleInput(event, exit);
 
 		update();
-
+		refresh();
 		render();
 
+		// Se procesan los mensajes en la cola
+		recvMessageScene();
+		
 		Uint32 frameTime = sdlutils().currRealTime() - startTime;
 
 		if (frameTime < 20)
 			SDL_Delay(20 - frameTime);
 	}
-}
 
-void Game::changeScene(Scene* scene) {
-	//Cambio de escena 
-	currentScene = nullptr;
-	currentScene = scene;
+	nm->close();
 }
 
 void Game::handleInput(SDL_Event& event, bool& exit) {
-	while (SDL_PollEvent(&event))
-		ih().update(event, exit);
-
+	ih().update(event, exit);
 	currentScene->handleInput(exit);
 }
 
@@ -80,9 +78,13 @@ void Game::update()
 {
 	currentScene->update();
 
-	// update nm
 	if(nm != nullptr)
 		nm->update();
+}
+
+void Game::refresh()
+{
+	currentScene->refresh();
 }
 
 void Game::render()
@@ -91,7 +93,7 @@ void Game::render()
 
 	currentScene->render();
 #ifdef _DEBUG
-	currentScene->debug();
+	//currentScene->debug();
 #endif // _DEBUG
 
 	sdlutils().presentRenderer();
@@ -108,4 +110,50 @@ UIManager* Game::getUIManager()
 
 NetworkManager* Game::getNetworkManager() {
 	return nm;
+}
+
+void Game::sendMessageScene(Scene* newScene)
+{
+	MessageChangeScene msg;
+	msg.newScene = newScene;
+
+	qScene.push(msg);
+}
+
+void Game::recvMessageScene()
+{
+	while (!qScene.empty()) {
+		delete currentScene;
+		currentScene = qScene.front().newScene;
+		qScene.pop();
+	}
+}
+
+void Game::setNombre(string nombre_) {
+	nombre = nombre_;
+}
+
+string Game::getNombre()
+{
+	return nombre;
+}
+
+void Game::setSlidesSon(Vector2D<double> slideSon_)
+{
+	slideSon = slideSon_;
+}
+
+void Game::setSlidesMus(Vector2D<double> slideMus_)
+{
+	slideMus = slideMus_;
+}
+
+Vector2D<double> Game::getSlideSon()
+{
+	return slideSon;
+}
+
+Vector2D<double> Game::getSlideMus()
+{
+	return slideMus;
 }

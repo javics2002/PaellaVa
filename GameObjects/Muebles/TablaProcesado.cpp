@@ -1,56 +1,159 @@
 #include "TablaProcesado.h"
-#include "../../Control/Game.h"
+#include "../../sdlutils/SDLUtils.h"
 
-TablaProcesado::TablaProcesado(Game* game_, Vector2D<double> pos) : Mueble(game, pos, TILE_SIZE, 2 * TILE_SIZE, "tablaProcesado")
+#include "../../GameObjects/Player.h"
+#include "../../Control/Game.h"
+#include "../../Scenes/Tutorial.h"
+#include "../../Utils/ParticleExample.h"
+
+
+TablaProcesado::TablaProcesado(Game* game_, Vector2D<double> pos) : Mueble(game_, pos, TILE_SIZE, 2 * TILE_SIZE, "tablaProcesado")
 {
+	funcionando = true;
+	clip.w = timerTexture->width() / 8;
+	clip.h = timerTexture->height();
+	clip.y = 0;
 }
 
-void TablaProcesado::update() {
+void TablaProcesado::update() 
+{
+	if (!funcionando)
+	{
+		humo->setStyle(ParticleExample::SMOKE);
+	}
+	else
+	{
+		humo->setStyle(ParticleExample::NONE);
+	}
 
-	if (ingr_ != nullptr) {
+	if (funcionando && ingr_ != nullptr) 
+	{
 		procesando();
 	}
-
-
-}
-
-void TablaProcesado::procesando()
-{
-	if (sdlutils().currRealTime() - tiempo >= TIEMPO_PROCESADO) {
-		ingr_->setProcesado(true, ingr_);
+	else if (!funcionando && ingr_ != nullptr) 
+	{
+		i = 0;
+		clip.x = 0;
+		rellenoTimer = 0;
 		tiempo = sdlutils().currRealTime();
 	}
+
+	if (funcionando)
+	{
+		if (couldBreak <= 0)
+		{
+			testMueble();
+			if (funcionando)
+			{	
+				//se reduce cuando se podrï¿½a romper
+				couldBreak = MAX_BREAK_TIME - REDUCE_BREAK_TIME;
+			}
+			else
+			{
+				//se resetea cuando se podrï¿½a romper
+				couldBreak = MAX_BREAK_TIME;
+				humo->setStyle(ParticleExample::EXPLOSION);
+			}
+		}
+		else if (couldBreak > 0){
+			couldBreak -= seg;
+		}
+	}
+
+	humo->setPosition(getRectCenter(getOverlap()).getX(), getRectCenter(getOverlap()).getY());
+	humo->update();
+}
+
+void TablaProcesado::procesando() {
+
+	if (sdlutils().virtualTimer().currTime() - tiempo >= TIEMPO_PROCESADO) {
+		ingr_->setProcesado(true, ingr_);
+		tiempo = sdlutils().currRealTime();
+		clip.x = i * clip.w;
+		sdlutils().soundEffects().at("cortar1").haltChannel(canalSonido);
+	}
+
+	else if (sdlutils().virtualTimer().currTime() - tiempo >= rellenoTimer + TIEMPO_PROCESADO / 8) {
+
+			clip.x = i * clip.w;
+			i++;
+			rellenoTimer += TIEMPO_PROCESADO / 8;
+	}
+}
+
+void TablaProcesado::render(SDL_Rect* camera)
+{
+	if (isActive()) {
+		SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, getWidth(),
+			getHeight() };
+
+		//if(funcionando)
+			drawRender(camera, dest, &sdlutils().images().at("tablaProcesado"));
+		//else drawRender(camera, dest, &sdlutils().images().at("berenjena"));
+
+		if (ingr_ != nullptr && !ingr_->getProcesado() && i != 0) {
+
+			SDL_Rect dest_ = { getX() - getWidth() / 2, getY() - getHeight(), timerDimension, timerDimension };
+
+			drawRender(camera, dest_, &sdlutils().images().at("timer"), clip);
+		}
+
+		humo->draw(camera);
+	}
+
 }
 
 bool TablaProcesado::receiveIngrediente(Ingrediente* ingr)
 {
-	
-	if (ingr_ == nullptr) {
+	if (ingr != nullptr && funcionando)
+	{
+		if (ingr_ == nullptr && !ingr->getProcesado()) 
+		{
+			ingr_ = ingr;
 
-		ingr_ = ingr;
+			tiempo = sdlutils().virtualTimer().currTime();
 
-		tiempo = sdlutils().currRealTime();
+			ingr_->setPosition(getRectCenter(getOverlap()));
 
-		ingr_->setPosition(getX(), getY());
+			if (ingr_->getTipo() != mejillon && ingr_->getTipo() != gamba) {
+				canalSonido = sdlutils().soundEffects().at("cortar" + to_string(sdlutils().rand().nextInt(1, 4))).play(-1);
+			}
+			else {
+				canalSonido = sdlutils().soundEffects().at("cortarMejillones").play(-1);
+			}
 
-		return true;
+			return true;
+		}
 	}
 
 	return false;
-
 }
 
 bool TablaProcesado::returnObject(Player* p)
 {
 	if (ingr_ != nullptr)
 	{
-		//TOCHECK: Podríamos hacer un return del objeto y que el player se lo guarde a sí mismo
+		//TOCHECK: Podrï¿½amos hacer un return del objeto y que el player se lo guarde a sï¿½ mismo
 		p->setPickedObject(ingr_, INGREDIENTE);
+		if (ingr_->getProcesado() && dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == States::TUTORIALSTATE_PROCESAR_INGREDIENTE)
+			mGame->getCurrentScene()->changeState(States::TUTORIALSTATE_PAUSA_PROCESAR_INGREDIENTE);
 
 		ingr_ = nullptr;
+
+		i = 0;
+		clip.x = 0;
+		rellenoTimer = 0;
+
+		sdlutils().soundEffects().at("cortar1").haltChannel(canalSonido);
 
 		return true;
 	}
 	else
 		return false;
+}
+
+bool TablaProcesado::resetCounter()
+{
+	couldBreak = MAX_BREAK_TIME;
+	return true;
 }

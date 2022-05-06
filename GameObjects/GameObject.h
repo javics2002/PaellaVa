@@ -1,9 +1,8 @@
 #pragma once
 
-#include "Collider.h"
-
 #include "../Utils/Texture.h"
 #include "../Utils/Vector2D.h"
+#include "../Utils/Collider.h"
 #include "../sdlutils/SDLUtils.h"
 
 #include <string>
@@ -16,40 +15,52 @@ using namespace std;
 class GameObject : public Collider
 {
     const int CENTER_TAM = 4;
+    bool active = true;
 
 protected:
     Vector2D<double> pos, vel;
     int w, h;
+    int iniW, iniH;
+    double iniX, iniY;
+    int z; // para el render por capas
+    int posVertical; // mi posicion proyectada al suelo
 
-    Game* game;
+    Game* mGame;
     Texture* texture;
-    bool active = true;
+   
+    int canalSonido;
 
-    void drawRender(SDL_Rect* cameraRect);   
+    int mId; // Id del objeto
+
+    void drawRender(SDL_Rect* cameraRect);
     void drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex);
     void drawRender(SDL_Rect rect, Texture* tex);
-    void drawDebug(SDL_Rect* cameraRect);
-    void drawDebug(SDL_Rect* cameraRect, SDL_Rect rect);
+    void drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex, SDL_Rect clip);
+    void drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex, SDL_Rect clip, SDL_RendererFlip flip);
+    void drawRender(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex, SDL_Rect clip, double rot);
+    void drawRender(SDL_Rect* cameraRect, Uint8 alpha);
 
-    bool hasCollision(SDL_Rect rect1, SDL_Rect rect2);
+    void drawDebug(SDL_Rect* cameraRect); 
+    void drawDebug(SDL_Rect* cameraRect, SDL_Rect rect);    
 
 public:
 
-    GameObject(Game* game) 
-        : game(game), texture(nullptr), w(0), h(0) {};
-    GameObject(Game* game, string claveTextura) 
-        : game(game), texture(&sdlutils().images().at(claveTextura)), w(0), h(0) {};
+    GameObject(Game* mGame) 
+        : mGame(mGame), texture(nullptr), w(0), h(0), z(1) {};
+    GameObject(Game* mGame, string claveTextura) 
+        : mGame(mGame), texture(&sdlutils().images().at(claveTextura)), w(0), h(0), z(1) {};
 
     virtual ~GameObject() {};
 
-    virtual void update() {
-        pos = pos + vel;
-    };
+    virtual void update() {};
+
+    virtual void setVel(Vector2D<double> vel_) { vel = vel_; };
+    Vector2D<double> getVel() { return vel; };
 
     virtual void init(ObjectManager* objectManager) {};
 
     virtual void render(SDL_Rect* cameraRect);
-    virtual void renderDebug(SDL_Rect* cameraRect);
+    virtual void renderDebug(SDL_Rect* cameraRect); 
 
     virtual bool onClick(int mx, int my, bool& exit) { return false; };
 
@@ -58,21 +69,44 @@ public:
     void setDimension(int width, int height);
     void setDimension();
 
+    void setInitialPosition(int xPos, int yPos);
+    int getInitialPositionX() { return iniX; }
+    int getInitialPositionY() { return iniY; }
+
+    void setInitialDimension(int width, int height);
+    int getInitialWidth() { return iniW; }
+    int getInitialHeight() { return iniH; }
+
     void setTexture(string clave);
     void setTexture(const string text, const string font, const SDL_Color& fgColor, const SDL_Color& bgColor);
 
     int getWidth() { return w; };
     int getHeight() { return h; };
 
+    void setDepth(int depth) { z = depth; }
+    int getDepth() { return z; }
+    
+    void setPosVertical(int nuevaPosVertical) { posVertical = pos.getY() + h / 2 + nuevaPosVertical; }
+    int getPosVertical() { return posVertical; }
+
     double getX() { return pos.getX(); };
     double getY() { return pos.getY(); };
     Vector2D<double> getPosition() { return pos; }
 
-    bool isActive() { return active; };
-    void setActive(bool a) { active = a; };
+    virtual void onActivate() {}
+    virtual void onDeactivate() {}
 
-    virtual SDL_Rect getCollider();
+    virtual SDL_Rect getTexBox();
     virtual SDL_Rect getCenter();
 
-    virtual bool collide(SDL_Rect other);
+    bool isActive() { return active; }
+    void setActive(bool a) { active = a; }
+
+    SDL_Rect getCollider() override;
+    SDL_Rect getOverlap() override;
+
+    void anim(SDL_Rect* cameraRect, SDL_Rect rect, Texture* tex, SDL_Rect clip);
+
+    void setId(int newId) { mId = newId; }
+    int getId() { return mId; }
 };

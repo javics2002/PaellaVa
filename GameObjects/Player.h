@@ -1,26 +1,25 @@
 #pragma once
 #include "GameObject.h"
 #include "ObjetoPortable.h"
-#include "../Control/Input.h"
 #include "../sdlutils/InputHandler.h"
 
 class Ingrediente;
 class Cliente;
 class Paella;
-
+class Arroz;
 class Mueble;
 
 enum orientation { N, S, E, O };
-enum objectType { INGREDIENTE, CLIENTES, PAELLA};
+enum objectType { INGREDIENTE, CLIENTES, PAELLA, ARROZ, HERRAMIENTA};
 
 class Player : public GameObject
 {
-	float lastTime_;
-
 	ObjetoPortable* pickedObject_;
 	objectType objectType_;
 
-	Input* input_;
+	bool chef_;		// False is waiter
+	bool enComanda=false;
+
 	orientation orientation_;
 	
 	float aceleracion, deceleracion, maxVel;
@@ -30,28 +29,45 @@ class Player : public GameObject
 
 	bool nearestObject(ObjetoPortable* go);
 	Mueble* nearestObject(Mueble* m1, Mueble* m2);
-	void setAnimResources();
-	void animUpdate();
 
-	int id_;
+	void setAnimResources();
+	void animUpdate(Vector2D<double> axis);
+
+	vector<Texture*> anims;
+	SDL_RendererFlip flip;
+	SDL_Rect clip;
+	int frameCounter;
+	float lastFrameTime;
+	float frameRate;
+	int currAnim;
 
 public:
-	Player(Game* game);
+	Player(Game* mGame, double x, double y,bool chef);
 	~Player();
 
-	void handleInput();
-	void handleInput(Vector2D<double> axis);
+	void handleInput(Vector2D<double> axis, bool playerOne);
 
 	void update() override;
 	void renderDebug(SDL_Rect* cameraRect) override;
-
-	SDL_Rect getOverlapCollider();	
+	void render(SDL_Rect* cameraRect) override;
 
 	void setPickedObject(ObjetoPortable* op, objectType ot);
 
-	void setId(int id) { id_ = id; }
-	int getId() { return id_; }
+	//Vector2D<double> getAxis() { return ih().getAxis(); }
 
-	Vector2D<double> getAxis() { return ih().getAxis(); }
+	void setVel(double x, double y);
+	void setVel(Vector2D<double> vel2);
+	Vector2D<double> getVel();
+	Vector2D<double> getOrientation();
+
+	SDL_Rect getCollider() override;
+	SDL_Rect getOverlap() override;
+
+	void changePlayer(bool c); //para el tutorial 
+
+	void changeEnComanda(bool c) { enComanda = c; };
+
+	void PickCustomObject(int objectType, int objectId, int muebleId, int extraInfo);
+	void DropCustomObject(int objectType, int objectId, int muebleId);
 };
 
