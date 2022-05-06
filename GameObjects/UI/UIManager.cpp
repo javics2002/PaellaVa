@@ -922,7 +922,7 @@ void UIManager::creaMenuOpciones()
 
 			mGame->setNombre(nombrePlayer);
 
-			nombre->setTexture(nombrePlayer, string("abadiNombre"), { 255, 255, 255, 255 }, { 0, 0, 0, 0 });
+			nombre->setTexture(nombrePlayer, string("ip"), { 255, 255, 255, 255 }, { 0, 0, 0, 0 });
 			nombre->setDimension();
 		}
 		nombre->render(nullptr);
