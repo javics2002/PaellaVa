@@ -523,34 +523,34 @@ El diseño de sonido consta de una gama de sonidos realistas, que representan ca
 
 | Nombre         | Normal       | Procesado   | En Paella   | 
 |----------------|--------------|-------------|-------------|
-| Gambas         |              |             |             |             
-| Calamares      |              |             |             |             
-| Mejillones     |              |             |             |             
-| Pimiento Verde |              |             |             |             
-| Pimiento Rojo  |              |             |             |             
-| Pollo          |              |             |             |              
-| Cangrejo       |              |             |             |              
-| Langosta       |              |             |             |               
-| Alcachofa      |              |             |             |                        
+| Gambas         | <img src="images_gdd/45gamba.PNG">             | <img src="images_gdd/46gamba.PNG">            |             |             
+| Calamares      | <img src="images_gdd/47calamar.PNG">             | <img src="images_gdd/48calamar.PNG">            |             |             
+| Mejillones     | <img src="images_gdd/49almeja.PNG">             | <img src="images_gdd/50almeja.PNG">            |             |             
+| Pimiento Verde | <img src="images_gdd/51pimiento.PNG">             | <img src="images_gdd/52pimiento.PNG">            |             |             
+| Pimiento Rojo  | <img src="images_gdd/53pimiento2.PNG">             | <img src="images_gdd/54pimiento2.PNG">            |             |             
+| Pollo          | <img src="images_gdd/55pollo.PNG">             | <img src="images_gdd/56pollo.PNG">            |             |              
+| Cangrejo       | <img src="images_gdd/57cangrejo.PNG">             | <img src="images_gdd/58cangrejo.PNG">            |             |              
+| Langosta       | <img src="images_gdd/59langosta.PNG">             | <img src="images_gdd/60langosta.PNG">            |             |               
+| Alcachofa      | <img src="images_gdd/61alcahofa.PNG">             | <img src="images_gdd/62alcahofa.PNG">            |             |                        
 
-<img src="images_gdd/45gamba.PNG">
-<img src="images_gdd/46gamba.PNG">
-<img src="images_gdd/47calamar.PNG">
-<img src="images_gdd/48calamar.PNG">
-<img src="images_gdd/49almeja.PNG">
-<img src="images_gdd/50almeja.PNG">
-<img src="images_gdd/51pimiento.PNG">
-<img src="images_gdd/52pimiento.PNG">
-<img src="images_gdd/53pimiento2.PNG">
-<img src="images_gdd/54pimiento2.PNG">
-<img src="images_gdd/55pollo.PNG">
-<img src="images_gdd/56pollo.PNG">
-<img src="images_gdd/57cangrejo.PNG">
-<img src="images_gdd/58cangrejo.PNG">
-<img src="images_gdd/59langosta.PNG">
-<img src="images_gdd/60langosta.PNG">
-<img src="images_gdd/61alcahofa.PNG">
-<img src="images_gdd/62alcahofa.PNG">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### Restaurante: <a name="restaurante"></a>
 Sprites ligados al entorno de juego:
