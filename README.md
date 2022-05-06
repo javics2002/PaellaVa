@@ -218,9 +218,9 @@ La paella podrá tener de 0 a 3 ingredientes, independientemente de que los clie
     8. Esperar a que la paella se cocine.
     9. Quitar la paella de los fogones (una vez sacada la paella de los fogones esta no se podrá volver a calentar)
 
-        <img src="images_gdd/14paella.PNG">
-        <img src="images_gdd/15paella.PNG">
-        <img src="images_gdd/16paella.PNG">
+        <img src="images_gdd/14paella.PNG"> <img src="images_gdd/15paella.PNG"> <img src="images_gdd/16paella.PNG">
+        
+        
 
 
 
@@ -238,8 +238,9 @@ La paella podrá tener de 0 a 3 ingredientes, independientemente de que los clie
     * Si el cocinero consigue sacar la paella en el momento justo el restaurante conseguirá más puntos a la hora de vender el plato.
     * En contrapartida, perderá puntos si el plato sale crudo o muy hecho.
 
-<img src="images_gdd/17paella.PNG">
-<img src="images_gdd/18paella.PNG">
+
+<img src="images_gdd/17paella.PNG"> <img src="images_gdd/18paella.PNG">
+
 
 * **Estado de la paellera:**
     * Durante el ciclo de vida de la paella esta tendrá aspectos:
@@ -470,11 +471,8 @@ A lo largo de la partida surgirán eventos durante las jornadas de forma aleator
 
 | Acción                     | Teclado          |
 |----------------------------|------------------|
-| Moverse                    |       WASD       |
-| Interactuar*               |  Click izquierdo |
-| Escribir número de la mesa | Teclado numérico |
-
-Interactuar* incluye:
+| Moverse                    |       WASD / Joystick izquierdo      |
+| Interactuar:
 * Coger ingrediente
 * Procesar ingrediente en la tabla de procesado
 * Echar ingrediente procesado  / arroz a la paella
@@ -488,6 +486,13 @@ Interactuar* incluye:
 * Botones de las interfaces
 * Coger grupo de comensales
 * Echar grupo de comensales por la puerta
+              | Tecla ‘E’ / Botón A |
+| Cancelar | Tecla “ESC” / Botón B |
+| Escribir comanda | Tecla ‘Q’ / Botón X |
+| Abrir libreta de comandas | Tab / Botón Y |
+| Sacar y meter la libreta | Shift Izquierdo / LT |
+| Ocultar lista de comandas | Click Izquierdo / RT |
+
 
 <img src="images_gdd/41controles.PNG">
 <img src="images_gdd/42controles.PNG">
@@ -531,6 +536,28 @@ El diseño de sonido consta de una gama de sonidos realistas, que representan ca
 | Cangrejo       | <img src="images_gdd/57cangrejo.PNG"> | <img src="images_gdd/58cangrejo.PNG">            |  <img src="images_gdd/7.png">            |              
 | Langosta       | <img src="images_gdd/59langosta.PNG"> | <img src="images_gdd/60langosta.PNG">            |  <img src="images_gdd/8.png">            |               
 | Alcachofa      | <img src="images_gdd/61alcachofa.PNG"> | <img src="images_gdd/61alcachofa.PNG">            | <img src="images_gdd/9.png">          |                        
+
+### Paellas: <a name="paellas"></a>
+
+La paellas tendrán distintos sprites dependiendo de la cocción del arroz:
+
+|  | Paella Completa | Paella Mitad |
+|----------------|--------------|--------------|
+| Cruda        | <img src="images_gdd/paellaCruda.png"> | <img src="images_gdd/paellaCrudaMitad.png"> |
+| Poco Hecho        | <img src="images_gdd/paellaPocoHecha.png"> | <img src="images_gdd/paellaPocoHechaMitad.png"> |
+| Paella Perfecta         | <img src="images_gdd/paellaCompleta.png"> | <img src="images_gdd/paellaMitad.png"> |
+| Paella Muy Hecha | <img src="images_gdd/paellaMuyHecha.png"> | <img src="images_gdd/paellaMuyHechaMitad.png"> |
+| Paella Quemada        | <img src="images_gdd/paellaQuemada.png"> | <img src="images_gdd/paellaQuemadaMitad.png"> |
+| Paella Incomestible         | <img src="images_gdd/paellaIncomestible.png"> | <img src="images_gdd/paellaIncomestibleMitad.png"> |
+
+Paellera Limpia:
+
+
+<img src="images_gdd/paellaVacia.png">
+
+Paellara Sucia:
+
+<img src="images_gdd/paellaSucia.png">
 
 ### Restaurante: <a name="restaurante"></a>
 Sprites ligados al entorno de juego:
