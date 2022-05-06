@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.4" orientation="orthogonal" renderorder="right-down" width="39" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="242">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="39" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="253">
  <tileset firstgid="1" source="Tileset.tsx"/>
  <layer id="1" name="Capa de patrones 1" width="39" height="12">
   <data encoding="csv">
@@ -13,8 +13,8 @@
 13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
 13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
 13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,25,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
-13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
-13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,1,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4
+13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,19,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,
+13,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,20,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4
 </data>
  </layer>
  <objectgroup id="2" name="Capa de Objetos 1">
@@ -22,6 +22,9 @@
    <point/>
   </object>
   <object id="5" name="cartel" x="832" y="614">
+   <point/>
+  </object>
+  <object id="242" name="camarero" x="704" y="614">
    <point/>
   </object>
   <object id="6" name="inicioCinta" x="2240" y="102">
@@ -44,7 +47,7 @@
   <object id="9" name="fogon" x="1728" y="512">
    <point/>
   </object>
-  <object id="10" name="ventanilla" x="1216" y="362">
+  <object id="10" name="encimera" x="1216" y="362">
    <point/>
   </object>
   <object id="11" name="lavavajillas" x="1216" y="234">
@@ -53,22 +56,22 @@
   <object id="12" name="mesaS" x="944" y="144.167">
    <point/>
   </object>
-  <object id="13" name="mesaL" x="192" y="192">
+  <object id="13" name="mesaL" x="192" y="196">
    <point/>
   </object>
-  <object id="14" name="mesaS" x="317.5" y="513">
+  <object id="14" name="mesaS" x="317.5" y="485">
    <point/>
   </object>
   <object id="15" name="fogon" x="1792" y="512">
    <point/>
   </object>
-  <object id="16" name="fogon" x="1856" y="126.667">
+  <object id="16" name="fogon" x="1856" y="102">
    <point/>
   </object>
-  <object id="17" name="fogon" x="1920" y="128">
+  <object id="17" name="fogon" x="1920" y="102">
    <point/>
   </object>
-  <object id="18" name="tabla" x="1598.66" y="128">
+  <object id="18" name="tabla" x="1598.66" y="102">
    <point/>
   </object>
   <object id="19" name="sillaDer" x="511.667" y="128">
@@ -77,7 +80,7 @@
   <object id="21" name="sillaIz" x="1008" y="144.5">
    <point/>
   </object>
-  <object id="22" name="sillaAb" x="192" y="128">
+  <object id="22" name="sillaAb" x="192" y="169">
    <point/>
   </object>
   <object id="27" name="puerta" x="0" y="614">
@@ -85,45 +88,39 @@
     <property name="MaxTamGrupo" type="int" value="6"/>
     <property name="VelocidadX" type="float" value="2"/>
     <property name="VelocidadY" type="float" value="0"/>
-    <property name="t_Max" type="int" value="8"/>
+    <property name="t_Max" type="int" value="9"/>
     <property name="vertical" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
-  <object id="30" name="mesaS" x="944" y="380">
+  <object id="30" name="mesaS" x="944" y="424">
    <point/>
   </object>
-  <object id="31" name="sillaDer" x="880" y="380">
+  <object id="31" name="sillaDer" x="880" y="424">
    <point/>
   </object>
-  <object id="32" name="sillaIz" x="1008" y="380">
+  <object id="32" name="sillaIz" x="1008" y="424">
    <point/>
   </object>
-  <object id="33" name="sillaAb" x="256" y="128">
+  <object id="33" name="sillaAb" x="256" y="169">
    <point/>
   </object>
-  <object id="34" name="sillaDer" x="128" y="192">
+  <object id="34" name="sillaDer" x="128" y="204">
    <point/>
   </object>
   <object id="35" name="sillaDer" x="128" y="256">
    <point/>
   </object>
-  <object id="36" name="sillaAr" x="256" y="320">
-   <point/>
-  </object>
-  <object id="37" name="sillaAr" x="192" y="320">
-   <point/>
-  </object>
-  <object id="38" name="sillaIz" x="320" y="192">
+  <object id="38" name="sillaIz" x="320" y="204">
    <point/>
   </object>
   <object id="39" name="sillaIz" x="320" y="256">
    <point/>
   </object>
-  <object id="41" name="sillaIz" x="381" y="513">
+  <object id="41" name="sillaIz" x="381" y="485">
    <point/>
   </object>
-  <object id="42" name="sillaDer" x="253" y="513">
+  <object id="42" name="sillaDer" x="253" y="485">
    <point/>
   </object>
   <object id="46" name="arroz" x="1408.17" y="101.833">
@@ -138,16 +135,13 @@
   <object id="50" name="sillaDer" x="880" y="143.667">
    <point/>
   </object>
-  <object id="51" name="sillaAr" x="944" y="444">
-   <point/>
-  </object>
   <object id="52" name="sillaIz" x="640" y="128.5">
    <point/>
   </object>
-  <object id="60" name="encimera" x="1664.17" y="127.667">
+  <object id="60" name="encimera" x="1664.17" y="102">
    <point/>
   </object>
-  <object id="61" name="encimera" x="1728" y="128.167">
+  <object id="61" name="encimera" x="1728" y="102">
    <point/>
   </object>
   <object id="63" name="encimera" x="1856" y="448">
@@ -175,6 +169,9 @@
    <point/>
   </object>
   <object id="215" name="pilaL" x="1536" y="624.667">
+   <point/>
+  </object>
+  <object id="243" name="cocinera" x="1472" y="368.667">
    <point/>
   </object>
   <object id="217" name="cinta" x="2240" y="232">
@@ -213,22 +210,22 @@
    </properties>
    <point/>
   </object>
-  <object id="224" name="ventanilla" x="1216" y="298">
+  <object id="224" name="encimera" x="1216" y="298">
    <point/>
   </object>
-  <object id="226" name="sillaAr" x="944" y="207.417">
+  <object id="231" name="mesaS" x="582.667" y="342.333">
    <point/>
   </object>
-  <object id="231" name="mesaS" x="582.667" y="298.333">
+  <object id="232" name="sillaDer" x="518.667" y="342.333">
    <point/>
   </object>
-  <object id="232" name="sillaDer" x="518.667" y="298.333">
+  <object id="233" name="sillaIz" x="646.667" y="342.333">
    <point/>
   </object>
-  <object id="233" name="sillaIz" x="646.667" y="298.333">
+  <object id="244" name="sillaAb" x="582.667" y="294">
    <point/>
   </object>
-  <object id="234" name="sillaAr" x="582.667" y="362.333">
+  <object id="245" name="sillaAb" x="944" y="374">
    <point/>
   </object>
  </objectgroup>
@@ -534,6 +531,27 @@
    <point/>
   </object>
   <object id="225" name="pared" x="1216" y="256">
+   <point/>
+  </object>
+  <object id="246" name="pared" x="2242" y="169">
+   <point/>
+  </object>
+  <object id="247" name="pared" x="2242" y="233">
+   <point/>
+  </object>
+  <object id="248" name="pared" x="2242" y="297">
+   <point/>
+  </object>
+  <object id="249" name="pared" x="2242" y="361">
+   <point/>
+  </object>
+  <object id="250" name="pared" x="2242" y="425">
+   <point/>
+  </object>
+  <object id="251" name="pared" x="2242" y="489">
+   <point/>
+  </object>
+  <object id="252" name="pared" x="2242" y="553">
    <point/>
   </object>
  </objectgroup>

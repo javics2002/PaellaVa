@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.4" orientation="orthogonal" renderorder="right-down" width="39" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="14" nextobjectid="307">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="39" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="14" nextobjectid="320">
  <tileset firstgid="1" source="Tileset.tsx"/>
  <layer id="1" name="Capa de patrones 1" width="39" height="12">
   <data encoding="csv">
-2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
-2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
-7,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,14,
-5,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,12,
-5,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,12,
-5,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,9,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,12,
+2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,14,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,14,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
+5,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,17,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,12,
+5,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,18,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,12,
+5,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,18,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,12,
+5,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,28,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,12,
 5,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,9,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,12,
 5,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,9,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,12,
 5,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,9,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,12,
@@ -39,13 +39,13 @@
   </object>
   <object id="7" name="cinta" x="64" y="614">
    <properties>
-    <property name="Horizontal" type="bool" value="true"/>
+    <property name="Horizontal" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
   <object id="265" name="cinta" x="64" y="165">
    <properties>
-    <property name="Horizontal" type="bool" value="true"/>
+    <property name="Horizontal" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
@@ -61,13 +61,16 @@
   <object id="17" name="fogon" x="320" y="682">
    <point/>
   </object>
+  <object id="307" name="cocinera" x="576" y="554">
+   <point/>
+  </object>
   <object id="260" name="fogon" x="320" y="128">
    <point/>
   </object>
   <object id="18" name="tabla" x="704" y="424">
    <point/>
   </object>
-  <object id="19" name="sillaDer" x="1374" y="512">
+  <object id="19" name="sillaDer" x="1374" y="525">
    <point/>
   </object>
   <object id="281" name="cartel" x="1473" y="195">
@@ -78,7 +81,7 @@
     <property name="MaxTamGrupo" type="int" value="4"/>
     <property name="VelocidadX" type="float" value="-2"/>
     <property name="VelocidadY" type="float" value="0"/>
-    <property name="t_Max" type="int" value="8"/>
+    <property name="t_Max" type="int" value="9"/>
     <property name="vertical" type="bool" value="false"/>
    </properties>
    <point/>
@@ -92,7 +95,7 @@
   <object id="288" name="mesaMH" x="2201.86" y="603">
    <point/>
   </object>
-  <object id="300" name="mesaMH" x="2009.86" y="411">
+  <object id="300" name="mesaL" x="1965" y="382">
    <point/>
   </object>
   <object id="294" name="mesaMV" x="2329.86" y="348">
@@ -110,16 +113,13 @@
   <object id="287" name="sillaDer" x="2138" y="603">
    <point/>
   </object>
-  <object id="299" name="sillaDer" x="1946" y="347">
+  <object id="308" name="camarero" x="2010" y="539">
    <point/>
   </object>
-  <object id="302" name="sillaDer" x="1946" y="411">
+  <object id="299" name="sillaDer" x="1901" y="394">
    <point/>
   </object>
-  <object id="293" name="sillaAr" x="2330" y="412">
-   <point/>
-  </object>
-  <object id="304" name="sillaAr" x="1728" y="412">
+  <object id="302" name="sillaDer" x="1901" y="442">
    <point/>
   </object>
   <object id="32" name="sillaIz" x="1881.83" y="603">
@@ -131,16 +131,16 @@
   <object id="286" name="sillaIz" x="2329.83" y="603">
    <point/>
   </object>
-  <object id="298" name="sillaIz" x="2137.83" y="347">
+  <object id="298" name="sillaIz" x="2092.83" y="394">
    <point/>
   </object>
-  <object id="301" name="sillaIz" x="2137.83" y="411">
+  <object id="301" name="sillaIz" x="2092.83" y="442">
    <point/>
   </object>
-  <object id="292" name="sillaAb" x="2329.83" y="284">
+  <object id="292" name="sillaAb" x="2329.83" y="306">
    <point/>
   </object>
-  <object id="303" name="sillaAb" x="1727.83" y="284">
+  <object id="303" name="sillaAb" x="1727.83" y="306">
    <point/>
   </object>
   <object id="46" name="arroz" x="704" y="682">
@@ -149,10 +149,7 @@
   <object id="47" name="tabla" x="448" y="424">
    <point/>
   </object>
-  <object id="51" name="sillaAr" x="1438" y="606.5">
-   <point/>
-  </object>
-  <object id="52" name="sillaIz" x="1502" y="512">
+  <object id="52" name="sillaIz" x="1502" y="525">
    <point/>
   </object>
   <object id="60" name="encimera" x="640" y="424">
@@ -190,13 +187,13 @@
   </object>
   <object id="226" name="cinta" x="64" y="550">
    <properties>
-    <property name="Horizontal" type="bool" value="true"/>
+    <property name="Horizontal" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
   <object id="263" name="cinta" x="64" y="229">
    <properties>
-    <property name="Horizontal" type="bool" value="true"/>
+    <property name="Horizontal" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
@@ -220,24 +217,51 @@
   </object>
   <object id="242" name="cinta" x="64" y="486">
    <properties>
-    <property name="Horizontal" type="bool" value="true"/>
+    <property name="Horizontal" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
   <object id="278" name="cinta" x="64" y="422">
    <properties>
-    <property name="Horizontal" type="bool" value="true"/>
+    <property name="Horizontal" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
   <object id="262" name="cinta" x="64" y="293">
    <properties>
-    <property name="Horizontal" type="bool" value="true"/>
+    <property name="Horizontal" type="bool" value="false"/>
    </properties>
    <point/>
   </object>
+  <object id="309" name="sillaDer" x="1665" y="348">
+   <point/>
+  </object>
+  <object id="310" name="sillaDer" x="2267.33" y="348.333">
+   <point/>
+  </object>
+  <object id="311" name="sillaDer" x="2267.33" y="396.333">
+   <point/>
+  </object>
+  <object id="312" name="sillaDer" x="1374" y="575">
+   <point/>
+  </object>
+  <object id="313" name="sillaIz" x="1502" y="575">
+   <point/>
+  </object>
+  <object id="314" name="sillaAb" x="1965" y="348">
+   <point/>
+  </object>
+  <object id="315" name="sillaAb" x="2032.33" y="346">
+   <point/>
+  </object>
+  <object id="316" name="cajaHerramientas" x="1152" y="556">
+   <point/>
+  </object>
+  <object id="317" name="finalCinta" x="1152" y="620">
+   <point/>
+  </object>
  </objectgroup>
- <objectgroup id="3" name="Pared">
+ <objectgroup id="3" name="Pared" visible="0">
   <object id="72" name="pared" x="128" y="102">
    <point/>
   </object>
@@ -577,13 +601,13 @@
   <object id="248" name="pared" x="1216" y="358">
    <point/>
   </object>
-  <object id="250" name="lavavajillas" x="1216" y="422">
+  <object id="250" name="lavavajillas" x="1216" y="294">
    <point/>
   </object>
-  <object id="251" name="ventanilla" x="1216" y="294">
+  <object id="251" name="encimera" x="1216" y="358">
    <point/>
   </object>
-  <object id="252" name="ventanilla" x="1216" y="358">
+  <object id="252" name="encimera" x="1216" y="422">
    <point/>
   </object>
  </objectgroup>
