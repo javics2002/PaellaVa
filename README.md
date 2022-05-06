@@ -531,7 +531,7 @@ El diseño de sonido consta de una gama de sonidos realistas, que representan ca
 | Pollo          | <img src="images_gdd/55pollo.PNG">             | <img src="images_gdd/56pollo.PNG">            |             |              
 | Cangrejo       | <img src="images_gdd/57cangrejo.PNG">             | <img src="images_gdd/58cangrejo.PNG">            |             |              
 | Langosta       | <img src="images_gdd/59langosta.PNG">             | <img src="images_gdd/60langosta.PNG">            |             |               
-| Alcachofa      | <img src="images_gdd/61alcahofa.PNG">             | <img src="images_gdd/62alcahofa.PNG">            |             |                        
+| Alcachofa      | <img src="images_gdd/61alcachofa.PNG">             | <img src="images_gdd/61alcachofa.PNG">            |             |                        
 
 
 
