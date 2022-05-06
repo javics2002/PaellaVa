@@ -394,23 +394,25 @@ Interactuar* incluye:
 * Coger grupo de comensales
 * Echar grupo de comensales por la puerta
 
+<img src="images_gdd/comandasacumuladas.PNG">
+
 ## 4. Dinámica <a name="dinamica"></a>
 
-El tiempo de la jornada de trabajo (una partida) será de 13:00 a 23:00. Cada hora en el jugo es 1 minuto en la vida real, por lo que una partida durará 10 minutos. 
+El tiempo de la jornada de trabajo (una partida) será de 12:00 a 6:00. Cada hora en el jugo es 1 minuto en la vida real, por lo que una partida durará  6 minutos. 
 
-El objetivo del juego es conseguir la mayor puntuación posible. Como se ha explicado anteriormente, consigues más puntuación cuanto mejor cocines las paellas y más rápido atiendas a los clientes. En cambio, la perderás si te equivocas de platos, cocinas mal las paellas o si tardas mucho en atender a los clientes. Al final de la partida aparecerá la puntuación obtenida, junto con algunas reseñas que te dejarían los clientes criticando el servicio.
+El objetivo del juego es conseguir la mayor puntuación posible. Como se ha explicado anteriormente, consigues más puntuación cuanto mejor cocines las paellas y más rápido atiendas a los clientes. En cambio, la perderás si te equivocas de platos, cocinas mal las paellas o si tardas mucho en atender a los clientes. Al final de la partida aparecerá la puntuación obtenida.
 
-El juego busca la interacción entre los jugadores para decidir la estrategia con la cual abordar la partida. Ya sea que ambos jugadores vayan de la mano por cocina y comedor, ya sea una postura más tradicional con roles separados, ya sea una combinación de ambas posturas, ect.
+El juego busca la interacción entre los jugadores para decidir la estrategia con la cual abordar la partida. Ya sea que ambos jugadores vayan de la mano por cocina y comedor, ya sea una postura más tradicional con roles separados, ya sea una combinación de ambas posturas, etc.
 
 En general, se busca recompensar la buena comunicación y, por lo tanto, buena organización, entre jugadores, que serán aquellos que consigan sacar el restaurante adelante y conseguir una mayor puntuación. 
 
 ## 5. Estética <a name="estetica"></a>
 
-Concepts, arte, sensaciones, música…
-Pixelart? Lo suyo sería probar concepts de ambos estilos y ver la dificultad Votos: Si (0) No (1)
-Los personajes podrían ser personalizables. La base del monigote seria blanca y desnuda y mediante tintes se escoge un tono de piel y de pelo y se le podrían poner varios uniformes.
-Otra opción es hacer 2 personajes “canon” fijos. (Se puede intentar hacer personalizables y si no se puede que sean fijos y ya)
-Votos: Personalizables (2) Fijos (1)
+La estética general del juego está basada en un arte cartoon vectorizada, con colores pastel y una gama de colores animada. En definitiva, una estética poco agresiva que promueve el aspecto para todos los públicos del juego.
+
+Habrá dos personajes, el camarero y el cocinero, cada uno de ellos con una apariencia diferente pero dentro de la misma estética.
+
+El diseño de sonido consta de una gama de sonidos realistas, que representan cada una de las acciones realizadas por el jugador.
 
 ## 6. Contenido <a name="contenido"></a>
 
