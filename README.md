@@ -546,8 +546,12 @@ La paellas tendrán distintos sprites dependiendo de la cocción del arroz:
 | Paella Incomestible         | <img src="images_gdd/paellaIncomestible.png"> | <img src="images_gdd/paellaIncomestibleMitad.png"> |
 
 Paellera Limpia:
+
+
 <img src="images_gdd/paellaVacia.png">
+
 Paellara Sucia:
+
 <img src="images_gdd/paellaSucia.png">
 
 ### Restaurante: <a name="restaurante"></a>
