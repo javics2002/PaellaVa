@@ -80,7 +80,7 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 		}
 
 		//Si el jugador no lleva nada encima
-		if (pickedObject_ == nullptr) {
+		if (pickedObject_ == nullptr && pickedPaellas_.empty()) {
 
 			//Si se ha encontrado un mueble, se intenta interactuar con 
 			//este con returnObject(), para que te devuelva el objeto
@@ -90,6 +90,7 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 				// Mandar mensaje de que he pillado un objeto
 				if (objectType_ == PAELLA) {
 					Paella* pa = dynamic_cast<Paella*>(pickedObject_);
+					pickedPaellas_.push_back(pa);
 					mGame->getNetworkManager()->syncPickObject(objectType_, pa->getId(), m->getId(), pa->getTipo());
 				}
 				else if (objectType_ == INGREDIENTE) {
@@ -206,26 +207,63 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 				}
 				break;
 			case PAELLA:
-				if (m != nullptr && m->receivePaella(dynamic_cast<Paella*>(pickedObject_))) {
-					if (dynamic_cast<Tutorial*>(mGame->getCurrentScene())) {
-						if (dynamic_cast<Mesa*>(m))
-						{
-							if (mGame->getCurrentScene()->getState() == States::TUTORIALSTATE_PAUSA_DAR_DE_COMER) {
-								pickedObject_->dropObject();
-								pickedObject_ = nullptr;
+
+				// Coger otra Paella si la hay
+				// Mira objeto en mueble
+				if (m != nullptr && m->returnObject(this) && objectType_ == PAELLA && pickedPaellas_.size() < MAX_PAELLAS_CARRY_) {
+					pickedObject_->pickObject();
+					Paella* pa = dynamic_cast<Paella*>(pickedObject_);
+
+					pickedPaellas_.push_back(pa);
+					mGame->getNetworkManager()->syncPickObject(objectType_, pa->getId(), m->getId(), pa->getTipo());
+				}
+				else {
+
+					if (m != nullptr && m->receivePaella(pickedPaellas_.back())) {
+						if (dynamic_cast<Tutorial*>(mGame->getCurrentScene())) {
+							if (dynamic_cast<Mesa*>(m))
+							{
+								if (mGame->getCurrentScene()->getState() == States::TUTORIALSTATE_PAUSA_DAR_DE_COMER) {
+									pickedPaellas_.back()->dropObject();
+									pickedPaellas_.pop_back();
+									pickedPaellas_.shrink_to_fit();
+
+									if (pickedPaellas_.empty())
+										pickedObject_ = nullptr;
+									else {
+										pickedObject_ = pickedPaellas_.back();
+										objectType_ = PAELLA;
+									}
+								}
+							}
+							else {
+								pickedPaellas_.back()->dropObject();
+								pickedPaellas_.pop_back();
+								pickedPaellas_.shrink_to_fit();
+
+								if (pickedPaellas_.empty())
+									pickedObject_ = nullptr;
+								else {
+									pickedObject_ = pickedPaellas_.back();
+									objectType_ = PAELLA;
+								}
 							}
 						}
 						else {
-							pickedObject_->dropObject();
-							pickedObject_ = nullptr;
-						}
-					}
-					else {
-						mGame->getNetworkManager()->syncDropObject(objectType_, pickedObject_->getId(), m->getId());
+							mGame->getNetworkManager()->syncDropObject(objectType_, pickedPaellas_.back()->getId(), m->getId());
 
-						if (m != dynamic_cast<FinalCinta*>(m)) {
-							pickedObject_->dropObject();
-							pickedObject_ = nullptr;
+							if (m != dynamic_cast<FinalCinta*>(m)) {
+								pickedPaellas_.back()->dropObject();
+								pickedPaellas_.pop_back();
+								pickedPaellas_.shrink_to_fit();
+
+								if (pickedPaellas_.empty())
+									pickedObject_ = nullptr;
+								else {
+									pickedObject_ = pickedPaellas_.back();
+									objectType_ = PAELLA;
+								}
+							}
 						}
 					}
 				}
@@ -337,6 +375,12 @@ void Player::update()
 		else
 			pickedObject_ = nullptr;
 	}
+
+	if (!pickedPaellas_.empty()) {
+		for (int i = 0; i < pickedPaellas_.size(); i++) {
+			pickedPaellas_[i]->setPosition(getX(), getY() - getHeight() / 5 - i * 15);
+		}
+	}
 }
 
 bool Player::nearestObject(ObjetoPortable* go)
@@ -390,31 +434,35 @@ void Player::animUpdate(Vector2D<double> axis)
 		switch (orientation_)
 		{
 		case N:
-			if (pickedObject_ != nullptr)
+			if (pickedObject_ != nullptr || !pickedPaellas_.empty())
 				currAnim = 8;
 			else 
 				currAnim = 2;
 			break;
+
 		case S:
-			if (pickedObject_ != nullptr)
+			if (pickedObject_ != nullptr || !pickedPaellas_.empty())
 				currAnim = 6;
 			else
 				currAnim = 0;
 			break;
+
 		case E:
-			if (pickedObject_ != nullptr)
+			if (pickedObject_ != nullptr || !pickedPaellas_.empty())
 				currAnim = 7;
 			else
 				currAnim = 1;
 			flip = SDL_FLIP_NONE;
 			break;
+
 		case O:
-			if (pickedObject_ != nullptr)
+			if (pickedObject_ != nullptr || !pickedPaellas_.empty())
 				currAnim = 7;
 			else
-			currAnim = 1;
-				flip = SDL_FLIP_HORIZONTAL;
+				currAnim = 1;
+			flip = SDL_FLIP_HORIZONTAL;
 			break;
+
 		default:
 			break;
 		}
@@ -423,14 +471,14 @@ void Player::animUpdate(Vector2D<double> axis)
 
 			if (axis.getY() > .1f && !enComanda) {
 				// Andar Abajo
-				if (pickedObject_ != nullptr)
+				if (pickedObject_ != nullptr || !pickedPaellas_.empty())
 					currAnim = 9;
 				else
 					currAnim = 3;
 			}
 			else if (axis.getY() < -.1f && !enComanda) {
 				// Andar Arriba
-				if (pickedObject_ != nullptr)
+				if (pickedObject_ != nullptr || !pickedPaellas_.empty())
 					currAnim = 11;
 				else
 					currAnim = 5;
@@ -439,14 +487,14 @@ void Player::animUpdate(Vector2D<double> axis)
 			// Horizontal va segundo para tener prioridad
 			if (axis.getX() > .1f && !enComanda) {
 				// Andar der
-				if (pickedObject_ != nullptr)
+				if (pickedObject_ != nullptr || !pickedPaellas_.empty())
 					currAnim = 10;
 				else
 					currAnim = 4;
 			}
 			else if (axis.getX() < -.1f && !enComanda) {
 				// Andar izq
-				if (pickedObject_ != nullptr)
+				if (pickedObject_ != nullptr || !pickedPaellas_.empty())
 					currAnim = 10;
 				else
 					currAnim = 4;
