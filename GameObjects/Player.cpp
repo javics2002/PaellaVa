@@ -211,19 +211,34 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 				// Coger otra Paella si la hay
 				// Mira objeto en mueble
 				if (m != nullptr && m->returnObject(this) && objectType_ == PAELLA && pickedPaellas_.size() < MAX_PAELLAS_CARRY_) {
-					pickedObject_->pickObject();
+ 					pickedObject_->pickObject();
 					Paella* pa = dynamic_cast<Paella*>(pickedObject_);
 
 					pickedPaellas_.push_back(pa);
 					mGame->getNetworkManager()->syncPickObject(objectType_, pa->getId(), m->getId(), pa->getTipo());
 				}
 				else {
+					// Si no es basura
+					if (m != nullptr && m != dynamic_cast<FinalCinta*>(m)) {
+						if (m->receivePaella(pickedPaellas_.back())) {
 
-					if (m != nullptr && m->receivePaella(pickedPaellas_.back())) {
-						if (dynamic_cast<Tutorial*>(mGame->getCurrentScene())) {
-							if (dynamic_cast<Mesa*>(m))
-							{
-								if (mGame->getCurrentScene()->getState() == States::TUTORIALSTATE_PAUSA_DAR_DE_COMER) {
+							if (dynamic_cast<Tutorial*>(mGame->getCurrentScene())) {
+								if (dynamic_cast<Mesa*>(m))
+								{
+									if (mGame->getCurrentScene()->getState() == States::TUTORIALSTATE_PAUSA_DAR_DE_COMER) {
+										pickedPaellas_.back()->dropObject();
+										pickedPaellas_.pop_back();
+										pickedPaellas_.shrink_to_fit();
+
+										if (pickedPaellas_.empty())
+											pickedObject_ = nullptr;
+										else {
+											pickedObject_ = pickedPaellas_.back();
+											objectType_ = PAELLA;
+										}
+									}
+								}
+								else {
 									pickedPaellas_.back()->dropObject();
 									pickedPaellas_.pop_back();
 									pickedPaellas_.shrink_to_fit();
@@ -237,6 +252,8 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 								}
 							}
 							else {
+
+								mGame->getNetworkManager()->syncDropObject(objectType_, pickedPaellas_.back()->getId(), m->getId());
 								pickedPaellas_.back()->dropObject();
 								pickedPaellas_.pop_back();
 								pickedPaellas_.shrink_to_fit();
@@ -249,22 +266,19 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 								}
 							}
 						}
-						else {
-							mGame->getNetworkManager()->syncDropObject(objectType_, pickedPaellas_.back()->getId(), m->getId());
+					}
+					// Tirar a la basura
+					else if (m != nullptr && m == dynamic_cast<FinalCinta*>(m)) {
 
-							if (m != dynamic_cast<FinalCinta*>(m)) {
-								pickedPaellas_.back()->dropObject();
-								pickedPaellas_.pop_back();
-								pickedPaellas_.shrink_to_fit();
-
-								if (pickedPaellas_.empty())
-									pickedObject_ = nullptr;
-								else {
-									pickedObject_ = pickedPaellas_.back();
-									objectType_ = PAELLA;
-								}
-							}
+						int i = MAX_PAELLAS_CARRY_ - 1;
+						while (i >= 0 && (pickedPaellas_[i]->getContenido() == Limpia || pickedPaellas_[i]->getContenido() == Sucia)) {
+							i--;
 						}
+
+						Paella* pa = pickedPaellas_[i];
+						// Tenemos ultima paella llena o primera paella de la pila
+						if (pa != pickedPaellas_.front() && m->receivePaella(pa))	mGame->getNetworkManager()->syncDropObject(objectType_, pa->getId(), m->getId());
+						else if (pa->getContenido() != Sucia && pa->getContenido() != Limpia && m->receivePaella(pa))	mGame->getNetworkManager()->syncDropObject(objectType_, pa->getId(), m->getId());
 					}
 				}
 				break;

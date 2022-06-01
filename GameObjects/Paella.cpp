@@ -202,7 +202,7 @@ void Paella::setEnsuciada() // Se ensucia la paella al tirarla a la basura
 void Paella::setContenido(Contenido contenidoP) // Actualiza el contenido
 {
 	mContenido = contenidoP;
-	mHumo->setStyle(ParticleExample::NONE);
+	// mHumo->setStyle(ParticleExample::NONE);
 }
 
 bool Paella::ingrValido(Ingrediente* ingr)
