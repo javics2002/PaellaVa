@@ -479,6 +479,13 @@ void Jornada::loadMap(string const& path)
 					mIdCount++;
 					getObjectManager()->addMueble(ch);
 				}
+				else if (name == "torreCajaTakeaway")
+				{
+					TorreCajaTakeaway* torre = new TorreCajaTakeaway(mGame, position);
+					torre->setId(mIdCount);
+					mIdCount++;
+					getObjectManager()->addMueble(torre);
+				}
 			}
 		}
 		// ordenar render

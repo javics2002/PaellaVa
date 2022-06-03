@@ -138,7 +138,7 @@
     { "id": "paellaSucia", "file": "Assets/Images/Paellas/paellaSucia.png" },
     { "id": "cajaTakeaway", "file": "Assets/Images/cajaTakeaway.png" },
     { "id": "cajaTakeawayCerrada", "file": "Assets/Images/cajaTakeawayCerrada.png" },
-    { "id": "torreCajasTakeaway", "file": "Assets/Images/torreCajasTakeaway.png" },
+    { "id": "torreCajaTakeaway", "file": "Assets/Images/torreCajasTakeaway.png" },
     { "id": "alcachofaC", "file": "Assets/Images/Paellas/completoAlcachofa.png" },
     { "id": "calamarC", "file": "Assets/Images/Paellas/completoCalamar.png" },
     { "id": "cangrejoC", "file": "Assets/Images/Paellas/completoCangrejo.png" },

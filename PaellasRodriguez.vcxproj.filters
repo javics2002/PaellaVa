@@ -77,6 +77,7 @@
     <ClCompile Include="Scenes\Disconnected.cpp" />
     <ClCompile Include="Scenes\FinalScene.cpp" />
     <ClCompile Include="GameObjects\CajaTakeaway.cpp" />
+    <ClCompile Include="GameObjects\Muebles\TorreCajaTakeaway.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
@@ -179,6 +180,7 @@
     <ClInclude Include="Scenes\Disconnected.h" />
     <ClInclude Include="Scenes\FinalScene.h" />
     <ClInclude Include="GameObjects\CajaTakeaway.h" />
+    <ClInclude Include="GameObjects\Muebles\TorreCajaTakeaway.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />
