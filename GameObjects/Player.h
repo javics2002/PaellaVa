@@ -10,7 +10,7 @@ class Arroz;
 class Mueble;
 
 enum orientation { N, S, E, O };
-enum objectType { INGREDIENTE, CLIENTES, PAELLA, ARROZ, HERRAMIENTA};
+enum objectType { INGREDIENTE, CLIENTES, PAELLA, ARROZ, HERRAMIENTA, CAJATAKEAWAY};
 
 class Player : public GameObject
 {

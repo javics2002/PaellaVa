@@ -16,6 +16,7 @@
 #include "../Data/Pedido.h"
 
 #include "../Utils/Traza.h"
+#include "CajaTakeaway.h"
 
 
 Player::Player(Game* mGame,double x, double y, bool chef) : GameObject(mGame), objectType_(INGREDIENTE), pickedObject_(nullptr), chef_(chef),
@@ -218,8 +219,9 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 					mGame->getNetworkManager()->syncPickObject(objectType_, pa->getId(), m->getId(), pa->getTipo());
 				}
 				else {
-					// Si no es basura
-					if (m != nullptr && m != dynamic_cast<FinalCinta*>(m)) {
+					// Si no es basura ni cajaTakeaway
+					m->returnObject(this);
+					if (m != nullptr && m != dynamic_cast<FinalCinta*>(m) && objectType_ != CAJATAKEAWAY) {
 						if (m->receivePaella(pickedPaellas_.back())) {
 
 							if (dynamic_cast<Tutorial*>(mGame->getCurrentScene())) {
@@ -233,8 +235,7 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 										if (pickedPaellas_.empty())
 											pickedObject_ = nullptr;
 										else {
-											pickedObject_ = pickedPaellas_.back();
-											objectType_ = PAELLA;
+											setPickedObject(pickedPaellas_.back(), PAELLA);
 										}
 									}
 								}
@@ -246,8 +247,7 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 									if (pickedPaellas_.empty())
 										pickedObject_ = nullptr;
 									else {
-										pickedObject_ = pickedPaellas_.back();
-										objectType_ = PAELLA;
+										setPickedObject(pickedPaellas_.back(), PAELLA);
 									}
 								}
 							}
@@ -261,8 +261,7 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 								if (pickedPaellas_.empty())
 									pickedObject_ = nullptr;
 								else {
-									pickedObject_ = pickedPaellas_.back();
-									objectType_ = PAELLA;
+									setPickedObject(pickedPaellas_.back(), PAELLA);
 								}
 							}
 						}
@@ -280,6 +279,25 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 						if (pa != pickedPaellas_.front() && m->receivePaella(pa))	mGame->getNetworkManager()->syncDropObject(objectType_, pa->getId(), m->getId());
 						else if (pa->getContenido() != Sucia && pa->getContenido() != Limpia && m->receivePaella(pa))	mGame->getNetworkManager()->syncDropObject(objectType_, pa->getId(), m->getId());
 					}
+
+					// Meter en cajaTakeaway
+					else if (objectType_ == CAJATAKEAWAY) {
+
+						// CajaTakeaway* caja = dynamic_cast<CajaTakeaway*>(pickedObject_);
+						setPickedObject(pickedPaellas_.back(), PAELLA);
+
+						int i = MAX_PAELLAS_CARRY_ - 1;
+						while (i >= 0 && pickedPaellas_[i]->getContenido() != Entera && pickedPaellas_[i]->getState() != Hecha) {
+							i--;
+						}
+
+						Paella* pa = pickedPaellas_[i];
+						// Tenemos ultima paella llena o primera paella de la pila
+						if (pa != pickedPaellas_.front() && m->receivePaella(pa))	mGame->getNetworkManager()->syncDropObject(objectType_, pa->getId(), m->getId());
+						else if (pa->getContenido() != Sucia && pa->getContenido() != Limpia && m->receivePaella(pa))	mGame->getNetworkManager()->syncDropObject(objectType_, pa->getId(), m->getId());
+
+					}
+
 				}
 				break;
 			case ARROZ:

@@ -1,6 +1,7 @@
 #include "Encimera.h"
 #include "../Ingrediente.h"
 #include "../Herramienta.h"
+#include "../CajaTakeaway.h"
 #include "../Player.h"
 #include "../Paella.h"
 #include "../../Control/Game.h"
@@ -33,7 +34,7 @@ bool Encimera::receiveIngrediente(Ingrediente* ingr)
 		}
 
 
-		if (ingr_ == nullptr && arroz_ == nullptr && herramienta_ == nullptr)
+		if (ingr_ == nullptr && arroz_ == nullptr && herramienta_ == nullptr && cajaTakeaway_ == nullptr)
 		{
 			ingr_ = ingr;
 
@@ -49,7 +50,7 @@ bool Encimera::receivePaella(Paella* pa)
 {
 	if (pa != nullptr) {
 		//Si ya tiene objeto, no recoge objeto
-		if (ingr_ == nullptr && paella_ == nullptr && arroz_ == nullptr && herramienta_ == nullptr)
+		if (ingr_ == nullptr && paella_ == nullptr && arroz_ == nullptr && herramienta_ == nullptr && cajaTakeaway_ == nullptr)
 		{
 			sdlutils().soundEffects().at("paellaMesa").play(0, mGame->UI);
 			if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == States::TUTORIALSTATE_DEJA_PAELLA)
@@ -61,6 +62,20 @@ bool Encimera::receivePaella(Paella* pa)
 			paella_->setPosition(getRectCenter(getOverlap()));
 
 			return true;
+		}
+
+		// Tirar a caja
+		else if (cajaTakeaway_ != nullptr) {
+
+			cajaTakeaway_->addIngreds(pa->getVIngredientes());
+			cajaTakeaway_->setContaminada(pa->estaContaminada());
+			cajaTakeaway_->setCocinada(static_cast<Resultado>(pa->getCoccion()));
+
+			pa->setTexture("paellaSucia");
+			pa->setContenido(Sucia);
+			pa->setEnsuciada();
+
+			sdlutils().soundEffects().at("tirarPaella").play();
 		}
 	}
 	return false;
@@ -84,7 +99,7 @@ bool Encimera::receiveArroz(Arroz* arr)
 			return false;
 		}
 
-		if (ingr_ == nullptr && arroz_ == nullptr && herramienta_ == nullptr) {
+		if (ingr_ == nullptr && arroz_ == nullptr && herramienta_ == nullptr && cajaTakeaway_ == nullptr) {
 
 			arroz_ = arr;
 			arroz_->setPosition(getRectCenter(getOverlap()));
@@ -100,10 +115,26 @@ bool Encimera::receiveHerramienta(Herramienta* h)
 {
 	if (h != nullptr) {
 		//Si ya tiene objeto, no recoge objeto
-		if (ingr_ == nullptr && paella_ == nullptr && arroz_ == nullptr && herramienta_ == nullptr)
+		if (ingr_ == nullptr && paella_ == nullptr && arroz_ == nullptr && herramienta_ == nullptr && cajaTakeaway_ == nullptr)
 		{
 			herramienta_ = h;
 			herramienta_->setPosition(getRectCenter(getOverlap()));
+
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool Encimera::receiveCajaTakeaway(CajaTakeaway* caja)
+{
+	if (caja != nullptr) {
+		//Si ya tiene objeto, no recoge objeto
+		if (ingr_ == nullptr && paella_ == nullptr && arroz_ == nullptr && herramienta_ == nullptr && cajaTakeaway_ == nullptr)
+		{
+			cajaTakeaway_ = caja;
+			cajaTakeaway_->setPosition(getRectCenter(getOverlap()));
 
 			return true;
 		}
@@ -145,6 +176,15 @@ bool Encimera::returnObject(Player* p)
 	{
 		p->setPickedObject(herramienta_, HERRAMIENTA);
 		herramienta_ = nullptr;
+
+		cout << "Objeto devuelto por: " << id << endl;
+
+		return true;
+	}
+	else if (cajaTakeaway_ != nullptr)
+	{
+		p->setPickedObject(cajaTakeaway_, CAJATAKEAWAY);
+		cajaTakeaway_ = nullptr;
 
 		cout << "Objeto devuelto por: " << id << endl;
 

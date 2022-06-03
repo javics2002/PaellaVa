@@ -9,6 +9,7 @@ class Ingrediente;
 class GrupoClientes;
 class Player;
 class Arroz;
+class CajaTakeaway;
 class Mesa;
 class Silla;
 class PoolObject;
@@ -42,6 +43,7 @@ public:
     virtual bool receivePaella(Paella* pa) { return false; }
     virtual bool receiveArroz(Arroz* arr) { return false;}
     virtual bool receiveHerramienta(Herramienta* h);
+    virtual bool receiveCajaTakeaway(CajaTakeaway* h) { return false; };
     virtual bool testMueble();
     virtual bool resetCounter() { return false; }
 
