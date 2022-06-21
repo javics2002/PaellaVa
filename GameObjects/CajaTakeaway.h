@@ -8,7 +8,7 @@ class Game;
 
 class CajaTakeaway : public ObjetoPortable
 {
-	const unsigned int DIMENSION = 70;
+	const unsigned int DIMENSION = 60;
 
 	bool contaminada_;
 	Resultado cocinada_;

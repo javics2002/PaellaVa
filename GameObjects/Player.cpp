@@ -211,17 +211,17 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 
 				// Coger otra Paella si la hay
 				// Mira objeto en mueble
-				if (m != nullptr && m->returnObject(this) && objectType_ == PAELLA && pickedPaellas_.size() < MAX_PAELLAS_CARRY_) {
+				if (m != nullptr && m->returnObject(this) && m->hasPaella() != nullptr && pickedPaellas_.size() < MAX_PAELLAS_CARRY_) {
  					pickedObject_->pickObject();
 					Paella* pa = dynamic_cast<Paella*>(pickedObject_);
 
 					pickedPaellas_.push_back(pa);
 					mGame->getNetworkManager()->syncPickObject(objectType_, pa->getId(), m->getId(), pa->getTipo());
 				}
-				else {
+				else if (m != nullptr) {
 					// Si no es basura ni cajaTakeaway
 					m->returnObject(this);
-					if (m != nullptr && m != dynamic_cast<FinalCinta*>(m) && objectType_ != CAJATAKEAWAY) {
+					if (m != dynamic_cast<FinalCinta*>(m) && m->hasCajaTakeaway() == nullptr) {
 						if (m->receivePaella(pickedPaellas_.back())) {
 
 							if (dynamic_cast<Tutorial*>(mGame->getCurrentScene())) {
@@ -267,10 +267,10 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 						}
 					}
 					// Tirar a la basura
-					else if (m != nullptr && m == dynamic_cast<FinalCinta*>(m)) {
+					else if (m == dynamic_cast<FinalCinta*>(m)) {
 
 						int i = MAX_PAELLAS_CARRY_ - 1;
-						while (i >= 0 && (pickedPaellas_[i]->getContenido() == Limpia || pickedPaellas_[i]->getContenido() == Sucia)) {
+						while (i >= pickedPaellas_.size() || (i > 0 && (pickedPaellas_[i]->getContenido() == Limpia || pickedPaellas_[i]->getContenido() == Sucia))) {
 							i--;
 						}
 
@@ -281,13 +281,13 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 					}
 
 					// Meter en cajaTakeaway
-					else if (objectType_ == CAJATAKEAWAY) {
+					else if (m->hasCajaTakeaway() != nullptr) {
 
 						// CajaTakeaway* caja = dynamic_cast<CajaTakeaway*>(pickedObject_);
-						setPickedObject(pickedPaellas_.back(), PAELLA);
+						// setPickedObject(pickedPaellas_.back(), PAELLA);
 
 						int i = MAX_PAELLAS_CARRY_ - 1;
-						while (i >= 0 && pickedPaellas_[i]->getContenido() != Entera && pickedPaellas_[i]->getState() != Hecha) {
+						while (i >= pickedPaellas_.size() ||  (i > 0 && pickedPaellas_[i]->getContenido() != Entera && pickedPaellas_[i]->getState() != Hecha)) {
 							i--;
 						}
 
@@ -310,6 +310,14 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 				break;
 			case HERRAMIENTA:
 				if (m != nullptr && m->receiveHerramienta(dynamic_cast<Herramienta*>(pickedObject_))) {
+					mGame->getNetworkManager()->syncDropObject(objectType_, pickedObject_->getId(), m->getId());
+
+					pickedObject_->dropObject();
+					pickedObject_ = nullptr;
+				}
+				break;
+			case CAJATAKEAWAY:
+				if (m != nullptr && m->receiveCajaTakeaway(dynamic_cast<CajaTakeaway*>(pickedObject_))) {
 					mGame->getNetworkManager()->syncDropObject(objectType_, pickedObject_->getId(), m->getId());
 
 					pickedObject_->dropObject();

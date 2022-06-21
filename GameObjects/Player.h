@@ -55,6 +55,10 @@ public:
 	void render(SDL_Rect* cameraRect) override;
 
 	void setPickedObject(ObjetoPortable* op, objectType ot);
+	objectType getObjectType() { return objectType_; };
+	ObjetoPortable* getPickedObject() { return pickedObject_; };
+
+	int getPickedPaellasCount() { return pickedPaellas_.size(); };
 
 	//Vector2D<double> getAxis() { return ih().getAxis(); }
 

@@ -70,12 +70,15 @@ bool Encimera::receivePaella(Paella* pa)
 			cajaTakeaway_->addIngreds(pa->getVIngredientes());
 			cajaTakeaway_->setContaminada(pa->estaContaminada());
 			cajaTakeaway_->setCocinada(static_cast<Resultado>(pa->getCoccion()));
+			cajaTakeaway_->setTexture("cajaTakeawayCerrada");
 
 			pa->setTexture("paellaSucia");
 			pa->setContenido(Sucia);
 			pa->setEnsuciada();
 
 			sdlutils().soundEffects().at("tirarPaella").play();
+
+			return true;
 		}
 	}
 	return false;
@@ -145,6 +148,9 @@ bool Encimera::receiveCajaTakeaway(CajaTakeaway* caja)
 
 bool Encimera::returnObject(Player* p)
 {
+	if (p->getPickedPaellasCount() > 0 || p->getPickedObject() != nullptr)
+		return false;
+
 	if (ingr_ != nullptr)
 	{
 		p->setPickedObject(ingr_, INGREDIENTE);

@@ -60,6 +60,9 @@ public:
     virtual void setId(int newId) { id = newId; }
     virtual int getId() { return id; }
 
+    virtual CajaTakeaway* hasCajaTakeaway() { return nullptr; };
+    virtual Paella* hasPaella() { return nullptr; };
+
     void romperMueble();
 };
 

@@ -26,6 +26,8 @@ public:
 	virtual bool receiveCajaTakeaway(CajaTakeaway* h) override;
 
 	Ingrediente* hasIngrediente() { return ingr_; }
+	CajaTakeaway* hasCajaTakeaway() override { return cajaTakeaway_; };
+	Paella* hasPaella() override { return paella_; };
 
 	void clearIngrediente() { ingr_ = nullptr; }
 };
