@@ -80,75 +80,66 @@ void Fogon::render(SDL_Rect* cameraRect)
 
 bool Fogon::receivePaella(Paella* pa)
 {
-	if (pa != nullptr && funcionando)
-	{
-		//Si ya tiene objeto, no recoge objeto
-		if (paella_ == nullptr
-			&& pa->getState() == Preparacion
-			&& pa->conArroz())
-		{
-			sdlutils().soundEffects().at("paellaMesa").play(0, mGame->UI);
-			paella_ = pa;
+	if (pa == nullptr || !funcionando || paella_ != nullptr || pa->getState() != Preparacion || !pa->conArroz())
+		return false;
 
-			paella_->setPosition(getRectCenter(getOverlap()));
+	sdlutils().soundEffects().at("paellaMesa").play(0, mGame->UI);
+	paella_ = pa;
 
-			//empezar a cocer la paella
-			paella_->setState(Coccion);
+	paella_->setPosition(getRectCenter(getOverlap()));
 
-			barra = true;
+	//empezar a cocer la paella
+	paella_->setState(Coccion);
 
-			if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == TUTORIALSTATE_COCINAR_PAELLA)
-				mGame->getCurrentScene()->changeState(TUTORIALSTATE_PAUSA_COCINAR_PAELLA);
+	barra = true;
 
-			mGame->getUIManager()->addTween((float)(getX() - barraCoccionX / 2 - flechaCoccionX / 2), (float)(getX() + barraCoccionX / 2 - flechaCoccionX / 2), tiempoDeCoccion, true)
-				.onStep(
-					[this](tweeny::tween<float>& t, float) mutable {
-						dest_1.x = t.peek();
-						if (t.progress() == 1 || paella_ == nullptr || !funcionando) {
+	if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == TUTORIALSTATE_COCINAR_PAELLA)
+		mGame->getCurrentScene()->changeState(TUTORIALSTATE_PAUSA_COCINAR_PAELLA);
 
-							barra = false;
+	mGame->getUIManager()->addTween((float)(getX() - barraCoccionX / 2 - flechaCoccionX / 2), (float)(getX() + barraCoccionX / 2 - flechaCoccionX / 2), tiempoDeCoccion, true)
+		.onStep(
+			[this](tweeny::tween<float>& t, float) mutable {
+				dest_1.x = t.peek();
+				if (t.progress() == 1 || paella_ == nullptr || !funcionando) {
 
-							return true;
-						}
-						return false;
-					});
+					barra = false;
+
+					return true;
+				}
+				return false;
+			});
 
 
-			sdlutils().soundEffects().at("enciendeFogon").play();
-			canalSonido = sdlutils().soundEffects().at("fogon").play(-1);
+	sdlutils().soundEffects().at("enciendeFogon").play();
+	canalSonido = sdlutils().soundEffects().at("fogon").play(-1);
 
-			return true;
-		}
-	}
-	return false;
+	return true;
 }
 
 bool Fogon::returnObject(Player* p)
 {
-	if (paella_ != nullptr)
-	{
-		paella_->setState(Hecha);
-
-		//Si nos hemos pasado, nos quemamos
-		if (paella_->getCoccion() >= Quemada) {
-			mGame->getUIManager()->quemarse();
-		}
-
-		if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == States::TUTORIALSTATE_RECOGER_PAELLA_COCINADA)
-			mGame->getCurrentScene()->changeState(States::TUTORIALSTATE_PAUSA_RECOGER_PAELLA_COCINADA);
-
-		p->setPickedObject(paella_, PAELLA);
-
-		paella_ = nullptr;
-		barra = false;
-		dest_1 = { (int)getX() - barraCoccionX / 2 + flechaCoccionX / 2,(int)getY() - (int)(getHeight() / 1.5) - (int)(barraCoccionY / 1.5),
-				flechaCoccionX, flechaCoccionY 
-		};
-
-		return true;
-	}
-	else
+	if (paella_ == nullptr || p->getPickedPaellasCount() >= p->getMaxPickedPaellasCount() || (p->getPickedObject() != nullptr && p->getPickedPaellasCount() == 0))
 		return false;
+
+	paella_->setState(Hecha);
+
+	//Si nos hemos pasado, nos quemamos
+	if (paella_->getCoccion() >= Quemada) {
+		mGame->getUIManager()->quemarse();
+	}
+
+	if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == States::TUTORIALSTATE_RECOGER_PAELLA_COCINADA)
+		mGame->getCurrentScene()->changeState(States::TUTORIALSTATE_PAUSA_RECOGER_PAELLA_COCINADA);
+
+	p->setPickedObject(paella_, PAELLA);
+
+	paella_ = nullptr;
+	barra = false;
+	dest_1 = { (int)getX() - barraCoccionX / 2 + flechaCoccionX / 2,(int)getY() - (int)(getHeight() / 1.5) - (int)(barraCoccionY / 1.5),
+			flechaCoccionX, flechaCoccionY 
+	};
+
+	return true;
 }
 
 bool Fogon::resetCounter()

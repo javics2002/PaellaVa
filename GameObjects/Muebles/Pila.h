@@ -23,6 +23,7 @@ public:
 
 	virtual bool returnObject(Player * p) override;
 	virtual bool receivePaella(Paella * pa) override;
+	virtual Paella* hasPaella() override { if (paellas.empty()) return nullptr; else return paellas.front(); };
 
 	void init(ObjectManager* objectManager) override;
 };

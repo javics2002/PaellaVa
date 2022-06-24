@@ -14,14 +14,19 @@ TorreCajaTakeaway::TorreCajaTakeaway(Game* mGame, Vector2D<double> pos) : Mueble
 
 bool TorreCajaTakeaway::receiveCajaTakeaway(CajaTakeaway* c)
 {
+	if (!c->getIngreds().empty())
+		return false;
+
 	c->setActive(false);
 	return true;
 }
 
 bool TorreCajaTakeaway::returnObject(Player* p)
 {
-	p->setPickedObject(mGame->getObjectManager()->getPool<CajaTakeaway>(_p_CAJATAKEAWAY)->add(), CAJATAKEAWAY);
+	if (p->getPickedObject() != nullptr)
+		return false;
 
+	p->setPickedObject(mGame->getObjectManager()->getPool<CajaTakeaway>(_p_CAJATAKEAWAY)->add(), CAJATAKEAWAY);
 	return true;
 }
 

@@ -73,6 +73,7 @@ bool Encimera::receivePaella(Paella* pa)
 			cajaTakeaway_->setTexture("cajaTakeawayCerrada");
 
 			pa->setTexture("paellaSucia");
+			pa->setState(Preparacion);
 			pa->setContenido(Sucia);
 			pa->setEnsuciada();
 
@@ -148,7 +149,7 @@ bool Encimera::receiveCajaTakeaway(CajaTakeaway* caja)
 
 bool Encimera::returnObject(Player* p)
 {
-	if (p->getPickedPaellasCount() > 0 || p->getPickedObject() != nullptr)
+	if ((p->getPickedPaellasCount() > 0 && paella_ == nullptr) || p->getPickedPaellasCount() >= p->getMaxPickedPaellasCount() || p->getPickedObject() != dynamic_cast<Paella*>(p->getPickedObject()))
 		return false;
 
 	if (ingr_ != nullptr)

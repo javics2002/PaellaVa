@@ -59,6 +59,7 @@ public:
 	ObjetoPortable* getPickedObject() { return pickedObject_; };
 
 	int getPickedPaellasCount() { return pickedPaellas_.size(); };
+	int getMaxPickedPaellasCount() { return MAX_PAELLAS_CARRY_; };
 
 	//Vector2D<double> getAxis() { return ih().getAxis(); }
 

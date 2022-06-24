@@ -111,29 +111,27 @@ bool Lavavajillas::receivePaella(Paella* paella_)
 
 bool Lavavajillas::returnObject(Player* p)
 {
-	if (!mPaellasLimpias.empty()) // Si hay paellas limpias
-	{
-		p->setPickedObject(mPaellasLimpias.front(), PAELLA);
-
-		mPaellasLimpias.pop_front();
-
-		if (!mPaellasLimpias.empty())
-			mPaellasLimpias.front()->setPosition(getRectCenter(getOverlap()));
-
-
-		// Cambiamos el estado en el tutorial
-		if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == TUTORIALSTATE_COGER_LAVAVAJILLAS)
-			mGame->getCurrentScene()->changeState(TUTORIALSTATE_PAUSA_COGER_LAVAVAJILLAS);
-
-
-		i = 0;
-		clip.x = 0;
-		rellenoTimer = 0;
-
-		return true;
-	}
-	else 
+	if (mPaellasLimpias.empty() || p->getPickedPaellasCount() > p->getMaxPickedPaellasCount() || (p->getPickedObject() != nullptr && p->getPickedPaellasCount() == 0)) // Si no hay paellas limpias
 		return false;
+
+	p->setPickedObject(mPaellasLimpias.front(), PAELLA);
+
+	mPaellasLimpias.pop_front();
+
+	if (!mPaellasLimpias.empty())
+		mPaellasLimpias.front()->setPosition(getRectCenter(getOverlap()));
+
+
+	// Cambiamos el estado en el tutorial
+	if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == TUTORIALSTATE_COGER_LAVAVAJILLAS)
+		mGame->getCurrentScene()->changeState(TUTORIALSTATE_PAUSA_COGER_LAVAVAJILLAS);
+
+
+	i = 0;
+	clip.x = 0;
+	rellenoTimer = 0;
+
+	return true;
 		
 }
 

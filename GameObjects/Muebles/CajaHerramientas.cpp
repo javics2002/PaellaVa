@@ -20,8 +20,10 @@ bool CajaHerramientas::receiveHerramienta(Herramienta* h)
 
 bool CajaHerramientas::returnObject(Player* p)
 {
-	p->setPickedObject(mGame->getObjectManager()->getPool<Herramienta>(_p_HERRAMIENTA)->add(), HERRAMIENTA);
+	if (p->getPickedObject() != nullptr)
+		return false;
 
+	p->setPickedObject(mGame->getObjectManager()->getPool<Herramienta>(_p_HERRAMIENTA)->add(), HERRAMIENTA);
 	return true;
 }
 

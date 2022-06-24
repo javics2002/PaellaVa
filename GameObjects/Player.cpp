@@ -135,7 +135,7 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 				}
 
 				//Una vez encontrado el m�s cercano, se interact�a con �l
-				if (pickedObject_ != nullptr) {
+				if (pickedObject_ != nullptr && pickedPaellas_.empty()) {
 					pickedObject_->pickObject();
 
 					// Mandar mensaje de que he pillado un objeto
@@ -211,7 +211,8 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 
 				// Coger otra Paella si la hay
 				// Mira objeto en mueble
-				if (m != nullptr && m->returnObject(this) && m->hasPaella() != nullptr && pickedPaellas_.size() < MAX_PAELLAS_CARRY_) {
+				// if (m != nullptr && m->returnObject(this) && m->hasPaella() != nullptr && pickedPaellas_.size() < MAX_PAELLAS_CARRY_) {
+ 				if (m != nullptr && m->returnObject(this) && pickedPaellas_.size() < MAX_PAELLAS_CARRY_) {
  					pickedObject_->pickObject();
 					Paella* pa = dynamic_cast<Paella*>(pickedObject_);
 
@@ -220,7 +221,7 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 				}
 				else if (m != nullptr) {
 					// Si no es basura ni cajaTakeaway
-					m->returnObject(this);
+					// m->returnObject(this);
 					if (m != dynamic_cast<FinalCinta*>(m) && m->hasCajaTakeaway() == nullptr) {
 						if (m->receivePaella(pickedPaellas_.back())) {
 
@@ -283,11 +284,8 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 					// Meter en cajaTakeaway
 					else if (m->hasCajaTakeaway() != nullptr) {
 
-						// CajaTakeaway* caja = dynamic_cast<CajaTakeaway*>(pickedObject_);
-						// setPickedObject(pickedPaellas_.back(), PAELLA);
-
 						int i = MAX_PAELLAS_CARRY_ - 1;
-						while (i >= pickedPaellas_.size() ||  (i > 0 && pickedPaellas_[i]->getContenido() != Entera && pickedPaellas_[i]->getState() != Hecha)) {
+						while (i >= pickedPaellas_.size() || (i > 0 && pickedPaellas_[i]->getContenido() != Entera && pickedPaellas_[i]->getState() != Hecha)) {
 							i--;
 						}
 
