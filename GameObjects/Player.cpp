@@ -285,14 +285,14 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 					else if (m->hasCajaTakeaway() != nullptr) {
 
 						int i = MAX_PAELLAS_CARRY_ - 1;
-						while (i >= pickedPaellas_.size() || (i > 0 && pickedPaellas_[i]->getContenido() != Entera && pickedPaellas_[i]->getState() != Hecha)) {
+						while (i >= pickedPaellas_.size() || (i > 0 && (pickedPaellas_[i]->getContenido() != Entera || (pickedPaellas_[i]->getState() != Hecha && pickedPaellas_[i]->getState() != PocoHecha && pickedPaellas_[i]->getState() != MuyHecha)))) {
 							i--;
 						}
 
 						Paella* pa = pickedPaellas_[i];
 						// Tenemos ultima paella llena o primera paella de la pila
 						if (pa != pickedPaellas_.front() && m->receivePaella(pa))	mGame->getNetworkManager()->syncDropObject(objectType_, pa->getId(), m->getId());
-						else if (pa->getContenido() != Sucia && pa->getContenido() != Limpia && m->receivePaella(pa))	mGame->getNetworkManager()->syncDropObject(objectType_, pa->getId(), m->getId());
+						else if (pa->getContenido() != Sucia && pa->getContenido() != Limpia && (pickedPaellas_[i]->getState() == Hecha || pickedPaellas_[i]->getState() == PocoHecha && pickedPaellas_[i]->getState() == MuyHecha) && m->receivePaella(pa))	mGame->getNetworkManager()->syncDropObject(objectType_, pa->getId(), m->getId());
 
 					}
 
@@ -318,8 +318,10 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 				if (m != nullptr && m->receiveCajaTakeaway(dynamic_cast<CajaTakeaway*>(pickedObject_))) {
 					mGame->getNetworkManager()->syncDropObject(objectType_, pickedObject_->getId(), m->getId());
 
-					pickedObject_->dropObject();
-					pickedObject_ = nullptr;
+					if (m != dynamic_cast<FinalCinta*>(m)) {
+						pickedObject_->dropObject();
+						pickedObject_ = nullptr;
+					}
 				}
 				break;
 			default:

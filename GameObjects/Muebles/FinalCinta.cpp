@@ -2,6 +2,7 @@
 #include "../../Control/Game.h"
 #include "../../Control/ObjectManager.h"
 #include "../Ingrediente.h"
+#include "../CajaTakeaway.h"
 
 FinalCinta::FinalCinta(Game* mGame, Vector2D<double> pos) : Mueble(mGame, pos, TILE_SIZE, 2 * TILE_SIZE, "basura")
 {
@@ -42,6 +43,7 @@ bool FinalCinta::receivePaella(Paella* pa)
 		pa->setTexture("paellaSucia");
 		pa->setContenido(Sucia);
 		pa->setEnsuciada();
+		pa->setState(Preparacion);
 
 		sdlutils().soundEffects().at("tirarPaella").play();
 	}
@@ -52,6 +54,19 @@ bool FinalCinta::receivePaella(Paella* pa)
 bool FinalCinta::receiveArroz(Arroz* arr)
 {
 	arr->setActive(false);
+
+	return true;
+}
+
+bool FinalCinta::receiveCajaTakeaway(CajaTakeaway* caja)
+{
+	if (caja->getIngreds().empty())
+		return false;
+
+	caja->setTexture("cajaTakeaway");
+	caja->resetCaja();
+
+	sdlutils().soundEffects().at("tirarPaella").play();
 
 	return true;
 }

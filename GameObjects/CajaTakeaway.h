@@ -29,4 +29,6 @@ public:
 
 	void addIngreds(list<tipoIngrediente> ingred);
 	list<tipoIngrediente> getIngreds();
+
+	void resetCaja();
 };

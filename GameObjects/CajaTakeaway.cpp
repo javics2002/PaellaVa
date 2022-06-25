@@ -18,3 +18,11 @@ list<tipoIngrediente> CajaTakeaway::getIngreds()
 	return ingreds_;
 }
 
+void CajaTakeaway::resetCaja()
+{
+	ingreds_.clear();
+	contaminada_ = false;
+	cocinada_ = Cruda;
+
+}
+
