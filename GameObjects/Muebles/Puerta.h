@@ -4,6 +4,7 @@
 
 #include "../../Data/Pool.h"
 #include "../Cola.h"
+#include "../ColaTakeaway.h"
 
 class Game;
 
@@ -22,6 +23,7 @@ class Puerta : public Mueble
 	double initTime;
 
 	Cola* cola;
+	ColaTakeaway* colaTakeaway;
 
 	Uint8 orientacion;
 

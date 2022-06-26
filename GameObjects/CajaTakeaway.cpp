@@ -18,6 +18,22 @@ list<tipoIngrediente> CajaTakeaway::getIngreds()
 	return ingreds_;
 }
 
+bool CajaTakeaway::containsIngr(tipoIngrediente ingr)
+{
+	if (ingr == LAST)
+		return true;
+
+	auto it = ingreds_.begin();
+	bool contains = false;
+	while (it != ingreds_.end() && !contains) {
+
+		if (*it == ingr) contains = true;
+		it++;
+	}
+
+	return contains;
+}
+
 void CajaTakeaway::resetCaja()
 {
 	ingreds_.clear();

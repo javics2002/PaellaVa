@@ -78,6 +78,9 @@
     <ClCompile Include="Scenes\FinalScene.cpp" />
     <ClCompile Include="GameObjects\CajaTakeaway.cpp" />
     <ClCompile Include="GameObjects\Muebles\TorreCajaTakeaway.cpp" />
+    <ClCompile Include="GameObjects\ColaTakeaway.cpp" />
+    <ClCompile Include="GameObjects\Repartidor.cpp" />
+    <ClCompile Include="Data\PedidoTakeaway.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObjects\Muebles\FinalCinta.h" />
@@ -181,6 +184,9 @@
     <ClInclude Include="Scenes\FinalScene.h" />
     <ClInclude Include="GameObjects\CajaTakeaway.h" />
     <ClInclude Include="GameObjects\Muebles\TorreCajaTakeaway.h" />
+    <ClInclude Include="GameObjects\ColaTakeaway.h" />
+    <ClInclude Include="GameObjects\Repartidor.h" />
+    <ClInclude Include="Data\PedidoTakeaway.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaellasRodriguez.rc" />

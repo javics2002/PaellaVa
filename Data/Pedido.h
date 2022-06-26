@@ -6,7 +6,7 @@
 struct pedidoPaella {
 	int tamanoPaella;
 	vector<int> ingredientesPedido;
-	double puntuacionPaella = 10;
+	double puntuacionCaja = 10;
 };
 
 //Diversas penalizaciones que recibirá un pedido si no cumple lo requerido por un cliente.

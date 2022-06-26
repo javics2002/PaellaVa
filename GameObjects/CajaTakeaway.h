@@ -29,6 +29,7 @@ public:
 
 	void addIngreds(list<tipoIngrediente> ingred);
 	list<tipoIngrediente> getIngreds();
+	bool containsIngr(tipoIngrediente ingr);
 
 	void resetCaja();
 };

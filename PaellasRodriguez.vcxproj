@@ -146,8 +146,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GameObjects\ColaTakeaway.h" />
     <ClInclude Include="GameObjects\CajaTakeaway.h" />
     <ClInclude Include="GameObjects\Muebles\TorreCajaTakeaway.h" />
+    <ClInclude Include="GameObjects\Repartidor.h" />
+    <ClInclude Include="Data\PedidoTakeaway.h" />
     <ClInclude Include="Scenes\FinalScene.h" />
     <ClInclude Include="Scenes\Disconnected.h" />
     <ClInclude Include="GameObjects\IngredienteLetal.h" />
@@ -248,8 +251,11 @@
     <ClInclude Include="Utils\Vector2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameObjects\ColaTakeaway.cpp" />
     <ClCompile Include="GameObjects\CajaTakeaway.cpp" />
     <ClCompile Include="GameObjects\Muebles\TorreCajaTakeaway.cpp" />
+    <ClCompile Include="GameObjects\Repartidor.cpp" />
+    <ClCompile Include="Data\PedidoTakeaway.cpp" />
     <ClCompile Include="Scenes\FinalScene.cpp" />
     <ClCompile Include="Scenes\Disconnected.cpp" />
     <ClCompile Include="GameObjects\Herramienta.cpp" />

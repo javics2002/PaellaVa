@@ -183,13 +183,13 @@ double Pedido::puntuarPedido(vector<Paella*> comanda)
 
 		//Una vez hechas las penalizaciones a la paella se añade a la puntuación media de las paellas entregadas as cada mesa.
 		if (mPaellaSuspensa) {
-			mPaellas[i].puntuacionPaella = 0;
+			mPaellas[i].puntuacionCaja = 0;
 		}
-		cout << mPaellas[i].puntuacionPaella << endl;
-		if (mPaellas[i].puntuacionPaella > 10) {
-			mPaellas[i].puntuacionPaella = 10;
+		cout << mPaellas[i].puntuacionCaja << endl;
+		if (mPaellas[i].puntuacionCaja > 10) {
+			mPaellas[i].puntuacionCaja = 10;
 		}
-		mSumaMedia += getPedido()[i].puntuacionPaella;
+		mSumaMedia += getPedido()[i].puntuacionCaja;
 	}
 	mPuntuacionPedido = mSumaMedia / getPedido().size();
 
@@ -203,8 +203,8 @@ double Pedido::puntuarPedido(vector<Paella*> comanda)
 void Pedido::variarPuntuacion(double variacion, int pos)
 {
 	//Método que se encarga de ir cambiando la puntuación que recibe un pedido en funcion de diversas variables.
-	double puntos = getPedido()[pos].puntuacionPaella + variacion; 
-	mPaellas[pos].puntuacionPaella = puntos;
+	double puntos = getPedido()[pos].puntuacionCaja + variacion; 
+	mPaellas[pos].puntuacionCaja = puntos;
 }
 
 vector<string> Pedido::getPedidoTex()
