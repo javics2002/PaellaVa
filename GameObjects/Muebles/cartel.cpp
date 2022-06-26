@@ -1,6 +1,7 @@
 #include "cartel.h"
 #include "../../Control/game.h"
 #include "../../Control/ObjectManager.h"
+#include "../Repartidor.h"
 
 Cartel::Cartel(Game* mGame, Vector2D<double> position) : Mueble(mGame, position, TILE_SIZE, TILE_SIZE * 1.8, "cartel")
 {
@@ -12,6 +13,9 @@ void Cartel::update()
 {
 	for (auto i : mGame->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getCollisions(getCollider())) 
 		i->colisionClientes();	
+
+	for (auto i : mGame->getObjectManager()->getPool<Repartidor>(_p_REPARTIDOR)->getCollisions(getCollider()))
+		i->colisionCartel();
 }
 
 SDL_Rect Cartel::getOverlap()

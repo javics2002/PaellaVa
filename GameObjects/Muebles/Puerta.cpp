@@ -8,6 +8,7 @@
 Puerta::Puerta(Game* mGame, Vector2D<double> pos, int t_Max, int tamMaxGrupo_) : Mueble(mGame, pos, TILE_SIZE, 2 * TILE_SIZE, "puerta")
 {
 	cola = new Cola(t_Max);
+	colaTakeaway = new ColaTakeaway(t_Max);
 	maxTamGrupo = tamMaxGrupo_;
 
 	//Siempre tiene que funcionar
@@ -18,6 +19,7 @@ Puerta::Puerta(Game* mGame, Vector2D<double> pos, int t_Max, int tamMaxGrupo_) :
 	initTime = 0;
 	
 	spawn_delay = 0;
+	repartSpawn_delay = 0;
 }
 
 void Puerta::update()
@@ -37,19 +39,36 @@ void Puerta::update()
 		}	
 	}
 	
-	else if (sdlutils().virtualTimer().currTime() - initTime >= spawn_delay) {
-		
+	else {
+		if (sdlutils().virtualTimer().currTime() - initTime >= spawn_delay) {
 
-		if (clientSpawn())
-			spawn_delay = MIN_SPAWN_TIME + sdlutils().rand().nextInt() % (MAX_SPAWN_TIME - MIN_SPAWN_TIME);
-		else
-			spawn_delay = FAIL_SPAWN_TIME;
-		
-		initTime = sdlutils().virtualTimer().currTime();
 
-		
+			if (clientSpawn())
+				spawn_delay = MIN_SPAWN_TIME + sdlutils().rand().nextInt() % (MAX_SPAWN_TIME - MIN_SPAWN_TIME);
+			else
+				spawn_delay = FAIL_SPAWN_TIME;
 
-		cout << spawn_delay << endl;
+			initTime = sdlutils().virtualTimer().currTime();
+
+
+
+			cout << spawn_delay << endl;
+		}
+
+		if (sdlutils().virtualTimer().currTime() - initTime >= repartSpawn_delay) {
+
+
+			if (repartidorSpawn())
+				repartSpawn_delay = MIN_REPARTSPAWN_TIME + sdlutils().rand().nextInt() % (MAX_REPARTSPAWN_TIME - MIN_REPARTSPAWN_TIME);
+			else
+				repartSpawn_delay = FAIL_REPARTSPAWN_TIME;
+
+			initTime = sdlutils().virtualTimer().currTime();
+
+
+
+			cout << repartSpawn_delay << endl;
+		}
 	}
 }
 
@@ -68,6 +87,36 @@ int Puerta::numClientSpawn() {
 		return 5;
 	else if (n < 20)
 		return 6;
+}
+
+bool Puerta::repartidorSpawn()
+{
+	if (colaTakeaway->esValido()) {
+
+		Repartidor* rep = mGame->getObjectManager()->getPool<Repartidor>(_p_REPARTIDOR)->add();
+
+		Vector2D<double> pos = getPosition();
+
+		Vector2D<double> dist = vel;
+		dist.normalize();
+		dist = Vector2D<double>(dist.getX() * rep->getCollider().w, dist.getY() * rep->getCollider().h);
+
+		rep->setPosition(getX(), getY());
+		// rep->setAnimResources(t);
+		setOrientation(rep);
+		rep->setVel(vel);
+		colaTakeaway->add(rep);
+		rep->init(colaTakeaway);
+
+
+		sdlutils().soundEffects().at("puerta").play();
+
+		mGame->getNetworkManager()->sendRepartidor(getId(), rep->getId(), vel, dist, 100);
+
+		return true;
+	}
+
+	return false;
 }
 
 bool Puerta::clientSpawn()
@@ -157,6 +206,11 @@ Cola* Puerta::getCola() {
 	return cola;
 }
 
+ColaTakeaway* Puerta::getColaTakeaway()
+{
+	return colaTakeaway;
+}
+
 void Puerta::setVel(Vector2D<double> vel_)
 {
 	vel = vel_;
@@ -183,5 +237,10 @@ void Puerta::setOrientation(Cliente* c)
 	default:
 		break;
 	}
+}
+
+void Puerta::setOrientation(Repartidor* rep)
+{
+	// Para anims
 }
 

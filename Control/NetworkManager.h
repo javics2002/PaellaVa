@@ -21,11 +21,13 @@ enum EPacketType {
 	EPT_CREATEING,
 	EPT_CREATEINGLET,
 	EPT_CREATECLIENTGROUP,
+	EPT_CREATEREPARTIDOR,
 	EPT_BUTTONBUFFER,
 	EPT_SYNCPLAYER,
 	EPT_SYNCPICKOBJECT,
 	EPT_SYNCDROPOBJECT,
 	EPT_SYNCPEDIDO,
+	EPT_SYNCPEDIDOTAKEAWAY,
 	EPT_SYNCMUEBLEROTO,
 	EPT_SYNCPAUSE,
 	EPT_SYNCCOMANDA,
@@ -67,6 +69,21 @@ struct PacketGrupoCliente {
 	Uint8 tamGrupo;
 	
 	Uint16 group_id;
+	Uint16 door_id;
+
+	Sint8 velX;
+	Sint8 velY;
+
+	Sint16 dirX;
+	Sint16 dirY;
+
+	float tolerancia;
+};
+
+// Paquete para un grupo de clientes
+struct PacketRepartidor {
+
+	Uint16 rep_id;
 	Uint16 door_id;
 
 	Sint8 velX;
@@ -121,6 +138,13 @@ struct PacketSyncPedido {
 	Uint8 ing_pedidos[12]; // 9 ingredientes
 };
 
+// Sync pedido de repartidores
+
+struct PacketSyncPedidoTakeaway {
+	Uint8 rep_id; // id del grupo de clientes
+	Uint8 ing_pedidos[12]; // 9 ingredientes
+};
+
 // Paquete para sincronizar los muebles rotos
 
 struct PacketSyncMuebleRoto {
@@ -163,11 +187,13 @@ struct Packet {
 		PacketFinishGame finishGame;
 		PacketIngrediente ingrediente;
 		PacketGrupoCliente grupoCliente;
+		PacketRepartidor repartidor;
 		PacketButtonBuffer buttonBuffer;
 		PacketSyncPlayers syncPlayers;
 		PacketSyncPickObject syncPickObject;
 		PacketSyncDropObject syncDropObject;
 		PacketSyncPedido syncPedido;
+		PacketSyncPedidoTakeaway syncPedidoTakeaway;
 		PacketSyncMuebleRoto syncMuebleRoto;
 		PacketSyncComanda syncComanda;
 		PacketSyncBarra syncBarra;
@@ -263,12 +289,15 @@ public:
 	void sendCreateIngredienteLetal(int tipoIngrediente, Vector2D<double> pos, Vector2D<double> vel);
 	
 	void sendGrupoCliente(int tamGrupo, int idPuerta, int idGrupoClientes, Vector2D<double> vel, Vector2D<double> distancia, std::vector<int> textureNumber, float tolerancia);
+	void sendRepartidor(int idPuerta, int idRep, Vector2D<double> vel, Vector2D<double> distancia, float tolerancia);
+
 	void sendButtonsBuffer(std::vector<bool> keyPressed);
 
 	void syncPlayers();
 	void syncPickObject(int objectType, int objectId, int muebleId, int extraInfo);
 	void syncDropObject(int objectType, int objectId, int muebleId);
 	void syncPedido(int idGrupoCliente, int numPaellas, std::vector<int> tamPaella, std::vector<int> ingPedidos);
+	void syncPedidoTakeaway(int idRepartidor, std::vector<int> ingPedidos);
 	void syncMuebleRoto(int muebleId);
 	void syncPause();
 	void syncComanda(int numMesa, std::vector<int> tamPaella, std::vector<int> ingPedidos);

@@ -14,6 +14,7 @@
 #include "BolsaArroz.h"
 #include "CajaHerramientas.h"
 #include "TorreCajaTakeaway.h"
+#include "../Repartidor.h"
 #include "Sillas/SillaE.h"
 #include "Sillas/SillaO.h"
 #include "Sillas/SillaN.h"

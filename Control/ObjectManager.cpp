@@ -20,6 +20,7 @@ ObjectManager::ObjectManager(Game* mGame) : mGame(mGame)
 	pools.emplace_back((Pool<GameObject>*) new Pool<Herramienta>(mGame, 20));
 	pools.emplace_back((Pool<GameObject>*) new Pool<CajaTakeaway>(mGame, 20));
 	pools.emplace_back((Pool<GameObject>*) new Pool<Arroz>(mGame, 20));
+	pools.emplace_back((Pool<GameObject>*) new Pool<Repartidor>(mGame, 30));
 	pools.emplace_back((Pool<GameObject>*) new Pool<GrupoClientes>(mGame, 20));
 	pools.emplace_back((Pool<GameObject>*) new Pool<Cliente>(mGame, 50));
 }
@@ -157,6 +158,8 @@ vector<Mueble*> ObjectManager::getMueblesOverlaps(SDL_Rect collider)
 		if (i->overlap(collider))
 			c.push_back(i);
 	}
+
+	// get Repart pool
 
 	return c;
 }

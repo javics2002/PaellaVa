@@ -4,6 +4,7 @@
 #include "../Control/ObjectManager.h"
 
 #include "../GameObjects/ColaTakeaway.h"
+#include "../GameObjects/CajaTakeaway.h"
 #include "../Data/PedidoTakeaway.h"
 
 #include "../../Data/Pedido.h"
@@ -12,11 +13,9 @@
 
 #include "../Scenes/Jornada.h"
 
-Repartidor::Repartidor(Game* mGame) : GameObject(mGame), pedido(nullptr), cola(nullptr), estado_(repCAMINANDO)
+Repartidor::Repartidor(Game* mGame) : Mueble(mGame, pos, DIMENSION, DIMENSION, "berenjena"), pedido(nullptr), cola(nullptr), estado_(repCAMINANDO)
 {
 	setDimension(DIMENSION, DIMENSION);
-
-	setTexture("berenjena");
 
 
 	texTolerancia = &sdlutils().images().at("barraTolerancia");
@@ -28,10 +27,7 @@ Repartidor::Repartidor(Game* mGame) : GameObject(mGame), pedido(nullptr), cola(n
 	itemNow = 0;
 	lastTimePed = 0;
 
-	comidoMitad = false;
-	lastTimeComido = 0;
-
-	setDepth(3);
+	setDepth(1);
 }
 
 Repartidor::~Repartidor()
@@ -61,11 +57,8 @@ void Repartidor::update()
 	else if (estado_ == repENCOLA) {
 
 		SDL_Rect col = getCollider();
-
 		SDL_Rect rect = { col.x - col.w / 2, col.y - col.h, col.w, col.h };
 
-
-		// Seguir cambiando
 		colisionCartel();
 
 		bajaTolerancia();
@@ -86,6 +79,11 @@ void Repartidor::update()
 
 void Repartidor::render(SDL_Rect* cameraRect)
 {
+	/*SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, w, h };
+	drawRender(cameraRect, dest, );*/
+
+	if (isActive()) drawRender(cameraRect);
+
 	int bocadilloX = 80;
 	int bocadilloY = 80;
 
@@ -123,8 +121,7 @@ void Repartidor::render(SDL_Rect* cameraRect)
 
 bool Repartidor::colisionCartel()
 {
-	if (estado_ == repCAMINANDO)
-		setState(repESPERANDO);
+	setState(repESPERANDO);
 
 	return true;
 }
@@ -191,7 +188,7 @@ void Repartidor::hacerPedido(int tamMesa)
 	}
 }
 
-void Repartidor::modificaPedido(int numPaellas, vector<int> ingPedidos) {
+void Repartidor::modificaPedido(vector<int> ingPedidos) {
 
 	delete pedido; // borramos el anterior pedido
 	pedido = new PedidoTakeaway(mGame, ingPedidos);
@@ -208,6 +205,15 @@ void Repartidor::decirPedidio()
 			orderStart = false;
 		}
 		showPed = true;
+	}
+}
+
+bool Repartidor::receiveCajaTakeaway(CajaTakeaway* caja)
+{
+	if (caja == nullptr || caja->getIngreds().empty())
+		return false;
+	else {
+		caja->setPosition(getRectCenter(getOverlap()));
 	}
 }
 

@@ -9,6 +9,7 @@
 #include "../Data/Comanda.h"
 #include "Imagen.h"
 #include "../Data/PedidoTakeaway.h"
+#include "Muebles/Mueble.h"
 
 class ColaTakeaway;
 class Pedido;
@@ -17,7 +18,7 @@ class Mesa;
 
 enum EstadoRepartidor { repCAMINANDO, repENCOLA, repESPERANDO, repSALIENDO };
 
-class Repartidor : public GameObject
+class Repartidor : public Mueble
 {
 	const unsigned int DIMENSION = 150;
 
@@ -37,10 +38,6 @@ class Repartidor : public GameObject
 
 	Texture* texTolerancia;
 
-	// Imagen* dolarCuenta;
-
-	// Mesa* mesa;
-
 	float lastTimePed;
 
 	int itemNow;
@@ -52,9 +49,6 @@ class Repartidor : public GameObject
 	CajaTakeaway* cajaTakeaway;
 
 	const float PED_DELAY = 2000;
-
-	float lastTimeComido;
-	bool comidoMitad;
 	const float TIEMPO_COMIDA = 5000;
 
 	EstadoRepartidor estado_;
@@ -81,9 +75,11 @@ public:
 	void onDeactivate() override;
 
 	void hacerPedido(int tamMesa);
-	void modificaPedido(int numPaellas, std::vector<int> ingPedidos);
+	void modificaPedido(std::vector<int> ingPedidos);
 	void decirPedidio();
 	PedidoTakeaway* getPedido() { return pedido; }
+
+	bool receiveCajaTakeaway(CajaTakeaway* caja) override;
 
 	void setOrientacion(bool vertical_);
 	void para();

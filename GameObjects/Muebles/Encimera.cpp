@@ -133,15 +133,16 @@ bool Encimera::receiveHerramienta(Herramienta* h)
 
 bool Encimera::receiveCajaTakeaway(CajaTakeaway* caja)
 {
-	if (caja != nullptr) {
-		//Si ya tiene objeto, no recoge objeto
-		if (ingr_ == nullptr && paella_ == nullptr && arroz_ == nullptr && herramienta_ == nullptr && cajaTakeaway_ == nullptr)
-		{
-			cajaTakeaway_ = caja;
-			cajaTakeaway_->setPosition(getRectCenter(getOverlap()));
+	if (caja == nullptr)
+		return false;
 
-			return true;
-		}
+	//Si ya tiene objeto, no recoge objeto
+	if (ingr_ == nullptr && paella_ == nullptr && arroz_ == nullptr && herramienta_ == nullptr && cajaTakeaway_ == nullptr)
+	{
+		cajaTakeaway_ = caja;
+		cajaTakeaway_->setPosition(getRectCenter(getOverlap()));
+
+		return true;
 	}
 
 	return false;
