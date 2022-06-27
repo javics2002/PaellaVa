@@ -13,10 +13,11 @@
 
 #include "../Scenes/Jornada.h"
 
-Repartidor::Repartidor(Game* mGame) : Mueble(mGame, pos, DIMENSION, DIMENSION, "berenjena"), pedido(nullptr), cola(nullptr), estado_(repCAMINANDO)
+Repartidor::Repartidor(Game* mGame) : Mueble(mGame, pos, DIMENSION, DIMENSION, "clienteBase"), pedido(nullptr), cola(nullptr), estado_(repCAMINANDO)
 {
 	setDimension(DIMENSION, DIMENSION);
 
+	funcionando = true;
 
 	texTolerancia = &sdlutils().images().at("barraTolerancia");
 	tolerancia = 100;
@@ -42,6 +43,8 @@ void Repartidor::init(ColaTakeaway* cola_)
 	posCola = cola_->getPos();
 	cola = cola_;
 
+	hacerPedido();
+
 	setVel(vel);
 
 	estado_ = repCAMINANDO;
@@ -49,31 +52,32 @@ void Repartidor::init(ColaTakeaway* cola_)
 
 void Repartidor::update()
 {
-	if (estado_ == repCAMINANDO) {
+	switch (estado_)
+	{
+		case repCAMINANDO:
+		case repSALIENDO:
+			setPosition(pos + vel);
+			if (cajaTakeaway != nullptr) {
+				cajaTakeaway->setPosition(getRectCenter(getOverlap()));
+			}
+			break;
 
-		setPosition(pos + vel);
-	}
+		case repESPERANDO:
 
-	else if (estado_ == repENCOLA) {
+			for (auto i : mGame->getObjectManager()->getPool<Repartidor>(_p_REPARTIDOR)->getCollisions(getCollider())) {
+				if (i != this && i->getState() == repCAMINANDO)
+					i->colisionCartel();
+			}
 
-		SDL_Rect col = getCollider();
-		SDL_Rect rect = { col.x - col.w / 2, col.y - col.h, col.w, col.h };
+			if (!showPed)
+				orderStart = true;
 
-		colisionCartel();
+			bajaTolerancia();
+			break;
 
-		bajaTolerancia();
-	}
-
-	else if (estado_ == repESPERANDO) {
-
-		if (!showPed)
-			orderStart = true;
-
-		bajaTolerancia();
-	}
-
-	else {
-		bajaTolerancia();
+		default:
+			bajaTolerancia();
+			break;
 	}
 }
 
@@ -111,8 +115,8 @@ void Repartidor::render(SDL_Rect* cameraRect)
 		int emoticonoX = 35;
 		int emoticonoY = 30;
 
-		bocadillo = { bocadilloX / 2, (int)getOverlap().y - bocadilloY, bocadilloX, bocadilloY };
-		emoticono = { emoticonoX / 2, (int)getOverlap().y - bocadilloY + emoticonoY / 2, emoticonoX, emoticonoY };
+		bocadillo = { (int)getOverlap().x - bocadilloX / 2, (int)getOverlap().y - bocadilloY / 3, bocadilloX, bocadilloY };
+		emoticono = { (int)getOverlap().x - emoticonoX / 2, (int)getOverlap().y - bocadilloY / 3 + emoticonoY / 2, emoticonoX, emoticonoY };
 
 		drawRender(cameraRect, bocadillo, texTolerancia);
 		drawRender(cameraRect, emoticono, &sdlutils().images().at(texturaTolerancia[((int)tolerancia / 20)]));
@@ -159,7 +163,14 @@ void Repartidor::setState(EstadoRepartidor est)
 	case repESPERANDO:
 		para();
 		break;
-	case CAMINANDO:
+	case repCAMINANDO:
+		camina();
+		break;
+	case repSALIENDO:
+		if (getVel().getX() < 0) {
+			// Flip, mirar a la izq
+		}
+		cola->remove(posCola);
 		camina();
 		break;
 	default:
@@ -174,18 +185,16 @@ EstadoRepartidor Repartidor::getState()
 
 void Repartidor::onDeactivate()
 {
-	setActive(false);
 	// mesa->clienteSeVa();
 	mGame->getCurrentScene()->addPuntuaciones(pedido->puntuarPedido(cajaTakeaway) * ((tolerancia + 50) / 100));
+	// setActive(false);
 }
 
-void Repartidor::hacerPedido(int tamMesa)
+void Repartidor::hacerPedido()
 {
-	if (estado_ != repCAMINANDO) {
-		pedido = new PedidoTakeaway(mGame);
+	pedido = new PedidoTakeaway(mGame);
 
-		texPedido = pedido->getPedidoTex();
-	}
+	texPedido = pedido->getPedidoTex();
 }
 
 void Repartidor::modificaPedido(vector<int> ingPedidos) {
@@ -213,7 +222,9 @@ bool Repartidor::receiveCajaTakeaway(CajaTakeaway* caja)
 	if (caja == nullptr || caja->getIngreds().empty())
 		return false;
 	else {
-		caja->setPosition(getRectCenter(getOverlap()));
+		cajaTakeaway = caja;
+		setVel(Vector2D<double>(-vel.getX(), -vel.getY()));
+		setState(repSALIENDO);
 	}
 }
 

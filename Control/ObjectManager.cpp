@@ -160,6 +160,8 @@ vector<Mueble*> ObjectManager::getMueblesOverlaps(SDL_Rect collider)
 	}
 
 	// get Repart pool
+	vector<GameObject*> repartOverlaps = pools[pools.size() - 3]->getOverlaps(collider);
+	for (auto i : repartOverlaps) c.push_back(dynamic_cast<Mueble*>(i));
 
 	return c;
 }

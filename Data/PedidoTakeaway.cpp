@@ -116,14 +116,12 @@ double PedidoTakeaway::puntuarPedido(CajaTakeaway* comanda)
 	if (mPaellaSuspensa) {
 		mCaja.puntuacionPedido = 0;
 	}
-	cout << mCaja.puntuacionPedido << endl;
 	if (mCaja.puntuacionPedido > 10) {
 		mCaja.puntuacionPedido = 10;
 	}
-	mPuntuacionPedido += getPedido().puntuacionPedido;
 
-	cout << mPuntuacionPedido << endl;
-	return mPuntuacionPedido;
+	cout << mCaja.puntuacionPedido << endl;
+	return mCaja.puntuacionPedido;
 }
 
 

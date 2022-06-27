@@ -15,7 +15,7 @@ class ColaTakeaway
 
 public:
 
-	ColaTakeaway(int tMax_) : t_Max(tMax_), capacidadActual(0) {};
+	ColaTakeaway(int tMax_) : t_Max(tMax_ / 2), capacidadActual(0) {};
 	~ColaTakeaway() = default;
 
 	list<Repartidor*>::const_iterator getPos();

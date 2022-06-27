@@ -76,7 +76,7 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 		//Se prioriza la interaccion con los muebles por encima de otros objetos
 		//Se prioriza el mueble mas cercano al jugador
 		Mueble* m = nullptr;
-		for (auto i : mGame->getObjectManager()->getMueblesOverlaps(getOverlap())) {
+  		for (auto i : mGame->getObjectManager()->getMueblesOverlaps(getOverlap())) {
 			m = nearestObject(m, i);
 		}
 

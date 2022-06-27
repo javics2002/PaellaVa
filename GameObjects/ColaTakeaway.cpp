@@ -31,7 +31,9 @@ list<Repartidor*>::const_iterator ColaTakeaway::getPos()
 void ColaTakeaway::colaAvanza()
 {
     for (auto it : cola) {
-        it->setState(repCAMINANDO);
+        if (it->getState() != repSALIENDO) {
+            it->setState(repCAMINANDO);
+        }
     }
 
 }

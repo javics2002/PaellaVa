@@ -74,7 +74,7 @@ public:
 
 	void onDeactivate() override;
 
-	void hacerPedido(int tamMesa);
+	void hacerPedido();
 	void modificaPedido(std::vector<int> ingPedidos);
 	void decirPedidio();
 	PedidoTakeaway* getPedido() { return pedido; }

@@ -14,8 +14,10 @@ void Cartel::update()
 	for (auto i : mGame->getObjectManager()->getPool<GrupoClientes>(_p_GRUPO)->getCollisions(getCollider())) 
 		i->colisionClientes();	
 
-	for (auto i : mGame->getObjectManager()->getPool<Repartidor>(_p_REPARTIDOR)->getCollisions(getCollider()))
-		i->colisionCartel();
+	for (auto i : mGame->getObjectManager()->getPool<Repartidor>(_p_REPARTIDOR)->getCollisions(getCollider())) {
+		if (i->getState() != repSALIENDO)
+			i->colisionCartel();
+	}
 }
 
 SDL_Rect Cartel::getOverlap()

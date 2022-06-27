@@ -69,6 +69,14 @@ void Puerta::update()
 
 			cout << repartSpawn_delay << endl;
 		}
+
+
+		for (auto i : mGame->getObjectManager()->getPool<Repartidor>(_p_REPARTIDOR)->getCollisions(getCollider())) {
+			if (i->getState() == repSALIENDO) {
+				i->setActive(false);
+			}
+		}
+
 	}
 }
 
@@ -101,7 +109,7 @@ bool Puerta::repartidorSpawn()
 		dist.normalize();
 		dist = Vector2D<double>(dist.getX() * rep->getCollider().w, dist.getY() * rep->getCollider().h);
 
-		rep->setPosition(getX(), getY());
+		rep->setPosition(getX() - 50, getY() - 50);
 		// rep->setAnimResources(t);
 		setOrientation(rep);
 		rep->setVel(vel);
