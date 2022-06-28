@@ -23,6 +23,11 @@ Repartidor::Repartidor(Game* mGame) : Mueble(mGame, pos, DIMENSION, DIMENSION, "
 	tolerancia = 100;
 	lastTimeTol = 0;
 
+	clip.x = 0;
+	clip.y = 0;
+	clip.w = 1024;
+	clip.h = 1024;
+
 	showPed = false;
 	orderStart = true;
 	itemNow = 0;
@@ -86,7 +91,8 @@ void Repartidor::render(SDL_Rect* cameraRect)
 	/*SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, w, h };
 	drawRender(cameraRect, dest, );*/
 
-	if (isActive()) drawRender(cameraRect);
+	SDL_Rect dest = { getX() - getWidth() / 2, getY() - getHeight() / 2, w, h };
+	if (isActive()) drawRender(cameraRect, dest, texture, clip, flip);
 
 	int bocadilloX = 80;
 	int bocadilloY = 80;
@@ -171,6 +177,7 @@ void Repartidor::setState(EstadoRepartidor est)
 	case repSALIENDO:
 		if (getVel().getX() < 0) {
 			// Flip, mirar a la izq
+			flip = SDL_FLIP_HORIZONTAL;
 		}
 		cola->remove(posCola);
 		animCamina();

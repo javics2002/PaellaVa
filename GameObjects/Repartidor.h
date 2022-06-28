@@ -48,6 +48,9 @@ class Repartidor : public Mueble
 	vector<string> texPedido;
 	CajaTakeaway* cajaTakeaway;
 
+	SDL_RendererFlip flip;
+	SDL_Rect clip;
+
 	const float PED_DELAY = 2000;
 	const float TIEMPO_COMIDA = 5000;
 
