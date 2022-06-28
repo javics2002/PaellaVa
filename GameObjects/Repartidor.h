@@ -28,7 +28,7 @@ class Repartidor : public Mueble
 	list<Repartidor*>::const_iterator posCola;
 	ColaTakeaway* cola;
 
-	const float DIMIN_TIME = 6000;
+	const float DIMIN_TIME = 5000;
 	const float DIMIN_TOLERANCIA = 1;
 
 	float lastTimeTol;
@@ -82,7 +82,7 @@ public:
 	bool receiveCajaTakeaway(CajaTakeaway* caja) override;
 
 	void setOrientacion(bool vertical_);
-	void para();
-	void camina();
+	void animPara();
+	void animCamina();
 };
 

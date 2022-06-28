@@ -91,21 +91,7 @@ void Repartidor::render(SDL_Rect* cameraRect)
 	int bocadilloX = 80;
 	int bocadilloY = 80;
 
-	if (showPed && estado_ == repESPERANDO) {
-		if (sdlutils().virtualTimer().currTime() - lastTimePed >= PED_DELAY) {
-			lastTimePed = sdlutils().virtualTimer().currTime();
-
-			itemNow = (itemNow + 1) % texPedido.size();
-		}
-
-		int itemDim = 45;
-
-
-		drawRender(cameraRect, { (int)getX() - bocadilloX / 2, (int)getY() - bocadilloY, bocadilloX, bocadilloY }, texTolerancia);
-		drawRender(cameraRect, { (int)getX() - itemDim / 2, (int)getY() - 70, itemDim, itemDim }, &sdlutils().images().at(texPedido[itemNow]));
-
-		showPed = false;
-	}
+	
 
 	if (ratonEncima(cameraRect)) {
 
@@ -120,6 +106,22 @@ void Repartidor::render(SDL_Rect* cameraRect)
 
 		drawRender(cameraRect, bocadillo, texTolerancia);
 		drawRender(cameraRect, emoticono, &sdlutils().images().at(texturaTolerancia[((int)tolerancia / 20)]));
+
+		if (estado_ == repESPERANDO) {
+			if (sdlutils().virtualTimer().currTime() - lastTimePed >= PED_DELAY) {
+				lastTimePed = sdlutils().virtualTimer().currTime();
+
+				itemNow = (itemNow + 1) % texPedido.size();
+			}
+
+			int itemDim = 45;
+
+
+			drawRender(cameraRect, { (int)getX() - bocadilloX / 2, (int)getY() - bocadilloY, bocadilloX, bocadilloY }, texTolerancia);
+			drawRender(cameraRect, { (int)getX() - itemDim / 2, (int)getY() - 70, itemDim, itemDim }, &sdlutils().images().at(texPedido[itemNow]));
+
+			showPed = false;
+		}
 	}
 }
 
@@ -156,22 +158,22 @@ void Repartidor::setState(EstadoRepartidor est)
 {
 	estado_ = est;
 
-	lastTimeTol = sdlutils().virtualTimer().currTime();
 
 	switch (estado_)
 	{
 	case repESPERANDO:
-		para();
+		lastTimeTol = sdlutils().virtualTimer().currTime();
+		animPara();
 		break;
 	case repCAMINANDO:
-		camina();
+		animCamina();
 		break;
 	case repSALIENDO:
 		if (getVel().getX() < 0) {
 			// Flip, mirar a la izq
 		}
 		cola->remove(posCola);
-		camina();
+		animCamina();
 		break;
 	default:
 		break;
@@ -233,12 +235,12 @@ void Repartidor::setOrientacion(bool vertical_)
 	vertical = vertical_;
 }
 
-void Repartidor::para()
+void Repartidor::animPara()
 {
 	// Sería para Anims
 }
 
-void Repartidor::camina()
+void Repartidor::animCamina()
 {
 	// Sería para Anims
 }

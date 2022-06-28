@@ -100,15 +100,15 @@ double PedidoTakeaway::puntuarPedido(CajaTakeaway* comanda)
 		}
 		int cantidadIngr2 = int(comanda->getIngreds().size());
 		int difCantidad = cantidadIngr2 - cantidadIngr1;
-		variarPuntuacion(valorarI.sobraIngr * abs(difCantidad));
+		variarPuntuacion(valorarI.sobraIngr * 2 * abs(difCantidad));
 	}
 
 	//Variar puntuaciones en funcion de los ingredientes que no se han cocinado.
 
 	for (int j = 0; j < mCaja.ingredientesPedido.size(); j++) {
 		// if (mCaja.ingredientesPedido[j] != 9 && !comanda->getIngrPaella()[mCaja.ingredientesPedido[j]]) {
-		if (comanda->containsIngr((tipoIngrediente)mCaja.ingredientesPedido[j])) {
-			variarPuntuacion(valorarI.faltaIngr);
+		if (!comanda->containsIngr((tipoIngrediente)mCaja.ingredientesPedido[j])) {
+			variarPuntuacion(valorarI.faltaIngr * 2);
 		}
 	}
 

@@ -15,7 +15,7 @@ void Cartel::update()
 		i->colisionClientes();	
 
 	for (auto i : mGame->getObjectManager()->getPool<Repartidor>(_p_REPARTIDOR)->getCollisions(getCollider())) {
-		if (i->getState() != repSALIENDO)
+		if (i->getState() == repCAMINANDO)
 			i->colisionCartel();
 	}
 }
