@@ -18,9 +18,9 @@ class Puerta : public Mueble
 	const int MIN_SPAWN_TIME = 17500;
 	const int FAIL_SPAWN_TIME = 5000;
 
-	const int MAX_REPARTSPAWN_TIME = 3000;
-	const int MIN_REPARTSPAWN_TIME = 1750;
-	const int FAIL_REPARTSPAWN_TIME = 500;
+	const int MAX_REPARTSPAWN_TIME = 30000;
+	const int MIN_REPARTSPAWN_TIME = 18000;
+	const int FAIL_REPARTSPAWN_TIME = 3000;
 
 	double spawn_delay = 0;
 	double repartSpawn_delay = 0;
