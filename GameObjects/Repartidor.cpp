@@ -221,7 +221,7 @@ void Repartidor::decirPedidio()
 
 bool Repartidor::receiveCajaTakeaway(CajaTakeaway* caja)
 {
-	if (caja == nullptr || caja->getIngreds().empty())
+	if (caja == nullptr || !caja->isLlena())
 		return false;
 	else {
 		cajaTakeaway = caja;

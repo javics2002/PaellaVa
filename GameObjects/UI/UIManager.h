@@ -21,7 +21,7 @@ class UIManager
 		   "langosta", "mejillon", "pimientoRojo", "pimientoVerde", "pollo" };
 	vector<string> texturasNumeros = { "uno",  "dos", "tres", "cuatro",
 	   "cinco", "seis", "siete", "ocho", "nueve" };
-	vector<string> texturasTamanos = { "small","medium","large" };
+	vector<string> texturasTamanos = { "small","medium","large", "cajaTakeaway" };
 	vector<Point2D<double> >posicionesBotones;
 	vector<GameObject*> interfaz;//el resto de iconos 
 	list<UiButton*> botones;//botones

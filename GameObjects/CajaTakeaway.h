@@ -10,6 +10,7 @@ class CajaTakeaway : public ObjetoPortable
 {
 	const unsigned int DIMENSION = 60;
 
+	bool llena_;
 	bool contaminada_;
 	Resultado cocinada_;
 	list<tipoIngrediente> ingreds_;
@@ -26,6 +27,8 @@ public:
 
 	void setContaminada(bool cont) { contaminada_ = cont; };
 	bool getContaminada() { return contaminada_; };
+
+	bool isLlena() { return llena_; };
 
 	void addIngreds(list<tipoIngrediente> ingred);
 	list<tipoIngrediente> getIngreds();

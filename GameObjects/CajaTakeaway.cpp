@@ -2,7 +2,7 @@
 #include "../Control/Game.h"
 
 
-CajaTakeaway::CajaTakeaway(Game* mGame) : ObjetoPortable(mGame) {
+CajaTakeaway::CajaTakeaway(Game* mGame) : ObjetoPortable(mGame), llena_(false) {
 	setDimension(DIMENSION, DIMENSION);
 	setTexture("cajaTakeaway");
 	setDepth(2);
@@ -10,6 +10,7 @@ CajaTakeaway::CajaTakeaway(Game* mGame) : ObjetoPortable(mGame) {
 
 void CajaTakeaway::addIngreds(list<tipoIngrediente> ingred)
 {
+	llena_ = true;
 	ingreds_ = ingred;
 }
 
@@ -37,6 +38,7 @@ bool CajaTakeaway::containsIngr(tipoIngrediente ingr)
 void CajaTakeaway::resetCaja()
 {
 	ingreds_.clear();
+	llena_ = false;
 	contaminada_ = false;
 	cocinada_ = Cruda;
 
