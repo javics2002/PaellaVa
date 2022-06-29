@@ -282,6 +282,10 @@ void NetworkManager::updateClient()
 					Vector2D<double> distancia = Vector2D<double>(server_pkt.repartidor.dirX, server_pkt.repartidor.dirY);
 					Vector2D<double> pos = puerta->getPosition();
 
+					// Los repartidores se crean a (-50, -50) de la puerta.
+					pos.setX(pos.getX() - 50);
+					pos.setY(pos.getY() - 50);
+
 					Repartidor* rep = mGame->getObjectManager()->getPool<Repartidor>(_p_REPARTIDOR)->add();
 					rep->setPosition(pos);
 					// repp->setAnimResources();
@@ -907,6 +911,31 @@ void NetworkManager::syncPedido(int idGrupoCliente, int numPaellas, std::vector<
 
 void NetworkManager::syncPedidoTakeaway(int idRepartidor, std::vector<int> ingPedidos)
 {
+	Packet pkt;
+
+	pkt.packet_type = EPT_SYNCPEDIDO;
+	pkt.syncPedidoTakeaway.rep_id = idRepartidor;
+	for (int i = 0; i < ingPedidos.size(); i++) {
+		pkt.syncPedidoTakeaway.ing_pedidos[i] = ingPedidos[i];
+	}
+
+
+	if (nType == 'h') {
+		for (int i = 1u; i < mPlayerSockets.size(); i++) {
+			if (SDLNet_TCP_Send(mPlayerSockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+			{
+				std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+				exit(EXIT_FAILURE);
+			}
+		}
+	}
+	else {
+		if (SDLNet_TCP_Send(socket, &pkt, sizeof(Packet)) < sizeof(Packet))
+		{
+			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+			exit(EXIT_FAILURE);
+		}
+	}
 }
 
 void NetworkManager::syncPause() {

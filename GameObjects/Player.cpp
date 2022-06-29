@@ -230,6 +230,7 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 								{
 									if (mGame->getCurrentScene()->getState() == States::TUTORIALSTATE_PAUSA_DAR_DE_COMER) {
 										pickedPaellas_.back()->dropObject();
+										mGame->getNetworkManager()->syncDropObject(objectType_, pickedPaellas_.back()->getId(), m->getId());
 										pickedPaellas_.pop_back();
 										pickedPaellas_.shrink_to_fit();
 
@@ -242,6 +243,7 @@ void Player::handleInput(Vector2D<double> axis, bool playerOne)
 								}
 								else {
 									pickedPaellas_.back()->dropObject();
+									mGame->getNetworkManager()->syncDropObject(objectType_, pickedPaellas_.back()->getId(), m->getId());
 									pickedPaellas_.pop_back();
 									pickedPaellas_.shrink_to_fit();
 
@@ -688,6 +690,43 @@ void Player::PickCustomObject(int objectType, int objectId, int muebleId, int ex
 		}
 	}
 
+	else if (objectType == CAJATAKEAWAY) {
+		// comprobar si existe la caja
+		for (auto i : mGame->getObjectManager()->getPool<CajaTakeaway>(_p_CAJATAKEAWAY)->getActiveObjects()) {
+			if (i->getId() == objectId) {
+				// pickedObject_ = i;
+				objectType_ = CAJATAKEAWAY;
+				break;
+			}
+		}
+
+		for (auto m : mGame->getObjectManager()->getMuebles()) {
+			if (m->getId() == muebleId) {
+				m->returnObject(this);
+				break;
+			}
+		}
+	}
+
+	else if (objectType == PAELLA) {
+		// comprobar si existe la paella
+		for (auto i : mGame->getObjectManager()->getPaellas()) {
+			if (i->getId() == objectId) {
+				pickedObject_ = i;
+				Paella* pa = dynamic_cast<Paella*>(pickedObject_);
+				pickedPaellas_.push_back(pa);
+				break;
+			}
+		}
+
+		for (auto m : mGame->getObjectManager()->getMuebles()) {
+			if (m->getId() == muebleId) {
+				m->returnObject(this);
+				break;
+			}
+		}
+	}
+
 	else { // Es un mueble
 		for (auto m : mGame->getObjectManager()->getMuebles()) {
 			if (m->getId() == muebleId) {
@@ -719,6 +758,14 @@ void Player::DropCustomObject(int objectType, int objectId, int muebleId)
 		}
 		else if (objectType == PAELLA) {
 			mueble->receivePaella(dynamic_cast<Paella*>(pickedObject_));
+			pickedPaellas_.pop_back();
+			pickedPaellas_.shrink_to_fit();
+
+			if (pickedPaellas_.empty())
+				pickedObject_ = nullptr;
+			else {
+				setPickedObject(pickedPaellas_.back(), PAELLA);
+			}
 		}
 		else if (objectType == ARROZ) {
 			mueble->receiveArroz(dynamic_cast<Arroz*>(pickedObject_));
@@ -729,8 +776,11 @@ void Player::DropCustomObject(int objectType, int objectId, int muebleId)
 		else if (objectType == HERRAMIENTA) {
 			mueble->receiveHerramienta(dynamic_cast<Herramienta*>(pickedObject_));
 		}
+		else if (objectType == CAJATAKEAWAY) {
+ 			mueble->receiveCajaTakeaway(dynamic_cast<CajaTakeaway*>(pickedObject_));
+		}
 
-		if (mueble != dynamic_cast<FinalCinta*>(mueble)) {
+		if (mueble != dynamic_cast<FinalCinta*>(mueble) && (mueble->hasCajaTakeaway() == pickedObject_ || mueble->hasCajaTakeaway() == nullptr)) {
 			pickedObject_->dropObject();
 			pickedObject_ = nullptr;
 		}

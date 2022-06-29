@@ -137,6 +137,8 @@ public:
 	vector<Mueble*> getMueblesCollisions(SDL_Rect collider);
 	vector<Mueble*> getMueblesOverlaps(SDL_Rect collider);
 
+	vector<Paella*> getPaellas() { return paellas; };
+
 	vector<Player*> getPlayers() { return players; }
 
 	Player* getPlayerOne() { 

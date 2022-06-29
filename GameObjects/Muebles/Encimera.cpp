@@ -7,7 +7,7 @@
 #include "../../Control/Game.h"
 #include "../../Scenes/Tutorial.h"
 
-Encimera::Encimera(Game* mGame, Vector2D<double> pos) : Mueble(mGame, pos, 1 * TILE_SIZE, 2 * TILE_SIZE, "encimera")
+Encimera::Encimera(Game* mGame, Vector2D<double> pos) : Mueble(mGame, pos, 1 * TILE_SIZE, 2 * TILE_SIZE, "encimera"), cajaTakeaway_(nullptr)
 {
 	//Siempre tiene que funcionar
 	funcionando = true;
@@ -150,7 +150,7 @@ bool Encimera::receiveCajaTakeaway(CajaTakeaway* caja)
 
 bool Encimera::returnObject(Player* p)
 {
-	if ((p->getPickedPaellasCount() > 0 && paella_ == nullptr) || p->getPickedPaellasCount() >= p->getMaxPickedPaellasCount() || p->getPickedObject() != dynamic_cast<Paella*>(p->getPickedObject()))
+	if ((p->getPickedPaellasCount() > 0 && paella_ == nullptr) || p->getPickedPaellasCount() >= p->getMaxPickedPaellasCount() || (p->getObjectType() != PAELLA && p->getPickedObject() != nullptr))
 		return false;
 
 	if (ingr_ != nullptr)
