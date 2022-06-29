@@ -13,7 +13,7 @@
 
 #include "../Scenes/Jornada.h"
 
-Repartidor::Repartidor(Game* mGame) : Mueble(mGame, pos, DIMENSION, DIMENSION, "clienteBase"), pedido(nullptr), cola(nullptr), estado_(repCAMINANDO)
+Repartidor::Repartidor(Game* mGame) : Mueble(mGame, pos, DIMENSION, DIMENSION, "repartidor"), pedido(nullptr), cola(nullptr), estado_(repCAMINANDO)
 {
 	setDimension(DIMENSION, DIMENSION);
 
@@ -25,8 +25,8 @@ Repartidor::Repartidor(Game* mGame) : Mueble(mGame, pos, DIMENSION, DIMENSION, "
 
 	clip.x = 0;
 	clip.y = 0;
-	clip.w = 1024;
-	clip.h = 1024;
+	clip.w = 2048;
+	clip.h = 2048;
 
 	showPed = false;
 	orderStart = true;
