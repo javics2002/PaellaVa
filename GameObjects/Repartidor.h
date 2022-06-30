@@ -81,8 +81,10 @@ public:
 	void modificaPedido(std::vector<int> ingPedidos);
 	void decirPedidio();
 	PedidoTakeaway* getPedido() { return pedido; }
+	int getTolerancia() { return tolerancia; };
 
 	bool receiveCajaTakeaway(CajaTakeaway* caja) override;
+	CajaTakeaway* hasCajaTakeaway() override { return cajaTakeaway; };
 
 	void setOrientacion(bool vertical_);
 	void animPara();

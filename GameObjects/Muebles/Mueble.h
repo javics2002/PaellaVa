@@ -48,6 +48,7 @@ public:
     virtual bool resetCounter() { return false; }
 
     virtual bool returnObject(Player* p) { return false; }
+    virtual bool returnPaellaObject(Player* p) { return false; };
 
     virtual Silla* initMesa(Mesa* mesa) { return nullptr;}
     virtual void decirPedido() {};

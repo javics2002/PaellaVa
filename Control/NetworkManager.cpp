@@ -300,6 +300,25 @@ void NetworkManager::updateClient()
 				}
 			}
 			break;
+			case EPT_DELETEREPARTIDOR:
+			{
+				if (mGameStarted) {
+					Repartidor* rep = nullptr;
+
+					for (auto repAux : mGame->getObjectManager()->getPool<Repartidor>(_p_REPARTIDOR)->getActiveObjects()) {
+						if (repAux->getId() == server_pkt.deleteRep.rep_id) {
+							rep = dynamic_cast<Repartidor*>(repAux);
+							break;
+						}
+					}
+
+					rep->setActive(false);
+
+
+					sdlutils().soundEffects().at("puerta").play();
+				}
+			}
+			break;
 			case EPT_BUTTONBUFFER:
 				{
 				if (mGameStarted) {
@@ -801,6 +820,23 @@ void NetworkManager::sendRepartidor(int idPuerta, int idRep, Vector2D<double> ve
 	pkt.repartidor.dirY = distancia.getY();
 
 	pkt.repartidor.tolerancia = tolerancia;
+
+	for (int i = 1u; i < mPlayerSockets.size(); i++) {
+		if (SDLNet_TCP_Send(mPlayerSockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+		{
+			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+			exit(EXIT_FAILURE);
+		}
+	}
+}
+
+void NetworkManager::sendDeleteRepartidor(int idRep, float puntos)
+{
+	Packet pkt;
+
+	pkt.packet_type = EPT_DELETEREPARTIDOR;
+	pkt.deleteRep.rep_id = idRep;
+	pkt.deleteRep.puntos = puntos;
 
 	for (int i = 1u; i < mPlayerSockets.size(); i++) {
 		if (SDLNet_TCP_Send(mPlayerSockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))

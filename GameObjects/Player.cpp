@@ -722,7 +722,7 @@ void Player::PickCustomObject(int objectType, int objectId, int muebleId, int ex
 
 		for (auto m : mGame->getObjectManager()->getMuebles()) {
 			if (m->getId() == muebleId) {
-				m->returnObject(this);
+				m->returnPaellaObject(this);
 				break;
 			}
 		}
@@ -758,7 +758,16 @@ void Player::DropCustomObject(int objectType, int objectId, int muebleId)
 			mueble->receiveIngrediente(dynamic_cast<Ingrediente*>(pickedObject_));
 		}
 		else if (objectType == PAELLA) {
-			mueble->receivePaella(dynamic_cast<Paella*>(pickedObject_));
+
+			Paella* pa = dynamic_cast<Paella*>(pickedObject_);
+			for (auto i : mGame->getObjectManager()->getPaellas())
+			{
+				if (i->getId() == objectId) {
+					pa = i;
+				}
+			}
+
+			mueble->receivePaella(pa);
 			if (mueble != dynamic_cast<FinalCinta*>(mueble) && !mueble->hasCajaTakeaway()) {
 
 				pickedPaellas_.pop_back();

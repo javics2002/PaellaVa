@@ -204,3 +204,21 @@ bool Encimera::returnObject(Player* p)
 	return false;
 }
 
+bool Encimera::returnPaellaObject(Player* p)
+{
+	if ((p->getPickedPaellasCount() > 0 && paella_ == nullptr) || p->getPickedPaellasCount() > p->getMaxPickedPaellasCount() || (p->getObjectType() != PAELLA && p->getPickedObject() != nullptr))
+		return false;
+
+	if (paella_ != nullptr)
+	{
+		p->setPickedObject(paella_, PAELLA);
+		paella_ = nullptr;
+
+		cout << "Objeto devuelto por: " << id << endl;
+
+		return true;
+	}
+
+	return false;
+}
+

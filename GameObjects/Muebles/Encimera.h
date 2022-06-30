@@ -20,6 +20,7 @@ public:
 
 	virtual bool receiveIngrediente(Ingrediente* ingr) override;
 	virtual bool returnObject(Player* p) override;
+	virtual bool returnPaellaObject(Player* p) override;
 	virtual bool receivePaella(Paella* pa) override;
 	virtual bool receiveArroz(Arroz* pa) override;
 	virtual bool receiveHerramienta(Herramienta* h) override;

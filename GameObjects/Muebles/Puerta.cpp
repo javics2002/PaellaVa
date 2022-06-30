@@ -74,6 +74,7 @@ void Puerta::update()
 		for (auto i : mGame->getObjectManager()->getPool<Repartidor>(_p_REPARTIDOR)->getCollisions(getCollider())) {
 			if (i->getState() == repSALIENDO) {
 				i->setActive(false);
+				mGame->getNetworkManager()->sendDeleteRepartidor(i->getId(), i->getPedido()->puntuarPedido(i->hasCajaTakeaway()) * ((i->getTolerancia() + 50) / 100));
 			}
 		}
 

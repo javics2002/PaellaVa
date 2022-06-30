@@ -22,6 +22,7 @@ enum EPacketType {
 	EPT_CREATEINGLET,
 	EPT_CREATECLIENTGROUP,
 	EPT_CREATEREPARTIDOR,
+	EPT_DELETEREPARTIDOR,
 	EPT_BUTTONBUFFER,
 	EPT_SYNCPLAYER,
 	EPT_SYNCPICKOBJECT,
@@ -80,7 +81,7 @@ struct PacketGrupoCliente {
 	float tolerancia;
 };
 
-// Paquete para un grupo de clientes
+// Paquete para un repartidor
 struct PacketRepartidor {
 
 	Uint16 rep_id;
@@ -93,6 +94,13 @@ struct PacketRepartidor {
 	Sint16 dirY;
 
 	float tolerancia;
+};
+
+// Paquete para eliminar un repartidor al salir
+struct PacketDeleteRepartidor {
+
+	Uint16 rep_id;
+	float puntos;
 };
 
 // Paquete para input jugador.
@@ -188,6 +196,7 @@ struct Packet {
 		PacketIngrediente ingrediente;
 		PacketGrupoCliente grupoCliente;
 		PacketRepartidor repartidor;
+		PacketDeleteRepartidor deleteRep;
 		PacketButtonBuffer buttonBuffer;
 		PacketSyncPlayers syncPlayers;
 		PacketSyncPickObject syncPickObject;
@@ -291,6 +300,7 @@ public:
 	
 	void sendGrupoCliente(int tamGrupo, int idPuerta, int idGrupoClientes, Vector2D<double> vel, Vector2D<double> distancia, std::vector<int> textureNumber, float tolerancia);
 	void sendRepartidor(int idPuerta, int idRep, Vector2D<double> vel, Vector2D<double> distancia, float tolerancia);
+	void sendDeleteRepartidor(int idRep, float puntos);
 
 	void sendButtonsBuffer(std::vector<bool> keyPressed);
 
