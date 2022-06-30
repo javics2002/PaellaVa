@@ -60,7 +60,7 @@ bool FinalCinta::receiveArroz(Arroz* arr)
 
 bool FinalCinta::receiveCajaTakeaway(CajaTakeaway* caja)
 {
-	if (caja->getIngreds().empty())
+	if (caja == nullptr || !caja->isLlena())
 		return false;
 
 	caja->setTexture("cajaTakeaway");
