@@ -578,7 +578,7 @@ El diseño de sonido consta de una gama de sonidos realistas, que representan ca
 
 ### Personajes: <a name="personajes"></a>
 
-<img src="images_gdd/43personajes.PNG"> <img src="images_gdd/44personajes.PNG">
+<img src="images_gdd/43personajes.PNG"> <img src="images_gdd/44personajes.PNG"> <img src="images_gdd/repartidor.PNG">
 
 
 ### Ingredientes: <a name="ingredientes"></a>
@@ -620,10 +620,10 @@ Paellara Sucia:
 ### Cajas de Takeaway: <a name="cajasTakeaway"></a>
 
 Caja vacía:
-<img src="images_gdd/cajaTakeawayVacia.png">
+<img src="images_gdd/cajaTakeawayVacia.PNG">
 
 Caja llena:
-<img src="images_gdd/cajaTakeawayCerrada.png">
+<img src="images_gdd/cajaTakeawayCerrada.PNG">
 
 
 ### Restaurante: <a name="restaurante"></a>
@@ -638,7 +638,7 @@ Sprites ligados al entorno de juego:
 | Cinta Transportadora         | <img src="images_gdd/67cinta.PNG"> |
 | Lavavajillas         | <img src="images_gdd/68lavavajillas.PNG"> |
 | Pila de Paelleras         | <img src="images_gdd/69pila.PNG"> |
-| Pila de Cajas de Takeaway         | <img src="images_gdd/70torreCajasTakeaway.PNG"> |
+| Pila de Cajas de Takeaway         | <img src="images_gdd/torreCajasTakeaway.PNG"> |
 | Basura         | <img src="images_gdd/70basura.PNG"> |
 
 | Comedor |      |
