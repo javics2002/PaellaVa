@@ -415,15 +415,6 @@ void Jornada::loadMap(string const& path)
 					mIdCount++;
 					getObjectManager()->addMueble(c);
 				}
-				else if (name == "puerta") { 
-					Puerta* puerta = new Puerta(mGame, position, p[3].getIntValue(), p[0].getIntValue());
-					puerta->setVel(Vector2D<double>((double)p[1].getFloatValue(), (double)p[2].getFloatValue()));
-
-					puerta->setId(mIdCount);
-					mIdCount++;
-
-					getObjectManager()->addMueble(puerta);
-				}
 				else if (name == "cartel") {
 					Cartel* c = new Cartel(mGame, position);
 					getObjectManager()->addMueble(c);
@@ -486,8 +477,20 @@ void Jornada::loadMap(string const& path)
 					mIdCount++;
 					getObjectManager()->addMueble(torre);
 				}
+				else if (name == "puerta") {
+					Puerta* puerta = new Puerta(mGame, position, p[3].getIntValue(), p[0].getIntValue());
+					puerta->setVel(Vector2D<double>((double)p[1].getFloatValue(), (double)p[2].getFloatValue()));
+
+					puerta->setId(mIdCount);
+					mIdCount++;
+
+					getObjectManager()->addMueble(puerta);
+				}
 			}
 		}
+
+		mGame->getNetworkManager()->setMaxIdCount(mIdCount);
+
 		// ordenar render
 		getObjectManager()->sortAllGO();
 

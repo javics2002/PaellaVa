@@ -116,6 +116,10 @@ bool Puerta::repartidorSpawn()
 		colaTakeaway->add(rep);
 		rep->init(colaTakeaway);
 
+		if (muebleIdCount == 0) muebleIdCount = mGame->getNetworkManager()->getMaxIdCount();
+		rep->setId(muebleIdCount);
+		muebleIdCount++;
+
 
 		sdlutils().soundEffects().at("puerta").play();
 

@@ -133,7 +133,7 @@ public:
 		return (Pool<T>*) pools[i];
 	}
 
-	vector<Mueble*> getMuebles() { return muebles; }
+	vector<Mueble*> getMuebles();
 	vector<Mueble*> getMueblesCollisions(SDL_Rect collider);
 	vector<Mueble*> getMueblesOverlaps(SDL_Rect collider);
 

@@ -35,6 +35,8 @@ class Puerta : public Mueble
 	int numClientSpawn();
 	bool repartidorSpawn();
 
+	int muebleIdCount = 0;
+
 public:
 	Puerta(Game* mGame, Vector2D<double> pos, int t_Max, int maxTamGrupo_);
 	~Puerta() = default;

@@ -230,11 +230,12 @@ bool Repartidor::receiveCajaTakeaway(CajaTakeaway* caja)
 {
 	if (caja == nullptr || !caja->isLlena())
 		return false;
-	else {
-		cajaTakeaway = caja;
-		setVel(Vector2D<double>(-vel.getX(), -vel.getY()));
-		setState(repSALIENDO);
-	}
+
+	cajaTakeaway = caja;
+	setVel(Vector2D<double>(-vel.getX(), -vel.getY()));
+	setState(repSALIENDO);
+
+	return true;
 }
 
 void Repartidor::setOrientacion(bool vertical_)

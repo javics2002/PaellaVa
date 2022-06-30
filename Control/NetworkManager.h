@@ -240,6 +240,7 @@ private:
 	const int MAX_PLAYERS = 15;
 
 	int mIdCount;
+	int maxIdCount;
 	Game* mGame;
 
 	bool mExitThread;
@@ -304,4 +305,8 @@ public:
 	void syncBarra(int c);
 
 	void setGameStarted(bool gameStarted_) { mGameStarted = gameStarted_; }
+
+	int getIdCount() { return mIdCount; };
+	int getMaxIdCount() { return maxIdCount; };
+	void setMaxIdCount(int id) { maxIdCount = id; };
 };

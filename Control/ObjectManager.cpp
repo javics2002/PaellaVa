@@ -138,6 +138,20 @@ Paella* ObjectManager::addPaella(int n)
 	return p;
 }
 
+vector<Mueble*> ObjectManager::getMuebles()
+{
+	vector<Mueble*> c;
+
+	for (auto i : muebles)
+		c.push_back(i);
+
+	// get Repart pool
+	vector<GameObject*> repartOverlaps = pools[pools.size() - 3]->getActiveObjects();
+	for (auto i : repartOverlaps) c.push_back(dynamic_cast<Mueble*>(i));
+
+	return c;
+}
+
 vector<Mueble*> ObjectManager::getMueblesCollisions(SDL_Rect collider)
 {
 	vector<Mueble*> c;
