@@ -131,25 +131,23 @@ bool TablaProcesado::receiveIngrediente(Ingrediente* ingr)
 
 bool TablaProcesado::returnObject(Player* p)
 {
-	if (ingr_ != nullptr)
-	{
-		//TOCHECK: Podr�amos hacer un return del objeto y que el player se lo guarde a s� mismo
-		p->setPickedObject(ingr_, INGREDIENTE);
-		if (ingr_->getProcesado() && dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == States::TUTORIALSTATE_PROCESAR_INGREDIENTE)
-			mGame->getCurrentScene()->changeState(States::TUTORIALSTATE_PAUSA_PROCESAR_INGREDIENTE);
-
-		ingr_ = nullptr;
-
-		i = 0;
-		clip.x = 0;
-		rellenoTimer = 0;
-
-		sdlutils().soundEffects().at("cortar1").haltChannel(canalSonido);
-
-		return true;
-	}
-	else
+	if (ingr_ == nullptr || p->getPickedObject() != nullptr)
 		return false;
+
+	//TOCHECK: Podr�amos hacer un return del objeto y que el player se lo guarde a s� mismo
+	p->setPickedObject(ingr_, INGREDIENTE);
+	if (ingr_->getProcesado() && dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == States::TUTORIALSTATE_PROCESAR_INGREDIENTE)
+		mGame->getCurrentScene()->changeState(States::TUTORIALSTATE_PAUSA_PROCESAR_INGREDIENTE);
+
+	ingr_ = nullptr;
+
+	i = 0;
+	clip.x = 0;
+	rellenoTimer = 0;
+
+	sdlutils().soundEffects().at("cortar1").haltChannel(canalSonido);
+
+	return true;
 }
 
 bool TablaProcesado::resetCounter()

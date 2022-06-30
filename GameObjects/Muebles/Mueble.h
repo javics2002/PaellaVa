@@ -9,6 +9,7 @@ class Ingrediente;
 class GrupoClientes;
 class Player;
 class Arroz;
+class CajaTakeaway;
 class Mesa;
 class Silla;
 class PoolObject;
@@ -42,10 +43,12 @@ public:
     virtual bool receivePaella(Paella* pa) { return false; }
     virtual bool receiveArroz(Arroz* arr) { return false;}
     virtual bool receiveHerramienta(Herramienta* h);
+    virtual bool receiveCajaTakeaway(CajaTakeaway* h) { return false; };
     virtual bool testMueble();
     virtual bool resetCounter() { return false; }
 
     virtual bool returnObject(Player* p) { return false; }
+    virtual bool returnPaellaObject(Player* p) { return false; };
 
     virtual Silla* initMesa(Mesa* mesa) { return nullptr;}
     virtual void decirPedido() {};
@@ -57,6 +60,9 @@ public:
 
     virtual void setId(int newId) { id = newId; }
     virtual int getId() { return id; }
+
+    virtual CajaTakeaway* hasCajaTakeaway() { return nullptr; };
+    virtual Paella* hasPaella() { return nullptr; };
 
     void romperMueble();
 };

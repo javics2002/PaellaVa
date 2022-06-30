@@ -23,6 +23,7 @@ class Mesa;
 class TablaProcesado;
 class Lavavajillas;
 class CajaHerramientas;
+class TorreCajaTakeaway;
 
 #include "../GameObjects/Ingredienteletal.h"
 
@@ -34,7 +35,7 @@ class Herramienta;
 
 using namespace std;
 
-enum poolType { _p_INGREDIENTELETAL, _p_INGREDIENTE, _p_HERRAMIENTA, _p_ARROZ, _p_GRUPO, _p_CLIENTE};
+enum poolType { _p_INGREDIENTELETAL, _p_INGREDIENTE, _p_HERRAMIENTA, _p_CAJATAKEAWAY, _p_ARROZ, _p_REPARTIDOR, _p_GRUPO, _p_CLIENTE};
 
 
 class ObjectManager
@@ -68,6 +69,7 @@ class ObjectManager
 	FinalCinta* mFinCinta;
 	Lavavajillas* mLavavajillas;
 	CajaHerramientas* mCajaHerramientas;
+	TorreCajaTakeaway* mTorreCajaTakeaway;
 
 
 
@@ -101,6 +103,7 @@ public:
 	void addTabla(TablaProcesado* t) { mTablasProcesados.push_back(t); };
 	void addLavavajillas(Lavavajillas* l) { mLavavajillas = l; };
 	void addCaja(CajaHerramientas* c) { mCajaHerramientas = c; };
+	void addTorreCajaTakeaway(TorreCajaTakeaway* c) { mTorreCajaTakeaway = c; };
 
 	vector<Silla*> getSillas() { return mSillas; };
 	vector<Mesa*> getMesas() { return mMesas; };
@@ -117,6 +120,7 @@ public:
 	FinalCinta* getFinCinta() { return mFinCinta; };
 	Lavavajillas* getLavavajillas() { return mLavavajillas; };
 	CajaHerramientas* getCajaHerramientas() { return mCajaHerramientas; };
+	TorreCajaTakeaway* getTorreCajaTakeaway() { return mTorreCajaTakeaway; };
 
 
 
@@ -129,9 +133,11 @@ public:
 		return (Pool<T>*) pools[i];
 	}
 
-	vector<Mueble*> getMuebles() { return muebles; }
+	vector<Mueble*> getMuebles();
 	vector<Mueble*> getMueblesCollisions(SDL_Rect collider);
 	vector<Mueble*> getMueblesOverlaps(SDL_Rect collider);
+
+	vector<Paella*> getPaellas() { return paellas; };
 
 	vector<Player*> getPlayers() { return players; }
 

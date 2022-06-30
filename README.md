@@ -466,6 +466,21 @@ A lo largo de la partida surgirán eventos durante las jornadas de forma aleator
     * Fogón: no podrás poner paellas.
 
 
+### **Eventos del Juego:**
+
+A lo largo de la partida surgirán eventos durante las jornadas de forma aleatoria para añadir espontaneidad y algo de “chispa” al gameplay. En el juego encontraremos los siguientes eventos:
+
+* Ingredientes falsos: En la cinta de alimentos aparecerán elementos que no están
+
+<img src="images_gdd/40eventos.PNG">
+
+* Los muebles se rompen: Cada cierto tiempo los muebles tendrán la probabilidad de romperse. Adicionalmente, se incluirá un nuevo mueble: la caja de herramientas. En cada restaurante habrá una y se situará en la cocina. Si interactúas con ella te dará una llave inglesa, la cual podrás utilizar para arreglar muebles. La llave inglesa también se podrá colocar en las encimeras. Los muebles que se podrán romper serán:
+    * Lavavajillas: no puedes meter paellas en ella.
+    * Mesa de procesado: no podrás procesar ingredientes.
+    * Cinta: dejarán de salir ingredientes.
+    * Fogón: no podrás poner paellas.
+
+
 ## 3. Controles <a name="controles"></a>
 
 | Acción                     | Teclado          |
@@ -511,7 +526,6 @@ La estética general del juego está basada en un arte cartoon vectorizada, con 
 Habrá dos personajes, el camarero y el cocinero, cada uno de ellos con una apariencia diferente pero dentro de la misma estética.
 
 El diseño de sonido consta de una gama de sonidos realistas, que representan cada una de las acciones realizadas por el jugador.
-
 
 ## 6. Contenido <a name="contenido"></a>
 

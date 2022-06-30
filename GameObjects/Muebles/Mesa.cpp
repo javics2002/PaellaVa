@@ -144,7 +144,7 @@ bool Mesa::receivePaella(Paella* paella)
 bool Mesa::returnObject(Player* p)
 {
 	if (mGrupo != nullptr ) {
-		if (mGrupo->canPick()) {
+		if (mGrupo->canPick() && p->getPickedObject() == nullptr) {
 			p->setPickedObject(mGrupo, objectType::CLIENTES);
 			if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState() == TUTORIALSTATE_SACAR_CUENTA)
 				mGame->getCurrentScene()->changeState(TUTORIALSTATE_PAUSA_SACAR_CUENTA);
@@ -152,7 +152,7 @@ bool Mesa::returnObject(Player* p)
 			return true;
 		}
 	}
-	else if (!paellas.empty()) {
+	else if (!paellas.empty() && (p->getPickedObject() == nullptr || (p->getPickedPaellasCount() > 0 && p->getPickedPaellasCount() < p->getMaxPickedPaellasCount()))) {
 		p->setPickedObject(paellas.back(), objectType::PAELLA);
 		paellas.back()->enLaMesa(false);
 		paellas.back()->setContenido(Sucia);

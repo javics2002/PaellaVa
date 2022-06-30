@@ -137,6 +137,21 @@ void NetworkManager::receivePlayers()
 						}
 					}
 					break;
+				case EPT_SYNCPEDIDOTAKEAWAY:
+					// Crear pedido en el grupo de clientes correspondiente
+					for (int i = 0; i < mGame->getObjectManager()->getPool<Repartidor>(_p_REPARTIDOR)->getActiveObjects().size(); i++) {
+						Repartidor* rep = mGame->getObjectManager()->getPool<Repartidor>(_p_REPARTIDOR)->getActiveObjects()[i];
+						if (rep->getId() == pkt.syncPedidoTakeaway.rep_id) {
+							vector<int> ingPedidos(12, LAST);
+
+							for (int i = 0; i < ingPedidos.size(); i++) {
+								ingPedidos[i] = pkt.syncPedidoTakeaway.ing_pedidos[i];
+							}
+
+							rep->modificaPedido(ingPedidos);
+						}
+					}
+					break;
 				case EPT_SYNCPAUSE:
 					dynamic_cast<Jornada*>(mGame->getCurrentScene())->togglePause();
 					break;
@@ -252,6 +267,58 @@ void NetworkManager::updateClient()
 				}
 				}
 				break;
+			case EPT_CREATEREPARTIDOR:
+			{
+				if (mGameStarted) {
+					Puerta* puerta = nullptr;
+
+					for (auto m : mGame->getObjectManager()->getMuebles()) {
+						if (m->getId() == server_pkt.repartidor.door_id) {
+							puerta = dynamic_cast<Puerta*>(m);
+							break;
+						}
+					}
+
+					Vector2D<double> distancia = Vector2D<double>(server_pkt.repartidor.dirX, server_pkt.repartidor.dirY);
+					Vector2D<double> pos = puerta->getPosition();
+
+					// Los repartidores se crean a (-50, -50) de la puerta.
+					pos.setX(pos.getX() - 50);
+					pos.setY(pos.getY() - 50);
+
+					Repartidor* rep = mGame->getObjectManager()->getPool<Repartidor>(_p_REPARTIDOR)->add();
+					rep->setPosition(pos);
+					// repp->setAnimResources();
+					puerta->setOrientation(rep);
+					rep->setId(server_pkt.repartidor.rep_id);
+					rep->setVel(Vector2D<double>(server_pkt.repartidor.velX, server_pkt.repartidor.velY));
+
+					puerta->getColaTakeaway()->add(rep);
+					rep->init(puerta->getColaTakeaway());
+
+					sdlutils().soundEffects().at("puerta").play();
+				}
+			}
+			break;
+			case EPT_DELETEREPARTIDOR:
+			{
+				if (mGameStarted) {
+					Repartidor* rep = nullptr;
+
+					for (auto repAux : mGame->getObjectManager()->getPool<Repartidor>(_p_REPARTIDOR)->getActiveObjects()) {
+						if (repAux->getId() == server_pkt.deleteRep.rep_id) {
+							rep = dynamic_cast<Repartidor*>(repAux);
+							break;
+						}
+					}
+
+					rep->setActive(false);
+
+
+					sdlutils().soundEffects().at("puerta").play();
+				}
+			}
+			break;
 			case EPT_BUTTONBUFFER:
 				{
 				if (mGameStarted) {
@@ -738,6 +805,48 @@ void NetworkManager::sendGrupoCliente(int tamGrupo, int idPuerta, int idGrupoCli
 	}
 }
 
+void NetworkManager::sendRepartidor(int idPuerta, int idRep, Vector2D<double> vel, Vector2D<double> distancia, float tolerancia)
+{
+	Packet pkt;
+
+	pkt.packet_type = EPT_CREATEREPARTIDOR;
+	pkt.repartidor.door_id = idPuerta;
+	pkt.repartidor.rep_id = idRep;
+
+	pkt.repartidor.velX = vel.getX();
+	pkt.repartidor.velY = vel.getY();
+
+	pkt.repartidor.dirX = distancia.getX();
+	pkt.repartidor.dirY = distancia.getY();
+
+	pkt.repartidor.tolerancia = tolerancia;
+
+	for (int i = 1u; i < mPlayerSockets.size(); i++) {
+		if (SDLNet_TCP_Send(mPlayerSockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+		{
+			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+			exit(EXIT_FAILURE);
+		}
+	}
+}
+
+void NetworkManager::sendDeleteRepartidor(int idRep, float puntos)
+{
+	Packet pkt;
+
+	pkt.packet_type = EPT_DELETEREPARTIDOR;
+	pkt.deleteRep.rep_id = idRep;
+	pkt.deleteRep.puntos = puntos;
+
+	for (int i = 1u; i < mPlayerSockets.size(); i++) {
+		if (SDLNet_TCP_Send(mPlayerSockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+		{
+			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+			exit(EXIT_FAILURE);
+		}
+	}
+}
+
 void NetworkManager::syncPickObject(int objectType, int objectId, int muebleId, int extraInfo)
 {
 	Packet pkt;
@@ -817,6 +926,35 @@ void NetworkManager::syncPedido(int idGrupoCliente, int numPaellas, std::vector<
 		pkt.syncPedido.ing_pedidos[i] = ingPedidos[i];
 	}
 	
+
+	if (nType == 'h') {
+		for (int i = 1u; i < mPlayerSockets.size(); i++) {
+			if (SDLNet_TCP_Send(mPlayerSockets[i], &pkt, sizeof(Packet)) < sizeof(Packet))
+			{
+				std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+				exit(EXIT_FAILURE);
+			}
+		}
+	}
+	else {
+		if (SDLNet_TCP_Send(socket, &pkt, sizeof(Packet)) < sizeof(Packet))
+		{
+			std::cout << ("SDLNet_TCP_Send: %s\n", SDLNet_GetError()) << std::endl;
+			exit(EXIT_FAILURE);
+		}
+	}
+}
+
+void NetworkManager::syncPedidoTakeaway(int idRepartidor, std::vector<int> ingPedidos)
+{
+	Packet pkt;
+
+	pkt.packet_type = EPT_SYNCPEDIDO;
+	pkt.syncPedidoTakeaway.rep_id = idRepartidor;
+	for (int i = 0; i < ingPedidos.size(); i++) {
+		pkt.syncPedidoTakeaway.ing_pedidos[i] = ingPedidos[i];
+	}
+
 
 	if (nType == 'h') {
 		for (int i = 1u; i < mPlayerSockets.size(); i++) {

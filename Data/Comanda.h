@@ -23,7 +23,7 @@ class Comanda :public GameObject
     //al añadir paella se alarga un poco la comanda
     //hay 8 ingredientes distintos
 public:
-    enum Tamaño { Pequeña, Mediana, Grande };
+    enum Tamaño { Pequeña, Mediana, Grande, Takeaway };
     Comanda(Game* mGame, uint escala, UIManager* uim,bool enVentanilla_);//crear comanda
     Comanda( Comanda& c);//NECESARIO PARA QUE LA LIST DE COMANDAS FUNCIONE
     Comanda(Game* mGame, int numMesa, vector<int> tamPaellas, vector<int> ingPedidos);

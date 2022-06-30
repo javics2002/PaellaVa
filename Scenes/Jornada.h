@@ -60,6 +60,7 @@ class Jornada : public Scene
 	bool mHost;
 
 	int mIdCount = 0;
+	int maxIdCount = 0;
 
 public:
 	Jornada(Game* mGame, string tilemap, int numeroJornada, bool cocinera = true);
@@ -74,6 +75,8 @@ public:
 
 	void loadMap(string const& path);
 	void togglePause();
+
+	int getMaxIdCount() { return maxIdCount; };
 
 	int getNumJornada() { return mNumJornada; }
 	double getPunctuationJornada() {

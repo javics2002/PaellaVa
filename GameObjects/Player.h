@@ -10,12 +10,15 @@ class Arroz;
 class Mueble;
 
 enum orientation { N, S, E, O };
-enum objectType { INGREDIENTE, CLIENTES, PAELLA, ARROZ, HERRAMIENTA};
+enum objectType { INGREDIENTE, CLIENTES, PAELLA, ARROZ, HERRAMIENTA, CAJATAKEAWAY};
 
 class Player : public GameObject
 {
 	ObjetoPortable* pickedObject_;
+	deque<Paella*> pickedPaellas_;
 	objectType objectType_;
+
+	const int MAX_PAELLAS_CARRY_ = 3;
 
 	bool chef_;		// False is waiter
 	bool enComanda=false;
@@ -52,6 +55,11 @@ public:
 	void render(SDL_Rect* cameraRect) override;
 
 	void setPickedObject(ObjetoPortable* op, objectType ot);
+	objectType getObjectType() { return objectType_; };
+	ObjetoPortable* getPickedObject() { return pickedObject_; };
+
+	int getPickedPaellasCount() { return pickedPaellas_.size(); };
+	int getMaxPickedPaellasCount() { return MAX_PAELLAS_CARRY_; };
 
 	//Vector2D<double> getAxis() { return ih().getAxis(); }
 

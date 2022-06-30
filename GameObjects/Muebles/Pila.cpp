@@ -20,30 +20,28 @@ Pila::Pila(Game* mGame, Vector2D<double> pos, int miTipo_, int nPaellas)
 
 bool Pila::returnObject(Player* p)
 {
-	if (!paellas.empty())
-	{
-		if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState()==States::TUTORIALSTATE_COGE_PAELLA)
-			mGame->getCurrentScene()->changeState(States::TUTORIALSTATE_PAUSA_COGE_PAELLA);
-		Paella* pa = paellas.front();
-		p->setPickedObject(pa, PAELLA);
-		paellas.pop_front();
-		switch (miTipo) {
-		case Pequena:
-			sdlutils().soundEffects().at("paellaPequena").play();
-			break;
-		case Mediana:
-			sdlutils().soundEffects().at("paellaMediana").play();
-			break;
-		case Grande:
-			sdlutils().soundEffects().at("paellaGrande").play();
-			break;
-		default:
-			break;
-		}
-		return true;
+	if (paellas.empty() || p->getPickedPaellasCount() >= p->getMaxPickedPaellasCount() || (p->getPickedPaellasCount() == 0 && p->getPickedObject() != nullptr))
+		return false;
+
+	if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()) && mGame->getCurrentScene()->getState()==States::TUTORIALSTATE_COGE_PAELLA)
+		mGame->getCurrentScene()->changeState(States::TUTORIALSTATE_PAUSA_COGE_PAELLA);
+	Paella* pa = paellas.front();
+	p->setPickedObject(pa, PAELLA);
+	paellas.pop_front();
+	switch (miTipo) {
+	case Pequena:
+		sdlutils().soundEffects().at("paellaPequena").play();
+		break;
+	case Mediana:
+		sdlutils().soundEffects().at("paellaMediana").play();
+		break;
+	case Grande:
+		sdlutils().soundEffects().at("paellaGrande").play();
+		break;
+	default:
+		break;
 	}
-	
-	return false;
+	return true;
 }
 
 bool Pila::receivePaella(Paella* pa)
@@ -67,6 +65,7 @@ void Pila::init(ObjectManager* objectManager)
 	for (int i = 0; i < numPaellas; i++) {
 		Paella* pa = objectManager->addPaella(miTipo);
 		pa->setPosition(getRectCenter(getOverlap()));
+		pa->setId(i);
 		if (dynamic_cast<Tutorial*>(mGame->getCurrentScene()))
 			pa->setActive(false);
 		paellas.push_back(pa);
