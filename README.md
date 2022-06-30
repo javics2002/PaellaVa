@@ -45,6 +45,7 @@ Personajes: 2
 1. Arquitectura base: 23 de febrero de 2022
 2. Ciclo de juego: 23 de marzo de 2022
 3. Release: 4 de mayo de 2022
+4. DLC: 1 de julio de 2022
 
 
  </td>
@@ -82,11 +83,13 @@ Uno de ellos (host) abre un restaurante y espera al otro jugador (client), que b
 
 El host es la cocinera y comienza en la cocina, y el client es el camarero y comienza en el comedor.
 
-En el comedor, los clientes entran al restaurante y el camarero lleva los grupos a las mesas y apunta su pedido en la libreta de comandas. Las comandas aparecerán en la lista de comandas en la parte superior de la pantalla.
+En el comedor, los clientes y repartidores entran al restaurante y el camarero lleva los grupos a las mesas y apunta los pedidos en la libreta de comandas. Las comandas aparecerán en la lista de comandas en la parte superior de la pantalla.
 
 En la cocina, la cocinera empieza a preparar las paellas que ha pedido el camarero en las comandas. Coloca la paella en la encimera, le echa el arroz, recoge los ingredientes de la cinta, los procesa, los echa a la paella, la coloca en un fogón, y saca la paella en el momento preciso para que salga más rica. Selecciona cuál es la comanda que está haciendo para decirle al camarero a qué mesa tiene que llevar la paella cuando la coloque en la ventanilla.
 
-El camarero lleva las paellas a la mesa indicada y espera a que los clientes terminen. Entonces los echa amablemente por la puerta y recoge las paellas sucias y las mete al lavavajillas. Cuando salgan, la cocinera podría cogerlas y reutilizarlas para las siguientes paellas.
+Alternativamente, la cocinera prepara una paella echando arroz, los ingredientes procesados necesarios, y colocando la paella en el fogón, para vaciarla en una caja de takeaway. En las comandas, los números se pueden utilizar para indicar número de puesto del repartidor en la fila en lugar de número de mesa.
+
+El camarero lleva las paellas a la mesa o repartidor indicada/o y espera a que los clientes terminen. Entonces los echa amablemente por la puerta y recoge las paellas sucias y las mete al lavavajillas. Los repartidores saldrán por la puerta automáticamente. Cuando las paellas estén limpias, la cocinera podría cogerlas y reutilizarlas para los siguientes clientes.
 
 Este ciclo continuará hasta que se acabe la jornada. Momento en el que se pasa a una pantalla intermedia en la que los jugadores reciben las reviews que han dejado los clientes y serán mejores cuanto más clientes hayan atendido y mejor lo hayan hecho. Ahora el client espera a que el host continúe y comienzan la siguiente jornada.
 
@@ -110,7 +113,7 @@ Los jugadores podrán coger y transportar en su cabeza objetos y personajes.
 
 * Para dejar un grupo de comensales en una mesa, deberá estar al lado de la mesa donde quiera sentarles.
 
-Los jugadores solo podrán llevar una paellera, un ingrediente o un grupo de comensales encima de la cabeza a la vez.
+Los jugadores solo podrán llevar un ingrediente o un grupo de comensales encima de la cabeza a la vez, o hasta 3 paellas.
 
 Los jugadores podrán interactuar con los diferentes objetos de la cocina y el comedor, siempre y cuando estén lo suficientemente cerca de estos. Se interactúa principalmente con la tecla ‘e’.
 
@@ -148,6 +151,7 @@ La cocina contará con:
     * Ocupa 1 tile.
     * Si el jugador lleva consigo un ingrediente no deseado, podrá desecharlo por aquí (el sprite de la basura queda resaltado). 
     * En el caso de que lleve una paellera (que no esté limpia), podrá tirarla también por la basura, en cuyo caso pasará a llevar una paellera sucia (tendrá que limpiarla en el lavavajillas). 
+    * En el caso de que lleve una caja de takeaway llena, podrá tirarla a la basura para vaciarla. No existen cajas vacías sucias, así que no tendrá que limpiarla.
 
 * **Pila de Paellas:**
     * Ocupará 3 tiles (uno por cada tipo de tamaño de paellera). 
@@ -156,6 +160,10 @@ La cocina contará con:
 
 <img src="images_gdd/3pila.PNG">
 
+* **Pila de Cajas para Takeaway:**
+    * Ocupa 1 tile.
+    * El jugador podrá coger una caja o apilar una en el montón (siempre y cuando esté vacía) según le convenga.
+    * No existe límite de cajas a obtener de la pila. 
 
 * **Tabla de Procesamiento:** 
     * Ocupará un tile.
@@ -283,7 +291,9 @@ El comedor ocupará 20 x 11 tiles. Tanto el comedor como la cocina comparten var
 El comedor contará con:
 **Puerta para Clientes:** se sitúa en la pared inferior izquierda de la sala. Por ella entrarán los nuevos comensales. Tiene el tamaño de 2 tiles.
 
-**Fila de comensales:** se situará en la parte inferior izquierda de la sala, justo  delante de la puerta. Será de dimensión X (ancho) * 2 (alto). Si la cola está llena, no entrarán más comensales por la puerta. 
+**Fila de comensales:** se situará en la parte inferior izquierda de la sala, justo delante de la puerta. Será de dimensión X (ancho) * 2 (alto). Si la cola está llena, no entrarán más comensales por la puerta.
+
+**Fila de repartidores:** se situará en la parte inferior izquierda de la sala, justo delante de la puerta y encima o a la izquierda de la fila de comensales. Será de dimensión X (ancho) * 2 (alto). Si la cola está llena, no entrarán más repartidores por la puerta. 
 
 **Mesas:** estas podrán ocupar 1, 2 o 4 tiles. Cuando el camarero traiga la paella a la mesa esta ocupará un tile (independientemente del tamaño de la paellera). Por ejemplo, en una mesa de dos tiles podrá haber como máximo dos paelleras. 
 
@@ -342,6 +352,43 @@ Esta puntuación por servicio se sumará a la puntuación por la paella. Estas p
     * El camarero podrá echar a un grupo de comensales del restaurante si lleva al grupo de comensales interactuando con la puerta si el grupo estaba en la cola o había terminado de comer.
     * El jugador podrá devolver al grupo de comensales a la cola interactuando con el grupo fantasma (lugar donde se encontraban antes de interactuar).
     * Echar a un grupo de comensales en la cola puntuará como 0 a una nueva paella.
+
+
+### **Repartidores:**
+
+Los repartidores no llegan en grupos, y se colocan en una segunda fila paralela a la de clientes a sentar. Estos repartidores reciben su paella en una caja de takeaway, y salen automáticamente por la puerta. No se pueden coger ni sentar, y sus pedidos no incluyen tamaño de paella, ya que las cajas son de tamaño único.
+
+* Cada repartidor tendrá un nivel de tolerancia:
+    * Empieza al 100%. 
+    * El nivel de tolerancia irá bajando poco a poco cuando el grupo se encuentre en estado de espera (mientras espera en la cola, hasta recibir su pedido).
+    * El jugador podrá ver el nivel de tolerancia de los comensales siempre que quiera, pasando el ratón por encima del grupo.
+    * El nivel de tolerancia será representado por un bocadillo con un emoticono.
+
+
+* Ciclo de vida típico de un repartidor:
+
+    * Entra por la puerta y se pone al final de la cola (espera: OFF)
+    * Esperan en la cola (espera: ON)
+    * El camarero les toma nota (espera: ON). Durante este proceso aparecerá un bocadillo encima del repartidor con su nivel de tolerancia y otro con un icono que hará referencia a una característica de la paella que quieran pedir, el icono cambiará cada 0,5 segundos. Estos iconos saldrán en el siguiente orden:
+        * Ingrediente nº 1
+        * Ingrediente nº 2
+        * Ingrediente nº 3
+        * Check de confirmación
+        * Una vez se completa un ciclo vuelve a empezar.
+    *  Esperan en la fila a que el camarero les traiga la comida (espera: ON)
+    * El camarero les trae la paella en una caja de takeaway:
+    * Repartidor acepta la caja y la coloca sobre su cabeza (espera: OFF)
+    * Repartidor anda hacia la puerta con la caja y sale (espera: OFF)
+    * Si se llega a completar el ciclo de vida típico la puntuación a la puntuación de la paella se le multiplicará el nivel de tolerancia final, como se ha explicado en la fórmula anterior. Esta suma se realizará cuando el repartidor salga por la puerta. 
+
+Esta puntuación por servicio se sumará a la puntuación por la paella. Estas puntuaciones se sumarán en el momento que el repartidor salgan por la puerta.
+
+### **Interacciones (con los repartidores):**
+* **Fila de repartidores:**
+    * Los repartidores que se encontrasen detrás del repartidor saliendo con caja comenzarán a caminar hasta que no queden huecos en la cola.
+    * Se puede consultar el pedido de un repartidor mientras camina, así como su estado de tolerancia.
+    * No se puede entregar una caja a un repartidor mientras camina.
+    * El camarero podrá atender (entregar una caja) a cualquier repartidor de la cola (es decir, tiene total libertad de “colar” a gente siempre que hayan dejado de caminar).
 
 
 * **Mesas:**
@@ -420,7 +467,7 @@ De esta forma, podemos enseñar al jugador, el orden principal de hacer las cosa
 * La comanda contará con varios botones con los que podrá podrá seleccionar:
     * El número de la mesa (el número se escribirá por teclado)
     * Apuntar una nueva paella
-    * Tamaño de la nueva paella
+    * Tamaño de la nueva paella, o icono de caja de takeaway
     * Los ingredientes que llevará
     * Botón para terminar de escribir una paella
     * Cancelar comanda
@@ -570,6 +617,15 @@ Paellara Sucia:
 
 <img src="images_gdd/paellaSucia.png">
 
+### Cajas de Takeaway: <a name="cajasTakeaway"></a>
+
+Caja vacía:
+<img src="images_gdd/cajaTakeawayVacia.png">
+
+Caja llena:
+<img src="images_gdd/cajaTakeawayCerrada.png">
+
+
 ### Restaurante: <a name="restaurante"></a>
 Sprites ligados al entorno de juego:
 
@@ -582,6 +638,7 @@ Sprites ligados al entorno de juego:
 | Cinta Transportadora         | <img src="images_gdd/67cinta.PNG"> |
 | Lavavajillas         | <img src="images_gdd/68lavavajillas.PNG"> |
 | Pila de Paelleras         | <img src="images_gdd/69pila.PNG"> |
+| Pila de Cajas de Takeaway         | <img src="images_gdd/70torreCajasTakeaway.PNG"> |
 | Basura         | <img src="images_gdd/70basura.PNG"> |
 
 | Comedor |      |
@@ -715,6 +772,22 @@ Una vez los clientes han terminado de comer, pasarán al estado “CUENTA”, do
 
 Sin haber quitado las paellas sucias de la mesa, comprueba que no puedes dejar otro grupo en dicha mesa hasta que no esté limpia, para ello ,coge las paellas sucias de las mesa y prueba a dejarlas en las encimeras , de esta manera quedará la mesa limpia y volverá a ser útil.
 
+* REPARTIDORES
+
+Se desea probar el correcto funcionamiento de los repartidores que hay en la segunda cola del restaurante y su interacción con los elementos del escenario.
+
+Comprueba que, cuando un repartidor alcanza el cartel a la entrada, o alcanza un repartidor delante de él; se para y espera a ser atendido.
+
+Coloca el ratón encima de un repartidor y comprueba que se muestran dos bocadillos: Uno con un emoji que indica el nivel de tolerancia, y uno con una serie de ingredientes y un tick verde entre los que cambia. Si solo se muestra un tick verde que no cambia, también es correcto: significa que el pedido no incluye ingredientes.
+
+Añade arroz a una paella de cualquier tamaño y coloca una caja de takeaway sobre una encimera. Llena la caja con el contenido de la paella y comprueba que no puedes entregar esa caja a un repartidor.
+
+Repite la prueba anterior pero prepara el arroz antes de llenar la caja. Comprueba que ya puedes entregar la caja a un repartidor, que se da la vuelta y sale por la puerta. Comprueba que el repartidor desaparece al alcanzar la puerta.
+
+Repite la prueba anterior agregando a la paella hasta tres ingredientes antes de prepararla. El funcionamiento debe ser el mismo.
+
+Comprueba que, al entregar una caja a un repartidor, los repartidores detrás de él en la cola caminan para cubrir el hueco que ha dejado. Si la cola estaba llena antes de entregar la caja, es muy probable que un nuevo repartidor entre al entregarla.
+
 * LAVAVAJILLAS
 
 Se desea probar el correcto funcionamiento del lavavajillas y sus diversas interacciones con las paellas y el resto de elementos del escenario.
@@ -736,15 +809,17 @@ Coge un grupo de clientes y trata de introducirlo en el lavavajillas, observa qu
 
 * PAPELERA
 
-Se desea probar el correcto funcionamiento de la papelera y su correcta interacción con el arroz, los ingredientes y paellas.
+Se desea probar el correcto funcionamiento de la papelera y su correcta interacción con el arroz, los ingredientes, las paellas y las cajas de takeaway.
 
 Empezaremos por coger un ingrediente de la cinta transportadora y lo tiraremos a la papelera, observa cómo desaparece de tus manos.
 A continuación, coge otro ingrediente y procésalo, introdúcelo en la papelera y observa que también desaparece. 
 
 Para concluir con los ingredientes coge arroz de la bolsa de arroz e introdúcelo también en la papelera, observa que como el resto de ingredientes desaparece.
-Para seguir, coge una paella limpia y trata de introducirla en la papelera, no debería ocurrir nada en absoluto , se queda como una paella limpia. A continuación, deposita la paella en una encimera y añádele arroz. Coge de nuevo la paella, interactúa con la papelera y comprueba que ,en este caso, la paella pasa de tener contenido a estar sucia. 
+Para seguir, coge una paella limpia y trata de introducirla en la papelera, no debería ocurrir nada en absoluto , se queda como una paella limpia. A continuación, deposita la paella en una encimera y añádele arroz. Coge de nuevo la paella, interactúa con la papelera y comprueba que, en este caso, la paella pasa de tener contenido a estar sucia. 
 
 Comprueba que si interactúas con la papelera mientras llevas una paella sucia, tampoco debería de pasar nada, se queda como está, sucia.
+Coge tres paellas, en este orden: Vacía, Llena (puede ser cruda o preparada), Vacía. Comprueba que, al interactuar con la papelera, se vacía la segunda paella, que pasa a estar sucia.
+
 Por último, coge un grupo de clientes y de nuevo introduce el grupo en la papelera. Comprueba que no es posible.
 
 * COMANDAS
@@ -755,7 +830,7 @@ Para comenzar, en la parte superior izquierda de la pantalla, verás que hay un 
 Ahora, comprueba que cua
 ndo abres la libreta de comandas para hacer una nueva, lo primero que aparecen son botones para elegir el número de mesa que está haciendo este pedido, elige el número de mesa y verás que en la comanda aparece el número de mesa que has elegido en la parte superior derecha.
 
-A continuación, una vez elegido el número de mesa, empezamos a apuntar las paellas, para ello deben de haber aparecido 3 botones que hacen referencia al tamaño de la paella que se va a apuntar, “S”, “M” o “L”. Elige el tamaño de la paella y verás que debajo del número de mesa a la izquierda, aparece el tamaño de la paella que hemos elegido.
+A continuación, una vez elegido el número de mesa, empezamos a apuntar las paellas, para ello deben de haber aparecido 3 botones que hacen referencia al tamaño de la paella que se va a apuntar, “S”, “M” o “L”. Elige el tamaño de la paella y verás que debajo del número de mesa a la izquierda, aparece el tamaño de la paella que hemos elegido. Alternativamente, elige el icono de caja de takeaway para indicar que el pedido debe ser entregado a un repartidor. Comprueba que aparece el icono elegido.
 
 Una vez elegido el tamaño de la paella, observarás que han aparecido muchos botones, cada uno con emoticono de un ingrediente, por ello procederemos a añadir los ingredientes pedidos por los clientes en la comanda (el arroz se da por hecho que lo tienen todas las paellas aunque no tengan ingredientes). Pulsa un ingrediente y observa que se coloca a la derecha del tamaño de la paella. Además , el orden en el que estaban todos los botones ha tenido que cambiar por completo, para dar más dificultad.
 
@@ -790,6 +865,10 @@ Una vez metas la paella en el fogón, comprueba que aparece una barra encima de 
 Espera un tiempo y comprueba que dicha flecha no se pasa del final de la barra, una vez llega al final se queda ahí.
 
 Comprueba que conforme va pasando el tiempo de cocción, va cambiando el sprite de la paella y por último comprueba que una vez que retiras una paella del fogón, ya no puedes volver a meterla a cocinar.
+
+Coge una paella, agrega arroz, prepárala hasta uno de los tres niveles de cocción intermedios y comprueba que, al interactuar con la caja de takeaway sobre una encimera, la paella se vacía y se ensucia, y la caja se llena y se cierra.
+
+Coge tres paellas, en este orden: Vacía, Llena (preparada o no), Vacía; y comprueba que, al interactuar con la caja de takeaway sobre una encimera, se vacía la segunda paella, llenando la caja.
 
 
 ## 10. QA <a name="qa"></a>
