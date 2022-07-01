@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="39" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="254">
+<map version="1.8" tiledversion="1.8.4" orientation="orthogonal" renderorder="right-down" width="39" height="12" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="255">
  <tileset firstgid="1" source="Tileset.tsx"/>
  <layer id="1" name="Capa de patrones 1" width="39" height="12">
   <data encoding="csv">
@@ -175,6 +175,9 @@
    <point/>
   </object>
   <object id="215" name="pilaL" x="1920" y="102">
+   <point/>
+  </object>
+  <object id="254" name="torreCajaTakeaway" x="1984" y="102">
    <point/>
   </object>
   <object id="226" name="cinta" x="2240" y="678">
