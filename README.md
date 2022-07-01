@@ -354,6 +354,15 @@ Esta puntuación por servicio se sumará a la puntuación por la paella. Estas p
     * Echar a un grupo de comensales en la cola puntuará como 0 a una nueva paella.
 
 
+* **Mesas:**
+    * Si los clientes están a la espera de que les tomen el pedido, al colisionar con las mesas, comenzarán a contarle al camarero lo que quieren (descrito anteriormente).
+    * Si, durante este estado, el camarero se aleja, los clientes dejarán de contarle el pedido al camarero (dejarán de salir bocadillos).
+    * Si, durante este estado, el camarero vuelve a interactuar con la mesa, los clientes volverán a decirle el pedido desde el principio.
+    * Si están a la espera de la comida y el camarero lleva una paella recién hecha en la cabeza, podrá elegir en qué tile poner la paellera, siempre y cuando el tile no esté ocupado, sino se colocará en el siguiente más cercano. 
+    * Si ya han terminado de comer, podrás volver a coger al grupo de comensales, para llevarlos encima hasta la puerta.
+    * Cuando hayas “acompañado” al grupo de comensales a la puerta, las mesas quedarán sin limpiar, el camarero podrá interactuar con estas para recoger las paelleras sucias.
+
+
 ### **Repartidores:**
 
 Los repartidores no llegan en grupos, y se colocan en una segunda fila paralela a la de clientes a sentar. Estos repartidores reciben su paella en una caja de takeaway, y salen automáticamente por la puerta. No se pueden coger ni sentar, y sus pedidos no incluyen tamaño de paella, ya que las cajas son de tamaño único.
@@ -390,14 +399,6 @@ Esta puntuación por servicio se sumará a la puntuación por la paella. Estas p
     * No se puede entregar una caja a un repartidor mientras camina.
     * El camarero podrá atender (entregar una caja) a cualquier repartidor de la cola (es decir, tiene total libertad de “colar” a gente siempre que hayan dejado de caminar).
 
-
-* **Mesas:**
-    * Si los clientes están a la espera de que les tomen el pedido, al colisionar con las mesas, comenzarán a contarle al camarero lo que quieren (descrito anteriormente).
-    * Si, durante este estado, el camarero se aleja, los clientes dejarán de contarle el pedido al camarero (dejarán de salir bocadillos).
-    * Si, durante este estado, el camarero vuelve a interactuar con la mesa, los clientes volverán a decirle el pedido desde el principio.
-    * Si están a la espera de la comida y el camarero lleva una paella recién hecha en la cabeza, podrá elegir en qué tile poner la paellera, siempre y cuando el tile no esté ocupado, sino se colocará en el siguiente más cercano. 
-    * Si ya han terminado de comer, podrás volver a coger al grupo de comensales, para llevarlos encima hasta la puerta.
-    * Cuando hayas “acompañado” al grupo de comensales a la puerta, las mesas quedarán sin limpiar, el camarero podrá interactuar con estas para recoger las paelleras sucias.
 
 ### **Jornadas:**
 
